@@ -57,7 +57,9 @@ impl RemoteConsole {
         total_length_buffer.swap_with_slice(&mut self.buffer[0..4]);
         let mut total_length = u32::from_le_bytes(total_length_buffer) as usize;
 
-        let multi_message = packet_length < total_length;
+        // even if the payload is exactly the total_length it is sent as multiple packets
+        // due to the null termination and potential empty message
+        let multi_message = packet_length <= total_length;
         let mut response = String::from_utf8(self.buffer[12..packet_length].to_vec()).unwrap();
 
         while multi_message {
@@ -65,14 +67,16 @@ impl RemoteConsole {
             packet_length = self.receive_response()?;
             response.push_str(&String::from_utf8(self.buffer[0..packet_length].to_vec()).unwrap());
 
-            // + 4 because of total packet size in first packet
-            if total_length + 4 == packet_length {
+            if total_length < packet_length {
                 break;
             }
         }
-        // removes null termination and empty message from last packet
-        for _ in 0..3 {
-            response.pop();
+        // removes null termination and potential empty message from last packet
+        while let Some(last_char) = response.pop() {
+            if last_char != '\0' && last_char != '\n' {
+                response.push(last_char);
+                break;
+            }
         }
         Ok(response)
     }

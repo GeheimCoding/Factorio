@@ -1,3 +1,5 @@
+#![allow(unused)]
+
 use std::io;
 
 use crate::remote_console::RemoteConsole;
