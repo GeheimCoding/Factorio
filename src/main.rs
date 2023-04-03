@@ -1,4 +1,5 @@
 #![allow(unused)]
+#![deny(clippy::unwrap_used)]
 
 use std::io;
 
