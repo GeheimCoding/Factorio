@@ -8,6 +8,7 @@ const SERVERDATA_AUTH: u32 = 3;
 const SERVERDATA_EXECCOMMAND: u32 = 2;
 const MAX_PACKET_LENGTH_IN_BYTES: usize = 4096;
 
+// TODO: add timeouts for read/write
 // TODO: better error handling
 pub struct RemoteConsole {
     stream: TcpStream,
@@ -59,7 +60,7 @@ impl RemoteConsole {
 
         // even if the payload is exactly the total_length it is sent as multiple packets
         // due to the potential null termination and empty message
-        let multi_message = packet_length <= total_length;
+        let mut multi_message = packet_length <= total_length;
         let mut response = self.buffer[12..packet_length].to_vec();
 
         while multi_message {
@@ -68,7 +69,7 @@ impl RemoteConsole {
             response.append(&mut self.buffer[0..packet_length].to_vec());
 
             if total_length < packet_length {
-                break;
+                multi_message = false;
             }
         }
         // removes potential null termination and empty message from last packet
@@ -87,18 +88,14 @@ impl RemoteConsole {
 
     fn send_packet(&mut self, payload: &str, packet_type: u32) -> io::Result<usize> {
         let payload_len = payload.len();
-        // 4 for the packet size, 4 for the packet type,
-        // 4 for the id and 2 for null termination and empty string
-        let packet_size: u32 = payload_len as u32 + 14;
-        if packet_size as usize > MAX_PACKET_LENGTH_IN_BYTES {
-            return Err(Error::new(ErrorKind::Other, "packet is too big"));
-        }
+        // same as below but with additional 4 for packet size
+        let mut packet = vec![0; payload_len + 14];
 
-        let mut packet = [0u8; MAX_PACKET_LENGTH_IN_BYTES];
-        (packet_size - 4)
+        // 4 for packet type, 4 for id and 2 for null termination and empty message
+        (payload_len as u32 + 10u32)
             .to_le_bytes()
             .swap_with_slice(&mut packet[0..4]);
-        // we don't care about the id, so just set it to anything
+        // we don't care about the id (for now), so just set it to anything
         8u32.to_le_bytes().swap_with_slice(&mut packet[4..8]);
         packet_type
             .to_le_bytes()
@@ -108,7 +105,6 @@ impl RemoteConsole {
             .to_owned()
             .swap_with_slice(&mut packet[12..12 + payload_len]);
 
-        let packet = packet[..packet_size as usize].to_vec();
         self.stream.write(&packet)
     }
 
