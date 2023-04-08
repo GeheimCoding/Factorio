@@ -10,10 +10,21 @@ use std::{
 };
 
 use remote_console::RemoteConsole;
-use runtime_api::RuntimeApi;
+use runtime_api::{Class, RuntimeApi};
 
 fn main() -> io::Result<()> {
     let runtime_api = read_runtime_api("runtime-api.json")?;
+
+    for class in runtime_api.classes {
+        //if class.name == "LuaAccumulatorControlBehavior" {
+        println!("{class}");
+        //}
+    }
+
+    // TODO: resolve concepts and defines
+    // for concept in runtime_api.concepts {
+    //     println!("{}", concept.typ);
+    // }
 
     Ok(())
 }

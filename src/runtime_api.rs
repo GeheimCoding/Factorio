@@ -1,4 +1,30 @@
+use std::fmt::Display;
+
 use serde::Deserialize;
+
+trait PascalCase {
+    fn to_pascal_case(&self) -> String;
+}
+
+impl PascalCase for String {
+    fn to_pascal_case(&self) -> String {
+        if self.is_empty() {
+            return String::new();
+        }
+        let mut chars = self.chars();
+        let mut pascal_case = String::from(chars.next().unwrap().to_ascii_uppercase());
+        while let Some(c) = chars.next() {
+            if c == '_' {
+                if let Some(next) = chars.next() {
+                    pascal_case.push(next.to_ascii_uppercase());
+                }
+            } else {
+                pascal_case.push(c);
+            }
+        }
+        pascal_case
+    }
+}
 
 #[derive(Debug, Deserialize)]
 pub struct RuntimeApi {
@@ -51,6 +77,43 @@ pub struct Class {
     pub abstract_flag: bool,
     /// A list of the names of the classes that his class inherits from.
     pub base_classes: Option<Vec<String>>,
+}
+
+impl Display for Class {
+    // TODO: rename reserved type keyword
+    // TODO: add optional attributes
+    // TODO: resolve defines. types
+    // TODO: add descriptions as doc
+    // TODO: order elements by order
+    // TODO: add derives?
+    // TODO: refactor
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut inline_types = Vec::new();
+        writeln!(f, "pub struct {} {{", self.name)?;
+        for attribute in &self.attributes {
+            // if !attribute.description.is_empty() {
+            //     writeln!(f, "    /// {}", attribute.description)?;
+            // }
+            let typ = &attribute.typ;
+            let name = attribute.name.as_ref().unwrap();
+            writeln!(
+                f,
+                "    pub {}: {},",
+                name,
+                if typ.is_inline_type() {
+                    inline_types.push(typ);
+                    format!("{}{}", self.name, name.to_pascal_case())
+                } else {
+                    typ.to_string()
+                }
+            )?;
+        }
+        writeln!(f, "}}")?;
+
+        // TODO: print inline types
+
+        Ok(())
+    }
 }
 
 #[derive(Debug, Deserialize)]
@@ -168,6 +231,41 @@ pub enum Type {
     ComplexType(ComplexType),
 }
 
+impl Display for Type {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match self {
+            Self::String(name) => write!(f, "{}", Type::lua_type_to_rust_type(name)),
+            Self::ComplexType(complex_type) => write!(f, "{complex_type}"),
+        }
+    }
+}
+
+impl Type {
+    fn is_inline_type(&self) -> bool {
+        match self {
+            Self::String(_) => false,
+            Self::ComplexType(complex_type) => complex_type.is_inline_type(),
+        }
+    }
+
+    fn lua_type_to_rust_type(type_name: &str) -> &str {
+        match type_name {
+            "float" => "f32",
+            "double" => "f64",
+            "int" => "i32",
+            "int8" => "i8",
+            "uint" => "u32",
+            "uint8" => "u8",
+            "uint16" => "u16",
+            "uint64" => "u64",
+            "number" => "f64",
+            "string" => "String",
+            "boolean" => "bool",
+            name => name,
+        }
+    }
+}
+
 /// Depending on complex_type, there are additional members:
 #[derive(Debug, Deserialize)]
 #[serde(rename_all = "snake_case")]
@@ -237,6 +335,62 @@ pub enum ComplexType {
         /// The text description of the optional parameter groups.
         variant_parameter_description: Option<String>,
     },
+}
+
+impl Display for ComplexType {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match self {
+            Self::Type { value, description } => write!(f, "{value}"),
+            Self::Union {
+                options,
+                full_format,
+            } => write!(
+                f,
+                "Union of [{}]", // TODO: implement enum for each variant?
+                options
+                    .iter()
+                    .map(Type::to_string)
+                    .collect::<Vec<_>>()
+                    .join(", ")
+            ),
+            Self::Array { value } => write!(f, "Vec<{value}>"),
+            Self::Dictionary { key, value } | Self::LuaCustomTable { key, value } => {
+                write!(f, "HashMap<{key}, {value}>")
+            }
+            Self::Function { parameters } => todo!(),
+            Self::Literal { value, description } => write!(f, "{value:?}"),
+            Self::LuaLazyLoadedValue { value } => write!(f, "{value}"),
+            Self::Struct { attributes } => todo!(),
+            Self::Table {
+                parameters,
+                variant_parameter_groups,
+                variant_parameter_description,
+            }
+            | Self::Tuple {
+                parameters,
+                variant_parameter_groups,
+                variant_parameter_description,
+            } => todo!(),
+        }
+    }
+}
+
+impl ComplexType {
+    fn is_inline_type(&self) -> bool {
+        match self {
+            Self::Table {
+                parameters,
+                variant_parameter_groups,
+                variant_parameter_description,
+            }
+            | Self::Tuple {
+                parameters,
+                variant_parameter_groups,
+                variant_parameter_description,
+            } => true,
+            _ => false,
+        }
+    }
 }
 
 #[derive(Debug, Deserialize)]
