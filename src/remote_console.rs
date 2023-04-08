@@ -10,6 +10,7 @@ const MAX_PACKET_LENGTH_IN_BYTES: usize = 4096;
 const PACKET_TYPE_SERVERDATA_AUTH: u32 = 3;
 const PACKET_TYPE_SERVERDATA_EXECCOMMAND: u32 = 2;
 
+// TODO: add documentation
 // TODO: add custom error type
 // TODO: map response errors to custom error
 pub struct RemoteConsole {
