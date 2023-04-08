@@ -83,8 +83,9 @@ impl Display for Class {
     // TODO: rename reserved type keyword
     // TODO: add optional attributes
     // TODO: resolve defines. types
+    // TODO: solve inheritance
     // TODO: add descriptions as doc
-    // TODO: order elements by order
+    // TODO: order elements by order?
     // TODO: add derives?
     // TODO: refactor
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
@@ -96,17 +97,18 @@ impl Display for Class {
             // }
             let typ = &attribute.typ;
             let name = attribute.name.as_ref().unwrap();
-            writeln!(
-                f,
-                "    pub {}: {},",
-                name,
-                if typ.is_inline_type() {
-                    inline_types.push(typ);
-                    format!("{}{}", self.name, name.to_pascal_case())
-                } else {
-                    typ.to_string()
-                }
-            )?;
+            let typ = if typ.is_inline_type() {
+                inline_types.push(typ);
+                format!("{}{}", self.name, name.to_pascal_case())
+            } else {
+                typ.to_string()
+            };
+            let typ = if attribute.optional {
+                format!("Option<{typ}>")
+            } else {
+                typ
+            };
+            writeln!(f, "    pub {}: {},", name, typ)?;
         }
         writeln!(f, "}}")?;
 
