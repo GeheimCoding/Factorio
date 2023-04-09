@@ -80,7 +80,6 @@ pub struct Class {
 }
 
 impl Display for Class {
-    // TODO: rename reserved type keyword
     // TODO: add optional attributes
     // TODO: resolve defines. types
     // TODO: solve inheritance
@@ -108,6 +107,7 @@ impl Display for Class {
             } else {
                 typ
             };
+            let name = if name == "type" { "typ" } else { name };
             writeln!(f, "    pub {}: {},", name, typ)?;
         }
         writeln!(f, "}}")?;
