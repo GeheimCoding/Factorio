@@ -158,6 +158,36 @@ pub struct Define {
     pub subkeys: Option<Vec<Define>>,
 }
 
+impl Define {
+    pub fn get_definitions(&self, prefix: &str) -> String {
+        // TODO: print description as doc
+        let mut definitions = String::new();
+        let name = &format!("{}{}", prefix, self.name.to_pascal_case());
+
+        // either we have variants
+        if let Some(variants) = &self.values {
+            if let Some(sub_defines) = &self.subkeys {
+                unreachable!();
+            }
+            definitions.push_str(&format!("pub enum {} {{\n", name));
+            for variant in variants {
+                definitions.push_str(&variant.to_string());
+            }
+            definitions.push_str("}\n\n");
+        // or sub-defines
+        } else if let Some(sub_defines) = &self.subkeys {
+            for sub_define in sub_defines {
+                definitions.push_str(&sub_define.get_definitions(name))
+            }
+        // or an empty struct
+        } else {
+            definitions.push_str(&format!("pub struct {};\n\n", name));
+        }
+
+        definitions
+    }
+}
+
 #[derive(Debug, Deserialize)]
 pub struct BuiltinType {
     /// The name of the builtin type.
@@ -208,6 +238,12 @@ pub struct BasicMember {
     pub order: u8,
     /// The text description of the member.
     pub description: String,
+}
+
+impl Display for BasicMember {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        writeln!(f, "    {},", self.name.to_pascal_case())
+    }
 }
 
 #[derive(Debug, Deserialize)]

@@ -15,10 +15,13 @@ use runtime_api::{Class, RuntimeApi};
 fn main() -> io::Result<()> {
     let runtime_api = read_runtime_api("runtime-api.json")?;
 
-    for class in runtime_api.classes {
-        //if class.name == "LuaAccumulatorControlBehavior" {
-        println!("{class}");
-        //}
+    // for class in runtime_api.classes {
+    //     //if class.name == "LuaAccumulatorControlBehavior" {
+    //     println!("{class}");
+    //     //}
+    // }
+    for define in runtime_api.defines {
+        print!("{}", define.get_definitions(""));
     }
 
     // TODO: resolve concepts and defines
