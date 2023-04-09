@@ -14,7 +14,7 @@ impl PascalCase for String {
         let mut chars = self.chars();
         let mut pascal_case = String::from(chars.next().unwrap().to_ascii_uppercase());
         while let Some(c) = chars.next() {
-            if c == '_' {
+            if c == '_' || c == '.' {
                 if let Some(next) = chars.next() {
                     pascal_case.push(next.to_ascii_uppercase());
                 }
@@ -80,8 +80,6 @@ pub struct Class {
 }
 
 impl Display for Class {
-    // TODO: add optional attributes
-    // TODO: resolve defines. types
     // TODO: solve inheritance
     // TODO: add descriptions as doc
     // TODO: order elements by order?
@@ -286,20 +284,21 @@ impl Type {
         }
     }
 
-    fn lua_type_to_rust_type(type_name: &str) -> &str {
+    fn lua_type_to_rust_type(type_name: &str) -> String {
         match type_name {
-            "float" => "f32",
-            "double" => "f64",
-            "int" => "i32",
-            "int8" => "i8",
-            "uint" => "u32",
-            "uint8" => "u8",
-            "uint16" => "u16",
-            "uint64" => "u64",
-            "number" => "f64",
-            "string" => "String",
-            "boolean" => "bool",
-            name => name,
+            "float" => "f32".to_owned(),
+            "double" => "f64".to_owned(),
+            "int" => "i32".to_owned(),
+            "int8" => "i8".to_owned(),
+            "uint" => "u32".to_owned(),
+            "uint8" => "u8".to_owned(),
+            "uint16" => "u16".to_owned(),
+            "uint64" => "u64".to_owned(),
+            "number" => "f64".to_owned(),
+            "string" => "String".to_owned(),
+            "boolean" => "bool".to_owned(),
+            name if name.starts_with("defines.") => name[8..].to_owned().to_pascal_case(),
+            name => name.to_owned(),
         }
     }
 }
