@@ -14,7 +14,7 @@ impl PascalCase for String {
         let mut chars = self.chars();
         let mut pascal_case = String::from(chars.next().unwrap().to_ascii_uppercase());
         while let Some(c) = chars.next() {
-            if c == '_' || c == '.' {
+            if c == '_' || c == '.' || c == '-' {
                 if let Some(next) = chars.next() {
                     pascal_case.push(next.to_ascii_uppercase());
                 }
@@ -164,7 +164,7 @@ impl Define {
 
         // either we have variants
         if let Some(variants) = &self.values {
-            if let Some(sub_defines) = &self.subkeys {
+            if self.subkeys.is_some() {
                 unreachable!();
             }
             definitions.push_str(&format!("pub enum {} {{\n", name));
@@ -211,6 +211,12 @@ pub struct Concept {
     /// The type of the concept.
     #[serde(rename = "type")]
     pub typ: Type,
+}
+
+impl Display for Concept {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        writeln!(f, "{}", self.typ.generate_definition(&self.name, false))
+    }
 }
 
 #[derive(Debug, Deserialize)]
@@ -526,3 +532,199 @@ pub struct Attribute {
     /// Whether the attribute can be written to.
     pub write: bool,
 }
+
+impl Type {
+    fn get_type_name(&self) -> String {
+        match self {
+            Self::String(string) => string.clone(),
+            Self::ComplexType(complex_type) => complex_type.get_type_name(),
+        }
+    }
+
+    fn generate_definition(&self, prefix: &str, is_nested: bool) -> String {
+        match self {
+            Self::String(string) => {
+                let mut definition = String::new();
+                if !is_nested {
+                    definition.push_str(&format!("type {prefix} = "));
+                }
+                definition.push_str(&Type::lua_type_to_rust_type(string));
+                if !is_nested {
+                    definition.push(';');
+                }
+                definition
+            }
+            Self::ComplexType(complex_type) => complex_type.generate_definition(prefix, is_nested),
+        }
+    }
+}
+
+impl ComplexType {
+    fn get_type_name(&self) -> String {
+        match self {
+            Self::Type { value, description } => value.get_type_name(),
+            Self::Literal { value, description } => value.get_type_name(),
+            Self::Table {
+                parameters,
+                variant_parameter_groups,
+                variant_parameter_description,
+            } => "table".to_string(),
+            Self::Tuple {
+                parameters,
+                variant_parameter_groups,
+                variant_parameter_description,
+            } => "tuple".to_string(),
+            Self::Array { value } => "array".to_string(),
+            _ => unimplemented!(),
+        }
+    }
+
+    fn generate_definition(&self, prefix: &str, is_nested: bool) -> String {
+        let mut definition = String::new();
+        match self {
+            Self::Union {
+                options,
+                full_format,
+            } => {
+                let mut union_definition = String::new();
+                union_definition.push_str(&format!("pub enum {} {{\n", prefix));
+                for option in options {
+                    let type_name = option.get_type_name();
+                    if let Type::ComplexType(ComplexType::Literal { value, description }) = option {
+                        if !type_name.is_empty() {
+                            union_definition
+                                .push_str(&format!("    {},\n", type_name.to_pascal_case()));
+                        }
+                    } else {
+                        union_definition.push_str(&format!(
+                            "    {}({}),\n",
+                            type_name.to_pascal_case(),
+                            Type::lua_type_to_rust_type(&type_name)
+                        ));
+                    }
+                }
+                union_definition.push_str("}");
+
+                if is_nested {
+                    println!("{union_definition}\n");
+                    definition.push_str(&prefix);
+                } else {
+                    definition.push_str(&union_definition);
+                }
+            }
+            Self::Table {
+                parameters,
+                variant_parameter_groups,
+                variant_parameter_description,
+            }
+            | Self::Tuple {
+                parameters,
+                variant_parameter_groups,
+                variant_parameter_description,
+            } => {
+                definition.push_str(&format!("pub struct {} {{\n", prefix));
+                for parameter in parameters {
+                    let name = parameter.name.as_ref().unwrap();
+                    let prefix = &format!("{}{}", prefix, name.to_pascal_case());
+                    let typ = Type::lua_type_to_rust_type(
+                        &parameter.typ.generate_definition(prefix, true),
+                    );
+                    let typ = if parameter.optional {
+                        format!("Option<{}>", typ)
+                    } else {
+                        typ
+                    };
+                    let name = if name == "type" {
+                        "typ".to_owned()
+                    // TODO: check if this is just a typo in the spec
+                    } else if name == "noisePersistence" {
+                        "noise_persistence".to_owned()
+                    } else if name == "_" {
+                        format!("field_{}", parameter.order)
+                    } else {
+                        name.replace("-", "_")
+                    };
+                    definition.push_str(&format!("    pub {}: {},\n", name, typ));
+                }
+                definition.push_str("}");
+            }
+            Self::Array { value } => {
+                if !is_nested {
+                    definition.push_str(&format!("type {prefix} = "));
+                }
+                definition.push_str(&format!("Vec<{}>", value.generate_definition(prefix, true)));
+                if !is_nested {
+                    definition.push(';');
+                }
+            }
+            Self::Dictionary { key, value } | Self::LuaCustomTable { key, value } => {
+                if !is_nested {
+                    definition.push_str(&format!("type {prefix} = "));
+                }
+                let mut is_map = true;
+                if let Type::ComplexType(ComplexType::Literal { value, description }) =
+                    value.as_ref()
+                {
+                    if value.get_type_name() == "True" {
+                        definition.push_str(&format!(
+                            "HashSet<{}>",
+                            key.generate_definition(prefix, true)
+                        ));
+                        is_map = false;
+                    }
+                }
+                if is_map {
+                    definition.push_str(&format!(
+                        "HashMap<{}, {}>",
+                        key.generate_definition(prefix, true),
+                        value.generate_definition(prefix, true)
+                    ));
+                }
+                if !is_nested {
+                    definition.push(';');
+                }
+            }
+            Self::Literal { value, description } => {
+                definition.push_str(&value.get_type_name());
+            }
+            Self::Struct { attributes } => {
+                definition.push_str(&format!("pub struct {} {{\n", prefix));
+                for attribute in attributes {
+                    let name = attribute.name.as_ref().unwrap();
+                    let prefix = &format!("{}{}", prefix, name.to_pascal_case());
+                    let typ = Type::lua_type_to_rust_type(
+                        &attribute.typ.generate_definition(prefix, true),
+                    );
+                    definition.push_str(&format!("    pub {}: {},\n", name, typ));
+                }
+                definition.push_str("}");
+            }
+            _ => unimplemented!(),
+        }
+        definition
+    }
+}
+
+impl LiteralValue {
+    fn get_type_name(&self) -> String {
+        match self {
+            Self::String(string) => match string.as_str() {
+                "=" => "EqualTo".to_owned(),
+                ">" => "GreaterThan".to_owned(),
+                "<" => "LesserThan".to_owned(),
+                ">=" => "GreaterThanOrEqualTo".to_owned(),
+                "<=" => "LesserThanOrEqualTo".to_owned(),
+                "!=" => "NotEqualTo".to_owned(),
+                "≥" | "≤" | "≠" => String::new(),
+                _ => string.clone(),
+            },
+            Self::Boolean(boolean) => boolean.to_string().to_pascal_case(),
+            _ => unreachable!(),
+        }
+    }
+}
+
+// TODO: solve newtype with same name as union (lookup table?)
+// TODO: handle table, tuple, nil, array and LuaObject class
+// TODO: fix clippy lints
+// TODO: add tests

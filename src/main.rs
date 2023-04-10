@@ -20,11 +20,15 @@ fn main() -> io::Result<()> {
     //     print!("{}", define.get_definitions(""));
     // }
 
-    for class in runtime_api.classes {
-        //if class.name == "LuaAccumulatorControlBehavior" {
-        println!("{class}");
-        //}
+    for concept in runtime_api.concepts {
+        println!("{concept}");
     }
+
+    // for class in runtime_api.classes {
+    //     //if class.name == "LuaAccumulatorControlBehavior" {
+    //     println!("{class}");
+    //     //}
+    // }
 
     // TODO: resolve concepts and defines
     // for concept in runtime_api.concepts {
