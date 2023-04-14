@@ -471,6 +471,31 @@ pub struct Parameter {
     pub optional: bool,
 }
 
+impl Parameter {
+    fn get_definition(&self, prefix: &str) -> String {
+        let mut definition = String::new();
+        let name = self.name.as_ref().unwrap();
+        let prefix = &format!("{}{}", prefix, name.to_pascal_case());
+        let typ = Type::lua_type_to_rust_type(&self.typ.generate_definition(prefix, true));
+        let typ = if self.optional {
+            format!("Option<{}>", typ)
+        } else {
+            typ
+        };
+        let name = if name == "type" {
+            "typ".to_owned()
+        } else if name == "noisePersistence" {
+            "noise_persistence".to_owned()
+        } else if name == "_" {
+            format!("field_{}", self.order)
+        } else {
+            name.replace("-", "_")
+        };
+        definition.push_str(&format!("    pub {}: {},\n", name, typ));
+        definition
+    }
+}
+
 #[derive(Debug, Deserialize)]
 pub struct ParameterGroup {
     /// The name of the parameter group.
@@ -641,31 +666,52 @@ impl ComplexType {
                 variant_parameter_groups,
                 variant_parameter_description,
             } => {
-                definition.push_str(&format!("pub struct {} {{\n", prefix));
+                let mut table_definition = String::new();
+                table_definition.push_str(&format!("pub struct {} {{\n", prefix));
                 for parameter in parameters {
-                    let name = parameter.name.as_ref().unwrap();
-                    let prefix = &format!("{}{}", prefix, name.to_pascal_case());
-                    let typ = Type::lua_type_to_rust_type(
-                        &parameter.typ.generate_definition(prefix, true),
-                    );
-                    let typ = if parameter.optional {
-                        format!("Option<{}>", typ)
-                    } else {
-                        typ
-                    };
-                    let name = if name == "type" {
-                        "typ".to_owned()
-                    // TODO: check if this is just a typo in the spec
-                    } else if name == "noisePersistence" {
-                        "noise_persistence".to_owned()
-                    } else if name == "_" {
-                        format!("field_{}", parameter.order)
-                    } else {
-                        name.replace("-", "_")
-                    };
-                    definition.push_str(&format!("    pub {}: {},\n", name, typ));
+                    table_definition.push_str(&parameter.get_definition(prefix));
                 }
-                definition.push_str("}");
+                if let Some(variant_parameter_groups) = variant_parameter_groups {
+                    table_definition.push_str(&format!(
+                        "    pub attributes: Option<{}Attributes>,\n",
+                        prefix
+                    ));
+                    let mut variant_definition = String::new();
+                    let prefix = &format!("{}Attributes", prefix);
+                    variant_definition.push_str(&format!("pub enum {} {{\n", prefix));
+                    for variant_parameter_group in variant_parameter_groups {
+                        let group_name = variant_parameter_group
+                            .name
+                            .replace("Other types", "other-types");
+                        let name = &format!("{}-{}", prefix, group_name).to_pascal_case();
+                        variant_definition.push_str(&format!(
+                            "    {}({}),\n",
+                            group_name.to_pascal_case(),
+                            name
+                        ));
+                        definition.push_str(&format!("pub struct {} {{\n", name));
+                        for parameter in &variant_parameter_group.parameters {
+                            let name = parameter.name.as_ref().unwrap().replace("-", "_");
+                            let prefix = &format!("{}{}", prefix, name.to_pascal_case());
+                            let typ = Type::lua_type_to_rust_type(
+                                &parameter.typ.generate_definition(prefix, true),
+                            );
+                            let typ = if parameter.optional {
+                                format!("Option<{typ}>")
+                            } else {
+                                typ
+                            };
+                            let name = if name == "type" { "typ" } else { &name };
+                            let name = if name == "mod" { "mod_name" } else { &name };
+                            definition.push_str(&format!("    pub {}: {},\n", name, typ));
+                        }
+                        definition.push_str("}\n\n");
+                    }
+                    variant_definition.push_str("}\n\n");
+                    definition.push_str(&variant_definition);
+                }
+                table_definition.push_str("}");
+                definition.push_str(&table_definition);
             }
             Self::Array { value } => {
                 if !is_nested {
@@ -756,7 +802,10 @@ impl LiteralValue {
     }
 }
 
-// TODO: inner filter types
+// TODO: handle array type in union?
 // TODO: model base class better? (e.g. for filter types)
+// TODO: collapse single types?
+// TODO: add descriptions
 // TODO: fix clippy lints
 // TODO: add tests
+// TODO: cleanup

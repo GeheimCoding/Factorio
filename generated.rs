@@ -1,7 +1,21 @@
+pub enum AchievementPrototypeFilterAttributesTypeUnion {
+    String(String),
+    Array,
+}
+
+pub struct AchievementPrototypeFilterAttributesType {
+    pub typ: AchievementPrototypeFilterAttributesTypeUnion,
+}
+
+pub enum AchievementPrototypeFilterAttributes {
+    Type(AchievementPrototypeFilterAttributesType),
+}
+
 pub struct AchievementPrototypeFilter {
     pub filter: String,
     pub invert: Option<bool>,
     pub mode: Option<String>,
+    pub attributes: Option<AchievementPrototypeFilterAttributes>,
 }
 
 pub struct AdvancedMapGenSettings {
@@ -74,6 +88,27 @@ pub struct AttackParameterFluid {
     pub typ: String,
 }
 
+pub struct AttackParametersAttributesProjectile {
+    pub projectile_center: Vector,
+    pub projectile_creation_distance: f32,
+    pub projectile_creation_parameters: Option<Vec<CircularProjectileCreationSpecification>>,
+    pub projectile_orientation_offset: f32,
+    pub shell_particle: Option<CircularParticleCreationSpecification>,
+}
+
+pub struct AttackParametersAttributesStream {
+    pub fluid_consumption: f32,
+    pub fluids: Option<Vec<AttackParameterFluid>>,
+    pub gun_barrel_length: f32,
+    pub gun_center_shift: HashMap<String, Vector>,
+    pub projectile_creation_parameters: Option<Vec<CircularProjectileCreationSpecification>>,
+}
+
+pub enum AttackParametersAttributes {
+    Projectile(AttackParametersAttributesProjectile),
+    Stream(AttackParametersAttributesStream),
+}
+
 pub struct AttackParameters {
     pub ammo_categories: Option<Vec<String>>,
     pub ammo_consumption_modifier: f32,
@@ -92,6 +127,7 @@ pub struct AttackParameters {
     pub turn_range: f32,
     pub typ: String,
     pub warmup: u32,
+    pub attributes: Option<AttackParametersAttributes>,
 }
 
 pub struct AutoplaceControl {
@@ -196,8 +232,40 @@ pub struct BoundingBox {
     pub right_bottom: MapPosition,
 }
 
+pub struct CapsuleActionAttributesArtilleryRemote {
+    pub flare: String,
+}
+
+pub struct CapsuleActionAttributesDestroyCliffs {
+    pub attack_parameters: AttackParameters,
+    pub radius: f32,
+    pub timeout: u32,
+}
+
+pub struct CapsuleActionAttributesEquipmentRemote {
+    pub equipment: String,
+}
+
+pub struct CapsuleActionAttributesThrow {
+    pub attack_parameters: AttackParameters,
+    pub uses_stack: bool,
+}
+
+pub struct CapsuleActionAttributesUseOnSelf {
+    pub attack_parameters: AttackParameters,
+}
+
+pub enum CapsuleActionAttributes {
+    ArtilleryRemote(CapsuleActionAttributesArtilleryRemote),
+    DestroyCliffs(CapsuleActionAttributesDestroyCliffs),
+    EquipmentRemote(CapsuleActionAttributesEquipmentRemote),
+    Throw(CapsuleActionAttributesThrow),
+    UseOnSelf(CapsuleActionAttributesUseOnSelf),
+}
+
 pub struct CapsuleAction {
     pub typ: String,
+    pub attributes: Option<CapsuleActionAttributes>,
 }
 
 pub struct ChartTagSpec {
@@ -331,8 +399,74 @@ pub struct ColorModifier {
     pub r: Option<f32>,
 }
 
+pub struct CommandAttributesDefinesCommandAttack {
+    pub distraction: Option<Distraction>,
+    pub target: LuaEntity,
+}
+
+pub struct CommandAttributesDefinesCommandAttackArea {
+    pub destination: MapPosition,
+    pub distraction: Option<Distraction>,
+    pub radius: f64,
+}
+
+pub struct CommandAttributesDefinesCommandBuildBase {
+    pub destination: MapPosition,
+    pub distraction: Option<Distraction>,
+    pub ignore_planner: Option<bool>,
+}
+
+pub struct CommandAttributesDefinesCommandCompound {
+    pub commands: Vec<Command>,
+    pub structure_type: CompoundCommand,
+}
+
+pub struct CommandAttributesDefinesCommandFlee {
+    pub distraction: Option<Distraction>,
+    pub from: LuaEntity,
+}
+
+pub struct CommandAttributesDefinesCommandGoToLocation {
+    pub destination: Option<MapPosition>,
+    pub destination_entity: Option<LuaEntity>,
+    pub distraction: Option<Distraction>,
+    pub pathfind_flags: Option<PathfinderFlags>,
+    pub radius: Option<f64>,
+}
+
+pub struct CommandAttributesDefinesCommandGroup {
+    pub distraction: Option<Distraction>,
+    pub group: LuaUnitGroup,
+    pub use_group_distraction: Option<bool>,
+}
+
+pub struct CommandAttributesDefinesCommandStop {
+    pub distraction: Option<Distraction>,
+    pub ticks_to_wait: Option<u32>,
+}
+
+pub struct CommandAttributesDefinesCommandWander {
+    pub distraction: Option<Distraction>,
+    pub radius: Option<f64>,
+    pub ticks_to_wait: Option<u32>,
+    pub wander_in_group: Option<bool>,
+}
+
+pub enum CommandAttributes {
+    DefinesCommandAttack(CommandAttributesDefinesCommandAttack),
+    DefinesCommandAttackArea(CommandAttributesDefinesCommandAttackArea),
+    DefinesCommandBuildBase(CommandAttributesDefinesCommandBuildBase),
+    DefinesCommandCompound(CommandAttributesDefinesCommandCompound),
+    DefinesCommandFlee(CommandAttributesDefinesCommandFlee),
+    DefinesCommandGoToLocation(CommandAttributesDefinesCommandGoToLocation),
+    DefinesCommandGroup(CommandAttributesDefinesCommandGroup),
+    DefinesCommandStop(CommandAttributesDefinesCommandStop),
+    DefinesCommandWander(CommandAttributesDefinesCommandWander),
+}
+
 pub struct Command {
     pub typ: Command,
+    pub attributes: Option<CommandAttributes>,
 }
 
 pub enum ComparatorString {
@@ -411,10 +545,25 @@ pub struct Decorative {
     pub position: TilePosition,
 }
 
+pub enum DecorativePrototypeFilterAttributesMaskUnion {
+    CollisionMask(CollisionMask),
+    CollisionMaskWithFlags(CollisionMaskWithFlags),
+}
+
+pub struct DecorativePrototypeFilterAttributesCollisionMask {
+    pub mask: DecorativePrototypeFilterAttributesMaskUnion,
+    pub mask_mode: String,
+}
+
+pub enum DecorativePrototypeFilterAttributes {
+    CollisionMask(DecorativePrototypeFilterAttributesCollisionMask),
+}
+
 pub struct DecorativePrototypeFilter {
     pub filter: String,
     pub invert: Option<bool>,
     pub mode: Option<String>,
+    pub attributes: Option<DecorativePrototypeFilterAttributes>,
 }
 
 pub struct DecorativeResult {
@@ -464,10 +613,73 @@ pub struct EnemyExpansionMapSettings {
     pub settler_group_min_size: u32,
 }
 
+pub enum EntityPrototypeFilterAttributesMaskUnion {
+    CollisionMask(CollisionMask),
+    CollisionMaskWithFlags(CollisionMaskWithFlags),
+}
+
+pub enum EntityPrototypeFilterAttributesNameUnion {
+    String(String),
+    Array,
+}
+
+pub enum EntityPrototypeFilterAttributesTypeUnion {
+    String(String),
+    Array,
+}
+
+pub struct EntityPrototypeFilterAttributesBuildBaseEvolutionRequirement {
+    pub comparison: ComparatorString,
+    pub value: f64,
+}
+
+pub struct EntityPrototypeFilterAttributesCollisionMask {
+    pub mask: EntityPrototypeFilterAttributesMaskUnion,
+    pub mask_mode: String,
+}
+
+pub struct EntityPrototypeFilterAttributesCraftingCategory {
+    pub crafting_category: String,
+}
+
+pub struct EntityPrototypeFilterAttributesEmissions {
+    pub comparison: ComparatorString,
+    pub value: f64,
+}
+
+pub struct EntityPrototypeFilterAttributesFlag {
+    pub flag: String,
+}
+
+pub struct EntityPrototypeFilterAttributesName {
+    pub name: EntityPrototypeFilterAttributesNameUnion,
+}
+
+pub struct EntityPrototypeFilterAttributesSelectionPriority {
+    pub comparison: ComparatorString,
+    pub value: u8,
+}
+
+pub struct EntityPrototypeFilterAttributesType {
+    pub typ: EntityPrototypeFilterAttributesTypeUnion,
+}
+
+pub enum EntityPrototypeFilterAttributes {
+    BuildBaseEvolutionRequirement(EntityPrototypeFilterAttributesBuildBaseEvolutionRequirement),
+    CollisionMask(EntityPrototypeFilterAttributesCollisionMask),
+    CraftingCategory(EntityPrototypeFilterAttributesCraftingCategory),
+    Emissions(EntityPrototypeFilterAttributesEmissions),
+    Flag(EntityPrototypeFilterAttributesFlag),
+    Name(EntityPrototypeFilterAttributesName),
+    SelectionPriority(EntityPrototypeFilterAttributesSelectionPriority),
+    Type(EntityPrototypeFilterAttributesType),
+}
+
 pub struct EntityPrototypeFilter {
     pub filter: String,
     pub invert: Option<bool>,
     pub mode: Option<String>,
+    pub attributes: Option<EntityPrototypeFilterAttributes>,
 }
 
 pub enum EntityPrototypeFlagsUnion {
@@ -517,10 +729,24 @@ pub struct EquipmentPosition {
     pub y: i32,
 }
 
+pub enum EquipmentPrototypeFilterAttributesTypeUnion {
+    String(String),
+    Array,
+}
+
+pub struct EquipmentPrototypeFilterAttributesType {
+    pub typ: EquipmentPrototypeFilterAttributesTypeUnion,
+}
+
+pub enum EquipmentPrototypeFilterAttributes {
+    Type(EquipmentPrototypeFilterAttributesType),
+}
+
 pub struct EquipmentPrototypeFilter {
     pub filter: String,
     pub invert: Option<bool>,
     pub mode: Option<String>,
+    pub attributes: Option<EquipmentPrototypeFilterAttributes>,
 }
 
 pub struct EventData {
@@ -586,10 +812,65 @@ pub enum FluidIdentification {
     Fluid(Fluid),
 }
 
+pub enum FluidPrototypeFilterAttributesNameUnion {
+    String(String),
+    Array,
+}
+
+pub struct FluidPrototypeFilterAttributesDefaultTemperature {
+    pub comparison: ComparatorString,
+    pub value: f64,
+}
+
+pub struct FluidPrototypeFilterAttributesEmissionsMultiplier {
+    pub comparison: ComparatorString,
+    pub value: f64,
+}
+
+pub struct FluidPrototypeFilterAttributesFuelValue {
+    pub comparison: ComparatorString,
+    pub value: f64,
+}
+
+pub struct FluidPrototypeFilterAttributesGasTemperature {
+    pub comparison: ComparatorString,
+    pub value: f64,
+}
+
+pub struct FluidPrototypeFilterAttributesHeatCapacity {
+    pub comparison: ComparatorString,
+    pub value: f64,
+}
+
+pub struct FluidPrototypeFilterAttributesMaxTemperature {
+    pub comparison: ComparatorString,
+    pub value: f64,
+}
+
+pub struct FluidPrototypeFilterAttributesName {
+    pub name: FluidPrototypeFilterAttributesNameUnion,
+}
+
+pub struct FluidPrototypeFilterAttributesSubgroup {
+    pub subgroup: String,
+}
+
+pub enum FluidPrototypeFilterAttributes {
+    DefaultTemperature(FluidPrototypeFilterAttributesDefaultTemperature),
+    EmissionsMultiplier(FluidPrototypeFilterAttributesEmissionsMultiplier),
+    FuelValue(FluidPrototypeFilterAttributesFuelValue),
+    GasTemperature(FluidPrototypeFilterAttributesGasTemperature),
+    HeatCapacity(FluidPrototypeFilterAttributesHeatCapacity),
+    MaxTemperature(FluidPrototypeFilterAttributesMaxTemperature),
+    Name(FluidPrototypeFilterAttributesName),
+    Subgroup(FluidPrototypeFilterAttributesSubgroup),
+}
+
 pub struct FluidPrototypeFilter {
     pub filter: String,
     pub invert: Option<bool>,
     pub mode: Option<String>,
+    pub attributes: Option<FluidPrototypeFilterAttributes>,
 }
 
 pub enum ForceCondition {
@@ -630,8 +911,34 @@ pub struct GuiAnchor {
     pub typ: Option<String>,
 }
 
+pub struct GuiArrowSpecificationAttributesCraftingQueue {
+    pub crafting_queueindex: u32,
+}
+
+pub struct GuiArrowSpecificationAttributesEntity {
+    pub entity: LuaEntity,
+}
+
+pub struct GuiArrowSpecificationAttributesItemStack {
+    pub inventory_index: Inventory,
+    pub item_stack_index: u32,
+    pub source: String,
+}
+
+pub struct GuiArrowSpecificationAttributesPosition {
+    pub position: MapPosition,
+}
+
+pub enum GuiArrowSpecificationAttributes {
+    CraftingQueue(GuiArrowSpecificationAttributesCraftingQueue),
+    Entity(GuiArrowSpecificationAttributesEntity),
+    ItemStack(GuiArrowSpecificationAttributesItemStack),
+    Position(GuiArrowSpecificationAttributesPosition),
+}
+
 pub struct GuiArrowSpecification {
     pub typ: String,
+    pub attributes: Option<GuiArrowSpecificationAttributes>,
 }
 
 pub struct GuiLocation {
@@ -668,11 +975,21 @@ pub enum IngredientCatalystAmountUnion {
     Double(f64),
 }
 
+pub struct IngredientAttributesFluid {
+    pub maximum_temperature: Option<f64>,
+    pub minimum_temperature: Option<f64>,
+}
+
+pub enum IngredientAttributes {
+    Fluid(IngredientAttributesFluid),
+}
+
 pub struct Ingredient {
     pub amount: f64,
     pub catalyst_amount: Option<IngredientCatalystAmountUnion>,
     pub name: String,
     pub typ: String,
+    pub attributes: Option<IngredientAttributes>,
 }
 
 pub struct InserterCircuitConditions {
@@ -685,10 +1002,111 @@ pub struct InventoryFilter {
     pub name: String,
 }
 
+pub enum ItemPrototypeFilterAttributesNameUnion {
+    String(String),
+    Array,
+}
+
+pub enum ItemPrototypeFilterAttributesTypeUnion {
+    String(String),
+    Array,
+}
+
+pub struct ItemPrototypeFilterAttributesBurntResult {
+    pub elem_filters: Option<Vec<ItemPrototypeFilter>>,
+}
+
+pub struct ItemPrototypeFilterAttributesDefaultRequestAmount {
+    pub comparison: ComparatorString,
+    pub value: u32,
+}
+
+pub struct ItemPrototypeFilterAttributesFlag {
+    pub flag: String,
+}
+
+pub struct ItemPrototypeFilterAttributesFuelAccelerationMultiplier {
+    pub comparison: ComparatorString,
+    pub value: f64,
+}
+
+pub struct ItemPrototypeFilterAttributesFuelCategory {
+    pub fuel_category: String,
+}
+
+pub struct ItemPrototypeFilterAttributesFuelEmissionsMultiplier {
+    pub comparison: ComparatorString,
+    pub value: f64,
+}
+
+pub struct ItemPrototypeFilterAttributesFuelTopSpeedMultiplier {
+    pub comparison: ComparatorString,
+    pub value: f64,
+}
+
+pub struct ItemPrototypeFilterAttributesFuelValue {
+    pub comparison: ComparatorString,
+    pub value: f64,
+}
+
+pub struct ItemPrototypeFilterAttributesName {
+    pub name: ItemPrototypeFilterAttributesNameUnion,
+}
+
+pub struct ItemPrototypeFilterAttributesPlaceAsTile {
+    pub elem_filters: Option<Vec<TilePrototypeFilter>>,
+}
+
+pub struct ItemPrototypeFilterAttributesPlaceResult {
+    pub elem_filters: Option<Vec<EntityPrototypeFilter>>,
+}
+
+pub struct ItemPrototypeFilterAttributesPlacedAsEquipmentResult {
+    pub elem_filters: Option<Vec<EquipmentPrototypeFilter>>,
+}
+
+pub struct ItemPrototypeFilterAttributesStackSize {
+    pub comparison: ComparatorString,
+    pub value: u32,
+}
+
+pub struct ItemPrototypeFilterAttributesSubgroup {
+    pub subgroup: String,
+}
+
+pub struct ItemPrototypeFilterAttributesType {
+    pub typ: ItemPrototypeFilterAttributesTypeUnion,
+}
+
+pub struct ItemPrototypeFilterAttributesWireCount {
+    pub comparison: ComparatorString,
+    pub value: u32,
+}
+
+pub enum ItemPrototypeFilterAttributes {
+    BurntResult(ItemPrototypeFilterAttributesBurntResult),
+    DefaultRequestAmount(ItemPrototypeFilterAttributesDefaultRequestAmount),
+    Flag(ItemPrototypeFilterAttributesFlag),
+    FuelAccelerationMultiplier(ItemPrototypeFilterAttributesFuelAccelerationMultiplier),
+    FuelCategory(ItemPrototypeFilterAttributesFuelCategory),
+    FuelEmissionsMultiplier(ItemPrototypeFilterAttributesFuelEmissionsMultiplier),
+    FuelTopSpeedMultiplier(ItemPrototypeFilterAttributesFuelTopSpeedMultiplier),
+    FuelValue(ItemPrototypeFilterAttributesFuelValue),
+    Name(ItemPrototypeFilterAttributesName),
+    PlaceAsTile(ItemPrototypeFilterAttributesPlaceAsTile),
+    PlaceResult(ItemPrototypeFilterAttributesPlaceResult),
+    PlacedAsEquipmentResult(ItemPrototypeFilterAttributesPlacedAsEquipmentResult),
+    StackSize(ItemPrototypeFilterAttributesStackSize),
+    Subgroup(ItemPrototypeFilterAttributesSubgroup),
+    Type(ItemPrototypeFilterAttributesType),
+    WireCount(ItemPrototypeFilterAttributesWireCount),
+}
+
 pub struct ItemPrototypeFilter {
     pub filter: String,
     pub invert: Option<bool>,
     pub mode: Option<String>,
+    pub attributes: Option<ItemPrototypeFilterAttributes>,
 }
 
 pub enum ItemPrototypeFlagsUnion {
@@ -760,136 +1178,682 @@ pub struct Loot {
     pub probability: f64,
 }
 
+pub struct LuaEntityClonedEventFilterAttributesGhostName {
+    pub name: String,
+}
+
+pub struct LuaEntityClonedEventFilterAttributesGhostType {
+    pub typ: String,
+}
+
+pub struct LuaEntityClonedEventFilterAttributesName {
+    pub name: String,
+}
+
+pub struct LuaEntityClonedEventFilterAttributesType {
+    pub typ: String,
+}
+
+pub enum LuaEntityClonedEventFilterAttributes {
+    GhostName(LuaEntityClonedEventFilterAttributesGhostName),
+    GhostType(LuaEntityClonedEventFilterAttributesGhostType),
+    Name(LuaEntityClonedEventFilterAttributesName),
+    Type(LuaEntityClonedEventFilterAttributesType),
+}
+
 pub struct LuaEntityClonedEventFilter {
     pub filter: String,
     pub invert: Option<bool>,
     pub mode: Option<String>,
+    pub attributes: Option<LuaEntityClonedEventFilterAttributes>,
+}
+
+pub struct LuaEntityDamagedEventFilterAttributesDamageType {
+    pub typ: String,
+}
+
+pub struct LuaEntityDamagedEventFilterAttributesFinalDamageAmount {
+    pub comparison: ComparatorString,
+    pub value: f32,
+}
+
+pub struct LuaEntityDamagedEventFilterAttributesFinalHealth {
+    pub comparison: ComparatorString,
+    pub value: f32,
+}
+
+pub struct LuaEntityDamagedEventFilterAttributesGhostName {
+    pub name: String,
+}
+
+pub struct LuaEntityDamagedEventFilterAttributesGhostType {
+    pub typ: String,
+}
+
+pub struct LuaEntityDamagedEventFilterAttributesName {
+    pub name: String,
+}
+
+pub struct LuaEntityDamagedEventFilterAttributesOriginalDamageAmount {
+    pub comparison: ComparatorString,
+    pub value: f32,
+}
+
+pub struct LuaEntityDamagedEventFilterAttributesType {
+    pub typ: String,
+}
+
+pub enum LuaEntityDamagedEventFilterAttributes {
+    DamageType(LuaEntityDamagedEventFilterAttributesDamageType),
+    FinalDamageAmount(LuaEntityDamagedEventFilterAttributesFinalDamageAmount),
+    FinalHealth(LuaEntityDamagedEventFilterAttributesFinalHealth),
+    GhostName(LuaEntityDamagedEventFilterAttributesGhostName),
+    GhostType(LuaEntityDamagedEventFilterAttributesGhostType),
+    Name(LuaEntityDamagedEventFilterAttributesName),
+    OriginalDamageAmount(LuaEntityDamagedEventFilterAttributesOriginalDamageAmount),
+    Type(LuaEntityDamagedEventFilterAttributesType),
 }
 
 pub struct LuaEntityDamagedEventFilter {
     pub filter: String,
     pub invert: Option<bool>,
     pub mode: Option<String>,
+    pub attributes: Option<LuaEntityDamagedEventFilterAttributes>,
+}
+
+pub struct LuaEntityDeconstructionCancelledEventFilterAttributesGhostName {
+    pub name: String,
+}
+
+pub struct LuaEntityDeconstructionCancelledEventFilterAttributesGhostType {
+    pub typ: String,
+}
+
+pub struct LuaEntityDeconstructionCancelledEventFilterAttributesName {
+    pub name: String,
+}
+
+pub struct LuaEntityDeconstructionCancelledEventFilterAttributesType {
+    pub typ: String,
+}
+
+pub enum LuaEntityDeconstructionCancelledEventFilterAttributes {
+    GhostName(LuaEntityDeconstructionCancelledEventFilterAttributesGhostName),
+    GhostType(LuaEntityDeconstructionCancelledEventFilterAttributesGhostType),
+    Name(LuaEntityDeconstructionCancelledEventFilterAttributesName),
+    Type(LuaEntityDeconstructionCancelledEventFilterAttributesType),
 }
 
 pub struct LuaEntityDeconstructionCancelledEventFilter {
     pub filter: String,
     pub invert: Option<bool>,
     pub mode: Option<String>,
+    pub attributes: Option<LuaEntityDeconstructionCancelledEventFilterAttributes>,
+}
+
+pub struct LuaEntityDiedEventFilterAttributesGhostName {
+    pub name: String,
+}
+
+pub struct LuaEntityDiedEventFilterAttributesGhostType {
+    pub typ: String,
+}
+
+pub struct LuaEntityDiedEventFilterAttributesName {
+    pub name: String,
+}
+
+pub struct LuaEntityDiedEventFilterAttributesType {
+    pub typ: String,
+}
+
+pub enum LuaEntityDiedEventFilterAttributes {
+    GhostName(LuaEntityDiedEventFilterAttributesGhostName),
+    GhostType(LuaEntityDiedEventFilterAttributesGhostType),
+    Name(LuaEntityDiedEventFilterAttributesName),
+    Type(LuaEntityDiedEventFilterAttributesType),
 }
 
 pub struct LuaEntityDiedEventFilter {
     pub filter: String,
     pub invert: Option<bool>,
     pub mode: Option<String>,
+    pub attributes: Option<LuaEntityDiedEventFilterAttributes>,
+}
+
+pub struct LuaEntityMarkedForDeconstructionEventFilterAttributesGhostName {
+    pub name: String,
+}
+
+pub struct LuaEntityMarkedForDeconstructionEventFilterAttributesGhostType {
+    pub typ: String,
+}
+
+pub struct LuaEntityMarkedForDeconstructionEventFilterAttributesName {
+    pub name: String,
+}
+
+pub struct LuaEntityMarkedForDeconstructionEventFilterAttributesType {
+    pub typ: String,
+}
+
+pub enum LuaEntityMarkedForDeconstructionEventFilterAttributes {
+    GhostName(LuaEntityMarkedForDeconstructionEventFilterAttributesGhostName),
+    GhostType(LuaEntityMarkedForDeconstructionEventFilterAttributesGhostType),
+    Name(LuaEntityMarkedForDeconstructionEventFilterAttributesName),
+    Type(LuaEntityMarkedForDeconstructionEventFilterAttributesType),
 }
 
 pub struct LuaEntityMarkedForDeconstructionEventFilter {
     pub filter: String,
     pub invert: Option<bool>,
     pub mode: Option<String>,
+    pub attributes: Option<LuaEntityMarkedForDeconstructionEventFilterAttributes>,
+}
+
+pub struct LuaEntityMarkedForUpgradeEventFilterAttributesGhostName {
+    pub name: String,
+}
+
+pub struct LuaEntityMarkedForUpgradeEventFilterAttributesGhostType {
+    pub typ: String,
+}
+
+pub struct LuaEntityMarkedForUpgradeEventFilterAttributesName {
+    pub name: String,
+}
+
+pub struct LuaEntityMarkedForUpgradeEventFilterAttributesType {
+    pub typ: String,
+}
+
+pub enum LuaEntityMarkedForUpgradeEventFilterAttributes {
+    GhostName(LuaEntityMarkedForUpgradeEventFilterAttributesGhostName),
+    GhostType(LuaEntityMarkedForUpgradeEventFilterAttributesGhostType),
+    Name(LuaEntityMarkedForUpgradeEventFilterAttributesName),
+    Type(LuaEntityMarkedForUpgradeEventFilterAttributesType),
 }
 
 pub struct LuaEntityMarkedForUpgradeEventFilter {
     pub filter: String,
     pub invert: Option<bool>,
     pub mode: Option<String>,
+    pub attributes: Option<LuaEntityMarkedForUpgradeEventFilterAttributes>,
+}
+
+pub struct LuaPlayerBuiltEntityEventFilterAttributesForce {
+    pub force: String,
+}
+
+pub struct LuaPlayerBuiltEntityEventFilterAttributesGhostName {
+    pub name: String,
+}
+
+pub struct LuaPlayerBuiltEntityEventFilterAttributesGhostType {
+    pub typ: String,
+}
+
+pub struct LuaPlayerBuiltEntityEventFilterAttributesName {
+    pub name: String,
+}
+
+pub struct LuaPlayerBuiltEntityEventFilterAttributesType {
+    pub typ: String,
+}
+
+pub enum LuaPlayerBuiltEntityEventFilterAttributes {
+    Force(LuaPlayerBuiltEntityEventFilterAttributesForce),
+    GhostName(LuaPlayerBuiltEntityEventFilterAttributesGhostName),
+    GhostType(LuaPlayerBuiltEntityEventFilterAttributesGhostType),
+    Name(LuaPlayerBuiltEntityEventFilterAttributesName),
+    Type(LuaPlayerBuiltEntityEventFilterAttributesType),
 }
 
 pub struct LuaPlayerBuiltEntityEventFilter {
     pub filter: String,
     pub invert: Option<bool>,
     pub mode: Option<String>,
+    pub attributes: Option<LuaPlayerBuiltEntityEventFilterAttributes>,
+}
+
+pub struct LuaPlayerMinedEntityEventFilterAttributesGhostName {
+    pub name: String,
+}
+
+pub struct LuaPlayerMinedEntityEventFilterAttributesGhostType {
+    pub typ: String,
+}
+
+pub struct LuaPlayerMinedEntityEventFilterAttributesName {
+    pub name: String,
+}
+
+pub struct LuaPlayerMinedEntityEventFilterAttributesType {
+    pub typ: String,
+}
+
+pub enum LuaPlayerMinedEntityEventFilterAttributes {
+    GhostName(LuaPlayerMinedEntityEventFilterAttributesGhostName),
+    GhostType(LuaPlayerMinedEntityEventFilterAttributesGhostType),
+    Name(LuaPlayerMinedEntityEventFilterAttributesName),
+    Type(LuaPlayerMinedEntityEventFilterAttributesType),
 }
 
 pub struct LuaPlayerMinedEntityEventFilter {
     pub filter: String,
     pub invert: Option<bool>,
     pub mode: Option<String>,
+    pub attributes: Option<LuaPlayerMinedEntityEventFilterAttributes>,
+}
+
+pub struct LuaPlayerRepairedEntityEventFilterAttributesGhostName {
+    pub name: String,
+}
+
+pub struct LuaPlayerRepairedEntityEventFilterAttributesGhostType {
+    pub typ: String,
+}
+
+pub struct LuaPlayerRepairedEntityEventFilterAttributesName {
+    pub name: String,
+}
+
+pub struct LuaPlayerRepairedEntityEventFilterAttributesType {
+    pub typ: String,
+}
+
+pub enum LuaPlayerRepairedEntityEventFilterAttributes {
+    GhostName(LuaPlayerRepairedEntityEventFilterAttributesGhostName),
+    GhostType(LuaPlayerRepairedEntityEventFilterAttributesGhostType),
+    Name(LuaPlayerRepairedEntityEventFilterAttributesName),
+    Type(LuaPlayerRepairedEntityEventFilterAttributesType),
 }
 
 pub struct LuaPlayerRepairedEntityEventFilter {
     pub filter: String,
     pub invert: Option<bool>,
     pub mode: Option<String>,
+    pub attributes: Option<LuaPlayerRepairedEntityEventFilterAttributes>,
+}
+
+pub struct LuaPostEntityDiedEventFilterAttributesType {
+    pub typ: String,
+}
+
+pub enum LuaPostEntityDiedEventFilterAttributes {
+    Type(LuaPostEntityDiedEventFilterAttributesType),
 }
 
 pub struct LuaPostEntityDiedEventFilter {
     pub filter: String,
     pub invert: Option<bool>,
     pub mode: Option<String>,
+    pub attributes: Option<LuaPostEntityDiedEventFilterAttributes>,
+}
+
+pub struct LuaPreGhostDeconstructedEventFilterAttributesGhostName {
+    pub name: String,
+}
+
+pub struct LuaPreGhostDeconstructedEventFilterAttributesGhostType {
+    pub typ: String,
+}
+
+pub struct LuaPreGhostDeconstructedEventFilterAttributesName {
+    pub name: String,
+}
+
+pub struct LuaPreGhostDeconstructedEventFilterAttributesType {
+    pub typ: String,
+}
+
+pub enum LuaPreGhostDeconstructedEventFilterAttributes {
+    GhostName(LuaPreGhostDeconstructedEventFilterAttributesGhostName),
+    GhostType(LuaPreGhostDeconstructedEventFilterAttributesGhostType),
+    Name(LuaPreGhostDeconstructedEventFilterAttributesName),
+    Type(LuaPreGhostDeconstructedEventFilterAttributesType),
 }
 
 pub struct LuaPreGhostDeconstructedEventFilter {
     pub filter: String,
     pub invert: Option<bool>,
     pub mode: Option<String>,
+    pub attributes: Option<LuaPreGhostDeconstructedEventFilterAttributes>,
+}
+
+pub struct LuaPreGhostUpgradedEventFilterAttributesGhostName {
+    pub name: String,
+}
+
+pub struct LuaPreGhostUpgradedEventFilterAttributesGhostType {
+    pub typ: String,
+}
+
+pub struct LuaPreGhostUpgradedEventFilterAttributesName {
+    pub name: String,
+}
+
+pub struct LuaPreGhostUpgradedEventFilterAttributesType {
+    pub typ: String,
+}
+
+pub enum LuaPreGhostUpgradedEventFilterAttributes {
+    GhostName(LuaPreGhostUpgradedEventFilterAttributesGhostName),
+    GhostType(LuaPreGhostUpgradedEventFilterAttributesGhostType),
+    Name(LuaPreGhostUpgradedEventFilterAttributesName),
+    Type(LuaPreGhostUpgradedEventFilterAttributesType),
 }
 
 pub struct LuaPreGhostUpgradedEventFilter {
     pub filter: String,
     pub invert: Option<bool>,
     pub mode: Option<String>,
+    pub attributes: Option<LuaPreGhostUpgradedEventFilterAttributes>,
+}
+
+pub struct LuaPrePlayerMinedEntityEventFilterAttributesGhostName {
+    pub name: String,
+}
+
+pub struct LuaPrePlayerMinedEntityEventFilterAttributesGhostType {
+    pub typ: String,
+}
+
+pub struct LuaPrePlayerMinedEntityEventFilterAttributesName {
+    pub name: String,
+}
+
+pub struct LuaPrePlayerMinedEntityEventFilterAttributesType {
+    pub typ: String,
+}
+
+pub enum LuaPrePlayerMinedEntityEventFilterAttributes {
+    GhostName(LuaPrePlayerMinedEntityEventFilterAttributesGhostName),
+    GhostType(LuaPrePlayerMinedEntityEventFilterAttributesGhostType),
+    Name(LuaPrePlayerMinedEntityEventFilterAttributesName),
+    Type(LuaPrePlayerMinedEntityEventFilterAttributesType),
 }
 
 pub struct LuaPrePlayerMinedEntityEventFilter {
     pub filter: String,
     pub invert: Option<bool>,
     pub mode: Option<String>,
+    pub attributes: Option<LuaPrePlayerMinedEntityEventFilterAttributes>,
+}
+
+pub struct LuaPreRobotMinedEntityEventFilterAttributesGhostName {
+    pub name: String,
+}
+
+pub struct LuaPreRobotMinedEntityEventFilterAttributesGhostType {
+    pub typ: String,
+}
+
+pub struct LuaPreRobotMinedEntityEventFilterAttributesName {
+    pub name: String,
+}
+
+pub struct LuaPreRobotMinedEntityEventFilterAttributesType {
+    pub typ: String,
+}
+
+pub enum LuaPreRobotMinedEntityEventFilterAttributes {
+    GhostName(LuaPreRobotMinedEntityEventFilterAttributesGhostName),
+    GhostType(LuaPreRobotMinedEntityEventFilterAttributesGhostType),
+    Name(LuaPreRobotMinedEntityEventFilterAttributesName),
+    Type(LuaPreRobotMinedEntityEventFilterAttributesType),
 }
 
 pub struct LuaPreRobotMinedEntityEventFilter {
     pub filter: String,
     pub invert: Option<bool>,
     pub mode: Option<String>,
+    pub attributes: Option<LuaPreRobotMinedEntityEventFilterAttributes>,
+}
+
+pub struct LuaRobotBuiltEntityEventFilterAttributesForce {
+    pub force: String,
+}
+
+pub struct LuaRobotBuiltEntityEventFilterAttributesGhostName {
+    pub name: String,
+}
+
+pub struct LuaRobotBuiltEntityEventFilterAttributesGhostType {
+    pub typ: String,
+}
+
+pub struct LuaRobotBuiltEntityEventFilterAttributesName {
+    pub name: String,
+}
+
+pub struct LuaRobotBuiltEntityEventFilterAttributesType {
+    pub typ: String,
+}
+
+pub enum LuaRobotBuiltEntityEventFilterAttributes {
+    Force(LuaRobotBuiltEntityEventFilterAttributesForce),
+    GhostName(LuaRobotBuiltEntityEventFilterAttributesGhostName),
+    GhostType(LuaRobotBuiltEntityEventFilterAttributesGhostType),
+    Name(LuaRobotBuiltEntityEventFilterAttributesName),
+    Type(LuaRobotBuiltEntityEventFilterAttributesType),
 }
 
 pub struct LuaRobotBuiltEntityEventFilter {
     pub filter: String,
     pub invert: Option<bool>,
     pub mode: Option<String>,
+    pub attributes: Option<LuaRobotBuiltEntityEventFilterAttributes>,
+}
+
+pub struct LuaRobotMinedEntityEventFilterAttributesGhostName {
+    pub name: String,
+}
+
+pub struct LuaRobotMinedEntityEventFilterAttributesGhostType {
+    pub typ: String,
+}
+
+pub struct LuaRobotMinedEntityEventFilterAttributesName {
+    pub name: String,
+}
+
+pub struct LuaRobotMinedEntityEventFilterAttributesType {
+    pub typ: String,
+}
+
+pub enum LuaRobotMinedEntityEventFilterAttributes {
+    GhostName(LuaRobotMinedEntityEventFilterAttributesGhostName),
+    GhostType(LuaRobotMinedEntityEventFilterAttributesGhostType),
+    Name(LuaRobotMinedEntityEventFilterAttributesName),
+    Type(LuaRobotMinedEntityEventFilterAttributesType),
 }
 
 pub struct LuaRobotMinedEntityEventFilter {
     pub filter: String,
     pub invert: Option<bool>,
     pub mode: Option<String>,
+    pub attributes: Option<LuaRobotMinedEntityEventFilterAttributes>,
+}
+
+pub struct LuaScriptRaisedBuiltEventFilterAttributesGhostName {
+    pub name: String,
+}
+
+pub struct LuaScriptRaisedBuiltEventFilterAttributesGhostType {
+    pub typ: String,
+}
+
+pub struct LuaScriptRaisedBuiltEventFilterAttributesName {
+    pub name: String,
+}
+
+pub struct LuaScriptRaisedBuiltEventFilterAttributesType {
+    pub typ: String,
+}
+
+pub enum LuaScriptRaisedBuiltEventFilterAttributes {
+    GhostName(LuaScriptRaisedBuiltEventFilterAttributesGhostName),
+    GhostType(LuaScriptRaisedBuiltEventFilterAttributesGhostType),
+    Name(LuaScriptRaisedBuiltEventFilterAttributesName),
+    Type(LuaScriptRaisedBuiltEventFilterAttributesType),
 }
 
 pub struct LuaScriptRaisedBuiltEventFilter {
     pub filter: String,
     pub invert: Option<bool>,
     pub mode: Option<String>,
+    pub attributes: Option<LuaScriptRaisedBuiltEventFilterAttributes>,
+}
+
+pub struct LuaScriptRaisedDestroyEventFilterAttributesGhostName {
+    pub name: String,
+}
+
+pub struct LuaScriptRaisedDestroyEventFilterAttributesGhostType {
+    pub typ: String,
+}
+
+pub struct LuaScriptRaisedDestroyEventFilterAttributesName {
+    pub name: String,
+}
+
+pub struct LuaScriptRaisedDestroyEventFilterAttributesType {
+    pub typ: String,
+}
+
+pub enum LuaScriptRaisedDestroyEventFilterAttributes {
+    GhostName(LuaScriptRaisedDestroyEventFilterAttributesGhostName),
+    GhostType(LuaScriptRaisedDestroyEventFilterAttributesGhostType),
+    Name(LuaScriptRaisedDestroyEventFilterAttributesName),
+    Type(LuaScriptRaisedDestroyEventFilterAttributesType),
 }
 
 pub struct LuaScriptRaisedDestroyEventFilter {
     pub filter: String,
     pub invert: Option<bool>,
     pub mode: Option<String>,
+    pub attributes: Option<LuaScriptRaisedDestroyEventFilterAttributes>,
+}
+
+pub struct LuaScriptRaisedReviveEventFilterAttributesGhostName {
+    pub name: String,
+}
+
+pub struct LuaScriptRaisedReviveEventFilterAttributesGhostType {
+    pub typ: String,
+}
+
+pub struct LuaScriptRaisedReviveEventFilterAttributesName {
+    pub name: String,
+}
+
+pub struct LuaScriptRaisedReviveEventFilterAttributesType {
+    pub typ: String,
+}
+
+pub enum LuaScriptRaisedReviveEventFilterAttributes {
+    GhostName(LuaScriptRaisedReviveEventFilterAttributesGhostName),
+    GhostType(LuaScriptRaisedReviveEventFilterAttributesGhostType),
+    Name(LuaScriptRaisedReviveEventFilterAttributesName),
+    Type(LuaScriptRaisedReviveEventFilterAttributesType),
 }
 
 pub struct LuaScriptRaisedReviveEventFilter {
     pub filter: String,
     pub invert: Option<bool>,
     pub mode: Option<String>,
+    pub attributes: Option<LuaScriptRaisedReviveEventFilterAttributes>,
+}
+
+pub struct LuaScriptRaisedTeleportedEventFilterAttributesGhostName {
+    pub name: String,
+}
+
+pub struct LuaScriptRaisedTeleportedEventFilterAttributesGhostType {
+    pub typ: String,
+}
+
+pub struct LuaScriptRaisedTeleportedEventFilterAttributesName {
+    pub name: String,
+}
+
+pub struct LuaScriptRaisedTeleportedEventFilterAttributesType {
+    pub typ: String,
+}
+
+pub enum LuaScriptRaisedTeleportedEventFilterAttributes {
+    GhostName(LuaScriptRaisedTeleportedEventFilterAttributesGhostName),
+    GhostType(LuaScriptRaisedTeleportedEventFilterAttributesGhostType),
+    Name(LuaScriptRaisedTeleportedEventFilterAttributesName),
+    Type(LuaScriptRaisedTeleportedEventFilterAttributesType),
 }
 
 pub struct LuaScriptRaisedTeleportedEventFilter {
     pub filter: String,
     pub invert: Option<bool>,
     pub mode: Option<String>,
+    pub attributes: Option<LuaScriptRaisedTeleportedEventFilterAttributes>,
+}
+
+pub struct LuaSectorScannedEventFilterAttributesGhostName {
+    pub name: String,
+}
+
+pub struct LuaSectorScannedEventFilterAttributesGhostType {
+    pub typ: String,
+}
+
+pub struct LuaSectorScannedEventFilterAttributesName {
+    pub name: String,
+}
+
+pub struct LuaSectorScannedEventFilterAttributesType {
+    pub typ: String,
+}
+
+pub enum LuaSectorScannedEventFilterAttributes {
+    GhostName(LuaSectorScannedEventFilterAttributesGhostName),
+    GhostType(LuaSectorScannedEventFilterAttributesGhostType),
+    Name(LuaSectorScannedEventFilterAttributesName),
+    Type(LuaSectorScannedEventFilterAttributesType),
 }
 
 pub struct LuaSectorScannedEventFilter {
     pub filter: String,
     pub invert: Option<bool>,
     pub mode: Option<String>,
+    pub attributes: Option<LuaSectorScannedEventFilterAttributes>,
+}
+
+pub struct LuaUpgradeCancelledEventFilterAttributesGhostName {
+    pub name: String,
+}
+
+pub struct LuaUpgradeCancelledEventFilterAttributesGhostType {
+    pub typ: String,
+}
+
+pub struct LuaUpgradeCancelledEventFilterAttributesName {
+    pub name: String,
+}
+
+pub struct LuaUpgradeCancelledEventFilterAttributesType {
+    pub typ: String,
+}
+
+pub enum LuaUpgradeCancelledEventFilterAttributes {
+    GhostName(LuaUpgradeCancelledEventFilterAttributesGhostName),
+    GhostType(LuaUpgradeCancelledEventFilterAttributesGhostType),
+    Name(LuaUpgradeCancelledEventFilterAttributesName),
+    Type(LuaUpgradeCancelledEventFilterAttributesType),
 }
 
 pub struct LuaUpgradeCancelledEventFilter {
     pub filter: String,
     pub invert: Option<bool>,
     pub mode: Option<String>,
+    pub attributes: Option<LuaUpgradeCancelledEventFilterAttributes>,
 }
 
 pub struct MapAndDifficultySettings {
@@ -994,10 +1958,34 @@ pub struct ModSetting {
     pub value: ModSettingValueUnion,
 }
 
+pub enum ModSettingPrototypeFilterAttributesTypeUnion {
+    String(String),
+    Array,
+}
+
+pub struct ModSettingPrototypeFilterAttributesMod {
+    pub mod_name: String,
+}
+
+pub struct ModSettingPrototypeFilterAttributesSettingType {
+    pub typ: String,
+}
+
+pub struct ModSettingPrototypeFilterAttributesType {
+    pub typ: ModSettingPrototypeFilterAttributesTypeUnion,
+}
+
+pub enum ModSettingPrototypeFilterAttributes {
+    Mod(ModSettingPrototypeFilterAttributesMod),
+    SettingType(ModSettingPrototypeFilterAttributesSettingType),
+    Type(ModSettingPrototypeFilterAttributesType),
+}
+
 pub struct ModSettingPrototypeFilter {
     pub filter: String,
     pub invert: Option<bool>,
     pub mode: Option<String>,
+    pub attributes: Option<ModSettingPrototypeFilterAttributes>,
 }
 
 pub struct ModuleEffectValue {
@@ -1136,6 +2124,14 @@ pub enum ProductCatalystAmountUnion {
     Double(f64),
 }
 
+pub struct ProductAttributesFluid {
+    pub temperature: Option<f64>,
+}
+
+pub enum ProductAttributes {
+    Fluid(ProductAttributesFluid),
+}
+
 pub struct Product {
     pub amount: Option<f64>,
     pub amount_max: Option<ProductAmountMaxUnion>,
@@ -1144,6 +2140,7 @@ pub struct Product {
     pub name: String,
     pub probability: Option<f64>,
     pub typ: String,
+    pub attributes: Option<ProductAttributes>,
 }
 
 pub struct ProgrammableSpeakerAlertParameters {
@@ -1191,10 +2188,68 @@ pub struct PrototypeHistory {
 
 type RealOrientation = f32;
 
+pub struct RecipePrototypeFilterAttributesCategory {
+    pub category: String,
+}
+
+pub struct RecipePrototypeFilterAttributesEmissionsMultiplier {
+    pub comparison: ComparatorString,
+    pub value: f64,
+}
+
+pub struct RecipePrototypeFilterAttributesEnergy {
+    pub comparison: ComparatorString,
+    pub value: f64,
+}
+
+pub struct RecipePrototypeFilterAttributesHasIngredientFluid {
+    pub elem_filters: Option<Vec<FluidPrototypeFilter>>,
+}
+
+pub struct RecipePrototypeFilterAttributesHasIngredientItem {
+    pub elem_filters: Option<Vec<ItemPrototypeFilter>>,
+}
+
+pub struct RecipePrototypeFilterAttributesHasProductFluid {
+    pub elem_filters: Option<Vec<FluidPrototypeFilter>>,
+}
+
+pub struct RecipePrototypeFilterAttributesHasProductItem {
+    pub elem_filters: Option<Vec<ItemPrototypeFilter>>,
+}
+
+pub struct RecipePrototypeFilterAttributesOverloadMultiplier {
+    pub comparison: ComparatorString,
+    pub value: u32,
+}
+
+pub struct RecipePrototypeFilterAttributesRequestPasteMultiplier {
+    pub comparison: ComparatorString,
+    pub value: u32,
+}
+
+pub struct RecipePrototypeFilterAttributesSubgroup {
+    pub subgroup: String,
+}
+
+pub enum RecipePrototypeFilterAttributes {
+    Category(RecipePrototypeFilterAttributesCategory),
+    EmissionsMultiplier(RecipePrototypeFilterAttributesEmissionsMultiplier),
+    Energy(RecipePrototypeFilterAttributesEnergy),
+    HasIngredientFluid(RecipePrototypeFilterAttributesHasIngredientFluid),
+    HasIngredientItem(RecipePrototypeFilterAttributesHasIngredientItem),
+    HasProductFluid(RecipePrototypeFilterAttributesHasProductFluid),
+    HasProductItem(RecipePrototypeFilterAttributesHasProductItem),
+    OverloadMultiplier(RecipePrototypeFilterAttributesOverloadMultiplier),
+    RequestPasteMultiplier(RecipePrototypeFilterAttributesRequestPasteMultiplier),
+    Subgroup(RecipePrototypeFilterAttributesSubgroup),
+}
+
 pub struct RecipePrototypeFilter {
     pub filter: String,
     pub invert: Option<bool>,
     pub mode: Option<String>,
+    pub attributes: Option<RecipePrototypeFilterAttributes>,
 }
 
 pub enum RenderLayer {
@@ -1406,14 +2461,89 @@ pub enum TechnologyIdentification {
     LuaTechnologyPrototype(LuaTechnologyPrototype),
 }
 
+pub struct TechnologyModifierAttributesOtherTypes {
+    pub modifier: f64,
+}
+
+pub struct TechnologyModifierAttributesAmmoDamage {
+    pub ammo_category: String,
+    pub modifier: f64,
+}
+
+pub struct TechnologyModifierAttributesGiveItem {
+    pub count: Option<u32>,
+    pub item: String,
+}
+
+pub struct TechnologyModifierAttributesGunSpeed {
+    pub ammo_category: String,
+    pub modifier: f64,
+}
+
+pub struct TechnologyModifierAttributesNothing {
+    pub effect_description: LocalisedString,
+}
+
+pub struct TechnologyModifierAttributesTurretAttack {
+    pub modifier: f64,
+    pub turret_id: String,
+}
+
+pub struct TechnologyModifierAttributesUnlockRecipe {
+    pub recipe: String,
+}
+
+pub enum TechnologyModifierAttributes {
+    OtherTypes(TechnologyModifierAttributesOtherTypes),
+    AmmoDamage(TechnologyModifierAttributesAmmoDamage),
+    GiveItem(TechnologyModifierAttributesGiveItem),
+    GunSpeed(TechnologyModifierAttributesGunSpeed),
+    Nothing(TechnologyModifierAttributesNothing),
+    TurretAttack(TechnologyModifierAttributesTurretAttack),
+    UnlockRecipe(TechnologyModifierAttributesUnlockRecipe),
+}
+
 pub struct TechnologyModifier {
     pub typ: String,
+    pub attributes: Option<TechnologyModifierAttributes>,
+}
+
+pub struct TechnologyPrototypeFilterAttributesLevel {
+    pub comparison: ComparatorString,
+    pub value: u32,
+}
+
+pub struct TechnologyPrototypeFilterAttributesMaxLevel {
+    pub comparison: ComparatorString,
+    pub value: u32,
+}
+
+pub struct TechnologyPrototypeFilterAttributesResearchUnitIngredient {
+    pub ingredient: String,
+}
+
+pub struct TechnologyPrototypeFilterAttributesTime {
+    pub comparison: ComparatorString,
+    pub value: u32,
+}
+
+pub struct TechnologyPrototypeFilterAttributesUnlocksRecipe {
+    pub recipe: String,
+}
+
+pub enum TechnologyPrototypeFilterAttributes {
+    Level(TechnologyPrototypeFilterAttributesLevel),
+    MaxLevel(TechnologyPrototypeFilterAttributesMaxLevel),
+    ResearchUnitIngredient(TechnologyPrototypeFilterAttributesResearchUnitIngredient),
+    Time(TechnologyPrototypeFilterAttributesTime),
+    UnlocksRecipe(TechnologyPrototypeFilterAttributesUnlocksRecipe),
 }
 
 pub struct TechnologyPrototypeFilter {
     pub filter: String,
     pub invert: Option<bool>,
     pub mode: Option<String>,
+    pub attributes: Option<TechnologyPrototypeFilterAttributes>,
 }
 
 pub struct Tile {
@@ -1426,10 +2556,49 @@ pub struct TilePosition {
     pub y: i32,
 }
 
+pub enum TilePrototypeFilterAttributesMaskUnion {
+    CollisionMask(CollisionMask),
+    CollisionMaskWithFlags(CollisionMaskWithFlags),
+}
+
+pub struct TilePrototypeFilterAttributesCollisionMask {
+    pub mask: TilePrototypeFilterAttributesMaskUnion,
+    pub mask_mode: String,
+}
+
+pub struct TilePrototypeFilterAttributesDecorativeRemovalProbability {
+    pub comparison: ComparatorString,
+    pub value: f32,
+}
+
+pub struct TilePrototypeFilterAttributesEmissions {
+    pub comparison: ComparatorString,
+    pub value: f64,
+}
+
+pub struct TilePrototypeFilterAttributesVehicleFrictionModifier {
+    pub comparison: ComparatorString,
+    pub value: f64,
+}
+
+pub struct TilePrototypeFilterAttributesWalkingSpeedModifier {
+    pub comparison: ComparatorString,
+    pub value: f64,
+}
+
+pub enum TilePrototypeFilterAttributes {
+    CollisionMask(TilePrototypeFilterAttributesCollisionMask),
+    DecorativeRemovalProbability(TilePrototypeFilterAttributesDecorativeRemovalProbability),
+    Emissions(TilePrototypeFilterAttributesEmissions),
+    VehicleFrictionModifier(TilePrototypeFilterAttributesVehicleFrictionModifier),
+    WalkingSpeedModifier(TilePrototypeFilterAttributesWalkingSpeedModifier),
+}
+
 pub struct TilePrototypeFilter {
     pub filter: String,
     pub invert: Option<bool>,
     pub mode: Option<String>,
+    pub attributes: Option<TilePrototypeFilterAttributes>,
 }
 
 pub struct TrainSchedule {
