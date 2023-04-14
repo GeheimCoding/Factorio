@@ -1,4 +1,4 @@
-use std::fmt::Display;
+use std::{collections::HashSet, fmt::Display};
 
 use serde::Deserialize;
 
@@ -287,6 +287,17 @@ impl Type {
         match self {
             Self::String(_) => false,
             Self::ComplexType(complex_type) => complex_type.is_inline_type(),
+        }
+    }
+
+    fn is_owned_type(&self) -> bool {
+        if let Type::ComplexType(ComplexType::Literal { value, description }) = self {
+            true
+        } else {
+            match self.get_type_name().as_str() {
+                "table" | "array" | "nil" | "LuaObject" => true,
+                _ => false,
+            }
         }
     }
 
@@ -587,10 +598,18 @@ impl ComplexType {
                 full_format,
             } => {
                 let mut union_definition = String::new();
+                let prefix = if is_nested {
+                    format!("{prefix}Union")
+                } else {
+                    prefix.to_owned()
+                };
+                if self.is_table_or_tuple() {
+                    return options[0].generate_definition(&prefix, true);
+                }
                 union_definition.push_str(&format!("pub enum {} {{\n", prefix));
                 for option in options {
                     let type_name = option.get_type_name();
-                    if let Type::ComplexType(ComplexType::Literal { value, description }) = option {
+                    if option.is_owned_type() {
                         if !type_name.is_empty() {
                             union_definition
                                 .push_str(&format!("    {},\n", type_name.to_pascal_case()));
@@ -703,6 +722,19 @@ impl ComplexType {
         }
         definition
     }
+
+    fn is_table_or_tuple(&self) -> bool {
+        match self {
+            Self::Union {
+                options,
+                full_format,
+            } => {
+                let type_names: HashSet<_> = options.iter().map(Type::get_type_name).collect();
+                type_names.contains("table") && type_names.contains("tuple")
+            }
+            _ => false,
+        }
+    }
 }
 
 impl LiteralValue {
@@ -724,7 +756,7 @@ impl LiteralValue {
     }
 }
 
-// TODO: solve newtype with same name as union (lookup table?)
-// TODO: handle table, tuple, nil, array and LuaObject class
+// TODO: inner filter types
+// TODO: model base class better? (e.g. for filter types)
 // TODO: fix clippy lints
 // TODO: add tests
