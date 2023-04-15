@@ -80,39 +80,45 @@ pub struct Class {
 }
 
 impl Display for Class {
-    // TODO: solve inheritance
-    // TODO: add descriptions as doc
-    // TODO: order elements by order?
-    // TODO: add derives?
-    // TODO: refactor
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        let mut inline_types = Vec::new();
-        writeln!(f, "pub struct {} {{", self.name)?;
+        writeln!(f, "{}", self.generate_definition())
+    }
+}
+
+impl Class {
+    fn generate_definition(&self) -> String {
+        let mut definition = String::new();
+        let mut struct_definition = String::new();
+        let prefix = &self.name;
+
+        struct_definition.push_str(&format!("pub struct {} {{\n", prefix));
         for attribute in &self.attributes {
-            // if !attribute.description.is_empty() {
-            //     writeln!(f, "    /// {}", attribute.description)?;
-            // }
-            let typ = &attribute.typ;
             let name = attribute.name.as_ref().unwrap();
-            let typ = if typ.is_inline_type() {
-                inline_types.push(typ);
-                format!("{}{}", self.name, name.to_pascal_case())
+            let prefix = &format!("{}{}", prefix, name.to_pascal_case());
+            let typ = Type::lua_type_to_rust_type(&attribute.typ.generate_definition(prefix, true));
+            let typ = if attribute.typ.is_inline_type() {
+                definition.push_str(&format!("{typ}\n\n"));
+                prefix
             } else {
-                typ.to_string()
+                &typ
             };
             let typ = if attribute.optional {
                 format!("Option<{typ}>")
             } else {
-                typ
+                typ.to_owned()
             };
-            let name = if name == "type" { "typ" } else { name };
-            writeln!(f, "    pub {}: {},", name, typ)?;
+            let name = if name == "type" {
+                "typ"
+            } else if name == "mod" {
+                "mod_name"
+            } else {
+                name
+            };
+            struct_definition.push_str(&format!("    pub {}: {},\n", name, typ));
         }
-        writeln!(f, "}}")?;
-
-        // TODO: print inline types
-
-        Ok(())
+        struct_definition.push_str("}");
+        definition.push_str(&struct_definition);
+        definition
     }
 }
 
@@ -611,6 +617,7 @@ impl ComplexType {
                 variant_parameter_description,
             } => "tuple".to_string(),
             Self::Array { value } => "array".to_string(),
+            Self::Dictionary { key, value } => "dictionary".to_owned(),
             _ => unimplemented!(),
         }
     }
@@ -807,9 +814,10 @@ impl LiteralValue {
     }
 }
 
+// TODO: handle methods from class
 // TODO: fix defines.types
 // TODO: model base class better? (e.g. for filter types)
-// TODO: collapse single types?
+// TODO: remove Union postfix for named types
 // TODO: add descriptions
 // TODO: fix clippy lints
 // TODO: add tests

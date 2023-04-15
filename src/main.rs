@@ -20,8 +20,12 @@ fn main() -> io::Result<()> {
     //     print!("{}", define.get_definitions(""));
     // }
 
-    for concept in runtime_api.concepts {
-        println!("{concept}");
+    // for concept in runtime_api.concepts {
+    //     println!("{concept}");
+    // }
+
+    for class in runtime_api.classes {
+        println!("{class}");
     }
 
     // for class in runtime_api.classes {
