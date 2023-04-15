@@ -2224,4 +2224,3 @@ pub struct LuaWallControlBehavior {
     pub read_sensor: bool,
     pub valid: bool,
 }
-

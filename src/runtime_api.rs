@@ -162,10 +162,16 @@ pub struct Define {
     pub subkeys: Option<Vec<Define>>,
 }
 
+impl Display for Define {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        write!(f, "{}", self.generate_definition("", false))
+    }
+}
+
 impl Define {
-    pub fn get_definitions(&self, prefix: &str) -> String {
+    pub fn generate_definition(&self, prefix: &str, is_sub: bool) -> String {
         // TODO: print description as doc
-        let mut definitions = String::new();
+        let mut definition = String::new();
         let name = &format!("{}{}", prefix, self.name.to_pascal_case());
 
         // either we have variants
@@ -173,22 +179,22 @@ impl Define {
             if self.subkeys.is_some() {
                 unreachable!();
             }
-            definitions.push_str(&format!("pub enum {} {{\n", name));
+            definition.push_str(&format!("pub enum {} {{\n", name));
             for variant in variants {
-                definitions.push_str(&variant.to_string());
+                definition.push_str(&variant.to_string());
             }
-            definitions.push_str("}\n\n");
+            definition.push_str("}\n\n");
         // or sub-defines
         } else if let Some(sub_defines) = &self.subkeys {
             for sub_define in sub_defines {
-                definitions.push_str(&sub_define.get_definitions(name))
+                definition.push_str(&sub_define.generate_definition(name, true));
             }
         // or an empty struct
         } else {
-            definitions.push_str(&format!("pub struct {};\n\n", name));
+            definition.push_str(&format!("pub struct {};\n\n", name));
         }
 
-        definitions
+        definition
     }
 }
 
@@ -814,6 +820,8 @@ impl LiteralValue {
     }
 }
 
+// TODO: generate events
+// TODO: generate all files with one call
 // TODO: handle methods from class
 // TODO: fix defines.types
 // TODO: model base class better? (e.g. for filter types)
