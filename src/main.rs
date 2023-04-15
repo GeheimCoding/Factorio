@@ -49,7 +49,7 @@ fn read_runtime_api(json_path: &str) -> io::Result<RuntimeApi> {
 
 // https://developer.valvesoftware.com/wiki/Source_RCON_Protocol
 fn remote_console() -> io::Result<()> {
-    let mut console = RemoteConsole::new("192.168.1.108", 25575, "123")?;
+    let mut console = RemoteConsole::new("10.243.166.195", 25575, "123")?;
     let response = console.send_command("rcon.print('Hello Tomo from Factorio!')")?;
     println!("{response}");
 

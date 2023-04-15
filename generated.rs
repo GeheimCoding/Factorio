@@ -1,6 +1,6 @@
 pub enum AchievementPrototypeFilterAttributesTypeUnion {
     String(String),
-    Array,
+    Array(Vec<String>),
 }
 
 pub struct AchievementPrototypeFilterAttributesType {
@@ -620,12 +620,12 @@ pub enum EntityPrototypeFilterAttributesMaskUnion {
 
 pub enum EntityPrototypeFilterAttributesNameUnion {
     String(String),
-    Array,
+    Array(Vec<String>),
 }
 
 pub enum EntityPrototypeFilterAttributesTypeUnion {
     String(String),
-    Array,
+    Array(Vec<String>),
 }
 
 pub struct EntityPrototypeFilterAttributesBuildBaseEvolutionRequirement {
@@ -731,7 +731,7 @@ pub struct EquipmentPosition {
 
 pub enum EquipmentPrototypeFilterAttributesTypeUnion {
     String(String),
-    Array,
+    Array(Vec<String>),
 }
 
 pub struct EquipmentPrototypeFilterAttributesType {
@@ -814,7 +814,7 @@ pub enum FluidIdentification {
 
 pub enum FluidPrototypeFilterAttributesNameUnion {
     String(String),
-    Array,
+    Array(Vec<String>),
 }
 
 pub struct FluidPrototypeFilterAttributesDefaultTemperature {
@@ -1004,12 +1004,12 @@ pub struct InventoryFilter {
 
 pub enum ItemPrototypeFilterAttributesNameUnion {
     String(String),
-    Array,
+    Array(Vec<String>),
 }
 
 pub enum ItemPrototypeFilterAttributesTypeUnion {
     String(String),
-    Array,
+    Array(Vec<String>),
 }
 
 pub struct ItemPrototypeFilterAttributesBurntResult {
@@ -1150,13 +1150,18 @@ pub struct ItemStackLocation {
     pub slot: u32,
 }
 
+pub enum LocalisedStringUnion {
+    String(String),
+    LocalisedString(LocalisedString),
+}
+
 pub enum LocalisedString {
     String(String),
     Number(f64),
     Boolean(bool),
     LuaObject,
     Nil,
-    Array,
+    Array(Vec<LocalisedStringUnion>),
 }
 
 pub struct LogisticFilter {
@@ -1960,7 +1965,7 @@ pub struct ModSetting {
 
 pub enum ModSettingPrototypeFilterAttributesTypeUnion {
     String(String),
-    Array,
+    Array(Vec<String>),
 }
 
 pub struct ModSettingPrototypeFilterAttributesMod {

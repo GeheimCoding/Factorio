@@ -295,7 +295,7 @@ impl Type {
             true
         } else {
             match self.get_type_name().as_str() {
-                "table" | "array" | "nil" | "LuaObject" => true,
+                "table" | "nil" | "LuaObject" => true,
                 _ => false,
             }
         }
@@ -640,10 +640,15 @@ impl ComplexType {
                                 .push_str(&format!("    {},\n", type_name.to_pascal_case()));
                         }
                     } else {
+                        let typ = if type_name == "array" {
+                            option.generate_definition(&prefix, true)
+                        } else {
+                            Type::lua_type_to_rust_type(&type_name)
+                        };
                         union_definition.push_str(&format!(
                             "    {}({}),\n",
                             type_name.to_pascal_case(),
-                            Type::lua_type_to_rust_type(&type_name)
+                            typ
                         ));
                     }
                 }
@@ -802,7 +807,7 @@ impl LiteralValue {
     }
 }
 
-// TODO: handle array type in union?
+// TODO: fix defines.types
 // TODO: model base class better? (e.g. for filter types)
 // TODO: collapse single types?
 // TODO: add descriptions
