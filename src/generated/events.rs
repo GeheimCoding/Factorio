@@ -1398,3 +1398,4 @@ pub struct ScriptRaisedTeleported {
     pub old_surface_index: u8,
     pub tick: u32,
 }
+

@@ -2,7 +2,7 @@
 #![deny(clippy::unwrap_used)]
 
 mod remote_console;
-mod runtime_api;
+mod runtime_api_format;
 
 use std::{
     fs::{self, File},
@@ -10,49 +10,25 @@ use std::{
 };
 
 use remote_console::RemoteConsole;
-use runtime_api::{Class, RuntimeApi};
+use runtime_api_format::RuntimeApiFormat;
 
 fn main() -> io::Result<()> {
-    let runtime_api = read_runtime_api("runtime-api.json")?;
+    // TODO: move to build.rs
+    generate_runtime_api()
+}
 
-    // for define in runtime_api.defines {
-    //     // TODO: cleanup without passing prefix here, use display?
-    //     print!("{}", define.get_definitions(""));
-    // }
-
-    // for concept in runtime_api.concepts {
-    //     println!("{concept}");
-    // }
-
-    // for define in runtime_api.defines {
-    //     print!("{define}");
-    // }
-
-    for event in runtime_api.events {
-        println!("{event}");
-    }
-
-    // for class in runtime_api.classes {
-    //     //if class.name == "LuaAccumulatorControlBehavior" {
-    //     println!("{class}");
-    //     //}
-    // }
-
-    // TODO: resolve concepts and defines
-    // for concept in runtime_api.concepts {
-    //     println!("{}", concept.typ);
-    // }
-
-    Ok(())
+fn generate_runtime_api() -> io::Result<()> {
+    let runtime_api_format = read_runtime_api_format("runtime-api.json")?;
+    runtime_api_format.generate_runtime_api()
 }
 
 // https://lua-api.factorio.com/latest/json-docs.html
-fn read_runtime_api(json_path: &str) -> io::Result<RuntimeApi> {
+fn read_runtime_api_format(json_path: &str) -> io::Result<RuntimeApiFormat> {
     let file = File::open(json_path)?;
     let reader = BufReader::new(file);
-    let runtime_api = serde_json::from_reader(reader)?;
+    let runtime_api_format = serde_json::from_reader(reader)?;
 
-    Ok(runtime_api)
+    Ok(runtime_api_format)
 }
 
 // https://developer.valvesoftware.com/wiki/Source_RCON_Protocol

@@ -10,12 +10,14 @@ pub enum AlertType {
     TurretFire,
 }
 
+
 pub enum BehaviorResult {
     Deleted,
     Fail,
     InProgress,
     Success,
 }
+
 
 pub enum BuildCheckType {
     BlueprintGhost,
@@ -26,12 +28,14 @@ pub enum BuildCheckType {
     ScriptGhost,
 }
 
+
 pub enum ChainSignalState {
     AllOpen,
     None,
     NoneOpen,
     PartiallyOpen,
 }
+
 
 pub enum ChunkGeneratedStatus {
     BasicTiles,
@@ -41,6 +45,7 @@ pub enum ChunkGeneratedStatus {
     Nothing,
     Tiles,
 }
+
 
 pub enum CircuitConditionIndex {
     ArithmeticCombinator,
@@ -52,6 +57,7 @@ pub enum CircuitConditionIndex {
     OffshorePump,
     Pump,
 }
+
 
 pub enum CircuitConnectorId {
     Accumulator,
@@ -73,6 +79,7 @@ pub enum CircuitConnectorId {
     Wall,
 }
 
+
 pub enum Command {
     Attack,
     AttackArea,
@@ -85,11 +92,13 @@ pub enum Command {
     Wander,
 }
 
+
 pub enum CompoundCommand {
     LogicalAnd,
     LogicalOr,
     ReturnLast,
 }
+
 
 pub enum ControlBehaviorInserterCircuitModeOfOperation {
     EnableDisable,
@@ -144,6 +153,7 @@ pub enum ControlBehaviorType {
     Wall,
 }
 
+
 pub enum Controllers {
     Character,
     Cutscene,
@@ -152,6 +162,7 @@ pub enum Controllers {
     God,
     Spectator,
 }
+
 
 pub enum DeconstructionItemEntityFilterMode {
     Blacklist,
@@ -170,11 +181,13 @@ pub enum DeconstructionItemTileSelectionMode {
     Only,
 }
 
+
 pub enum Difficulty {
     Easy,
     Hard,
     Normal,
 }
+
 
 pub enum DifficultySettingsRecipeDifficulty {
     Expensive,
@@ -186,6 +199,7 @@ pub enum DifficultySettingsTechnologyDifficulty {
     Normal,
 }
 
+
 pub enum Direction {
     East,
     North,
@@ -196,6 +210,7 @@ pub enum Direction {
     Southwest,
     West,
 }
+
 
 pub enum DisconnectReason {
     Afk,
@@ -211,12 +226,14 @@ pub enum DisconnectReason {
     WrongInput,
 }
 
+
 pub enum Distraction {
     ByAnything,
     ByDamage,
     ByEnemy,
     None,
 }
+
 
 pub enum EntityStatus {
     CantDivideSegments,
@@ -263,6 +280,7 @@ pub enum EntityStatus {
     WaitingToLaunchRocket,
     Working,
 }
+
 
 pub enum Events {
     OnAiCommandCompleted,
@@ -447,6 +465,7 @@ pub enum Events {
     ScriptRaisedTeleported,
 }
 
+
 pub enum FlowPrecisionIndex {
     FiftyHours,
     FiveSeconds,
@@ -458,6 +477,7 @@ pub enum FlowPrecisionIndex {
     TwoHundredFiftyHours,
 }
 
+
 pub enum GroupState {
     AttackingDistraction,
     AttackingTarget,
@@ -467,6 +487,7 @@ pub enum GroupState {
     Pathfinding,
     WanderInGroup,
 }
+
 
 pub enum GuiType {
     Achievement,
@@ -490,6 +511,7 @@ pub enum GuiType {
     Trains,
     Tutorials,
 }
+
 
 pub enum InputAction {
     ActivateCopy,
@@ -697,10 +719,12 @@ pub enum InputAction {
     WriteToConsole,
 }
 
+
 pub enum InputMethod {
     GameController,
     KeyboardAndMouse,
 }
+
 
 pub enum Inventory {
     ArtilleryTurretAmmo,
@@ -750,6 +774,7 @@ pub enum Inventory {
     TurretAmmo,
 }
 
+
 pub enum LogisticMemberIndex {
     CharacterProvider,
     CharacterRequester,
@@ -758,6 +783,7 @@ pub enum LogisticMemberIndex {
     LogisticContainer,
     VehicleStorage,
 }
+
 
 pub enum LogisticMode {
     ActiveProvider,
@@ -768,6 +794,7 @@ pub enum LogisticMode {
     Storage,
 }
 
+
 pub enum MouseButtonType {
     Left,
     Middle,
@@ -775,7 +802,9 @@ pub enum MouseButtonType {
     Right,
 }
 
+
 pub struct Prototypes;
+
 
 pub enum RailConnectionDirection {
     Left,
@@ -784,10 +813,12 @@ pub enum RailConnectionDirection {
     Straight,
 }
 
+
 pub enum RailDirection {
     Back,
     Front,
 }
+
 
 pub enum RelativeGuiPosition {
     Bottom,
@@ -795,6 +826,7 @@ pub enum RelativeGuiPosition {
     Right,
     Top,
 }
+
 
 pub enum RelativeGuiType {
     AccumulatorGui,
@@ -863,17 +895,20 @@ pub enum RelativeGuiType {
     WallGui,
 }
 
+
 pub enum RenderMode {
     Chart,
     ChartZoomedIn,
     Game,
 }
 
+
 pub enum RichTextSetting {
     Disabled,
     Enabled,
     Highlight,
 }
+
 
 pub enum RidingAcceleration {
     Accelerating,
@@ -887,6 +922,7 @@ pub enum RidingDirection {
     Right,
     Straight,
 }
+
 
 pub enum RocketSiloStatus {
     ArmsAdvance,
@@ -906,11 +942,13 @@ pub enum RocketSiloStatus {
     RocketRising,
 }
 
+
 pub enum Shooting {
     NotShooting,
     ShootingEnemies,
     ShootingSelected,
 }
+
 
 pub enum SignalState {
     Closed,
@@ -918,6 +956,7 @@ pub enum SignalState {
     Reserved,
     ReservedByCircuitNetwork,
 }
+
 
 pub enum TrainState {
     ArriveSignal,
@@ -933,6 +972,7 @@ pub enum TrainState {
     WaitStation,
 }
 
+
 pub enum TransportLine {
     LeftLine,
     LeftSplitLine,
@@ -946,14 +986,18 @@ pub enum TransportLine {
     SecondaryRightSplitLine,
 }
 
+
 pub enum WireConnectionId {
     ElectricPole,
     PowerSwitchLeft,
     PowerSwitchRight,
 }
 
+
 pub enum WireType {
     Copper,
     Green,
     Red,
 }
+
+

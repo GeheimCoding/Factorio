@@ -1,8 +1,3 @@
-pub enum AchievementPrototypeFilterAttributesTypeUnion {
-    String(String),
-    Array(Vec<String>),
-}
-
 pub struct AchievementPrototypeFilterAttributesType {
     pub typ: AchievementPrototypeFilterAttributesTypeUnion,
 }
@@ -17,14 +12,12 @@ pub struct AchievementPrototypeFilter {
     pub mode: Option<String>,
     pub attributes: Option<AchievementPrototypeFilterAttributes>,
 }
-
 pub struct AdvancedMapGenSettings {
     pub difficulty_settings: DifficultySettings,
     pub enemy_evolution: EnemyEvolutionMapSettings,
     pub enemy_expansion: EnemyExpansionMapSettings,
     pub pollution: PollutionMapSettings,
 }
-
 pub struct Alert {
     pub icon: Option<SignalID>,
     pub message: Option<LocalisedString>,
@@ -33,7 +26,6 @@ pub struct Alert {
     pub target: Option<LuaEntity>,
     pub tick: u32,
 }
-
 pub enum Alignment {
     TopLeft,
     MiddleLeft,
@@ -47,7 +39,6 @@ pub enum Alignment {
     Right,
     BottomRight,
 }
-
 pub struct AmmoType {
     pub action: Option<Vec<TriggerItem>>,
     pub category: String,
@@ -58,7 +49,6 @@ pub struct AmmoType {
     pub range_modifier: Option<f64>,
     pub target_type: String,
 }
-
 pub enum Any {
     String(String),
     Boolean(bool),
@@ -66,14 +56,12 @@ pub enum Any {
     Table,
     LuaObject,
 }
-
 pub enum AnyBasic {
     String(String),
     Boolean(bool),
     Number(f64),
     Table,
 }
-
 pub struct ArithmeticCombinatorParameters {
     pub first_constant: Option<i32>,
     pub first_signal: Option<SignalID>,
@@ -82,12 +70,10 @@ pub struct ArithmeticCombinatorParameters {
     pub second_constant: Option<i32>,
     pub second_signal: Option<SignalID>,
 }
-
 pub struct AttackParameterFluid {
     pub damage_modifier: f64,
     pub typ: String,
 }
-
 pub struct AttackParametersAttributesProjectile {
     pub projectile_center: Vector,
     pub projectile_creation_distance: f32,
@@ -129,18 +115,15 @@ pub struct AttackParameters {
     pub warmup: u32,
     pub attributes: Option<AttackParametersAttributes>,
 }
-
 pub struct AutoplaceControl {
     pub frequency: MapGenSize,
     pub richness: MapGenSize,
     pub size: MapGenSize,
 }
-
 pub struct AutoplaceSettings {
     pub settings: HashMap<String, AutoplaceControl>,
     pub treat_missing_as_default: bool,
 }
-
 pub struct AutoplaceSpecification {
     pub control: Option<String>,
     pub coverage: f64,
@@ -160,7 +143,6 @@ pub struct AutoplaceSpecification {
     pub starting_area_size: u32,
     pub tile_restriction: Option<Vec<AutoplaceSpecificationRestriction>>,
 }
-
 pub struct AutoplaceSpecificationPeak {
     pub aux_max_range: f64,
     pub aux_optimal: f64,
@@ -198,17 +180,14 @@ pub struct AutoplaceSpecificationPeak {
     pub water_range: f64,
     pub water_top_property_limit: f64,
 }
-
 pub struct AutoplaceSpecificationRestriction {
     pub first: Option<String>,
     pub second: Option<String>,
 }
-
 pub struct BeamTarget {
     pub entity: Option<LuaEntity>,
     pub position: Option<MapPosition>,
 }
-
 pub struct BlueprintEntity {
     pub connections: Option<BlueprintCircuitConnection>,
     pub control_behavior: Option<BlueprintControlBehavior>,
@@ -220,18 +199,15 @@ pub struct BlueprintEntity {
     pub schedule: Option<Vec<TrainScheduleRecord>>,
     pub tags: Option<Tags>,
 }
-
 pub struct BlueprintSignalIcon {
     pub index: u32,
     pub signal: SignalID,
 }
-
 pub struct BoundingBox {
     pub left_top: MapPosition,
     pub orientation: Option<RealOrientation>,
     pub right_bottom: MapPosition,
 }
-
 pub struct CapsuleActionAttributesArtilleryRemote {
     pub flare: String,
 }
@@ -267,44 +243,37 @@ pub struct CapsuleAction {
     pub typ: String,
     pub attributes: Option<CapsuleActionAttributes>,
 }
-
 pub struct ChartTagSpec {
     pub icon: Option<SignalID>,
     pub last_user: Option<PlayerIdentification>,
     pub position: MapPosition,
     pub text: Option<String>,
 }
-
 pub struct ChunkPosition {
     pub x: i32,
     pub y: i32,
 }
-
 pub struct ChunkPositionAndArea {
     pub area: BoundingBox,
     pub x: i32,
     pub y: i32,
 }
-
 pub struct CircuitCondition {
     pub comparator: Option<ComparatorString>,
     pub constant: Option<i32>,
     pub first_signal: Option<SignalID>,
     pub second_signal: Option<SignalID>,
 }
-
 pub struct CircuitConditionDefinition {
     pub condition: CircuitCondition,
     pub fulfilled: Option<bool>,
 }
-
 pub struct CircuitConnectionDefinition {
     pub source_circuit_id: CircuitConnectorId,
     pub target_circuit_id: CircuitConnectorId,
     pub target_entity: LuaEntity,
     pub wire: WireType,
 }
-
 pub struct CircularParticleCreationSpecification {
     pub center: Vector,
     pub creation_distance: f64,
@@ -322,12 +291,10 @@ pub struct CircularParticleCreationSpecification {
     pub vertical_speed: f32,
     pub vertical_speed_deviation: f32,
 }
-
 pub struct CircularProjectileCreationSpecification {
     pub field_0: RealOrientation,
     pub field_1: Vector,
 }
-
 pub enum CliffOrientation {
     WestToEast,
     NorthToSouth,
@@ -350,16 +317,13 @@ pub enum CliffOrientation {
     SouthToNone,
     NoneToNorth,
 }
-
 pub struct CliffPlacementSettings {
     pub cliff_elevation_0: f32,
     pub cliff_elevation_interval: f32,
     pub name: String,
     pub richness: MapGenSize,
 }
-
 type CollisionMask = HashSet<CollisionMaskLayer>;
-
 pub enum CollisionMaskLayer {
     GroundTile,
     WaterTile,
@@ -375,30 +339,19 @@ pub enum CollisionMaskLayer {
     TransportBeltLayer,
     NotSetup,
 }
-
-pub enum CollisionMaskWithFlagsUnion {
-    CollisionMaskLayer(CollisionMaskLayer),
-    NotCollidingWithItself,
-    ConsiderTileTransitions,
-    CollidingWithTilesOnly,
-}
-
 type CollisionMaskWithFlags = HashSet<CollisionMaskWithFlagsUnion>;
-
 pub struct Color {
     pub a: Option<f32>,
     pub b: Option<f32>,
     pub g: Option<f32>,
     pub r: Option<f32>,
 }
-
 pub struct ColorModifier {
     pub a: Option<f32>,
     pub b: Option<f32>,
     pub g: Option<f32>,
     pub r: Option<f32>,
 }
-
 pub struct CommandAttributesDefinesCommandAttack {
     pub distraction: Option<Distraction>,
     pub target: LuaEntity,
@@ -468,7 +421,6 @@ pub struct Command {
     pub typ: Command,
     pub attributes: Option<CommandAttributes>,
 }
-
 pub enum ComparatorString {
     EqualTo,
     GreaterThan,
@@ -477,7 +429,6 @@ pub enum ComparatorString {
     LesserThanOrEqualTo,
     NotEqualTo,
 }
-
 pub struct ConfigurationChangedData {
     pub migration_applied: bool,
     pub mod_changes: HashMap<String, ModChangeData>,
@@ -485,20 +436,17 @@ pub struct ConfigurationChangedData {
     pub new_version: Option<String>,
     pub old_version: Option<String>,
 }
-
 pub struct ConstantCombinatorParameters {
     pub count: i32,
     pub index: u32,
     pub signal: SignalID,
 }
-
 pub struct CraftingQueueItem {
     pub count: u32,
     pub index: u32,
     pub prerequisite: bool,
     pub recipe: String,
 }
-
 pub enum CursorBoxRenderType {
     Entity,
     NotAllowed,
@@ -509,19 +457,12 @@ pub enum CursorBoxRenderType {
     Logistics,
     BlueprintSnapRectangle,
 }
-
 pub struct CustomCommandData {
     pub name: String,
     pub parameter: Option<String>,
     pub player_index: Option<u32>,
     pub tick: u32,
 }
-
-pub enum CutsceneWaypointTargetUnion {
-    LuaEntity(LuaEntity),
-    LuaUnitGroup(LuaUnitGroup),
-}
-
 pub struct CutsceneWaypoint {
     pub position: Option<MapPosition>,
     pub target: Option<CutsceneWaypointTargetUnion>,
@@ -529,7 +470,6 @@ pub struct CutsceneWaypoint {
     pub transition_time: u32,
     pub zoom: Option<f64>,
 }
-
 pub struct DeciderCombinatorParameters {
     pub comparator: Option<ComparatorString>,
     pub constant: Option<u32>,
@@ -538,18 +478,11 @@ pub struct DeciderCombinatorParameters {
     pub output_signal: Option<SignalID>,
     pub second_signal: Option<SignalID>,
 }
-
 pub struct Decorative {
     pub amount: u8,
     pub name: String,
     pub position: TilePosition,
 }
-
-pub enum DecorativePrototypeFilterAttributesMaskUnion {
-    CollisionMask(CollisionMask),
-    CollisionMaskWithFlags(CollisionMaskWithFlags),
-}
-
 pub struct DecorativePrototypeFilterAttributesCollisionMask {
     pub mask: DecorativePrototypeFilterAttributesMaskUnion,
     pub mask_mode: String,
@@ -565,38 +498,32 @@ pub struct DecorativePrototypeFilter {
     pub mode: Option<String>,
     pub attributes: Option<DecorativePrototypeFilterAttributes>,
 }
-
 pub struct DecorativeResult {
     pub amount: u32,
     pub decorative: LuaDecorativePrototype,
     pub position: TilePosition,
 }
-
 pub struct DifficultySettings {
     pub recipe_difficulty: DifficultySettingsRecipeDifficulty,
     pub research_queue_setting: String,
     pub technology_difficulty: DifficultySettingsTechnologyDifficulty,
     pub technology_price_multiplier: f64,
 }
-
 pub struct DisplayResolution {
     pub height: u32,
     pub width: u32,
 }
-
 pub struct DragTarget {
     pub target_circuit_id: Option<CircuitConnectorId>,
     pub target_entity: LuaEntity,
     pub target_wire_id: Option<WireConnectionId>,
 }
-
 pub struct EnemyEvolutionMapSettings {
     pub destroy_factor: f64,
     pub enabled: bool,
     pub pollution_factor: f64,
     pub time_factor: f64,
 }
-
 pub struct EnemyExpansionMapSettings {
     pub building_coefficient: f64,
     pub enabled: bool,
@@ -612,22 +539,6 @@ pub struct EnemyExpansionMapSettings {
     pub settler_group_max_size: u32,
     pub settler_group_min_size: u32,
 }
-
-pub enum EntityPrototypeFilterAttributesMaskUnion {
-    CollisionMask(CollisionMask),
-    CollisionMaskWithFlags(CollisionMaskWithFlags),
-}
-
-pub enum EntityPrototypeFilterAttributesNameUnion {
-    String(String),
-    Array(Vec<String>),
-}
-
-pub enum EntityPrototypeFilterAttributesTypeUnion {
-    String(String),
-    Array(Vec<String>),
-}
-
 pub struct EntityPrototypeFilterAttributesBuildBaseEvolutionRequirement {
     pub comparison: ComparatorString,
     pub value: f64,
@@ -681,59 +592,20 @@ pub struct EntityPrototypeFilter {
     pub mode: Option<String>,
     pub attributes: Option<EntityPrototypeFilterAttributes>,
 }
-
-pub enum EntityPrototypeFlagsUnion {
-    NotRotatable,
-    PlaceableNeutral,
-    PlaceablePlayer,
-    PlaceableEnemy,
-    PlaceableOffGrid,
-    PlayerCreation,
-    BuildingDirection8Way,
-    FilterDirections,
-    FastReplaceableNoBuildWhileMoving,
-    BreathsAir,
-    NotRepairable,
-    NotOnMap,
-    NotDeconstructable,
-    NotBlueprintable,
-    Hidden,
-    HideAltInfo,
-    FastReplaceableNoCrossTypeWhileMoving,
-    NoGapFillWhileBuilding,
-    NotFlammable,
-    NoAutomatedItemRemoval,
-    NoAutomatedItemInsertion,
-    NoCopyPaste,
-    NotSelectableInGame,
-    NotUpgradable,
-    NotInKillStatistics,
-    NotInMadeIn,
-}
-
 type EntityPrototypeFlags = HashSet<EntityPrototypeFlagsUnion>;
-
 pub enum EntityPrototypeIdentification {
     LuaEntity(LuaEntity),
     LuaEntityPrototype(LuaEntityPrototype),
     String(String),
 }
-
 pub struct EquipmentPoint {
     pub x: u32,
     pub y: u32,
 }
-
 pub struct EquipmentPosition {
     pub x: i32,
     pub y: i32,
 }
-
-pub enum EquipmentPrototypeFilterAttributesTypeUnion {
-    String(String),
-    Array(Vec<String>),
-}
-
 pub struct EquipmentPrototypeFilterAttributesType {
     pub typ: EquipmentPrototypeFilterAttributesTypeUnion,
 }
@@ -748,75 +620,38 @@ pub struct EquipmentPrototypeFilter {
     pub mode: Option<String>,
     pub attributes: Option<EquipmentPrototypeFilterAttributes>,
 }
-
 pub struct EventData {
     pub mod_name: Option<String>,
     pub name: Events,
     pub tick: u32,
 }
-
-pub enum EventFilterUnion {
-    LuaEntityClonedEventFilter(LuaEntityClonedEventFilter),
-    LuaEntityDamagedEventFilter(LuaEntityDamagedEventFilter),
-    LuaPlayerMinedEntityEventFilter(LuaPlayerMinedEntityEventFilter),
-    LuaPreRobotMinedEntityEventFilter(LuaPreRobotMinedEntityEventFilter),
-    LuaRobotBuiltEntityEventFilter(LuaRobotBuiltEntityEventFilter),
-    LuaPostEntityDiedEventFilter(LuaPostEntityDiedEventFilter),
-    LuaEntityDiedEventFilter(LuaEntityDiedEventFilter),
-    LuaScriptRaisedReviveEventFilter(LuaScriptRaisedReviveEventFilter),
-    LuaPrePlayerMinedEntityEventFilter(LuaPrePlayerMinedEntityEventFilter),
-    LuaEntityMarkedForDeconstructionEventFilter(LuaEntityMarkedForDeconstructionEventFilter),
-    LuaPreGhostDeconstructedEventFilter(LuaPreGhostDeconstructedEventFilter),
-    LuaPreGhostUpgradedEventFilter(LuaPreGhostUpgradedEventFilter),
-    LuaEntityDeconstructionCancelledEventFilter(LuaEntityDeconstructionCancelledEventFilter),
-    LuaEntityMarkedForUpgradeEventFilter(LuaEntityMarkedForUpgradeEventFilter),
-    LuaSectorScannedEventFilter(LuaSectorScannedEventFilter),
-    LuaRobotMinedEntityEventFilter(LuaRobotMinedEntityEventFilter),
-    LuaScriptRaisedDestroyEventFilter(LuaScriptRaisedDestroyEventFilter),
-    LuaUpgradeCancelledEventFilter(LuaUpgradeCancelledEventFilter),
-    LuaScriptRaisedBuiltEventFilter(LuaScriptRaisedBuiltEventFilter),
-    LuaPlayerBuiltEntityEventFilter(LuaPlayerBuiltEntityEventFilter),
-    LuaPlayerRepairedEntityEventFilter(LuaPlayerRepairedEntityEventFilter),
-}
-
 type EventFilter = Vec<EventFilterUnion>;
-
 pub struct Fluid {
     pub amount: f64,
     pub name: String,
     pub temperature: Option<f64>,
 }
-
 pub struct FluidBoxConnection {
     pub max_underground_distance: Option<u32>,
     pub positions: Vec<Vector>,
     pub typ: String,
 }
-
 pub struct FluidBoxFilter {
     pub maximum_temperature: f64,
     pub minimum_temperature: f64,
     pub name: String,
 }
-
 pub struct FluidBoxFilterSpec {
     pub force: Option<bool>,
     pub maximum_temperature: Option<f64>,
     pub minimum_temperature: Option<f64>,
     pub name: String,
 }
-
 pub enum FluidIdentification {
     String(String),
     LuaFluidPrototype(LuaFluidPrototype),
     Fluid(Fluid),
 }
-
-pub enum FluidPrototypeFilterAttributesNameUnion {
-    String(String),
-    Array(Vec<String>),
-}
-
 pub struct FluidPrototypeFilterAttributesDefaultTemperature {
     pub comparison: ComparatorString,
     pub value: f64,
@@ -872,7 +707,6 @@ pub struct FluidPrototypeFilter {
     pub mode: Option<String>,
     pub attributes: Option<FluidPrototypeFilterAttributes>,
 }
-
 pub enum ForceCondition {
     All,
     Enemy,
@@ -882,13 +716,11 @@ pub enum ForceCondition {
     Same,
     NotSame,
 }
-
 pub enum ForceIdentification {
     Uint8(u8),
     String(String),
     LuaForce(LuaForce),
 }
-
 pub struct GameViewSettings {
     pub show_alert_gui: bool,
     pub show_controller_gui: bool,
@@ -902,7 +734,6 @@ pub struct GameViewSettings {
     pub show_side_menu: bool,
     pub update_entity_selection: bool,
 }
-
 pub struct GuiAnchor {
     pub gui: RelativeGuiType,
     pub name: Option<String>,
@@ -910,7 +741,6 @@ pub struct GuiAnchor {
     pub position: RelativeGuiPosition,
     pub typ: Option<String>,
 }
-
 pub struct GuiArrowSpecificationAttributesCraftingQueue {
     pub crafting_queueindex: u32,
 }
@@ -940,41 +770,30 @@ pub struct GuiArrowSpecification {
     pub typ: String,
     pub attributes: Option<GuiArrowSpecificationAttributes>,
 }
-
 pub struct GuiLocation {
     pub x: i32,
     pub y: i32,
 }
-
 pub struct HeatConnection {
     pub direction: Direction,
     pub position: Vector,
 }
-
 pub struct HeatSetting {
     pub mode: Option<String>,
     pub temperature: Option<f64>,
 }
-
 pub struct InfinityInventoryFilter {
     pub count: Option<u32>,
     pub index: u32,
     pub mode: Option<String>,
     pub name: String,
 }
-
 pub struct InfinityPipeFilter {
     pub mode: Option<String>,
     pub name: String,
     pub percentage: Option<f64>,
     pub temperature: Option<f64>,
 }
-
-pub enum IngredientCatalystAmountUnion {
-    Uint(u32),
-    Double(f64),
-}
-
 pub struct IngredientAttributesFluid {
     pub maximum_temperature: Option<f64>,
     pub minimum_temperature: Option<f64>,
@@ -991,27 +810,14 @@ pub struct Ingredient {
     pub typ: String,
     pub attributes: Option<IngredientAttributes>,
 }
-
 pub struct InserterCircuitConditions {
     pub circuit: Option<CircuitCondition>,
     pub logistics: Option<CircuitCondition>,
 }
-
 pub struct InventoryFilter {
     pub index: u32,
     pub name: String,
 }
-
-pub enum ItemPrototypeFilterAttributesNameUnion {
-    String(String),
-    Array(Vec<String>),
-}
-
-pub enum ItemPrototypeFilterAttributesTypeUnion {
-    String(String),
-    Array(Vec<String>),
-}
-
 pub struct ItemPrototypeFilterAttributesBurntResult {
     pub elem_filters: Option<Vec<ItemPrototypeFilter>>,
 }
@@ -1108,29 +914,12 @@ pub struct ItemPrototypeFilter {
     pub mode: Option<String>,
     pub attributes: Option<ItemPrototypeFilterAttributes>,
 }
-
-pub enum ItemPrototypeFlagsUnion {
-    DrawLogisticOverlay,
-    Hidden,
-    AlwaysShow,
-    HideFromBonusGui,
-    HideFromFuelTooltip,
-    NotStackable,
-    CanExtendInventory,
-    PrimaryPlaceResult,
-    ModOpenable,
-    OnlyInCursor,
-    Spawnable,
-}
-
 type ItemPrototypeFlags = HashSet<ItemPrototypeFlagsUnion>;
-
 pub enum ItemPrototypeIdentification {
     LuaItemStack(LuaItemStack),
     LuaItemPrototype(LuaItemPrototype),
     String(String),
 }
-
 pub struct ItemStackDefinition {
     pub ammo: Option<f64>,
     pub count: Option<u32>,
@@ -1139,22 +928,14 @@ pub struct ItemStackDefinition {
     pub name: String,
     pub tags: Option<Vec<String>>,
 }
-
 pub enum ItemStackIdentification {
     SimpleItemStack(SimpleItemStack),
     LuaItemStack(LuaItemStack),
 }
-
 pub struct ItemStackLocation {
     pub inventory: Inventory,
     pub slot: u32,
 }
-
-pub enum LocalisedStringUnion {
-    String(String),
-    LocalisedString(LocalisedString),
-}
-
 pub enum LocalisedString {
     String(String),
     Number(f64),
@@ -1163,26 +944,22 @@ pub enum LocalisedString {
     Nil,
     Array(Vec<LocalisedStringUnion>),
 }
-
 pub struct LogisticFilter {
     pub count: u32,
     pub index: u32,
     pub name: String,
 }
-
 pub struct LogisticParameters {
     pub max: Option<u32>,
     pub min: Option<u32>,
     pub name: Option<String>,
 }
-
 pub struct Loot {
     pub count_max: f64,
     pub count_min: f64,
     pub item: String,
     pub probability: f64,
 }
-
 pub struct LuaEntityClonedEventFilterAttributesGhostName {
     pub name: String,
 }
@@ -1212,7 +989,6 @@ pub struct LuaEntityClonedEventFilter {
     pub mode: Option<String>,
     pub attributes: Option<LuaEntityClonedEventFilterAttributes>,
 }
-
 pub struct LuaEntityDamagedEventFilterAttributesDamageType {
     pub typ: String,
 }
@@ -1265,7 +1041,6 @@ pub struct LuaEntityDamagedEventFilter {
     pub mode: Option<String>,
     pub attributes: Option<LuaEntityDamagedEventFilterAttributes>,
 }
-
 pub struct LuaEntityDeconstructionCancelledEventFilterAttributesGhostName {
     pub name: String,
 }
@@ -1295,7 +1070,6 @@ pub struct LuaEntityDeconstructionCancelledEventFilter {
     pub mode: Option<String>,
     pub attributes: Option<LuaEntityDeconstructionCancelledEventFilterAttributes>,
 }
-
 pub struct LuaEntityDiedEventFilterAttributesGhostName {
     pub name: String,
 }
@@ -1325,7 +1099,6 @@ pub struct LuaEntityDiedEventFilter {
     pub mode: Option<String>,
     pub attributes: Option<LuaEntityDiedEventFilterAttributes>,
 }
-
 pub struct LuaEntityMarkedForDeconstructionEventFilterAttributesGhostName {
     pub name: String,
 }
@@ -1355,7 +1128,6 @@ pub struct LuaEntityMarkedForDeconstructionEventFilter {
     pub mode: Option<String>,
     pub attributes: Option<LuaEntityMarkedForDeconstructionEventFilterAttributes>,
 }
-
 pub struct LuaEntityMarkedForUpgradeEventFilterAttributesGhostName {
     pub name: String,
 }
@@ -1385,7 +1157,6 @@ pub struct LuaEntityMarkedForUpgradeEventFilter {
     pub mode: Option<String>,
     pub attributes: Option<LuaEntityMarkedForUpgradeEventFilterAttributes>,
 }
-
 pub struct LuaPlayerBuiltEntityEventFilterAttributesForce {
     pub force: String,
 }
@@ -1420,7 +1191,6 @@ pub struct LuaPlayerBuiltEntityEventFilter {
     pub mode: Option<String>,
     pub attributes: Option<LuaPlayerBuiltEntityEventFilterAttributes>,
 }
-
 pub struct LuaPlayerMinedEntityEventFilterAttributesGhostName {
     pub name: String,
 }
@@ -1450,7 +1220,6 @@ pub struct LuaPlayerMinedEntityEventFilter {
     pub mode: Option<String>,
     pub attributes: Option<LuaPlayerMinedEntityEventFilterAttributes>,
 }
-
 pub struct LuaPlayerRepairedEntityEventFilterAttributesGhostName {
     pub name: String,
 }
@@ -1480,7 +1249,6 @@ pub struct LuaPlayerRepairedEntityEventFilter {
     pub mode: Option<String>,
     pub attributes: Option<LuaPlayerRepairedEntityEventFilterAttributes>,
 }
-
 pub struct LuaPostEntityDiedEventFilterAttributesType {
     pub typ: String,
 }
@@ -1495,7 +1263,6 @@ pub struct LuaPostEntityDiedEventFilter {
     pub mode: Option<String>,
     pub attributes: Option<LuaPostEntityDiedEventFilterAttributes>,
 }
-
 pub struct LuaPreGhostDeconstructedEventFilterAttributesGhostName {
     pub name: String,
 }
@@ -1525,7 +1292,6 @@ pub struct LuaPreGhostDeconstructedEventFilter {
     pub mode: Option<String>,
     pub attributes: Option<LuaPreGhostDeconstructedEventFilterAttributes>,
 }
-
 pub struct LuaPreGhostUpgradedEventFilterAttributesGhostName {
     pub name: String,
 }
@@ -1555,7 +1321,6 @@ pub struct LuaPreGhostUpgradedEventFilter {
     pub mode: Option<String>,
     pub attributes: Option<LuaPreGhostUpgradedEventFilterAttributes>,
 }
-
 pub struct LuaPrePlayerMinedEntityEventFilterAttributesGhostName {
     pub name: String,
 }
@@ -1585,7 +1350,6 @@ pub struct LuaPrePlayerMinedEntityEventFilter {
     pub mode: Option<String>,
     pub attributes: Option<LuaPrePlayerMinedEntityEventFilterAttributes>,
 }
-
 pub struct LuaPreRobotMinedEntityEventFilterAttributesGhostName {
     pub name: String,
 }
@@ -1615,7 +1379,6 @@ pub struct LuaPreRobotMinedEntityEventFilter {
     pub mode: Option<String>,
     pub attributes: Option<LuaPreRobotMinedEntityEventFilterAttributes>,
 }
-
 pub struct LuaRobotBuiltEntityEventFilterAttributesForce {
     pub force: String,
 }
@@ -1650,7 +1413,6 @@ pub struct LuaRobotBuiltEntityEventFilter {
     pub mode: Option<String>,
     pub attributes: Option<LuaRobotBuiltEntityEventFilterAttributes>,
 }
-
 pub struct LuaRobotMinedEntityEventFilterAttributesGhostName {
     pub name: String,
 }
@@ -1680,7 +1442,6 @@ pub struct LuaRobotMinedEntityEventFilter {
     pub mode: Option<String>,
     pub attributes: Option<LuaRobotMinedEntityEventFilterAttributes>,
 }
-
 pub struct LuaScriptRaisedBuiltEventFilterAttributesGhostName {
     pub name: String,
 }
@@ -1710,7 +1471,6 @@ pub struct LuaScriptRaisedBuiltEventFilter {
     pub mode: Option<String>,
     pub attributes: Option<LuaScriptRaisedBuiltEventFilterAttributes>,
 }
-
 pub struct LuaScriptRaisedDestroyEventFilterAttributesGhostName {
     pub name: String,
 }
@@ -1740,7 +1500,6 @@ pub struct LuaScriptRaisedDestroyEventFilter {
     pub mode: Option<String>,
     pub attributes: Option<LuaScriptRaisedDestroyEventFilterAttributes>,
 }
-
 pub struct LuaScriptRaisedReviveEventFilterAttributesGhostName {
     pub name: String,
 }
@@ -1770,7 +1529,6 @@ pub struct LuaScriptRaisedReviveEventFilter {
     pub mode: Option<String>,
     pub attributes: Option<LuaScriptRaisedReviveEventFilterAttributes>,
 }
-
 pub struct LuaScriptRaisedTeleportedEventFilterAttributesGhostName {
     pub name: String,
 }
@@ -1800,7 +1558,6 @@ pub struct LuaScriptRaisedTeleportedEventFilter {
     pub mode: Option<String>,
     pub attributes: Option<LuaScriptRaisedTeleportedEventFilterAttributes>,
 }
-
 pub struct LuaSectorScannedEventFilterAttributesGhostName {
     pub name: String,
 }
@@ -1830,7 +1587,6 @@ pub struct LuaSectorScannedEventFilter {
     pub mode: Option<String>,
     pub attributes: Option<LuaSectorScannedEventFilterAttributes>,
 }
-
 pub struct LuaUpgradeCancelledEventFilterAttributesGhostName {
     pub name: String,
 }
@@ -1860,7 +1616,6 @@ pub struct LuaUpgradeCancelledEventFilter {
     pub mode: Option<String>,
     pub attributes: Option<LuaUpgradeCancelledEventFilterAttributes>,
 }
-
 pub struct MapAndDifficultySettings {
     pub difficulty_settings: DifficultySettings,
     pub enemy_evolution: EnemyEvolutionMapSettings,
@@ -1871,19 +1626,16 @@ pub struct MapAndDifficultySettings {
     pub steering: SteeringMapSettings,
     pub unit_group: UnitGroupMapSettings,
 }
-
 pub struct MapExchangeStringData {
     pub map_gen_settings: MapGenSettings,
     pub map_settings: MapAndDifficultySettings,
 }
-
 pub struct MapGenPreset {
     pub advanced_settings: Option<AdvancedMapGenSettings>,
     pub basic_settings: Option<MapGenSettings>,
     pub default: Option<bool>,
     pub order: String,
 }
-
 pub struct MapGenSettings {
     pub autoplace_controls: HashMap<String, AutoplaceControl>,
     pub autoplace_settings: HashMap<String, AutoplaceSettings>,
@@ -1899,7 +1651,6 @@ pub struct MapGenSettings {
     pub water: MapGenSize,
     pub width: u32,
 }
-
 pub enum MapGenSize {
     Float(f32),
     None,
@@ -1919,12 +1670,10 @@ pub enum MapGenSize {
     VeryBig,
     VeryGood,
 }
-
 pub struct MapPosition {
     pub x: f64,
     pub y: f64,
 }
-
 pub struct MapSettings {
     pub enemy_evolution: EnemyEvolutionMapSettings,
     pub enemy_expansion: EnemyExpansionMapSettings,
@@ -1934,7 +1683,6 @@ pub struct MapSettings {
     pub steering: SteeringMapSettings,
     pub unit_group: UnitGroupMapSettings,
 }
-
 pub struct MapViewSettings {
     pub show_electric_network: Option<bool>,
     pub show_logistic_network: Option<bool>,
@@ -1945,29 +1693,13 @@ pub struct MapViewSettings {
     pub show_train_station_names: Option<bool>,
     pub show_turret_range: Option<bool>,
 }
-
 pub struct ModChangeData {
     pub new_version: String,
     pub old_version: String,
 }
-
-pub enum ModSettingValueUnion {
-    Int(i32),
-    Double(f64),
-    Boolean(bool),
-    String(String),
-    Color(Color),
-}
-
 pub struct ModSetting {
     pub value: ModSettingValueUnion,
 }
-
-pub enum ModSettingPrototypeFilterAttributesTypeUnion {
-    String(String),
-    Array(Vec<String>),
-}
-
 pub struct ModSettingPrototypeFilterAttributesMod {
     pub mod_name: String,
 }
@@ -1992,51 +1724,31 @@ pub struct ModSettingPrototypeFilter {
     pub mode: Option<String>,
     pub attributes: Option<ModSettingPrototypeFilterAttributes>,
 }
-
 pub struct ModuleEffectValue {
     pub bonus: f32,
 }
-
 pub struct ModuleEffects {
     pub consumption: Option<ModuleEffectValue>,
     pub pollution: Option<ModuleEffectValue>,
     pub productivity: Option<ModuleEffectValue>,
     pub speed: Option<ModuleEffectValue>,
 }
-
-pub enum MouseButtonFlagsUnion {
-    Left,
-    Right,
-    Middle,
-    Button4,
-    Button5,
-    Button6,
-    Button7,
-    Button8,
-    Button9,
-}
-
 type MouseButtonFlags = HashSet<MouseButtonFlagsUnion>;
-
 pub struct NoiseExpression {
     pub typ: String,
 }
-
 pub struct NthTickEventData {
     pub nth_tick: u32,
     pub tick: u32,
 }
-
 pub struct Offer {
     pub offer: TechnologyModifier,
     pub price: Vec<Ingredient>,
 }
-
 pub struct OldTileAndPosition {
     pub old_tile: LuaTilePrototype,
     pub position: TilePosition,
 }
-
 pub struct PathFinderMapSettings {
     pub cache_accept_path_end_distance_ratio: f64,
     pub cache_accept_path_start_distance_ratio: f64,
@@ -2072,7 +1784,6 @@ pub struct PathFinderMapSettings {
     pub start_to_goal_cost_multiplier_to_terminate_path_find: f64,
     pub use_path_cache: bool,
 }
-
 pub struct PathfinderFlags {
     pub allow_destroy_friendly_entities: Option<bool>,
     pub allow_paths_through_own_entities: Option<bool>,
@@ -2081,24 +1792,20 @@ pub struct PathfinderFlags {
     pub no_break: Option<bool>,
     pub prefer_straight_paths: Option<bool>,
 }
-
 pub struct PathfinderWaypoint {
     pub needs_destroy_to_reach: bool,
     pub position: MapPosition,
 }
-
 pub struct PlaceAsTileResult {
     pub condition: CollisionMask,
     pub condition_size: u32,
     pub result: LuaTilePrototype,
 }
-
 pub enum PlayerIdentification {
     Uint(u32),
     String(String),
     LuaPlayer(LuaPlayer),
 }
-
 pub struct PollutionMapSettings {
     pub ageing: f64,
     pub diffusion_ratio: f64,
@@ -2113,22 +1820,6 @@ pub struct PollutionMapSettings {
     pub pollution_restored_per_tree_damage: f64,
     pub pollution_with_max_forest_damage: f64,
 }
-
-pub enum ProductAmountMaxUnion {
-    Uint(u32),
-    Double(f64),
-}
-
-pub enum ProductAmountMinUnion {
-    Uint(u32),
-    Double(f64),
-}
-
-pub enum ProductCatalystAmountUnion {
-    Uint(u32),
-    Double(f64),
-}
-
 pub struct ProductAttributesFluid {
     pub temperature: Option<f64>,
 }
@@ -2147,52 +1838,32 @@ pub struct Product {
     pub typ: String,
     pub attributes: Option<ProductAttributes>,
 }
-
 pub struct ProgrammableSpeakerAlertParameters {
     pub alert_message: String,
     pub icon_signal_id: SignalID,
     pub show_alert: bool,
     pub show_on_map: bool,
 }
-
 pub struct ProgrammableSpeakerCircuitParameters {
     pub instrument_id: u32,
     pub note_id: u32,
     pub signal_value_is_pitch: bool,
 }
-
 pub struct ProgrammableSpeakerInstrument {
     pub name: String,
     pub notes: Vec<String>,
 }
-
 pub struct ProgrammableSpeakerParameters {
     pub allow_polyphony: bool,
     pub playback_globally: bool,
     pub playback_volume: f64,
 }
-
-pub enum PrototypeFilterUnion {
-    ItemPrototypeFilter(ItemPrototypeFilter),
-    TilePrototypeFilter(TilePrototypeFilter),
-    EntityPrototypeFilter(EntityPrototypeFilter),
-    FluidPrototypeFilter(FluidPrototypeFilter),
-    RecipePrototypeFilter(RecipePrototypeFilter),
-    DecorativePrototypeFilter(DecorativePrototypeFilter),
-    AchievementPrototypeFilter(AchievementPrototypeFilter),
-    EquipmentPrototypeFilter(EquipmentPrototypeFilter),
-    TechnologyPrototypeFilter(TechnologyPrototypeFilter),
-}
-
 type PrototypeFilter = Vec<PrototypeFilterUnion>;
-
 pub struct PrototypeHistory {
     pub changed: Vec<String>,
     pub created: String,
 }
-
 type RealOrientation = f32;
-
 pub struct RecipePrototypeFilterAttributesCategory {
     pub category: String,
 }
@@ -2256,7 +1927,6 @@ pub struct RecipePrototypeFilter {
     pub mode: Option<String>,
     pub attributes: Option<RecipePrototypeFilterAttributes>,
 }
-
 pub enum RenderLayer {
     String(String),
     WaterTile,
@@ -2303,97 +1973,53 @@ pub enum RenderLayer {
     Arrow,
     Cursor,
 }
-
 pub struct Resistance {
     pub decrease: f32,
     pub percent: f32,
 }
-
 pub struct RidingState {
     pub acceleration: RidingAcceleration,
     pub direction: RidingDirection,
 }
-
 pub struct ScriptArea {
     pub area: BoundingBox,
     pub color: Color,
     pub id: u32,
     pub name: String,
 }
-
 pub struct ScriptPosition {
     pub color: Color,
     pub id: u32,
     pub name: String,
     pub position: MapPosition,
 }
-
 pub struct ScriptRenderTarget {
     pub entity: Option<LuaEntity>,
     pub entity_offset: Option<Vector>,
     pub position: Option<MapPosition>,
 }
-
-pub enum ScriptRenderVertexTargetTargetUnion {
-    MapPosition(MapPosition),
-    LuaEntity(LuaEntity),
-}
-
 pub struct ScriptRenderVertexTarget {
     pub target: ScriptRenderVertexTargetTargetUnion,
     pub target_offset: Option<Vector>,
 }
-
 pub struct SelectedPrototypeData {
     pub base_type: String,
     pub derived_type: String,
     pub name: String,
 }
-
-pub enum SelectionModeFlagsUnion {
-    Blueprint,
-    Deconstruct,
-    CancelDeconstruct,
-    Items,
-    Trees,
-    BuildableType,
-    Nothing,
-    ItemsToPlace,
-    AnyEntity,
-    AnyTile,
-    SameForce,
-    NotSameForce,
-    Friend,
-    Enemy,
-    Upgrade,
-    CancelUpgrade,
-    Downgrade,
-    EntityWithHealth,
-    EntityWithForce,
-    IsMilitaryTarget,
-    EntityWithOwner,
-    AvoidRollingStock,
-    EntityGhost,
-    TileGhost,
-}
-
 type SelectionModeFlags = HashSet<SelectionModeFlagsUnion>;
-
 pub struct Signal {
     pub count: i32,
     pub signal: SignalID,
 }
-
 pub struct SignalID {
     pub name: Option<String>,
     pub typ: String,
 }
-
 pub enum SimpleItemStack {
     String(String),
     ItemStackDefinition(ItemStackDefinition),
 }
-
 pub struct SmokeSource {
     pub deviation: Option<MapPosition>,
     pub east_position: Option<Vector>,
@@ -2415,9 +2041,7 @@ pub struct SmokeSource {
     pub vertical_speed_slowdown: f32,
     pub west_position: Option<Vector>,
 }
-
 type SoundPath = String;
-
 pub enum SoundType {
     GameEffect,
     GuiEffect,
@@ -2427,45 +2051,36 @@ pub enum SoundType {
     Alert,
     Wind,
 }
-
 pub struct SpawnPointDefinition {
     pub evolution_factor: f64,
     pub weight: f64,
 }
-
 type SpritePath = String;
-
 pub struct SteeringMapSetting {
     pub force_unit_fuzzy_goto_behavior: bool,
     pub radius: f64,
     pub separation_factor: f64,
     pub separation_force: f64,
 }
-
 pub struct SteeringMapSettings {
     pub default: SteeringMapSetting,
     pub moving: SteeringMapSetting,
 }
-
 pub enum SurfaceIdentification {
     Uint(u32),
     String(String),
     LuaSurface(LuaSurface),
 }
-
 pub struct TabAndContent {
     pub content: LuaGuiElement,
     pub tab: LuaGuiElement,
 }
-
 type Tags = HashMap<String, AnyBasic>;
-
 pub enum TechnologyIdentification {
     String(String),
     LuaTechnology(LuaTechnology),
     LuaTechnologyPrototype(LuaTechnologyPrototype),
 }
-
 pub struct TechnologyModifierAttributesOtherTypes {
     pub modifier: f64,
 }
@@ -2512,7 +2127,6 @@ pub struct TechnologyModifier {
     pub typ: String,
     pub attributes: Option<TechnologyModifierAttributes>,
 }
-
 pub struct TechnologyPrototypeFilterAttributesLevel {
     pub comparison: ComparatorString,
     pub value: u32,
@@ -2550,22 +2164,14 @@ pub struct TechnologyPrototypeFilter {
     pub mode: Option<String>,
     pub attributes: Option<TechnologyPrototypeFilterAttributes>,
 }
-
 pub struct Tile {
     pub name: String,
     pub position: TilePosition,
 }
-
 pub struct TilePosition {
     pub x: i32,
     pub y: i32,
 }
-
-pub enum TilePrototypeFilterAttributesMaskUnion {
-    CollisionMask(CollisionMask),
-    CollisionMaskWithFlags(CollisionMaskWithFlags),
-}
-
 pub struct TilePrototypeFilterAttributesCollisionMask {
     pub mask: TilePrototypeFilterAttributesMaskUnion,
     pub mask_mode: String,
@@ -2605,12 +2211,10 @@ pub struct TilePrototypeFilter {
     pub mode: Option<String>,
     pub attributes: Option<TilePrototypeFilterAttributes>,
 }
-
 pub struct TrainSchedule {
     pub current: u32,
     pub records: Vec<TrainScheduleRecord>,
 }
-
 pub struct TrainScheduleRecord {
     pub rail: Option<LuaEntity>,
     pub rail_direction: Option<RailDirection>,
@@ -2618,20 +2222,17 @@ pub struct TrainScheduleRecord {
     pub temporary: Option<bool>,
     pub wait_conditions: Option<Vec<WaitCondition>>,
 }
-
 pub struct TriggerDelivery {
     pub source_effects: Vec<TriggerEffectItem>,
     pub target_effects: Vec<TriggerEffectItem>,
     pub typ: String,
 }
-
 pub struct TriggerEffectItem {
     pub affects_target: bool,
     pub repeat_count: u32,
     pub show_in_tooltip: bool,
     pub typ: String,
 }
-
 pub struct TriggerItem {
     pub action_delivery: Option<Vec<TriggerDelivery>>,
     pub collision_mask: CollisionMask,
@@ -2642,9 +2243,7 @@ pub struct TriggerItem {
     pub trigger_target_mask: TriggerTargetMask,
     pub typ: String,
 }
-
 type TriggerTargetMask = HashMap<String, bool>;
-
 pub struct UnitGroupMapSettings {
     pub max_gathering_unit_groups: u32,
     pub max_group_gathering_time: u32,
@@ -2660,34 +2259,28 @@ pub struct UnitGroupMapSettings {
     pub min_group_radius: f64,
     pub tick_tolerance_when_member_arrives: u32,
 }
-
 pub struct UnitSpawnDefinition {
     pub spawn_points: Vec<SpawnPointDefinition>,
     pub unit: String,
 }
-
 pub struct UpgradeFilter {
     pub name: Option<String>,
     pub typ: String,
 }
-
 pub struct Vector {
     pub x: f32,
     pub y: f32,
 }
-
 pub struct VehicleAutomaticTargetingParameters {
     pub auto_target_with_gunner: bool,
     pub auto_target_without_gunner: bool,
 }
-
 pub struct WaitCondition {
     pub compare_type: String,
     pub condition: Option<CircuitCondition>,
     pub ticks: Option<u32>,
     pub typ: String,
 }
-
 pub struct WireConnectionDefinition {
     pub source_circuit_id: Option<CircuitConnectorId>,
     pub source_wire_id: Option<WireConnectionId>,
