@@ -147,6 +147,24 @@ pub struct Event {
     pub data: Vec<Parameter>,
 }
 
+impl Display for Event {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        write!(f, "{}", self.generate_definition())
+    }
+}
+
+impl Event {
+    fn generate_definition(&self) -> String {
+        let mut definition = String::new();
+        definition.push_str(&format!("pub struct {} {{\n", self.name.to_pascal_case()));
+        for parameter in &self.data {
+            definition.push_str(&parameter.get_definition(""));
+        }
+        definition.push_str("}\n");
+        definition
+    }
+}
+
 /// Defines can be recursive in nature, meaning one Define can have multiple sub-Defines that have the same structure. These are singled out as subkeys instead of values.
 #[derive(Debug, Deserialize)]
 pub struct Define {
@@ -496,6 +514,8 @@ impl Parameter {
         };
         let name = if name == "type" {
             "typ".to_owned()
+        } else if name == "mod" {
+            "mod_name".to_owned()
         } else if name == "noisePersistence" {
             "noise_persistence".to_owned()
         } else if name == "_" {
@@ -782,6 +802,9 @@ impl ComplexType {
                 }
                 definition.push_str("}");
             }
+            Self::LuaLazyLoadedValue { value } => {
+                definition.push_str(&value.generate_definition(prefix, true));
+            }
             _ => unimplemented!(),
         }
         definition
@@ -820,7 +843,6 @@ impl LiteralValue {
     }
 }
 
-// TODO: generate events
 // TODO: generate all files with one call
 // TODO: handle methods from class
 // TODO: fix defines.types

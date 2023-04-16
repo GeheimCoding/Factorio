@@ -24,8 +24,12 @@ fn main() -> io::Result<()> {
     //     println!("{concept}");
     // }
 
-    for define in runtime_api.defines {
-        print!("{define}");
+    // for define in runtime_api.defines {
+    //     print!("{define}");
+    // }
+
+    for event in runtime_api.events {
+        println!("{event}");
     }
 
     // for class in runtime_api.classes {
