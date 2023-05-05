@@ -87,6 +87,7 @@ impl RuntimeApiFormat {
         for definition_type in definition_types {
             definition.push_str(&format!("{}\n", definition_type.generate_definition()));
         }
+        definition.pop();
         fs::write(file_path, definition)?;
 
         Ok(())
@@ -136,25 +137,25 @@ struct Class {
     base_classes: Option<Vec<String>>,
 }
 
-impl Display for Class {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        writeln!(f, "{}", self.generate_definition())
-    }
-}
-
 impl GenerateDefinition for Class {
     fn generate_definition(&self) -> String {
         let mut definition = String::new();
+        let mut inline_type_definition = String::new();
         let mut struct_definition = String::new();
+        let mut unions = Vec::new();
         let prefix = &self.name;
 
         struct_definition.push_str(&format!("pub struct {} {{\n", prefix));
         for attribute in &self.attributes {
             let name = attribute.name.as_ref().unwrap();
             let prefix = &format!("{}{}", prefix, name.to_pascal_case());
-            let typ = Type::lua_type_to_rust_type(&attribute.typ.generate_definition(prefix, true));
+            let typ = Type::lua_type_to_rust_type(&attribute.typ.generate_definition(
+                prefix,
+                &mut unions,
+                true,
+            ));
             let typ = if attribute.typ.is_inline_type() {
-                definition.push_str(&format!("{typ}\n\n"));
+                inline_type_definition.push_str(&format!("{typ}\n\n"));
                 prefix
             } else {
                 &typ
@@ -174,6 +175,10 @@ impl GenerateDefinition for Class {
             struct_definition.push_str(&format!("    pub {}: {},\n", name, typ));
         }
         struct_definition.push_str("}\n");
+        for union in unions {
+            definition.push_str(&format!("{}\n\n", union));
+        }
+        definition.push_str(&inline_type_definition);
         definition.push_str(&struct_definition);
         definition
     }
@@ -204,18 +209,12 @@ struct Event {
     data: Vec<Parameter>,
 }
 
-impl Display for Event {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        write!(f, "{}", self.generate_definition())
-    }
-}
-
 impl GenerateDefinition for Event {
     fn generate_definition(&self) -> String {
         let mut definition = String::new();
         definition.push_str(&format!("pub struct {} {{\n", self.name.to_pascal_case()));
         for parameter in &self.data {
-            definition.push_str(&parameter.get_definition(""));
+            definition.push_str(&parameter.get_definition(&mut Vec::new(), ""));
         }
         definition.push_str("}\n");
         definition
@@ -237,17 +236,12 @@ struct Define {
     subkeys: Option<Vec<Define>>,
 }
 
-impl Display for Define {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        write!(f, "{}", self.generate_definition())
-    }
-}
-
 impl GenerateDefinition for Define {
     fn generate_definition(&self) -> String {
         self.generate_definition_internal("", false)
     }
 }
+
 impl Define {
     fn generate_definition_internal(&self, prefix: &str, is_sub: bool) -> String {
         // TODO: print description as doc
@@ -261,19 +255,28 @@ impl Define {
             }
             definition.push_str(&format!("pub enum {} {{\n", name));
             for variant in variants {
-                definition.push_str(&variant.to_string());
+                definition.push_str(&variant.generate_definition());
             }
-            definition.push_str("}\n\n");
+            definition.push_str("}");
         // or sub-defines
         } else if let Some(sub_defines) = &self.subkeys {
-            for sub_define in sub_defines {
-                definition.push_str(&sub_define.generate_definition_internal(name, true));
+            if self.values.is_some() {
+                unreachable!();
             }
+            for sub_define in sub_defines {
+                definition.push_str(&format!(
+                    "{}\n",
+                    &sub_define.generate_definition_internal(name, true)
+                ));
+            }
+            definition.pop();
         // or an empty struct
         } else {
-            definition.push_str(&format!("pub struct {};\n\n", name));
+            definition.push_str(&format!("pub struct {};\n", name));
         }
-
+        if !definition.ends_with('\n') {
+            definition.push('\n');
+        }
         definition
     }
 }
@@ -305,15 +308,16 @@ struct Concept {
     typ: Type,
 }
 
-impl Display for Concept {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        writeln!(f, "{}", self.generate_definition())
-    }
-}
-
 impl GenerateDefinition for Concept {
     fn generate_definition(&self) -> String {
-        self.typ.generate_definition(&self.name, false)
+        let mut definition = String::new();
+        let mut unions = Vec::new();
+        let type_definition = self.typ.generate_definition(&self.name, &mut unions, false);
+        for union in unions {
+            definition.push_str(&format!("{}\n\n", &union));
+        }
+        definition.push_str(&format!("{}\n", &type_definition));
+        definition
     }
 }
 
@@ -342,9 +346,9 @@ struct BasicMember {
     description: String,
 }
 
-impl Display for BasicMember {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        writeln!(f, "    {},", self.name.to_pascal_case())
+impl GenerateDefinition for BasicMember {
+    fn generate_definition(&self) -> String {
+        format!("    {},\n", self.name.to_pascal_case())
     }
 }
 
@@ -570,11 +574,11 @@ struct Parameter {
 }
 
 impl Parameter {
-    fn get_definition(&self, prefix: &str) -> String {
+    fn get_definition(&self, unions: &mut Vec<String>, prefix: &str) -> String {
         let mut definition = String::new();
         let name = self.name.as_ref().unwrap();
         let prefix = &format!("{}{}", prefix, name.to_pascal_case());
-        let typ = Type::lua_type_to_rust_type(&self.typ.generate_definition(prefix, true));
+        let typ = Type::lua_type_to_rust_type(&self.typ.generate_definition(prefix, unions, true));
         let typ = if self.optional {
             format!("Option<{}>", typ)
         } else {
@@ -677,7 +681,12 @@ impl Type {
         }
     }
 
-    fn generate_definition(&self, prefix: &str, is_nested: bool) -> String {
+    fn generate_definition(
+        &self,
+        prefix: &str,
+        unions: &mut Vec<String>,
+        is_nested: bool,
+    ) -> String {
         match self {
             Self::String(string) => {
                 let mut definition = String::new();
@@ -690,7 +699,9 @@ impl Type {
                 }
                 definition
             }
-            Self::ComplexType(complex_type) => complex_type.generate_definition(prefix, is_nested),
+            Self::ComplexType(complex_type) => {
+                complex_type.generate_definition(prefix, unions, is_nested)
+            }
         }
     }
 }
@@ -716,7 +727,12 @@ impl ComplexType {
         }
     }
 
-    fn generate_definition(&self, prefix: &str, is_nested: bool) -> String {
+    fn generate_definition(
+        &self,
+        prefix: &str,
+        unions: &mut Vec<String>,
+        is_nested: bool,
+    ) -> String {
         let mut definition = String::new();
         match self {
             Self::Union {
@@ -730,7 +746,7 @@ impl ComplexType {
                     prefix.to_owned()
                 };
                 if self.is_table_or_tuple() {
-                    return options[0].generate_definition(&prefix, true);
+                    return options[0].generate_definition(&prefix, unions, true);
                 }
                 union_definition.push_str(&format!("pub enum {} {{\n", prefix));
                 for option in options {
@@ -742,7 +758,7 @@ impl ComplexType {
                         }
                     } else {
                         let typ = if type_name == "array" {
-                            option.generate_definition(&prefix, true)
+                            option.generate_definition(&prefix, unions, true)
                         } else {
                             Type::lua_type_to_rust_type(&type_name)
                         };
@@ -756,7 +772,7 @@ impl ComplexType {
                 union_definition.push_str("}");
 
                 if is_nested {
-                    //println!("{union_definition}\n");
+                    unions.push(format!("{union_definition}"));
                     definition.push_str(&prefix);
                 } else {
                     definition.push_str(&union_definition);
@@ -775,7 +791,7 @@ impl ComplexType {
                 let mut table_definition = String::new();
                 table_definition.push_str(&format!("pub struct {} {{\n", prefix));
                 for parameter in parameters {
-                    table_definition.push_str(&parameter.get_definition(prefix));
+                    table_definition.push_str(&parameter.get_definition(unions, prefix));
                 }
                 if let Some(variant_parameter_groups) = variant_parameter_groups {
                     table_definition.push_str(&format!(
@@ -800,7 +816,7 @@ impl ComplexType {
                             let name = parameter.name.as_ref().unwrap().replace("-", "_");
                             let prefix = &format!("{}{}", prefix, name.to_pascal_case());
                             let typ = Type::lua_type_to_rust_type(
-                                &parameter.typ.generate_definition(prefix, true),
+                                &parameter.typ.generate_definition(prefix, unions, true),
                             );
                             let typ = if parameter.optional {
                                 format!("Option<{typ}>")
@@ -823,7 +839,10 @@ impl ComplexType {
                 if !is_nested {
                     definition.push_str(&format!("type {prefix} = "));
                 }
-                definition.push_str(&format!("Vec<{}>", value.generate_definition(prefix, true)));
+                definition.push_str(&format!(
+                    "Vec<{}>",
+                    value.generate_definition(prefix, unions, true)
+                ));
                 if !is_nested {
                     definition.push(';');
                 }
@@ -839,7 +858,7 @@ impl ComplexType {
                     if value.get_type_name() == "True" {
                         definition.push_str(&format!(
                             "HashSet<{}>",
-                            key.generate_definition(prefix, true)
+                            key.generate_definition(prefix, unions, true)
                         ));
                         is_map = false;
                     }
@@ -847,8 +866,8 @@ impl ComplexType {
                 if is_map {
                     definition.push_str(&format!(
                         "HashMap<{}, {}>",
-                        key.generate_definition(prefix, true),
-                        value.generate_definition(prefix, true)
+                        key.generate_definition(prefix, unions, true),
+                        value.generate_definition(prefix, unions, true)
                     ));
                 }
                 if !is_nested {
@@ -864,14 +883,14 @@ impl ComplexType {
                     let name = attribute.name.as_ref().unwrap();
                     let prefix = &format!("{}{}", prefix, name.to_pascal_case());
                     let typ = Type::lua_type_to_rust_type(
-                        &attribute.typ.generate_definition(prefix, true),
+                        &attribute.typ.generate_definition(prefix, unions, true),
                     );
                     definition.push_str(&format!("    pub {}: {},\n", name, typ));
                 }
                 definition.push_str("}");
             }
             Self::LuaLazyLoadedValue { value } => {
-                definition.push_str(&value.generate_definition(prefix, true));
+                definition.push_str(&value.generate_definition(prefix, unions, true));
             }
             _ => unimplemented!(),
         }
@@ -911,10 +930,9 @@ impl LiteralValue {
     }
 }
 
-// TODO: properly print nested union type
-// TODO: fix spaces
+// TODO: fix multiple Array variants in enum
 // TODO: handle methods from class
-// TODO: fix defines.types
+// TODO: fix defines.types (add Events type?)
 // TODO: model base class better? (e.g. for filter types)
 // TODO: remove Union postfix for named types
 // TODO: add descriptions

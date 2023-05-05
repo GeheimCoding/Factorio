@@ -68,6 +68,11 @@ pub struct LuaBootstrap {
     pub object_name: String,
 }
 
+pub enum LuaBurnerOwnerUnion {
+    LuaEntity(LuaEntity),
+    LuaEquipment(LuaEquipment),
+}
+
 pub struct LuaBurner {
     pub burnt_result_inventory: LuaInventory,
     pub currently_burning: Option<LuaItemPrototype>,
@@ -143,6 +148,18 @@ pub struct LuaConstantCombinatorControlBehavior {
 pub struct LuaContainerControlBehavior {
     pub object_name: String,
     pub valid: bool,
+}
+
+pub enum LuaControlOpenedUnion {
+    LuaEntity(LuaEntity),
+    LuaItemStack(LuaItemStack),
+    LuaEquipment(LuaEquipment),
+    LuaEquipmentGrid(LuaEquipmentGrid),
+    LuaPlayer(LuaPlayer),
+    LuaGuiElement(LuaGuiElement),
+    LuaInventory(LuaInventory),
+    LuaTechnology(LuaTechnology),
+    DefinesGuiType(GuiType),
 }
 
 pub struct LuaControlMiningState {
@@ -297,6 +314,32 @@ pub struct LuaElectricEnergySourcePrototype {
     pub render_no_power_icon: bool,
     pub usage_priority: String,
     pub valid: bool,
+}
+
+pub enum LuaEntityAssociatedPlayerUnion {
+    LuaPlayer(LuaPlayer),
+    PlayerIdentification(PlayerIdentification),
+}
+
+pub enum LuaEntityGhostPrototypeUnion {
+    LuaEntityPrototype(LuaEntityPrototype),
+    LuaTilePrototype(LuaTilePrototype),
+}
+
+pub enum LuaEntityLastUserUnion {
+    LuaPlayer(LuaPlayer),
+    PlayerIdentification(PlayerIdentification),
+}
+
+pub enum LuaEntityNeighboursUnion {
+    Dictionary(dictionary),
+    Array(Vec<Vec<LuaEntity>>),
+    LuaEntity(LuaEntity),
+}
+
+pub enum LuaEntityRenderPlayerUnion {
+    LuaPlayer(LuaPlayer),
+    PlayerIdentification(PlayerIdentification),
 }
 
 pub struct LuaEntityCircuitConnectedEntities {
@@ -883,6 +926,16 @@ pub struct LuaEquipmentPrototype {
     pub valid: bool,
 }
 
+pub enum LuaFlowStatisticsInputCountsUnion {
+    Uint64(u64),
+    Double(f64),
+}
+
+pub enum LuaFlowStatisticsOutputCountsUnion {
+    Uint64(u64),
+    Double(f64),
+}
+
 pub struct LuaFlowStatistics {
     pub force: Option<LuaForce>,
     pub input_counts: HashMap<String, LuaFlowStatisticsInputCountsUnion>,
@@ -1039,6 +1092,21 @@ pub struct LuaFuelCategoryPrototype {
     pub valid: bool,
 }
 
+pub enum LuaGameScriptForcesUnion {
+    Uint(u32),
+    String(String),
+}
+
+pub enum LuaGameScriptPlayersUnion {
+    Uint(u32),
+    String(String),
+}
+
+pub enum LuaGameScriptSurfacesUnion {
+    Uint(u32),
+    String(String),
+}
+
 pub struct LuaGameScript {
     pub achievement_prototypes: HashMap<String, LuaAchievementPrototype>,
     pub active_mods: HashMap<String, String>,
@@ -1139,6 +1207,16 @@ pub struct LuaGui {
     pub screen: LuaGuiElement,
     pub top: LuaGuiElement,
     pub valid: bool,
+}
+
+pub enum LuaGuiElementElemValueUnion {
+    String(String),
+    SignalID(SignalID),
+}
+
+pub enum LuaGuiElementStyleUnion {
+    LuaStyle(LuaStyle),
+    String(String),
 }
 
 pub struct LuaGuiElement {
@@ -1499,6 +1577,29 @@ pub struct LuaMiningDrillControlBehavior {
     pub valid: bool,
 }
 
+pub enum LuaModSettingPrototypeAllowedValuesUnion {
+    Array(Vec<String>),
+    Array(Vec<i32>),
+    Array(Vec<f64>),
+}
+
+pub enum LuaModSettingPrototypeDefaultValueUnion {
+    Boolean(bool),
+    Double(f64),
+    Int(i32),
+    String(String),
+}
+
+pub enum LuaModSettingPrototypeMaximumValueUnion {
+    Double(f64),
+    Int(i32),
+}
+
+pub enum LuaModSettingPrototypeMinimumValueUnion {
+    Double(f64),
+    Int(i32),
+}
+
 pub struct LuaModSettingPrototype {
     pub allow_blank: Option<bool>,
     pub allowed_values: Option<LuaModSettingPrototypeAllowedValuesUnion>,
@@ -1784,6 +1885,31 @@ pub struct LuaShortcutPrototype {
 pub struct LuaStorageTankControlBehavior {
     pub object_name: String,
     pub valid: bool,
+}
+
+pub enum LuaStyleExtraMarginWhenActivatedUnion {
+    Int(i32),
+    Array(Vec<i32>),
+}
+
+pub enum LuaStyleExtraPaddingWhenActivatedUnion {
+    Int(i32),
+    Array(Vec<i32>),
+}
+
+pub enum LuaStyleMarginUnion {
+    Int(i32),
+    Array(Vec<i32>),
+}
+
+pub enum LuaStylePaddingUnion {
+    Int(i32),
+    Array(Vec<i32>),
+}
+
+pub enum LuaStyleSizeUnion {
+    Int(i32),
+    Array(Vec<i32>),
 }
 
 pub struct LuaStyle {
@@ -2098,4 +2224,3 @@ pub struct LuaWallControlBehavior {
     pub read_sensor: bool,
     pub valid: bool,
 }
-
