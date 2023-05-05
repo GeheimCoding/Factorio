@@ -1578,9 +1578,9 @@ pub struct LuaMiningDrillControlBehavior {
 }
 
 pub enum LuaModSettingPrototypeAllowedValuesUnion {
-    Array(Vec<String>),
-    Array(Vec<i32>),
-    Array(Vec<f64>),
+    ArrayString(Vec<String>),
+    ArrayI32(Vec<i32>),
+    ArrayF64(Vec<f64>),
 }
 
 pub enum LuaModSettingPrototypeDefaultValueUnion {

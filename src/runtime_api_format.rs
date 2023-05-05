@@ -749,8 +749,13 @@ impl ComplexType {
                     return options[0].generate_definition(&prefix, unions, true);
                 }
                 union_definition.push_str(&format!("pub enum {} {{\n", prefix));
+                let array_count = options
+                    .iter()
+                    .map(Type::get_type_name)
+                    .filter(|name| name == "array")
+                    .count();
                 for option in options {
-                    let type_name = option.get_type_name();
+                    let mut type_name = option.get_type_name();
                     if option.is_owned_type() {
                         if !type_name.is_empty() {
                             union_definition
@@ -758,7 +763,14 @@ impl ComplexType {
                         }
                     } else {
                         let typ = if type_name == "array" {
-                            option.generate_definition(&prefix, unions, true)
+                            let array_definition =
+                                option.generate_definition(&prefix, unions, true);
+                            if array_count > 1 {
+                                type_name.push('_');
+                                type_name
+                                    .push_str(&array_definition[4..array_definition.len() - 1]);
+                            }
+                            array_definition
                         } else {
                             Type::lua_type_to_rust_type(&type_name)
                         };
@@ -930,8 +942,8 @@ impl LiteralValue {
     }
 }
 
-// TODO: fix multiple Array variants in enum
 // TODO: handle methods from class
+// TODO: fix dictionary in union
 // TODO: fix defines.types (add Events type?)
 // TODO: model base class better? (e.g. for filter types)
 // TODO: remove Union postfix for named types
