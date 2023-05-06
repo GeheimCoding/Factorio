@@ -1,3 +1,9 @@
+use std::collections::HashMap;
+
+use super::classes::*;
+use super::concepts::*;
+use super::defines::*;
+
 pub struct CustomInputEvent {
     pub cursor_position: MapPosition,
     pub input_name: String,

@@ -58,6 +58,16 @@ pub struct RuntimeApiFormat {
     global_functions: Vec<Method>,
 }
 
+enum Import {
+    HashMap,
+    HashSet,
+    Classes,
+    Concepts,
+    Defines,
+    Events,
+    LineBreak,
+}
+
 trait GenerateDefinition {
     fn generate_definition(&self) -> String;
 }
@@ -79,11 +89,23 @@ impl RuntimeApiFormat {
         &self,
         file_path: PathBuf,
         definition_types: &Vec<T>,
+        imports: Vec<Import>,
     ) -> std::io::Result<()> {
         if file_path.exists() {
             fs::remove_file(&file_path)?;
         }
         let mut definition = String::new();
+        for import in imports {
+            definition.push_str(match import {
+                Import::HashMap => "use std::collections::HashMap;\n",
+                Import::HashSet => "use std::collections::HashSet;\n",
+                Import::Classes => "use super::classes::*;\n",
+                Import::Concepts => "use super::concepts::*;\n",
+                Import::Defines => "use super::defines::*;\n",
+                Import::Events => "use super::events::*;\n",
+                Import::LineBreak => "\n",
+            });
+        }
         for definition_type in definition_types {
             definition.push_str(&format!("{}\n", definition_type.generate_definition()));
         }
@@ -94,19 +116,43 @@ impl RuntimeApiFormat {
     }
 
     fn generate_classes(&self, base_path: &PathBuf) -> std::io::Result<()> {
-        self.generate_definition(base_path.join("classes.rs"), &self.classes)
+        let imports = vec![
+            Import::HashMap,
+            Import::HashSet,
+            Import::LineBreak,
+            Import::Concepts,
+            Import::Defines,
+            Import::LineBreak,
+        ];
+        self.generate_definition(base_path.join("classes.rs"), &self.classes, imports)
     }
 
     fn generate_events(&self, base_path: &PathBuf) -> std::io::Result<()> {
-        self.generate_definition(base_path.join("events.rs"), &self.events)
+        let imports = vec![
+            Import::HashMap,
+            Import::LineBreak,
+            Import::Classes,
+            Import::Concepts,
+            Import::Defines,
+            Import::LineBreak,
+        ];
+        self.generate_definition(base_path.join("events.rs"), &self.events, imports)
     }
 
     fn generate_concepts(&self, base_path: &PathBuf) -> std::io::Result<()> {
-        self.generate_definition(base_path.join("concepts.rs"), &self.concepts)
+        let imports = vec![
+            Import::HashMap,
+            Import::HashSet,
+            Import::LineBreak,
+            Import::Classes,
+            Import::Defines,
+            Import::LineBreak,
+        ];
+        self.generate_definition(base_path.join("concepts.rs"), &self.concepts, imports)
     }
 
     fn generate_defines(&self, base_path: &PathBuf) -> std::io::Result<()> {
-        self.generate_definition(base_path.join("defines.rs"), &self.defines)
+        self.generate_definition(base_path.join("defines.rs"), &self.defines, Vec::new())
     }
 }
 
@@ -691,7 +737,7 @@ impl Type {
             Self::String(string) => {
                 let mut definition = String::new();
                 if !is_nested {
-                    definition.push_str(&format!("type {prefix} = "));
+                    definition.push_str(&format!("pub type {prefix} = "));
                 }
                 definition.push_str(&Type::lua_type_to_rust_type(string));
                 if !is_nested {
@@ -851,7 +897,7 @@ impl ComplexType {
             }
             Self::Array { value } => {
                 if !is_nested {
-                    definition.push_str(&format!("type {prefix} = "));
+                    definition.push_str(&format!("pub type {prefix} = "));
                 }
                 definition.push_str(&format!(
                     "Vec<{}>",
@@ -863,7 +909,7 @@ impl ComplexType {
             }
             Self::Dictionary { key, value } | Self::LuaCustomTable { key, value } => {
                 if !is_nested {
-                    definition.push_str(&format!("type {prefix} = "));
+                    definition.push_str(&format!("pub type {prefix} = "));
                 }
                 let mut is_map = true;
                 if let Type::ComplexType(ComplexType::Literal { value, description }) =
@@ -944,11 +990,13 @@ impl LiteralValue {
     }
 }
 
+// TODO: fix missing BlueprintCircuitConnection and BlueprintControlBehavior
+// TODO: fix Command defines.types (add Events type?)
+// TODO: fix recursive types
 // TODO: handle methods from class
-// TODO: fix defines.types (add Events type?)
-// TODO: model base class better? (e.g. for filter types)
+// TODO: add base class with has-a (e.g. for filter types)
 // TODO: remove Union postfix for named types
-// TODO: collapse one-element structs
+// TODO: collapse one-element structs (and use statements)
 // TODO: add descriptions
 // TODO: fix clippy lints
 // TODO: add tests

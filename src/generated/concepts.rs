@@ -1,3 +1,9 @@
+use std::collections::HashMap;
+use std::collections::HashSet;
+
+use super::classes::*;
+use super::defines::*;
+
 pub enum AchievementPrototypeFilterAttributesTypeUnion {
     String(String),
     Array(Vec<String>),
@@ -358,7 +364,7 @@ pub struct CliffPlacementSettings {
     pub richness: MapGenSize,
 }
 
-type CollisionMask = HashSet<CollisionMaskLayer>;
+pub type CollisionMask = HashSet<CollisionMaskLayer>;
 
 pub enum CollisionMaskLayer {
     GroundTile,
@@ -383,7 +389,7 @@ pub enum CollisionMaskWithFlagsUnion {
     CollidingWithTilesOnly,
 }
 
-type CollisionMaskWithFlags = HashSet<CollisionMaskWithFlagsUnion>;
+pub type CollisionMaskWithFlags = HashSet<CollisionMaskWithFlagsUnion>;
 
 pub struct Color {
     pub a: Option<f32>,
@@ -711,7 +717,7 @@ pub enum EntityPrototypeFlagsUnion {
     NotInMadeIn,
 }
 
-type EntityPrototypeFlags = HashSet<EntityPrototypeFlagsUnion>;
+pub type EntityPrototypeFlags = HashSet<EntityPrototypeFlagsUnion>;
 
 pub enum EntityPrototypeIdentification {
     LuaEntity(LuaEntity),
@@ -779,7 +785,7 @@ pub enum EventFilterUnion {
     LuaPlayerRepairedEntityEventFilter(LuaPlayerRepairedEntityEventFilter),
 }
 
-type EventFilter = Vec<EventFilterUnion>;
+pub type EventFilter = Vec<EventFilterUnion>;
 
 pub struct Fluid {
     pub amount: f64,
@@ -1123,7 +1129,7 @@ pub enum ItemPrototypeFlagsUnion {
     Spawnable,
 }
 
-type ItemPrototypeFlags = HashSet<ItemPrototypeFlagsUnion>;
+pub type ItemPrototypeFlags = HashSet<ItemPrototypeFlagsUnion>;
 
 pub enum ItemPrototypeIdentification {
     LuaItemStack(LuaItemStack),
@@ -2016,7 +2022,7 @@ pub enum MouseButtonFlagsUnion {
     Button9,
 }
 
-type MouseButtonFlags = HashSet<MouseButtonFlagsUnion>;
+pub type MouseButtonFlags = HashSet<MouseButtonFlagsUnion>;
 
 pub struct NoiseExpression {
     pub typ: String,
@@ -2184,14 +2190,14 @@ pub enum PrototypeFilterUnion {
     TechnologyPrototypeFilter(TechnologyPrototypeFilter),
 }
 
-type PrototypeFilter = Vec<PrototypeFilterUnion>;
+pub type PrototypeFilter = Vec<PrototypeFilterUnion>;
 
 pub struct PrototypeHistory {
     pub changed: Vec<String>,
     pub created: String,
 }
 
-type RealOrientation = f32;
+pub type RealOrientation = f32;
 
 pub struct RecipePrototypeFilterAttributesCategory {
     pub category: String,
@@ -2377,7 +2383,7 @@ pub enum SelectionModeFlagsUnion {
     TileGhost,
 }
 
-type SelectionModeFlags = HashSet<SelectionModeFlagsUnion>;
+pub type SelectionModeFlags = HashSet<SelectionModeFlagsUnion>;
 
 pub struct Signal {
     pub count: i32,
@@ -2416,7 +2422,7 @@ pub struct SmokeSource {
     pub west_position: Option<Vector>,
 }
 
-type SoundPath = String;
+pub type SoundPath = String;
 
 pub enum SoundType {
     GameEffect,
@@ -2433,7 +2439,7 @@ pub struct SpawnPointDefinition {
     pub weight: f64,
 }
 
-type SpritePath = String;
+pub type SpritePath = String;
 
 pub struct SteeringMapSetting {
     pub force_unit_fuzzy_goto_behavior: bool,
@@ -2458,7 +2464,7 @@ pub struct TabAndContent {
     pub tab: LuaGuiElement,
 }
 
-type Tags = HashMap<String, AnyBasic>;
+pub type Tags = HashMap<String, AnyBasic>;
 
 pub enum TechnologyIdentification {
     String(String),
@@ -2643,7 +2649,7 @@ pub struct TriggerItem {
     pub typ: String,
 }
 
-type TriggerTargetMask = HashMap<String, bool>;
+pub type TriggerTargetMask = HashMap<String, bool>;
 
 pub struct UnitGroupMapSettings {
     pub max_gathering_unit_groups: u32,

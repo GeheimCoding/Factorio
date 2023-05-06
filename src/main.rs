@@ -1,6 +1,7 @@
 #![allow(unused)]
 #![deny(clippy::unwrap_used)]
 
+//mod generated;
 mod remote_console;
 mod runtime_api_format;
 

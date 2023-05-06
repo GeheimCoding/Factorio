@@ -1,3 +1,9 @@
+use std::collections::HashMap;
+use std::collections::HashSet;
+
+use super::concepts::*;
+use super::defines::*;
+
 pub struct LuaAISettings {
     pub allow_destroy_when_commands_fail: bool,
     pub allow_try_return_to_spawner: bool,
