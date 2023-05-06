@@ -771,6 +771,8 @@ impl ComplexType {
                                     .push_str(&array_definition[4..array_definition.len() - 1]);
                             }
                             array_definition
+                        } else if type_name == "dictionary" {
+                            option.generate_definition(&prefix, unions, true)
                         } else {
                             Type::lua_type_to_rust_type(&type_name)
                         };
@@ -943,10 +945,10 @@ impl LiteralValue {
 }
 
 // TODO: handle methods from class
-// TODO: fix dictionary in union
 // TODO: fix defines.types (add Events type?)
 // TODO: model base class better? (e.g. for filter types)
 // TODO: remove Union postfix for named types
+// TODO: collapse one-element structs
 // TODO: add descriptions
 // TODO: fix clippy lints
 // TODO: add tests

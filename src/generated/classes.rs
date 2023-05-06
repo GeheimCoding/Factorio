@@ -332,7 +332,7 @@ pub enum LuaEntityLastUserUnion {
 }
 
 pub enum LuaEntityNeighboursUnion {
-    Dictionary(dictionary),
+    Dictionary(HashMap<String, Vec<LuaEntity>>),
     Array(Vec<Vec<LuaEntity>>),
     LuaEntity(LuaEntity),
 }
