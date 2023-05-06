@@ -1,5 +1,5 @@
 use std::{
-    collections::HashSet,
+    collections::{HashMap, HashSet},
     fmt::Display,
     fs::{self, File},
     io::{BufWriter, Write},
@@ -189,6 +189,36 @@ impl GenerateDefinition for Class {
         let mut inline_type_definition = String::new();
         let mut struct_definition = String::new();
         let mut unions = Vec::new();
+        let mut cycles = HashMap::new();
+        // TODO: find better way to resolve cycles?
+        cycles.insert("LuaGroup", vec!["LuaGroup"]);
+        cycles.insert(
+            "LuaEntity",
+            vec![
+                "LuaEntity",
+                "LuaBurner",
+                "Command",
+                "LuaEntityNeighboursUnion",
+                "LuaTrain",
+                "LuaUnitGroup",
+            ],
+        );
+        cycles.insert("LuaGuiElement", vec!["LuaGuiElement", "LuaGui"]);
+        cycles.insert("LuaItemPrototype", vec!["LuaItemPrototype"]);
+        cycles.insert("LuaTilePrototype", vec!["LuaTilePrototype"]);
+        cycles.insert("LuaEntityPrototype", vec!["LuaEntityPrototype"]);
+        cycles.insert("LuaTechnology", vec!["LuaForce"]);
+        cycles.insert("LuaPlayer", vec!["LuaEntity", "DragTarget", "LuaGui"]);
+        cycles.insert("LuaFluidBox", vec!["LuaEntity"]);
+        cycles.insert("LuaLogisticCell", vec!["LuaEntity"]);
+        cycles.insert("LuaFluidBoxPrototype", vec!["LuaEntityPrototype"]);
+        cycles.insert("LuaFlowStatistics", vec!["LuaForce"]);
+        cycles.insert("LuaEquipmentPrototype", vec!["LuaItemPrototype"]);
+        cycles.insert("LuaItemStack", vec!["LuaEntity"]);
+        cycles.insert("LuaInventory", vec!["LuaEntity", "LuaEquipment"]);
+        cycles.insert("LuaEquipment", vec!["LuaBurner"]);
+        cycles.insert("LuaStyle", vec!["LuaGui"]);
+        cycles.insert("LuaUnitGroup", vec!["Command"]);
         let prefix = &self.name;
 
         struct_definition.push_str(&format!("pub struct {} {{\n", prefix));
@@ -206,10 +236,20 @@ impl GenerateDefinition for Class {
             } else {
                 &typ
             };
+            let typ = if cycles.contains_key(self.name.as_str())
+                && cycles
+                    .get(self.name.as_str())
+                    .unwrap()
+                    .contains(&typ.as_str())
+            {
+                format!("Box<{typ}>")
+            } else {
+                typ.to_owned()
+            };
             let typ = if attribute.optional {
                 format!("Option<{typ}>")
             } else {
-                typ.to_owned()
+                typ
             };
             let name = if name == "type" {
                 "typ"
@@ -1006,7 +1046,6 @@ impl LiteralValue {
     }
 }
 
-// TODO: fix recursive types
 // TODO: handle methods from class
 // TODO: add base class with has-a (e.g. for filter types)
 // TODO: remove Union postfix for named types
