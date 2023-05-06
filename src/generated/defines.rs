@@ -73,7 +73,7 @@ pub enum CircuitConnectorId {
     Wall,
 }
 
-pub enum Command {
+pub enum CommandDefine {
     Attack,
     AttackArea,
     BuildBase,

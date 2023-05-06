@@ -215,6 +215,10 @@ pub struct BeamTarget {
     pub position: Option<MapPosition>,
 }
 
+pub struct BlueprintCircuitConnection;
+
+pub struct BlueprintControlBehavior;
+
 pub struct BlueprintEntity {
     pub connections: Option<BlueprintCircuitConnection>,
     pub control_behavior: Option<BlueprintControlBehavior>,
@@ -471,7 +475,7 @@ pub enum CommandAttributes {
 }
 
 pub struct Command {
-    pub typ: Command,
+    pub typ: CommandDefine,
     pub attributes: Option<CommandAttributes>,
 }
 

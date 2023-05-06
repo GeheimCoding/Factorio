@@ -299,6 +299,11 @@ impl Define {
             if self.subkeys.is_some() {
                 unreachable!();
             }
+            let name = if name == "Command" {
+                "CommandDefine"
+            } else {
+                name
+            };
             definition.push_str(&format!("pub enum {} {{\n", name));
             for variant in variants {
                 definition.push_str(&variant.generate_definition());
@@ -462,7 +467,13 @@ impl Type {
             "number" => "f64".to_owned(),
             "string" => "String".to_owned(),
             "boolean" => "bool".to_owned(),
-            name if name.starts_with("defines.") => name[8..].to_owned().to_pascal_case(),
+            name if name.starts_with("defines.") => {
+                let mut name = name[8..].to_owned().to_pascal_case();
+                if name == "Command" {
+                    name.push_str("Define")
+                }
+                name
+            }
             name => name.to_owned(),
         }
     }
@@ -735,6 +746,11 @@ impl Type {
     ) -> String {
         match self {
             Self::String(string) => {
+                if string == "BlueprintCircuitConnection" {
+                    unions.push(format!("pub struct BlueprintCircuitConnection;"));
+                } else if string == "BlueprintControlBehavior" {
+                    unions.push(format!("pub struct BlueprintControlBehavior;"));
+                }
                 let mut definition = String::new();
                 if !is_nested {
                     definition.push_str(&format!("pub type {prefix} = "));
@@ -990,8 +1006,6 @@ impl LiteralValue {
     }
 }
 
-// TODO: fix missing BlueprintCircuitConnection and BlueprintControlBehavior
-// TODO: fix Command defines.types (add Events type?)
 // TODO: fix recursive types
 // TODO: handle methods from class
 // TODO: add base class with has-a (e.g. for filter types)
