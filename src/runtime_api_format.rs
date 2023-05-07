@@ -12,6 +12,10 @@ trait PascalCase {
     fn to_pascal_case(&self) -> String;
 }
 
+trait SnakeCase {
+    fn to_snake_case(&self) -> String;
+}
+
 impl PascalCase for String {
     fn to_pascal_case(&self) -> String {
         if self.is_empty() {
@@ -29,6 +33,25 @@ impl PascalCase for String {
             }
         }
         pascal_case
+    }
+}
+
+impl SnakeCase for String {
+    fn to_snake_case(&self) -> String {
+        if self.is_empty() {
+            return String::new();
+        }
+        let mut chars = self.chars();
+        let mut snake_case = String::from(chars.next().unwrap().to_ascii_lowercase());
+        while let Some(c) = chars.next() {
+            if c.is_ascii_uppercase() {
+                snake_case.push('_');
+                snake_case.push(c.to_ascii_lowercase());
+            } else {
+                snake_case.push(c);
+            }
+        }
+        snake_case
     }
 }
 
@@ -222,6 +245,15 @@ impl GenerateDefinition for Class {
         let prefix = &self.name;
 
         struct_definition.push_str(&format!("pub struct {} {{\n", prefix));
+        if let Some(base_classes) = &self.base_classes {
+            // TODO: there is only one base class here?
+            for base_class in base_classes {
+                struct_definition.push_str(&format!(
+                    "    pub {}: Box<{base_class}>,\n",
+                    base_class.to_snake_case()
+                ));
+            }
+        }
         for attribute in &self.attributes {
             let name = attribute.name.as_ref().unwrap();
             let prefix = &format!("{}{}", prefix, name.to_pascal_case());
@@ -927,6 +959,18 @@ impl ComplexType {
                             group_name.to_pascal_case(),
                             name
                         ));
+                        // TODO: maybe collapse one element types?
+                        // if variant_parameter_group.parameters.len() == 1 {
+                        //     print!("one for: {name} - ");
+                        //     let parameter = &variant_parameter_group.parameters[0];
+                        //     let name = parameter.name.as_ref().unwrap().replace("-", "_");
+                        //     let prefix = &format!("{}{}", prefix, name.to_pascal_case());
+                        //     let typ = Type::lua_type_to_rust_type(
+                        //         &parameter.typ.generate_definition(prefix, unions, true),
+                        //     );
+                        //     println!("{typ}");
+                        //     continue;
+                        // }
                         definition.push_str(&format!("pub struct {} {{\n", name));
                         for parameter in &variant_parameter_group.parameters {
                             let name = parameter.name.as_ref().unwrap().replace("-", "_");
@@ -1046,10 +1090,6 @@ impl LiteralValue {
     }
 }
 
-// TODO: handle methods from class
-// TODO: add base class with has-a (e.g. for filter types)
-// TODO: remove Union postfix for named types
-// TODO: collapse one-element structs (and use statements)
 // TODO: add descriptions
 // TODO: fix clippy lints
 // TODO: add tests
