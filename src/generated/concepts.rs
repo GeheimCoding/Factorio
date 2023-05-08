@@ -17,6 +17,7 @@ pub enum AchievementPrototypeFilterAttributes {
     Type(AchievementPrototypeFilterAttributesType),
 }
 
+/// Depending on the value of `filter`, the table may take additional fields. `filter` may be one of the following:
 pub struct AchievementPrototypeFilter {
     pub filter: String,
     pub invert: Option<bool>,
@@ -40,6 +41,7 @@ pub struct Alert {
     pub tick: u32,
 }
 
+/// A [string](string) that specifies where a GUI element should be.
 pub enum Alignment {
     TopLeft,
     MiddleLeft,
@@ -65,6 +67,7 @@ pub struct AmmoType {
     pub target_type: String,
 }
 
+/// Any basic type (string, number, boolean), table, or LuaObject.
 pub enum Any {
     String(String),
     Boolean(bool),
@@ -73,6 +76,7 @@ pub enum Any {
     LuaObject,
 }
 
+/// Any basic type (string, number, boolean) or table.
 pub enum AnyBasic {
     String(String),
     Boolean(bool),
@@ -147,6 +151,7 @@ pub struct AutoplaceSettings {
     pub treat_missing_as_default: bool,
 }
 
+/// Specifies how probability and richness are calculated when placing something on the map. Can be specified either using `probability_expression` and `richness_expression` or by using all the other fields.
 pub struct AutoplaceSpecification {
     pub control: Option<String>,
     pub coverage: f64,
@@ -219,6 +224,7 @@ pub struct BlueprintCircuitConnection;
 
 pub struct BlueprintControlBehavior;
 
+/// The representation of an entity inside of a blueprint. It has at least these fields, but can contain additional ones depending on the kind of entity.
 pub struct BlueprintEntity {
     pub connections: Option<BlueprintCircuitConnection>,
     pub control_behavior: Option<BlueprintControlBehavior>,
@@ -236,6 +242,7 @@ pub struct BlueprintSignalIcon {
     pub signal: SignalID,
 }
 
+/// Two positions, specifying the top-left and bottom-right corner of the box respectively. Like with [MapPosition](MapPosition), the names of the members may be omitted. When read from the game, the third member `orientation` is present if it is non-zero, however it is ignored when provided to the game.
 pub struct BoundingBox {
     pub left_top: MapPosition,
     pub orientation: Option<RealOrientation>,
@@ -285,11 +292,13 @@ pub struct ChartTagSpec {
     pub text: Option<String>,
 }
 
+/// Coordinates of a chunk in a [LuaSurface](LuaSurface) where each integer `x`/`y` represents a different chunk. This uses the same format as [MapPosition](MapPosition), meaning it can be specified either with or without explicit keys. A [MapPosition](MapPosition) can be translated to a ChunkPosition by dividing the `x`/`y` values by 32.
 pub struct ChunkPosition {
     pub x: i32,
     pub y: i32,
 }
 
+/// A [ChunkPosition](ChunkPosition) with an added bounding box for the area of the chunk.
 pub struct ChunkPositionAndArea {
     pub area: BoundingBox,
     pub x: i32,
@@ -368,8 +377,12 @@ pub struct CliffPlacementSettings {
     pub richness: MapGenSize,
 }
 
+/// A set of flags. Active flags are in the dictionary as `true`, while inactive flags aren't present at all.
 pub type CollisionMask = HashSet<CollisionMaskLayer>;
 
+/// A [string](string) specifying a collision mask layer.
+/// 
+/// In addition to the listed layers, there is `"layer-13"` through `"layer-55"`. These layers are currently unused by the game but may change. If a mod is going to use one of the unused layers it's recommended to start at the higher layers because the base game will take from the lower ones.
 pub enum CollisionMaskLayer {
     GroundTile,
     WaterTile,
@@ -393,8 +406,12 @@ pub enum CollisionMaskWithFlagsUnion {
     CollidingWithTilesOnly,
 }
 
+/// A [CollisionMask](CollisionMask) which also includes any flags this mask has.
 pub type CollisionMaskWithFlags = HashSet<CollisionMaskWithFlagsUnion>;
 
+/// Red, green, blue and alpha values, all in range [0, 1] or all in range [0, 255] if any value is > 1. All values here are optional. Color channels default to `0`, the alpha channel defaults to `1`.
+/// 
+/// Similar to [MapPosition](MapPosition), Color allows the short-hand notation of passing an array of exactly 3 or 4 numbers. The game usually expects colors to be in pre-multiplied form (color channels are pre-multiplied by alpha).
 pub struct Color {
     pub a: Option<f32>,
     pub b: Option<f32>,
@@ -402,6 +419,7 @@ pub struct Color {
     pub r: Option<f32>,
 }
 
+/// Same as [Color](Color), but red, green, blue and alpha values can be any floating point number, without any special handling of the range [1, 255].
 pub struct ColorModifier {
     pub a: Option<f32>,
     pub b: Option<f32>,
@@ -474,11 +492,13 @@ pub enum CommandAttributes {
     DefinesCommandWander(CommandAttributesDefinesCommandWander),
 }
 
+/// Commands can be given to enemies and unit groups.
 pub struct Command {
     pub typ: CommandDefine,
     pub attributes: Option<CommandAttributes>,
 }
 
+/// A string that specifies how the inputs should be compared
 pub enum ComparatorString {
     EqualTo,
     GreaterThan,
@@ -569,6 +589,7 @@ pub enum DecorativePrototypeFilterAttributes {
     CollisionMask(DecorativePrototypeFilterAttributesCollisionMask),
 }
 
+/// Depending on the value of `filter`, the table may take additional fields. `filter` may be one of the following:
 pub struct DecorativePrototypeFilter {
     pub filter: String,
     pub invert: Option<bool>,
@@ -582,6 +603,7 @@ pub struct DecorativeResult {
     pub position: TilePosition,
 }
 
+/// Technology and recipe difficulty settings. Updating any of the attributes will immediately take effect in the game engine.
 pub struct DifficultySettings {
     pub recipe_difficulty: DifficultySettingsRecipeDifficulty,
     pub research_queue_setting: String,
@@ -600,6 +622,7 @@ pub struct DragTarget {
     pub target_wire_id: Option<WireConnectionId>,
 }
 
+/// These values represent a percentual increase in evolution. This means a value of `0.1` would increase evolution by 10%.
 pub struct EnemyEvolutionMapSettings {
     pub destroy_factor: f64,
     pub enabled: bool,
@@ -607,6 +630,25 @@ pub struct EnemyEvolutionMapSettings {
     pub time_factor: f64,
 }
 
+/// Candidate chunks are given scores to determine which one of them should be expanded into. This score takes into account various settings noted below. The iteration is over a square region centered around the chunk for which the calculation is done, and includes the central chunk as well. Distances are calculated as [Manhattan distance](https://en.wikipedia.org/wiki/Taxicab_geometry).
+/// 
+/// The pseudocode algorithm to determine a chunk's score is as follows:
+/// 
+/// ```
+/// player = 0
+/// for neighbour in all chunks within enemy_building_influence_radius from chunk:
+/// player += number of player buildings on neighbour
+/// * building_coefficient
+/// * neighbouring_chunk_coefficient^distance(chunk, neighbour)
+/// 
+/// base = 0
+/// for neighbour in all chunk within friendly_base_influence_radius from chunk:
+/// base += num of enemy bases on neighbour
+/// * other_base_coefficient
+/// * neighbouring_base_chunk_coefficient^distance(chunk, neighbour)
+/// 
+/// score(chunk) = 1 / (1 + player + base)
+/// ```
 pub struct EnemyExpansionMapSettings {
     pub building_coefficient: f64,
     pub enabled: bool,
@@ -685,6 +727,7 @@ pub enum EntityPrototypeFilterAttributes {
     Type(EntityPrototypeFilterAttributesType),
 }
 
+/// Depending on the value of `filter`, the table may take additional fields. `filter` may be one of the following:
 pub struct EntityPrototypeFilter {
     pub filter: String,
     pub invert: Option<bool>,
@@ -721,19 +764,25 @@ pub enum EntityPrototypeFlagsUnion {
     NotInMadeIn,
 }
 
+/// A set of flags. Active flags are in the dictionary as `true`, while inactive flags aren't present at all.
+/// 
+/// By default, none of these flags are set.
 pub type EntityPrototypeFlags = HashSet<EntityPrototypeFlagsUnion>;
 
+/// An entity prototype may be specified in one of three ways.
 pub enum EntityPrototypeIdentification {
     LuaEntity(LuaEntity),
     LuaEntityPrototype(LuaEntityPrototype),
     String(String),
 }
 
+/// A table used to define a manual shape for a piece of equipment.
 pub struct EquipmentPoint {
     pub x: u32,
     pub y: u32,
 }
 
+/// Position inside an equipment grid. This uses the same format as [MapPosition](MapPosition), meaning it can be specified either with or without explicit keys.
 pub struct EquipmentPosition {
     pub x: i32,
     pub y: i32,
@@ -752,6 +801,7 @@ pub enum EquipmentPrototypeFilterAttributes {
     Type(EquipmentPrototypeFilterAttributesType),
 }
 
+/// Depending on the value of `filter`, the table may take additional fields. `filter` may be one of the following:
 pub struct EquipmentPrototypeFilter {
     pub filter: String,
     pub invert: Option<bool>,
@@ -759,6 +809,7 @@ pub struct EquipmentPrototypeFilter {
     pub attributes: Option<EquipmentPrototypeFilterAttributes>,
 }
 
+/// Information about the event that has been raised. The table can also contain other fields depending on the type of event. See [the list of Factorio events](events.html) for more information on these.
 pub struct EventData {
     pub mod_name: Option<String>,
     pub name: Events,
@@ -789,6 +840,7 @@ pub enum EventFilterUnion {
     LuaPlayerRepairedEntityEventFilter(LuaPlayerRepairedEntityEventFilter),
 }
 
+/// Used to filter out irrelevant event callbacks in a performant way.
 pub type EventFilter = Vec<EventFilterUnion>;
 
 pub struct Fluid {
@@ -797,6 +849,7 @@ pub struct Fluid {
     pub temperature: Option<f64>,
 }
 
+/// A definition of a fluidbox connection point.
 pub struct FluidBoxConnection {
     pub max_underground_distance: Option<u32>,
     pub positions: Vec<Vector>,
@@ -816,6 +869,7 @@ pub struct FluidBoxFilterSpec {
     pub name: String,
 }
 
+/// A fluid may be specified in one of three ways.
 pub enum FluidIdentification {
     String(String),
     LuaFluidPrototype(LuaFluidPrototype),
@@ -876,6 +930,7 @@ pub enum FluidPrototypeFilterAttributes {
     Subgroup(FluidPrototypeFilterAttributesSubgroup),
 }
 
+/// Depending on the value of `filter`, the table may take additional fields. `filter` may be one of the following:
 pub struct FluidPrototypeFilter {
     pub filter: String,
     pub invert: Option<bool>,
@@ -893,12 +948,14 @@ pub enum ForceCondition {
     NotSame,
 }
 
+/// A force may be specified in one of three ways.
 pub enum ForceIdentification {
     Uint8(u8),
     String(String),
     LuaForce(LuaForce),
 }
 
+/// Parameters that affect the look and control of the game. Updating any of the member attributes here will immediately take effect in the game engine.
 pub struct GameViewSettings {
     pub show_alert_gui: bool,
     pub show_controller_gui: bool,
@@ -946,11 +1003,13 @@ pub enum GuiArrowSpecificationAttributes {
     Position(GuiArrowSpecificationAttributesPosition),
 }
 
+/// Used for specifying where a GUI arrow should point to.
 pub struct GuiArrowSpecification {
     pub typ: String,
     pub attributes: Option<GuiArrowSpecificationAttributes>,
 }
 
+/// Screen coordinates of a GUI element in a [LuaGui](LuaGui). This uses the same format as [TilePosition](TilePosition), meaning it can be specified either with or without explicit keys.
 pub struct GuiLocation {
     pub x: i32,
     pub y: i32,
@@ -961,11 +1020,13 @@ pub struct HeatConnection {
     pub position: Vector,
 }
 
+/// The settings used by a heat-interface type entity.
 pub struct HeatSetting {
     pub mode: Option<String>,
     pub temperature: Option<f64>,
 }
 
+/// A single filter used by an infinity-filters instance.
 pub struct InfinityInventoryFilter {
     pub count: Option<u32>,
     pub index: u32,
@@ -973,6 +1034,7 @@ pub struct InfinityInventoryFilter {
     pub name: String,
 }
 
+/// A single filter used by an infinity-pipe type entity.
 pub struct InfinityPipeFilter {
     pub mode: Option<String>,
     pub name: String,
@@ -1112,6 +1174,7 @@ pub enum ItemPrototypeFilterAttributes {
     WireCount(ItemPrototypeFilterAttributesWireCount),
 }
 
+/// Depending on the value of `filter`, the table may take additional fields. `filter` may be one of the following:
 pub struct ItemPrototypeFilter {
     pub filter: String,
     pub invert: Option<bool>,
@@ -1133,8 +1196,12 @@ pub enum ItemPrototypeFlagsUnion {
     Spawnable,
 }
 
+/// A set of flags. Active flags are in the dictionary as `true`, while inactive flags aren't present at all.
+/// 
+/// By default, none of these flags are set.
 pub type ItemPrototypeFlags = HashSet<ItemPrototypeFlagsUnion>;
 
+/// An item prototype may be specified in one of three ways.
 pub enum ItemPrototypeIdentification {
     LuaItemStack(LuaItemStack),
     LuaItemPrototype(LuaItemPrototype),
@@ -1150,6 +1217,7 @@ pub struct ItemStackDefinition {
     pub tags: Option<Vec<String>>,
 }
 
+/// An item may be specified in one of two ways.
 pub enum ItemStackIdentification {
     SimpleItemStack(SimpleItemStack),
     LuaItemStack(LuaItemStack),
@@ -1165,6 +1233,16 @@ pub enum LocalisedStringUnion {
     LocalisedString(LocalisedString),
 }
 
+/// Localised strings are a way to support translation of in-game text. It is an array where the first element is the key and the remaining elements are parameters that will be substituted for placeholders in the template designated by the key.
+/// 
+/// The key identifies the string template. For example, `"gui-alert-tooltip.attack"` (for the template `"__1__
+/// objects are being damaged"`; see the file `data/core/locale/en.cfg`).
+/// 
+/// The template can contain placeholders such as `__1__` or `__2__`. These will be replaced by the respective parameter in the LocalisedString. The parameters themselves can be other localised strings, which will be processed recursively in the same fashion. Localised strings can not be recursed deeper than 20 levels and can not have more than 20 parameters.
+/// 
+/// There are two special flags for the localised string, indicated by the key being a particular string. First, if the key is the empty string (`""`), then all parameters will be concatenated (after processing, if any are localised strings themselves). Second, if the key is a question mark (`"?"`), then the first valid parameter will be used. A parameter can be invalid if its name doesn't match any string template. If no parameters are valid, the last one is returned. This is useful to implement a fallback for missing locale templates.
+/// 
+/// Furthermore, when an API function expects a localised string, it will also accept a regular string (i.e. not a table) which will not be translated, as well as a number, boolean or `nil`, which will be converted to their textual representation.
 pub enum LocalisedString {
     String(String),
     Number(f64),
@@ -1216,6 +1294,7 @@ pub enum LuaEntityClonedEventFilterAttributes {
     Type(LuaEntityClonedEventFilterAttributesType),
 }
 
+/// Depending on the value of `filter`, the table may take additional fields. `filter` may be one of the following:
 pub struct LuaEntityClonedEventFilter {
     pub filter: String,
     pub invert: Option<bool>,
@@ -1269,6 +1348,7 @@ pub enum LuaEntityDamagedEventFilterAttributes {
     Type(LuaEntityDamagedEventFilterAttributesType),
 }
 
+/// Depending on the value of `filter`, the table may take additional fields. `filter` may be one of the following:
 pub struct LuaEntityDamagedEventFilter {
     pub filter: String,
     pub invert: Option<bool>,
@@ -1299,6 +1379,7 @@ pub enum LuaEntityDeconstructionCancelledEventFilterAttributes {
     Type(LuaEntityDeconstructionCancelledEventFilterAttributesType),
 }
 
+/// Depending on the value of `filter`, the table may take additional fields. `filter` may be one of the following:
 pub struct LuaEntityDeconstructionCancelledEventFilter {
     pub filter: String,
     pub invert: Option<bool>,
@@ -1329,6 +1410,7 @@ pub enum LuaEntityDiedEventFilterAttributes {
     Type(LuaEntityDiedEventFilterAttributesType),
 }
 
+/// Depending on the value of `filter`, the table may take additional fields. `filter` may be one of the following:
 pub struct LuaEntityDiedEventFilter {
     pub filter: String,
     pub invert: Option<bool>,
@@ -1359,6 +1441,7 @@ pub enum LuaEntityMarkedForDeconstructionEventFilterAttributes {
     Type(LuaEntityMarkedForDeconstructionEventFilterAttributesType),
 }
 
+/// Depending on the value of `filter`, the table may take additional fields. `filter` may be one of the following:
 pub struct LuaEntityMarkedForDeconstructionEventFilter {
     pub filter: String,
     pub invert: Option<bool>,
@@ -1389,6 +1472,7 @@ pub enum LuaEntityMarkedForUpgradeEventFilterAttributes {
     Type(LuaEntityMarkedForUpgradeEventFilterAttributesType),
 }
 
+/// Depending on the value of `filter`, the table may take additional fields. `filter` may be one of the following:
 pub struct LuaEntityMarkedForUpgradeEventFilter {
     pub filter: String,
     pub invert: Option<bool>,
@@ -1424,6 +1508,7 @@ pub enum LuaPlayerBuiltEntityEventFilterAttributes {
     Type(LuaPlayerBuiltEntityEventFilterAttributesType),
 }
 
+/// Depending on the value of `filter`, the table may take additional fields. `filter` may be one of the following:
 pub struct LuaPlayerBuiltEntityEventFilter {
     pub filter: String,
     pub invert: Option<bool>,
@@ -1454,6 +1539,7 @@ pub enum LuaPlayerMinedEntityEventFilterAttributes {
     Type(LuaPlayerMinedEntityEventFilterAttributesType),
 }
 
+/// Depending on the value of `filter`, the table may take additional fields. `filter` may be one of the following:
 pub struct LuaPlayerMinedEntityEventFilter {
     pub filter: String,
     pub invert: Option<bool>,
@@ -1484,6 +1570,7 @@ pub enum LuaPlayerRepairedEntityEventFilterAttributes {
     Type(LuaPlayerRepairedEntityEventFilterAttributesType),
 }
 
+/// Depending on the value of `filter`, the table may take additional fields. `filter` may be one of the following:
 pub struct LuaPlayerRepairedEntityEventFilter {
     pub filter: String,
     pub invert: Option<bool>,
@@ -1499,6 +1586,7 @@ pub enum LuaPostEntityDiedEventFilterAttributes {
     Type(LuaPostEntityDiedEventFilterAttributesType),
 }
 
+/// Depending on the value of `filter`, the table may take additional fields. `filter` may be one of the following:
 pub struct LuaPostEntityDiedEventFilter {
     pub filter: String,
     pub invert: Option<bool>,
@@ -1529,6 +1617,7 @@ pub enum LuaPreGhostDeconstructedEventFilterAttributes {
     Type(LuaPreGhostDeconstructedEventFilterAttributesType),
 }
 
+/// Depending on the value of `filter`, the table may take additional fields. `filter` may be one of the following:
 pub struct LuaPreGhostDeconstructedEventFilter {
     pub filter: String,
     pub invert: Option<bool>,
@@ -1559,6 +1648,7 @@ pub enum LuaPreGhostUpgradedEventFilterAttributes {
     Type(LuaPreGhostUpgradedEventFilterAttributesType),
 }
 
+/// Depending on the value of `filter`, the table may take additional fields. `filter` may be one of the following:
 pub struct LuaPreGhostUpgradedEventFilter {
     pub filter: String,
     pub invert: Option<bool>,
@@ -1589,6 +1679,7 @@ pub enum LuaPrePlayerMinedEntityEventFilterAttributes {
     Type(LuaPrePlayerMinedEntityEventFilterAttributesType),
 }
 
+/// Depending on the value of `filter`, the table may take additional fields. `filter` may be one of the following:
 pub struct LuaPrePlayerMinedEntityEventFilter {
     pub filter: String,
     pub invert: Option<bool>,
@@ -1619,6 +1710,7 @@ pub enum LuaPreRobotMinedEntityEventFilterAttributes {
     Type(LuaPreRobotMinedEntityEventFilterAttributesType),
 }
 
+/// Depending on the value of `filter`, the table may take additional fields. `filter` may be one of the following:
 pub struct LuaPreRobotMinedEntityEventFilter {
     pub filter: String,
     pub invert: Option<bool>,
@@ -1654,6 +1746,7 @@ pub enum LuaRobotBuiltEntityEventFilterAttributes {
     Type(LuaRobotBuiltEntityEventFilterAttributesType),
 }
 
+/// Depending on the value of `filter`, the table may take additional fields. `filter` may be one of the following:
 pub struct LuaRobotBuiltEntityEventFilter {
     pub filter: String,
     pub invert: Option<bool>,
@@ -1684,6 +1777,7 @@ pub enum LuaRobotMinedEntityEventFilterAttributes {
     Type(LuaRobotMinedEntityEventFilterAttributesType),
 }
 
+/// Depending on the value of `filter`, the table may take additional fields. `filter` may be one of the following:
 pub struct LuaRobotMinedEntityEventFilter {
     pub filter: String,
     pub invert: Option<bool>,
@@ -1714,6 +1808,7 @@ pub enum LuaScriptRaisedBuiltEventFilterAttributes {
     Type(LuaScriptRaisedBuiltEventFilterAttributesType),
 }
 
+/// Depending on the value of `filter`, the table may take additional fields. `filter` may be one of the following:
 pub struct LuaScriptRaisedBuiltEventFilter {
     pub filter: String,
     pub invert: Option<bool>,
@@ -1744,6 +1839,7 @@ pub enum LuaScriptRaisedDestroyEventFilterAttributes {
     Type(LuaScriptRaisedDestroyEventFilterAttributesType),
 }
 
+/// Depending on the value of `filter`, the table may take additional fields. `filter` may be one of the following:
 pub struct LuaScriptRaisedDestroyEventFilter {
     pub filter: String,
     pub invert: Option<bool>,
@@ -1774,6 +1870,7 @@ pub enum LuaScriptRaisedReviveEventFilterAttributes {
     Type(LuaScriptRaisedReviveEventFilterAttributesType),
 }
 
+/// Depending on the value of `filter`, the table may take additional fields. `filter` may be one of the following:
 pub struct LuaScriptRaisedReviveEventFilter {
     pub filter: String,
     pub invert: Option<bool>,
@@ -1804,6 +1901,7 @@ pub enum LuaScriptRaisedTeleportedEventFilterAttributes {
     Type(LuaScriptRaisedTeleportedEventFilterAttributesType),
 }
 
+/// Depending on the value of `filter`, the table may take additional fields. `filter` may be one of the following:
 pub struct LuaScriptRaisedTeleportedEventFilter {
     pub filter: String,
     pub invert: Option<bool>,
@@ -1834,6 +1932,7 @@ pub enum LuaSectorScannedEventFilterAttributes {
     Type(LuaSectorScannedEventFilterAttributesType),
 }
 
+/// Depending on the value of `filter`, the table may take additional fields. `filter` may be one of the following:
 pub struct LuaSectorScannedEventFilter {
     pub filter: String,
     pub invert: Option<bool>,
@@ -1864,6 +1963,7 @@ pub enum LuaUpgradeCancelledEventFilterAttributes {
     Type(LuaUpgradeCancelledEventFilterAttributesType),
 }
 
+/// Depending on the value of `filter`, the table may take additional fields. `filter` may be one of the following:
 pub struct LuaUpgradeCancelledEventFilter {
     pub filter: String,
     pub invert: Option<bool>,
@@ -1871,6 +1971,7 @@ pub struct LuaUpgradeCancelledEventFilter {
     pub attributes: Option<LuaUpgradeCancelledEventFilterAttributes>,
 }
 
+/// All regular [MapSettings](MapSettings) plus an additional table that contains the [DifficultySettings](DifficultySettings).
 pub struct MapAndDifficultySettings {
     pub difficulty_settings: DifficultySettings,
     pub enemy_evolution: EnemyEvolutionMapSettings,
@@ -1882,6 +1983,7 @@ pub struct MapAndDifficultySettings {
     pub unit_group: UnitGroupMapSettings,
 }
 
+/// The data that can be extracted from a map exchange string, as a plain table.
 pub struct MapExchangeStringData {
     pub map_gen_settings: MapGenSettings,
     pub map_settings: MapAndDifficultySettings,
@@ -1894,6 +1996,7 @@ pub struct MapGenPreset {
     pub order: String,
 }
 
+/// The 'map type' dropdown in the map generation GUI is actually a selector for elevation generator. The base game sets `property_expression_names.elevation` to `"0_16-elevation"` to reproduce terrain from 0.16 or to `"0_17-island"` for the island preset. If generators are available for other properties, the 'map type' dropdown in the GUI will be renamed to 'elevation' and shown along with selectors for the other selectable properties.
 pub struct MapGenSettings {
     pub autoplace_controls: HashMap<String, AutoplaceControl>,
     pub autoplace_settings: HashMap<String, AutoplaceSettings>,
@@ -1910,6 +2013,9 @@ pub struct MapGenSettings {
     pub width: u32,
 }
 
+/// A floating point number specifying an amount.
+/// 
+/// For backwards compatibility, MapGenSizes can also be specified as one of the following strings, which will be converted to a number (when queried, a number will always be returned):
 pub enum MapGenSize {
     Float(f32),
     None,
@@ -1930,11 +2036,15 @@ pub enum MapGenSize {
     VeryGood,
 }
 
+/// Coordinates on a surface, for example of an entity. MapPositions may be specified either as a dictionary with `x`, `y` as keys, or simply as an array with two elements.
+/// 
+/// The coordinates are saved as a fixed-size 32 bit integer, with 8 bits reserved for decimal precision, meaning the smallest value step is `1/2^8 = 0.00390625` tiles.
 pub struct MapPosition {
     pub x: f64,
     pub y: f64,
 }
 
+/// Various game-related settings. Updating any of the attributes will immediately take effect in the game engine.
 pub struct MapSettings {
     pub enemy_evolution: EnemyEvolutionMapSettings,
     pub enemy_expansion: EnemyExpansionMapSettings,
@@ -1945,6 +2055,7 @@ pub struct MapSettings {
     pub unit_group: UnitGroupMapSettings,
 }
 
+/// What is shown in the map view. If a field is not given, that setting will not be changed.
 pub struct MapViewSettings {
     pub show_electric_network: Option<bool>,
     pub show_logistic_network: Option<bool>,
@@ -1996,6 +2107,7 @@ pub enum ModSettingPrototypeFilterAttributes {
     Type(ModSettingPrototypeFilterAttributesType),
 }
 
+/// Depending on the value of `filter`, the table may take additional fields. `filter` may be one of the following:
 pub struct ModSettingPrototypeFilter {
     pub filter: String,
     pub invert: Option<bool>,
@@ -2026,8 +2138,12 @@ pub enum MouseButtonFlagsUnion {
     Button9,
 }
 
+/// A set of flags. Active flags are in the dictionary as `true`, while inactive flags aren't present at all.
+/// 
+/// To write to this, use an array[[string](string)] of the mouse buttons that should be possible to use with on button. The flag `"left-and-right"` can also be set, which will set `"left"` and `"right"` to `true`.
 pub type MouseButtonFlags = HashSet<MouseButtonFlagsUnion>;
 
+/// A fragment of a functional program used to generate coherent noise, probably for purposes related to terrain generation. These can only be meaningfully written/modified during the data load phase. More detailed information is found on the [wiki](https://wiki.factorio.com/Types/NoiseExpression).
 pub struct NoiseExpression {
     pub typ: String,
 }
@@ -2037,6 +2153,7 @@ pub struct NthTickEventData {
     pub tick: u32,
 }
 
+/// A single offer on a market entity.
 pub struct Offer {
     pub offer: TechnologyModifier,
     pub price: Vec<Ingredient>,
@@ -2103,12 +2220,14 @@ pub struct PlaceAsTileResult {
     pub result: LuaTilePrototype,
 }
 
+/// A player may be specified in one of three ways.
 pub enum PlayerIdentification {
     Uint(u32),
     String(String),
     LuaPlayer(LuaPlayer),
 }
 
+/// These values are for the time frame of one second (60 ticks).
 pub struct PollutionMapSettings {
     pub ageing: f64,
     pub diffusion_ratio: f64,
@@ -2194,6 +2313,7 @@ pub enum PrototypeFilterUnion {
     TechnologyPrototypeFilter(TechnologyPrototypeFilter),
 }
 
+/// Types `"signal"` and `"item-group"` do not support filters.
 pub type PrototypeFilter = Vec<PrototypeFilterUnion>;
 
 pub struct PrototypeHistory {
@@ -2201,6 +2321,9 @@ pub struct PrototypeHistory {
     pub created: String,
 }
 
+/// The smooth orientation. It is a [float](float) in the range `[0, 1)` that covers a full circle, starting at the top and going clockwise. This means a value of `0` indicates "north", a value of `0.5` indicates "south".
+/// 
+/// For example then, a value of `0.625` would indicate "south-west", and a value of `0.875` would indicate "north-west".
 pub type RealOrientation = f32;
 
 pub struct RecipePrototypeFilterAttributesCategory {
@@ -2260,6 +2383,7 @@ pub enum RecipePrototypeFilterAttributes {
     Subgroup(RecipePrototypeFilterAttributesSubgroup),
 }
 
+/// Depending on the value of `filter`, the table may take additional fields. `filter` may be one of the following:
 pub struct RecipePrototypeFilter {
     pub filter: String,
     pub invert: Option<bool>,
@@ -2267,6 +2391,7 @@ pub struct RecipePrototypeFilter {
     pub attributes: Option<RecipePrototypeFilterAttributes>,
 }
 
+/// A number between 0 and 255 inclusive, represented by one of the following named strings or the string version of the number. For example `"27"` and `"decals"` are both valid. Higher values are rendered above lower values.
 pub enum RenderLayer {
     String(String),
     WaterTile,
@@ -2324,6 +2449,7 @@ pub struct RidingState {
     pub direction: RidingDirection,
 }
 
+/// An area defined using the map editor.
 pub struct ScriptArea {
     pub area: BoundingBox,
     pub color: Color,
@@ -2331,6 +2457,7 @@ pub struct ScriptArea {
     pub name: String,
 }
 
+/// A position defined using the map editor.
 pub struct ScriptPosition {
     pub color: Color,
     pub id: u32,
@@ -2349,6 +2476,7 @@ pub enum ScriptRenderVertexTargetTargetUnion {
     LuaEntity(LuaEntity),
 }
 
+/// One vertex of a ScriptRenderPolygon.
 pub struct ScriptRenderVertexTarget {
     pub target: ScriptRenderVertexTargetTargetUnion,
     pub target_offset: Option<Vector>,
@@ -2387,8 +2515,10 @@ pub enum SelectionModeFlagsUnion {
     TileGhost,
 }
 
+/// A set of flags on a selection tool that define how entities and tiles are selected. Active flags are in the dictionary as `true`, while inactive flags aren't present at all.
 pub type SelectionModeFlags = HashSet<SelectionModeFlagsUnion>;
 
+/// An actual signal transmitted by the network.
 pub struct Signal {
     pub count: i32,
     pub signal: SignalID,
@@ -2399,6 +2529,7 @@ pub struct SignalID {
     pub typ: String,
 }
 
+/// An item stack may be specified in one of two ways.
 pub enum SimpleItemStack {
     String(String),
     ItemStackDefinition(ItemStackDefinition),
@@ -2426,8 +2557,34 @@ pub struct SmokeSource {
     pub west_position: Option<Vector>,
 }
 
+/// It can be either the name of a [sound prototype](https://wiki.factorio.com/Prototype/Sound) defined in the data stage, or a path in the form `"type/name"`. The latter option can be sorted into three categories.
+/// 
+/// The validity of a SoundPath can be verified at runtime using [LuaGameScript::is_valid_sound_path](LuaGameScript::is_valid_sound_path).
+/// 
+/// The utility and ambient types each contain general use sound prototypes defined by the game itself.
+/// - `"utility"` - Uses the [UtilitySounds](https://wiki.factorio.com/Prototype/UtilitySounds) prototype. Example: `"utility/wire_connect_pole"`
+/// - `"ambient"` - Uses [AmbientSound](https://wiki.factorio.com/Prototype/AmbientSound) prototypes. Example: `"ambient/resource-deficiency"`
+/// 
+/// The following types can be combined with any tile name as long as its prototype defines the
+/// corresponding sound.
+/// - `"tile-walking"` - Uses [Tile::walking_sound](https://wiki.factorio.com/Prototype/Tile#walking_sound). Example: `"tile-walking/concrete"`
+/// - `"tile-mined"` - Uses [Tile::mined_sound](https://wiki.factorio.com/Prototype/Tile#mined_sound)
+/// - `"tile-build-small"` - Uses [Tile::build_sound](https://wiki.factorio.com/Prototype/Tile#build_sound). Example: `"tile-build-small/concrete"`
+/// - `"tile-build-medium"` - Uses [Tile::build_sound](https://wiki.factorio.com/Prototype/Tile#build_sound)
+/// - `"tile-build-large"` - Uses [Tile::build_sound](https://wiki.factorio.com/Prototype/Tile#build_sound)
+/// 
+/// The following types can be combined with any entity name as long as its prototype defines the
+/// corresponding sound.
+/// - `"entity-build"` - Uses [Entity::build_sound](https://wiki.factorio.com/Prototype/Entity#build_sound). Example: `"entity-build/wooden-chest"`
+/// - `"entity-mined"` - Uses [Entity::mined_sound](https://wiki.factorio.com/Prototype/Entity#mined_sound)
+/// - `"entity-mining"` - Uses [Entity::mining_sound](https://wiki.factorio.com/Prototype/Entity#mining_sound)
+/// - `"entity-vehicle_impact"` - Uses [Entity::vehicle_impact_sound](https://wiki.factorio.com/Prototype/Entity#vehicle_impact_sound)
+/// - `"entity-rotated"` - Uses [Entity::rotated_sound](https://wiki.factorio.com/Prototype/Entity#rotated_sound)
+/// - `"entity-open"` - Uses [Entity::open_sound](https://wiki.factorio.com/Prototype/Entity#open_sound)
+/// - `"entity-close"` - Uses [Entity::close_sound](https://wiki.factorio.com/Prototype/Entity#close_sound)
 pub type SoundPath = String;
 
+/// Defines which slider in the game's sound settings affects the volume of this sound. Furthermore, some sound types are mixed differently than others, e.g. zoom level effects are applied.
 pub enum SoundType {
     GameEffect,
     GuiEffect,
@@ -2443,6 +2600,23 @@ pub struct SpawnPointDefinition {
     pub weight: f64,
 }
 
+/// It can be either the name of a [sprite prototype](https://wiki.factorio.com/Prototype/Sprite) defined in the data stage, or a path in form "type/name".
+/// 
+/// The validity of a SpritePath can be verified at runtime using [LuaGameScript::is_valid_sprite_path](LuaGameScript::is_valid_sprite_path).
+/// 
+/// The supported types are:
+/// - `"item"` - for example "item/iron-plate" is the icon sprite of iron plate
+/// - `"entity"` - for example "entity/small-biter" is the icon sprite of the small biter
+/// - `"technology"`
+/// - `"recipe"`
+/// - `"item-group"`
+/// - `"fluid"`
+/// - `"tile"`
+/// - `"virtual-signal"`
+/// - `"achievement"`
+/// - `"equipment"`
+/// - `"file"` - path to an image file located inside the current scenario. This file is not preloaded so it will be slower; for frequently used sprites, it is better to define sprite prototype and use it instead.
+/// - `"utility"` - sprite defined in the utility-sprites object, these are the pictures used by the game internally for the UI.
 pub type SpritePath = String;
 
 pub struct SteeringMapSetting {
@@ -2457,6 +2631,7 @@ pub struct SteeringMapSettings {
     pub moving: SteeringMapSetting,
 }
 
+/// A surface may be specified in one of three ways.
 pub enum SurfaceIdentification {
     Uint(u32),
     String(String),
@@ -2468,8 +2643,12 @@ pub struct TabAndContent {
     pub tab: LuaGuiElement,
 }
 
+/// A dictionary of string to the four basic Lua types: `string`, `boolean`, `number`, `table`.
+/// 
+/// Note that the API returns tags as a simple table, meaning any modifications to it will not propagate back to the game. Thus, to modify a set of tags, the whole table needs to be written back to the respective property.
 pub type Tags = HashMap<String, AnyBasic>;
 
+/// A technology may be specified in one of three ways.
 pub enum TechnologyIdentification {
     String(String),
     LuaTechnology(LuaTechnology),
@@ -2518,6 +2697,7 @@ pub enum TechnologyModifierAttributes {
     UnlockRecipe(TechnologyModifierAttributesUnlockRecipe),
 }
 
+/// The effect that is applied when a technology is researched. It is a table that contains at least the field `type`.
 pub struct TechnologyModifier {
     pub typ: String,
     pub attributes: Option<TechnologyModifierAttributes>,
@@ -2554,6 +2734,7 @@ pub enum TechnologyPrototypeFilterAttributes {
     UnlocksRecipe(TechnologyPrototypeFilterAttributesUnlocksRecipe),
 }
 
+/// Depending on the value of `filter`, the table may take additional fields. `filter` may be one of the following:
 pub struct TechnologyPrototypeFilter {
     pub filter: String,
     pub invert: Option<bool>,
@@ -2566,6 +2747,7 @@ pub struct Tile {
     pub position: TilePosition,
 }
 
+/// Coordinates of a tile on a [LuaSurface](LuaSurface) where each integer `x`/`y` represents a different tile. This uses the same format as [MapPosition](MapPosition), except it rounds any non-integer `x`/`y` down to whole numbers. It can be specified either with or without explicit keys.
 pub struct TilePosition {
     pub x: i32,
     pub y: i32,
@@ -2609,6 +2791,7 @@ pub enum TilePrototypeFilterAttributes {
     WalkingSpeedModifier(TilePrototypeFilterAttributesWalkingSpeedModifier),
 }
 
+/// Depending on the value of `filter`, the table may take additional fields. `filter` may be one of the following:
 pub struct TilePrototypeFilter {
     pub filter: String,
     pub invert: Option<bool>,
@@ -2653,6 +2836,7 @@ pub struct TriggerItem {
     pub typ: String,
 }
 
+/// A set of trigger target masks.
 pub type TriggerTargetMask = HashMap<String, bool>;
 
 pub struct UnitGroupMapSettings {
@@ -2681,6 +2865,7 @@ pub struct UpgradeFilter {
     pub typ: String,
 }
 
+/// A vector is a two-element array containing the `x` and `y` components. In some specific cases, the vector is a table with `x` and `y` keys instead, which the documentation will point out.
 pub struct Vector {
     pub x: f32,
     pub y: f32,

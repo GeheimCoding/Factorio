@@ -10,6 +10,7 @@ pub enum AlertType {
     TurretFire,
 }
 
+/// AI command exit status. See [LuaEntity::set_command](LuaEntity::set_command)
 pub enum BehaviorResult {
     Deleted,
     Fail,
@@ -26,6 +27,7 @@ pub enum BuildCheckType {
     ScriptGhost,
 }
 
+/// State of a chain signal.
 pub enum ChainSignalState {
     AllOpen,
     None,
@@ -73,6 +75,7 @@ pub enum CircuitConnectorId {
     Wall,
 }
 
+/// Command given to units describing what they should do.
 pub enum CommandDefine {
     Attack,
     AttackArea,
@@ -85,6 +88,7 @@ pub enum CommandDefine {
     Wander,
 }
 
+/// How commands are joined together in a compound command (see [defines.command.compound](defines.command.compound)).
 pub enum CompoundCommand {
     LogicalAnd,
     LogicalOr,
@@ -264,6 +268,7 @@ pub enum EntityStatus {
     Working,
 }
 
+/// See the [events page](events.html) for more info on what events contain and when they get raised.
 pub enum Events {
     OnAiCommandCompleted,
     OnAreaCloned,
@@ -775,6 +780,7 @@ pub enum MouseButtonType {
     Right,
 }
 
+/// A dictionary mapping all top-level prototypes by name to a list of their associated subtypes. This list is organized as a lookup table, meaning it maps the sub-prototype names to `0`. As an example, `defines.prototypes['entity']` looks like this: `{furnace=0, inserter=0, container=0, ...}`.
 pub struct Prototypes;
 
 pub enum RailConnectionDirection {
@@ -912,6 +918,7 @@ pub enum Shooting {
     ShootingSelected,
 }
 
+/// State of an ordinary rail signal.
 pub enum SignalState {
     Closed,
     Open,

@@ -4,6 +4,7 @@ use std::collections::HashSet;
 use super::concepts::*;
 use super::defines::*;
 
+/// Collection of settings for overriding default ai behavior.
 pub struct LuaAISettings {
     pub allow_destroy_when_commands_fail: bool,
     pub allow_try_return_to_spawner: bool,
@@ -13,6 +14,7 @@ pub struct LuaAISettings {
     pub valid: bool,
 }
 
+/// Control behavior for accumulators.
 pub struct LuaAccumulatorControlBehavior {
     pub lua_control_behavior: Box<LuaControlBehavior>,
     pub object_name: String,
@@ -20,6 +22,7 @@ pub struct LuaAccumulatorControlBehavior {
     pub valid: bool,
 }
 
+/// Prototype of a achievement.
 pub struct LuaAchievementPrototype {
     pub allowed_without_fight: bool,
     pub hidden: bool,
@@ -31,6 +34,7 @@ pub struct LuaAchievementPrototype {
     pub valid: bool,
 }
 
+/// Prototype of a ammo category.
 pub struct LuaAmmoCategoryPrototype {
     pub bonus_gui_order: String,
     pub localised_description: LocalisedString,
@@ -41,6 +45,7 @@ pub struct LuaAmmoCategoryPrototype {
     pub valid: bool,
 }
 
+/// Control behavior for arithmetic combinators.
 pub struct LuaArithmeticCombinatorControlBehavior {
     pub lua_combinator_control_behavior: Box<LuaCombinatorControlBehavior>,
     pub object_name: String,
@@ -48,6 +53,7 @@ pub struct LuaArithmeticCombinatorControlBehavior {
     pub valid: bool,
 }
 
+/// Prototype of an autoplace control.
 pub struct LuaAutoplaceControlPrototype {
     pub can_be_disabled: bool,
     pub category: String,
@@ -69,6 +75,7 @@ pub struct LuaBootstrapLevel {
     pub mod_name: Option<String>,
 }
 
+/// Entry point for registering event handlers. It is accessible through the global object named `script`.
 pub struct LuaBootstrap {
     pub active_mods: HashMap<String, String>,
     pub level: LuaBootstrapLevel,
@@ -81,6 +88,7 @@ pub enum LuaBurnerOwnerUnion {
     LuaEquipment(LuaEquipment),
 }
 
+/// A reference to the burner energy source owned by a specific [LuaEntity](LuaEntity) or [LuaEquipment](LuaEquipment).
 pub struct LuaBurner {
     pub burnt_result_inventory: LuaInventory,
     pub currently_burning: Option<LuaItemPrototype>,
@@ -105,6 +113,7 @@ pub struct LuaBurnerPrototypeLightFlicker {
     pub minimum_light_size: f32,
 }
 
+/// Prototype of a burner energy source.
 pub struct LuaBurnerPrototype {
     pub burnt_inventory_size: u32,
     pub effectivity: f64,
@@ -119,11 +128,15 @@ pub struct LuaBurnerPrototype {
     pub valid: bool,
 }
 
+/// A chunk iterator can be used for iterating chunks coordinates of a surface.
+/// 
+/// The returned type is a [ChunkPositionAndArea](ChunkPositionAndArea) containing the chunk coordinates and its area.
 pub struct LuaChunkIterator {
     pub object_name: String,
     pub valid: bool,
 }
 
+/// A circuit network associated with a given entity, connector, and wire type.
 pub struct LuaCircuitNetwork {
     pub circuit_connector_id: CircuitConnectorId,
     pub connected_circuit_count: u32,
@@ -140,12 +153,14 @@ pub struct LuaCombinatorControlBehavior {
     pub signals_last_tick: Vec<Signal>,
 }
 
+/// Allows for the registration of custom console commands through the global object named `commands`. Similarly to [event subscriptions](LuaBootstrap::on_event), these don't persist through a save-and-load cycle.
 pub struct LuaCommandProcessor {
     pub commands: HashMap<String, LocalisedString>,
     pub game_commands: HashMap<String, LocalisedString>,
     pub object_name: String,
 }
 
+/// Control behavior for constant combinators.
 pub struct LuaConstantCombinatorControlBehavior {
     pub lua_control_behavior: Box<LuaControlBehavior>,
     pub enabled: bool,
@@ -155,6 +170,7 @@ pub struct LuaConstantCombinatorControlBehavior {
     pub valid: bool,
 }
 
+/// Control behavior for container entities.
 pub struct LuaContainerControlBehavior {
     pub lua_control_behavior: Box<LuaControlBehavior>,
     pub object_name: String,
@@ -193,6 +209,7 @@ pub struct LuaControlWalkingState {
     pub walking: bool,
 }
 
+/// This is an abstract base class containing the common functionality between [LuaPlayer](LuaPlayer) and entities (see [LuaEntity](LuaEntity)). When accessing player-related functions through a [LuaEntity](LuaEntity), it must refer to a character entity.
 pub struct LuaControl {
     pub build_distance: u32,
     pub character_additional_mining_categories: Vec<String>,
@@ -244,11 +261,13 @@ pub struct LuaControl {
     pub walking_state: LuaControlWalkingState,
 }
 
+/// The control behavior for an entity. Inserters have logistic network and circuit network behavior logic, lamps have circuit logic and so on. This is an abstract base class that concrete control behaviors inherit.
 pub struct LuaControlBehavior {
     pub entity: LuaEntity,
     pub typ: ControlBehaviorType,
 }
 
+/// A custom tag that shows on the map view.
 pub struct LuaCustomChartTag {
     pub force: LuaForce,
     pub icon: SignalID,
@@ -261,6 +280,7 @@ pub struct LuaCustomChartTag {
     pub valid: bool,
 }
 
+/// Prototype of a custom input.
 pub struct LuaCustomInputPrototype {
     pub action: String,
     pub alternative_key_sequence: Option<String>,
@@ -280,11 +300,15 @@ pub struct LuaCustomInputPrototype {
     pub valid: bool,
 }
 
+/// Lazily evaluated table. For performance reasons, we sometimes return a custom table-like type instead of a native Lua table. This custom type lazily constructs the necessary Lua wrappers of the corresponding C++ objects, therefore preventing their unnecessary construction in some cases.
+/// 
+/// There are some notable consequences to the usage of a custom table type rather than the native Lua table type: Iterating a custom table is only possible using the `pairs` Lua function; `ipairs` won't work. Another key difference is that custom tables cannot be serialised into a game save file -- if saving the game would require serialisation of a custom table, an error will be displayed and the game will not be saved.
 pub struct LuaCustomTable {
     pub object_name: String,
     pub valid: bool,
 }
 
+/// Prototype of a damage.
 pub struct LuaDamagePrototype {
     pub hidden: bool,
     pub localised_description: LocalisedString,
@@ -295,6 +319,7 @@ pub struct LuaDamagePrototype {
     pub valid: bool,
 }
 
+/// Control behavior for decider combinators.
 pub struct LuaDeciderCombinatorControlBehavior {
     pub lua_combinator_control_behavior: Box<LuaCombinatorControlBehavior>,
     pub object_name: String,
@@ -302,6 +327,7 @@ pub struct LuaDeciderCombinatorControlBehavior {
     pub valid: bool,
 }
 
+/// Prototype of an optimized decorative.
 pub struct LuaDecorativePrototype {
     pub autoplace_specification: Option<AutoplaceSpecification>,
     pub collision_box: BoundingBox,
@@ -315,6 +341,7 @@ pub struct LuaDecorativePrototype {
     pub valid: bool,
 }
 
+/// Prototype of an electric energy source.
 pub struct LuaElectricEnergySourcePrototype {
     pub buffer_capacity: f64,
     pub drain: f64,
@@ -359,6 +386,9 @@ pub struct LuaEntityCircuitConnectedEntities {
     pub red: Vec<LuaEntity>,
 }
 
+/// The primary interface for interacting with entities through the Lua API. Entities are everything that exists on the map except for tiles (see [LuaTile](LuaTile)).
+/// 
+/// Most functions on LuaEntity also work when the entity is contained in a ghost.
 pub struct LuaEntity {
     pub lua_control: Box<LuaControl>,
     pub active: bool,
@@ -590,6 +620,7 @@ pub struct LuaEntityPrototypeSpawnCooldown {
     pub min: f64,
 }
 
+/// Prototype of an entity.
 pub struct LuaEntityPrototype {
     pub active_energy_usage: Option<f64>,
     pub additional_pastable_entities: Vec<LuaEntityPrototype>,
@@ -833,6 +864,9 @@ pub struct LuaEquipmentShape {
     pub width: u32,
 }
 
+/// An item in a [LuaEquipmentGrid](LuaEquipmentGrid), for example a fusion reactor placed in one's power armor.
+/// 
+/// An equipment reference becomes invalid once the equipment is removed or the equipment grid it resides in is destroyed.
 pub struct LuaEquipment {
     pub burner: Option<Box<LuaBurner>>,
     pub energy: f64,
@@ -851,6 +885,7 @@ pub struct LuaEquipment {
     pub valid: bool,
 }
 
+/// Prototype of an equipment category.
 pub struct LuaEquipmentCategoryPrototype {
     pub localised_description: LocalisedString,
     pub localised_name: LocalisedString,
@@ -860,6 +895,7 @@ pub struct LuaEquipmentCategoryPrototype {
     pub valid: bool,
 }
 
+/// An equipment grid is for example the inside of a power armor.
 pub struct LuaEquipmentGrid {
     pub available_in_batteries: f64,
     pub battery_capacity: f64,
@@ -877,6 +913,7 @@ pub struct LuaEquipmentGrid {
     pub width: u32,
 }
 
+/// Prototype of an equipment grid.
 pub struct LuaEquipmentGridPrototype {
     pub equipment_categories: Vec<String>,
     pub height: u32,
@@ -914,6 +951,7 @@ pub struct LuaEquipmentPrototypeShape {
     pub width: u32,
 }
 
+/// Prototype of a modular equipment.
 pub struct LuaEquipmentPrototype {
     pub attack_parameters: Option<AttackParameters>,
     pub automatic: bool,
@@ -949,6 +987,12 @@ pub enum LuaFlowStatisticsOutputCountsUnion {
     Double(f64),
 }
 
+/// Encapsulates statistic data for different parts of the game. In the context of flow statistics, `input` and `output` describe on which side of the associated GUI the values are shown. Input values are shown on the left side, output values on the right side.
+/// 
+/// Examples:
+/// - The item production GUI shows "consumption" on the right, thus `output` describes the item consumption numbers. The same goes for fluid consumption.
+/// - The kills GUI shows "losses" on the right, so `output` describes how many of the force's entities were killed by enemies.
+/// - The electric network GUI shows "power consumption" on the left side, so in this case `input` describes the power consumption numbers.
 pub struct LuaFlowStatistics {
     pub force: Option<Box<LuaForce>>,
     pub input_counts: HashMap<String, LuaFlowStatisticsInputCountsUnion>,
@@ -957,12 +1001,16 @@ pub struct LuaFlowStatistics {
     pub valid: bool,
 }
 
+/// An array of fluid boxes of an entity. Entities may contain more than one fluid box, and some can change the number of fluid boxes -- for instance, an assembling machine will change its number of fluid boxes depending on its active recipe. See [Fluid](Fluid).
+/// 
+/// Do note that reading from a [LuaFluidBox](LuaFluidBox) creates a new table and writing will copy the given fields from the table into the engine's own fluid box structure. Therefore, the correct way to update a fluidbox of an entity is to read it first, modify the table, then write the modified table back. Directly accessing the returned table's attributes won't have the desired effect.
 pub struct LuaFluidBox {
     pub object_name: String,
     pub owner: Box<LuaEntity>,
     pub valid: bool,
 }
 
+/// A prototype of a fluidbox owned by some [LuaEntityPrototype](LuaEntityPrototype).
 pub struct LuaFluidBoxPrototype {
     pub base_area: f64,
     pub base_level: f64,
@@ -981,6 +1029,7 @@ pub struct LuaFluidBoxPrototype {
     pub volume: f64,
 }
 
+/// Prototype of a fluid energy source.
 pub struct LuaFluidEnergySourcePrototype {
     pub burns_fluid: bool,
     pub destroy_non_fuel_fluid: bool,
@@ -997,6 +1046,7 @@ pub struct LuaFluidEnergySourcePrototype {
     pub valid: bool,
 }
 
+/// Prototype of a fluid.
 pub struct LuaFluidPrototype {
     pub base_color: Color,
     pub default_temperature: f64,
@@ -1017,6 +1067,7 @@ pub struct LuaFluidPrototype {
     pub valid: bool,
 }
 
+/// Prototype of a font.
 pub struct LuaFontPrototype {
     pub border: bool,
     pub border_color: Option<Color>,
@@ -1029,6 +1080,7 @@ pub struct LuaFontPrototype {
     pub valid: bool,
 }
 
+/// `LuaForce` encapsulates data local to each "force" or "faction" of the game. Default forces are player, enemy and neutral. Players and mods can create additional forces (up to 64 total).
 pub struct LuaForce {
     pub ai_controllable: bool,
     pub artillery_range_modifier: f64,
@@ -1096,6 +1148,7 @@ pub struct LuaForce {
     pub zoom_to_world_selection_tool_enabled: bool,
 }
 
+/// Prototype of a fuel category.
 pub struct LuaFuelCategoryPrototype {
     pub localised_description: LocalisedString,
     pub localised_name: LocalisedString,
@@ -1120,6 +1173,7 @@ pub enum LuaGameScriptSurfacesUnion {
     String(String),
 }
 
+/// Main toplevel type, provides access to most of the API though its members. An instance of LuaGameScript is available as the global object named `game`.
 pub struct LuaGameScript {
     pub achievement_prototypes: HashMap<String, LuaAchievementPrototype>,
     pub active_mods: HashMap<String, String>,
@@ -1188,6 +1242,7 @@ pub struct LuaGameScript {
     pub virtual_signal_prototypes: HashMap<String, LuaVirtualSignalPrototype>,
 }
 
+/// An abstract base class for behaviors that support switching the entity on or off based on some condition.
 pub struct LuaGenericOnOffControlBehavior {
     pub lua_control_behavior: Box<LuaControlBehavior>,
     pub circuit_condition: CircuitConditionDefinition,
@@ -1198,6 +1253,7 @@ pub struct LuaGenericOnOffControlBehavior {
     pub valid: bool,
 }
 
+/// Item group or subgroup.
 pub struct LuaGroup {
     pub group: Option<Box<LuaGroup>>,
     pub localised_name: Option<LocalisedString>,
@@ -1210,6 +1266,7 @@ pub struct LuaGroup {
     pub valid: bool,
 }
 
+/// The root of the GUI. This type houses the root elements, `top`, `left`, `center`, `goal`, and `screen`, to which other elements can be added to be displayed on screen.
 pub struct LuaGui {
     pub center: LuaGuiElement,
     pub children: HashMap<String, LuaGuiElement>,
@@ -1233,6 +1290,37 @@ pub enum LuaGuiElementStyleUnion {
     String(String),
 }
 
+/// An element of a custom GUI. This type is used to represent any kind of a GUI element - labels, buttons and frames are all instances of this type. Just like [LuaEntity](LuaEntity), different kinds of elements support different attributes; attempting to access an attribute on an element that doesn't support it (for instance, trying to access the `column_count` of a `textfield`) will result in a runtime error.
+/// 
+/// The following types of GUI element are supported:
+/// 
+/// - `"button"`: A clickable element. Relevant event: [on_gui_click](on_gui_click)
+/// - `"sprite-button"`: A `button` that displays a sprite rather than text. Relevant event: [on_gui_click](on_gui_click)
+/// - `"checkbox"`: A clickable element with a check mark that can be turned off or on. Relevant event: [on_gui_checked_state_changed](on_gui_checked_state_changed)
+/// - `"flow"`: An invisible container that lays out its children either horizontally or vertically.
+/// - `"frame"`: A non-transparent box that contains other elements. It can have a title (set via the `caption` attribute). Just like a `flow`, it lays out its children either horizontally or vertically. Relevant event: [on_gui_location_changed](on_gui_location_changed)
+/// - `"label"`: A piece of text.
+/// - `"line"`: A horizontal or vertical separation line.
+/// - `"progressbar"`: A partially filled bar that can be used to indicate progress.
+/// - `"table"`: An invisible container that lays out its children in a specific number of columns. The width of each column is determined by the widest element it contains.
+/// - `"textfield"`: A single-line box the user can type into. Relevant events: [on_gui_text_changed](on_gui_text_changed), [on_gui_confirmed](on_gui_confirmed)
+/// - `"radiobutton"`: An element that is similar to a `checkbox`, but with a circular appearance. Clicking a selected radio button will not deselect it. Radio buttons are not linked to each other in any way. Relevant event: [on_gui_checked_state_changed](on_gui_checked_state_changed)
+/// - `"sprite"`: An element that shows an image.
+/// - `"scroll-pane"`: An invisible element that is similar to a `flow`, but has the ability to show and use scroll bars.
+/// - `"drop-down"`: A drop-down containing strings of text. Relevant event: [on_gui_selection_state_changed](on_gui_selection_state_changed)
+/// - `"list-box"`: A list of strings, only one of which can be selected at a time. Shows a scroll bar if necessary. Relevant event: [on_gui_selection_state_changed](on_gui_selection_state_changed)
+/// - `"camera"`: A camera that shows the game at the given position on the given surface. It can visually track an [entity](LuaGuiElement::entity) that is set after the element has been created.
+/// - `"choose-elem-button"`: A button that lets the player pick from a certain kind of prototype, with optional filtering. Relevant event: [on_gui_elem_changed](on_gui_elem_changed)
+/// - `"text-box"`: A multi-line `textfield`. Relevant event: [on_gui_text_changed](on_gui_text_changed)
+/// - `"slider"`: A horizontal number line which can be used to choose a number. Relevant event: [on_gui_value_changed](on_gui_value_changed)
+/// - `"minimap"`: A minimap preview, similar to the normal player minimap. It can visually track an [entity](LuaGuiElement::entity) that is set after the element has been created.
+/// - `"entity-preview"`: A preview of an entity. The [entity](LuaGuiElement::entity) has to be set after the element has been created.
+/// - `"empty-widget"`: An empty element that just exists. The root GUI elements `screen` and `relative` are `empty-widget`s.
+/// - `"tabbed-pane"`: A collection of `tab`s and their contents. Relevant event: [on_gui_selected_tab_changed](on_gui_selected_tab_changed)
+/// - `"tab"`: A tab for use in a `tabbed-pane`.
+/// - `"switch"`: A switch with three possible states. Can have labels attached to either side. Relevant event: [on_gui_switch_state_changed](on_gui_switch_state_changed)
+/// 
+/// Each GUI element allows access to its children by having them as attributes. Thus, one can use the `parent.child` syntax to refer to children. Lua also supports the `parent["child"]` syntax to refer to the same element. This can be used in cases where the child has a name that isn't a valid Lua identifier.
 pub struct LuaGuiElement {
     pub allow_decimal: bool,
     pub allow_negative: bool,
@@ -1307,6 +1395,7 @@ pub struct LuaGuiElement {
     pub zoom: f64,
 }
 
+/// Prototype of a heat buffer.
 pub struct LuaHeatBufferPrototype {
     pub connections: Vec<HeatConnection>,
     pub default_temperature: f64,
@@ -1320,6 +1409,7 @@ pub struct LuaHeatBufferPrototype {
     pub valid: bool,
 }
 
+/// Prototype of a heat energy source.
 pub struct LuaHeatEnergySourcePrototype {
     pub connections: Vec<HeatConnection>,
     pub default_temperature: f64,
@@ -1337,6 +1427,7 @@ pub struct LuaHeatEnergySourcePrototype {
     pub valid: bool,
 }
 
+/// Control behavior for inserters.
 pub struct LuaInserterControlBehavior {
     pub lua_generic_on_off_control_behavior: Box<LuaGenericOnOffControlBehavior>,
     pub circuit_hand_read_mode: ControlBehaviorInserterHandReadMode,
@@ -1348,6 +1439,7 @@ pub struct LuaInserterControlBehavior {
     pub valid: bool,
 }
 
+/// A storage of item stacks.
 pub struct LuaInventory {
     pub entity_owner: Option<Box<LuaEntity>>,
     pub equipment_owner: Option<Box<LuaEquipment>>,
@@ -1358,6 +1450,7 @@ pub struct LuaInventory {
     pub valid: bool,
 }
 
+/// Prototype of an item.
 pub struct LuaItemPrototype {
     pub alt_entity_filter_mode: Option<String>,
     pub alt_entity_filters: Option<HashMap<String, LuaEntityPrototype>>,
@@ -1451,6 +1544,7 @@ pub struct LuaItemPrototype {
     pub wire_count: u32,
 }
 
+/// A reference to an item and count owned by some external entity.
 pub struct LuaItemStack {
     pub active_index: Option<u32>,
     pub allow_manual_label_change: bool,
@@ -1505,6 +1599,7 @@ pub struct LuaItemStack {
     pub valid_for_read: bool,
 }
 
+/// Control behavior for lamps.
 pub struct LuaLampControlBehavior {
     pub lua_generic_on_off_control_behavior: Box<LuaGenericOnOffControlBehavior>,
     pub color: Option<Color>,
@@ -1513,11 +1608,15 @@ pub struct LuaLampControlBehavior {
     pub valid: bool,
 }
 
+/// A lazily loaded value. For performance reasons, we sometimes return a custom lazily-loaded value type instead of the native Lua value. This custom type lazily constructs the necessary value when [LuaLazyLoadedValue::get](LuaLazyLoadedValue::get) is called, therefore preventing its unnecessary construction in some cases.
+/// 
+/// An instance of LuaLazyLoadedValue is only valid during the event it was created from and cannot be saved.
 pub struct LuaLazyLoadedValue {
     pub object_name: String,
     pub valid: bool,
 }
 
+/// Logistic cell of a particular [LuaEntity](LuaEntity). A "Logistic Cell" is the given name for settings and properties used by what would normally be seen as a "Roboport". A logistic cell however doesn't have to be attached to the roboport entity (the character has one for the personal roboport).
 pub struct LuaLogisticCell {
     pub charge_approach_distance: f32,
     pub charging_robot_count: u32,
@@ -1538,6 +1637,7 @@ pub struct LuaLogisticCell {
     pub valid: bool,
 }
 
+/// Control behavior for logistic chests.
 pub struct LuaLogisticContainerControlBehavior {
     pub lua_control_behavior: Box<LuaControlBehavior>,
     pub circuit_mode_of_operation: ControlBehaviorLogisticContainerCircuitModeOfOperation,
@@ -1545,6 +1645,7 @@ pub struct LuaLogisticContainerControlBehavior {
     pub valid: bool,
 }
 
+/// A single logistic network of a given force on a given surface.
 pub struct LuaLogisticNetwork {
     pub active_provider_points: Vec<LuaLogisticPoint>,
     pub all_construction_robots: u32,
@@ -1571,6 +1672,7 @@ pub struct LuaLogisticNetwork {
     pub valid: bool,
 }
 
+/// Logistic point of a particular [LuaEntity](LuaEntity). A "Logistic point" is the name given for settings and properties used by requester, provider, and storage points in a given logistic network. These "points" don't have to be a logistic container but often are. One other entity that can own several points is the "character" character type entity.
 pub struct LuaLogisticPoint {
     pub exact: bool,
     pub filters: Option<Vec<LogisticFilter>>,
@@ -1585,6 +1687,7 @@ pub struct LuaLogisticPoint {
     pub valid: bool,
 }
 
+/// Control behavior for mining drills.
 pub struct LuaMiningDrillControlBehavior {
     pub lua_generic_on_off_control_behavior: Box<LuaGenericOnOffControlBehavior>,
     pub circuit_enable_disable: bool,
@@ -1618,6 +1721,7 @@ pub enum LuaModSettingPrototypeMinimumValueUnion {
     Int(i32),
 }
 
+/// Prototype of a mod setting.
 pub struct LuaModSettingPrototype {
     pub allow_blank: Option<bool>,
     pub allowed_values: Option<LuaModSettingPrototypeAllowedValuesUnion>,
@@ -1636,6 +1740,7 @@ pub struct LuaModSettingPrototype {
     pub valid: bool,
 }
 
+/// Prototype of a module category.
 pub struct LuaModuleCategoryPrototype {
     pub localised_description: LocalisedString,
     pub localised_name: LocalisedString,
@@ -1645,6 +1750,7 @@ pub struct LuaModuleCategoryPrototype {
     pub valid: bool,
 }
 
+/// Prototype of a named noise expression.
 pub struct LuaNamedNoiseExpression {
     pub expression: NoiseExpression,
     pub intended_property: String,
@@ -1656,6 +1762,7 @@ pub struct LuaNamedNoiseExpression {
     pub valid: bool,
 }
 
+/// Prototype of a noise layer.
 pub struct LuaNoiseLayerPrototype {
     pub localised_description: LocalisedString,
     pub localised_name: LocalisedString,
@@ -1665,6 +1772,7 @@ pub struct LuaNoiseLayerPrototype {
     pub valid: bool,
 }
 
+/// Prototype of an optimized particle.
 pub struct LuaParticlePrototype {
     pub ended_in_water_trigger_effect: TriggerEffectItem,
     pub life_time: u32,
@@ -1683,6 +1791,7 @@ pub struct LuaParticlePrototype {
     pub valid: bool,
 }
 
+/// A permission group that defines what players in this group are allowed to do.
 pub struct LuaPermissionGroup {
     pub group_id: u32,
     pub name: String,
@@ -1691,12 +1800,14 @@ pub struct LuaPermissionGroup {
     pub valid: bool,
 }
 
+/// All permission groups.
 pub struct LuaPermissionGroups {
     pub groups: Vec<LuaPermissionGroup>,
     pub object_name: String,
     pub valid: bool,
 }
 
+/// A player in the game. Pay attention that a player may or may not have a character, which is the [LuaEntity](LuaEntity) of the little guy running around the world doing things.
 pub struct LuaPlayer {
     pub lua_control: Box<LuaControl>,
     pub admin: bool,
@@ -1739,11 +1850,13 @@ pub struct LuaPlayer {
     pub zoom: f64,
 }
 
+/// An object used to measure script performance.
 pub struct LuaProfiler {
     pub object_name: String,
     pub valid: bool,
 }
 
+/// Control behavior for programmable speakers.
 pub struct LuaProgrammableSpeakerControlBehavior {
     pub lua_control_behavior: Box<LuaControlBehavior>,
     pub circuit_condition: CircuitConditionDefinition,
@@ -1752,10 +1865,12 @@ pub struct LuaProgrammableSpeakerControlBehavior {
     pub valid: bool,
 }
 
+/// An interface to send messages to the calling RCON interface through the global object named `rcon`.
 pub struct LuaRCON {
     pub object_name: String,
 }
 
+/// Control behavior for rail chain signals.
 pub struct LuaRailChainSignalControlBehavior {
     pub lua_control_behavior: Box<LuaControlBehavior>,
     pub blue_signal: SignalID,
@@ -1766,6 +1881,7 @@ pub struct LuaRailChainSignalControlBehavior {
     pub valid: bool,
 }
 
+/// A rail path.
 pub struct LuaRailPath {
     pub current: u32,
     pub is_front: bool,
@@ -1777,6 +1893,7 @@ pub struct LuaRailPath {
     pub valid: bool,
 }
 
+/// Control behavior for rail signals.
 pub struct LuaRailSignalControlBehavior {
     pub lua_control_behavior: Box<LuaControlBehavior>,
     pub circuit_condition: CircuitConditionDefinition,
@@ -1789,11 +1906,13 @@ pub struct LuaRailSignalControlBehavior {
     pub valid: bool,
 }
 
+/// A deterministic random generator independent from the core games random generator that can be seeded and re-seeded at will. This random generator can be saved and loaded and will maintain its state. Note this is entirely different from calling [math.random](Libraries.html#math.random)() and you should be sure you actually want to use this over calling `math.random()`. If you aren't sure if you need to use this over calling `math.random()` then you probably don't need to use this.
 pub struct LuaRandomGenerator {
     pub object_name: String,
     pub valid: bool,
 }
 
+/// A crafting recipe. Recipes belong to forces (see [LuaForce](LuaForce)) because some recipes are unlocked by research, and researches are per-force.
 pub struct LuaRecipe {
     pub category: String,
     pub enabled: bool,
@@ -1814,6 +1933,7 @@ pub struct LuaRecipe {
     pub valid: bool,
 }
 
+/// Prototype of a recipe category.
 pub struct LuaRecipeCategoryPrototype {
     pub localised_description: LocalisedString,
     pub localised_name: LocalisedString,
@@ -1823,6 +1943,7 @@ pub struct LuaRecipeCategoryPrototype {
     pub valid: bool,
 }
 
+/// A crafting recipe prototype.
 pub struct LuaRecipePrototype {
     pub allow_as_intermediate: bool,
     pub allow_decomposition: bool,
@@ -1854,15 +1975,18 @@ pub struct LuaRecipePrototype {
     pub valid: bool,
 }
 
+/// Registry of interfaces between scripts. An interface is simply a dictionary mapping names to functions. A script or mod can then register an interface with [LuaRemote](LuaRemote), after that any script can call the registered functions, provided it knows the interface name and the desired function name. An instance of LuaRemote is available through the global object named `remote`.
 pub struct LuaRemote {
     pub interfaces: HashMap<String, HashSet<String>>,
     pub object_name: String,
 }
 
+/// Allows rendering of geometric shapes, text and sprites in the game world through the global object named `rendering`. Each render object is identified by an id that is universally unique for the lifetime of a whole game.
 pub struct LuaRendering {
     pub object_name: String,
 }
 
+/// Prototype of a resource category.
 pub struct LuaResourceCategoryPrototype {
     pub localised_description: LocalisedString,
     pub localised_name: LocalisedString,
@@ -1872,6 +1996,7 @@ pub struct LuaResourceCategoryPrototype {
     pub valid: bool,
 }
 
+/// Control behavior for roboports.
 pub struct LuaRoboportControlBehavior {
     pub lua_control_behavior: Box<LuaControlBehavior>,
     pub available_construction_output_signal: SignalID,
@@ -1884,6 +2009,7 @@ pub struct LuaRoboportControlBehavior {
     pub valid: bool,
 }
 
+/// Object containing mod settings of three distinct types: `startup`, `global`, and `player`. An instance of LuaSettings is available through the global object named `settings`.
 pub struct LuaSettings {
     pub global: HashMap<String, ModSetting>,
     pub object_name: String,
@@ -1891,6 +2017,7 @@ pub struct LuaSettings {
     pub startup: HashMap<String, ModSetting>,
 }
 
+/// Prototype of a shortcut.
 pub struct LuaShortcutPrototype {
     pub action: String,
     pub associated_control_input: Option<String>,
@@ -1905,6 +2032,7 @@ pub struct LuaShortcutPrototype {
     pub valid: bool,
 }
 
+/// Control behavior for storage tanks.
 pub struct LuaStorageTankControlBehavior {
     pub lua_control_behavior: Box<LuaControlBehavior>,
     pub object_name: String,
@@ -1936,6 +2064,7 @@ pub enum LuaStyleSizeUnion {
     Array(Vec<i32>),
 }
 
+/// Style of a GUI element. All of the attributes listed here may be `nil` if not available for a particular GUI element.
 pub struct LuaStyle {
     pub badge_font: String,
     pub badge_horizontal_spacing: i32,
@@ -2008,6 +2137,7 @@ pub struct LuaStyle {
     pub width: i32,
 }
 
+/// A "domain" of the world. Surfaces can only be created and deleted through the API. Surfaces are uniquely identified by their name. Every game contains at least the surface "nauvis".
 pub struct LuaSurface {
     pub always_day: bool,
     pub brightness_visual_weights: ColorModifier,
@@ -2034,6 +2164,7 @@ pub struct LuaSurface {
     pub wind_speed: f64,
 }
 
+/// One research item.
 pub struct LuaTechnology {
     pub effects: Vec<TechnologyModifier>,
     pub enabled: bool,
@@ -2056,6 +2187,7 @@ pub struct LuaTechnology {
     pub visible_when_disabled: bool,
 }
 
+/// A Technology prototype.
 pub struct LuaTechnologyPrototype {
     pub effects: Vec<TechnologyModifier>,
     pub enabled: bool,
@@ -2078,6 +2210,7 @@ pub struct LuaTechnologyPrototype {
     pub visible_when_disabled: bool,
 }
 
+/// A single "square" on the map.
 pub struct LuaTile {
     pub hidden_tile: Option<String>,
     pub name: String,
@@ -2095,6 +2228,7 @@ pub struct LuaTilePrototypeMineableProperties {
     pub products: Vec<Product>,
 }
 
+/// Prototype of a tile.
 pub struct LuaTilePrototype {
     pub allowed_neighbors: HashMap<String, LuaTilePrototype>,
     pub automatic_neighbors: bool,
@@ -2121,6 +2255,7 @@ pub struct LuaTilePrototype {
     pub walking_speed_modifier: f32,
 }
 
+/// A train. Trains are a sequence of connected rolling stocks -- locomotives and wagons.
 pub struct LuaTrain {
     pub back_rail: Option<LuaEntity>,
     pub back_stock: Option<LuaEntity>,
@@ -2154,6 +2289,7 @@ pub struct LuaTrain {
     pub weight: f64,
 }
 
+/// Control behavior for train stops.
 pub struct LuaTrainStopControlBehavior {
     pub lua_generic_on_off_control_behavior: Box<LuaGenericOnOffControlBehavior>,
     pub enable_disable: bool,
@@ -2169,6 +2305,7 @@ pub struct LuaTrainStopControlBehavior {
     pub valid: bool,
 }
 
+/// Control behavior for transport belts.
 pub struct LuaTransportBeltControlBehavior {
     pub lua_generic_on_off_control_behavior: Box<LuaGenericOnOffControlBehavior>,
     pub enable_disable: bool,
@@ -2178,6 +2315,7 @@ pub struct LuaTransportBeltControlBehavior {
     pub valid: bool,
 }
 
+/// One line on a transport belt.
 pub struct LuaTransportLine {
     pub input_lines: Vec<LuaTransportLine>,
     pub object_name: String,
@@ -2186,6 +2324,7 @@ pub struct LuaTransportLine {
     pub valid: bool,
 }
 
+/// Prototype of a trivial smoke.
 pub struct LuaTrivialSmokePrototype {
     pub affected_by_wind: bool,
     pub color: Color,
@@ -2209,6 +2348,7 @@ pub struct LuaTrivialSmokePrototype {
     pub valid: bool,
 }
 
+/// A collection of units moving and attacking together. The engine creates autonomous unit groups to attack polluted areas. The script can create and control such groups as well. Groups can accept commands in the same manner as regular units.
 pub struct LuaUnitGroup {
     pub command: Option<Box<Command>>,
     pub distraction_command: Option<Box<Command>>,
@@ -2223,6 +2363,7 @@ pub struct LuaUnitGroup {
     pub valid: bool,
 }
 
+/// Prototype of a virtual signal.
 pub struct LuaVirtualSignalPrototype {
     pub localised_description: LocalisedString,
     pub localised_name: LocalisedString,
@@ -2234,6 +2375,7 @@ pub struct LuaVirtualSignalPrototype {
     pub valid: bool,
 }
 
+/// Prototype of a void energy source.
 pub struct LuaVoidEnergySourcePrototype {
     pub emissions: f64,
     pub object_name: String,
@@ -2242,6 +2384,7 @@ pub struct LuaVoidEnergySourcePrototype {
     pub valid: bool,
 }
 
+/// Control behavior for walls.
 pub struct LuaWallControlBehavior {
     pub lua_control_behavior: Box<LuaControlBehavior>,
     pub circuit_condition: CircuitConditionDefinition,

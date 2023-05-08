@@ -16,6 +16,10 @@ trait SnakeCase {
     fn to_snake_case(&self) -> String;
 }
 
+trait Description {
+    fn to_rust_doc(&self) -> String;
+}
+
 impl PascalCase for String {
     fn to_pascal_case(&self) -> String {
         if self.is_empty() {
@@ -52,6 +56,16 @@ impl SnakeCase for String {
             }
         }
         snake_case
+    }
+}
+
+impl Description for String {
+    fn to_rust_doc(&self) -> String {
+        let mut description = String::new();
+        for line in self.lines() {
+            description.push_str(&format!("/// {}\n", line.trim()));
+        }
+        description
     }
 }
 
@@ -244,6 +258,7 @@ impl GenerateDefinition for Class {
         cycles.insert("LuaUnitGroup", vec!["Command"]);
         let prefix = &self.name;
 
+        struct_definition.push_str(&self.description.to_rust_doc());
         struct_definition.push_str(&format!("pub struct {} {{\n", prefix));
         if let Some(base_classes) = &self.base_classes {
             // TODO: there is only one base class here?
@@ -330,6 +345,7 @@ struct Event {
 impl GenerateDefinition for Event {
     fn generate_definition(&self) -> String {
         let mut definition = String::new();
+        definition.push_str(&self.description.to_rust_doc());
         definition.push_str(&format!("pub struct {} {{\n", self.name.to_pascal_case()));
         for parameter in &self.data {
             definition.push_str(&parameter.get_definition(&mut Vec::new(), ""));
@@ -376,6 +392,7 @@ impl Define {
             } else {
                 name
             };
+            definition.push_str(&self.description.to_rust_doc());
             definition.push_str(&format!("pub enum {} {{\n", name));
             for variant in variants {
                 definition.push_str(&variant.generate_definition());
@@ -395,6 +412,7 @@ impl Define {
             definition.pop();
         // or an empty struct
         } else {
+            definition.push_str(&self.description.to_rust_doc());
             definition.push_str(&format!("pub struct {};\n", name));
         }
         if !definition.ends_with('\n') {
@@ -435,10 +453,17 @@ impl GenerateDefinition for Concept {
     fn generate_definition(&self) -> String {
         let mut definition = String::new();
         let mut unions = Vec::new();
-        let type_definition = self.typ.generate_definition(&self.name, &mut unions, false);
+        let mut type_definition = self.typ.generate_definition(&self.name, &mut unions, false);
         for union in unions {
             definition.push_str(&format!("{}\n\n", &union));
         }
+        let position = type_definition.rfind("pub struct");
+        let position = if let Some(position) = position {
+            position
+        } else {
+            0
+        };
+        type_definition.insert_str(position, &self.description.to_rust_doc());
         definition.push_str(&format!("{}\n", &type_definition));
         definition
     }
@@ -1090,6 +1115,9 @@ impl LiteralValue {
     }
 }
 
+// TODO: fix descriptions:
+//  - resolve links
+//  - resolve defines
 // TODO: add descriptions
 // TODO: fix clippy lints
 // TODO: add tests
