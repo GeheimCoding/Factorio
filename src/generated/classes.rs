@@ -14,7 +14,7 @@ pub struct LuaAISettings {
 }
 
 pub struct LuaAccumulatorControlBehavior {
-    pub lua_control_behavior: LuaControlBehavior,
+    pub lua_control_behavior: Box<LuaControlBehavior>,
     pub object_name: String,
     pub output_signal: SignalID,
     pub valid: bool,
@@ -42,7 +42,7 @@ pub struct LuaAmmoCategoryPrototype {
 }
 
 pub struct LuaArithmeticCombinatorControlBehavior {
-    pub lua_combinator_control_behavior: LuaCombinatorControlBehavior,
+    pub lua_combinator_control_behavior: Box<LuaCombinatorControlBehavior>,
     pub object_name: String,
     pub parameters: ArithmeticCombinatorParameters,
     pub valid: bool,
@@ -136,7 +136,7 @@ pub struct LuaCircuitNetwork {
 }
 
 pub struct LuaCombinatorControlBehavior {
-    pub lua_control_behavior: LuaControlBehavior,
+    pub lua_control_behavior: Box<LuaControlBehavior>,
     pub signals_last_tick: Vec<Signal>,
 }
 
@@ -147,7 +147,7 @@ pub struct LuaCommandProcessor {
 }
 
 pub struct LuaConstantCombinatorControlBehavior {
-    pub lua_control_behavior: LuaControlBehavior,
+    pub lua_control_behavior: Box<LuaControlBehavior>,
     pub enabled: bool,
     pub object_name: String,
     pub parameters: Option<Vec<ConstantCombinatorParameters>>,
@@ -156,7 +156,7 @@ pub struct LuaConstantCombinatorControlBehavior {
 }
 
 pub struct LuaContainerControlBehavior {
-    pub lua_control_behavior: LuaControlBehavior,
+    pub lua_control_behavior: Box<LuaControlBehavior>,
     pub object_name: String,
     pub valid: bool,
 }
@@ -296,7 +296,7 @@ pub struct LuaDamagePrototype {
 }
 
 pub struct LuaDeciderCombinatorControlBehavior {
-    pub lua_combinator_control_behavior: LuaCombinatorControlBehavior,
+    pub lua_combinator_control_behavior: Box<LuaCombinatorControlBehavior>,
     pub object_name: String,
     pub parameters: DeciderCombinatorParameters,
     pub valid: bool,
@@ -360,7 +360,7 @@ pub struct LuaEntityCircuitConnectedEntities {
 }
 
 pub struct LuaEntity {
-    pub lua_control: LuaControl,
+    pub lua_control: Box<LuaControl>,
     pub active: bool,
     pub ai_settings: LuaAISettings,
     pub alert_parameters: ProgrammableSpeakerAlertParameters,
@@ -1189,7 +1189,7 @@ pub struct LuaGameScript {
 }
 
 pub struct LuaGenericOnOffControlBehavior {
-    pub lua_control_behavior: LuaControlBehavior,
+    pub lua_control_behavior: Box<LuaControlBehavior>,
     pub circuit_condition: CircuitConditionDefinition,
     pub connect_to_logistic_network: bool,
     pub disabled: bool,
@@ -1338,7 +1338,7 @@ pub struct LuaHeatEnergySourcePrototype {
 }
 
 pub struct LuaInserterControlBehavior {
-    pub lua_generic_on_off_control_behavior: LuaGenericOnOffControlBehavior,
+    pub lua_generic_on_off_control_behavior: Box<LuaGenericOnOffControlBehavior>,
     pub circuit_hand_read_mode: ControlBehaviorInserterHandReadMode,
     pub circuit_mode_of_operation: ControlBehaviorInserterCircuitModeOfOperation,
     pub circuit_read_hand_contents: bool,
@@ -1506,7 +1506,7 @@ pub struct LuaItemStack {
 }
 
 pub struct LuaLampControlBehavior {
-    pub lua_generic_on_off_control_behavior: LuaGenericOnOffControlBehavior,
+    pub lua_generic_on_off_control_behavior: Box<LuaGenericOnOffControlBehavior>,
     pub color: Option<Color>,
     pub object_name: String,
     pub use_colors: bool,
@@ -1539,7 +1539,7 @@ pub struct LuaLogisticCell {
 }
 
 pub struct LuaLogisticContainerControlBehavior {
-    pub lua_control_behavior: LuaControlBehavior,
+    pub lua_control_behavior: Box<LuaControlBehavior>,
     pub circuit_mode_of_operation: ControlBehaviorLogisticContainerCircuitModeOfOperation,
     pub object_name: String,
     pub valid: bool,
@@ -1586,7 +1586,7 @@ pub struct LuaLogisticPoint {
 }
 
 pub struct LuaMiningDrillControlBehavior {
-    pub lua_generic_on_off_control_behavior: LuaGenericOnOffControlBehavior,
+    pub lua_generic_on_off_control_behavior: Box<LuaGenericOnOffControlBehavior>,
     pub circuit_enable_disable: bool,
     pub circuit_read_resources: bool,
     pub object_name: String,
@@ -1698,7 +1698,7 @@ pub struct LuaPermissionGroups {
 }
 
 pub struct LuaPlayer {
-    pub lua_control: LuaControl,
+    pub lua_control: Box<LuaControl>,
     pub admin: bool,
     pub afk_time: u32,
     pub auto_sort_main_inventory: bool,
@@ -1745,7 +1745,7 @@ pub struct LuaProfiler {
 }
 
 pub struct LuaProgrammableSpeakerControlBehavior {
-    pub lua_control_behavior: LuaControlBehavior,
+    pub lua_control_behavior: Box<LuaControlBehavior>,
     pub circuit_condition: CircuitConditionDefinition,
     pub circuit_parameters: ProgrammableSpeakerCircuitParameters,
     pub object_name: String,
@@ -1757,7 +1757,7 @@ pub struct LuaRCON {
 }
 
 pub struct LuaRailChainSignalControlBehavior {
-    pub lua_control_behavior: LuaControlBehavior,
+    pub lua_control_behavior: Box<LuaControlBehavior>,
     pub blue_signal: SignalID,
     pub green_signal: SignalID,
     pub object_name: String,
@@ -1778,7 +1778,7 @@ pub struct LuaRailPath {
 }
 
 pub struct LuaRailSignalControlBehavior {
-    pub lua_control_behavior: LuaControlBehavior,
+    pub lua_control_behavior: Box<LuaControlBehavior>,
     pub circuit_condition: CircuitConditionDefinition,
     pub close_signal: bool,
     pub green_signal: SignalID,
@@ -1873,7 +1873,7 @@ pub struct LuaResourceCategoryPrototype {
 }
 
 pub struct LuaRoboportControlBehavior {
-    pub lua_control_behavior: LuaControlBehavior,
+    pub lua_control_behavior: Box<LuaControlBehavior>,
     pub available_construction_output_signal: SignalID,
     pub available_logistic_output_signal: SignalID,
     pub object_name: String,
@@ -1906,7 +1906,7 @@ pub struct LuaShortcutPrototype {
 }
 
 pub struct LuaStorageTankControlBehavior {
-    pub lua_control_behavior: LuaControlBehavior,
+    pub lua_control_behavior: Box<LuaControlBehavior>,
     pub object_name: String,
     pub valid: bool,
 }
@@ -2155,7 +2155,7 @@ pub struct LuaTrain {
 }
 
 pub struct LuaTrainStopControlBehavior {
-    pub lua_generic_on_off_control_behavior: LuaGenericOnOffControlBehavior,
+    pub lua_generic_on_off_control_behavior: Box<LuaGenericOnOffControlBehavior>,
     pub enable_disable: bool,
     pub object_name: String,
     pub read_from_train: bool,
@@ -2170,7 +2170,7 @@ pub struct LuaTrainStopControlBehavior {
 }
 
 pub struct LuaTransportBeltControlBehavior {
-    pub lua_generic_on_off_control_behavior: LuaGenericOnOffControlBehavior,
+    pub lua_generic_on_off_control_behavior: Box<LuaGenericOnOffControlBehavior>,
     pub enable_disable: bool,
     pub object_name: String,
     pub read_contents: bool,
@@ -2243,7 +2243,7 @@ pub struct LuaVoidEnergySourcePrototype {
 }
 
 pub struct LuaWallControlBehavior {
-    pub lua_control_behavior: LuaControlBehavior,
+    pub lua_control_behavior: Box<LuaControlBehavior>,
     pub circuit_condition: CircuitConditionDefinition,
     pub object_name: String,
     pub open_gate: bool,
