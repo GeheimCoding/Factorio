@@ -10,6 +10,7 @@ pub enum AchievementPrototypeFilterAttributesTypeUnion {
 }
 
 pub struct AchievementPrototypeFilterAttributesType {
+    /// The prototype type, or a list of acceptable types.
     pub typ: AchievementPrototypeFilterAttributesTypeUnion,
 }
 
@@ -19,9 +20,13 @@ pub enum AchievementPrototypeFilterAttributes {
 
 /// Depending on the value of `filter`, the table may take additional fields. `filter` may be one of the following:
 pub struct AchievementPrototypeFilter {
+    /// The condition to filter on. One of `"allowed-without-fight"`, `"type"`.
     pub filter: String,
+    /// Inverts the condition. Default is `false`.
     pub invert: Option<bool>,
+    /// How to combine this with the previous filter. Must be `"or"` or `"and"`. Defaults to `"or"`. When evaluating the filters, `"and"` has higher precedence than `"or"`.
     pub mode: Option<String>,
+    /// Other attributes may be specified depending on `filter`:
     pub attributes: Option<AchievementPrototypeFilterAttributes>,
 }
 
@@ -33,11 +38,14 @@ pub struct AdvancedMapGenSettings {
 }
 
 pub struct Alert {
+    /// The SignalID used for a custom alert. Only present for custom alerts.
     pub icon: Option<SignalID>,
+    /// The message for a custom alert. Only present for custom alerts.
     pub message: Option<LocalisedString>,
     pub position: Option<MapPosition>,
     pub prototype: Option<LuaEntityPrototype>,
     pub target: Option<LuaEntity>,
+    /// The tick this alert was created.
     pub tick: u32,
 }
 
@@ -45,25 +53,32 @@ pub struct Alert {
 pub enum Alignment {
     TopLeft,
     MiddleLeft,
+    /// The same as `"middle-left"`
     Left,
     BottomLeft,
     TopCenter,
     MiddleCenter,
+    /// The same as `"middle-center"`
     Center,
     BottomCenter,
     TopRight,
+    /// The same as `"middle-right"`
     Right,
     BottomRight,
 }
 
 pub struct AmmoType {
     pub action: Option<Vec<TriggerItem>>,
+    /// Ammo category of this ammo.
     pub category: String,
+    /// When `true`, the gun will be able to shoot even when the target is out of range. Only applies when `target_type` is `position`. The gun will fire at the maximum range in the direction of the target position. Defaults to `false`.
     pub clamp_position: Option<bool>,
     pub consumption_modifier: Option<f64>,
     pub cooldown_modifier: Option<f64>,
+    /// Energy consumption of a single shot, if applicable. Defaults to `0`.
     pub energy_consumption: Option<f64>,
     pub range_modifier: Option<f64>,
+    /// One of `"entity"` (fires at an entity), `"position"` (fires directly at a position), or `"direction"` (fires in a direction).
     pub target_type: String,
 }
 
@@ -85,16 +100,24 @@ pub enum AnyBasic {
 }
 
 pub struct ArithmeticCombinatorParameters {
+    /// Constant to use as the first argument of the operation. Has no effect when `first_signal` is set. Defaults to `0`.
     pub first_constant: Option<i32>,
+    /// First signal to use in an operation. If not specified, the second argument will be the value of `first_constant`.
     pub first_signal: Option<SignalID>,
+    /// Must be one of `"*"`, `"/"`, `"+"`, `"-"`, `"%"`, `"^"`, `"<<"`, `">>"`, `"AND"`, `"OR"`, `"XOR"`. When not specified, defaults to `"*"`.
     pub operation: Option<String>,
+    /// Specifies the signal to output.
     pub output_signal: Option<SignalID>,
+    /// Constant to use as the second argument of the operation. Has no effect when `second_signal` is set. Defaults to `0`.
     pub second_constant: Option<i32>,
+    /// Second signal to use in an operation. If not specified, the second argument will be the value of `second_constant`.
     pub second_signal: Option<SignalID>,
 }
 
 pub struct AttackParameterFluid {
+    /// Multiplier applied to the damage of an attack.
     pub damage_modifier: f64,
+    /// Name of the [LuaFluidPrototype](LuaFluidPrototype).
     pub typ: String,
 }
 
@@ -120,39 +143,59 @@ pub enum AttackParametersAttributes {
 }
 
 pub struct AttackParameters {
+    /// List of the names of compatible [LuaAmmoCategoryPrototypes](LuaAmmoCategoryPrototype).
     pub ammo_categories: Option<Vec<String>>,
+    /// Multiplier applied to the ammo consumption of an attack.
     pub ammo_consumption_modifier: f32,
     pub ammo_type: Option<AmmoType>,
+    /// Minimum amount of ticks between shots. If this is less than `1`, multiple shots can be performed per tick.
     pub cooldown: f32,
+    /// Multiplier applied to the damage of an attack.
     pub damage_modifier: f32,
+    /// When searching for the nearest enemy to attack, `fire_penalty` is added to the enemy's distance if they are on fire.
     pub fire_penalty: f32,
+    /// When searching for an enemy to attack, a higher `health_penalty` will discourage targeting enemies with high health. A negative penalty will do the opposite.
     pub health_penalty: f32,
+    /// If less than `range`, the entity will choose a random distance between `range` and `min_attack_distance` and attack from that distance. Used for spitters.
     pub min_attack_distance: f32,
+    /// Minimum range of attack. Used with flamethrower turrets to prevent self-immolation.
     pub min_range: f32,
     pub movement_slow_down_cooldown: f32,
     pub movement_slow_down_factor: f64,
+    /// Maximum range of attack.
     pub range: f32,
+    /// Defines how the range is determined. Either `'center-to-center'` or `'bounding-box-to-bounding-box'`.
     pub range_mode: String,
+    /// When searching for an enemy to attack, a higher `rotate_penalty` will discourage targeting enemies that would take longer to turn to face.
     pub rotate_penalty: f32,
+    /// The arc that the entity can attack in as a fraction of a circle. A value of `1` means the full 360 degrees.
     pub turn_range: f32,
+    /// The type of AttackParameter. One of `'projectile'`, `'stream'` or `'beam'`.
     pub typ: String,
+    /// Number of ticks it takes for the weapon to actually shoot after it has been ordered to do so.
     pub warmup: u32,
+    /// Other attributes may be specified depending on `type`:
     pub attributes: Option<AttackParametersAttributes>,
 }
 
 pub struct AutoplaceControl {
+    /// For things that are placed as spots such as ores and enemy bases, frequency is generally proportional to number of spots placed per unit area. For continuous features such as forests, frequency is how compressed the probability function is over distance, i.e. the inverse of 'scale' (similar to terrain_segmentation). When the [LuaAutoplaceControlPrototype](LuaAutoplaceControlPrototype) is of the category `"terrain"`, then scale is shown in the map generator GUI instead of frequency.
     pub frequency: MapGenSize,
+    /// Has different effects for different things, but generally affects the 'health' or density of a thing that is placed without affecting where it is placed. For trees, richness affects tree health. For ores, richness multiplies the amount of ore at any given tile in a patch. Metadata about autoplace controls (such as whether or not 'richness' does anything for them) can be found in the [LuaAutoplaceControlPrototype](LuaAutoplaceControlPrototype) by looking up `game.autoplace_control_prototypes[(control prototype name)]`, e.g. `game.autoplace_control_prototypes["enemy-base"].richness` is false, because enemy base autoplacement doesn't use richness.
     pub richness: MapGenSize,
+    /// For things that are placed as spots, size is proportional to the area of each spot. For continuous features, size affects how much of the map is covered with the thing, and is called 'coverage' in the GUI.
     pub size: MapGenSize,
 }
 
 pub struct AutoplaceSettings {
     pub settings: HashMap<String, AutoplaceControl>,
+    /// Whether missing autoplace names for this type should be default enabled.
     pub treat_missing_as_default: bool,
 }
 
 /// Specifies how probability and richness are calculated when placing something on the map. Can be specified either using `probability_expression` and `richness_expression` or by using all the other fields.
 pub struct AutoplaceSpecification {
+    /// Control prototype name.
     pub control: Option<String>,
     pub coverage: f64,
     pub default_enabled: bool,
@@ -189,6 +232,7 @@ pub struct AutoplaceSpecificationPeak {
     pub max_influence: f64,
     pub min_influence: f64,
     pub noise_persistence: f64,
+    /// Prototype name of the noise layer.
     pub noise_layer: Option<String>,
     pub noise_octaves_difference: f64,
     pub richness_influence: f64,
@@ -211,12 +255,16 @@ pub struct AutoplaceSpecificationPeak {
 }
 
 pub struct AutoplaceSpecificationRestriction {
+    /// Tile prototype name
     pub first: Option<String>,
+    /// Second prototype name
     pub second: Option<String>,
 }
 
 pub struct BeamTarget {
+    /// The target entity.
     pub entity: Option<LuaEntity>,
+    /// The target position.
     pub position: Option<MapPosition>,
 }
 
@@ -226,19 +274,30 @@ pub struct BlueprintControlBehavior;
 
 /// The representation of an entity inside of a blueprint. It has at least these fields, but can contain additional ones depending on the kind of entity.
 pub struct BlueprintEntity {
+    /// The circuit network connections of the entity, if there are any. Only relevant for entities that support circuit connections.
     pub connections: Option<BlueprintCircuitConnection>,
+    /// The control behavior of the entity, if it has one. The format of the control behavior depends on the entity's type. Only relevant for entities that support control behaviors.
     pub control_behavior: Option<BlueprintControlBehavior>,
+    /// The direction the entity is facing. Only present for entities that can face in different directions and when the entity is not facing north.
     pub direction: Option<Direction>,
+    /// The entity's unique identifier in the blueprint.
     pub entity_number: u32,
+    /// The items that the entity will request when revived, if there are any. It's a mapping of prototype names to amounts. Only relevant for entity ghosts.
     pub items: Option<HashMap<String, u32>>,
+    /// The prototype name of the entity.
     pub name: String,
+    /// The position of the entity.
     pub position: MapPosition,
+    /// The schedule of the entity, if it has one. Only relevant for locomotives.
     pub schedule: Option<Vec<TrainScheduleRecord>>,
+    /// The entity tags of the entity, if there are any. Only relevant for entity ghosts.
     pub tags: Option<Tags>,
 }
 
 pub struct BlueprintSignalIcon {
+    /// Index of the icon in the blueprint icons slots. Has to be an integer in the range [1, 4].
     pub index: u32,
+    /// The icon to use. It can be any item icon as well as any virtual signal icon.
     pub signal: SignalID,
 }
 
@@ -250,6 +309,7 @@ pub struct BoundingBox {
 }
 
 pub struct CapsuleActionAttributesArtilleryRemote {
+    /// Name of the [flare prototype](LuaEntityPrototype).
     pub flare: String,
 }
 
@@ -260,11 +320,13 @@ pub struct CapsuleActionAttributesDestroyCliffs {
 }
 
 pub struct CapsuleActionAttributesEquipmentRemote {
+    /// Name of the [LuaEquipmentPrototype](LuaEquipmentPrototype).
     pub equipment: String,
 }
 
 pub struct CapsuleActionAttributesThrow {
     pub attack_parameters: AttackParameters,
+    /// Whether using the capsule consumes an item from the stack.
     pub uses_stack: bool,
 }
 
@@ -281,7 +343,9 @@ pub enum CapsuleActionAttributes {
 }
 
 pub struct CapsuleAction {
+    /// One of `"throw"`, `"equipment-remote"`, `"use-on-self"`, `"artillery-remote"`, `"destroy-cliffs"`.
     pub typ: String,
+    /// Other attributes may be specified depending on `type`:
     pub attributes: Option<CapsuleActionAttributes>,
 }
 
@@ -306,14 +370,19 @@ pub struct ChunkPositionAndArea {
 }
 
 pub struct CircuitCondition {
+    /// Specifies how the inputs should be compared. If not specified, defaults to `"<"`.
     pub comparator: Option<ComparatorString>,
+    /// Constant to compare `first_signal` to. Has no effect when `second_signal` is set. When neither `second_signal` nor `constant` are specified, the effect is as though `constant` were specified with the value `0`.
     pub constant: Option<i32>,
+    /// Defaults to blank
     pub first_signal: Option<SignalID>,
+    /// What to compare `first_signal` to. If not specified, `first_signal` will be compared to `constant`.
     pub second_signal: Option<SignalID>,
 }
 
 pub struct CircuitConditionDefinition {
     pub condition: CircuitCondition,
+    /// Whether the condition is currently fulfilled
     pub fulfilled: Option<bool>,
 }
 
@@ -321,10 +390,12 @@ pub struct CircuitConnectionDefinition {
     pub source_circuit_id: CircuitConnectorId,
     pub target_circuit_id: CircuitConnectorId,
     pub target_entity: LuaEntity,
+    /// Wire color, either [defines.wire_type.red](defines.wire_type.red) or [defines.wire_type.green](defines.wire_type.green).
     pub wire: WireType,
 }
 
 pub struct CircularParticleCreationSpecification {
+    /// This vector is a table with `x` and `y` keys instead of an array.
     pub center: Vector,
     pub creation_distance: f64,
     pub creation_distance_orientation: f64,
@@ -332,6 +403,7 @@ pub struct CircularParticleCreationSpecification {
     pub direction_deviation: f32,
     pub height: f32,
     pub height_deviation: f32,
+    /// Name of the [LuaEntityPrototype](LuaEntityPrototype)
     pub name: String,
     pub speed: f32,
     pub speed_deviation: f32,
@@ -371,9 +443,13 @@ pub enum CliffOrientation {
 }
 
 pub struct CliffPlacementSettings {
+    /// Elevation at which the first row of cliffs is placed. The default is `10`, and this cannot be set from the map generation GUI.
     pub cliff_elevation_0: f32,
+    /// Elevation difference between successive rows of cliffs. This is inversely proportional to 'frequency' in the map generation GUI. Specifically, when set from the GUI the value is `40 / frequency`.
     pub cliff_elevation_interval: f32,
+    /// Name of the cliff prototype.
     pub name: String,
+    /// Corresponds to 'continuity' in the GUI. This value is not used directly, but is used by the 'cliffiness' noise expression, which in combination with elevation and the two cliff elevation properties drives cliff placement (cliffs are placed when elevation crosses the elevation contours defined by `cliff_elevation_0` and `cliff_elevation_interval` when 'cliffiness' is greater than `0.5`). The default 'cliffiness' expression interprets this value such that larger values result in longer unbroken walls of cliffs, and smaller values (between `0` and `1`) result in larger gaps in cliff walls.
     pub richness: MapGenSize,
 }
 
@@ -401,8 +477,11 @@ pub enum CollisionMaskLayer {
 
 pub enum CollisionMaskWithFlagsUnion {
     CollisionMaskLayer(CollisionMaskLayer),
+    /// Any two entities that both have this option enabled on their prototype and have an identical collision mask layers list will not collide. Other collision mask options are not included in the identical layer list check. This does mean that two different prototypes with the same collision mask layers and this option enabled will not collide.
     NotCollidingWithItself,
+    /// Uses the prototypes position rather than its collision box when doing collision checks with tile prototypes. Allows the prototype to overlap colliding tiles up until its center point. This is only respected for character movement and cars driven by players.
     ConsiderTileTransitions,
+    /// Any prototype with this collision option will only be checked for collision with other prototype's collision masks if they are a tile.
     CollidingWithTilesOnly,
 }
 
@@ -428,55 +507,80 @@ pub struct ColorModifier {
 }
 
 pub struct CommandAttributesDefinesCommandAttack {
+    /// Defaults to `defines.distraction.by_enemy`.
     pub distraction: Option<Distraction>,
     pub target: LuaEntity,
 }
 
 pub struct CommandAttributesDefinesCommandAttackArea {
+    /// Center of the attack area.
     pub destination: MapPosition,
+    /// Defaults to `defines.distraction.by_enemy`.
     pub distraction: Option<Distraction>,
+    /// Radius of the attack area.
     pub radius: f64,
 }
 
 pub struct CommandAttributesDefinesCommandBuildBase {
+    /// Where to build the base.
     pub destination: MapPosition,
+    /// Defaults to `defines.distraction.by_enemy`.
     pub distraction: Option<Distraction>,
+    /// Whether the units should ignore expansion candidate chunks. When `false`, they will obey and not build a base in a non-candidate chunk. Defaults to `false`.
     pub ignore_planner: Option<bool>,
 }
 
 pub struct CommandAttributesDefinesCommandCompound {
+    /// The sub-commands.
     pub commands: Vec<Command>,
+    /// How the commands should be chained together.
     pub structure_type: CompoundCommand,
 }
 
 pub struct CommandAttributesDefinesCommandFlee {
+    /// Defaults to `defines.distraction.by_enemy`.
     pub distraction: Option<Distraction>,
+    /// The entity to flee from
     pub from: LuaEntity,
 }
 
 pub struct CommandAttributesDefinesCommandGoToLocation {
+    /// The position to path to. Either this or `destination_entity` need to be specified. If both are, `destination_entity` is used.
     pub destination: Option<MapPosition>,
+    /// The entity to path to. Either this or `destination` need to be specified. If both are, `destination_entity` is used.
     pub destination_entity: Option<LuaEntity>,
+    /// Defaults to `defines.distraction.by_enemy`.
     pub distraction: Option<Distraction>,
+    /// Flags that affect pathfinder behavior.
     pub pathfind_flags: Option<PathfinderFlags>,
+    /// How close the pathfinder needs to get to its destination (in tiles). Defaults to `3`.
     pub radius: Option<f64>,
 }
 
 pub struct CommandAttributesDefinesCommandGroup {
+    /// Defaults to `defines.distraction.by_enemy`.
     pub distraction: Option<Distraction>,
+    /// The group whose command to follow.
     pub group: LuaUnitGroup,
+    /// Whether the unit will use the group distraction or the commands distraction. Defaults to true.
     pub use_group_distraction: Option<bool>,
 }
 
 pub struct CommandAttributesDefinesCommandStop {
+    /// Defaults to `defines.distraction.by_enemy`.
     pub distraction: Option<Distraction>,
+    /// Ticks to wander before successfully completing the command. Default is max uint, which means stop forever.
     pub ticks_to_wait: Option<u32>,
 }
 
 pub struct CommandAttributesDefinesCommandWander {
+    /// Defaults to `defines.distraction.by_enemy`.
     pub distraction: Option<Distraction>,
+    /// Defaults to 10. Does not apply when `wander_in_group` is `true`.
     pub radius: Option<f64>,
+    /// Ticks to wander before successfully completing the command. Default is max uint, which means wander forever.
     pub ticks_to_wait: Option<u32>,
+    /// When commanding a group, defines how the group will wander. When `true`, the units in the group will wander around inside the group's radius, just like gathering biters. When `false`, the units will wander as a group, ie they will all walk together in the same random direction. Default is true for groups. Passing true for a single unit is an error.
     pub wander_in_group: Option<bool>,
 }
 
@@ -494,56 +598,91 @@ pub enum CommandAttributes {
 
 /// Commands can be given to enemies and unit groups.
 pub struct Command {
+    /// Type of command. The remaining fields depend on the value of this field.
     pub typ: CommandDefine,
+    /// Other attributes may be specified depending on `type`:
     pub attributes: Option<CommandAttributes>,
 }
 
 /// A string that specifies how the inputs should be compared
 pub enum ComparatorString {
+    /// "equal to"
     EqualTo,
+    /// "greater than"
     GreaterThan,
+    /// "lesser than"
     LesserThan,
+    /// "greater than or equal to"
+    /// "greater than or equal to"
     GreaterThanOrEqualTo,
+    /// "lesser than or equal to"
+    /// "lesser than or equal to"
     LesserThanOrEqualTo,
+    /// "not equal to"
+    /// "not equal to"
     NotEqualTo,
 }
 
 pub struct ConfigurationChangedData {
+    /// `true` when mod prototype migrations have been applied since the last time this save was loaded.
     pub migration_applied: bool,
+    /// Dictionary of mod changes. It is indexed by mod name.
     pub mod_changes: HashMap<String, ModChangeData>,
+    /// `true` when mod startup settings have changed since the last time this save was loaded.
     pub mod_startup_settings_changed: bool,
+    /// New version of the map. Present only when loading map version other than the current version.
     pub new_version: Option<String>,
+    /// Old version of the map. Present only when loading map version other than the current version.
     pub old_version: Option<String>,
 }
 
 pub struct ConstantCombinatorParameters {
+    /// Value of the signal to emit.
     pub count: i32,
+    /// Index of the constant combinator's slot to set this signal to.
     pub index: u32,
+    /// Signal to emit.
     pub signal: SignalID,
 }
 
 pub struct CraftingQueueItem {
+    /// The amount of items being crafted.
     pub count: u32,
+    /// The index of the item in the crafting queue.
     pub index: u32,
+    /// The item is a prerequisite for another item in the queue.
     pub prerequisite: bool,
+    /// The recipe being crafted.
     pub recipe: String,
 }
 
 pub enum CursorBoxRenderType {
+    /// Yellow box.
     Entity,
+    /// Red box.
     NotAllowed,
+    /// Light blue box.
     Electricity,
+    /// Light blue box.
     Pair,
+    /// Green box.
     Copy,
+    /// White box.
     TrainVisualization,
+    /// Light blue box.
     Logistics,
+    /// Green box.
     BlueprintSnapRectangle,
 }
 
 pub struct CustomCommandData {
+    /// The name of the command.
     pub name: String,
+    /// The parameter passed after the command, if there is one.
     pub parameter: Option<String>,
+    /// The player who issued the command, or `nil` if it was issued from the server console.
     pub player_index: Option<u32>,
+    /// The tick the command was used in.
     pub tick: u32,
 }
 
@@ -553,24 +692,36 @@ pub enum CutsceneWaypointTargetUnion {
 }
 
 pub struct CutsceneWaypoint {
+    /// Position to pan the camera to.
     pub position: Option<MapPosition>,
+    /// Entity or unit group to pan the camera to.
     pub target: Option<CutsceneWaypointTargetUnion>,
+    /// Time in ticks to wait before moving to the next waypoint.
     pub time_to_wait: u32,
+    /// How many ticks it will take to reach this waypoint from the previous one.
     pub transition_time: u32,
+    /// Zoom level to be set when the waypoint is reached. When not specified, the previous waypoint's zoom is used.
     pub zoom: Option<f64>,
 }
 
 pub struct DeciderCombinatorParameters {
+    /// Specifies how the inputs should be compared. If not specified, defaults to `"<"`.
     pub comparator: Option<ComparatorString>,
+    /// Constant to use as the second argument of operation. Defaults to `0`.
     pub constant: Option<u32>,
+    /// Defaults to `true`. When `false`, will output a value of `1` for the given `output_signal`.
     pub copy_count_from_input: Option<bool>,
+    /// Defaults to blank.
     pub first_signal: Option<SignalID>,
+    /// Defaults to blank.
     pub output_signal: Option<SignalID>,
+    /// Second signal to use in an operation, if any. If this is not specified, the second argument to a decider combinator's operation is assumed to be the value of `constant`.
     pub second_signal: Option<SignalID>,
 }
 
 pub struct Decorative {
     pub amount: u8,
+    /// The name of the decorative prototype.
     pub name: String,
     pub position: TilePosition,
 }
@@ -582,6 +733,7 @@ pub enum DecorativePrototypeFilterAttributesMaskUnion {
 
 pub struct DecorativePrototypeFilterAttributesCollisionMask {
     pub mask: DecorativePrototypeFilterAttributesMaskUnion,
+    /// How to filter: `"collides"`, `"layers-equals"`, `"contains-any"` or `"contains-all"`
     pub mask_mode: String,
 }
 
@@ -591,9 +743,13 @@ pub enum DecorativePrototypeFilterAttributes {
 
 /// Depending on the value of `filter`, the table may take additional fields. `filter` may be one of the following:
 pub struct DecorativePrototypeFilter {
+    /// The condition to filter on. One of `"decal"`, `"autoplace"`, `"collision-mask"`.
     pub filter: String,
+    /// Inverts the condition. Default is `false`.
     pub invert: Option<bool>,
+    /// How to combine this with the previous filter. Must be `"or"` or `"and"`. Defaults to `"or"`. When evaluating the filters, `"and"` has higher precedence than `"or"`.
     pub mode: Option<String>,
+    /// Other attributes may be specified depending on `filter`:
     pub attributes: Option<DecorativePrototypeFilterAttributes>,
 }
 
@@ -606,8 +762,10 @@ pub struct DecorativeResult {
 /// Technology and recipe difficulty settings. Updating any of the attributes will immediately take effect in the game engine.
 pub struct DifficultySettings {
     pub recipe_difficulty: DifficultySettingsRecipeDifficulty,
+    /// Either `"after-victory"`, `"always"` or `"never"`. Changing this to `"always"` or `"after-victory"` does not automatically unlock the research queue. See [LuaForce](LuaForce) for that.
     pub research_queue_setting: String,
     pub technology_difficulty: DifficultySettingsTechnologyDifficulty,
+    /// A value in range [0.001, 1000].
     pub technology_price_multiplier: f64,
 }
 
@@ -617,16 +775,22 @@ pub struct DisplayResolution {
 }
 
 pub struct DragTarget {
+    /// If the wire being dragged is a circuit wire this is the connector id.
     pub target_circuit_id: Option<CircuitConnectorId>,
     pub target_entity: LuaEntity,
+    /// If the wire being dragged is copper wire this is the wire id.
     pub target_wire_id: Option<WireConnectionId>,
 }
 
 /// These values represent a percentual increase in evolution. This means a value of `0.1` would increase evolution by 10%.
 pub struct EnemyEvolutionMapSettings {
+    /// The amount evolution progresses for every destroyed spawner. Defaults to `0.002`.
     pub destroy_factor: f64,
+    /// Whether enemy evolution is enabled at all.
     pub enabled: bool,
+    /// The amount evolution progresses for every unit of pollution. Defaults to `0.0000009`.
     pub pollution_factor: f64,
+    /// The amount evolution naturally progresses by every second. Defaults to `0.000004`.
     pub time_factor: f64,
 }
 
@@ -650,18 +814,31 @@ pub struct EnemyEvolutionMapSettings {
 /// score(chunk) = 1 / (1 + player + base)
 /// ```
 pub struct EnemyExpansionMapSettings {
+    /// Defaults to `0.1`.
     pub building_coefficient: f64,
+    /// Whether enemy expansion is enabled at all.
     pub enabled: bool,
+    /// Defaults to `2`.
     pub enemy_building_influence_radius: u32,
+    /// Defaults to `2`.
     pub friendly_base_influence_radius: u32,
+    /// A chunk has to have at most this high of a percentage of unbuildable tiles for it to be considered a candidate to avoid chunks full of water as candidates. Defaults to `0.9`, or 90%.
     pub max_colliding_tiles_coefficient: f64,
+    /// The maximum time between expansions in ticks. The actual cooldown is adjusted to the current evolution levels. Defaults to `60*3,600=216,000` ticks.
     pub max_expansion_cooldown: u32,
+    /// Distance in chunks from the furthest base around to prevent expansions from reaching too far into the player's territory. Defaults to `7`.
     pub max_expansion_distance: u32,
+    /// The minimum time between expansions in ticks. The actual cooldown is adjusted to the current evolution levels. Defaults to `4*3,600=14,400` ticks.
     pub min_expansion_cooldown: u32,
+    /// Defaults to `0.4`.
     pub neighbouring_base_chunk_coefficient: f64,
+    /// Defaults to `0.5`.
     pub neighbouring_chunk_coefficient: f64,
+    /// Defaults to `2.0`.
     pub other_base_coefficient: f64,
+    /// The maximum size of a biter group that goes to build a new base. This is multiplied by the evolution factor. Defaults to `20`.
     pub settler_group_max_size: u32,
+    /// The minimum size of a biter group that goes to build a new base. This is multiplied by the evolution factor. Defaults to `5`.
     pub settler_group_min_size: u32,
 }
 
@@ -682,37 +859,45 @@ pub enum EntityPrototypeFilterAttributesTypeUnion {
 
 pub struct EntityPrototypeFilterAttributesBuildBaseEvolutionRequirement {
     pub comparison: ComparatorString,
+    /// The value to compare against.
     pub value: f64,
 }
 
 pub struct EntityPrototypeFilterAttributesCollisionMask {
     pub mask: EntityPrototypeFilterAttributesMaskUnion,
+    /// How to filter: `"collides"`, `"layers-equals"`, `"contains-any"` or `"contains-all"`
     pub mask_mode: String,
 }
 
 pub struct EntityPrototypeFilterAttributesCraftingCategory {
+    /// Matches if the prototype is for a crafting machine with this crafting category.
     pub crafting_category: String,
 }
 
 pub struct EntityPrototypeFilterAttributesEmissions {
     pub comparison: ComparatorString,
+    /// The value to compare against.
     pub value: f64,
 }
 
 pub struct EntityPrototypeFilterAttributesFlag {
+    /// One of the values in [EntityPrototypeFlags](EntityPrototypeFlags).
     pub flag: String,
 }
 
 pub struct EntityPrototypeFilterAttributesName {
+    /// The prototype name, or list of acceptable names.
     pub name: EntityPrototypeFilterAttributesNameUnion,
 }
 
 pub struct EntityPrototypeFilterAttributesSelectionPriority {
     pub comparison: ComparatorString,
+    /// The value to compare against.
     pub value: u8,
 }
 
 pub struct EntityPrototypeFilterAttributesType {
+    /// The prototype type, or a list of acceptable types.
     pub typ: EntityPrototypeFilterAttributesTypeUnion,
 }
 
@@ -729,38 +914,67 @@ pub enum EntityPrototypeFilterAttributes {
 
 /// Depending on the value of `filter`, the table may take additional fields. `filter` may be one of the following:
 pub struct EntityPrototypeFilter {
+    /// The condition to filter on. One of `"flying-robot"`, `"robot-with-logistics-interface"`, `"rail"`, `"ghost"`, `"explosion"`, `"vehicle"`, `"crafting-machine"`, `"rolling-stock"`, `"turret"`, `"transport-belt-connectable"`, `"wall-connectable"`, `"buildable"`, `"placable-in-editor"`, `"clonable"`, `"selectable"`, `"hidden"`, `"entity-with-health"`, `"building"`, `"fast-replaceable"`, `"uses-direction"`, `"minable"`, `"circuit-connectable"`, `"autoplace"`, `"blueprintable"`, `"item-to-place"`, `"name"`, `"type"`, `"collision-mask"`, `"flag"`, `"build-base-evolution-requirement"`, `"selection-priority"`, `"emissions"`, `"crafting-category"`.
     pub filter: String,
+    /// Inverts the condition. Default is `false`.
     pub invert: Option<bool>,
+    /// How to combine this with the previous filter. Must be `"or"` or `"and"`. Defaults to `"or"`. When evaluating the filters, `"and"` has higher precedence than `"or"`.
     pub mode: Option<String>,
+    /// Other attributes may be specified depending on `filter`:
     pub attributes: Option<EntityPrototypeFilterAttributes>,
 }
 
 pub enum EntityPrototypeFlagsUnion {
+    /// Prevents the entity from being rotated before or after placement.
     NotRotatable,
+    /// Determines the default force when placing entities in the map editor and using the "AUTO" option for the force.
     PlaceableNeutral,
+    /// Determines the default force when placing entities in the map editor and using the "AUTO" option for the force.
     PlaceablePlayer,
+    /// Determines the default force when placing entities in the map editor and using the "AUTO" option for the force.
     PlaceableEnemy,
+    /// Determines whether the entity needs to be aligned with the invisible grid within the world. Most entities are confined in this way, with a few exceptions such as trees and land mines.
     PlaceableOffGrid,
+    /// Makes it possible to blueprint, deconstruct, and repair the entity (which can be turned off again using the specific flags). Makes it possible for the biter AI to target the entity as a distraction. Enables dust to automatically be created when building the entity. If the entity does not have a `map_color` set, this flag makes the entity appear on the map with the default color specified by the UtilityConstants.
     PlayerCreation,
+    /// Uses 45 degree angle increments when selecting direction.
     BuildingDirection8Way,
+    /// Used to automatically detect the proper direction of the entity if possible. Used by the pump, train stop, and train signal by default.
     FilterDirections,
+    /// Fast replace will not apply when building while moving.
     FastReplaceableNoBuildWhileMoving,
+    /// Used to specify that the entity breathes air, and is thus affected by poison.
     BreathsAir,
+    /// Used to specify that the entity can not be 'healed' by repair packs.
     NotRepairable,
+    /// Prevents the entity from being drawn on the map.
     NotOnMap,
+    /// Prevents the entity from being deconstructed.
     NotDeconstructable,
+    /// Prevents the entity from being part of a blueprint.
     NotBlueprintable,
+    /// Hides the entity from the bonus GUI and from the "made in"-property of recipe tooltips.
     Hidden,
+    /// Hides the alt-info of this entity when in alt-mode.
     HideAltInfo,
+    /// Does not fast replace this entity over other entity types when building while moving.
     FastReplaceableNoCrossTypeWhileMoving,
     NoGapFillWhileBuilding,
+    /// Does not apply fire stickers to the entity.
     NotFlammable,
+    /// Prevents inserters and loaders from taking items from this entity.
     NoAutomatedItemRemoval,
+    /// Prevents inserters and loaders from inserting items into this entity.
     NoAutomatedItemInsertion,
+    /// Prevents the entity from being copy-pasted.
     NoCopyPaste,
+    /// Disallows selection of the entity even when a selection box is specified for other reasons. For example, selection boxes are used to determine the size of outlines to be shown when highlighting entities inside electric pole ranges.
     NotSelectableInGame,
+    /// Prevents the entity from being selected by the upgrade planner.
     NotUpgradable,
+    /// Prevents the entity from being shown in the kill statistics.
     NotInKillStatistics,
+    /// Prevents the entity from being shown in the "made in" list in recipe tooltips.
     NotInMadeIn,
 }
 
@@ -771,8 +985,11 @@ pub type EntityPrototypeFlags = HashSet<EntityPrototypeFlagsUnion>;
 
 /// An entity prototype may be specified in one of three ways.
 pub enum EntityPrototypeIdentification {
+    /// The entity.
     LuaEntity(LuaEntity),
+    /// The entity prototype.
     LuaEntityPrototype(LuaEntityPrototype),
+    /// The prototype name.
     String(String),
 }
 
@@ -794,6 +1011,7 @@ pub enum EquipmentPrototypeFilterAttributesTypeUnion {
 }
 
 pub struct EquipmentPrototypeFilterAttributesType {
+    /// The prototype type, or a list of acceptable types.
     pub typ: EquipmentPrototypeFilterAttributesTypeUnion,
 }
 
@@ -803,16 +1021,23 @@ pub enum EquipmentPrototypeFilterAttributes {
 
 /// Depending on the value of `filter`, the table may take additional fields. `filter` may be one of the following:
 pub struct EquipmentPrototypeFilter {
+    /// The condition to filter on. One of `"item-to-place"`, `"type"`.
     pub filter: String,
+    /// Inverts the condition. Default is `false`.
     pub invert: Option<bool>,
+    /// How to combine this with the previous filter. Must be `"or"` or `"and"`. Defaults to `"or"`. When evaluating the filters, `"and"` has higher precedence than `"or"`.
     pub mode: Option<String>,
+    /// Other attributes may be specified depending on `filter`:
     pub attributes: Option<EquipmentPrototypeFilterAttributes>,
 }
 
 /// Information about the event that has been raised. The table can also contain other fields depending on the type of event. See [the list of Factorio events](events.html) for more information on these.
 pub struct EventData {
+    /// The name of the mod that raised the event if it was raised using [LuaBootstrap::raise_event](LuaBootstrap::raise_event).
     pub mod_name: Option<String>,
+    /// The identifier of the event this handler was registered to.
     pub name: Events,
+    /// The tick during which the event happened.
     pub tick: u32,
 }
 
@@ -844,35 +1069,51 @@ pub enum EventFilterUnion {
 pub type EventFilter = Vec<EventFilterUnion>;
 
 pub struct Fluid {
+    /// Amount of the fluid.
     pub amount: f64,
+    /// Fluid prototype name of the fluid.
     pub name: String,
+    /// The temperature. When reading from [LuaFluidBox](LuaFluidBox), this field will always be present. It is not necessary to specify it when writing, however. When not specified, the fluid will be set to the fluid's default temperature as specified in the fluid's prototype.
     pub temperature: Option<f64>,
 }
 
 /// A definition of a fluidbox connection point.
 pub struct FluidBoxConnection {
+    /// The maximum tile distance this underground connection can connect at if this is an underground pipe.
     pub max_underground_distance: Option<u32>,
+    /// The 4 cardinal direction connection points for this pipe. This vector is a table with `x` and `y` keys instead of an array.
     pub positions: Vec<Vector>,
+    /// The connection type: "input", "output", or "input-output".
     pub typ: String,
 }
 
 pub struct FluidBoxFilter {
+    /// The maximum temperature allowed into the fluidbox.
     pub maximum_temperature: f64,
+    /// The minimum temperature allowed into the fluidbox.
     pub minimum_temperature: f64,
+    /// Fluid prototype name of the filtered fluid.
     pub name: String,
 }
 
 pub struct FluidBoxFilterSpec {
+    /// Force the filter to be set, regardless of current fluid content.
     pub force: Option<bool>,
+    /// The maximum temperature allowed into the fluidbox.
     pub maximum_temperature: Option<f64>,
+    /// The minimum temperature allowed into the fluidbox.
     pub minimum_temperature: Option<f64>,
+    /// Fluid prototype name of the filtered fluid.
     pub name: String,
 }
 
 /// A fluid may be specified in one of three ways.
 pub enum FluidIdentification {
+    /// The fluid name.
     String(String),
+    /// The fluid prototype.
     LuaFluidPrototype(LuaFluidPrototype),
+    /// The fluid.
     Fluid(Fluid),
 }
 
@@ -883,39 +1124,47 @@ pub enum FluidPrototypeFilterAttributesNameUnion {
 
 pub struct FluidPrototypeFilterAttributesDefaultTemperature {
     pub comparison: ComparatorString,
+    /// The value to compare against.
     pub value: f64,
 }
 
 pub struct FluidPrototypeFilterAttributesEmissionsMultiplier {
     pub comparison: ComparatorString,
+    /// The value to compare against.
     pub value: f64,
 }
 
 pub struct FluidPrototypeFilterAttributesFuelValue {
     pub comparison: ComparatorString,
+    /// The value to compare against.
     pub value: f64,
 }
 
 pub struct FluidPrototypeFilterAttributesGasTemperature {
     pub comparison: ComparatorString,
+    /// The value to compare against.
     pub value: f64,
 }
 
 pub struct FluidPrototypeFilterAttributesHeatCapacity {
     pub comparison: ComparatorString,
+    /// The value to compare against.
     pub value: f64,
 }
 
 pub struct FluidPrototypeFilterAttributesMaxTemperature {
     pub comparison: ComparatorString,
+    /// The value to compare against.
     pub value: f64,
 }
 
 pub struct FluidPrototypeFilterAttributesName {
+    /// The prototype name, or list of acceptable names.
     pub name: FluidPrototypeFilterAttributesNameUnion,
 }
 
 pub struct FluidPrototypeFilterAttributesSubgroup {
+    /// A [LuaGroup](LuaGroup) (subgroup) name
     pub subgroup: String,
 }
 
@@ -932,53 +1181,82 @@ pub enum FluidPrototypeFilterAttributes {
 
 /// Depending on the value of `filter`, the table may take additional fields. `filter` may be one of the following:
 pub struct FluidPrototypeFilter {
+    /// The condition to filter on. One of `"hidden"`, `"name"`, `"subgroup"`, `"default-temperature"`, `"max-temperature"`, `"heat-capacity"`, `"fuel-value"`, `"emissions-multiplier"`, `"gas-temperature"`.
     pub filter: String,
+    /// Inverts the condition. Default is `false`.
     pub invert: Option<bool>,
+    /// How to combine this with the previous filter. Must be `"or"` or `"and"`. Defaults to `"or"`. When evaluating the filters, `"and"` has higher precedence than `"or"`.
     pub mode: Option<String>,
+    /// Other attributes may be specified depending on `filter`:
     pub attributes: Option<FluidPrototypeFilterAttributes>,
 }
 
 pub enum ForceCondition {
+    /// All forces pass.
     All,
+    /// Forces which will attack pass.
     Enemy,
+    /// Forces which won't attack pass.
     Ally,
+    /// Forces which are friends pass.
     Friend,
+    /// Forces which are not friends pass.
     NotFriend,
+    /// The same force pass.
     Same,
+    /// The non-same forces pass.
     NotSame,
 }
 
 /// A force may be specified in one of three ways.
 pub enum ForceIdentification {
+    /// The force index.
     Uint8(u8),
+    /// The force name.
     String(String),
+    /// A reference to [LuaForce](LuaForce) may be passed directly.
     LuaForce(LuaForce),
 }
 
 /// Parameters that affect the look and control of the game. Updating any of the member attributes here will immediately take effect in the game engine.
 pub struct GameViewSettings {
+    /// Show the flashing alert icons next to the player's toolbar.
     pub show_alert_gui: bool,
+    /// Show the controller GUI elements. This includes the toolbar, the selected tool slot, the armour slot, and the gun and ammunition slots.
     pub show_controller_gui: bool,
+    /// Show overlay icons on entities. Also known as "alt-mode".
     pub show_entity_info: bool,
+    /// Shows or hides the view options when map is opened.
     pub show_map_view_options: bool,
+    /// Show the chart in the upper right-hand corner of the screen.
     pub show_minimap: bool,
+    /// Shows or hides quickbar of shortcuts.
     pub show_quickbar: bool,
+    /// When `true` (`false` is default), the rails will always show the rail block visualisation.
     pub show_rail_block_visualisation: bool,
+    /// Show research progress and name in the upper right-hand corner of the screen.
     pub show_research_info: bool,
+    /// Shows or hides the shortcut bar.
     pub show_shortcut_bar: bool,
+    /// Shows or hides the buttons row.
     pub show_side_menu: bool,
+    /// When `true` (the default), mousing over an entity will select it. Otherwise, moving the mouse won't update entity selection.
     pub update_entity_selection: bool,
 }
 
 pub struct GuiAnchor {
     pub gui: RelativeGuiType,
+    /// If provided, only anchors the GUI element when the opened thing matches the name. `name` takes precedence over `names`.
     pub name: Option<String>,
+    /// If provided, only anchors the GUI element when the opened thing matches one of the names. When reading an anchor, `names` is always populated.
     pub names: Option<Vec<String>>,
     pub position: RelativeGuiPosition,
+    /// If provided, only anchors the GUI element when the opened things type matches the type.
     pub typ: Option<String>,
 }
 
 pub struct GuiArrowSpecificationAttributesCraftingQueue {
+    /// Index in the crafting queue to point to.
     pub crafting_queueindex: u32,
 }
 
@@ -987,8 +1265,11 @@ pub struct GuiArrowSpecificationAttributesEntity {
 }
 
 pub struct GuiArrowSpecificationAttributesItemStack {
+    /// Which inventory the stack is in.
     pub inventory_index: Inventory,
+    /// Which stack to point to.
     pub item_stack_index: u32,
+    /// Must be either `"player"`, `"target"`, `"player-quickbar"` or `"player-equipment-bar"`.
     pub source: String,
 }
 
@@ -1005,7 +1286,9 @@ pub enum GuiArrowSpecificationAttributes {
 
 /// Used for specifying where a GUI arrow should point to.
 pub struct GuiArrowSpecification {
+    /// This determines which of the following fields will be required. Must be one of `"nowhere"` (will remove the arrow entirely), `"goal"` (will point to the current goal), `"entity_info"`, `"active_window"`, `"entity"`, `"position"`, `"crafting_queue"` or `"item_stack"` (will point to a given item stack in an inventory). Depending on this value, other fields may have to be specified.
     pub typ: String,
+    /// Other attributes may be specified depending on `type`:
     pub attributes: Option<GuiArrowSpecificationAttributes>,
 }
 
@@ -1022,23 +1305,33 @@ pub struct HeatConnection {
 
 /// The settings used by a heat-interface type entity.
 pub struct HeatSetting {
+    /// `"at-least"`, `"at-most"`, `"exactly"`, `"add"`, or `"remove"`. Defaults to `"at-least"`.
     pub mode: Option<String>,
+    /// The target temperature. Defaults to the minimum temperature of the heat buffer.
     pub temperature: Option<f64>,
 }
 
 /// A single filter used by an infinity-filters instance.
 pub struct InfinityInventoryFilter {
+    /// The count of the filter.
     pub count: Option<u32>,
+    /// The index of this filter in the filters list. Not required when writing a filter.
     pub index: u32,
+    /// `"at-least"`, `"at-most"`, or `"exactly"`. Defaults to `"at-least"`.
     pub mode: Option<String>,
+    /// Name of the item.
     pub name: String,
 }
 
 /// A single filter used by an infinity-pipe type entity.
 pub struct InfinityPipeFilter {
+    /// `"at-least"`, `"at-most"`, `"exactly"`, `"add"`, or `"remove"`. Defaults to `"at-least"`.
     pub mode: Option<String>,
+    /// Name of the fluid.
     pub name: String,
+    /// The fill percentage the pipe (e.g. 0.5 for 50%). Can't be negative.
     pub percentage: Option<f64>,
+    /// The temperature of the fluid. Defaults to the default/minimum temperature of the fluid.
     pub temperature: Option<f64>,
 }
 
@@ -1048,7 +1341,9 @@ pub enum IngredientCatalystAmountUnion {
 }
 
 pub struct IngredientAttributesFluid {
+    /// The maximum fluid temperature allowed.
     pub maximum_temperature: Option<f64>,
+    /// The minimum fluid temperature required.
     pub minimum_temperature: Option<f64>,
 }
 
@@ -1057,10 +1352,15 @@ pub enum IngredientAttributes {
 }
 
 pub struct Ingredient {
+    /// Amount of the item or fluid.
     pub amount: f64,
+    /// How much of this ingredient is a catalyst.
     pub catalyst_amount: Option<IngredientCatalystAmountUnion>,
+    /// Prototype name of the required item or fluid.
     pub name: String,
+    /// `"item"` or `"fluid"`.
     pub typ: String,
+    /// Other attributes may be specified depending on `type`:
     pub attributes: Option<IngredientAttributes>,
 }
 
@@ -1070,7 +1370,9 @@ pub struct InserterCircuitConditions {
 }
 
 pub struct InventoryFilter {
+    /// Position of the corresponding filter slot.
     pub index: u32,
+    /// Item prototype name of the item to filter.
     pub name: String,
 }
 
@@ -1085,73 +1387,89 @@ pub enum ItemPrototypeFilterAttributesTypeUnion {
 }
 
 pub struct ItemPrototypeFilterAttributesBurntResult {
+    /// Filters for the burnt result.
     pub elem_filters: Option<Vec<ItemPrototypeFilter>>,
 }
 
 pub struct ItemPrototypeFilterAttributesDefaultRequestAmount {
     pub comparison: ComparatorString,
+    /// The value to compare against.
     pub value: u32,
 }
 
 pub struct ItemPrototypeFilterAttributesFlag {
+    /// One of the values in [ItemPrototypeFlags](ItemPrototypeFlags).
     pub flag: String,
 }
 
 pub struct ItemPrototypeFilterAttributesFuelAccelerationMultiplier {
     pub comparison: ComparatorString,
+    /// The value to compare against.
     pub value: f64,
 }
 
 pub struct ItemPrototypeFilterAttributesFuelCategory {
+    /// A [LuaFuelCategoryPrototype](LuaFuelCategoryPrototype) name
     pub fuel_category: String,
 }
 
 pub struct ItemPrototypeFilterAttributesFuelEmissionsMultiplier {
     pub comparison: ComparatorString,
+    /// The value to compare against.
     pub value: f64,
 }
 
 pub struct ItemPrototypeFilterAttributesFuelTopSpeedMultiplier {
     pub comparison: ComparatorString,
+    /// The value to compare against.
     pub value: f64,
 }
 
 pub struct ItemPrototypeFilterAttributesFuelValue {
     pub comparison: ComparatorString,
+    /// The value to compare against.
     pub value: f64,
 }
 
 pub struct ItemPrototypeFilterAttributesName {
+    /// The prototype name, or list of acceptable names.
     pub name: ItemPrototypeFilterAttributesNameUnion,
 }
 
 pub struct ItemPrototypeFilterAttributesPlaceAsTile {
+    /// Filters for the placed tile.
     pub elem_filters: Option<Vec<TilePrototypeFilter>>,
 }
 
 pub struct ItemPrototypeFilterAttributesPlaceResult {
+    /// Filters for the place result.
     pub elem_filters: Option<Vec<EntityPrototypeFilter>>,
 }
 
 pub struct ItemPrototypeFilterAttributesPlacedAsEquipmentResult {
+    /// Filters for the placed equipment.
     pub elem_filters: Option<Vec<EquipmentPrototypeFilter>>,
 }
 
 pub struct ItemPrototypeFilterAttributesStackSize {
     pub comparison: ComparatorString,
+    /// The value to compare against.
     pub value: u32,
 }
 
 pub struct ItemPrototypeFilterAttributesSubgroup {
+    /// A [LuaGroup](LuaGroup) (subgroup) name
     pub subgroup: String,
 }
 
 pub struct ItemPrototypeFilterAttributesType {
+    /// The prototype type, or a list of acceptable types.
     pub typ: ItemPrototypeFilterAttributesTypeUnion,
 }
 
 pub struct ItemPrototypeFilterAttributesWireCount {
     pub comparison: ComparatorString,
+    /// The value to compare against.
     pub value: u32,
 }
 
@@ -1176,23 +1494,38 @@ pub enum ItemPrototypeFilterAttributes {
 
 /// Depending on the value of `filter`, the table may take additional fields. `filter` may be one of the following:
 pub struct ItemPrototypeFilter {
+    /// The condition to filter on. One of `"tool"`, `"mergeable"`, `"item-with-inventory"`, `"selection-tool"`, `"item-with-label"`, `"has-rocket-launch-products"`, `"fuel"`, `"place-result"`, `"burnt-result"`, `"place-as-tile"`, `"placed-as-equipment-result"`, `"name"`, `"type"`, `"flag"`, `"subgroup"`, `"fuel-category"`, `"stack-size"`, `"default-request-amount"`, `"wire-count"`, `"fuel-value"`, `"fuel-acceleration-multiplier"`, `"fuel-top-speed-multiplier"`, `"fuel-emissions-multiplier"`.
     pub filter: String,
+    /// Inverts the condition. Default is `false`.
     pub invert: Option<bool>,
+    /// How to combine this with the previous filter. Must be `"or"` or `"and"`. Defaults to `"or"`. When evaluating the filters, `"and"` has higher precedence than `"or"`.
     pub mode: Option<String>,
+    /// Other attributes may be specified depending on `filter`:
     pub attributes: Option<ItemPrototypeFilterAttributes>,
 }
 
 pub enum ItemPrototypeFlagsUnion {
+    /// Determines whether the logistics areas of roboports should be drawn when holding this item. Used by the deconstruction planner by default.
     DrawLogisticOverlay,
+    /// Hides the item in the logistic requests and filters GUIs (among others).
     Hidden,
+    /// Always shows the item in the logistic requests and filters GUIs (among others) even when the recipe for that item is locked.
     AlwaysShow,
+    /// Hides the item from the bonus GUI.
     HideFromBonusGui,
+    /// Hides the item from the tooltip that's shown when hovering over a burner inventory.
     HideFromFuelTooltip,
+    /// Prevents the item from being stacked. It also prevents the item from stacking in assembling machine input slots, which can otherwise exceed the item stack size if required by the recipe. Additionally, the item does not show an item count when in the cursor.
     NotStackable,
+    /// Makes the item act as an extension to the inventory that it is placed in. Only has an effect for items with inventory.
     CanExtendInventory,
+    /// Makes construction bots prefer this item when building the entity specified by its `place_result`.
     PrimaryPlaceResult,
+    /// Allows the item to be opened by the player, firing the `on_mod_item_opened` event. Only has an effect for selection tool items.
     ModOpenable,
+    /// Makes it so the item is deleted when clearing the cursor, instead of being put into the player's inventory. The copy-paste tools use this by default, for example.
     OnlyInCursor,
+    /// Allows the item to be spawned by a quickbar shortcut or custom input.
     Spawnable,
 }
 
@@ -1203,17 +1536,26 @@ pub type ItemPrototypeFlags = HashSet<ItemPrototypeFlagsUnion>;
 
 /// An item prototype may be specified in one of three ways.
 pub enum ItemPrototypeIdentification {
+    /// The item.
     LuaItemStack(LuaItemStack),
+    /// The item prototype.
     LuaItemPrototype(LuaItemPrototype),
+    /// The prototype name.
     String(String),
 }
 
 pub struct ItemStackDefinition {
+    /// Amount of ammo in the ammo items in the stack.
     pub ammo: Option<f64>,
+    /// Number of items the stack holds. If not specified, defaults to `1`.
     pub count: Option<u32>,
+    /// Durability of the tool items in the stack.
     pub durability: Option<f64>,
+    /// Health of the items in the stack. Defaults to `1.0`.
     pub health: Option<f32>,
+    /// Prototype name of the item the stack holds.
     pub name: String,
+    /// Tags of the items with tags in the stack.
     pub tags: Option<Vec<String>>,
 }
 
@@ -1253,37 +1595,49 @@ pub enum LocalisedString {
 }
 
 pub struct LogisticFilter {
+    /// The count for this filter.
     pub count: u32,
+    /// The index this filter applies to.
     pub index: u32,
+    /// The item name for this filter.
     pub name: String,
 }
 
 pub struct LogisticParameters {
     pub max: Option<u32>,
     pub min: Option<u32>,
+    /// The item. `nil` clears the filter.
     pub name: Option<String>,
 }
 
 pub struct Loot {
+    /// Maximum amount of loot to drop.
     pub count_max: f64,
+    /// Minimum amount of loot to drop.
     pub count_min: f64,
+    /// Item prototype name of the result.
     pub item: String,
+    /// Probability that any loot at all will drop, as a number in range [0, 1].
     pub probability: f64,
 }
 
 pub struct LuaEntityClonedEventFilterAttributesGhostName {
+    /// The ghost prototype name
     pub name: String,
 }
 
 pub struct LuaEntityClonedEventFilterAttributesGhostType {
+    /// The ghost prototype type
     pub typ: String,
 }
 
 pub struct LuaEntityClonedEventFilterAttributesName {
+    /// The prototype name
     pub name: String,
 }
 
 pub struct LuaEntityClonedEventFilterAttributesType {
+    /// The prototype type
     pub typ: String,
 }
 
@@ -1296,44 +1650,56 @@ pub enum LuaEntityClonedEventFilterAttributes {
 
 /// Depending on the value of `filter`, the table may take additional fields. `filter` may be one of the following:
 pub struct LuaEntityClonedEventFilter {
+    /// The condition to filter on. One of `"ghost"`, `"rail"`, `"rail-signal"`, `"rolling-stock"`, `"robot-with-logistics-interface"`, `"vehicle"`, `"turret"`, `"crafting-machine"`, `"wall-connectable"`, `"transport-belt-connectable"`, `"circuit-network-connectable"`, `"type"`, `"name"`, `"ghost_type"`, `"ghost_name"`.
     pub filter: String,
+    /// Inverts the condition. Default is `false`.
     pub invert: Option<bool>,
+    /// How to combine this with the previous filter. Must be `"or"` or `"and"`. Defaults to `"or"`. When evaluating the filters, `"and"` has higher precedence than `"or"`.
     pub mode: Option<String>,
+    /// Other attributes may be specified depending on `filter`:
     pub attributes: Option<LuaEntityClonedEventFilterAttributes>,
 }
 
 pub struct LuaEntityDamagedEventFilterAttributesDamageType {
+    /// A [LuaDamagePrototype](LuaDamagePrototype) name
     pub typ: String,
 }
 
 pub struct LuaEntityDamagedEventFilterAttributesFinalDamageAmount {
     pub comparison: ComparatorString,
+    /// The value to compare against.
     pub value: f32,
 }
 
 pub struct LuaEntityDamagedEventFilterAttributesFinalHealth {
     pub comparison: ComparatorString,
+    /// The value to compare against.
     pub value: f32,
 }
 
 pub struct LuaEntityDamagedEventFilterAttributesGhostName {
+    /// The ghost prototype name
     pub name: String,
 }
 
 pub struct LuaEntityDamagedEventFilterAttributesGhostType {
+    /// The ghost prototype type
     pub typ: String,
 }
 
 pub struct LuaEntityDamagedEventFilterAttributesName {
+    /// The prototype name
     pub name: String,
 }
 
 pub struct LuaEntityDamagedEventFilterAttributesOriginalDamageAmount {
     pub comparison: ComparatorString,
+    /// The value to compare against.
     pub value: f32,
 }
 
 pub struct LuaEntityDamagedEventFilterAttributesType {
+    /// The prototype type
     pub typ: String,
 }
 
@@ -1350,25 +1716,33 @@ pub enum LuaEntityDamagedEventFilterAttributes {
 
 /// Depending on the value of `filter`, the table may take additional fields. `filter` may be one of the following:
 pub struct LuaEntityDamagedEventFilter {
+    /// The condition to filter on. One of `"ghost"`, `"rail"`, `"rail-signal"`, `"rolling-stock"`, `"robot-with-logistics-interface"`, `"vehicle"`, `"turret"`, `"crafting-machine"`, `"wall-connectable"`, `"transport-belt-connectable"`, `"circuit-network-connectable"`, `"type"`, `"name"`, `"ghost_type"`, `"ghost_name"`, `"original-damage-amount"`, `"final-damage-amount"`, `"damage-type"`, `"final-health"`.
     pub filter: String,
+    /// Inverts the condition. Default is `false`.
     pub invert: Option<bool>,
+    /// How to combine this with the previous filter. Must be `"or"` or `"and"`. Defaults to `"or"`. When evaluating the filters, `"and"` has higher precedence than `"or"`.
     pub mode: Option<String>,
+    /// Other attributes may be specified depending on `filter`:
     pub attributes: Option<LuaEntityDamagedEventFilterAttributes>,
 }
 
 pub struct LuaEntityDeconstructionCancelledEventFilterAttributesGhostName {
+    /// The ghost prototype name
     pub name: String,
 }
 
 pub struct LuaEntityDeconstructionCancelledEventFilterAttributesGhostType {
+    /// The ghost prototype type
     pub typ: String,
 }
 
 pub struct LuaEntityDeconstructionCancelledEventFilterAttributesName {
+    /// The prototype name
     pub name: String,
 }
 
 pub struct LuaEntityDeconstructionCancelledEventFilterAttributesType {
+    /// The prototype type
     pub typ: String,
 }
 
@@ -1381,25 +1755,33 @@ pub enum LuaEntityDeconstructionCancelledEventFilterAttributes {
 
 /// Depending on the value of `filter`, the table may take additional fields. `filter` may be one of the following:
 pub struct LuaEntityDeconstructionCancelledEventFilter {
+    /// The condition to filter on. One of `"ghost"`, `"rail"`, `"rail-signal"`, `"rolling-stock"`, `"robot-with-logistics-interface"`, `"vehicle"`, `"turret"`, `"crafting-machine"`, `"wall-connectable"`, `"transport-belt-connectable"`, `"circuit-network-connectable"`, `"type"`, `"name"`, `"ghost_type"`, `"ghost_name"`.
     pub filter: String,
+    /// Inverts the condition. Default is `false`.
     pub invert: Option<bool>,
+    /// How to combine this with the previous filter. Must be `"or"` or `"and"`. Defaults to `"or"`. When evaluating the filters, `"and"` has higher precedence than `"or"`.
     pub mode: Option<String>,
+    /// Other attributes may be specified depending on `filter`:
     pub attributes: Option<LuaEntityDeconstructionCancelledEventFilterAttributes>,
 }
 
 pub struct LuaEntityDiedEventFilterAttributesGhostName {
+    /// The ghost prototype name
     pub name: String,
 }
 
 pub struct LuaEntityDiedEventFilterAttributesGhostType {
+    /// The ghost prototype type
     pub typ: String,
 }
 
 pub struct LuaEntityDiedEventFilterAttributesName {
+    /// The prototype name
     pub name: String,
 }
 
 pub struct LuaEntityDiedEventFilterAttributesType {
+    /// The prototype type
     pub typ: String,
 }
 
@@ -1412,25 +1794,33 @@ pub enum LuaEntityDiedEventFilterAttributes {
 
 /// Depending on the value of `filter`, the table may take additional fields. `filter` may be one of the following:
 pub struct LuaEntityDiedEventFilter {
+    /// The condition to filter on. One of `"ghost"`, `"rail"`, `"rail-signal"`, `"rolling-stock"`, `"robot-with-logistics-interface"`, `"vehicle"`, `"turret"`, `"crafting-machine"`, `"wall-connectable"`, `"transport-belt-connectable"`, `"circuit-network-connectable"`, `"type"`, `"name"`, `"ghost_type"`, `"ghost_name"`.
     pub filter: String,
+    /// Inverts the condition. Default is `false`.
     pub invert: Option<bool>,
+    /// How to combine this with the previous filter. Must be `"or"` or `"and"`. Defaults to `"or"`. When evaluating the filters, `"and"` has higher precedence than `"or"`.
     pub mode: Option<String>,
+    /// Other attributes may be specified depending on `filter`:
     pub attributes: Option<LuaEntityDiedEventFilterAttributes>,
 }
 
 pub struct LuaEntityMarkedForDeconstructionEventFilterAttributesGhostName {
+    /// The ghost prototype name
     pub name: String,
 }
 
 pub struct LuaEntityMarkedForDeconstructionEventFilterAttributesGhostType {
+    /// The ghost prototype type
     pub typ: String,
 }
 
 pub struct LuaEntityMarkedForDeconstructionEventFilterAttributesName {
+    /// The prototype name
     pub name: String,
 }
 
 pub struct LuaEntityMarkedForDeconstructionEventFilterAttributesType {
+    /// The prototype type
     pub typ: String,
 }
 
@@ -1443,25 +1833,33 @@ pub enum LuaEntityMarkedForDeconstructionEventFilterAttributes {
 
 /// Depending on the value of `filter`, the table may take additional fields. `filter` may be one of the following:
 pub struct LuaEntityMarkedForDeconstructionEventFilter {
+    /// The condition to filter on. One of `"ghost"`, `"rail"`, `"rail-signal"`, `"rolling-stock"`, `"robot-with-logistics-interface"`, `"vehicle"`, `"turret"`, `"crafting-machine"`, `"wall-connectable"`, `"transport-belt-connectable"`, `"circuit-network-connectable"`, `"type"`, `"name"`, `"ghost_type"`, `"ghost_name"`.
     pub filter: String,
+    /// Inverts the condition. Default is `false`.
     pub invert: Option<bool>,
+    /// How to combine this with the previous filter. Must be `"or"` or `"and"`. Defaults to `"or"`. When evaluating the filters, `"and"` has higher precedence than `"or"`.
     pub mode: Option<String>,
+    /// Other attributes may be specified depending on `filter`:
     pub attributes: Option<LuaEntityMarkedForDeconstructionEventFilterAttributes>,
 }
 
 pub struct LuaEntityMarkedForUpgradeEventFilterAttributesGhostName {
+    /// The ghost prototype name
     pub name: String,
 }
 
 pub struct LuaEntityMarkedForUpgradeEventFilterAttributesGhostType {
+    /// The ghost prototype type
     pub typ: String,
 }
 
 pub struct LuaEntityMarkedForUpgradeEventFilterAttributesName {
+    /// The prototype name
     pub name: String,
 }
 
 pub struct LuaEntityMarkedForUpgradeEventFilterAttributesType {
+    /// The prototype type
     pub typ: String,
 }
 
@@ -1474,29 +1872,38 @@ pub enum LuaEntityMarkedForUpgradeEventFilterAttributes {
 
 /// Depending on the value of `filter`, the table may take additional fields. `filter` may be one of the following:
 pub struct LuaEntityMarkedForUpgradeEventFilter {
+    /// The condition to filter on. One of `"ghost"`, `"rail"`, `"rail-signal"`, `"rolling-stock"`, `"robot-with-logistics-interface"`, `"vehicle"`, `"turret"`, `"crafting-machine"`, `"wall-connectable"`, `"transport-belt-connectable"`, `"circuit-network-connectable"`, `"type"`, `"name"`, `"ghost_type"`, `"ghost_name"`.
     pub filter: String,
+    /// Inverts the condition. Default is `false`.
     pub invert: Option<bool>,
+    /// How to combine this with the previous filter. Must be `"or"` or `"and"`. Defaults to `"or"`. When evaluating the filters, `"and"` has higher precedence than `"or"`.
     pub mode: Option<String>,
+    /// Other attributes may be specified depending on `filter`:
     pub attributes: Option<LuaEntityMarkedForUpgradeEventFilterAttributes>,
 }
 
 pub struct LuaPlayerBuiltEntityEventFilterAttributesForce {
+    /// The entity force
     pub force: String,
 }
 
 pub struct LuaPlayerBuiltEntityEventFilterAttributesGhostName {
+    /// The ghost prototype name
     pub name: String,
 }
 
 pub struct LuaPlayerBuiltEntityEventFilterAttributesGhostType {
+    /// The ghost prototype type
     pub typ: String,
 }
 
 pub struct LuaPlayerBuiltEntityEventFilterAttributesName {
+    /// The prototype name
     pub name: String,
 }
 
 pub struct LuaPlayerBuiltEntityEventFilterAttributesType {
+    /// The prototype type
     pub typ: String,
 }
 
@@ -1510,25 +1917,33 @@ pub enum LuaPlayerBuiltEntityEventFilterAttributes {
 
 /// Depending on the value of `filter`, the table may take additional fields. `filter` may be one of the following:
 pub struct LuaPlayerBuiltEntityEventFilter {
+    /// The condition to filter on. One of `"ghost"`, `"rail"`, `"rail-signal"`, `"rolling-stock"`, `"robot-with-logistics-interface"`, `"vehicle"`, `"turret"`, `"crafting-machine"`, `"wall-connectable"`, `"transport-belt-connectable"`, `"circuit-network-connectable"`, `"type"`, `"name"`, `"ghost_type"`, `"ghost_name"`, `"force"`.
     pub filter: String,
+    /// Inverts the condition. Default is `false`.
     pub invert: Option<bool>,
+    /// How to combine this with the previous filter. Must be `"or"` or `"and"`. Defaults to `"or"`. When evaluating the filters, `"and"` has higher precedence than `"or"`.
     pub mode: Option<String>,
+    /// Other attributes may be specified depending on `filter`:
     pub attributes: Option<LuaPlayerBuiltEntityEventFilterAttributes>,
 }
 
 pub struct LuaPlayerMinedEntityEventFilterAttributesGhostName {
+    /// The ghost prototype name
     pub name: String,
 }
 
 pub struct LuaPlayerMinedEntityEventFilterAttributesGhostType {
+    /// The ghost prototype type
     pub typ: String,
 }
 
 pub struct LuaPlayerMinedEntityEventFilterAttributesName {
+    /// The prototype name
     pub name: String,
 }
 
 pub struct LuaPlayerMinedEntityEventFilterAttributesType {
+    /// The prototype type
     pub typ: String,
 }
 
@@ -1541,25 +1956,33 @@ pub enum LuaPlayerMinedEntityEventFilterAttributes {
 
 /// Depending on the value of `filter`, the table may take additional fields. `filter` may be one of the following:
 pub struct LuaPlayerMinedEntityEventFilter {
+    /// The condition to filter on. One of `"ghost"`, `"rail"`, `"rail-signal"`, `"rolling-stock"`, `"robot-with-logistics-interface"`, `"vehicle"`, `"turret"`, `"crafting-machine"`, `"wall-connectable"`, `"transport-belt-connectable"`, `"circuit-network-connectable"`, `"type"`, `"name"`, `"ghost_type"`, `"ghost_name"`.
     pub filter: String,
+    /// Inverts the condition. Default is `false`.
     pub invert: Option<bool>,
+    /// How to combine this with the previous filter. Must be `"or"` or `"and"`. Defaults to `"or"`. When evaluating the filters, `"and"` has higher precedence than `"or"`.
     pub mode: Option<String>,
+    /// Other attributes may be specified depending on `filter`:
     pub attributes: Option<LuaPlayerMinedEntityEventFilterAttributes>,
 }
 
 pub struct LuaPlayerRepairedEntityEventFilterAttributesGhostName {
+    /// The ghost prototype name
     pub name: String,
 }
 
 pub struct LuaPlayerRepairedEntityEventFilterAttributesGhostType {
+    /// The ghost prototype type
     pub typ: String,
 }
 
 pub struct LuaPlayerRepairedEntityEventFilterAttributesName {
+    /// The prototype name
     pub name: String,
 }
 
 pub struct LuaPlayerRepairedEntityEventFilterAttributesType {
+    /// The prototype type
     pub typ: String,
 }
 
@@ -1572,13 +1995,18 @@ pub enum LuaPlayerRepairedEntityEventFilterAttributes {
 
 /// Depending on the value of `filter`, the table may take additional fields. `filter` may be one of the following:
 pub struct LuaPlayerRepairedEntityEventFilter {
+    /// The condition to filter on. One of `"ghost"`, `"rail"`, `"rail-signal"`, `"rolling-stock"`, `"robot-with-logistics-interface"`, `"vehicle"`, `"turret"`, `"crafting-machine"`, `"wall-connectable"`, `"transport-belt-connectable"`, `"circuit-network-connectable"`, `"type"`, `"name"`, `"ghost_type"`, `"ghost_name"`.
     pub filter: String,
+    /// Inverts the condition. Default is `false`.
     pub invert: Option<bool>,
+    /// How to combine this with the previous filter. Must be `"or"` or `"and"`. Defaults to `"or"`. When evaluating the filters, `"and"` has higher precedence than `"or"`.
     pub mode: Option<String>,
+    /// Other attributes may be specified depending on `filter`:
     pub attributes: Option<LuaPlayerRepairedEntityEventFilterAttributes>,
 }
 
 pub struct LuaPostEntityDiedEventFilterAttributesType {
+    /// The prototype type
     pub typ: String,
 }
 
@@ -1588,25 +2016,33 @@ pub enum LuaPostEntityDiedEventFilterAttributes {
 
 /// Depending on the value of `filter`, the table may take additional fields. `filter` may be one of the following:
 pub struct LuaPostEntityDiedEventFilter {
+    /// The condition to filter on. Can only be `"type"`.
     pub filter: String,
+    /// Inverts the condition. Default is `false`.
     pub invert: Option<bool>,
+    /// How to combine this with the previous filter. Must be `"or"` or `"and"`. Defaults to `"or"`. When evaluating the filters, `"and"` has higher precedence than `"or"`.
     pub mode: Option<String>,
+    /// Other attributes may be specified depending on `filter`:
     pub attributes: Option<LuaPostEntityDiedEventFilterAttributes>,
 }
 
 pub struct LuaPreGhostDeconstructedEventFilterAttributesGhostName {
+    /// The ghost prototype name
     pub name: String,
 }
 
 pub struct LuaPreGhostDeconstructedEventFilterAttributesGhostType {
+    /// The ghost prototype type
     pub typ: String,
 }
 
 pub struct LuaPreGhostDeconstructedEventFilterAttributesName {
+    /// The prototype name
     pub name: String,
 }
 
 pub struct LuaPreGhostDeconstructedEventFilterAttributesType {
+    /// The prototype type
     pub typ: String,
 }
 
@@ -1619,25 +2055,33 @@ pub enum LuaPreGhostDeconstructedEventFilterAttributes {
 
 /// Depending on the value of `filter`, the table may take additional fields. `filter` may be one of the following:
 pub struct LuaPreGhostDeconstructedEventFilter {
+    /// The condition to filter on. One of `"ghost"`, `"rail"`, `"rail-signal"`, `"rolling-stock"`, `"robot-with-logistics-interface"`, `"vehicle"`, `"turret"`, `"crafting-machine"`, `"wall-connectable"`, `"transport-belt-connectable"`, `"circuit-network-connectable"`, `"type"`, `"name"`, `"ghost_type"`, `"ghost_name"`.
     pub filter: String,
+    /// Inverts the condition. Default is `false`.
     pub invert: Option<bool>,
+    /// How to combine this with the previous filter. Must be `"or"` or `"and"`. Defaults to `"or"`. When evaluating the filters, `"and"` has higher precedence than `"or"`.
     pub mode: Option<String>,
+    /// Other attributes may be specified depending on `filter`:
     pub attributes: Option<LuaPreGhostDeconstructedEventFilterAttributes>,
 }
 
 pub struct LuaPreGhostUpgradedEventFilterAttributesGhostName {
+    /// The ghost prototype name
     pub name: String,
 }
 
 pub struct LuaPreGhostUpgradedEventFilterAttributesGhostType {
+    /// The ghost prototype type
     pub typ: String,
 }
 
 pub struct LuaPreGhostUpgradedEventFilterAttributesName {
+    /// The prototype name
     pub name: String,
 }
 
 pub struct LuaPreGhostUpgradedEventFilterAttributesType {
+    /// The prototype type
     pub typ: String,
 }
 
@@ -1650,25 +2094,33 @@ pub enum LuaPreGhostUpgradedEventFilterAttributes {
 
 /// Depending on the value of `filter`, the table may take additional fields. `filter` may be one of the following:
 pub struct LuaPreGhostUpgradedEventFilter {
+    /// The condition to filter on. One of `"ghost"`, `"rail"`, `"rail-signal"`, `"rolling-stock"`, `"robot-with-logistics-interface"`, `"vehicle"`, `"turret"`, `"crafting-machine"`, `"wall-connectable"`, `"transport-belt-connectable"`, `"circuit-network-connectable"`, `"type"`, `"name"`, `"ghost_type"`, `"ghost_name"`.
     pub filter: String,
+    /// Inverts the condition. Default is `false`.
     pub invert: Option<bool>,
+    /// How to combine this with the previous filter. Must be `"or"` or `"and"`. Defaults to `"or"`. When evaluating the filters, `"and"` has higher precedence than `"or"`.
     pub mode: Option<String>,
+    /// Other attributes may be specified depending on `filter`:
     pub attributes: Option<LuaPreGhostUpgradedEventFilterAttributes>,
 }
 
 pub struct LuaPrePlayerMinedEntityEventFilterAttributesGhostName {
+    /// The ghost prototype name
     pub name: String,
 }
 
 pub struct LuaPrePlayerMinedEntityEventFilterAttributesGhostType {
+    /// The ghost prototype type
     pub typ: String,
 }
 
 pub struct LuaPrePlayerMinedEntityEventFilterAttributesName {
+    /// The prototype name
     pub name: String,
 }
 
 pub struct LuaPrePlayerMinedEntityEventFilterAttributesType {
+    /// The prototype type
     pub typ: String,
 }
 
@@ -1681,25 +2133,33 @@ pub enum LuaPrePlayerMinedEntityEventFilterAttributes {
 
 /// Depending on the value of `filter`, the table may take additional fields. `filter` may be one of the following:
 pub struct LuaPrePlayerMinedEntityEventFilter {
+    /// The condition to filter on. One of `"ghost"`, `"rail"`, `"rail-signal"`, `"rolling-stock"`, `"robot-with-logistics-interface"`, `"vehicle"`, `"turret"`, `"crafting-machine"`, `"wall-connectable"`, `"transport-belt-connectable"`, `"circuit-network-connectable"`, `"type"`, `"name"`, `"ghost_type"`, `"ghost_name"`.
     pub filter: String,
+    /// Inverts the condition. Default is `false`.
     pub invert: Option<bool>,
+    /// How to combine this with the previous filter. Must be `"or"` or `"and"`. Defaults to `"or"`. When evaluating the filters, `"and"` has higher precedence than `"or"`.
     pub mode: Option<String>,
+    /// Other attributes may be specified depending on `filter`:
     pub attributes: Option<LuaPrePlayerMinedEntityEventFilterAttributes>,
 }
 
 pub struct LuaPreRobotMinedEntityEventFilterAttributesGhostName {
+    /// The ghost prototype name
     pub name: String,
 }
 
 pub struct LuaPreRobotMinedEntityEventFilterAttributesGhostType {
+    /// The ghost prototype type
     pub typ: String,
 }
 
 pub struct LuaPreRobotMinedEntityEventFilterAttributesName {
+    /// The prototype name
     pub name: String,
 }
 
 pub struct LuaPreRobotMinedEntityEventFilterAttributesType {
+    /// The prototype type
     pub typ: String,
 }
 
@@ -1712,29 +2172,38 @@ pub enum LuaPreRobotMinedEntityEventFilterAttributes {
 
 /// Depending on the value of `filter`, the table may take additional fields. `filter` may be one of the following:
 pub struct LuaPreRobotMinedEntityEventFilter {
+    /// The condition to filter on. One of `"ghost"`, `"rail"`, `"rail-signal"`, `"rolling-stock"`, `"robot-with-logistics-interface"`, `"vehicle"`, `"turret"`, `"crafting-machine"`, `"wall-connectable"`, `"transport-belt-connectable"`, `"circuit-network-connectable"`, `"type"`, `"name"`, `"ghost_type"`, `"ghost_name"`.
     pub filter: String,
+    /// Inverts the condition. Default is `false`.
     pub invert: Option<bool>,
+    /// How to combine this with the previous filter. Must be `"or"` or `"and"`. Defaults to `"or"`. When evaluating the filters, `"and"` has higher precedence than `"or"`.
     pub mode: Option<String>,
+    /// Other attributes may be specified depending on `filter`:
     pub attributes: Option<LuaPreRobotMinedEntityEventFilterAttributes>,
 }
 
 pub struct LuaRobotBuiltEntityEventFilterAttributesForce {
+    /// The entity force
     pub force: String,
 }
 
 pub struct LuaRobotBuiltEntityEventFilterAttributesGhostName {
+    /// The ghost prototype name
     pub name: String,
 }
 
 pub struct LuaRobotBuiltEntityEventFilterAttributesGhostType {
+    /// The ghost prototype type
     pub typ: String,
 }
 
 pub struct LuaRobotBuiltEntityEventFilterAttributesName {
+    /// The prototype name
     pub name: String,
 }
 
 pub struct LuaRobotBuiltEntityEventFilterAttributesType {
+    /// The prototype type
     pub typ: String,
 }
 
@@ -1748,25 +2217,33 @@ pub enum LuaRobotBuiltEntityEventFilterAttributes {
 
 /// Depending on the value of `filter`, the table may take additional fields. `filter` may be one of the following:
 pub struct LuaRobotBuiltEntityEventFilter {
+    /// The condition to filter on. One of `"ghost"`, `"rail"`, `"rail-signal"`, `"rolling-stock"`, `"robot-with-logistics-interface"`, `"vehicle"`, `"turret"`, `"crafting-machine"`, `"wall-connectable"`, `"transport-belt-connectable"`, `"circuit-network-connectable"`, `"type"`, `"name"`, `"ghost_type"`, `"ghost_name"`, `"force"`.
     pub filter: String,
+    /// Inverts the condition. Default is `false`.
     pub invert: Option<bool>,
+    /// How to combine this with the previous filter. Must be `"or"` or `"and"`. Defaults to `"or"`. When evaluating the filters, `"and"` has higher precedence than `"or"`.
     pub mode: Option<String>,
+    /// Other attributes may be specified depending on `filter`:
     pub attributes: Option<LuaRobotBuiltEntityEventFilterAttributes>,
 }
 
 pub struct LuaRobotMinedEntityEventFilterAttributesGhostName {
+    /// The ghost prototype name
     pub name: String,
 }
 
 pub struct LuaRobotMinedEntityEventFilterAttributesGhostType {
+    /// The ghost prototype type
     pub typ: String,
 }
 
 pub struct LuaRobotMinedEntityEventFilterAttributesName {
+    /// The prototype name
     pub name: String,
 }
 
 pub struct LuaRobotMinedEntityEventFilterAttributesType {
+    /// The prototype type
     pub typ: String,
 }
 
@@ -1779,25 +2256,33 @@ pub enum LuaRobotMinedEntityEventFilterAttributes {
 
 /// Depending on the value of `filter`, the table may take additional fields. `filter` may be one of the following:
 pub struct LuaRobotMinedEntityEventFilter {
+    /// The condition to filter on. One of `"ghost"`, `"rail"`, `"rail-signal"`, `"rolling-stock"`, `"robot-with-logistics-interface"`, `"vehicle"`, `"turret"`, `"crafting-machine"`, `"wall-connectable"`, `"transport-belt-connectable"`, `"circuit-network-connectable"`, `"type"`, `"name"`, `"ghost_type"`, `"ghost_name"`.
     pub filter: String,
+    /// Inverts the condition. Default is `false`.
     pub invert: Option<bool>,
+    /// How to combine this with the previous filter. Must be `"or"` or `"and"`. Defaults to `"or"`. When evaluating the filters, `"and"` has higher precedence than `"or"`.
     pub mode: Option<String>,
+    /// Other attributes may be specified depending on `filter`:
     pub attributes: Option<LuaRobotMinedEntityEventFilterAttributes>,
 }
 
 pub struct LuaScriptRaisedBuiltEventFilterAttributesGhostName {
+    /// The ghost prototype name
     pub name: String,
 }
 
 pub struct LuaScriptRaisedBuiltEventFilterAttributesGhostType {
+    /// The ghost prototype type
     pub typ: String,
 }
 
 pub struct LuaScriptRaisedBuiltEventFilterAttributesName {
+    /// The prototype name
     pub name: String,
 }
 
 pub struct LuaScriptRaisedBuiltEventFilterAttributesType {
+    /// The prototype type
     pub typ: String,
 }
 
@@ -1810,25 +2295,33 @@ pub enum LuaScriptRaisedBuiltEventFilterAttributes {
 
 /// Depending on the value of `filter`, the table may take additional fields. `filter` may be one of the following:
 pub struct LuaScriptRaisedBuiltEventFilter {
+    /// The condition to filter on. One of `"ghost"`, `"rail"`, `"rail-signal"`, `"rolling-stock"`, `"robot-with-logistics-interface"`, `"vehicle"`, `"turret"`, `"crafting-machine"`, `"wall-connectable"`, `"transport-belt-connectable"`, `"circuit-network-connectable"`, `"type"`, `"name"`, `"ghost_type"`, `"ghost_name"`.
     pub filter: String,
+    /// Inverts the condition. Default is `false`.
     pub invert: Option<bool>,
+    /// How to combine this with the previous filter. Must be `"or"` or `"and"`. Defaults to `"or"`. When evaluating the filters, `"and"` has higher precedence than `"or"`.
     pub mode: Option<String>,
+    /// Other attributes may be specified depending on `filter`:
     pub attributes: Option<LuaScriptRaisedBuiltEventFilterAttributes>,
 }
 
 pub struct LuaScriptRaisedDestroyEventFilterAttributesGhostName {
+    /// The ghost prototype name
     pub name: String,
 }
 
 pub struct LuaScriptRaisedDestroyEventFilterAttributesGhostType {
+    /// The ghost prototype type
     pub typ: String,
 }
 
 pub struct LuaScriptRaisedDestroyEventFilterAttributesName {
+    /// The prototype name
     pub name: String,
 }
 
 pub struct LuaScriptRaisedDestroyEventFilterAttributesType {
+    /// The prototype type
     pub typ: String,
 }
 
@@ -1841,25 +2334,33 @@ pub enum LuaScriptRaisedDestroyEventFilterAttributes {
 
 /// Depending on the value of `filter`, the table may take additional fields. `filter` may be one of the following:
 pub struct LuaScriptRaisedDestroyEventFilter {
+    /// The condition to filter on. One of `"ghost"`, `"rail"`, `"rail-signal"`, `"rolling-stock"`, `"robot-with-logistics-interface"`, `"vehicle"`, `"turret"`, `"crafting-machine"`, `"wall-connectable"`, `"transport-belt-connectable"`, `"circuit-network-connectable"`, `"type"`, `"name"`, `"ghost_type"`, `"ghost_name"`.
     pub filter: String,
+    /// Inverts the condition. Default is `false`.
     pub invert: Option<bool>,
+    /// How to combine this with the previous filter. Must be `"or"` or `"and"`. Defaults to `"or"`. When evaluating the filters, `"and"` has higher precedence than `"or"`.
     pub mode: Option<String>,
+    /// Other attributes may be specified depending on `filter`:
     pub attributes: Option<LuaScriptRaisedDestroyEventFilterAttributes>,
 }
 
 pub struct LuaScriptRaisedReviveEventFilterAttributesGhostName {
+    /// The ghost prototype name
     pub name: String,
 }
 
 pub struct LuaScriptRaisedReviveEventFilterAttributesGhostType {
+    /// The ghost prototype type
     pub typ: String,
 }
 
 pub struct LuaScriptRaisedReviveEventFilterAttributesName {
+    /// The prototype name
     pub name: String,
 }
 
 pub struct LuaScriptRaisedReviveEventFilterAttributesType {
+    /// The prototype type
     pub typ: String,
 }
 
@@ -1872,25 +2373,33 @@ pub enum LuaScriptRaisedReviveEventFilterAttributes {
 
 /// Depending on the value of `filter`, the table may take additional fields. `filter` may be one of the following:
 pub struct LuaScriptRaisedReviveEventFilter {
+    /// The condition to filter on. One of `"ghost"`, `"rail"`, `"rail-signal"`, `"rolling-stock"`, `"robot-with-logistics-interface"`, `"vehicle"`, `"turret"`, `"crafting-machine"`, `"wall-connectable"`, `"transport-belt-connectable"`, `"circuit-network-connectable"`, `"type"`, `"name"`, `"ghost_type"`, `"ghost_name"`.
     pub filter: String,
+    /// Inverts the condition. Default is `false`.
     pub invert: Option<bool>,
+    /// How to combine this with the previous filter. Must be `"or"` or `"and"`. Defaults to `"or"`. When evaluating the filters, `"and"` has higher precedence than `"or"`.
     pub mode: Option<String>,
+    /// Other attributes may be specified depending on `filter`:
     pub attributes: Option<LuaScriptRaisedReviveEventFilterAttributes>,
 }
 
 pub struct LuaScriptRaisedTeleportedEventFilterAttributesGhostName {
+    /// The ghost prototype name
     pub name: String,
 }
 
 pub struct LuaScriptRaisedTeleportedEventFilterAttributesGhostType {
+    /// The ghost prototype type
     pub typ: String,
 }
 
 pub struct LuaScriptRaisedTeleportedEventFilterAttributesName {
+    /// The prototype name
     pub name: String,
 }
 
 pub struct LuaScriptRaisedTeleportedEventFilterAttributesType {
+    /// The prototype type
     pub typ: String,
 }
 
@@ -1903,25 +2412,33 @@ pub enum LuaScriptRaisedTeleportedEventFilterAttributes {
 
 /// Depending on the value of `filter`, the table may take additional fields. `filter` may be one of the following:
 pub struct LuaScriptRaisedTeleportedEventFilter {
+    /// The condition to filter on. One of `"ghost"`, `"rail"`, `"rail-signal"`, `"rolling-stock"`, `"robot-with-logistics-interface"`, `"vehicle"`, `"turret"`, `"crafting-machine"`, `"wall-connectable"`, `"transport-belt-connectable"`, `"circuit-network-connectable"`, `"type"`, `"name"`, `"ghost_type"`, `"ghost_name"`.
     pub filter: String,
+    /// Inverts the condition. Default is `false`.
     pub invert: Option<bool>,
+    /// How to combine this with the previous filter. Must be `"or"` or `"and"`. Defaults to `"or"`. When evaluating the filters, `"and"` has higher precedence than `"or"`.
     pub mode: Option<String>,
+    /// Other attributes may be specified depending on `filter`:
     pub attributes: Option<LuaScriptRaisedTeleportedEventFilterAttributes>,
 }
 
 pub struct LuaSectorScannedEventFilterAttributesGhostName {
+    /// The ghost prototype name
     pub name: String,
 }
 
 pub struct LuaSectorScannedEventFilterAttributesGhostType {
+    /// The ghost prototype type
     pub typ: String,
 }
 
 pub struct LuaSectorScannedEventFilterAttributesName {
+    /// The prototype name
     pub name: String,
 }
 
 pub struct LuaSectorScannedEventFilterAttributesType {
+    /// The prototype type
     pub typ: String,
 }
 
@@ -1934,25 +2451,33 @@ pub enum LuaSectorScannedEventFilterAttributes {
 
 /// Depending on the value of `filter`, the table may take additional fields. `filter` may be one of the following:
 pub struct LuaSectorScannedEventFilter {
+    /// The condition to filter on. One of `"ghost"`, `"rail"`, `"rail-signal"`, `"rolling-stock"`, `"robot-with-logistics-interface"`, `"vehicle"`, `"turret"`, `"crafting-machine"`, `"wall-connectable"`, `"transport-belt-connectable"`, `"circuit-network-connectable"`, `"type"`, `"name"`, `"ghost_type"`, `"ghost_name"`.
     pub filter: String,
+    /// Inverts the condition. Default is `false`.
     pub invert: Option<bool>,
+    /// How to combine this with the previous filter. Must be `"or"` or `"and"`. Defaults to `"or"`. When evaluating the filters, `"and"` has higher precedence than `"or"`.
     pub mode: Option<String>,
+    /// Other attributes may be specified depending on `filter`:
     pub attributes: Option<LuaSectorScannedEventFilterAttributes>,
 }
 
 pub struct LuaUpgradeCancelledEventFilterAttributesGhostName {
+    /// The ghost prototype name
     pub name: String,
 }
 
 pub struct LuaUpgradeCancelledEventFilterAttributesGhostType {
+    /// The ghost prototype type
     pub typ: String,
 }
 
 pub struct LuaUpgradeCancelledEventFilterAttributesName {
+    /// The prototype name
     pub name: String,
 }
 
 pub struct LuaUpgradeCancelledEventFilterAttributesType {
+    /// The prototype type
     pub typ: String,
 }
 
@@ -1965,9 +2490,13 @@ pub enum LuaUpgradeCancelledEventFilterAttributes {
 
 /// Depending on the value of `filter`, the table may take additional fields. `filter` may be one of the following:
 pub struct LuaUpgradeCancelledEventFilter {
+    /// The condition to filter on. One of `"ghost"`, `"rail"`, `"rail-signal"`, `"rolling-stock"`, `"robot-with-logistics-interface"`, `"vehicle"`, `"turret"`, `"crafting-machine"`, `"wall-connectable"`, `"transport-belt-connectable"`, `"circuit-network-connectable"`, `"type"`, `"name"`, `"ghost_type"`, `"ghost_name"`.
     pub filter: String,
+    /// Inverts the condition. Default is `false`.
     pub invert: Option<bool>,
+    /// How to combine this with the previous filter. Must be `"or"` or `"and"`. Defaults to `"or"`. When evaluating the filters, `"and"` has higher precedence than `"or"`.
     pub mode: Option<String>,
+    /// Other attributes may be specified depending on `filter`:
     pub attributes: Option<LuaUpgradeCancelledEventFilterAttributes>,
 }
 
@@ -1976,6 +2505,7 @@ pub struct MapAndDifficultySettings {
     pub difficulty_settings: DifficultySettings,
     pub enemy_evolution: EnemyEvolutionMapSettings,
     pub enemy_expansion: EnemyExpansionMapSettings,
+    /// If a behavior fails this many times, the enemy (or enemy group) is destroyed. This solves biters getting stuck within their own base.
     pub max_failed_behavior_count: u32,
     pub path_finder: PathFinderMapSettings,
     pub pollution: PollutionMapSettings,
@@ -1992,24 +2522,51 @@ pub struct MapExchangeStringData {
 pub struct MapGenPreset {
     pub advanced_settings: Option<AdvancedMapGenSettings>,
     pub basic_settings: Option<MapGenSettings>,
+    /// Whether this is the preset that is selected by default.
     pub default: Option<bool>,
+    /// The string used to alphabetically sort the presets. It is a simple string that has no additional semantic meaning.
     pub order: String,
 }
 
 /// The 'map type' dropdown in the map generation GUI is actually a selector for elevation generator. The base game sets `property_expression_names.elevation` to `"0_16-elevation"` to reproduce terrain from 0.16 or to `"0_17-island"` for the island preset. If generators are available for other properties, the 'map type' dropdown in the GUI will be renamed to 'elevation' and shown along with selectors for the other selectable properties.
 pub struct MapGenSettings {
+    /// Indexed by autoplace control prototype name.
     pub autoplace_controls: HashMap<String, AutoplaceControl>,
+    /// Each setting in this dictionary maps the string type to the settings for that type. Valid types are `"entity"`, `"tile"` and `"decorative"`.
     pub autoplace_settings: HashMap<String, AutoplaceSettings>,
+    /// Map generation settings for entities of the type "cliff".
     pub cliff_settings: CliffPlacementSettings,
+    /// Whether undefined `autoplace_controls` should fall back to the default controls or not. Defaults to `true`.
     pub default_enable_all_autoplace_controls: bool,
+    /// Height in tiles. If `0`, the map has 'infinite' height, with the actual limitation being one million tiles in each direction from the center.
     pub height: u32,
+    /// Whether peaceful mode is enabled for this map.
     pub peaceful_mode: bool,
+    /// Overrides for tile property value generators. Values either name a NamedNoiseExpression or can be literal numbers, stored as strings (e.g. `"5"`). All other controls can be overridden by a property expression names. Notable properties: 
+    /// - `moisture` - a value between 0 and 1 that determines whether a tile becomes sandy (low moisture) or grassy (high moisture).
+    /// - `aux` - a value between 0 and 1 that determines whether low-moisture tiles become sand or red desert.
+    /// - `temperature` - provides a value (vaguely representing degrees Celsius, varying between -20 and 50) that is used (together with moisture and aux) as part of tree and decorative placement.
+    /// - `elevation` - tiles values less than zero become water. Cliffs are placed along certain contours according to [CliffPlacementSettings](CliffPlacementSettings).
+    /// - `cliffiness` - determines whether (when >0.5) or not (when <0.5) a cliff will be placed at an otherwise suitable (according to [CliffPlacementSettings](CliffPlacementSettings)) location.
+    /// - `enemy-base-intensity` - a number that is referenced by both `enemy-base-frequency` and `enemy-base-radius`. i.e. if this is overridden, enemy base frequency and size will both be affected and do something reasonable. By default, this expression returns a value proportional to distance from any starting point, clamped at about 7.
+    /// - `enemy-base-frequency` - a number representing average number of enemy bases per tile for a region, by default in terms of `enemy-base-intensity`.
+    /// - `enemy-base-radius` - a number representing the radius of an enemy base, if one were to be placed on the given tile, by default proportional to a constant plus `enemy-base-intensity`. Climate controls ('Moisture' and 'Terrain type' at the bottom of the Terrain tab in the map generator GUI) don't have their own dedicated structures in MapGenSettings. Instead, their values are stored as property expression overrides with long names: 
+    /// - `control-setting:moisture:frequency:multiplier` - frequency (inverse of scale) multiplier for moisture noise. Default is 1.
+    /// - `control-setting:moisture:bias` - global bias for moisture (which normally varies between 0 and 1). Default is 0.
+    /// - `control-setting:aux:frequency:multiplier` - frequency (inverse of scale) multiplier for aux (called 'terrain type' in the GUI) noise. Default is 1.
+    /// - `control-setting:aux:bias` - global bias for aux/terrain type (which normally varies between 0 and 1). Default is 0. All other MapGenSettings feed into named noise expressions, and therefore placement can be overridden by including the name of a property in this dictionary. The probability and richness functions for placing specific tiles, entities, and decoratives can be overridden by including an entry named `{tile|entity|decorative}:(prototype name):{probability|richness}`.
     pub property_expression_names: HashMap<String, String>,
+    /// The random seed used to generated this map.
     pub seed: u32,
+    /// Size of the starting area.
     pub starting_area: MapGenSize,
+    /// Positions of the starting areas.
     pub starting_points: Vec<MapPosition>,
+    /// The inverse of 'water scale' in the map generator GUI. Lower `terrain_segmentation` increases the scale of elevation features (lakes, continents, etc). This behavior can be overridden with alternate elevation generators (see `property_expression_names`, below).
     pub terrain_segmentation: MapGenSize,
+    /// The equivalent to 'water coverage' in the map generator GUI. Specifically, when this value is non-zero, `water_level = 10 * log2` (the value of this field), and the elevation generator subtracts water level from elevation before adding starting lakes. If water is set to 'none', elevation is clamped to a small positive value before adding starting lakes. This behavior can be overridden with alternate elevation generators (see `property_expression_names`, below).
     pub water: MapGenSize,
+    /// Width in tiles. If `0`, the map has 'infinite' width, with the actual limitation being one million tiles in each direction from the center.
     pub width: u32,
 }
 
@@ -2017,22 +2574,39 @@ pub struct MapGenSettings {
 /// 
 /// For backwards compatibility, MapGenSizes can also be specified as one of the following strings, which will be converted to a number (when queried, a number will always be returned):
 pub enum MapGenSize {
+    /// Specifying a map gen dimension.
     Float(f32),
+    /// equivalent to `0`.
     None,
+    /// equivalent to `1/2`.
     VeryLow,
+    /// equivalent to `1/2`.
     VerySmall,
+    /// equivalent to `1/2`.
     VeryPoor,
+    /// equivalent to `1/sqrt(2)`.
     Low,
+    /// equivalent to `1/sqrt(2)`.
     Small,
+    /// equivalent to `1/sqrt(2)`.
     Poor,
+    /// equivalent to `1`.
     Normal,
+    /// equivalent to `1`.
     Medium,
+    /// equivalent to `1`.
     Regular,
+    /// equivalent to `sqrt(2)`.
     High,
+    /// equivalent to `sqrt(2)`.
     Big,
+    /// equivalent to `sqrt(2)`.
     Good,
+    /// equivalent to `2`.
     VeryHigh,
+    /// equivalent to `2`.
     VeryBig,
+    /// equivalent to `2`.
     VeryGood,
 }
 
@@ -2048,6 +2622,7 @@ pub struct MapPosition {
 pub struct MapSettings {
     pub enemy_evolution: EnemyEvolutionMapSettings,
     pub enemy_expansion: EnemyExpansionMapSettings,
+    /// If a behavior fails this many times, the enemy (or enemy group) is destroyed. This solves biters getting stuck within their own base.
     pub max_failed_behavior_count: u32,
     pub path_finder: PathFinderMapSettings,
     pub pollution: PollutionMapSettings,
@@ -2068,7 +2643,9 @@ pub struct MapViewSettings {
 }
 
 pub struct ModChangeData {
+    /// New version of the mod. May be `nil` if the mod is no longer present (i.e. it was just removed).
     pub new_version: String,
+    /// Old version of the mod. May be `nil` if the mod wasn't previously present (i.e. it was just added).
     pub old_version: String,
 }
 
@@ -2081,6 +2658,7 @@ pub enum ModSettingValueUnion {
 }
 
 pub struct ModSetting {
+    /// The value of the mod setting. The type depends on the kind of setting.
     pub value: ModSettingValueUnion,
 }
 
@@ -2090,14 +2668,17 @@ pub enum ModSettingPrototypeFilterAttributesTypeUnion {
 }
 
 pub struct ModSettingPrototypeFilterAttributesMod {
+    /// The mod name
     pub mod_name: String,
 }
 
 pub struct ModSettingPrototypeFilterAttributesSettingType {
+    /// The setting scope type (`"startup"`, `"runtime-global"`, or `"runtime-per-user"`)
     pub typ: String,
 }
 
 pub struct ModSettingPrototypeFilterAttributesType {
+    /// The prototype type, or a list of acceptable types.
     pub typ: ModSettingPrototypeFilterAttributesTypeUnion,
 }
 
@@ -2109,13 +2690,18 @@ pub enum ModSettingPrototypeFilterAttributes {
 
 /// Depending on the value of `filter`, the table may take additional fields. `filter` may be one of the following:
 pub struct ModSettingPrototypeFilter {
+    /// The condition to filter on. One of `"type"`, `"mod"`, `"setting-type"`.
     pub filter: String,
+    /// Inverts the condition. Default is `false`.
     pub invert: Option<bool>,
+    /// How to combine this with the previous filter. Must be `"or"` or `"and"`. Defaults to `"or"`. When evaluating the filters, `"and"` has higher precedence than `"or"`.
     pub mode: Option<String>,
+    /// Other attributes may be specified depending on `filter`:
     pub attributes: Option<ModSettingPrototypeFilterAttributes>,
 }
 
 pub struct ModuleEffectValue {
+    /// The percentual increase of the attribute. A value of `0.6` means a 60% increase.
     pub bonus: f32,
 }
 
@@ -2145,17 +2731,22 @@ pub type MouseButtonFlags = HashSet<MouseButtonFlagsUnion>;
 
 /// A fragment of a functional program used to generate coherent noise, probably for purposes related to terrain generation. These can only be meaningfully written/modified during the data load phase. More detailed information is found on the [wiki](https://wiki.factorio.com/Types/NoiseExpression).
 pub struct NoiseExpression {
+    /// Names the type of the expression and determines what other fields are required.
     pub typ: String,
 }
 
 pub struct NthTickEventData {
+    /// The nth tick this handler was registered to.
     pub nth_tick: u32,
+    /// The tick during which the event happened.
     pub tick: u32,
 }
 
 /// A single offer on a market entity.
 pub struct Offer {
+    /// The action that will take place when a player accepts the offer. Usually a `"give-item"` modifier.
     pub offer: TechnologyModifier,
+    /// List of prices.
     pub price: Vec<Ingredient>,
 }
 
@@ -2165,81 +2756,138 @@ pub struct OldTileAndPosition {
 }
 
 pub struct PathFinderMapSettings {
+    /// When looking for a path from cache, make sure it doesn't end too far from the requested end in relative terms. This is typically more lenient than the start ratio since the end target could be moving. Defaults to `0.15`.
     pub cache_accept_path_end_distance_ratio: f64,
+    /// When looking for a path from cache, make sure it doesn't start too far from the requested start in relative terms. Defaults to `0.2`.
     pub cache_accept_path_start_distance_ratio: f64,
+    /// When looking for a connection to a cached path, search at most for this number of steps times the original estimate. Defaults to `100`.
     pub cache_max_connect_to_cache_steps_multiplier: u32,
+    /// When assigning a rating to the best path, this multiplier times end distances is considered. This value is typically higher than the start multiplier as this results in better end path quality. Defaults to `20`.
     pub cache_path_end_distance_rating_multiplier: f64,
+    /// When assigning a rating to the best path, this multiplier times start distances is considered. Defaults to `10`.
     pub cache_path_start_distance_rating_multiplier: f64,
+    /// The maximum direct distance in tiles before a request is no longer considered short. Defaults to `100`.
     pub direct_distance_to_consider_short_request: u32,
+    /// A penalty that is applied for another unit that is too close and either not moving or has a different goal. Defaults to `30`.
     pub enemy_with_different_destination_collision_penalty: f64,
+    /// The collision penalty for collisions in the extended bounding box but outside the entity's actual bounding box. Defaults to `3`.
     pub extended_collision_penalty: f64,
+    /// The pathfinder performs a step of the backward search every `fwd2bwd_ratio`'th step. The minimum allowed value is `2`, which means symmetric search. The default value is `5`.
     pub fwd2bwd_ratio: u32,
+    /// The general collision penalty with other units. Defaults to `10`.
     pub general_entity_collision_penalty: f64,
+    /// The collision penalty for positions that require the destruction of an entity to get to. Defaults to `3`.
     pub general_entity_subsequent_collision_penalty: f64,
+    /// When looking at which node to check next, their heuristic value is multiplied by this ratio. The higher it is, the more the search is directed straight at the goal. Defaults to `2`.
     pub goal_pressure_ratio: f64,
+    /// The distance in tiles after which other moving units are not considered for pathfinding. Defaults to `5`.
     pub ignore_moving_enemy_collision_distance: f64,
+    /// The minimal distance to the goal in tiles required to be searched in the long path cache. Defaults to `30`.
     pub long_cache_min_cacheable_distance: f64,
+    /// Number of elements in the long cache. Defaults to `25`.
     pub long_cache_size: u32,
+    /// The amount of path finder requests accepted per tick regardless of the requested path's length. Defaults to `10`.
     pub max_clients_to_accept_any_new_request: u32,
+    /// When the `max_clients_to_accept_any_new_request` amount is exhausted, only path finder requests with a short estimate will be accepted until this amount (per tick) is reached. Defaults to `100`.
     pub max_clients_to_accept_short_new_request: u32,
+    /// The maximum number of nodes that are expanded per tick. Defaults to `1,000`.
     pub max_steps_worked_per_tick: f64,
+    /// The maximum amount of work each pathfinding job is allowed to do per tick. Defaults to `8,000`.
     pub max_work_done_per_tick: u32,
+    /// The minimum amount of steps that are guaranteed to be performed for every request. Defaults to `2000`.
     pub min_steps_to_check_path_find_termination: u32,
+    /// Same principle as `cache_accept_path_end_distance_ratio`, but used for negative cache queries. Defaults to `0.3`.
     pub negative_cache_accept_path_end_distance_ratio: f64,
+    /// Same principle as `cache_accept_path_start_distance_ratio`, but used for negative cache queries. Defaults to `0.3`.
     pub negative_cache_accept_path_start_distance_ratio: f64,
+    /// The delay in ticks between decrementing the score of all paths in the negative cache by one. Defaults to `20`.
     pub negative_path_cache_delay_interval: u32,
+    /// The thresholds of waiting clients after each of which the per-tick work limit will be increased by the corresponding value in `overload_multipliers`. This is to avoid clients having to wait too long. Must have the same number of elements as `overload_multipliers`. Defaults to `{0, 100, 500}`.
     pub overload_levels: Vec<u32>,
+    /// The multipliers to the amount of per-tick work applied after the corresponding thresholds in `overload_levels` have been reached. Must have the same number of elements as `overload_multipliers`. Defaults to `{2, 3, 4}`.
     pub overload_multipliers: Vec<f64>,
+    /// The minimal number of nodes required to be searched in the short path cache. Defaults to `50`.
     pub short_cache_min_algo_steps_to_cache: u32,
+    /// The minimal distance to the goal in tiles required to be searched in the short path cache. Defaults to `10`.
     pub short_cache_min_cacheable_distance: f64,
+    /// Number of elements in the short cache. Defaults to `5`.
     pub short_cache_size: u32,
+    /// The maximum amount of nodes a short request will traverse before being rescheduled as a long request. Defaults to `1000`.
     pub short_request_max_steps: u32,
+    /// The amount of steps that are allocated to short requests each tick, as a percentage of all available steps. Defaults to `0.5`, or 50%.
     pub short_request_ratio: f64,
+    /// A penalty that is applied for another unit that is on the way to the goal. This is mainly relevant for situations where a group of units has arrived at the target they are supposed to attack, making units further back circle around to reach the target. Defaults to `30`.
     pub stale_enemy_with_same_destination_collision_penalty: f64,
+    /// If the actual amount of steps is higher than the initial estimate by this factor, pathfinding is terminated. Defaults to `2000.0`.
     pub start_to_goal_cost_multiplier_to_terminate_path_find: f64,
+    /// Whether to cache paths at all. Defaults to `true`.
     pub use_path_cache: bool,
 }
 
 pub struct PathfinderFlags {
+    /// Allows pathing through friendly entities. Defaults to `false`.
     pub allow_destroy_friendly_entities: Option<bool>,
+    /// Allows the pathfinder to path through entities of the same force. Defaults to `false`.
     pub allow_paths_through_own_entities: Option<bool>,
+    /// Enables path caching. This can be more efficient, but might fail to respond to changes in the environment. Defaults to `true`.
     pub cache: Option<bool>,
+    /// Sets lower priority on the path request, meaning it might take longer to find a path at the expense of speeding up others. Defaults to `false`.
     pub low_priority: Option<bool>,
+    /// Makes the pathfinder not break in the middle of processing this pathfind, no matter how much work is needed. Defaults to `false`.
     pub no_break: Option<bool>,
+    /// Makes the pathfinder try to path in straight lines. Defaults to `false`.
     pub prefer_straight_paths: Option<bool>,
 }
 
 pub struct PathfinderWaypoint {
+    /// `true` if the path from the previous waypoint to this one goes through an entity that must be destroyed.
     pub needs_destroy_to_reach: bool,
+    /// The position of the waypoint on its surface.
     pub position: MapPosition,
 }
 
 pub struct PlaceAsTileResult {
     pub condition: CollisionMask,
     pub condition_size: u32,
+    /// The tile prototype.
     pub result: LuaTilePrototype,
 }
 
 /// A player may be specified in one of three ways.
 pub enum PlayerIdentification {
+    /// The player index.
     Uint(u32),
+    /// The player name.
     String(String),
+    /// A reference to [LuaPlayer](LuaPlayer) may be passed directly.
     LuaPlayer(LuaPlayer),
 }
 
 /// These values are for the time frame of one second (60 ticks).
 pub struct PollutionMapSettings {
+    /// The amount of pollution eaten by a chunk's tiles as a percentage of 1. Defaults to `1`.
     pub ageing: f64,
+    /// The amount that is diffused to a neighboring chunk (possibly repeated for other directions as well). Defaults to `0.02`.
     pub diffusion_ratio: f64,
+    /// Whether pollution is enabled at all.
     pub enabled: bool,
+    /// Defaults to `1`.
     pub enemy_attack_pollution_consumption_modifier: f64,
+    /// Any amount of pollution larger than this value is visualized as this value instead. Defaults to `150`.
     pub expected_max_per_chunk: f64,
+    /// Defaults to `20`.
     pub max_pollution_to_restore_trees: f64,
+    /// Defaults to `60`.
     pub min_pollution_to_damage_trees: f64,
+    /// The amount of PUs that need to be in a chunk for it to start diffusing. Defaults to `15`.
     pub min_to_diffuse: f64,
+    /// Any amount of pollution smaller than this value (but bigger than zero) is visualized as this value instead. Defaults to `50`.
     pub min_to_show_per_chunk: f64,
+    /// Defaults to `50`.
     pub pollution_per_tree_damage: f64,
+    /// Defaults to `10`.
     pub pollution_restored_per_tree_damage: f64,
+    /// Defaults to `150`.
     pub pollution_with_max_forest_damage: f64,
 }
 
@@ -2259,6 +2907,7 @@ pub enum ProductCatalystAmountUnion {
 }
 
 pub struct ProductAttributesFluid {
+    /// The fluid temperature of this product.
     pub temperature: Option<f64>,
 }
 
@@ -2267,13 +2916,21 @@ pub enum ProductAttributes {
 }
 
 pub struct Product {
+    /// Amount of the item or fluid to give. If not specified, `amount_min`, `amount_max` and `probability` must all be specified.
     pub amount: Option<f64>,
+    /// Maximum amount of the item or fluid to give. Has no effect when `amount` is specified.
     pub amount_max: Option<ProductAmountMaxUnion>,
+    /// Minimal amount of the item or fluid to give. Has no effect when `amount` is specified.
     pub amount_min: Option<ProductAmountMinUnion>,
+    /// How much of this product is a catalyst.
     pub catalyst_amount: Option<ProductCatalystAmountUnion>,
+    /// Prototype name of the result.
     pub name: String,
+    /// A value in range [0, 1]. Item or fluid is only given with this probability; otherwise no product is produced.
     pub probability: Option<f64>,
+    /// `"item"` or `"fluid"`.
     pub typ: String,
+    /// Other attributes may be specified depending on `type`:
     pub attributes: Option<ProductAttributes>,
 }
 
@@ -2302,14 +2959,23 @@ pub struct ProgrammableSpeakerParameters {
 }
 
 pub enum PrototypeFilterUnion {
+    /// for type `"item"`
     ItemPrototypeFilter(ItemPrototypeFilter),
+    /// for type `"tile"`
     TilePrototypeFilter(TilePrototypeFilter),
+    /// for type `"entity"`
     EntityPrototypeFilter(EntityPrototypeFilter),
+    /// for type `"fluid"`
     FluidPrototypeFilter(FluidPrototypeFilter),
+    /// for type `"recipe"`
     RecipePrototypeFilter(RecipePrototypeFilter),
+    /// for type `"decorative"`
     DecorativePrototypeFilter(DecorativePrototypeFilter),
+    /// for type `"achievement"`
     AchievementPrototypeFilter(AchievementPrototypeFilter),
+    /// for type `"equipment"`
     EquipmentPrototypeFilter(EquipmentPrototypeFilter),
+    /// for type `"technology"`
     TechnologyPrototypeFilter(TechnologyPrototypeFilter),
 }
 
@@ -2317,7 +2983,9 @@ pub enum PrototypeFilterUnion {
 pub type PrototypeFilter = Vec<PrototypeFilterUnion>;
 
 pub struct PrototypeHistory {
+    /// The mods that changed this prototype in the order they changed it.
     pub changed: Vec<String>,
+    /// The mod that created this prototype.
     pub created: String,
 }
 
@@ -2327,46 +2995,56 @@ pub struct PrototypeHistory {
 pub type RealOrientation = f32;
 
 pub struct RecipePrototypeFilterAttributesCategory {
+    /// A [LuaRecipeCategoryPrototype](LuaRecipeCategoryPrototype) name
     pub category: String,
 }
 
 pub struct RecipePrototypeFilterAttributesEmissionsMultiplier {
     pub comparison: ComparatorString,
+    /// The value to compare against.
     pub value: f64,
 }
 
 pub struct RecipePrototypeFilterAttributesEnergy {
     pub comparison: ComparatorString,
+    /// The value to compare against.
     pub value: f64,
 }
 
 pub struct RecipePrototypeFilterAttributesHasIngredientFluid {
+    /// Matches if at least 1 ingredient is a fluid that matches these filters.
     pub elem_filters: Option<Vec<FluidPrototypeFilter>>,
 }
 
 pub struct RecipePrototypeFilterAttributesHasIngredientItem {
+    /// Matches if at least 1 ingredient is an item that matches these filters.
     pub elem_filters: Option<Vec<ItemPrototypeFilter>>,
 }
 
 pub struct RecipePrototypeFilterAttributesHasProductFluid {
+    /// Matches if at least 1 product is a fluid that matches these filters.
     pub elem_filters: Option<Vec<FluidPrototypeFilter>>,
 }
 
 pub struct RecipePrototypeFilterAttributesHasProductItem {
+    /// Matches if at least 1 product is an item that matches these filters.
     pub elem_filters: Option<Vec<ItemPrototypeFilter>>,
 }
 
 pub struct RecipePrototypeFilterAttributesOverloadMultiplier {
     pub comparison: ComparatorString,
+    /// The value to compare against.
     pub value: u32,
 }
 
 pub struct RecipePrototypeFilterAttributesRequestPasteMultiplier {
     pub comparison: ComparatorString,
+    /// The value to compare against.
     pub value: u32,
 }
 
 pub struct RecipePrototypeFilterAttributesSubgroup {
+    /// A [LuaGroup](LuaGroup) (subgroup) name
     pub subgroup: String,
 }
 
@@ -2385,62 +3063,112 @@ pub enum RecipePrototypeFilterAttributes {
 
 /// Depending on the value of `filter`, the table may take additional fields. `filter` may be one of the following:
 pub struct RecipePrototypeFilter {
+    /// The condition to filter on. One of `"enabled"`, `"hidden"`, `"hidden-from-flow-stats"`, `"hidden-from-player-crafting"`, `"allow-as-intermediate"`, `"allow-intermediates"`, `"allow-decomposition"`, `"always-show-made-in"`, `"always-show-products"`, `"show-amount-in-title"`, `"has-ingredients"`, `"has-products"`, `"has-ingredient-item"`, `"has-ingredient-fluid"`, `"has-product-item"`, `"has-product-fluid"`, `"subgroup"`, `"category"`, `"energy"`, `"emissions-multiplier"`, `"request-paste-multiplier"`, `"overload-multiplier"`.
     pub filter: String,
+    /// Inverts the condition. Default is `false`.
     pub invert: Option<bool>,
+    /// How to combine this with the previous filter. Must be `"or"` or `"and"`. Defaults to `"or"`. When evaluating the filters, `"and"` has higher precedence than `"or"`.
     pub mode: Option<String>,
+    /// Other attributes may be specified depending on `filter`:
     pub attributes: Option<RecipePrototypeFilterAttributes>,
 }
 
 /// A number between 0 and 255 inclusive, represented by one of the following named strings or the string version of the number. For example `"27"` and `"decals"` are both valid. Higher values are rendered above lower values.
 pub enum RenderLayer {
+    /// A string of a number
     String(String),
+    /// 15
     WaterTile,
+    /// 25
     GroundTile,
+    /// 26
     TileTransition,
+    /// 27
     Decals,
+    /// 29
     LowerRadiusVisualization,
+    /// 30
     RadiusVisualization,
+    /// 65
     TransportBeltIntegration,
+    /// 66
     Resource,
+    /// 67
     BuildingSmoke,
+    /// 92
     Decorative,
+    /// 93
     GroundPatch,
+    /// 94
     GroundPatchHigher,
+    /// 95
     GroundPatchHigher2,
+    /// 112
     Remnants,
+    /// 113
     Floor,
+    /// 114
     TransportBelt,
+    /// 115
     TransportBeltEndings,
+    /// 120
     FloorMechanicsUnderCorpse,
+    /// 121
     Corpse,
+    /// 122
     FloorMechanics,
+    /// 123
     Item,
+    /// 124
     LowerObject,
+    /// 126
     TransportBeltCircuitConnector,
+    /// 127
     LowerObjectAboveShadow,
+    /// 129
     Object,
+    /// 131
     HigherObjectUnder,
+    /// 132
     HigherObjectAbove,
+    /// 134
     ItemInInserterHand,
+    /// 135
     Wires,
+    /// 136
     WiresAbove,
+    /// 138
     EntityInfoIcon,
+    /// 139
     EntityInfoIconAbove,
+    /// 142
     Explosion,
+    /// 143
     Projectile,
+    /// 144
     Smoke,
+    /// 145
     AirObject,
+    /// 147
     AirEntityInfoIcon,
+    /// 148
     LightEffect,
+    /// 187
     SelectionBox,
+    /// 188
     HigherSelectionBox,
+    /// 189
     CollisionSelectionBox,
+    /// 190
     Arrow,
+    /// 210
     Cursor,
 }
 
 pub struct Resistance {
+    /// Absolute damage decrease
     pub decrease: f32,
+    /// Percentual damage decrease
     pub percent: f32,
 }
 
@@ -2479,39 +3207,67 @@ pub enum ScriptRenderVertexTargetTargetUnion {
 /// One vertex of a ScriptRenderPolygon.
 pub struct ScriptRenderVertexTarget {
     pub target: ScriptRenderVertexTargetTargetUnion,
+    /// Only used if `target` is a LuaEntity.
     pub target_offset: Option<Vector>,
 }
 
 pub struct SelectedPrototypeData {
+    /// E.g. `"entity"`.
     pub base_type: String,
+    /// E.g. `"tree"`.
     pub derived_type: String,
+    /// E.g. `"tree-05"`.
     pub name: String,
 }
 
 pub enum SelectionModeFlagsUnion {
+    /// Selects entities and tiles as if selecting them for a blueprint.
     Blueprint,
+    /// Selects entities and tiles as if selecting them for deconstruction.
     Deconstruct,
+    /// Selects entities and tiles as if selecting them for deconstruction cancellation.
     CancelDeconstruct,
+    /// Selects items on the ground.
     Items,
+    /// Selects trees.
     Trees,
+    /// Selects entities which are considered a [building](LuaEntityPrototype::is_building), plus landmines.
     BuildableType,
+    /// Selects no entities or tiles, but is useful to select an area.
     Nothing,
+    /// Selects entities and tiles that can be [built by an item](LuaItemPrototype::place_result).
     ItemsToPlace,
+    /// Selects all entities.
     AnyEntity,
+    /// Selects all tiles.
     AnyTile,
+    /// Selects entities with the same force as the selecting player.
     SameForce,
+    /// Selects entities with a different force as the selecting player.
     NotSameForce,
+    /// Selects entities from a [friendly](LuaForce::is_friend) force.
     Friend,
+    /// Selects entities from an [enemy](LuaForce::is_enemy) force.
     Enemy,
+    /// Selects entities as if selecting them for upgrading.
     Upgrade,
+    /// Selects entities as if selecting them for upgrade cancellation.
     CancelUpgrade,
+    /// Selects entities as if selecting them for downgrading.
     Downgrade,
+    /// Selects entities that are [entities with health](LuaEntity::is_entity_with_health).
     EntityWithHealth,
+    /// Deprecated. Replaced by `is-military-target`.
     EntityWithForce,
+    /// Selects entities that are [military targets](LuaEntity::is_military_target).
     IsMilitaryTarget,
+    /// Selects entities that are [entities with owner](LuaEntity::is_entity_with_owner).
     EntityWithOwner,
+    /// Selects entities that are not `rolling-stock`s.
     AvoidRollingStock,
+    /// Selects entities that are `entity-ghost`s.
     EntityGhost,
+    /// Selects entities that are `tile-ghost`s.
     TileGhost,
 }
 
@@ -2520,18 +3276,24 @@ pub type SelectionModeFlags = HashSet<SelectionModeFlagsUnion>;
 
 /// An actual signal transmitted by the network.
 pub struct Signal {
+    /// Value of the signal.
     pub count: i32,
+    /// ID of the signal.
     pub signal: SignalID,
 }
 
 pub struct SignalID {
+    /// Name of the item, fluid or virtual signal.
     pub name: Option<String>,
+    /// `"item"`, `"fluid"`, or `"virtual"`.
     pub typ: String,
 }
 
 /// An item stack may be specified in one of two ways.
 pub enum SimpleItemStack {
+    /// The name of the item, which represents a full stack of that item.
     String(String),
+    /// The detailed definition of an item stack.
     ItemStackDefinition(ItemStackDefinition),
 }
 
@@ -2596,7 +3358,9 @@ pub enum SoundType {
 }
 
 pub struct SpawnPointDefinition {
+    /// Evolution factor for which this weight applies.
     pub evolution_factor: f64,
+    /// Probability of spawning this unit at this evolution factor.
     pub weight: f64,
 }
 
@@ -2620,7 +3384,9 @@ pub struct SpawnPointDefinition {
 pub type SpritePath = String;
 
 pub struct SteeringMapSetting {
+    /// Used to make steering look better for aesthetic purposes.
     pub force_unit_fuzzy_goto_behavior: bool,
+    /// Does not include the radius of the unit.
     pub radius: f64,
     pub separation_factor: f64,
     pub separation_force: f64,
@@ -2633,8 +3399,11 @@ pub struct SteeringMapSettings {
 
 /// A surface may be specified in one of three ways.
 pub enum SurfaceIdentification {
+    /// It will be the index of the surface. `nauvis` has index `1`, the first surface-created surface will have index `2` and so on.
     Uint(u32),
+    /// It will be the surface name. E.g. `"nauvis"`.
     String(String),
+    /// A reference to [LuaSurface](LuaSurface) may be passed directly.
     LuaSurface(LuaSurface),
 }
 
@@ -2650,40 +3419,54 @@ pub type Tags = HashMap<String, AnyBasic>;
 
 /// A technology may be specified in one of three ways.
 pub enum TechnologyIdentification {
+    /// The technology name.
     String(String),
+    /// A reference to [LuaTechnology](LuaTechnology) may be passed directly.
     LuaTechnology(LuaTechnology),
+    /// A reference to [LuaTechnologyPrototype](LuaTechnologyPrototype) may be passed directly.
     LuaTechnologyPrototype(LuaTechnologyPrototype),
 }
 
 pub struct TechnologyModifierAttributesOtherTypes {
+    /// Modification value. This value will be added to the variable it modifies.
     pub modifier: f64,
 }
 
 pub struct TechnologyModifierAttributesAmmoDamage {
+    /// Prototype name of the ammunition category that is affected
     pub ammo_category: String,
+    /// Modification value. This will be added to the current ammo damage modifier upon researching.
     pub modifier: f64,
 }
 
 pub struct TechnologyModifierAttributesGiveItem {
+    /// Number of items to give. Defaults to `1`.
     pub count: Option<u32>,
+    /// Item prototype name to give.
     pub item: String,
 }
 
 pub struct TechnologyModifierAttributesGunSpeed {
+    /// Prototype name of the ammunition category that is affected
     pub ammo_category: String,
+    /// Modification value. This will be added to the current gun speed modifier upon researching.
     pub modifier: f64,
 }
 
 pub struct TechnologyModifierAttributesNothing {
+    /// Description of this nothing modifier.
     pub effect_description: LocalisedString,
 }
 
 pub struct TechnologyModifierAttributesTurretAttack {
+    /// Modification value. This will be added to the current turret damage modifier upon researching.
     pub modifier: f64,
+    /// Turret prototype name this modifier will affect.
     pub turret_id: String,
 }
 
 pub struct TechnologyModifierAttributesUnlockRecipe {
+    /// Recipe prototype name to unlock.
     pub recipe: String,
 }
 
@@ -2699,30 +3482,37 @@ pub enum TechnologyModifierAttributes {
 
 /// The effect that is applied when a technology is researched. It is a table that contains at least the field `type`.
 pub struct TechnologyModifier {
+    /// Modifier type. Specifies which of the other fields will be available. Possible values are: `"inserter-stack-size-bonus"`, `"stack-inserter-capacity-bonus"`, `"laboratory-speed"`, `"character-logistic-trash-slots"`, `"maximum-following-robots-count"`, `"worker-robot-speed"`, `"worker-robot-storage"`, `"ghost-time-to-live"`, `"turret-attack"`, `"ammo-damage"`, `"give-item"`, `"gun-speed"`, `"unlock-recipe"`, `"character-crafting-speed"`, `"character-mining-speed"`, `"character-running-speed"`, `"character-build-distance"`, `"character-item-drop-distance"`, `"character-reach-distance"`, `"character-resource-reach-distance"`, `"character-item-pickup-distance"`, `"character-loot-pickup-distance"`, `"character-inventory-slots-bonus"`, `"deconstruction-time-to-live"`, `"max-failed-attempts-per-tick-per-construction-queue"`, `"max-successful-attempts-per-tick-per-construction-queue"`, `"character-health-bonus"`, `"mining-drill-productivity-bonus"`, `"train-braking-force-bonus"`, `"zoom-to-world-enabled"`, `"zoom-to-world-ghost-building-enabled"`, `"zoom-to-world-blueprint-enabled"`, `"zoom-to-world-deconstruction-planner-enabled"`, `"zoom-to-world-upgrade-planner-enabled"`, `"zoom-to-world-selection-tool-enabled"`, `"worker-robot-battery"`, `"laboratory-productivity"`, `"follower-robot-lifetime"`, `"artillery-range"`, `"nothing"`, `"character-additional-mining-categories"`, `"character-logistic-requests"`.
     pub typ: String,
+    /// Other attributes may be specified depending on `type`:
     pub attributes: Option<TechnologyModifierAttributes>,
 }
 
 pub struct TechnologyPrototypeFilterAttributesLevel {
     pub comparison: ComparatorString,
+    /// The value to compare against.
     pub value: u32,
 }
 
 pub struct TechnologyPrototypeFilterAttributesMaxLevel {
     pub comparison: ComparatorString,
+    /// The value to compare against.
     pub value: u32,
 }
 
 pub struct TechnologyPrototypeFilterAttributesResearchUnitIngredient {
+    /// The research ingredient to check.
     pub ingredient: String,
 }
 
 pub struct TechnologyPrototypeFilterAttributesTime {
     pub comparison: ComparatorString,
+    /// The value to compare against.
     pub value: u32,
 }
 
 pub struct TechnologyPrototypeFilterAttributesUnlocksRecipe {
+    /// The recipe to check.
     pub recipe: String,
 }
 
@@ -2736,14 +3526,20 @@ pub enum TechnologyPrototypeFilterAttributes {
 
 /// Depending on the value of `filter`, the table may take additional fields. `filter` may be one of the following:
 pub struct TechnologyPrototypeFilter {
+    /// The condition to filter on. One of `"enabled"`, `"hidden"`, `"upgrade"`, `"visible-when-disabled"`, `"has-effects"`, `"has-prerequisites"`, `"research-unit-ingredient"`, `"unlocks-recipe"`, `"level"`, `"max-level"`, `"time"`.
     pub filter: String,
+    /// Inverts the condition. Default is `false`.
     pub invert: Option<bool>,
+    /// How to combine this with the previous filter. Must be `"or"` or `"and"`. Defaults to `"or"`. When evaluating the filters, `"and"` has higher precedence than `"or"`.
     pub mode: Option<String>,
+    /// Other attributes may be specified depending on `filter`:
     pub attributes: Option<TechnologyPrototypeFilterAttributes>,
 }
 
 pub struct Tile {
+    /// The prototype name of the tile.
     pub name: String,
+    /// The position of the tile.
     pub position: TilePosition,
 }
 
@@ -2760,26 +3556,31 @@ pub enum TilePrototypeFilterAttributesMaskUnion {
 
 pub struct TilePrototypeFilterAttributesCollisionMask {
     pub mask: TilePrototypeFilterAttributesMaskUnion,
+    /// How to filter: `"collides"`, `"layers-equals"`, `"contains-any"` or `"contains-all"`
     pub mask_mode: String,
 }
 
 pub struct TilePrototypeFilterAttributesDecorativeRemovalProbability {
     pub comparison: ComparatorString,
+    /// The value to compare against.
     pub value: f32,
 }
 
 pub struct TilePrototypeFilterAttributesEmissions {
     pub comparison: ComparatorString,
+    /// The value to compare against.
     pub value: f64,
 }
 
 pub struct TilePrototypeFilterAttributesVehicleFrictionModifier {
     pub comparison: ComparatorString,
+    /// The value to compare against.
     pub value: f64,
 }
 
 pub struct TilePrototypeFilterAttributesWalkingSpeedModifier {
     pub comparison: ComparatorString,
+    /// The value to compare against.
     pub value: f64,
 }
 
@@ -2793,21 +3594,30 @@ pub enum TilePrototypeFilterAttributes {
 
 /// Depending on the value of `filter`, the table may take additional fields. `filter` may be one of the following:
 pub struct TilePrototypeFilter {
+    /// The condition to filter on. One of `"minable"`, `"autoplace"`, `"blueprintable"`, `"item-to-place"`, `"collision-mask"`, `"walking-speed-modifier"`, `"vehicle-friction-modifier"`, `"decorative-removal-probability"`, `"emissions"`.
     pub filter: String,
+    /// Inverts the condition. Default is `false`.
     pub invert: Option<bool>,
+    /// How to combine this with the previous filter. Must be `"or"` or `"and"`. Defaults to `"or"`. When evaluating the filters, `"and"` has higher precedence than `"or"`.
     pub mode: Option<String>,
+    /// Other attributes may be specified depending on `filter`:
     pub attributes: Option<TilePrototypeFilterAttributes>,
 }
 
 pub struct TrainSchedule {
+    /// Index of the currently active record
     pub current: u32,
     pub records: Vec<TrainScheduleRecord>,
 }
 
 pub struct TrainScheduleRecord {
+    /// Rail to path to. Ignored if `station` is present.
     pub rail: Option<LuaEntity>,
+    /// When a train is allowed to reach rail target from any direction it will be `nil`. If rail has to be reached from specific direction, this value allows to choose the direction. This value corresponds to [LuaEntity::connected_rail_direction](LuaEntity::connected_rail_direction) of a TrainStop.
     pub rail_direction: Option<RailDirection>,
+    /// Name of the station.
     pub station: Option<String>,
+    /// Only present when the station is temporary, the value is then always `true`.
     pub temporary: Option<bool>,
     pub wait_conditions: Option<Vec<WaitCondition>>,
 }
@@ -2815,6 +3625,7 @@ pub struct TrainScheduleRecord {
 pub struct TriggerDelivery {
     pub source_effects: Vec<TriggerEffectItem>,
     pub target_effects: Vec<TriggerEffectItem>,
+    /// One of `"instant"`, `"projectile"`, `"flame-thrower"`, `"beam"`, `"stream"`, `"artillery"`.
     pub typ: String,
 }
 
@@ -2822,17 +3633,22 @@ pub struct TriggerEffectItem {
     pub affects_target: bool,
     pub repeat_count: u32,
     pub show_in_tooltip: bool,
+    /// One of`"damage"`, `"create-entity"`, `"create-explosion"`, `"create-fire"`, `"create-smoke"`, `"create-trivial-smoke"`, `"create-particle"`, `"create-sticker"`, `"nested-result"`, `"play-sound"`, `"push-back"`, `"destroy-cliffs"`, `"show-explosion-on-chart"`, `"insert-item"`, `"script"`.
     pub typ: String,
 }
 
 pub struct TriggerItem {
     pub action_delivery: Option<Vec<TriggerDelivery>>,
+    /// The trigger will only affect entities that would collide with given collision mask.
     pub collision_mask: CollisionMask,
+    /// The trigger will only affect entities that contain any of these flags.
     pub entity_flags: Option<EntityPrototypeFlags>,
+    /// If `"enemy"`, the trigger will only affect entities whose force is different from the attacker's and for which there is no cease-fire set. `"ally"` is the opposite of `"enemy"`.
     pub force: ForceCondition,
     pub ignore_collision_condition: bool,
     pub repeat_count: u32,
     pub trigger_target_mask: TriggerTargetMask,
+    /// One of `"direct"`, `"area"`, `"line"`, `"cluster"`.
     pub typ: String,
 }
 
@@ -2840,28 +3656,44 @@ pub struct TriggerItem {
 pub type TriggerTargetMask = HashMap<String, bool>;
 
 pub struct UnitGroupMapSettings {
+    /// The maximum number of automatically created unit groups gathering for attack at any time. Defaults to `30`.
     pub max_gathering_unit_groups: u32,
+    /// The maximum amount of time in ticks a group will spend gathering before setting off. The actual time is a random time between the minimum and maximum times. Defaults to `10*3,600=36,000` ticks.
     pub max_group_gathering_time: u32,
+    /// When a member of a group falls back more than this factor times the group radius, the group will slow down to its `max_group_slowdown_factor` speed to let them catch up. Defaults to `3`.
     pub max_group_member_fallback_factor: f64,
+    /// The maximum group radius in tiles. The actual radius is adjusted based on the number of members. Defaults to `30.0`.
     pub max_group_radius: f64,
+    /// The minimum speed as a percentage of its maximum speed that a group will slow down to so members that fell behind can catch up. Defaults to `0.3`, or 30%.
     pub max_group_slowdown_factor: f64,
+    /// The minimum speed a percentage of its regular speed that a group member can slow down to when ahead of the group. Defaults to `0.6`, or 60%.
     pub max_member_slowdown_when_ahead: f64,
+    /// The maximum speed a percentage of its regular speed that a group member can speed up to when catching up with the group. Defaults to `1.4`, or 140%.
     pub max_member_speedup_when_behind: f64,
+    /// The maximum number of members for an attack unit group. This only affects automatically created unit groups, manual groups created through the API are unaffected. Defaults to `200`.
     pub max_unit_group_size: u32,
+    /// After gathering has finished, the group is allowed to wait this long in ticks for delayed members. New members are not accepted anymore however. Defaults to `2*3,600=7,200` ticks.
     pub max_wait_time_for_late_members: u32,
+    /// When a member of a group falls back more than this factor times the group radius, it will be dropped from the group. Defaults to `10`.
     pub member_disown_distance: f64,
+    /// The minimum amount of time in ticks a group will spend gathering before setting off. The actual time is a random time between the minimum and maximum times. Defaults to `3,600` ticks.
     pub min_group_gathering_time: u32,
+    /// The minimum group radius in tiles. The actual radius is adjusted based on the number of members. Defaults to `5.0`.
     pub min_group_radius: f64,
     pub tick_tolerance_when_member_arrives: u32,
 }
 
 pub struct UnitSpawnDefinition {
+    /// The points at which to spawn the unit.
     pub spawn_points: Vec<SpawnPointDefinition>,
+    /// Prototype name of the unit that would be spawned.
     pub unit: String,
 }
 
 pub struct UpgradeFilter {
+    /// Name of the item, or entity.
     pub name: Option<String>,
+    /// `"item"`, or `"entity"`.
     pub typ: String,
 }
 
@@ -2877,17 +3709,27 @@ pub struct VehicleAutomaticTargetingParameters {
 }
 
 pub struct WaitCondition {
+    /// Either `"and"`, or `"or"`. Tells how this condition is to be compared with the preceding conditions in the corresponding `wait_conditions` array.
     pub compare_type: String,
+    /// Only present when `type` is `"item_count"`, `"circuit"` or `"fluid_count"`, and a circuit condition is configured.
     pub condition: Option<CircuitCondition>,
+    /// Number of ticks to wait when `type` is `"time"`, or number of ticks of inactivity when `type` is `"inactivity"`.
     pub ticks: Option<u32>,
+    /// One of `"time"`, `"inactivity"`, `"full"`, `"empty"`, `"item_count"`, `"circuit"`, `"robots_inactive"`, `"fluid_count"`, `"passenger_present"`, `"passenger_not_present"`.
     pub typ: String,
 }
 
 pub struct WireConnectionDefinition {
+    /// Mandatory if the source entity has more than one circuit connection using circuit wire.
     pub source_circuit_id: Option<CircuitConnectorId>,
+    /// Mandatory if the source entity has more than one wire connection using copper wire.
     pub source_wire_id: Option<WireConnectionId>,
+    /// Mandatory if the target entity has more than one circuit connection using circuit wire.
     pub target_circuit_id: Option<CircuitConnectorId>,
+    /// The entity to (dis)connect the source entity with.
     pub target_entity: LuaEntity,
+    /// Mandatory if the target entity has more than one wire connection using copper wire.
     pub target_wire_id: Option<WireConnectionId>,
+    /// The type of wire used.
     pub wire: WireType,
 }

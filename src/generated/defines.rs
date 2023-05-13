@@ -77,21 +77,33 @@ pub enum CircuitConnectorId {
 
 /// Command given to units describing what they should do.
 pub enum CommandDefine {
+    /// Attack another entity.
     Attack,
+    /// Go to a place and attack what you see.
     AttackArea,
+    /// Go to a position and build a base there.
     BuildBase,
+    /// Chain commands together, see [defines.compound_command](defines.compound_command).
     Compound,
+    /// Flee from another entity.
     Flee,
+    /// Go to a specific position.
     GoToLocation,
+    /// Do what your group wants you to do.
     Group,
+    /// Stop moving and stay where you are.
     Stop,
+    /// Chill.
     Wander,
 }
 
 /// How commands are joined together in a compound command (see [defines.command.compound](defines.command.compound)).
 pub enum CompoundCommand {
+    /// Fail on first failure. Only succeeds if all commands (executed one after another) succeed.
     LogicalAnd,
+    /// Succeed on first success. Only fails if all commands (executed one after another) fail.
     LogicalOr,
+    /// Execute all commands in sequence and fail or succeed depending on the return status of the last command.
     ReturnLast,
 }
 
@@ -128,32 +140,56 @@ pub enum ControlBehaviorTransportBeltContentReadMode {
 }
 
 pub enum ControlBehaviorType {
+    /// [LuaAccumulatorControlBehavior](LuaAccumulatorControlBehavior)
     Accumulator,
+    /// [LuaArithmeticCombinatorControlBehavior](LuaArithmeticCombinatorControlBehavior)
     ArithmeticCombinator,
+    /// [LuaConstantCombinatorControlBehavior](LuaConstantCombinatorControlBehavior)
     ConstantCombinator,
+    /// [LuaContainerControlBehavior](LuaContainerControlBehavior)
     Container,
+    /// [LuaDeciderCombinatorControlBehavior](LuaDeciderCombinatorControlBehavior)
     DeciderCombinator,
+    /// [LuaGenericOnOffControlBehavior](LuaGenericOnOffControlBehavior)
     GenericOnOff,
+    /// [LuaInserterControlBehavior](LuaInserterControlBehavior)
     Inserter,
+    /// [LuaLampControlBehavior](LuaLampControlBehavior)
     Lamp,
+    /// [LuaLogisticContainerControlBehavior](LuaLogisticContainerControlBehavior)
     LogisticContainer,
+    /// [LuaMiningDrillControlBehavior](LuaMiningDrillControlBehavior)
     MiningDrill,
+    /// [LuaProgrammableSpeakerControlBehavior](LuaProgrammableSpeakerControlBehavior)
     ProgrammableSpeaker,
+    /// [LuaRailChainSignalControlBehavior](LuaRailChainSignalControlBehavior)
     RailChainSignal,
+    /// [LuaRailSignalControlBehavior](LuaRailSignalControlBehavior)
     RailSignal,
+    /// [LuaRoboportControlBehavior](LuaRoboportControlBehavior)
     Roboport,
+    /// [LuaStorageTankControlBehavior](LuaStorageTankControlBehavior)
     StorageTank,
+    /// [LuaTrainStopControlBehavior](LuaTrainStopControlBehavior)
     TrainStop,
+    /// [LuaTransportBeltControlBehavior](LuaTransportBeltControlBehavior)
     TransportBelt,
+    /// [LuaWallControlBehavior](LuaWallControlBehavior)
     Wall,
 }
 
 pub enum Controllers {
+    /// The controller controls a character. This is the default controller in freeplay.
     Character,
+    /// The player can't interact with the world, and the camera pans around in a predefined manner.
     Cutscene,
+    /// The Editor Controller near ultimate power to do almost anything in the game.
     Editor,
+    /// Can't interact with the world, can only observe. Used in the multiplayer waiting-to-respawn screen.
     Ghost,
+    /// The controller isn't tied to a character. This is the default controller in sandbox.
     God,
+    /// Can't change anything in the world but can view anything.
     Spectator,
 }
 
@@ -216,54 +252,91 @@ pub enum DisconnectReason {
 }
 
 pub enum Distraction {
+    /// Attack closer enemy entities, including entities "built" by player (belts, inserters, chests).
     ByAnything,
+    /// Attack when attacked.
     ByDamage,
+    /// Attack closer enemy entities with force.
     ByEnemy,
+    /// Perform command even if someone attacks the unit.
     None,
 }
 
 pub enum EntityStatus {
+    /// Used by rail signals.
     CantDivideSegments,
+    /// Used by accumulators.
     Charging,
     ClosedByCircuitNetwork,
+    /// Used by constant combinators: Combinator is turned off via switch in GUI.
     Disabled,
     DisabledByControlBehavior,
     DisabledByScript,
+    /// Used by accumulators.
     Discharging,
+    /// Used by crafting machines.
     FluidIngredientShortage,
+    /// Used by crafting machines, boilers, burner energy sources and reactors: Reactor/burner has full burnt result inventory, boiler has full output fluidbox.
     FullOutput,
+    /// Used by accumulators.
     FullyCharged,
+    /// Used by crafting machines.
     ItemIngredientShortage,
+    /// Used by the rocket silo.
     LaunchingRocket,
+    /// Used by boilers and fluid turrets: Boiler still has some fluid but is about to run out.
     LowInputFluid,
     LowPower,
+    /// Used by heat energy sources.
     LowTemperature,
     MarkedForDeconstruction,
+    /// Used by mining drills when the mining fluid is missing.
     MissingRequiredFluid,
+    /// Used by labs.
     MissingSciencePacks,
+    /// Used by power switches.
     NetworksConnected,
+    /// Used by power switches.
     NetworksDisconnected,
+    /// Used by ammo turrets.
     NoAmmo,
     NoFuel,
+    /// Used by furnaces.
     NoIngredients,
+    /// Used by boilers, fluid turrets and fluid energy sources: Boiler has no fluid to work with.
     NoInputFluid,
+    /// Used by mining drills.
     NoMinableResources,
+    /// Used by beacons.
     NoModulesToTransmit,
     NoPower,
+    /// Used by assembling machines.
     NoRecipe,
+    /// Used by labs.
     NoResearchInProgress,
     Normal,
+    /// Used by rail signals.
     NotConnectedToRail,
+    /// Used by generators and solar panels.
     NotPluggedInElectricNetwork,
     OpenedByCircuitNetwork,
+    /// Used by logistic containers.
     OutOfLogisticNetwork,
+    /// Used by the rocket silo.
     PreparingRocketForLaunch,
+    /// Used by roboports.
     RechargingAfterPowerOutage,
+    /// Used by lamps.
     TurnedOffDuringDaytime,
+    /// Used by inserters.
     WaitingForSourceItems,
+    /// Used by inserters and mining drills.
     WaitingForSpaceInDestination,
+    /// Used by inserters targeting entity ghosts.
     WaitingForTargetToBeBuilt,
+    /// Used by inserters targeting rails.
     WaitingForTrain,
+    /// Used by the rocket silo.
     WaitingToLaunchRocket,
     Working,
 }
@@ -920,23 +993,38 @@ pub enum Shooting {
 
 /// State of an ordinary rail signal.
 pub enum SignalState {
+    /// Red.
     Closed,
+    /// Green.
     Open,
+    /// Orange.
     Reserved,
+    /// Red - From circuit network.
     ReservedByCircuitNetwork,
 }
 
 pub enum TrainState {
+    /// Braking before a rail signal.
     ArriveSignal,
+    /// Braking before a station.
     ArriveStation,
+    /// Same as no_path but all candidate train stops are full
     DestinationFull,
+    /// Can move if user explicitly sits in and rides the train.
     ManualControl,
+    /// Switched to manual control and has to stop.
     ManualControlStop,
+    /// Has no path and is stopped.
     NoPath,
+    /// Doesn't have anywhere to go.
     NoSchedule,
+    /// Normal state -- following the path.
     OnThePath,
+    /// Had path and lost it -- must stop.
     PathLost,
+    /// Waiting at a signal.
     WaitSignal,
+    /// Waiting at a station.
     WaitStation,
 }
 

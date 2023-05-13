@@ -305,6 +305,12 @@ impl GenerateDefinition for Class {
             } else {
                 name
             };
+            if !attribute.description.is_empty() {
+                let descriptions = attribute.description.split("\n");
+                for description in descriptions {
+                    struct_definition.push_str(&format!("    /// {}\n", description));
+                }
+            }
             struct_definition.push_str(&format!("    pub {}: {},\n", name, typ));
         }
         struct_definition.push_str("}\n");
@@ -496,7 +502,12 @@ struct BasicMember {
 
 impl GenerateDefinition for BasicMember {
     fn generate_definition(&self) -> String {
-        format!("    {},\n", self.name.to_pascal_case())
+        let mut description = String::new();
+        if !self.description.is_empty() {
+            description.push_str(&format!("    /// {}\n", self.description));
+        }
+        description.push_str(&format!("    {},\n", self.name.to_pascal_case()));
+        description
     }
 }
 
@@ -521,15 +532,6 @@ struct EventRaised {
 enum Type {
     String(String),
     ComplexType(ComplexType),
-}
-
-impl Display for Type {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        match self {
-            Self::String(name) => write!(f, "{}", Type::lua_type_to_rust_type(name)),
-            Self::ComplexType(complex_type) => write!(f, "{complex_type}"),
-        }
-    }
 }
 
 impl Type {
@@ -647,44 +649,6 @@ enum ComplexType {
     },
 }
 
-impl Display for ComplexType {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        match self {
-            Self::Type { value, description } => write!(f, "{value}"),
-            Self::Union {
-                options,
-                full_format,
-            } => write!(
-                f,
-                "Union of [{}]", // TODO: implement enum for each variant?
-                options
-                    .iter()
-                    .map(Type::to_string)
-                    .collect::<Vec<_>>()
-                    .join(", ")
-            ),
-            Self::Array { value } => write!(f, "Vec<{value}>"),
-            Self::Dictionary { key, value } | Self::LuaCustomTable { key, value } => {
-                write!(f, "HashMap<{key}, {value}>")
-            }
-            Self::Function { parameters } => todo!(),
-            Self::Literal { value, description } => write!(f, "{value:?}"),
-            Self::LuaLazyLoadedValue { value } => write!(f, "{value}"),
-            Self::Struct { attributes } => todo!(),
-            Self::Table {
-                parameters,
-                variant_parameter_groups,
-                variant_parameter_description,
-            }
-            | Self::Tuple {
-                parameters,
-                variant_parameter_groups,
-                variant_parameter_description,
-            } => todo!(),
-        }
-    }
-}
-
 impl ComplexType {
     fn is_inline_type(&self) -> bool {
         match self {
@@ -749,6 +713,12 @@ impl Parameter {
         } else {
             name.replace("-", "_")
         };
+        if !self.description.is_empty() {
+            let descriptions = self.description.split("\n");
+            for description in descriptions {
+                definition.push_str(&format!("    /// {}\n", description));
+            }
+        }
         definition.push_str(&format!("    pub {}: {},\n", name, typ));
         definition
     }
@@ -835,6 +805,13 @@ impl Type {
         }
     }
 
+    fn get_description(&self) -> Option<String> {
+        match self {
+            Type::String(_) => None,
+            Type::ComplexType(complex_type) => complex_type.get_description(),
+        }
+    }
+
     fn generate_definition(
         &self,
         prefix: &str,
@@ -886,6 +863,23 @@ impl ComplexType {
         }
     }
 
+    fn get_description(&self) -> Option<String> {
+        let description = match self {
+            ComplexType::Type { value, description } => Some(description.clone()),
+            ComplexType::Literal { value, description } => description.clone(),
+            _ => None,
+        };
+        if let Some(description) = description {
+            if description.is_empty() {
+                None
+            } else {
+                Some(description)
+            }
+        } else {
+            None
+        }
+    }
+
     fn generate_definition(
         &self,
         prefix: &str,
@@ -915,6 +909,10 @@ impl ComplexType {
                     .count();
                 for option in options {
                     let mut type_name = option.get_type_name();
+                    let description = option.get_description();
+                    if let Some(description) = description {
+                        union_definition.push_str(&format!("    /// {description}\n"));
+                    }
                     if option.is_owned_type() {
                         if !type_name.is_empty() {
                             union_definition
@@ -968,6 +966,10 @@ impl ComplexType {
                 }
                 if let Some(variant_parameter_groups) = variant_parameter_groups {
                     table_definition.push_str(&format!(
+                        "    /// {}\n",
+                        variant_parameter_description.as_ref().unwrap()
+                    ));
+                    table_definition.push_str(&format!(
                         "    pub attributes: Option<{}Attributes>,\n",
                         prefix
                     ));
@@ -1010,6 +1012,10 @@ impl ComplexType {
                             };
                             let name = if name == "type" { "typ" } else { &name };
                             let name = if name == "mod" { "mod_name" } else { &name };
+                            if !parameter.description.is_empty() {
+                                definition
+                                    .push_str(&format!("    /// {}\n", parameter.description));
+                            }
                             definition.push_str(&format!("    pub {}: {},\n", name, typ));
                         }
                         definition.push_str("}\n\n");
@@ -1040,6 +1046,7 @@ impl ComplexType {
                 if let Type::ComplexType(ComplexType::Literal { value, description }) =
                     value.as_ref()
                 {
+                    // description is always None
                     if value.get_type_name() == "True" {
                         definition.push_str(&format!(
                             "HashSet<{}>",
@@ -1060,6 +1067,7 @@ impl ComplexType {
                 }
             }
             Self::Literal { value, description } => {
+                // description is always None
                 definition.push_str(&value.get_type_name());
             }
             Self::Struct { attributes } => {
@@ -1070,6 +1078,7 @@ impl ComplexType {
                     let typ = Type::lua_type_to_rust_type(
                         &attribute.typ.generate_definition(prefix, unions, true),
                     );
+                    definition.push_str(&format!("    /// {}\n", attribute.description));
                     definition.push_str(&format!("    pub {}: {},\n", name, typ));
                 }
                 definition.push_str("}");
