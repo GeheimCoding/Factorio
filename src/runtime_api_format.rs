@@ -842,11 +842,13 @@ impl Method {
                 name.to_owned()
             };
             let prefix = format!("{prefix}{}", name.to_pascal_case());
-            definition.push_str(&format!(
-                "{}: {}",
-                name,
-                parameter.typ.generate_definition(&prefix, unions, true)
-            ));
+            let typ = parameter.typ.generate_definition(&prefix, unions, true);
+            let typ = if typ == "table" {
+                "LuaCustomTable".to_owned()
+            } else {
+                typ
+            };
+            definition.push_str(&format!("{}: {}", name, typ));
             if i != self.parameters.len() - 1 {
                 definition.push_str(", ");
             }
@@ -1047,6 +1049,8 @@ impl ComplexType {
                             }
                             array_definition
                         } else if type_name == "dictionary" {
+                            option.generate_definition(&prefix, unions, true)
+                        } else if type_name == "function" {
                             option.generate_definition(&prefix, unions, true)
                         } else {
                             Type::lua_type_to_rust_type(&type_name)
@@ -1257,7 +1261,6 @@ impl LiteralValue {
 // TODO: fix descriptions:
 //  - resolve links
 //  - resolve defines
-// TODO: fix table type
 // TODO: add method parameter/return descriptions to doc
 // TODO: handle notes and examples
 // TODO: order by order?

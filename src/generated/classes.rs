@@ -153,7 +153,7 @@ pub struct LuaBootstrap {
 }
 
 pub enum LuaBootstrapMethodsOnConfigurationChangedHandlerUnion {
-    Function(function),
+    Function(fn(ConfigurationChangedData) -> ()),
     Nil,
 }
 
@@ -164,22 +164,22 @@ pub enum LuaBootstrapMethodsOnEventEventUnion {
 }
 
 pub enum LuaBootstrapMethodsOnEventHandlerUnion {
-    Function(function),
+    Function(fn(EventData) -> ()),
     Nil,
 }
 
 pub enum LuaBootstrapMethodsOnInitHandlerUnion {
-    Function(function),
+    Function(fn() -> ()),
     Nil,
 }
 
 pub enum LuaBootstrapMethodsOnLoadHandlerUnion {
-    Function(function),
+    Function(fn() -> ()),
     Nil,
 }
 
 pub enum LuaBootstrapMethodsOnNthTickHandlerUnion {
-    Function(function),
+    Function(fn(NthTickEventData) -> ()),
     Nil,
 }
 
@@ -234,7 +234,7 @@ pub trait LuaBootstrapMethods {
     /// - [script_raised_revive](script_raised_revive)
     /// - [script_raised_teleported](script_raised_teleported)
     /// - [script_raised_set_tiles](script_raised_set_tiles)
-    fn raise_event(data: table, event: u32);
+    fn raise_event(data: LuaCustomTable, event: u32);
     fn raise_market_item_purchased(count: u32, market: LuaEntity, offer_index: u32, player_index: u32);
     fn raise_player_crafted_item(item_stack: LuaItemStack, player_index: u32, recipe: LuaRecipe);
     fn raise_player_fast_transferred(entity: LuaEntity, from_player: bool, is_split: bool, player_index: u32);
@@ -244,7 +244,7 @@ pub trait LuaBootstrapMethods {
     fn raise_script_set_tiles(surface_index: u32, tiles: Vec<Tile>);
     fn raise_script_teleported(entity: LuaEntity, old_position: MapPosition, old_surface_index: u8);
     /// Register a metatable to have linkage recorded and restored when saving/loading. The metatable itself will not be saved. Instead, only the linkage to a registered metatable is saved, and the metatable registered under that name will be used when loading the table.
-    fn register_metatable(metatable: table, name: String);
+    fn register_metatable(metatable: LuaCustomTable, name: String);
     /// Registers an entity so that after it's destroyed, [on_entity_destroyed](on_entity_destroyed) is called. Once an entity is registered, it stays registered until it is actually destroyed, even through save/load cycles. The registration is global across all mods, meaning once one mod registers an entity, all mods listening to [on_entity_destroyed](on_entity_destroyed) will receive the event when it is destroyed. Registering the same entity multiple times will still only fire the destruction event once, and will return the same registration number.
     fn register_on_entity_destroyed(entity: LuaEntity) -> u64;
     /// Sets the filters for the given event. The filters are only retained when set after the actual event registration, because registering for an event with different or no filters will overwrite previously set ones.
@@ -3156,7 +3156,7 @@ pub trait LuaGameScriptMethods {
     /// Show an in-game message dialog.
     fn show_message_dialog(image: String, point_to: GuiArrowSpecification, style: String, text: LocalisedString, wrapper_frame_style: String);
     /// Convert a table to a JSON string
-    fn table_to_json(data: table) -> String;
+    fn table_to_json(data: LuaCustomTable) -> String;
     /// Take a screenshot of the game and save it to the `script-output` folder, located in the game's [user data directory](https://wiki.factorio.com/User_data_directory). The name of the image file can be specified via the `path` parameter.
     fn take_screenshot(allow_in_replay: bool, anti_alias: bool, by_player: PlayerIdentification, daytime: f64, force_render: bool, path: String, player: PlayerIdentification, position: MapPosition, quality: i32, resolution: TilePosition, show_cursor_building_preview: bool, show_entity_info: bool, show_gui: bool, surface: SurfaceIdentification, water_tick: u32, zoom: f64);
     /// Take a screenshot of the technology screen and save it to the `script-output` folder, located in the game's [user data directory](https://wiki.factorio.com/User_data_directory). The name of the image file can be specified via the `path` parameter.
