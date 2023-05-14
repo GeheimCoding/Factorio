@@ -3436,7 +3436,7 @@ pub struct SignalID {
 /// ```text
 /// {name="iron-plate"}
 /// ```
-/// 
+///
 /// ```text
 /// {name="iron-plate", count=1}
 /// ```
@@ -3448,7 +3448,7 @@ pub struct SignalID {
 /// ```text
 /// "iron-plate"
 /// ```
-/// 
+///
 /// ```text
 /// {name="iron-plate", count=100}
 /// ```

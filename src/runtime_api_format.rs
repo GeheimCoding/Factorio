@@ -55,6 +55,10 @@ fn generate_notes_and_examples<T: NotesExamples>(
         for example in examples {
             let mut mark_code_block = true;
             for (i, line) in example.split('\n').enumerate() {
+                if line.trim_end().is_empty() {
+                    description.push_str(&format!("{indent}///\n"));
+                    continue;
+                }
                 description.push_str(&format!("{indent}/// "));
                 if i == 0 {
                     description.push_str("* ");
@@ -177,12 +181,20 @@ trait GenerateDefinition {
 impl RuntimeApiFormat {
     pub fn generate_runtime_api(&self) -> std::io::Result<()> {
         let generated_path = PathBuf::from("src/generated");
+        let mut mod_content = String::new();
         fs::create_dir_all(&generated_path)?;
 
-        self.generate_classes(&generated_path)?;
-        self.generate_events(&generated_path)?;
-        self.generate_concepts(&generated_path)?;
-        self.generate_defines(&generated_path)?;
+        self.generate_classes(&generated_path, &mut mod_content)?;
+        self.generate_events(&generated_path, &mut mod_content)?;
+        self.generate_concepts(&generated_path, &mut mod_content)?;
+        self.generate_defines(&generated_path, &mut mod_content)?;
+
+        let mod_path = generated_path.join("mod.rs");
+        if mod_path.exists() {
+            fs::remove_file(&mod_path)?;
+        }
+        mod_content.pop();
+        fs::write(mod_path, mod_content)?;
 
         Ok(())
     }
@@ -192,7 +204,12 @@ impl RuntimeApiFormat {
         file_path: PathBuf,
         definition_types: &Vec<T>,
         imports: Vec<Import>,
+        mod_content: &mut String,
     ) -> std::io::Result<()> {
+        let file_stem = file_path.file_stem().unwrap().to_str().unwrap();
+        mod_content.push_str(&format!("mod {file_stem};\n"));
+        mod_content.push_str(&format!("pub use {file_stem}::*;\n\n"));
+
         if file_path.exists() {
             fs::remove_file(&file_path)?;
         }
@@ -217,7 +234,11 @@ impl RuntimeApiFormat {
         Ok(())
     }
 
-    fn generate_classes(&self, base_path: &PathBuf) -> std::io::Result<()> {
+    fn generate_classes(
+        &self,
+        base_path: &PathBuf,
+        mod_content: &mut String,
+    ) -> std::io::Result<()> {
         let imports = vec![
             Import::HashMap,
             Import::HashSet,
@@ -226,10 +247,19 @@ impl RuntimeApiFormat {
             Import::Defines,
             Import::LineBreak,
         ];
-        self.generate_definition(base_path.join("classes.rs"), &self.classes, imports)
+        self.generate_definition(
+            base_path.join("classes.rs"),
+            &self.classes,
+            imports,
+            mod_content,
+        )
     }
 
-    fn generate_events(&self, base_path: &PathBuf) -> std::io::Result<()> {
+    fn generate_events(
+        &self,
+        base_path: &PathBuf,
+        mod_content: &mut String,
+    ) -> std::io::Result<()> {
         let imports = vec![
             Import::HashMap,
             Import::LineBreak,
@@ -238,10 +268,19 @@ impl RuntimeApiFormat {
             Import::Defines,
             Import::LineBreak,
         ];
-        self.generate_definition(base_path.join("events.rs"), &self.events, imports)
+        self.generate_definition(
+            base_path.join("events.rs"),
+            &self.events,
+            imports,
+            mod_content,
+        )
     }
 
-    fn generate_concepts(&self, base_path: &PathBuf) -> std::io::Result<()> {
+    fn generate_concepts(
+        &self,
+        base_path: &PathBuf,
+        mod_content: &mut String,
+    ) -> std::io::Result<()> {
         let imports = vec![
             Import::HashMap,
             Import::HashSet,
@@ -250,11 +289,25 @@ impl RuntimeApiFormat {
             Import::Defines,
             Import::LineBreak,
         ];
-        self.generate_definition(base_path.join("concepts.rs"), &self.concepts, imports)
+        self.generate_definition(
+            base_path.join("concepts.rs"),
+            &self.concepts,
+            imports,
+            mod_content,
+        )
     }
 
-    fn generate_defines(&self, base_path: &PathBuf) -> std::io::Result<()> {
-        self.generate_definition(base_path.join("defines.rs"), &self.defines, Vec::new())
+    fn generate_defines(
+        &self,
+        base_path: &PathBuf,
+        mod_content: &mut String,
+    ) -> std::io::Result<()> {
+        self.generate_definition(
+            base_path.join("defines.rs"),
+            &self.defines,
+            Vec::new(),
+            mod_content,
+        )
     }
 }
 
