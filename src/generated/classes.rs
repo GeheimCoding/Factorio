@@ -152,24 +152,65 @@ pub struct LuaBootstrap {
     pub object_name: String,
 }
 
+pub enum LuaBootstrapMethodsOnConfigurationChangedHandlerUnion {
+    Function(function),
+    Nil,
+}
+
+pub enum LuaBootstrapMethodsOnEventEventUnion {
+    DefinesEvents(Events),
+    Array(Vec<Events>),
+    String(String),
+}
+
+pub enum LuaBootstrapMethodsOnEventHandlerUnion {
+    Function(function),
+    Nil,
+}
+
+pub enum LuaBootstrapMethodsOnInitHandlerUnion {
+    Function(function),
+    Nil,
+}
+
+pub enum LuaBootstrapMethodsOnLoadHandlerUnion {
+    Function(function),
+    Nil,
+}
+
+pub enum LuaBootstrapMethodsOnNthTickHandlerUnion {
+    Function(function),
+    Nil,
+}
+
+pub enum LuaBootstrapMethodsOnNthTickTickUnion {
+    Uint(u32),
+    Array(Vec<u32>),
+    Nil,
+}
+
 /// Entry point for registering event handlers. It is accessible through the global object named `script`.
 pub trait LuaBootstrapMethods {
     /// Generate a new, unique event ID that can be used to raise custom events with [LuaBootstrap::raise_event](LuaBootstrap::raise_event).
     fn generate_event_name() -> u32;
     /// Gets the filters for the given event.
-    fn get_event_filter() -> EventFilter;
+    fn get_event_filter(event: u32) -> EventFilter;
     /// Find the event handler for an event.
-    fn get_event_handler() -> fn(EventData) -> ();
+    fn get_event_handler(event: u32) -> fn(EventData) -> ();
     /// Gets the mod event order as a string.
     fn get_event_order() -> String;
     /// Gets the prototype history for the given type and name.
-    fn get_prototype_history() -> PrototypeHistory;
+    fn get_prototype_history(name: String, typ: String) -> PrototypeHistory;
     /// Register a function to be run when mod configuration changes. This is called when the game version or any mod version changed, when any mod was added or removed, when a startup setting has changed, when any prototypes have been added or removed, or when a migration was applied. It allows the mod to make any changes it deems appropriate to both the data structures in its [global](global) table or to the game state through [LuaGameScript](LuaGameScript).
-    fn on_configuration_changed();
+    fn on_configuration_changed(handler: LuaBootstrapMethodsOnConfigurationChangedHandlerUnion);
     /// Register a handler to run on the specified event(s). Each mod can only register once for every event, as any additional registration will overwrite the previous one. This holds true even if different filters are used for subsequent registrations.
-    fn on_event();
+    fn on_event(
+        event: LuaBootstrapMethodsOnEventEventUnion,
+        filters: EventFilter,
+        handler: LuaBootstrapMethodsOnEventHandlerUnion,
+    );
     /// Register a function to be run on mod initialization. This is only called when a new save game is created or when a save file is loaded that previously didn't contain the mod. During it, the mod gets the chance to set up initial values that it will use for its lifetime. It has full access to [LuaGameScript](LuaGameScript) and the [global](global) table and can change anything about them that it deems appropriate. No other events will be raised for the mod until it has finished this step.
-    fn on_init();
+    fn on_init(handler: LuaBootstrapMethodsOnInitHandlerUnion);
     /// Register a function to be run on save load. This is only called for mods that have been part of the save previously, or for players connecting to a running multiplayer session.
     ///
     /// It gives the mod the opportunity to rectify potential differences in local state introduced by the save/load cycle. Doing anything other than the following three will lead to desyncs, breaking multiplayer and replay functionality. Access to [LuaGameScript](LuaGameScript) is not available. The [global](global) table can be accessed and is safe to read from, but not write to, as doing so will lead to an error.
@@ -180,11 +221,14 @@ pub trait LuaBootstrapMethods {
     /// - Create local references to data stored in the [global](global) table.
     ///
     /// For all other purposes, [LuaBootstrap::on_init](LuaBootstrap::on_init), [LuaBootstrap::on_configuration_changed](LuaBootstrap::on_configuration_changed) or [migrations](migrations) should be used instead.
-    fn on_load();
+    fn on_load(handler: LuaBootstrapMethodsOnLoadHandlerUnion);
     /// Register a handler to run every nth-tick(s). When the game is on tick 0 it will trigger all registered handlers.
-    fn on_nth_tick();
-    fn raise_biter_base_built();
-    fn raise_console_chat();
+    fn on_nth_tick(
+        handler: LuaBootstrapMethodsOnNthTickHandlerUnion,
+        tick: LuaBootstrapMethodsOnNthTickTickUnion,
+    );
+    fn raise_biter_base_built(entity: LuaEntity);
+    fn raise_console_chat(message: String, player_index: u32);
     /// Raise an event. Only events generated with [LuaBootstrap::generate_event_name](LuaBootstrap::generate_event_name) and the following can be raised:
     ///
     /// - [on_console_chat](on_console_chat)
@@ -197,21 +241,31 @@ pub trait LuaBootstrapMethods {
     /// - [script_raised_revive](script_raised_revive)
     /// - [script_raised_teleported](script_raised_teleported)
     /// - [script_raised_set_tiles](script_raised_set_tiles)
-    fn raise_event();
-    fn raise_market_item_purchased();
-    fn raise_player_crafted_item();
-    fn raise_player_fast_transferred();
-    fn raise_script_built();
-    fn raise_script_destroy();
-    fn raise_script_revive();
-    fn raise_script_set_tiles();
-    fn raise_script_teleported();
+    fn raise_event(data: table, event: u32);
+    fn raise_market_item_purchased(
+        count: u32,
+        market: LuaEntity,
+        offer_index: u32,
+        player_index: u32,
+    );
+    fn raise_player_crafted_item(item_stack: LuaItemStack, player_index: u32, recipe: LuaRecipe);
+    fn raise_player_fast_transferred(
+        entity: LuaEntity,
+        from_player: bool,
+        is_split: bool,
+        player_index: u32,
+    );
+    fn raise_script_built(entity: LuaEntity);
+    fn raise_script_destroy(entity: LuaEntity);
+    fn raise_script_revive(entity: LuaEntity, tags: Tags);
+    fn raise_script_set_tiles(surface_index: u32, tiles: Vec<Tile>);
+    fn raise_script_teleported(entity: LuaEntity, old_position: MapPosition, old_surface_index: u8);
     /// Register a metatable to have linkage recorded and restored when saving/loading. The metatable itself will not be saved. Instead, only the linkage to a registered metatable is saved, and the metatable registered under that name will be used when loading the table.
-    fn register_metatable();
+    fn register_metatable(metatable: table, name: String);
     /// Registers an entity so that after it's destroyed, [on_entity_destroyed](on_entity_destroyed) is called. Once an entity is registered, it stays registered until it is actually destroyed, even through save/load cycles. The registration is global across all mods, meaning once one mod registers an entity, all mods listening to [on_entity_destroyed](on_entity_destroyed) will receive the event when it is destroyed. Registering the same entity multiple times will still only fire the destruction event once, and will return the same registration number.
-    fn register_on_entity_destroyed() -> u64;
+    fn register_on_entity_destroyed(entity: LuaEntity) -> u64;
     /// Sets the filters for the given event. The filters are only retained when set after the actual event registration, because registering for an event with different or no filters will overwrite previously set ones.
-    fn set_event_filter();
+    fn set_event_filter(event: u32, filters: EventFilter);
 }
 
 pub enum LuaBurnerOwnerUnion {
@@ -326,7 +380,7 @@ pub struct LuaCircuitNetwork {
 
 /// A circuit network associated with a given entity, connector, and wire type.
 pub trait LuaCircuitNetworkMethods {
-    fn get_signal() -> i32;
+    fn get_signal(signal: SignalID) -> i32;
     /// All methods and properties that this object supports.
     fn help() -> String;
 }
@@ -340,7 +394,7 @@ pub struct LuaCombinatorControlBehavior {
 ///
 pub trait LuaCombinatorControlBehaviorMethods {
     /// Gets the value of a specific signal sent by this combinator behavior last tick or `nil` if the signal didn't exist.
-    fn get_signal_last_tick() -> i32;
+    fn get_signal_last_tick(signal: SignalID) -> i32;
 }
 
 /// Allows for the registration of custom console commands through the global object named `commands`. Similarly to [event subscriptions](LuaBootstrap::on_event), these don't persist through a save-and-load cycle.
@@ -356,9 +410,9 @@ pub struct LuaCommandProcessor {
 /// Allows for the registration of custom console commands through the global object named `commands`. Similarly to [event subscriptions](LuaBootstrap::on_event), these don't persist through a save-and-load cycle.
 pub trait LuaCommandProcessorMethods {
     /// Add a custom console command.
-    fn add_command();
+    fn add_command(function: fn(CustomCommandData) -> (), help: LocalisedString, name: String);
     /// Remove a custom console command.
-    fn remove_command() -> bool;
+    fn remove_command(name: String) -> bool;
 }
 
 /// Control behavior for constant combinators.
@@ -381,11 +435,11 @@ pub struct LuaConstantCombinatorControlBehavior {
 /// Control behavior for constant combinators.
 pub trait LuaConstantCombinatorControlBehaviorMethods {
     /// Gets the signal at the given index. Returned [Signal](Signal) will not contain signal if none is set for the index.
-    fn get_signal() -> Signal;
+    fn get_signal(index: u32) -> Signal;
     /// All methods and properties that this object supports.
     fn help() -> String;
     /// Sets the signal at the given index.
-    fn set_signal();
+    fn set_signal(index: u32, signal: Signal);
 }
 
 /// Control behavior for container entities.
@@ -531,24 +585,38 @@ pub struct LuaControl {
     pub walking_state: LuaControlWalkingState,
 }
 
+pub enum LuaControlMethodsBeginCraftingRecipeUnion {
+    String(String),
+    LuaRecipe(LuaRecipe),
+}
+
+pub enum LuaControlMethodsGetCraftableCountRecipeUnion {
+    String(String),
+    LuaRecipe(LuaRecipe),
+}
+
 /// This is an abstract base class containing the common functionality between [LuaPlayer](LuaPlayer) and entities (see [LuaEntity](LuaEntity)). When accessing player-related functions through a [LuaEntity](LuaEntity), it must refer to a character entity.
 pub trait LuaControlMethods {
     /// Begins crafting the given count of the given recipe.
-    fn begin_crafting() -> u32;
+    fn begin_crafting(
+        count: u32,
+        recipe: LuaControlMethodsBeginCraftingRecipeUnion,
+        silent: bool,
+    ) -> u32;
     /// Can at least some items be inserted?
-    fn can_insert() -> bool;
+    fn can_insert(items: ItemStackIdentification) -> bool;
     /// Can a given entity be opened or accessed?
-    fn can_reach_entity() -> bool;
+    fn can_reach_entity(entity: LuaEntity) -> bool;
     /// Cancels crafting the given count of the given crafting queue index.
-    fn cancel_crafting();
+    fn cancel_crafting(count: u32, index: u32);
     /// Removes the arrow created by `set_gui_arrow`.
     fn clear_gui_arrow();
     /// Remove all items from this entity.
     fn clear_items_inside();
-    fn clear_personal_logistic_slot();
+    fn clear_personal_logistic_slot(slot_index: u32);
     /// Unselect any selected entity.
     fn clear_selected_entity();
-    fn clear_vehicle_logistic_slot();
+    fn clear_vehicle_logistic_slot(slot_index: u32);
     /// Disable the flashlight.
     fn disable_flashlight();
     /// Enable the flashlight.
@@ -556,23 +624,23 @@ pub trait LuaControlMethods {
     /// Gets the entities that are part of the currently selected blueprint, regardless of it being in a blueprint book or picked from the blueprint library.
     fn get_blueprint_entities() -> Vec<BlueprintEntity>;
     /// Gets the count of the given recipe that can be crafted.
-    fn get_craftable_count() -> u32;
+    fn get_craftable_count(recipe: LuaControlMethodsGetCraftableCountRecipeUnion) -> u32;
     /// Get an inventory belonging to this entity. This can be either the "main" inventory or some auxiliary one, like the module slots or logistic trash slots.
-    fn get_inventory() -> LuaInventory;
+    fn get_inventory(inventory: Inventory) -> LuaInventory;
     /// Get the number of all or some items in this entity.
-    fn get_item_count() -> u32;
+    fn get_item_count(item: String) -> u32;
     /// Gets the main inventory for this character or player if this is a character or player.
     fn get_main_inventory() -> LuaInventory;
     /// The maximum inventory index this entity may use.
     fn get_max_inventory_index() -> Inventory;
     /// Gets the parameters of a personal logistic request and auto-trash slot.
-    fn get_personal_logistic_slot() -> LogisticParameters;
+    fn get_personal_logistic_slot(slot_index: u32) -> LogisticParameters;
     /// Gets the parameters of a vehicle logistic request and auto-trash slot. Only used on `spider-vehicle`.
-    fn get_vehicle_logistic_slot() -> LogisticParameters;
+    fn get_vehicle_logistic_slot(slot_index: u32) -> LogisticParameters;
     /// Does this entity have any item inside it?
     fn has_items_inside() -> bool;
     /// Insert items into this entity. This works the same way as inserters or shift-clicking: the "best" inventory is chosen automatically.
-    fn insert() -> u32;
+    fn insert(items: ItemStackIdentification) -> u32;
     /// Returns whether the player is holding a blueprint. This takes both blueprint items as well as blueprint records from the blueprint library into account.
     ///
     /// Note that both this method and [LuaControl::get_blueprint_entities](LuaControl::get_blueprint_entities) refer to the currently selected blueprint, meaning a blueprint book with a selected blueprint will return the information as well.
@@ -584,23 +652,27 @@ pub trait LuaControlMethods {
     /// When `true` control adapter is a LuaPlayer object, `false` for entities including characters with players.
     fn is_player() -> bool;
     /// Mines the given entity as if this player (or character) mined it.
-    fn mine_entity() -> bool;
+    fn mine_entity(entity: LuaEntity, force: bool) -> bool;
     /// Mines the given tile as if this player (or character) mined it.
-    fn mine_tile() -> bool;
+    fn mine_tile(tile: LuaTile) -> bool;
     /// Open the technology GUI and select a given technology.
-    fn open_technology_gui();
+    fn open_technology_gui(technology: TechnologyIdentification);
     /// Remove items from this entity.
-    fn remove_item() -> u32;
+    fn remove_item(items: ItemStackIdentification) -> u32;
     /// Create an arrow which points at this entity. This is used in the tutorial. For examples, see `control.lua` in the campaign missions.
-    fn set_gui_arrow();
+    fn set_gui_arrow(typ: String);
     /// Sets a personal logistic request and auto-trash slot to the given value.
-    fn set_personal_logistic_slot() -> bool;
+    fn set_personal_logistic_slot(slot_index: u32, value: LogisticParameters) -> bool;
     /// Sets a vehicle logistic request and auto-trash slot to the given value. Only used on `spider-vehicle`.
-    fn set_vehicle_logistic_slot() -> bool;
+    fn set_vehicle_logistic_slot(slot_index: u32, value: LogisticParameters) -> bool;
     /// Teleport the entity to a given position, possibly on another surface.
-    fn teleport() -> bool;
+    fn teleport(
+        position: MapPosition,
+        raise_teleported: bool,
+        surface: SurfaceIdentification,
+    ) -> bool;
     /// Select an entity, as if by hovering the mouse above it.
-    fn update_selected_entity();
+    fn update_selected_entity(position: MapPosition);
 }
 
 /// The control behavior for an entity. Inserters have logistic network and circuit network behavior logic, lamps have circuit logic and so on. This is an abstract base class that concrete control behaviors inherit.
@@ -613,7 +685,10 @@ pub struct LuaControlBehavior {
 
 /// The control behavior for an entity. Inserters have logistic network and circuit network behavior logic, lamps have circuit logic and so on. This is an abstract base class that concrete control behaviors inherit.
 pub trait LuaControlBehaviorMethods {
-    fn get_circuit_network() -> LuaCircuitNetwork;
+    fn get_circuit_network(
+        circuit_connector: CircuitConnectorId,
+        wire: WireType,
+    ) -> LuaCircuitNetwork;
 }
 
 /// A custom tag that shows on the map view.
@@ -1201,6 +1276,17 @@ pub struct LuaEntity {
     pub vehicle_automatic_targeting_parameters: VehicleAutomaticTargetingParameters,
 }
 
+pub enum LuaEntityMethodsConnectNeighbourTargetUnion {
+    LuaEntity(LuaEntity),
+    WireConnectionDefinition(WireConnectionDefinition),
+}
+
+pub enum LuaEntityMethodsDisconnectNeighbourTargetUnion {
+    DefinesWireType(WireType),
+    LuaEntity(LuaEntity),
+    WireConnectionDefinition(WireConnectionDefinition),
+}
+
 pub enum LuaEntityMethodsGetDriverUnion {
     LuaEntity(LuaEntity),
     LuaPlayer(LuaPlayer),
@@ -1216,57 +1302,107 @@ pub enum LuaEntityMethodsGetPassengerUnion {
     LuaPlayer(LuaPlayer),
 }
 
+pub enum LuaEntityMethodsRotateForceUnion {
+    LuaForce(LuaForce),
+    String(String),
+}
+
+pub enum LuaEntityMethodsSetBeamSourceSourceUnion {
+    LuaEntity(LuaEntity),
+    MapPosition(MapPosition),
+}
+
+pub enum LuaEntityMethodsSetBeamTargetTargetUnion {
+    LuaEntity(LuaEntity),
+    MapPosition(MapPosition),
+}
+
+pub enum LuaEntityMethodsSetDriverDriverUnion {
+    LuaEntity(LuaEntity),
+    PlayerIdentification(PlayerIdentification),
+}
+
+pub enum LuaEntityMethodsSetFilterItemUnion {
+    String(String),
+    Nil,
+}
+
+pub enum LuaEntityMethodsSetInfinityContainerFilterFilterUnion {
+    InfinityInventoryFilter(InfinityInventoryFilter),
+    Nil,
+}
+
+pub enum LuaEntityMethodsSetInfinityPipeFilterFilterUnion {
+    InfinityPipeFilter(InfinityPipeFilter),
+    Nil,
+}
+
+pub enum LuaEntityMethodsSetPassengerPassengerUnion {
+    LuaEntity(LuaEntity),
+    PlayerIdentification(PlayerIdentification),
+}
+
+pub enum LuaEntityMethodsSetRecipeRecipeUnion {
+    String(String),
+    LuaRecipe(LuaRecipe),
+}
+
 /// The primary interface for interacting with entities through the Lua API. Entities are everything that exists on the map except for tiles (see [LuaTile](LuaTile)).
 ///
 /// Most functions on LuaEntity also work when the entity is contained in a ghost.
 pub trait LuaEntityMethods {
     /// Adds the given position to this spidertron's autopilot's queue of destinations.
-    fn add_autopilot_destination();
+    fn add_autopilot_destination(position: MapPosition);
     /// Offer a thing on the market.
-    fn add_market_item();
+    fn add_market_item(offer: Offer);
     /// Checks if the entity can be destroyed
     fn can_be_destroyed() -> bool;
     /// Whether this character can shoot the given entity or position.
-    fn can_shoot() -> bool;
+    fn can_shoot(position: MapPosition, target: LuaEntity) -> bool;
     /// Can wires reach between these entities.
-    fn can_wires_reach() -> bool;
+    fn can_wires_reach(entity: LuaEntity) -> bool;
     /// Cancels deconstruction if it is scheduled, does nothing otherwise.
-    fn cancel_deconstruction();
+    fn cancel_deconstruction(force: ForceIdentification, player: PlayerIdentification);
     /// Cancels upgrade if it is scheduled, does nothing otherwise.
-    fn cancel_upgrade() -> bool;
+    fn cancel_upgrade(force: ForceIdentification, player: PlayerIdentification) -> bool;
     /// Remove all fluids from this entity.
     fn clear_fluid_inside();
     /// Removes all offers from a market.
     fn clear_market_items();
     /// Clear a logistic requester slot.
-    fn clear_request_slot();
+    fn clear_request_slot(slot: u32);
     /// Clones this entity.
-    fn clone() -> LuaEntity;
+    fn clone(
+        create_build_effect_smoke: bool,
+        force: ForceIdentification,
+        position: MapPosition,
+        surface: LuaSurface,
+    ) -> LuaEntity;
     /// Connects current linked belt with another one.
     ///
     /// Neighbours have to be of different type. If given linked belt is connected to something else it will be disconnected first. If provided neighbour is connected to something else it will also be disconnected first. Automatically updates neighbour to be connected back to this one.
-    fn connect_linked_belts();
+    fn connect_linked_belts(neighbour: LuaEntity);
     /// Connect two devices with a circuit wire or copper cable. Depending on which type of connection should be made, there are different procedures:
     ///
     /// - To connect two electric poles, `target` must be a [LuaEntity](LuaEntity) that specifies another electric pole. This will connect them with copper cable.
     /// - To connect two devices with circuit wire, `target` must be a table of type [WireConnectionDefinition](WireConnectionDefinition).
-    fn connect_neighbour() -> bool;
+    fn connect_neighbour(target: LuaEntityMethodsConnectNeighbourTargetUnion) -> bool;
     /// Connects the rolling stock in the given direction.
-    fn connect_rolling_stock() -> bool;
+    fn connect_rolling_stock(direction: RailDirection) -> bool;
     /// Copies settings from the given entity onto this entity.
-    fn copy_settings() -> HashMap<String, u32>;
+    fn copy_settings(by_player: PlayerIdentification, entity: LuaEntity) -> HashMap<String, u32>;
     /// Creates the same smoke that is created when you place a building by hand. You can play the building sound to go with it by using [LuaSurface::play_sound](LuaSurface::play_sound), eg: entity.surface.play_sound{path="entity-build/"..entity.prototype.name, position=entity.position}
     fn create_build_effect_smoke();
     /// Damages the entity.
-    fn damage() -> f32;
+    fn damage(damage: f32, dealer: LuaEntity, force: ForceIdentification, typ: String) -> f32;
     /// Depletes and destroys this resource entity.
     fn deplete();
     /// Destroys the entity.
-    fn destroy() -> bool;
+    fn destroy(do_cliff_correction: bool, raise_destroy: bool) -> bool;
     /// Immediately kills the entity. Does nothing if the entity doesn't have health.
     ///
     /// Unlike [LuaEntity::destroy](LuaEntity::destroy), `die` will trigger the [on_entity_died](on_entity_died) event and the entity will produce a corpse and drop loot if it has any.
-    fn die() -> bool;
+    fn die(cause: LuaEntity, force: ForceIdentification) -> bool;
     /// Disconnects linked belt from its neighbour.
     fn disconnect_linked_belts();
     /// Disconnect circuit wires or copper cables between devices. Depending on which type of connection should be cut, there are different procedures:
@@ -1275,9 +1411,9 @@ pub trait LuaEntityMethods {
     /// - To remove all wires of a specific color, set `target` to [defines.wire_type.red](defines.wire_type.red) or [defines.wire_type.green](defines.wire_type.green).
     /// - To remove a specific copper cable between two electric poles, `target` must be a [LuaEntity](LuaEntity) that specifies the other pole: `pole1.disconnect_neighbour(pole2)`.
     /// - To remove a specific circuit wire, `target` must be a table of type [WireConnectionDefinition](WireConnectionDefinition).
-    fn disconnect_neighbour();
+    fn disconnect_neighbour(target: LuaEntityMethodsDisconnectNeighbourTargetUnion);
     /// Tries to disconnect this rolling stock in the given direction.
-    fn disconnect_rolling_stock() -> bool;
+    fn disconnect_rolling_stock(direction: RailDirection) -> bool;
     /// Returns a table with all entities affected by this beacon
     fn get_beacon_effect_receivers() -> Vec<LuaEntity>;
     /// Returns a table with all beacons affecting this effect receiver. Can only be used when the entity has an effect receiver (AssemblingMachine, Furnace, Lab, MiningDrills)
@@ -1290,12 +1426,18 @@ pub trait LuaEntityMethods {
     fn get_burnt_result_inventory() -> LuaInventory;
     /// Returns all child signals. Child signals can be either RailSignal or RailChainSignal. Child signals are signals which are checked by this signal to determine a chain state.
     fn get_child_signals() -> Vec<LuaEntity>;
-    fn get_circuit_network() -> LuaCircuitNetwork;
-    fn get_connected_rail() -> (LuaEntity, RailDirection, RailConnectionDirection);
+    fn get_circuit_network(
+        circuit_connector: CircuitConnectorId,
+        wire: WireType,
+    ) -> LuaCircuitNetwork;
+    fn get_connected_rail(
+        rail_connection_direction: RailConnectionDirection,
+        rail_direction: RailDirection,
+    ) -> (LuaEntity, RailDirection, RailConnectionDirection);
     /// Get the rails that this signal is connected to.
     fn get_connected_rails() -> Vec<LuaEntity>;
     /// Gets rolling stock connected to the given end of this stock.
-    fn get_connected_rolling_stock() -> (LuaEntity, RailDirection);
+    fn get_connected_rolling_stock(direction: RailDirection) -> (LuaEntity, RailDirection);
     /// Gets the control behavior of the entity (if any).
     fn get_control_behavior() -> LuaControlBehavior;
     /// Returns the amount of damage to be taken by this entity.
@@ -1303,11 +1445,11 @@ pub trait LuaEntityMethods {
     /// Gets the driver of this vehicle if any.
     fn get_driver() -> LuaEntityMethodsGetDriverUnion;
     /// Get the filter for a slot in an inserter, loader, or logistic storage container.
-    fn get_filter() -> String;
+    fn get_filter(slot_index: u32) -> String;
     /// Get amounts of all fluids in this entity.
     fn get_fluid_contents() -> HashMap<String, f64>;
     /// Get the amount of all or some fluid in this entity.
-    fn get_fluid_count() -> f64;
+    fn get_fluid_count(fluid: String) -> f64;
     /// The fuel inventory for this entity or `nil` if this entity doesn't have a fuel inventory.
     fn get_fuel_inventory() -> LuaInventory;
     /// The health ratio of this entity between 1 and 0 (for full health and no health respectively).
@@ -1317,19 +1459,19 @@ pub trait LuaEntityMethods {
     /// Returns all signals guarding entrance to a rail block this rail belongs to.
     fn get_inbound_signals() -> Vec<LuaEntity>;
     /// Gets the filter for this infinity container at the given index, or `nil` if the filter index doesn't exist or is empty.
-    fn get_infinity_container_filter() -> InfinityInventoryFilter;
+    fn get_infinity_container_filter(index: u32) -> InfinityInventoryFilter;
     /// Gets the filter for this infinity pipe, or `nil` if the filter is empty.
     fn get_infinity_pipe_filter() -> InfinityPipeFilter;
     /// Gets all the `LuaLogisticPoint`s that this entity owns. Optionally returns only the point specified by the index parameter.
-    fn get_logistic_point() -> LuaEntityMethodsGetLogisticPointUnion;
+    fn get_logistic_point(index: LogisticMemberIndex) -> LuaEntityMethodsGetLogisticPointUnion;
     /// Get all offers in a market as an array.
     fn get_market_items() -> Vec<Offer>;
     /// Get the maximum transport line index of a belt or belt connectable entity.
     fn get_max_transport_line_index() -> u32;
     /// Read a single signal from the combined circuit networks.
-    fn get_merged_signal() -> i32;
+    fn get_merged_signal(circuit_connector: CircuitConnectorId, signal: SignalID) -> i32;
     /// The merged circuit network signals or `nil` if there are no signals.
-    fn get_merged_signals() -> Vec<Signal>;
+    fn get_merged_signals(circuit_connector: CircuitConnectorId) -> Vec<Signal>;
     /// Inventory for storing modules of this entity; `nil` if this entity has no module inventory.
     fn get_module_inventory() -> LuaInventory;
     /// Gets (and or creates if needed) the control behavior of the entity.
@@ -1345,19 +1487,19 @@ pub trait LuaEntityMethods {
     /// The radius of this entity.
     fn get_radius() -> f64;
     /// Get the rail at the end of the rail segment this rail is in.
-    fn get_rail_segment_end() -> (LuaEntity, RailDirection);
+    fn get_rail_segment_end(direction: RailDirection) -> (LuaEntity, RailDirection);
     /// Get the rail signal or train stop at the start/end of the rail segment this rail is in.
-    fn get_rail_segment_entity() -> LuaEntity;
+    fn get_rail_segment_entity(direction: RailDirection, in_else_out: bool) -> LuaEntity;
     /// Get the length of the rail segment this rail is in.
     fn get_rail_segment_length() -> f64;
     /// Get a rail from each rail segment that overlaps with this rail's rail segment.
     fn get_rail_segment_overlaps() -> Vec<LuaEntity>;
     /// Get all rails of a rail segment this rail is in
-    fn get_rail_segment_rails() -> Vec<LuaEntity>;
+    fn get_rail_segment_rails(direction: RailDirection) -> Vec<LuaEntity>;
     /// Current recipe being assembled by this machine, if any.
     fn get_recipe() -> LuaRecipe;
     /// Get a logistic requester slot.
-    fn get_request_slot() -> SimpleItemStack;
+    fn get_request_slot(slot: u32) -> SimpleItemStack;
     /// Gets legs of given SpiderVehicle.
     fn get_spider_legs() -> Vec<LuaEntity>;
     /// The train currently stopped at this train stop, if any.
@@ -1365,21 +1507,21 @@ pub trait LuaEntityMethods {
     /// The trains scheduled to stop at this train stop.
     fn get_train_stop_trains() -> Vec<LuaTrain>;
     /// Get a transport line of a belt or belt connectable entity.
-    fn get_transport_line() -> LuaTransportLine;
+    fn get_transport_line(index: u32) -> LuaTransportLine;
     /// Returns the new entity direction after upgrading.
     fn get_upgrade_direction() -> Direction;
     /// Returns the new entity prototype.
     fn get_upgrade_target() -> LuaEntityPrototype;
     /// Same as [LuaEntity::has_flag](LuaEntity::has_flag), but targets the inner entity on a entity ghost.
-    fn ghost_has_flag() -> bool;
+    fn ghost_has_flag(flag: String) -> bool;
     /// Has this unit been assigned a command?
     fn has_command() -> bool;
     /// Test whether this entity's prototype has a certain flag set.
-    fn has_flag() -> bool;
+    fn has_flag(flag: String) -> bool;
     /// All methods and properties that this object supports.
     fn help() -> String;
     /// Insert fluid into this entity. Fluidbox is chosen automatically.
-    fn insert_fluid() -> f64;
+    fn insert_fluid(fluid: Fluid) -> f64;
     fn is_closed() -> bool;
     fn is_closing() -> bool;
     /// Returns `true` if this entity produces or consumes electricity and is connected to an electric network that has at least one entity that can produce power.
@@ -1389,64 +1531,95 @@ pub trait LuaEntityMethods {
     fn is_opened() -> bool;
     fn is_opening() -> bool;
     /// Checks if this rail and other rail both belong to the same rail block.
-    fn is_rail_in_same_rail_block_as() -> bool;
+    fn is_rail_in_same_rail_block_as(other_rail: LuaEntity) -> bool;
     /// Checks if this rail and other rail both belong to the same rail segment.
-    fn is_rail_in_same_rail_segment_as() -> bool;
+    fn is_rail_in_same_rail_segment_as(other_rail: LuaEntity) -> bool;
     /// Is this entity or tile ghost or item request proxy registered for construction? If false, it means a construction robot has been dispatched to build the entity, or it is not an entity that can be constructed.
     fn is_registered_for_construction() -> bool;
     /// Is this entity registered for deconstruction with this force? If false, it means a construction robot has been dispatched to deconstruct it, or it is not marked for deconstruction. The complexity is effectively O(1) - it depends on the number of objects targeting this entity which should be small enough.
-    fn is_registered_for_deconstruction() -> bool;
+    fn is_registered_for_deconstruction(force: ForceIdentification) -> bool;
     /// Is this entity registered for repair? If false, it means a construction robot has been dispatched to upgrade it, or it is not damaged. This is worst-case O(N) complexity where N is the current number of things in the repair queue.
     fn is_registered_for_repair() -> bool;
     /// Is this entity registered for upgrade? If false, it means a construction robot has been dispatched to upgrade it, or it is not marked for upgrade. This is worst-case O(N) complexity where N is the current number of things in the upgrade queue.
     fn is_registered_for_upgrade() -> bool;
     fn launch_rocket() -> bool;
     /// Mines this entity.
-    fn mine() -> bool;
+    fn mine(
+        force: bool,
+        ignore_minable: bool,
+        inventory: LuaInventory,
+        raise_destroyed: bool,
+    ) -> bool;
     /// Sets the entity to be deconstructed by construction robots.
-    fn order_deconstruction() -> bool;
+    fn order_deconstruction(force: ForceIdentification, player: PlayerIdentification) -> bool;
     /// Sets the entity to be upgraded by construction robots.
-    fn order_upgrade() -> bool;
+    fn order_upgrade(
+        direction: Direction,
+        force: ForceIdentification,
+        player: PlayerIdentification,
+        target: EntityPrototypeIdentification,
+    ) -> bool;
     /// Plays a note with the given instrument and note.
-    fn play_note() -> bool;
+    fn play_note(instrument: u32, note: u32) -> bool;
     /// Release the unit from the spawner which spawned it. This allows the spawner to continue spawning additional units.
     fn release_from_spawner();
     /// Remove fluid from this entity.
-    fn remove_fluid() -> f64;
+    fn remove_fluid(
+        amount: f64,
+        maximum_temperature: f64,
+        minimum_temperature: f64,
+        name: String,
+        temperature: f64,
+    ) -> f64;
     /// Remove an offer from a market.
-    fn remove_market_item() -> bool;
-    fn request_to_close();
-    fn request_to_open();
+    fn remove_market_item(offer: u32) -> bool;
+    fn request_to_close(force: ForceIdentification);
+    fn request_to_open(extra_time: u32, force: ForceIdentification);
     /// Revive a ghost. I.e. turn it from a ghost to a real entity or tile.
-    fn revive() -> (HashMap<String, u32>, LuaEntity, LuaEntity);
+    fn revive(
+        raise_revive: bool,
+        return_item_request_proxy: bool,
+    ) -> (HashMap<String, u32>, LuaEntity, LuaEntity);
     /// Rotates this entity as if the player rotated it.
-    fn rotate() -> (bool, HashMap<String, u32>);
+    fn rotate(
+        by_player: PlayerIdentification,
+        enable_looted: bool,
+        force: LuaEntityMethodsRotateForceUnion,
+        reverse: bool,
+        spill_items: bool,
+    ) -> (bool, HashMap<String, u32>);
     /// Set the source of this beam.
-    fn set_beam_source();
+    fn set_beam_source(source: LuaEntityMethodsSetBeamSourceSourceUnion);
     /// Set the target of this beam.
-    fn set_beam_target();
+    fn set_beam_target(target: LuaEntityMethodsSetBeamTargetTargetUnion);
     /// Give the entity a command.
-    fn set_command();
+    fn set_command(command: Command);
     /// Give the entity a distraction command.
-    fn set_distraction_command();
+    fn set_distraction_command(command: Command);
     /// Sets the driver of this vehicle.
-    fn set_driver();
+    fn set_driver(driver: LuaEntityMethodsSetDriverDriverUnion);
     /// Set the filter for a slot in an inserter, loader, or logistic storage container.
-    fn set_filter();
+    fn set_filter(item: LuaEntityMethodsSetFilterItemUnion, slot_index: u32);
     /// Sets the heat setting for this heat interface.
-    fn set_heat_setting();
+    fn set_heat_setting(filter: HeatSetting);
     /// Sets the filter for this infinity container at the given index.
-    fn set_infinity_container_filter();
+    fn set_infinity_container_filter(
+        filter: LuaEntityMethodsSetInfinityContainerFilterFilterUnion,
+        index: u32,
+    );
     /// Sets the filter for this infinity pipe.
-    fn set_infinity_pipe_filter();
+    fn set_infinity_pipe_filter(filter: LuaEntityMethodsSetInfinityPipeFilterFilterUnion);
     /// Sets the passenger of this car or spidertron.
-    fn set_passenger();
+    fn set_passenger(passenger: LuaEntityMethodsSetPassengerPassengerUnion);
     /// Sets the given recipe in this assembly machine.
-    fn set_recipe() -> HashMap<String, u32>;
+    fn set_recipe(recipe: LuaEntityMethodsSetRecipeRecipeUnion) -> HashMap<String, u32>;
     /// Set a logistic requester slot.
-    fn set_request_slot() -> bool;
+    fn set_request_slot(request: ItemStackIdentification, slot: u32) -> bool;
     /// Revives a ghost silently.
-    fn silent_revive() -> (HashMap<String, u32>, LuaEntity, LuaEntity);
+    fn silent_revive(
+        raise_revive: bool,
+        return_item_request_proxy: bool,
+    ) -> (HashMap<String, u32>, LuaEntity, LuaEntity);
     /// Triggers spawn_decoration actions defined in the entity prototype or does nothing if entity is not "turret" or "unit-spawner".
     fn spawn_decorations();
     /// Only works if the entity is a speech-bubble, with an "effect" defined in its wrapper_flow_style. Starts animating the opacity of the speech bubble towards zero, and destroys the entity when it hits zero.
@@ -2020,9 +2193,9 @@ pub struct LuaEntityPrototype {
 /// Prototype of an entity.
 pub trait LuaEntityPrototypeMethods {
     /// Gets the base size of the given inventory on this entity or `nil` if the given inventory doesn't exist.
-    fn get_inventory_size() -> u32;
+    fn get_inventory_size(index: Inventory) -> u32;
     /// Test whether this entity prototype has a certain flag set.
-    fn has_flag() -> bool;
+    fn has_flag(flag: String) -> bool;
     /// All methods and properties that this object supports.
     fn help() -> String;
 }
@@ -2129,27 +2302,35 @@ pub struct LuaEquipmentGrid {
 /// An equipment grid is for example the inside of a power armor.
 pub trait LuaEquipmentGridMethods {
     /// Check whether moving an equipment would succeed.
-    fn can_move() -> bool;
+    fn can_move(equipment: LuaEquipment, position: EquipmentPosition) -> bool;
     /// Clear all equipment from the grid, removing it without actually returning it.
-    fn clear();
+    fn clear(by_player: PlayerIdentification);
     /// Get the number of all or some equipment in this grid.
-    fn count() -> u32;
+    fn count(equipment: String) -> u32;
     /// Find equipment by name.
-    fn find() -> LuaEquipment;
+    fn find(equipment: String) -> LuaEquipment;
     /// Find equipment in the Equipment Grid based off a position.
-    fn get() -> LuaEquipment;
+    fn get(position: EquipmentPosition) -> LuaEquipment;
     /// Get counts of all equipment in this grid.
     fn get_contents() -> HashMap<String, u32>;
     /// All methods and properties that this object supports.
     fn help() -> String;
     /// Move an equipment within this grid.
-    fn mov() -> bool;
+    fn mov(equipment: LuaEquipment, position: EquipmentPosition) -> bool;
     /// Insert an equipment into the grid.
-    fn put() -> LuaEquipment;
+    fn put(
+        by_player: PlayerIdentification,
+        name: String,
+        position: EquipmentPosition,
+    ) -> LuaEquipment;
     /// Remove an equipment from the grid.
-    fn take() -> SimpleItemStack;
+    fn take(
+        by_player: PlayerIdentification,
+        equipment: LuaEquipment,
+        position: EquipmentPosition,
+    ) -> SimpleItemStack;
     /// Remove all equipment from the grid.
-    fn take_all() -> HashMap<String, u32>;
+    fn take_all(by_player: PlayerIdentification) -> HashMap<String, u32>;
 }
 
 /// Prototype of an equipment grid.
@@ -2292,6 +2473,16 @@ pub enum LuaFlowStatisticsMethodsGetOutputCountUnion {
     Double(f64),
 }
 
+pub enum LuaFlowStatisticsMethodsSetInputCountCountUnion {
+    Uint64(u64),
+    Double(f64),
+}
+
+pub enum LuaFlowStatisticsMethodsSetOutputCountCountUnion {
+    Uint64(u64),
+    Double(f64),
+}
+
 /// Encapsulates statistic data for different parts of the game. In the context of flow statistics, `input` and `output` describe on which side of the associated GUI the values are shown. Input values are shown on the left side, output values on the right side.
 ///
 /// Examples:
@@ -2306,19 +2497,25 @@ pub trait LuaFlowStatisticsMethods {
     /// Use `sample_index` to access the data used to generate the statistics graphs. Each precision level contains 300 samples of data so at a precision of 1 minute, each sample contains data averaged across 60s / 300 = 0.2s = 12 ticks.
     ///
     /// All return values are normalized to be per-tick for electric networks and per-minute for all other types.
-    fn get_flow_count() -> f64;
+    fn get_flow_count(
+        count: bool,
+        input: bool,
+        name: String,
+        precision_index: FlowPrecisionIndex,
+        sample_index: u16,
+    ) -> f64;
     /// Gets the total input count for a given prototype.
-    fn get_input_count() -> LuaFlowStatisticsMethodsGetInputCountUnion;
+    fn get_input_count(name: String) -> LuaFlowStatisticsMethodsGetInputCountUnion;
     /// Gets the total output count for a given prototype.
-    fn get_output_count() -> LuaFlowStatisticsMethodsGetOutputCountUnion;
+    fn get_output_count(name: String) -> LuaFlowStatisticsMethodsGetOutputCountUnion;
     /// All methods and properties that this object supports.
     fn help() -> String;
     /// Adds a value to this flow statistics.
-    fn on_flow();
+    fn on_flow(count: f32, name: String);
     /// Sets the total input count for a given prototype.
-    fn set_input_count();
+    fn set_input_count(count: LuaFlowStatisticsMethodsSetInputCountCountUnion, name: String);
     /// Sets the total output count for a given prototype.
-    fn set_output_count();
+    fn set_output_count(count: LuaFlowStatisticsMethodsSetOutputCountCountUnion, name: String);
 }
 
 /// An array of fluid boxes of an entity. Entities may contain more than one fluid box, and some can change the number of fluid boxes -- for instance, an assembling machine will change its number of fluid boxes depending on its active recipe. See [Fluid](Fluid).
@@ -2338,30 +2535,35 @@ pub enum LuaFluidBoxMethodsGetPrototypeUnion {
     Array(Vec<LuaFluidBoxPrototype>),
 }
 
+pub enum LuaFluidBoxMethodsSetFilterFilterUnion {
+    FluidBoxFilterSpec(FluidBoxFilterSpec),
+    Nil,
+}
+
 /// An array of fluid boxes of an entity. Entities may contain more than one fluid box, and some can change the number of fluid boxes -- for instance, an assembling machine will change its number of fluid boxes depending on its active recipe. See [Fluid](Fluid).
 ///
 /// Do note that reading from a [LuaFluidBox](LuaFluidBox) creates a new table and writing will copy the given fields from the table into the engine's own fluid box structure. Therefore, the correct way to update a fluidbox of an entity is to read it first, modify the table, then write the modified table back. Directly accessing the returned table's attributes won't have the desired effect.
 pub trait LuaFluidBoxMethods {
     /// Flushes all fluid from this fluidbox and its fluid system.
-    fn flush() -> HashMap<String, f32>;
+    fn flush(fluid: FluidIdentification, index: u32) -> HashMap<String, f32>;
     /// The capacity of the given fluidbox index.
-    fn get_capacity() -> f64;
+    fn get_capacity(index: u32) -> f64;
     /// The fluidboxes to which the fluidbox at the given index is connected.
-    fn get_connections() -> Vec<LuaFluidBox>;
+    fn get_connections(index: u32) -> Vec<LuaFluidBox>;
     /// Get a fluid box filter
-    fn get_filter() -> FluidBoxFilter;
+    fn get_filter(index: u32) -> FluidBoxFilter;
     /// Flow through the fluidbox in the last tick. It is the larger of in-flow and out-flow.
-    fn get_flow() -> f64;
+    fn get_flow(index: u32) -> f64;
     /// Gets unique fluid system identifier of selected fluid box. May return nil for fluid wagon, fluid turret's internal buffer or a fluidbox which does not belong to a fluid system
-    fn get_fluid_system_id() -> u32;
+    fn get_fluid_system_id(index: u32) -> u32;
     /// Returns the fluid the fluidbox is locked onto
-    fn get_locked_fluid() -> String;
+    fn get_locked_fluid(index: u32) -> String;
     /// The prototype of this fluidbox index. If this is used on a fluidbox of a crafting machine which due to recipe was created by merging multiple prototypes, a table of prototypes that were merged will be returned instead
-    fn get_prototype() -> LuaFluidBoxMethodsGetPrototypeUnion;
+    fn get_prototype(index: u32) -> LuaFluidBoxMethodsGetPrototypeUnion;
     /// All methods and properties that this object supports.
     fn help() -> String;
     /// Set a fluid box filter.
-    fn set_filter() -> bool;
+    fn set_filter(filter: LuaFluidBoxMethodsSetFilterFilterUnion, index: u32) -> bool;
 }
 
 /// A prototype of a fluidbox owned by some [LuaEntityPrototype](LuaEntityPrototype).
@@ -2607,22 +2809,37 @@ pub struct LuaForce {
     pub zoom_to_world_selection_tool_enabled: bool,
 }
 
+pub enum LuaForceMethodsGetHandCraftingDisabledForRecipeRecipeUnion {
+    String(String),
+    LuaRecipe(LuaRecipe),
+}
+
+pub enum LuaForceMethodsGetTrainStopsNameUnion {
+    String(String),
+    Array(Vec<String>),
+}
+
+pub enum LuaForceMethodsSetHandCraftingDisabledForRecipeRecipeUnion {
+    String(String),
+    LuaRecipe(LuaRecipe),
+}
+
 /// `LuaForce` encapsulates data local to each "force" or "faction" of the game. Default forces are player, enemy and neutral. Players and mods can create additional forces (up to 64 total).
 pub trait LuaForceMethods {
     /// Adds a custom chart tag to the given surface and returns the new tag or `nil` if the given position isn't valid for a chart tag.
-    fn add_chart_tag() -> LuaCustomChartTag;
+    fn add_chart_tag(surface: SurfaceIdentification, tag: ChartTagSpec) -> LuaCustomChartTag;
     /// Add this technology to the back of the research queue if the queue is enabled. Otherwise, set this technology to be researched now.
-    fn add_research() -> bool;
+    fn add_research(technology: TechnologyIdentification) -> bool;
     /// Cancels pending chart requests for the given surface or all surfaces.
-    fn cancel_charting();
+    fn cancel_charting(surface: SurfaceIdentification);
     /// Stop the research currently in progress. This will remove any dependent technologies from the research queue.
     fn cancel_current_research();
     /// Chart a portion of the map. The chart for the given area is refreshed; it creates chart for any parts of the given area that haven't been charted yet.
-    fn chart();
+    fn chart(area: BoundingBox, surface: SurfaceIdentification);
     /// Chart all generated chunks.
-    fn chart_all();
+    fn chart_all(surface: SurfaceIdentification);
     /// Erases chart data for this force.
-    fn clear_chart();
+    fn clear_chart(surface: SurfaceIdentification);
     /// Disable all recipes and technologies. Only recipes and technologies enabled explicitly will be useable from this point.
     fn disable_all_prototypes();
     /// Disable research for this force.
@@ -2636,51 +2853,66 @@ pub trait LuaForceMethods {
     /// Enable research for this force.
     fn enable_research();
     /// Finds all custom chart tags within the given bounding box on the given surface.
-    fn find_chart_tags() -> Vec<LuaCustomChartTag>;
-    fn find_logistic_network_by_position() -> LuaLogisticNetwork;
-    fn get_ammo_damage_modifier() -> f64;
+    fn find_chart_tags(area: BoundingBox, surface: SurfaceIdentification)
+        -> Vec<LuaCustomChartTag>;
+    fn find_logistic_network_by_position(
+        position: MapPosition,
+        surface: SurfaceIdentification,
+    ) -> LuaLogisticNetwork;
+    fn get_ammo_damage_modifier(ammo: String) -> f64;
     /// Is `other` force in this force's cease fire list?
-    fn get_cease_fire() -> bool;
+    fn get_cease_fire(other: ForceIdentification) -> bool;
     /// Count entities of given type.
-    fn get_entity_count() -> u32;
+    fn get_entity_count(name: String) -> u32;
     /// Is `other` force in this force's friends list.
-    fn get_friend() -> bool;
-    fn get_gun_speed_modifier() -> f64;
+    fn get_friend(other: ForceIdentification) -> bool;
+    fn get_gun_speed_modifier(ammo: String) -> f64;
     /// Gets if the given recipe is explicitly disabled from being hand crafted.
-    fn get_hand_crafting_disabled_for_recipe() -> bool;
+    fn get_hand_crafting_disabled_for_recipe(
+        recipe: LuaForceMethodsGetHandCraftingDisabledForRecipeRecipeUnion,
+    ) -> bool;
     /// Gets the count of a given item launched in rockets.
-    fn get_item_launched() -> u32;
+    fn get_item_launched(item: String) -> u32;
     /// Gets the linked inventory for the given prototype and link ID if it exists or `nil`.
-    fn get_linked_inventory() -> LuaInventory;
+    fn get_linked_inventory(link_id: u32, prototype: EntityPrototypeIdentification)
+        -> LuaInventory;
     /// Gets the saved progress for the given technology or `nil` if there is no saved progress.
-    fn get_saved_technology_progress() -> f64;
-    fn get_spawn_position() -> MapPosition;
+    fn get_saved_technology_progress(technology: TechnologyIdentification) -> f64;
+    fn get_spawn_position(surface: SurfaceIdentification) -> MapPosition;
     /// Gets train stops matching the given filters.
-    fn get_train_stops() -> Vec<LuaEntity>;
-    fn get_trains() -> Vec<LuaTrain>;
-    fn get_turret_attack_modifier() -> f64;
+    fn get_train_stops(
+        name: LuaForceMethodsGetTrainStopsNameUnion,
+        surface: SurfaceIdentification,
+    ) -> Vec<LuaEntity>;
+    fn get_trains(surface: SurfaceIdentification) -> Vec<LuaTrain>;
+    fn get_turret_attack_modifier(turret: String) -> f64;
     /// All methods and properties that this object supports.
     fn help() -> String;
     /// Has a chunk been charted?
-    fn is_chunk_charted() -> bool;
+    fn is_chunk_charted(position: ChunkPosition, surface: SurfaceIdentification) -> bool;
     /// Is the given chunk currently charted and visible (not covered by fog of war) on the map.
-    fn is_chunk_visible() -> bool;
+    fn is_chunk_visible(position: ChunkPosition, surface: SurfaceIdentification) -> bool;
     /// Is this force an enemy? This differs from `get_cease_fire` in that it is always false for neutral force. This is equivalent to checking the `enemy` ForceCondition.
-    fn is_enemy() -> bool;
+    fn is_enemy(other: ForceIdentification) -> bool;
     /// Is this force a friend? This differs from `get_friend` in that it is always true for neutral force. This is equivalent to checking the `friend` ForceCondition.
-    fn is_friend() -> bool;
+    fn is_friend(other: ForceIdentification) -> bool;
     /// Is pathfinder busy? When the pathfinder is busy, it won't accept any more pathfinding requests.
     fn is_pathfinder_busy() -> bool;
     /// Kill all units and flush the pathfinder.
     fn kill_all_units();
     /// Play a sound for every player in this force.
-    fn play_sound();
+    fn play_sound(
+        override_sound_type: SoundType,
+        path: SoundPath,
+        position: MapPosition,
+        volume_modifier: f64,
+    );
     /// Print text to the chat console of all players on this force.
-    fn print();
+    fn print(color: Color, message: LocalisedString);
     /// Force a rechart of the whole chart.
     fn rechart();
     /// Research all technologies.
-    fn research_all_technologies();
+    fn research_all_technologies(include_disabled_prototypes: bool);
     /// Reset everything. All technologies are set to not researched, all modifiers are set to default values.
     fn reset();
     /// Resets evolution for this force to zero.
@@ -2691,21 +2923,24 @@ pub trait LuaForceMethods {
     fn reset_technologies();
     /// Reapplies all possible research effects, including unlocked recipes. Any custom changes are lost. Preserves research state of technologies.
     fn reset_technology_effects();
-    fn set_ammo_damage_modifier();
+    fn set_ammo_damage_modifier(ammo: String, modifier: f64);
     /// Add `other` force to this force's cease fire list. Forces on the cease fire list won't be targeted for attack.
-    fn set_cease_fire();
+    fn set_cease_fire(cease_fire: bool, other: ForceIdentification);
     /// Add `other` force to this force's friends list. Friends have unrestricted access to buildings and turrets won't fire at them.
-    fn set_friend();
-    fn set_gun_speed_modifier();
+    fn set_friend(friend: bool, other: ForceIdentification);
+    fn set_gun_speed_modifier(ammo: String, modifier: f64);
     /// Sets if the given recipe can be hand-crafted. This is used to explicitly disable hand crafting a recipe - it won't allow hand-crafting otherwise not hand-craftable recipes.
-    fn set_hand_crafting_disabled_for_recipe();
+    fn set_hand_crafting_disabled_for_recipe(
+        hand_crafting_disabled: bool,
+        recipe: LuaForceMethodsSetHandCraftingDisabledForRecipeRecipeUnion,
+    );
     /// Sets the count of a given item launched in rockets.
-    fn set_item_launched();
+    fn set_item_launched(count: u32, item: String);
     /// Sets the saved progress for the given technology. The technology must not be in progress, must not be completed, and the new progress must be < 100%.
-    fn set_saved_technology_progress();
-    fn set_spawn_position();
-    fn set_turret_attack_modifier();
-    fn unchart_chunk();
+    fn set_saved_technology_progress(progress: f64, technology: TechnologyIdentification);
+    fn set_spawn_position(position: MapPosition, surface: SurfaceIdentification);
+    fn set_turret_attack_modifier(modifier: f64, turret: String);
+    fn unchart_chunk(position: ChunkPosition, surface: SurfaceIdentification);
 }
 
 /// Prototype of a fuel category.
@@ -2873,12 +3108,42 @@ pub struct LuaGameScript {
     pub virtual_signal_prototypes: HashMap<String, LuaVirtualSignalPrototype>,
 }
 
+pub enum LuaGameScriptMethodsDeleteSurfaceSurfaceUnion {
+    String(String),
+    LuaSurface(LuaSurface),
+}
+
+pub enum LuaGameScriptMethodsGetPlayerPlayerUnion {
+    Uint(u32),
+    String(String),
+}
+
+pub enum LuaGameScriptMethodsGetSurfaceSurfaceUnion {
+    Uint(u32),
+    String(String),
+}
+
+pub enum LuaGameScriptMethodsGetTrainStopsNameUnion {
+    String(String),
+    Array(Vec<String>),
+}
+
+pub enum LuaGameScriptMethodsRegenerateEntityEntitiesUnion {
+    String(String),
+    Array(Vec<String>),
+}
+
+pub enum LuaGameScriptMethodsRemoveOfflinePlayersPlayersUnion {
+    LuaPlayer(LuaPlayer),
+    String(String),
+}
+
 /// Main toplevel type, provides access to most of the API though its members. An instance of LuaGameScript is available as the global object named `game`.
 pub trait LuaGameScriptMethods {
     /// Instruct the game to perform an auto-save.
-    fn auto_save();
+    fn auto_save(name: String);
     /// Bans the given player from this multiplayer game. Does nothing if this is a single player game of if the player running this isn't an admin.
-    fn ban_player();
+    fn ban_player(player: PlayerIdentification, reason: LocalisedString);
     /// Run internal consistency checks. Allegedly prints any errors it finds.
     fn check_consistency();
     /// Goes over all items, entities, tiles, recipes, technologies among other things and logs if the locale is incorrect.
@@ -2886,98 +3151,127 @@ pub trait LuaGameScriptMethods {
     /// Counts how many distinct groups of pipes exist in the world.
     fn count_pipe_groups();
     /// Create a new force.
-    fn create_force() -> LuaForce;
+    fn create_force(force: String) -> LuaForce;
     /// Creates an inventory that is not owned by any game object. It can be resized later with [LuaInventory::resize](LuaInventory::resize).
-    fn create_inventory() -> LuaInventory;
+    fn create_inventory(size: u16) -> LuaInventory;
     /// Creates a [LuaProfiler](LuaProfiler), which is used for measuring script performance.
-    fn create_profiler() -> LuaProfiler;
+    fn create_profiler(stopped: bool) -> LuaProfiler;
     /// Creates a deterministic standalone random generator with the given seed or if a seed is not provided the initial map seed is used.
-    fn create_random_generator() -> LuaRandomGenerator;
+    fn create_random_generator(seed: u32) -> LuaRandomGenerator;
     /// Create a new surface.
-    fn create_surface() -> LuaSurface;
+    fn create_surface(name: String, settings: MapGenSettings) -> LuaSurface;
     /// Base64 decodes and inflates the given string.
-    fn decode_string() -> String;
+    fn decode_string(string: String) -> String;
     /// Deletes the given surface and all entities on it.
-    fn delete_surface();
+    fn delete_surface(surface: LuaGameScriptMethodsDeleteSurfaceSurfaceUnion);
     /// Converts the given direction into the string version of the direction.
-    fn direction_to_string();
+    fn direction_to_string(direction: Direction);
     /// Disables replay saving for the current save file. Once done there's no way to re-enable replay saving for the save file without loading an old save.
     fn disable_replay();
     /// Disables tutorial triggers, that unlock new tutorials and show notices about unlocked tutorials.
     fn disable_tutorial_triggers();
     /// Deflates and base64 encodes the given string.
-    fn encode_string() -> String;
+    fn encode_string(string: String) -> String;
     /// Evaluate an expression, substituting variables as provided. For details on the formula, see the relevant page on the [Factorio wiki](https://wiki.factorio.com/Prototype/Technology#unit).
-    fn evaluate_expression() -> f64;
+    fn evaluate_expression(expression: String, variables: HashMap<String, f64>) -> f64;
     /// Force a CRC check. Tells all peers to calculate their current CRC, which are then compared to each other. If a mismatch is detected, the game desyncs and some peers are forced to reconnect.
     fn force_crc();
     /// Gets the number of entities that are active (updated each tick).
-    fn get_active_entities_count() -> u32;
-    fn get_entity_by_tag() -> LuaEntity;
+    fn get_active_entities_count(surface: SurfaceIdentification) -> u32;
+    fn get_entity_by_tag(tag: String) -> LuaEntity;
     /// Returns a dictionary of all LuaAchievementPrototypes that fit the given filters. The prototypes are indexed by `name`.
-    fn get_filtered_achievement_prototypes() -> HashMap<String, LuaAchievementPrototype>;
+    fn get_filtered_achievement_prototypes(
+        filters: Vec<AchievementPrototypeFilter>,
+    ) -> HashMap<String, LuaAchievementPrototype>;
     /// Returns a dictionary of all LuaDecorativePrototypes that fit the given filters. The prototypes are indexed by `name`.
-    fn get_filtered_decorative_prototypes() -> HashMap<String, LuaDecorativePrototype>;
+    fn get_filtered_decorative_prototypes(
+        filters: Vec<DecorativePrototypeFilter>,
+    ) -> HashMap<String, LuaDecorativePrototype>;
     /// Returns a dictionary of all LuaEntityPrototypes that fit the given filters. The prototypes are indexed by `name`.
-    fn get_filtered_entity_prototypes() -> HashMap<String, LuaEntityPrototype>;
+    fn get_filtered_entity_prototypes(
+        filters: Vec<EntityPrototypeFilter>,
+    ) -> HashMap<String, LuaEntityPrototype>;
     /// Returns a dictionary of all LuaEquipmentPrototypes that fit the given filters. The prototypes are indexed by `name`.
-    fn get_filtered_equipment_prototypes() -> HashMap<String, LuaEquipmentPrototype>;
+    fn get_filtered_equipment_prototypes(
+        filters: Vec<EquipmentPrototypeFilter>,
+    ) -> HashMap<String, LuaEquipmentPrototype>;
     /// Returns a dictionary of all LuaFluidPrototypes that fit the given filters. The prototypes are indexed by `name`.
-    fn get_filtered_fluid_prototypes() -> HashMap<String, LuaFluidPrototype>;
+    fn get_filtered_fluid_prototypes(
+        filters: Vec<FluidPrototypeFilter>,
+    ) -> HashMap<String, LuaFluidPrototype>;
     /// Returns a dictionary of all LuaItemPrototypes that fit the given filters. The prototypes are indexed by `name`.
-    fn get_filtered_item_prototypes() -> HashMap<String, LuaItemPrototype>;
+    fn get_filtered_item_prototypes(
+        filters: Vec<ItemPrototypeFilter>,
+    ) -> HashMap<String, LuaItemPrototype>;
     /// Returns a dictionary of all LuaModSettingPrototypes that fit the given filters. The prototypes are indexed by `name`.
-    fn get_filtered_mod_setting_prototypes() -> HashMap<String, LuaModSettingPrototype>;
+    fn get_filtered_mod_setting_prototypes(
+        filters: Vec<ModSettingPrototypeFilter>,
+    ) -> HashMap<String, LuaModSettingPrototype>;
     /// Returns a dictionary of all LuaRecipePrototypes that fit the given filters. The prototypes are indexed by `name`.
-    fn get_filtered_recipe_prototypes() -> HashMap<String, LuaRecipePrototype>;
+    fn get_filtered_recipe_prototypes(
+        filters: Vec<RecipePrototypeFilter>,
+    ) -> HashMap<String, LuaRecipePrototype>;
     /// Returns a dictionary of all LuaTechnologyPrototypes that fit the given filters. The prototypes are indexed by `name`.
-    fn get_filtered_technology_prototypes() -> HashMap<String, LuaTechnologyPrototype>;
+    fn get_filtered_technology_prototypes(
+        filters: Vec<TechnologyPrototypeFilter>,
+    ) -> HashMap<String, LuaTechnologyPrototype>;
     /// Returns a dictionary of all LuaTilePrototypes that fit the given filters. The prototypes are indexed by `name`.
-    fn get_filtered_tile_prototypes() -> HashMap<String, LuaTilePrototype>;
+    fn get_filtered_tile_prototypes(
+        filters: Vec<TilePrototypeFilter>,
+    ) -> HashMap<String, LuaTilePrototype>;
     /// Gets the map exchange string for the map generation settings that were used to create this map.
     fn get_map_exchange_string() -> String;
     /// Gets the given player or returns `nil` if no player is found.
-    fn get_player() -> LuaPlayer;
+    fn get_player(player: LuaGameScriptMethodsGetPlayerPlayerUnion) -> LuaPlayer;
     /// Gets the inventories created through [LuaGameScript::create_inventory](LuaGameScript::create_inventory)
-    fn get_script_inventories() -> HashMap<String, Vec<LuaInventory>>;
+    fn get_script_inventories(mod_name: String) -> HashMap<String, Vec<LuaInventory>>;
     /// Gets the given surface or returns `nil` if no surface is found.
-    fn get_surface() -> LuaSurface;
+    fn get_surface(surface: LuaGameScriptMethodsGetSurfaceSurfaceUnion) -> LuaSurface;
     /// Gets train stops matching the given filters.
-    fn get_train_stops() -> Vec<LuaEntity>;
+    fn get_train_stops(
+        force: ForceIdentification,
+        name: LuaGameScriptMethodsGetTrainStopsNameUnion,
+        surface: SurfaceIdentification,
+    ) -> Vec<LuaEntity>;
     /// Is this the demo version of Factorio?
     fn is_demo() -> bool;
     /// Is the map loaded is multiplayer?
     fn is_multiplayer() -> bool;
     /// Checks if the given SoundPath is valid.
-    fn is_valid_sound_path() -> bool;
+    fn is_valid_sound_path(sound_path: SoundPath) -> bool;
     /// Checks if the given SpritePath is valid and contains a loaded sprite. The existence of the image is not checked for paths of type `file`.
-    fn is_valid_sprite_path() -> bool;
+    fn is_valid_sprite_path(sprite_path: SpritePath) -> bool;
     /// Convert a JSON string to a table.
-    fn json_to_table() -> AnyBasic;
+    fn json_to_table(json: String) -> AnyBasic;
     /// Kicks the given player from this multiplayer game. Does nothing if this is a single player game or if the player running this isn't an admin.
-    fn kick_player();
+    fn kick_player(player: PlayerIdentification, reason: LocalisedString);
     /// Marks two forces to be merged together. All players and entities in the source force will be reassigned to the target force. The source force will then be destroyed. Importantly, this does not merge technologies or bonuses, which are instead retained from the target force.
-    fn merge_forces();
+    fn merge_forces(destination: ForceIdentification, source: ForceIdentification);
     /// Mutes the given player. Does nothing if the player running this isn't an admin.
-    fn mute_player();
+    fn mute_player(player: PlayerIdentification);
     /// Convert a map exchange string to map gen settings and map settings.
-    fn parse_map_exchange_string() -> MapExchangeStringData;
+    fn parse_map_exchange_string(map_exchange_string: String) -> MapExchangeStringData;
     /// Play a sound for every player in the game.
-    fn play_sound();
+    fn play_sound(
+        override_sound_type: SoundType,
+        path: SoundPath,
+        position: MapPosition,
+        volume_modifier: f64,
+    );
     /// Print text to the chat console all players.
-    fn print();
+    fn print(color: Color, message: LocalisedString);
     /// Purges the given players messages from the game. Does nothing if the player running this isn't an admin.
-    fn purge_player();
+    fn purge_player(player: PlayerIdentification);
     /// Regenerate autoplacement of some entities on all surfaces. This can be used to autoplace newly-added entities.
-    fn regenerate_entity();
+    fn regenerate_entity(entities: LuaGameScriptMethodsRegenerateEntityEntitiesUnion);
     /// Forces a reload of all mods.
     fn reload_mods();
     /// Forces a reload of the scenario script from the original scenario location.
     fn reload_script();
     /// Remove players who are currently not connected from the map.
-    fn remove_offline_players();
+    fn remove_offline_players(players: Vec<LuaGameScriptMethodsRemoveOfflinePlayersPlayersUnion>);
     /// Remove a file or directory in the `script-output` folder, located in the game's [user data directory](https://wiki.factorio.com/User_data_directory). Can be used to remove files created by [LuaGameScript::write_file](LuaGameScript::write_file).
-    fn remove_path();
+    fn remove_path(path: String);
     /// Reset scenario state (game_finished, player_won, etc.).
     fn reset_game_state();
     /// Resets the amount of time played for this map.
@@ -2985,25 +3279,61 @@ pub trait LuaGameScriptMethods {
     /// Saves the current configuration of Atlas to a file. This will result in huge file containing all of the game graphics moved to as small space as possible.
     fn save_atlas();
     /// Instruct the server to save the map.
-    fn server_save();
+    fn server_save(name: String);
     /// Set scenario state. Any parameters not provided do not change the current state.
-    fn set_game_state();
+    fn set_game_state(
+        can_continue: bool,
+        game_finished: bool,
+        next_level: String,
+        player_won: bool,
+        victorious_force: ForceIdentification,
+    );
     /// Forces the screenshot saving system to wait until all queued screenshots have been written to disk.
     fn set_wait_for_screenshots_to_finish();
     /// Show an in-game message dialog.
-    fn show_message_dialog();
+    fn show_message_dialog(
+        image: String,
+        point_to: GuiArrowSpecification,
+        style: String,
+        text: LocalisedString,
+        wrapper_frame_style: String,
+    );
     /// Convert a table to a JSON string
-    fn table_to_json() -> String;
+    fn table_to_json(data: table) -> String;
     /// Take a screenshot of the game and save it to the `script-output` folder, located in the game's [user data directory](https://wiki.factorio.com/User_data_directory). The name of the image file can be specified via the `path` parameter.
-    fn take_screenshot();
+    fn take_screenshot(
+        allow_in_replay: bool,
+        anti_alias: bool,
+        by_player: PlayerIdentification,
+        daytime: f64,
+        force_render: bool,
+        path: String,
+        player: PlayerIdentification,
+        position: MapPosition,
+        quality: i32,
+        resolution: TilePosition,
+        show_cursor_building_preview: bool,
+        show_entity_info: bool,
+        show_gui: bool,
+        surface: SurfaceIdentification,
+        water_tick: u32,
+        zoom: f64,
+    );
     /// Take a screenshot of the technology screen and save it to the `script-output` folder, located in the game's [user data directory](https://wiki.factorio.com/User_data_directory). The name of the image file can be specified via the `path` parameter.
-    fn take_technology_screenshot();
+    fn take_technology_screenshot(
+        by_player: PlayerIdentification,
+        force: ForceIdentification,
+        path: String,
+        quality: i32,
+        selected_technology: TechnologyIdentification,
+        skip_disabled: bool,
+    );
     /// Unbans the given player from this multiplayer game. Does nothing if this is a single player game of if the player running this isn't an admin.
-    fn unban_player();
+    fn unban_player(player: PlayerIdentification);
     /// Unmutes the given player. Does nothing if the player running this isn't an admin.
-    fn unmute_player();
+    fn unmute_player(player: PlayerIdentification);
     /// Write a file to the `script-output` folder, located in the game's [user data directory](https://wiki.factorio.com/User_data_directory). The name and file extension of the file can be specified via the `filename` parameter.
-    fn write_file();
+    fn write_file(append: bool, data: LocalisedString, filename: String, for_player: u32);
 }
 
 /// An abstract base class for behaviors that support switching the entity on or off based on some condition.
@@ -3086,7 +3416,7 @@ pub trait LuaGuiMethods {
     /// Returns `true` if sprite_path is valid and contains loaded sprite, otherwise `false`. Sprite path of type `file` doesn't validate if file exists.
     ///
     /// If you want to avoid needing a LuaGui object, [LuaGameScript::is_valid_sprite_path](LuaGameScript::is_valid_sprite_path) can be used instead.
-    fn is_valid_sprite_path() -> bool;
+    fn is_valid_sprite_path(sprite_path: SpritePath) -> bool;
 }
 
 pub enum LuaGuiElementElemValueUnion {
@@ -3307,11 +3637,23 @@ pub struct LuaGuiElement {
 /// Each GUI element allows access to its children by having them as attributes. Thus, one can use the `parent.child` syntax to refer to children. Lua also supports the `parent["child"]` syntax to refer to the same element. This can be used in cases where the child has a name that isn't a valid Lua identifier.
 pub trait LuaGuiElementMethods {
     /// Add a new child element to this GuiElement.
-    fn add() -> LuaGuiElement;
+    fn add(
+        anchor: GuiAnchor,
+        caption: LocalisedString,
+        enabled: bool,
+        ignored_by_interaction: bool,
+        index: u32,
+        name: String,
+        style: String,
+        tags: Tags,
+        tooltip: LocalisedString,
+        typ: String,
+        visible: bool,
+    ) -> LuaGuiElement;
     /// Inserts a string at the end or at the given index of this dropdown or listbox.
-    fn add_item();
+    fn add_item(index: u32, string: LocalisedString);
     /// Adds the given tab and content widgets to this tabbed pane as a new tab.
-    fn add_tab();
+    fn add_tab(content: LuaGuiElement, tab: LuaGuiElement);
     /// Moves this GUI element to the "front" so it will draw over other elements.
     fn bring_to_front();
     /// Remove children of this element. Any [LuaGuiElement](LuaGuiElement) objects referring to the destroyed elements become invalid after this operation.
@@ -3329,7 +3671,7 @@ pub trait LuaGuiElementMethods {
     /// Gets the index that this element has in its parent element.
     fn get_index_in_parent() -> u32;
     /// Gets the item at the given index from this dropdown or listbox.
-    fn get_item() -> LocalisedString;
+    fn get_item(index: u32) -> LocalisedString;
     /// The mod that owns this Gui element or `nil` if it's owned by the scenario script.
     fn get_mod() -> String;
     /// Returns whether this slider only allows being moved to discrete positions.
@@ -3345,15 +3687,15 @@ pub trait LuaGuiElementMethods {
     /// All methods and properties that this object supports.
     fn help() -> String;
     /// Removes the item at the given index from this dropdown or listbox.
-    fn remove_item();
+    fn remove_item(index: u32);
     /// Removes the given tab and its associated content from this tabbed pane.
-    fn remove_tab();
+    fn remove_tab(tab: LuaGuiElement);
     /// Scrolls this scroll bar to the bottom.
     fn scroll_to_bottom();
     /// Scrolls this scroll bar such that the specified GUI element is visible to the player.
-    fn scroll_to_element();
+    fn scroll_to_element(element: LuaGuiElement, scroll_mode: String);
     /// Scrolls the scroll bar such that the specified listbox item is visible to the player.
-    fn scroll_to_item();
+    fn scroll_to_item(index: i32, scroll_mode: String);
     /// Scrolls this scroll bar to the left.
     fn scroll_to_left();
     /// Scrolls this scroll bar to the right.
@@ -3361,21 +3703,21 @@ pub trait LuaGuiElementMethods {
     /// Scrolls this scroll bar to the top.
     fn scroll_to_top();
     /// Selects a range of text in this textbox.
-    fn select();
+    fn select(end: i32, start: i32);
     /// Selects all the text in this textbox.
     fn select_all();
     /// Sets the given string at the given index in this dropdown or listbox.
-    fn set_item();
+    fn set_item(index: u32, string: LocalisedString);
     /// Sets whether this slider only allows being moved to discrete positions.
-    fn set_slider_discrete_slider();
+    fn set_slider_discrete_slider(value: bool);
     /// Sets whether this slider only allows discrete values.
-    fn set_slider_discrete_values();
+    fn set_slider_discrete_values(value: bool);
     /// Sets this sliders minimum and maximum values.
-    fn set_slider_minimum_maximum();
+    fn set_slider_minimum_maximum(maximum: f64, minimum: f64);
     /// Sets the minimum distance this slider can move.
-    fn set_slider_value_step();
+    fn set_slider_value_step(value: f64);
     /// Swaps the children at the given indices in this element.
-    fn swap_children();
+    fn swap_children(index_1: u32, index_2: u32);
 }
 
 /// Prototype of a heat buffer.
@@ -3470,36 +3812,41 @@ pub struct LuaInventory {
     pub valid: bool,
 }
 
+pub enum LuaInventoryMethodsSetFilterFilterUnion {
+    String(String),
+    Nil,
+}
+
 /// A storage of item stacks.
 pub trait LuaInventoryMethods {
     /// Can at least some items be inserted?
-    fn can_insert() -> bool;
+    fn can_insert(items: ItemStackIdentification) -> bool;
     /// If the given inventory slot filter can be set to the given filter.
-    fn can_set_filter() -> bool;
+    fn can_set_filter(filter: String, index: u32) -> bool;
     /// Make this inventory empty.
     fn clear();
     /// Counts the number of empty stacks.
-    fn count_empty_stacks() -> u32;
+    fn count_empty_stacks(include_bar: bool, include_filtered: bool) -> u32;
     /// Destroys this inventory.
     fn destroy();
     /// Finds the first empty stack. Filtered slots are excluded unless a filter item is given.
-    fn find_empty_stack() -> (LuaItemStack, u32);
+    fn find_empty_stack(item: String) -> (LuaItemStack, u32);
     /// Finds the first LuaItemStack in the inventory that matches the given item name.
-    fn find_item_stack() -> (LuaItemStack, u32);
+    fn find_item_stack(item: String) -> (LuaItemStack, u32);
     /// Get the current bar. This is the index at which the red area starts.
     fn get_bar() -> u32;
     /// Get counts of all items in this inventory.
     fn get_contents() -> HashMap<String, u32>;
     /// Gets the filter for the given item stack index.
-    fn get_filter() -> String;
+    fn get_filter(index: u32) -> String;
     /// Gets the number of the given item that can be inserted into this inventory.
-    fn get_insertable_count();
+    fn get_insertable_count(item: String);
     /// Get the number of all or some items in this inventory.
-    fn get_item_count() -> u32;
+    fn get_item_count(item: String) -> u32;
     /// All methods and properties that this object supports.
     fn help() -> String;
     /// Insert items into this inventory.
-    fn insert() -> u32;
+    fn insert(items: ItemStackIdentification) -> u32;
     /// Does this inventory contain nothing?
     fn is_empty() -> bool;
     /// If this inventory supports filters and has at least 1 filter set.
@@ -3507,13 +3854,13 @@ pub trait LuaInventoryMethods {
     /// Is every stack in this inventory full? Ignores stacks blocked by the current bar.
     fn is_full() -> bool;
     /// Remove items from this inventory.
-    fn remove() -> u32;
+    fn remove(items: ItemStackIdentification) -> u32;
     /// Resizes the inventory.
-    fn resize();
+    fn resize(size: u16);
     /// Set the current bar.
-    fn set_bar();
+    fn set_bar(bar: u32);
     /// Sets the filter for the given item stack index.
-    fn set_filter() -> bool;
+    fn set_filter(filter: LuaInventoryMethodsSetFilterFilterUnion, index: u32) -> bool;
     /// Sorts and merges the items in this inventory.
     fn sort_and_merge();
     /// Does this inventory support a bar? Bar is the draggable red thing, found for example on chests, that limits the portion of the inventory that may be manipulated by machines.
@@ -3700,9 +4047,9 @@ pub struct LuaItemPrototype {
 /// Prototype of an item.
 pub trait LuaItemPrototypeMethods {
     /// The type of this ammo prototype.
-    fn get_ammo_type() -> AmmoType;
+    fn get_ammo_type(ammo_source_type: String) -> AmmoType;
     /// Does this prototype have a flag enabled?
-    fn has_flag() -> bool;
+    fn has_flag(flag: String) -> bool;
     /// All methods and properties that this object supports.
     fn help() -> String;
 }
@@ -3825,17 +4172,45 @@ pub struct LuaItemStack {
     pub valid_for_read: bool,
 }
 
+pub enum LuaItemStackMethodsSetEntityFilterFilterUnion {
+    String(String),
+    LuaEntityPrototype(LuaEntityPrototype),
+    LuaEntity(LuaEntity),
+    Nil,
+}
+
+pub enum LuaItemStackMethodsSetTileFilterFilterUnion {
+    String(String),
+    LuaTilePrototype(LuaTilePrototype),
+    LuaTile(LuaTile),
+}
+
 /// A reference to an item and count owned by some external entity.
 pub trait LuaItemStackMethods {
     /// Add ammo to this ammo item.
-    fn add_ammo();
+    fn add_ammo(amount: f32);
     /// Add durability to this tool item.
-    fn add_durability();
-    fn build_blueprint() -> Vec<LuaEntity>;
+    fn add_durability(amount: f64);
+    fn build_blueprint(
+        by_player: PlayerIdentification,
+        direction: Direction,
+        force: ForceIdentification,
+        force_build: bool,
+        position: MapPosition,
+        raise_built: bool,
+        skip_fog_of_war: bool,
+        surface: SurfaceIdentification,
+    ) -> Vec<LuaEntity>;
     /// Would a call to [LuaItemStack::set_stack](LuaItemStack::set_stack) succeed?
-    fn can_set_stack() -> bool;
+    fn can_set_stack(stack: ItemStackIdentification) -> bool;
     /// Cancel deconstruct the given area with this deconstruction item.
-    fn cancel_deconstruct_area();
+    fn cancel_deconstruct_area(
+        area: BoundingBox,
+        by_player: PlayerIdentification,
+        force: ForceIdentification,
+        skip_fog_of_war: bool,
+        surface: SurfaceIdentification,
+    );
     /// Clear this item stack.
     fn clear();
     /// Clears this blueprint item.
@@ -3845,15 +4220,31 @@ pub trait LuaItemStackMethods {
     /// Clears all settings/filters on this upgrade item resetting it to default values.
     fn clear_upgrade_item();
     /// Sets up this blueprint using the found blueprintable entities/tiles on the surface.
-    fn create_blueprint() -> HashMap<u32, LuaEntity>;
+    fn create_blueprint(
+        always_include_tiles: bool,
+        area: BoundingBox,
+        force: ForceIdentification,
+        include_entities: bool,
+        include_fuel: bool,
+        include_modules: bool,
+        include_station_names: bool,
+        include_trains: bool,
+        surface: SurfaceIdentification,
+    ) -> HashMap<u32, LuaEntity>;
     /// Creates the equipment grid for this item if it doesn't exist and this is an item-with-entity-data that supports equipment grids.
     fn create_grid() -> LuaEquipmentGrid;
     /// Deconstruct the given area with this deconstruction item.
-    fn deconstruct_area();
+    fn deconstruct_area(
+        area: BoundingBox,
+        by_player: PlayerIdentification,
+        force: ForceIdentification,
+        skip_fog_of_war: bool,
+        surface: SurfaceIdentification,
+    );
     /// Remove ammo from this ammo item.
-    fn drain_ammo();
+    fn drain_ammo(amount: f32);
     /// Remove durability from this tool item.
-    fn drain_durability();
+    fn drain_durability(amount: f64);
     /// Export a supported item (blueprint, blueprint-book, deconstruction-planner, upgrade-planner, item-with-tags) to a string.
     fn export_stack() -> String;
     /// The entities in this blueprint.
@@ -3861,53 +4252,54 @@ pub trait LuaItemStackMethods {
     /// Gets the number of entities in this blueprint item.
     fn get_blueprint_entity_count() -> u32;
     /// Gets the given tag on the given blueprint entity index in this blueprint item.
-    fn get_blueprint_entity_tag() -> AnyBasic;
+    fn get_blueprint_entity_tag(index: u32, tag: String) -> AnyBasic;
     /// Gets the tags for the given blueprint entity index in this blueprint item.
-    fn get_blueprint_entity_tags() -> Tags;
+    fn get_blueprint_entity_tags(index: u32) -> Tags;
     /// A list of the tiles in this blueprint.
     fn get_blueprint_tiles() -> Vec<Tile>;
     /// Gets the entity filter at the given index for this deconstruction item.
-    fn get_entity_filter() -> String;
+    fn get_entity_filter(index: u32) -> String;
     /// Access the inner inventory of an item.
-    fn get_inventory() -> LuaInventory;
+    fn get_inventory(inventory: Inventory) -> LuaInventory;
     /// Gets the filter at the given index for this upgrade item.
-    fn get_mapper() -> UpgradeFilter;
+    fn get_mapper(index: u32, typ: String) -> UpgradeFilter;
     /// Gets the tag with the given name or returns `nil` if it doesn't exist.
-    fn get_tag() -> AnyBasic;
+    fn get_tag(tag_name: String) -> AnyBasic;
     /// Gets the tile filter at the given index for this deconstruction item.
-    fn get_tile_filter() -> String;
+    fn get_tile_filter(index: u32) -> String;
     /// All methods and properties that this object supports.
     fn help() -> String;
     /// Import a supported item (blueprint, blueprint-book, deconstruction-planner, upgrade-planner, item-with-tags) from a string.
-    fn import_stack() -> i32;
+    fn import_stack(data: String) -> i32;
     /// Is this blueprint item setup? I.e. is it a non-empty blueprint?
     fn is_blueprint_setup() -> bool;
     /// Removes a tag with the given name.
-    fn remove_tag() -> bool;
+    fn remove_tag(tag: String) -> bool;
     /// Set new entities to be a part of this blueprint.
-    fn set_blueprint_entities();
+    fn set_blueprint_entities(entities: Vec<BlueprintEntity>);
     /// Sets the given tag on the given blueprint entity index in this blueprint item.
-    fn set_blueprint_entity_tag();
+    fn set_blueprint_entity_tag(index: u32, tag: String, value: AnyBasic);
     /// Sets the tags on the given blueprint entity index in this blueprint item.
-    fn set_blueprint_entity_tags();
+    fn set_blueprint_entity_tags(index: u32, tags: Tags);
     /// Set specific tiles in this blueprint.
-    fn set_blueprint_tiles();
+    fn set_blueprint_tiles(tiles: Vec<Tile>);
     /// Sets the entity filter at the given index for this deconstruction item.
-    fn set_entity_filter() -> bool;
+    fn set_entity_filter(filter: LuaItemStackMethodsSetEntityFilterFilterUnion, index: u32)
+        -> bool;
     /// Sets the module filter at the given index for this upgrade item.
-    fn set_mapper();
+    fn set_mapper(filter: UpgradeFilter, index: u32, typ: String);
     /// Set this item stack to another item stack.
-    fn set_stack() -> bool;
+    fn set_stack(stack: ItemStackIdentification) -> bool;
     /// Sets the tag with the given name and value.
-    fn set_tag();
+    fn set_tag(tag: AnyBasic, tag_name: String);
     /// Sets the tile filter at the given index for this deconstruction item.
-    fn set_tile_filter() -> bool;
+    fn set_tile_filter(filter: LuaItemStackMethodsSetTileFilterFilterUnion, index: u32) -> bool;
     /// Swaps this item stack with the given item stack if allowed.
-    fn swap_stack() -> bool;
+    fn swap_stack(stack: LuaItemStack) -> bool;
     /// Transfers the given item stack into this item stack.
-    fn transfer_stack() -> bool;
+    fn transfer_stack(stack: ItemStackIdentification) -> bool;
     /// Use the capsule item with the entity as the source, targeting the given position.
-    fn use_capsule() -> Vec<LuaEntity>;
+    fn use_capsule(entity: LuaEntity, target_position: MapPosition) -> Vec<LuaEntity>;
 }
 
 /// Control behavior for lamps.
@@ -3992,11 +4384,11 @@ pub trait LuaLogisticCellMethods {
     /// All methods and properties that this object supports.
     fn help() -> String;
     /// Is a given position within the construction range of this cell?
-    fn is_in_construction_range() -> bool;
+    fn is_in_construction_range(position: MapPosition) -> bool;
     /// Is a given position within the logistic range of this cell?
-    fn is_in_logistic_range() -> bool;
+    fn is_in_logistic_range(position: MapPosition) -> bool;
     /// Are two cells neighbours?
-    fn is_neighbour_with() -> bool;
+    fn is_neighbour_with(other: LuaLogisticCell) -> bool;
 }
 
 /// Control behavior for logistic chests.
@@ -4069,27 +4461,32 @@ pub struct LuaLogisticNetwork {
 /// A single logistic network of a given force on a given surface.
 pub trait LuaLogisticNetworkMethods {
     /// Can the network satisfy a request for a given item and count.
-    fn can_satisfy_request() -> bool;
+    fn can_satisfy_request(count: u32, include_buffers: bool, item: String) -> bool;
     /// Find logistic cell closest to a given position.
-    fn find_cell_closest_to() -> LuaLogisticCell;
+    fn find_cell_closest_to(position: MapPosition) -> LuaLogisticCell;
     /// Get item counts for the entire network, similar to how [LuaInventory::get_contents](LuaInventory::get_contents) does.
     fn get_contents() -> HashMap<String, u32>;
     /// Count given or all items in the network or given members.
-    fn get_item_count() -> i32;
+    fn get_item_count(item: String, member: String) -> i32;
     /// Get the amount of items of the given type indexed by the storage member.
-    fn get_supply_counts() -> HashMap<String, u32>;
+    fn get_supply_counts(item: String) -> HashMap<String, u32>;
     /// Gets the logistic points with of the given type indexed by the storage member.
-    fn get_supply_points() -> HashMap<String, Vec<LuaLogisticPoint>>;
+    fn get_supply_points(item: String) -> HashMap<String, Vec<LuaLogisticPoint>>;
     /// All methods and properties that this object supports.
     fn help() -> String;
     /// Insert items into the logistic network. This will actually insert the items into some logistic chests.
-    fn insert() -> u32;
+    fn insert(item: ItemStackIdentification, members: String) -> u32;
     /// Remove items from the logistic network. This will actually remove the items from some logistic chests.
-    fn remove_item() -> u32;
+    fn remove_item(item: ItemStackIdentification, members: String) -> u32;
     /// Find a logistic point to drop the specific item stack.
-    fn select_drop_point() -> LuaLogisticPoint;
+    fn select_drop_point(members: String, stack: ItemStackIdentification) -> LuaLogisticPoint;
     /// Find the 'best' logistic point with this item ID and from the given position or from given chest type.
-    fn select_pickup_point() -> LuaLogisticPoint;
+    fn select_pickup_point(
+        include_buffers: bool,
+        members: String,
+        name: String,
+        position: MapPosition,
+    ) -> LuaLogisticPoint;
 }
 
 /// Logistic point of a particular [LuaEntity](LuaEntity). A "Logistic point" is the name given for settings and properties used by requester, provider, and storage points in a given logistic network. These "points" don't have to be a logistic container but often are. One other entity that can own several points is the "character" character type entity.
@@ -4316,17 +4713,17 @@ pub struct LuaPermissionGroup {
 /// A permission group that defines what players in this group are allowed to do.
 pub trait LuaPermissionGroupMethods {
     /// Adds the given player to this group.
-    fn add_player() -> bool;
+    fn add_player(player: PlayerIdentification) -> bool;
     /// Whether this group allows the given action.
-    fn allows_action() -> bool;
+    fn allows_action(action: InputAction) -> bool;
     /// Destroys this group.
     fn destroy() -> bool;
     /// All methods and properties that this object supports.
     fn help() -> String;
     /// Removes the given player from this group.
-    fn remove_player() -> bool;
+    fn remove_player(player: PlayerIdentification) -> bool;
     /// Sets whether this group allows the performance the given action.
-    fn set_allows_action() -> bool;
+    fn set_allows_action(action: InputAction, allow_action: bool) -> bool;
 }
 
 /// All permission groups.
@@ -4339,12 +4736,17 @@ pub struct LuaPermissionGroups {
     pub valid: bool,
 }
 
+pub enum LuaPermissionGroupsMethodsGetGroupGroupUnion {
+    String(String),
+    Uint(u32),
+}
+
 /// All permission groups.
 pub trait LuaPermissionGroupsMethods {
     /// Creates a new permission group.
-    fn create_group() -> LuaPermissionGroup;
+    fn create_group(name: String) -> LuaPermissionGroup;
     /// Gets the permission group with the given name or group ID.
-    fn get_group() -> LuaPermissionGroup;
+    fn get_group(group: LuaPermissionGroupsMethodsGetGroupGroupUnion) -> LuaPermissionGroup;
     /// All methods and properties that this object supports.
     fn help() -> String;
 }
@@ -4432,26 +4834,65 @@ pub struct LuaPlayer {
     pub zoom: f64,
 }
 
+pub enum LuaPlayerMethodsPipetteEntityEntityUnion {
+    String(String),
+    LuaEntity(LuaEntity),
+    LuaEntityPrototype(LuaEntityPrototype),
+}
+
+pub enum LuaPlayerMethodsRemoveAlertPrototypeUnion {
+    LuaEntityPrototype(LuaEntityPrototype),
+    String(String),
+}
+
+pub enum LuaPlayerMethodsSetInfinityInventoryFilterFilterUnion {
+    InfinityInventoryFilter(InfinityInventoryFilter),
+    Nil,
+}
+
+pub enum LuaPlayerMethodsSetQuickBarSlotFilterUnion {
+    String(String),
+    LuaItemPrototype(LuaItemPrototype),
+    LuaItemStack(LuaItemStack),
+}
+
 /// A player in the game. Pay attention that a player may or may not have a character, which is the [LuaEntity](LuaEntity) of the little guy running around the world doing things.
 pub trait LuaPlayerMethods {
     /// Gets a copy of the currently selected blueprint in the clipboard queue into the player's cursor, as if the player activated Paste.
     fn activate_paste();
     /// Adds an alert to this player for the given entity of the given alert type.
-    fn add_alert();
+    fn add_alert(entity: LuaEntity, typ: AlertType);
     /// Adds a custom alert to this player.
-    fn add_custom_alert();
+    fn add_custom_alert(
+        entity: LuaEntity,
+        icon: SignalID,
+        message: LocalisedString,
+        show_on_map: bool,
+    );
     /// Adds the given recipe to the list of recipe notifications for this player.
-    fn add_recipe_notification();
+    fn add_recipe_notification(recipe: String);
     /// Adds the given blueprint to this player's clipboard queue.
-    fn add_to_clipboard();
+    fn add_to_clipboard(blueprint: LuaItemStack);
     /// Associates a character with this player.
-    fn associate_character();
+    fn associate_character(character: LuaEntity);
     /// Builds whatever is in the cursor on the surface the player is on. The cursor stack will automatically be reduced as if the player built normally.
-    fn build_from_cursor();
+    fn build_from_cursor(
+        alt: bool,
+        direction: Direction,
+        position: MapPosition,
+        skip_fog_of_war: bool,
+        terrain_building_size: u32,
+    );
     /// Checks if this player can build what ever is in the cursor on the surface the player is on.
-    fn can_build_from_cursor() -> bool;
+    fn can_build_from_cursor(
+        alt: bool,
+        direction: Direction,
+        position: MapPosition,
+        skip_fog_of_war: bool,
+        terrain_building_size: u32,
+    ) -> bool;
     /// Checks if this player can build the given entity at the given location on the surface the player is on.
-    fn can_place_entity() -> bool;
+    fn can_place_entity(direction: Direction, name: String, position: MapPosition) -> bool;
     /// Clear the chat console.
     fn clear_console();
     /// Invokes the "clear cursor" action on the player as if the user pressed it.
@@ -4463,23 +4904,35 @@ pub trait LuaPlayerMethods {
     /// Queues request to switch to the normal game view from the map or zoom to world view. Render mode change requests are processed before rendering of the next frame.
     fn close_map();
     /// Asks the player if they would like to connect to the given server.
-    fn connect_to_server();
+    fn connect_to_server(
+        address: String,
+        description: LocalisedString,
+        name: LocalisedString,
+        password: String,
+    );
     /// Creates and attaches a character entity to this player.
-    fn create_character() -> bool;
+    fn create_character(character: String) -> bool;
     /// Spawn flying text that is only visible to this player. Either `position` or `create_at_cursor` are required. When `create_at_cursor` is `true`, all parameters other than `text` are ignored.
-    fn create_local_flying_text();
+    fn create_local_flying_text(
+        color: Color,
+        create_at_cursor: bool,
+        position: MapPosition,
+        speed: f64,
+        text: LocalisedString,
+        time_to_live: u32,
+    );
     /// Disables alerts for the given alert category.
-    fn disable_alert() -> bool;
+    fn disable_alert(alert_type: AlertType) -> bool;
     /// Disable recipe groups.
     fn disable_recipe_groups();
     /// Disable recipe subgroups.
     fn disable_recipe_subgroups();
     /// Disassociates a character from this player. This is functionally the same as setting [LuaEntity::associated_player](LuaEntity::associated_player) to `nil`.
-    fn disassociate_character();
+    fn disassociate_character(character: LuaEntity);
     /// Start/end wire dragging at the specified location, wire type is based on the cursor contents
-    fn drag_wire() -> bool;
+    fn drag_wire(position: MapPosition) -> bool;
     /// Enables alerts for the given alert category.
-    fn enable_alert() -> bool;
+    fn enable_alert(alert_type: AlertType) -> bool;
     /// Enable recipe groups.
     fn enable_recipe_groups();
     /// Enable recipe subgroups.
@@ -4487,83 +4940,113 @@ pub trait LuaPlayerMethods {
     /// Exit the current cutscene. Errors if not in a cutscene.
     fn exit_cutscene();
     /// Gets which quick bar page is being used for the given screen page or `nil` if not known.
-    fn get_active_quick_bar_page() -> u8;
+    fn get_active_quick_bar_page(index: u32) -> u8;
     /// Get all alerts matching the given filters, or all alerts if no filters are given.
-    fn get_alerts() -> HashMap<u32, HashMap<AlertType, Vec<Alert>>>;
+    fn get_alerts(
+        entity: LuaEntity,
+        position: MapPosition,
+        prototype: LuaEntityPrototype,
+        surface: SurfaceIdentification,
+        typ: AlertType,
+    ) -> HashMap<u32, HashMap<AlertType, Vec<Alert>>>;
     /// The characters associated with this player.
     fn get_associated_characters() -> Vec<LuaEntity>;
     /// Get the current goal description, as a localised string.
     fn get_goal_description() -> LocalisedString;
     /// Gets the filter for this map editor infinity filters at the given index or `nil` if the filter index doesn't exist or is empty.
-    fn get_infinity_inventory_filter() -> InfinityInventoryFilter;
+    fn get_infinity_inventory_filter(index: u32) -> InfinityInventoryFilter;
     /// Gets the quick bar filter for the given slot or `nil`.
-    fn get_quick_bar_slot() -> LuaItemPrototype;
+    fn get_quick_bar_slot(index: u32) -> LuaItemPrototype;
     /// All methods and properties that this object supports.
     fn help() -> String;
     /// If the given alert type is currently enabled.
-    fn is_alert_enabled() -> bool;
+    fn is_alert_enabled(alert_type: AlertType) -> bool;
     /// If the given alert type is currently muted.
-    fn is_alert_muted() -> bool;
+    fn is_alert_muted(alert_type: AlertType) -> bool;
     /// Is a custom Lua shortcut currently available?
-    fn is_shortcut_available() -> bool;
+    fn is_shortcut_available(prototype_name: String) -> bool;
     /// Is a custom Lua shortcut currently toggled?
-    fn is_shortcut_toggled() -> bool;
+    fn is_shortcut_toggled(prototype_name: String) -> bool;
     /// Jump to the specified cutscene waypoint. Only works when the player is viewing a cutscene.
-    fn jump_to_cutscene_waypoint();
+    fn jump_to_cutscene_waypoint(waypoint_index: u32);
     /// Logs a dictionary of chunks -> active entities for the surface this player is on.
     fn log_active_entity_chunk_counts();
     /// Logs a dictionary of active entities -> count for the surface this player is on.
     fn log_active_entity_counts();
     /// Mutes alerts for the given alert category.
-    fn mute_alert() -> bool;
+    fn mute_alert(alert_type: AlertType) -> bool;
     /// Queues a request to open the map at the specified position. If the map is already opened, the request will simply set the position, scale, and entity to follow. Render mode change requests are processed before rendering of the next frame.
-    fn open_map();
+    fn open_map(entity: LuaEntity, position: MapPosition, scale: f64);
     /// Invokes the "smart pipette" action on the player as if the user pressed it.
-    fn pipette_entity() -> bool;
+    fn pipette_entity(entity: LuaPlayerMethodsPipetteEntityEntityUnion) -> bool;
     /// Play a sound for this player.
-    fn play_sound();
+    fn play_sound(
+        override_sound_type: SoundType,
+        path: SoundPath,
+        position: MapPosition,
+        volume_modifier: f64,
+    );
     /// Print text to the chat console.
-    fn print();
+    fn print(color: Color, message: LocalisedString);
     /// Print entity statistics to the player's console.
-    fn print_entity_statistics();
+    fn print_entity_statistics(entities: Vec<String>);
     /// Print LuaObject counts per mod.
     fn print_lua_object_statistics();
     /// Print construction robot job counts to the players console.
     fn print_robot_jobs();
     /// Removes all alerts matching the given filters or if an empty filters table is given all alerts are removed.
-    fn remove_alert();
+    fn remove_alert(
+        entity: LuaEntity,
+        icon: SignalID,
+        message: LocalisedString,
+        position: MapPosition,
+        prototype: LuaPlayerMethodsRemoveAlertPrototypeUnion,
+        surface: SurfaceIdentification,
+        typ: AlertType,
+    );
     /// Requests a translation for the given localised string. If the request is successful, the [on_string_translated](on_string_translated) event will be fired with the results.
-    fn request_translation() -> u32;
+    fn request_translation(localised_string: LocalisedString) -> u32;
     /// Requests translation for the given set of localised strings. If the request is successful, a [on_string_translated](on_string_translated) event will be fired for each string with the results.
-    fn request_translations() -> Vec<u32>;
+    fn request_translations(localised_strings: Vec<LocalisedString>) -> Vec<u32>;
     /// Sets which quick bar page is being used for the given screen page.
-    fn set_active_quick_bar_page();
+    fn set_active_quick_bar_page(page_index: u32, screen_index: u32);
     /// Set the controller type of the player.
-    fn set_controller();
+    fn set_controller(
+        character: LuaEntity,
+        chart_mode_cutoff: f64,
+        final_transition_time: u32,
+        start_position: MapPosition,
+        start_zoom: f64,
+        typ: Controllers,
+        waypoints: CutsceneWaypoint,
+    );
     /// Setup the screen to be shown when the game is finished.
-    fn set_ending_screen_data();
+    fn set_ending_screen_data(file: String, message: LocalisedString);
     /// Set the text in the goal window (top left).
-    fn set_goal_description();
+    fn set_goal_description(only_update: bool, text: LocalisedString);
     /// Sets the filter for this map editor infinity filters at the given index.
-    fn set_infinity_inventory_filter();
+    fn set_infinity_inventory_filter(
+        filter: LuaPlayerMethodsSetInfinityInventoryFilterFilterUnion,
+        index: u32,
+    );
     /// Sets the quick bar filter for the given slot.
-    fn set_quick_bar_slot();
+    fn set_quick_bar_slot(filter: LuaPlayerMethodsSetQuickBarSlotFilterUnion, index: u32);
     /// Make a custom Lua shortcut available or unavailable.
-    fn set_shortcut_available();
+    fn set_shortcut_available(available: bool, prototype_name: String);
     /// Toggle or untoggle a custom Lua shortcut
-    fn set_shortcut_toggled();
+    fn set_shortcut_toggled(prototype_name: String, toggled: bool);
     /// Starts selection with selection tool from the specified position. Does nothing if the players cursor is not a selection tool.
-    fn start_selection();
+    fn start_selection(position: MapPosition, selection_mode: String);
     /// Toggles this player into or out of the map editor. Does nothing if this player isn't an admin or if the player doesn't have permission to use the map editor.
     fn toggle_map_editor();
     /// Unlock the achievements of the given player. This has any effect only when this is the local player, the achievement isn't unlocked so far and the achievement is of the type "achievement".
-    fn unlock_achievement();
+    fn unlock_achievement(name: String);
     /// Unmutes alerts for the given alert category.
-    fn unmute_alert() -> bool;
+    fn unmute_alert(alert_type: AlertType) -> bool;
     /// Uses the current item in the cursor if it's a capsule or does nothing if not.
-    fn use_from_cursor();
+    fn use_from_cursor(position: MapPosition);
     /// Queues a request to zoom to world at the specified position. If the player is already zooming to world, the request will simply set the position, scale, and entity to follow. Render mode change requests are processed before rendering of the next frame.
-    fn zoom_to_world();
+    fn zoom_to_world(entity: LuaEntity, position: MapPosition, scale: f64);
 }
 
 /// An object used to measure script performance.
@@ -4577,9 +5060,9 @@ pub struct LuaProfiler {
 /// An object used to measure script performance.
 pub trait LuaProfilerMethods {
     /// Add the duration of another timer to this timer. Useful to reduce start/stop overhead when accumulating time onto many timers at once.
-    fn add();
+    fn add(other: LuaProfiler);
     /// Divides the current duration by a set value. Useful for calculating the average of many iterations.
-    fn divide();
+    fn divide(number: f64);
     /// All methods and properties that this object supports.
     fn help() -> String;
     /// Resets the clock, also restarting it.
@@ -4616,7 +5099,7 @@ pub struct LuaRCON {
 /// An interface to send messages to the calling RCON interface through the global object named `rcon`.
 pub trait LuaRCONMethods {
     /// Print text to the calling RCON interface if any.
-    fn print();
+    fn print(message: LocalisedString);
 }
 
 /// Control behavior for rail chain signals.
@@ -4701,7 +5184,7 @@ pub trait LuaRandomGeneratorMethods {
     /// All methods and properties that this object supports.
     fn help() -> String;
     /// Re-seeds the random generator with the given value.
-    fn re_seed();
+    fn re_seed(seed: u32);
 }
 
 /// A crafting recipe. Recipes belong to forces (see [LuaForce](LuaForce)) because some recipes are unlocked by research, and researches are per-force.
@@ -4845,11 +5328,11 @@ pub struct LuaRemote {
 /// Registry of interfaces between scripts. An interface is simply a dictionary mapping names to functions. A script or mod can then register an interface with [LuaRemote](LuaRemote), after that any script can call the registered functions, provided it knows the interface name and the desired function name. An instance of LuaRemote is available through the global object named `remote`.
 pub trait LuaRemoteMethods {
     /// Add a remote interface.
-    fn add_interface();
+    fn add_interface(functions: HashMap<String, fn() -> ()>, name: String);
     /// Call a function of an interface.
-    fn call() -> Any;
+    fn call(function: String, interface: String) -> Any;
     /// Removes an interface with the given name.
-    fn remove_interface() -> bool;
+    fn remove_interface(name: String) -> bool;
 }
 
 /// Allows rendering of geometric shapes, text and sprites in the game world through the global object named `rendering`. Each render object is identified by an id that is universally unique for the lifetime of a whole game.
@@ -4858,218 +5341,497 @@ pub struct LuaRendering {
     pub object_name: String,
 }
 
+pub enum LuaRenderingMethodsDrawAnimationOrientationTargetUnion {
+    MapPosition(MapPosition),
+    LuaEntity(LuaEntity),
+}
+
+pub enum LuaRenderingMethodsDrawAnimationTargetUnion {
+    MapPosition(MapPosition),
+    LuaEntity(LuaEntity),
+}
+
+pub enum LuaRenderingMethodsDrawArcTargetUnion {
+    MapPosition(MapPosition),
+    LuaEntity(LuaEntity),
+}
+
+pub enum LuaRenderingMethodsDrawCircleTargetUnion {
+    MapPosition(MapPosition),
+    LuaEntity(LuaEntity),
+}
+
+pub enum LuaRenderingMethodsDrawLightTargetUnion {
+    MapPosition(MapPosition),
+    LuaEntity(LuaEntity),
+}
+
+pub enum LuaRenderingMethodsDrawLineFromUnion {
+    MapPosition(MapPosition),
+    LuaEntity(LuaEntity),
+}
+
+pub enum LuaRenderingMethodsDrawLineToUnion {
+    MapPosition(MapPosition),
+    LuaEntity(LuaEntity),
+}
+
+pub enum LuaRenderingMethodsDrawPolygonOrientationTargetUnion {
+    MapPosition(MapPosition),
+    LuaEntity(LuaEntity),
+}
+
+pub enum LuaRenderingMethodsDrawPolygonTargetUnion {
+    MapPosition(MapPosition),
+    LuaEntity(LuaEntity),
+}
+
+pub enum LuaRenderingMethodsDrawRectangleLeftTopUnion {
+    MapPosition(MapPosition),
+    LuaEntity(LuaEntity),
+}
+
+pub enum LuaRenderingMethodsDrawRectangleRightBottomUnion {
+    MapPosition(MapPosition),
+    LuaEntity(LuaEntity),
+}
+
+pub enum LuaRenderingMethodsDrawSpriteOrientationTargetUnion {
+    MapPosition(MapPosition),
+    LuaEntity(LuaEntity),
+}
+
+pub enum LuaRenderingMethodsDrawSpriteTargetUnion {
+    MapPosition(MapPosition),
+    LuaEntity(LuaEntity),
+}
+
+pub enum LuaRenderingMethodsDrawTextTargetUnion {
+    MapPosition(MapPosition),
+    LuaEntity(LuaEntity),
+}
+
+pub enum LuaRenderingMethodsSetCornersLeftTopUnion {
+    MapPosition(MapPosition),
+    LuaEntity(LuaEntity),
+}
+
+pub enum LuaRenderingMethodsSetCornersRightBottomUnion {
+    MapPosition(MapPosition),
+    LuaEntity(LuaEntity),
+}
+
+pub enum LuaRenderingMethodsSetFromFromUnion {
+    MapPosition(MapPosition),
+    LuaEntity(LuaEntity),
+}
+
+pub enum LuaRenderingMethodsSetLeftTopLeftTopUnion {
+    MapPosition(MapPosition),
+    LuaEntity(LuaEntity),
+}
+
+pub enum LuaRenderingMethodsSetOrientationTargetOrientationTargetUnion {
+    MapPosition(MapPosition),
+    LuaEntity(LuaEntity),
+}
+
+pub enum LuaRenderingMethodsSetRightBottomRightBottomUnion {
+    MapPosition(MapPosition),
+    LuaEntity(LuaEntity),
+}
+
+pub enum LuaRenderingMethodsSetTargetTargetUnion {
+    MapPosition(MapPosition),
+    LuaEntity(LuaEntity),
+}
+
+pub enum LuaRenderingMethodsSetToToUnion {
+    MapPosition(MapPosition),
+    LuaEntity(LuaEntity),
+}
+
 /// Allows rendering of geometric shapes, text and sprites in the game world through the global object named `rendering`. Each render object is identified by an id that is universally unique for the lifetime of a whole game.
 pub trait LuaRenderingMethods {
     /// Reorder this object so that it is drawn in front of the already existing objects.
-    fn bring_to_front();
+    fn bring_to_front(id: u64);
     /// Destroys all render objects. Passing an empty string (`""`)
-    fn clear();
+    fn clear(mod_name: String);
     /// Destroy the object with the given id.
-    fn destroy();
+    fn destroy(id: u64);
     /// Create an animation.
-    fn draw_animation() -> u64;
+    fn draw_animation(
+        animation: String,
+        animation_offset: f64,
+        animation_speed: f64,
+        forces: Vec<ForceIdentification>,
+        only_in_alt_mode: bool,
+        orientation: RealOrientation,
+        orientation_target: LuaRenderingMethodsDrawAnimationOrientationTargetUnion,
+        orientation_target_offset: Vector,
+        oriented_offset: Vector,
+        players: Vec<PlayerIdentification>,
+        render_layer: RenderLayer,
+        surface: SurfaceIdentification,
+        target: LuaRenderingMethodsDrawAnimationTargetUnion,
+        target_offset: Vector,
+        time_to_live: u32,
+        tint: Color,
+        use_target_orientation: bool,
+        visible: bool,
+        x_scale: f64,
+        y_scale: f64,
+    ) -> u64;
     /// Create an arc.
-    fn draw_arc() -> u64;
+    fn draw_arc(
+        angle: f32,
+        color: Color,
+        draw_on_ground: bool,
+        forces: Vec<ForceIdentification>,
+        max_radius: f64,
+        min_radius: f64,
+        only_in_alt_mode: bool,
+        players: Vec<PlayerIdentification>,
+        start_angle: f32,
+        surface: SurfaceIdentification,
+        target: LuaRenderingMethodsDrawArcTargetUnion,
+        target_offset: Vector,
+        time_to_live: u32,
+        visible: bool,
+    ) -> u64;
     /// Create a circle.
-    fn draw_circle() -> u64;
+    fn draw_circle(
+        color: Color,
+        draw_on_ground: bool,
+        filled: bool,
+        forces: Vec<ForceIdentification>,
+        only_in_alt_mode: bool,
+        players: Vec<PlayerIdentification>,
+        radius: f64,
+        surface: SurfaceIdentification,
+        target: LuaRenderingMethodsDrawCircleTargetUnion,
+        target_offset: Vector,
+        time_to_live: u32,
+        visible: bool,
+        width: f32,
+    ) -> u64;
     /// Create a light.
-    fn draw_light() -> u64;
+    fn draw_light(
+        color: Color,
+        forces: Vec<ForceIdentification>,
+        intensity: f32,
+        minimum_darkness: f32,
+        only_in_alt_mode: bool,
+        orientation: RealOrientation,
+        oriented: bool,
+        players: Vec<PlayerIdentification>,
+        scale: f32,
+        sprite: SpritePath,
+        surface: SurfaceIdentification,
+        target: LuaRenderingMethodsDrawLightTargetUnion,
+        target_offset: Vector,
+        time_to_live: u32,
+        visible: bool,
+    ) -> u64;
     /// Create a line.
-    fn draw_line() -> u64;
+    fn draw_line(
+        color: Color,
+        dash_length: f64,
+        draw_on_ground: bool,
+        forces: Vec<ForceIdentification>,
+        from: LuaRenderingMethodsDrawLineFromUnion,
+        from_offset: Vector,
+        gap_length: f64,
+        only_in_alt_mode: bool,
+        players: Vec<PlayerIdentification>,
+        surface: SurfaceIdentification,
+        time_to_live: u32,
+        to: LuaRenderingMethodsDrawLineToUnion,
+        to_offset: Vector,
+        visible: bool,
+        width: f32,
+    ) -> u64;
     /// Create a triangle mesh defined by a triangle strip.
-    fn draw_polygon() -> u64;
+    fn draw_polygon(
+        color: Color,
+        draw_on_ground: bool,
+        forces: Vec<ForceIdentification>,
+        only_in_alt_mode: bool,
+        orientation: RealOrientation,
+        orientation_target: LuaRenderingMethodsDrawPolygonOrientationTargetUnion,
+        orientation_target_offset: Vector,
+        players: Vec<PlayerIdentification>,
+        surface: SurfaceIdentification,
+        target: LuaRenderingMethodsDrawPolygonTargetUnion,
+        target_offset: Vector,
+        time_to_live: u32,
+        use_target_orientation: bool,
+        vertices: Vec<ScriptRenderVertexTarget>,
+        visible: bool,
+    ) -> u64;
     /// Create a rectangle.
-    fn draw_rectangle() -> u64;
+    fn draw_rectangle(
+        color: Color,
+        draw_on_ground: bool,
+        filled: bool,
+        forces: Vec<ForceIdentification>,
+        left_top: LuaRenderingMethodsDrawRectangleLeftTopUnion,
+        left_top_offset: Vector,
+        only_in_alt_mode: bool,
+        players: Vec<PlayerIdentification>,
+        right_bottom: LuaRenderingMethodsDrawRectangleRightBottomUnion,
+        right_bottom_offset: Vector,
+        surface: SurfaceIdentification,
+        time_to_live: u32,
+        visible: bool,
+        width: f32,
+    ) -> u64;
     /// Create a sprite.
-    fn draw_sprite() -> u64;
+    fn draw_sprite(
+        forces: Vec<ForceIdentification>,
+        only_in_alt_mode: bool,
+        orientation: RealOrientation,
+        orientation_target: LuaRenderingMethodsDrawSpriteOrientationTargetUnion,
+        orientation_target_offset: Vector,
+        oriented_offset: Vector,
+        players: Vec<PlayerIdentification>,
+        render_layer: RenderLayer,
+        sprite: SpritePath,
+        surface: SurfaceIdentification,
+        target: LuaRenderingMethodsDrawSpriteTargetUnion,
+        target_offset: Vector,
+        time_to_live: u32,
+        tint: Color,
+        use_target_orientation: bool,
+        visible: bool,
+        x_scale: f64,
+        y_scale: f64,
+    ) -> u64;
     /// Create a text.
-    fn draw_text() -> u64;
+    fn draw_text(
+        alignment: String,
+        color: Color,
+        draw_on_ground: bool,
+        font: String,
+        forces: Vec<ForceIdentification>,
+        only_in_alt_mode: bool,
+        orientation: RealOrientation,
+        players: Vec<PlayerIdentification>,
+        scale: f64,
+        scale_with_zoom: bool,
+        surface: SurfaceIdentification,
+        target: LuaRenderingMethodsDrawTextTargetUnion,
+        target_offset: Vector,
+        text: LocalisedString,
+        time_to_live: u32,
+        use_rich_text: bool,
+        vertical_alignment: String,
+        visible: bool,
+    ) -> u64;
     /// Get the alignment of the text with this id.
-    fn get_alignment() -> String;
+    fn get_alignment(id: u64) -> String;
     /// Gets an array of all valid object ids.
-    fn get_all_ids() -> Vec<u64>;
+    fn get_all_ids(mod_name: String) -> Vec<u64>;
     /// Get the angle of the arc with this id.
-    fn get_angle() -> f32;
+    fn get_angle(id: u64) -> f32;
     /// Get the animation prototype name of the animation with this id.
-    fn get_animation() -> String;
+    fn get_animation(id: u64) -> String;
     /// Get the animation offset of the animation with this id.
-    fn get_animation_offset() -> f64;
+    fn get_animation_offset(id: u64) -> f64;
     /// Get the animation speed of the animation with this id.
-    fn get_animation_speed() -> f64;
+    fn get_animation_speed(id: u64) -> f64;
     /// Get the color or tint of the object with this id.
-    fn get_color() -> Color;
+    fn get_color(id: u64) -> Color;
     /// Get the dash length of the line with this id.
-    fn get_dash_length() -> f64;
+    fn get_dash_length(id: u64) -> f64;
     /// Get whether this is being drawn on the ground, under most entities and sprites.
-    fn get_draw_on_ground() -> bool;
+    fn get_draw_on_ground(id: u64) -> bool;
     /// Get if the circle or rectangle with this id is filled.
-    fn get_filled() -> bool;
+    fn get_filled(id: u64) -> bool;
     /// Get the font of the text with this id.
-    fn get_font() -> String;
+    fn get_font(id: u64) -> String;
     /// Get the forces that the object with this id is rendered to or `nil` if visible to all forces.
-    fn get_forces() -> Vec<LuaForce>;
+    fn get_forces(id: u64) -> Vec<LuaForce>;
     /// Get from where the line with this id is drawn.
-    fn get_from() -> ScriptRenderTarget;
+    fn get_from(id: u64) -> ScriptRenderTarget;
     /// Get the length of the gaps in the line with this id.
-    fn get_gap_length() -> f64;
+    fn get_gap_length(id: u64) -> f64;
     /// Get the intensity of the light with this id.
-    fn get_intensity() -> f32;
+    fn get_intensity(id: u64) -> f32;
     /// Get where top left corner of the rectangle with this id is drawn.
-    fn get_left_top() -> ScriptRenderTarget;
+    fn get_left_top(id: u64) -> ScriptRenderTarget;
     /// Get the radius of the outer edge of the arc with this id.
-    fn get_max_radius() -> f64;
+    fn get_max_radius(id: u64) -> f64;
     /// Get the radius of the inner edge of the arc with this id.
-    fn get_min_radius() -> f64;
+    fn get_min_radius(id: u64) -> f64;
     /// Get the minimum darkness at which the light with this id is rendered.
-    fn get_minimum_darkness() -> f32;
+    fn get_minimum_darkness(id: u64) -> f32;
     /// Get whether this is only rendered in alt-mode.
-    fn get_only_in_alt_mode() -> bool;
+    fn get_only_in_alt_mode(id: u64) -> bool;
     /// Get the orientation of the object with this id.
-    fn get_orientation() -> RealOrientation;
+    fn get_orientation(id: u64) -> RealOrientation;
     /// The object rotates so that it faces this target. Note that `orientation` is still applied to the object. Get the orientation_target of the object with this id.
-    fn get_orientation_target() -> ScriptRenderTarget;
+    fn get_orientation_target(id: u64) -> ScriptRenderTarget;
     /// Get if the light with this id is rendered has the same orientation as the target entity. Note that `orientation` is still applied to the sprite.
-    fn get_oriented() -> bool;
+    fn get_oriented(id: u64) -> bool;
     /// Offsets the center of the sprite or animation if `orientation_target` is given. This offset will rotate together with the sprite or animation. Get the oriented_offset of the sprite or animation with this id.
-    fn get_oriented_offset() -> Vector;
+    fn get_oriented_offset(id: u64) -> Vector;
     /// Get the players that the object with this id is rendered to or `nil` if visible to all players.
-    fn get_players() -> Vec<LuaPlayer>;
+    fn get_players(id: u64) -> Vec<LuaPlayer>;
     /// Get the radius of the circle with this id.
-    fn get_radius() -> f64;
+    fn get_radius(id: u64) -> f64;
     /// Get the render layer of the sprite or animation with this id.
-    fn get_render_layer() -> RenderLayer;
+    fn get_render_layer(id: u64) -> RenderLayer;
     /// Get where bottom right corner of the rectangle with this id is drawn.
-    fn get_right_bottom() -> ScriptRenderTarget;
+    fn get_right_bottom(id: u64) -> ScriptRenderTarget;
     /// Get the scale of the text or light with this id.
-    fn get_scale() -> f64;
+    fn get_scale(id: u64) -> f64;
     /// Get if the text with this id scales with player zoom.
-    fn get_scale_with_zoom() -> bool;
+    fn get_scale_with_zoom(id: u64) -> bool;
     /// Get the sprite of the sprite or light with this id.
-    fn get_sprite() -> SpritePath;
+    fn get_sprite(id: u64) -> SpritePath;
     /// Get where the arc with this id starts.
-    fn get_start_angle() -> f32;
+    fn get_start_angle(id: u64) -> f32;
     /// The surface the object with this id is rendered on.
-    fn get_surface() -> LuaSurface;
+    fn get_surface(id: u64) -> LuaSurface;
     /// Get where the object with this id is drawn.
-    fn get_target() -> ScriptRenderTarget;
+    fn get_target(id: u64) -> ScriptRenderTarget;
     /// Get the text that is displayed by the text with this id.
-    fn get_text() -> LocalisedString;
+    fn get_text(id: u64) -> LocalisedString;
     /// Get the time to live of the object with this id. This will be 0 if the object does not expire.
-    fn get_time_to_live() -> u32;
+    fn get_time_to_live(id: u64) -> u32;
     /// Get where the line with this id is drawn to.
-    fn get_to() -> ScriptRenderTarget;
+    fn get_to(id: u64) -> ScriptRenderTarget;
     /// Gets the type of the given object. The types are "text", "line", "circle", "rectangle", "arc", "polygon", "sprite", "light" and "animation".
-    fn get_type() -> String;
+    fn get_type(id: u64) -> String;
     /// Get if the text with this id parses rich text tags.
-    fn get_use_rich_text() -> bool;
+    fn get_use_rich_text(id: u64) -> bool;
     /// Get whether this uses the target orientation.
-    fn get_use_target_orientation() -> bool;
+    fn get_use_target_orientation(id: u64) -> bool;
     /// Get the vertical alignment of the text with this id.
-    fn get_vertical_alignment() -> String;
+    fn get_vertical_alignment(id: u64) -> String;
     /// Get the vertices of the polygon with this id.
-    fn get_vertices() -> Vec<ScriptRenderTarget>;
+    fn get_vertices(id: u64) -> Vec<ScriptRenderTarget>;
     /// Get whether this is rendered to anyone at all.
-    fn get_visible() -> bool;
+    fn get_visible(id: u64) -> bool;
     /// Get the width of the object with this id. Value is in pixels (32 per tile).
-    fn get_width() -> f32;
+    fn get_width(id: u64) -> f32;
     /// Get the horizontal scale of the sprite or animation with this id.
-    fn get_x_scale() -> f64;
+    fn get_x_scale(id: u64) -> f64;
     /// Get the vertical scale of the sprite or animation with this id.
-    fn get_y_scale() -> f64;
+    fn get_y_scale(id: u64) -> f64;
     /// Does a font with this name exist?
-    fn is_font_valid() -> bool;
+    fn is_font_valid(font_name: String) -> bool;
     /// Does a valid object with this id exist?
-    fn is_valid() -> bool;
+    fn is_valid(id: u64) -> bool;
     /// Set the alignment of the text with this id. Does nothing if this object is not a text.
-    fn set_alignment();
+    fn set_alignment(alignment: String, id: u64);
     /// Set the angle of the arc with this id. Does nothing if this object is not a arc.
-    fn set_angle();
+    fn set_angle(angle: f32, id: u64);
     /// Set the animation prototype name of the animation with this id. Does nothing if this object is not an animation.
-    fn set_animation();
+    fn set_animation(animation: String, id: u64);
     /// Set the animation offset of the animation with this id. Does nothing if this object is not an animation.
-    fn set_animation_offset();
+    fn set_animation_offset(animation_offset: f64, id: u64);
     /// Set the animation speed of the animation with this id. Does nothing if this object is not an animation.
-    fn set_animation_speed();
+    fn set_animation_speed(animation_speed: f64, id: u64);
     /// Set the color or tint of the object with this id. Does nothing if this object does not support color.
-    fn set_color();
+    fn set_color(color: Color, id: u64);
     /// Set the corners of the rectangle with this id. Does nothing if this object is not a rectangle.
-    fn set_corners();
+    fn set_corners(
+        id: u64,
+        left_top: LuaRenderingMethodsSetCornersLeftTopUnion,
+        left_top_offset: Vector,
+        right_bottom: LuaRenderingMethodsSetCornersRightBottomUnion,
+        right_bottom_offset: Vector,
+    );
     /// Set the dash length of the line with this id. Does nothing if this object is not a line.
-    fn set_dash_length();
+    fn set_dash_length(dash_length: f64, id: u64);
     /// Set the length of the dashes and the length of the gaps in the line with this id. Does nothing if this object is not a line.
-    fn set_dashes();
+    fn set_dashes(dash_length: f64, gap_length: f64, id: u64);
     /// Set whether this is being drawn on the ground, under most entities and sprites.
-    fn set_draw_on_ground();
+    fn set_draw_on_ground(draw_on_ground: bool, id: u64);
     /// Set if the circle or rectangle with this id is filled. Does nothing if this object is not a circle or rectangle.
-    fn set_filled();
+    fn set_filled(filled: bool, id: u64);
     /// Set the font of the text with this id. Does nothing if this object is not a text.
-    fn set_font();
+    fn set_font(font: String, id: u64);
     /// Set the forces that the object with this id is rendered to.
-    fn set_forces();
+    fn set_forces(forces: Vec<ForceIdentification>, id: u64);
     /// Set from where the line with this id is drawn. Does nothing if the object is not a line.
-    fn set_from();
+    fn set_from(from: LuaRenderingMethodsSetFromFromUnion, from_offset: Vector, id: u64);
     /// Set the length of the gaps in the line with this id. Does nothing if this object is not a line.
-    fn set_gap_length();
+    fn set_gap_length(gap_length: f64, id: u64);
     /// Set the intensity of the light with this id. Does nothing if this object is not a light.
-    fn set_intensity();
+    fn set_intensity(id: u64, intensity: f32);
     /// Set where top left corner of the rectangle with this id is drawn. Does nothing if this object is not a rectangle.
-    fn set_left_top();
+    fn set_left_top(
+        id: u64,
+        left_top: LuaRenderingMethodsSetLeftTopLeftTopUnion,
+        left_top_offset: Vector,
+    );
     /// Set the radius of the outer edge of the arc with this id. Does nothing if this object is not a arc.
-    fn set_max_radius();
+    fn set_max_radius(id: u64, max_radius: f64);
     /// Set the radius of the inner edge of the arc with this id. Does nothing if this object is not a arc.
-    fn set_min_radius();
+    fn set_min_radius(id: u64, min_radius: f64);
     /// Set the minimum darkness at which the light with this id is rendered. Does nothing if this object is not a light.
-    fn set_minimum_darkness();
+    fn set_minimum_darkness(id: u64, minimum_darkness: f32);
     /// Set whether this is only rendered in alt-mode.
-    fn set_only_in_alt_mode();
+    fn set_only_in_alt_mode(id: u64, only_in_alt_mode: bool);
     /// Set the orientation of the object with this id. Does nothing if this object is not a text, polygon, sprite, light or animation.
-    fn set_orientation();
+    fn set_orientation(id: u64, orientation: RealOrientation);
     /// The object rotates so that it faces this target. Note that `orientation` is still applied to the object. Set the orientation_target of the object with this id. Does nothing if this object is not a polygon, sprite, or animation. Set to `nil` if the object should not have an orientation_target.
-    fn set_orientation_target();
+    fn set_orientation_target(
+        id: u64,
+        orientation_target: LuaRenderingMethodsSetOrientationTargetOrientationTargetUnion,
+        orientation_target_offset: Vector,
+    );
     /// Set if the light with this id is rendered has the same orientation as the target entity. Does nothing if this object is not a light. Note that `orientation` is still applied to the sprite.
-    fn set_oriented();
+    fn set_oriented(id: u64, oriented: bool);
     /// Offsets the center of the sprite or animation if `orientation_target` is given. This offset will rotate together with the sprite or animation. Set the oriented_offset of the sprite or animation with this id. Does nothing if this object is not a sprite or animation.
-    fn set_oriented_offset();
+    fn set_oriented_offset(id: u64, oriented_offset: Vector);
     /// Set the players that the object with this id is rendered to.
-    fn set_players();
+    fn set_players(id: u64, players: Vec<PlayerIdentification>);
     /// Set the radius of the circle with this id. Does nothing if this object is not a circle.
-    fn set_radius();
+    fn set_radius(id: u64, radius: f64);
     /// Set the render layer of the sprite or animation with this id. Does nothing if this object is not a sprite or animation.
-    fn set_render_layer();
+    fn set_render_layer(id: u64, render_layer: RenderLayer);
     /// Set where top bottom right of the rectangle with this id is drawn. Does nothing if this object is not a rectangle.
-    fn set_right_bottom();
+    fn set_right_bottom(
+        id: u64,
+        right_bottom: LuaRenderingMethodsSetRightBottomRightBottomUnion,
+        right_bottom_offset: Vector,
+    );
     /// Set the scale of the text or light with this id. Does nothing if this object is not a text or light.
-    fn set_scale();
+    fn set_scale(id: u64, scale: f64);
     /// Set if the text with this id scales with player zoom, resulting in it always being the same size on screen, and the size compared to the game world changes. Does nothing if this object is not a text.
-    fn set_scale_with_zoom();
+    fn set_scale_with_zoom(id: u64, scale_with_zoom: bool);
     /// Set the sprite of the sprite or light with this id. Does nothing if this object is not a sprite or light.
-    fn set_sprite();
+    fn set_sprite(id: u64, sprite: SpritePath);
     /// Set where the arc with this id starts. Does nothing if this object is not a arc.
-    fn set_start_angle();
+    fn set_start_angle(id: u64, start_angle: f32);
     /// Set where the object with this id is drawn. Does nothing if this object does not support target.
-    fn set_target();
+    fn set_target(id: u64, target: LuaRenderingMethodsSetTargetTargetUnion, target_offset: Vector);
     /// Set the text that is displayed by the text with this id. Does nothing if this object is not a text.
-    fn set_text();
+    fn set_text(id: u64, text: LocalisedString);
     /// Set the time to live of the object with this id. Set to 0 if the object should not expire.
-    fn set_time_to_live();
+    fn set_time_to_live(id: u64, time_to_live: u32);
     /// Set where the line with this id is drawn to. Does nothing if this object is not a line.
-    fn set_to();
+    fn set_to(id: u64, to: LuaRenderingMethodsSetToToUnion, to_offset: Vector);
     /// Set if the text with this id parses rich text tags.
-    fn set_use_rich_text();
+    fn set_use_rich_text(id: u64, use_rich_text: bool);
     /// Set whether this uses the target orientation.
-    fn set_use_target_orientation();
+    fn set_use_target_orientation(id: u64, use_target_orientation: bool);
     /// Set the vertical alignment of the text with this id. Does nothing if this object is not a text.
-    fn set_vertical_alignment();
+    fn set_vertical_alignment(alignment: String, id: u64);
     /// Set the vertices of the polygon with this id. Does nothing if this object is not a polygon.
-    fn set_vertices();
+    fn set_vertices(id: u64, vertices: Vec<ScriptRenderVertexTarget>);
     /// Set whether this is rendered to anyone at all.
-    fn set_visible();
+    fn set_visible(id: u64, visible: bool);
     /// Set the width of the object with this id. Does nothing if this object does not support width. Value is in pixels (32 per tile).
-    fn set_width();
+    fn set_width(id: u64, width: f32);
     /// Set the horizontal scale of the sprite or animation with this id. Does nothing if this object is not a sprite or animation.
-    fn set_x_scale();
+    fn set_x_scale(id: u64, x_scale: f64);
     /// Set the vertical scale of the sprite or animation with this id. Does nothing if this object is not a sprite or animation.
-    fn set_y_scale();
+    fn set_y_scale(id: u64, y_scale: f64);
 }
 
 /// Prototype of a resource category.
@@ -5136,7 +5898,7 @@ pub trait LuaSettingsMethods {
     /// Gets the current per-player settings for the given player, indexed by prototype name. Returns the same structure as [LuaPlayer::mod_settings](LuaPlayer::mod_settings). This table becomes invalid if its associated player does.
     ///
     /// Even though this attribute is marked as read-only, individual settings can be changed by overwriting their [ModSetting](ModSetting) table. Mods can only change their own settings. Using the in-game console, all player settings can be changed.
-    fn get_player_settings() -> HashMap<String, ModSetting>;
+    fn get_player_settings(player: PlayerIdentification) -> HashMap<String, ModSetting>;
 }
 
 /// Prototype of a shortcut.
@@ -5372,75 +6134,426 @@ pub struct LuaSurface {
     pub wind_speed: f64,
 }
 
+pub enum LuaSurfaceMethodsCloneAreaDestinationForceUnion {
+    LuaForce(LuaForce),
+    String(String),
+}
+
+pub enum LuaSurfaceMethodsCloneBrushDestinationForceUnion {
+    LuaForce(LuaForce),
+    String(String),
+}
+
+pub enum LuaSurfaceMethodsCountEntitiesFilteredCollisionMaskUnion {
+    CollisionMaskLayer(CollisionMaskLayer),
+    Array(Vec<CollisionMaskLayer>),
+}
+
+pub enum LuaSurfaceMethodsCountEntitiesFilteredDirectionUnion {
+    DefinesDirection(Direction),
+    Array(Vec<Direction>),
+}
+
+pub enum LuaSurfaceMethodsCountEntitiesFilteredForceUnion {
+    ForceIdentification(ForceIdentification),
+    Array(Vec<ForceIdentification>),
+}
+
+pub enum LuaSurfaceMethodsCountEntitiesFilteredGhostNameUnion {
+    String(String),
+    Array(Vec<String>),
+}
+
+pub enum LuaSurfaceMethodsCountEntitiesFilteredGhostTypeUnion {
+    String(String),
+    Array(Vec<String>),
+}
+
+pub enum LuaSurfaceMethodsCountEntitiesFilteredNameUnion {
+    String(String),
+    Array(Vec<String>),
+}
+
+pub enum LuaSurfaceMethodsCountEntitiesFilteredTypUnion {
+    String(String),
+    Array(Vec<String>),
+}
+
+pub enum LuaSurfaceMethodsCountTilesFilteredCollisionMaskUnion {
+    CollisionMaskLayer(CollisionMaskLayer),
+    Array(Vec<CollisionMaskLayer>),
+}
+
+pub enum LuaSurfaceMethodsCountTilesFilteredForceUnion {
+    ForceIdentification(ForceIdentification),
+    Array(Vec<ForceIdentification>),
+}
+
+pub enum LuaSurfaceMethodsCountTilesFilteredNameUnion {
+    String(String),
+    Array(Vec<String>),
+}
+
+pub enum LuaSurfaceMethodsCreateEntitySourceUnion {
+    LuaEntity(LuaEntity),
+    MapPosition(MapPosition),
+}
+
+pub enum LuaSurfaceMethodsCreateEntityTargetUnion {
+    LuaEntity(LuaEntity),
+    MapPosition(MapPosition),
+}
+
+pub enum LuaSurfaceMethodsDestroyDecorativesCollisionMaskUnion {
+    CollisionMaskLayer(CollisionMaskLayer),
+    Array(Vec<CollisionMaskLayer>),
+}
+
+pub enum LuaSurfaceMethodsDestroyDecorativesNameUnion {
+    String(String),
+    ArrayString(Vec<String>),
+    LuaDecorativePrototype(LuaDecorativePrototype),
+    ArrayLuaDecorativePrototype(Vec<LuaDecorativePrototype>),
+}
+
+pub enum LuaSurfaceMethodsFindDecorativesFilteredCollisionMaskUnion {
+    CollisionMaskLayer(CollisionMaskLayer),
+    Array(Vec<CollisionMaskLayer>),
+}
+
+pub enum LuaSurfaceMethodsFindDecorativesFilteredNameUnion {
+    String(String),
+    ArrayString(Vec<String>),
+    LuaDecorativePrototype(LuaDecorativePrototype),
+    ArrayLuaDecorativePrototype(Vec<LuaDecorativePrototype>),
+}
+
+pub enum LuaSurfaceMethodsFindEnemyUnitsForceUnion {
+    LuaForce(LuaForce),
+    String(String),
+}
+
+pub enum LuaSurfaceMethodsFindEntitiesFilteredCollisionMaskUnion {
+    CollisionMaskLayer(CollisionMaskLayer),
+    Array(Vec<CollisionMaskLayer>),
+}
+
+pub enum LuaSurfaceMethodsFindEntitiesFilteredDirectionUnion {
+    DefinesDirection(Direction),
+    Array(Vec<Direction>),
+}
+
+pub enum LuaSurfaceMethodsFindEntitiesFilteredForceUnion {
+    ForceIdentification(ForceIdentification),
+    Array(Vec<ForceIdentification>),
+}
+
+pub enum LuaSurfaceMethodsFindEntitiesFilteredGhostNameUnion {
+    String(String),
+    Array(Vec<String>),
+}
+
+pub enum LuaSurfaceMethodsFindEntitiesFilteredGhostTypeUnion {
+    String(String),
+    Array(Vec<String>),
+}
+
+pub enum LuaSurfaceMethodsFindEntitiesFilteredNameUnion {
+    String(String),
+    Array(Vec<String>),
+}
+
+pub enum LuaSurfaceMethodsFindEntitiesFilteredTypUnion {
+    String(String),
+    Array(Vec<String>),
+}
+
+pub enum LuaSurfaceMethodsFindTilesFilteredCollisionMaskUnion {
+    CollisionMaskLayer(CollisionMaskLayer),
+    Array(Vec<CollisionMaskLayer>),
+}
+
+pub enum LuaSurfaceMethodsFindTilesFilteredForceUnion {
+    ForceIdentification(ForceIdentification),
+    Array(Vec<ForceIdentification>),
+}
+
+pub enum LuaSurfaceMethodsFindTilesFilteredNameUnion {
+    String(String),
+    Array(Vec<String>),
+}
+
+pub enum LuaSurfaceMethodsFindUnitsForceUnion {
+    LuaForce(LuaForce),
+    String(String),
+}
+
+pub enum LuaSurfaceMethodsGetEntitiesWithForceForceUnion {
+    LuaForce(LuaForce),
+    String(String),
+}
+
+pub enum LuaSurfaceMethodsGetScriptAreaKeyUnion {
+    String(String),
+    Uint(u32),
+}
+
+pub enum LuaSurfaceMethodsGetScriptPositionKeyUnion {
+    String(String),
+    Uint(u32),
+}
+
+pub enum LuaSurfaceMethodsGetTrainStopsNameUnion {
+    String(String),
+    Array(Vec<String>),
+}
+
+pub enum LuaSurfaceMethodsRegenerateDecorativeDecorativesUnion {
+    String(String),
+    Array(Vec<String>),
+}
+
+pub enum LuaSurfaceMethodsRegenerateEntityEntitiesUnion {
+    String(String),
+    Array(Vec<String>),
+}
+
+pub enum LuaSurfaceMethodsRequestPathCollisionMaskUnion {
+    CollisionMaskWithFlags(CollisionMaskWithFlags),
+    Array(Vec<String>),
+}
+
+pub enum LuaSurfaceMethodsSetHiddenTileTileUnion {
+    String(String),
+    LuaTilePrototype(LuaTilePrototype),
+}
+
+pub enum LuaSurfaceMethodsSetTilesRemoveCollidingEntitiesUnion {
+    Boolean(bool),
+    String(String),
+}
+
+pub enum LuaSurfaceMethodsSpillItemStackForceUnion {
+    LuaForce(LuaForce),
+    String(String),
+}
+
 /// A "domain" of the world. Surfaces can only be created and deleted through the API. Surfaces are uniquely identified by their name. Every game contains at least the surface "nauvis".
 pub trait LuaSurfaceMethods {
     /// Adds the given script area.
-    fn add_script_area() -> u32;
+    fn add_script_area(area: ScriptArea) -> u32;
     /// Adds the given script position.
-    fn add_script_position() -> u32;
+    fn add_script_position(area: ScriptPosition) -> u32;
     /// Sets the given area to the checkerboard lab tiles.
-    fn build_checkerboard();
+    fn build_checkerboard(area: BoundingBox);
     /// Send a group to build a new base.
-    fn build_enemy_base();
-    fn calculate_tile_properties() -> HashMap<String, Vec<f64>>;
+    fn build_enemy_base(force: ForceIdentification, position: MapPosition, unit_count: u32);
+    fn calculate_tile_properties(
+        positions: Vec<MapPosition>,
+        property_names: Vec<String>,
+    ) -> HashMap<String, Vec<f64>>;
     /// If there exists an entity at the given location that can be fast-replaced with the given entity parameters.
-    fn can_fast_replace() -> bool;
+    fn can_fast_replace(
+        direction: Direction,
+        force: ForceIdentification,
+        name: String,
+        position: MapPosition,
+    ) -> bool;
     /// Check for collisions with terrain or other entities.
-    fn can_place_entity() -> bool;
+    fn can_place_entity(
+        build_check_type: BuildCheckType,
+        direction: Direction,
+        force: ForceIdentification,
+        forced: bool,
+        inner_name: String,
+        name: String,
+        position: MapPosition,
+    ) -> bool;
     /// Cancel a deconstruction order.
-    fn cancel_deconstruct_area();
+    fn cancel_deconstruct_area(
+        area: BoundingBox,
+        force: ForceIdentification,
+        item: LuaItemStack,
+        player: PlayerIdentification,
+        skip_fog_of_war: bool,
+    );
     /// Cancel a upgrade order.
-    fn cancel_upgrade_area();
+    fn cancel_upgrade_area(
+        area: BoundingBox,
+        force: ForceIdentification,
+        item: LuaItemStack,
+        player: PlayerIdentification,
+        skip_fog_of_war: bool,
+    );
     /// Clears this surface deleting all entities and chunks on it.
-    fn clear();
+    fn clear(ignore_characters: bool);
     /// Clears all pollution on this surface.
     fn clear_pollution();
     /// Clones the given area.
-    fn clone_area();
+    fn clone_area(
+        clear_destination_decoratives: bool,
+        clear_destination_entities: bool,
+        clone_decoratives: bool,
+        clone_entities: bool,
+        clone_tiles: bool,
+        create_build_effect_smoke: bool,
+        destination_area: BoundingBox,
+        destination_force: LuaSurfaceMethodsCloneAreaDestinationForceUnion,
+        destination_surface: SurfaceIdentification,
+        expand_map: bool,
+        source_area: BoundingBox,
+    );
     /// Clones the given area.
-    fn clone_brush();
+    fn clone_brush(
+        clear_destination_decoratives: bool,
+        clear_destination_entities: bool,
+        clone_decoratives: bool,
+        clone_entities: bool,
+        clone_tiles: bool,
+        create_build_effect_smoke: bool,
+        destination_force: LuaSurfaceMethodsCloneBrushDestinationForceUnion,
+        destination_offset: TilePosition,
+        destination_surface: SurfaceIdentification,
+        expand_map: bool,
+        manual_collision_mode: bool,
+        source_offset: TilePosition,
+        source_positions: Vec<TilePosition>,
+    );
     /// Clones the given entities.
-    fn clone_entities();
+    fn clone_entities(
+        create_build_effect_smoke: bool,
+        destination_force: ForceIdentification,
+        destination_offset: Vector,
+        destination_surface: SurfaceIdentification,
+        entities: Vec<LuaEntity>,
+        snap_to_grid: bool,
+    );
     /// Count entities of given type or name in a given area. Works just like [LuaSurface::find_entities_filtered](LuaSurface::find_entities_filtered), except this only returns the count. As it doesn't construct all the wrapper objects, this is more efficient if one is only interested in the number of entities.
     ///
     /// If no `area` or `position` are given, the entire surface is searched. If `position` is given, this returns the entities colliding with that position (i.e the given position is within the entity's collision box). If `position` and `radius` are given, this returns entities in the radius of the position. If `area` is specified, this returns entities colliding with that area.
-    fn count_entities_filtered() -> u32;
+    fn count_entities_filtered(
+        area: BoundingBox,
+        collision_mask: LuaSurfaceMethodsCountEntitiesFilteredCollisionMaskUnion,
+        direction: LuaSurfaceMethodsCountEntitiesFilteredDirectionUnion,
+        force: LuaSurfaceMethodsCountEntitiesFilteredForceUnion,
+        ghost_name: LuaSurfaceMethodsCountEntitiesFilteredGhostNameUnion,
+        ghost_type: LuaSurfaceMethodsCountEntitiesFilteredGhostTypeUnion,
+        invert: bool,
+        is_military_target: bool,
+        limit: u32,
+        name: LuaSurfaceMethodsCountEntitiesFilteredNameUnion,
+        position: MapPosition,
+        radius: f64,
+        to_be_deconstructed: bool,
+        to_be_upgraded: bool,
+        typ: LuaSurfaceMethodsCountEntitiesFilteredTypUnion,
+    ) -> u32;
     /// Count tiles of a given name in a given area. Works just like [LuaSurface::find_tiles_filtered](LuaSurface::find_tiles_filtered), except this only returns the count. As it doesn't construct all the wrapper objects, this is more efficient if one is only interested in the number of tiles.
     ///
     /// If no `area` or `position` and `radius` is given, the entire surface is searched. If `position` and `radius` are given, only tiles within the radius of the position are included.
-    fn count_tiles_filtered() -> u32;
+    fn count_tiles_filtered(
+        area: BoundingBox,
+        collision_mask: LuaSurfaceMethodsCountTilesFilteredCollisionMaskUnion,
+        force: LuaSurfaceMethodsCountTilesFilteredForceUnion,
+        has_hidden_tile: bool,
+        has_tile_ghost: bool,
+        invert: bool,
+        limit: u32,
+        name: LuaSurfaceMethodsCountTilesFilteredNameUnion,
+        position: MapPosition,
+        radius: f64,
+        to_be_deconstructed: bool,
+    ) -> u32;
     /// Adds the given decoratives to the surface.
-    fn create_decoratives();
+    fn create_decoratives(check_collision: bool, decoratives: Vec<Decorative>);
     /// Create an entity on this surface.
-    fn create_entity() -> LuaEntity;
+    fn create_entity(
+        character: LuaEntity,
+        create_build_effect_smoke: bool,
+        direction: Direction,
+        fast_replace: bool,
+        force: ForceIdentification,
+        item: LuaItemStack,
+        move_stuck_players: bool,
+        name: String,
+        player: PlayerIdentification,
+        position: MapPosition,
+        raise_built: bool,
+        source: LuaSurfaceMethodsCreateEntitySourceUnion,
+        spawn_decorations: bool,
+        spill: bool,
+        target: LuaSurfaceMethodsCreateEntityTargetUnion,
+    ) -> LuaEntity;
     /// Creates a particle at the given location
-    fn create_particle();
-    fn create_trivial_smoke();
+    fn create_particle(
+        frame_speed: f32,
+        height: f32,
+        movement: Vector,
+        name: String,
+        position: MapPosition,
+        vertical_speed: f32,
+    );
+    fn create_trivial_smoke(name: String, position: MapPosition);
     /// Create a new unit group at a given position.
-    fn create_unit_group() -> LuaUnitGroup;
+    fn create_unit_group(force: ForceIdentification, position: MapPosition) -> LuaUnitGroup;
     /// Place a deconstruction request.
-    fn deconstruct_area();
+    fn deconstruct_area(
+        area: BoundingBox,
+        force: ForceIdentification,
+        item: LuaItemStack,
+        player: PlayerIdentification,
+        skip_fog_of_war: bool,
+    );
     /// Whether the given decorative prototype collides at the given position and direction.
-    fn decorative_prototype_collides() -> bool;
-    fn delete_chunk();
+    fn decorative_prototype_collides(position: MapPosition, prototype: String) -> bool;
+    fn delete_chunk(position: ChunkPosition);
     /// Removes all decoratives from the given area. If no area and no position are given, then the entire surface is searched.
-    fn destroy_decoratives();
+    fn destroy_decoratives(
+        area: BoundingBox,
+        collision_mask: LuaSurfaceMethodsDestroyDecorativesCollisionMaskUnion,
+        exclude_soft: bool,
+        from_layer: String,
+        invert: bool,
+        limit: u32,
+        name: LuaSurfaceMethodsDestroyDecorativesNameUnion,
+        position: TilePosition,
+        to_layer: String,
+    );
     /// Sets the given script area to the new values.
-    fn edit_script_area();
+    fn edit_script_area(area: ScriptArea, id: u32);
     /// Sets the given script position to the new values.
-    fn edit_script_position();
+    fn edit_script_position(area: ScriptPosition, id: u32);
     /// Whether the given entity prototype collides at the given position and direction.
-    fn entity_prototype_collides() -> bool;
+    fn entity_prototype_collides(
+        direction: Direction,
+        position: MapPosition,
+        prototype: EntityPrototypeIdentification,
+        use_map_generation_bounding_box: bool,
+    ) -> bool;
     /// Find decoratives of a given name in a given area.
     ///
     /// If no filters are given, returns all decoratives in the search area. If multiple filters are specified, returns only decoratives matching every given filter. If no area and no position are given, the entire surface is searched.
-    fn find_decoratives_filtered() -> Vec<DecorativeResult>;
+    fn find_decoratives_filtered(
+        area: BoundingBox,
+        collision_mask: LuaSurfaceMethodsFindDecorativesFilteredCollisionMaskUnion,
+        exclude_soft: bool,
+        from_layer: String,
+        invert: bool,
+        limit: u32,
+        name: LuaSurfaceMethodsFindDecorativesFilteredNameUnion,
+        position: TilePosition,
+        to_layer: String,
+    ) -> Vec<DecorativeResult>;
     /// Find enemy units (entities with type "unit") of a given force within an area.
-    fn find_enemy_units() -> Vec<LuaEntity>;
+    fn find_enemy_units(
+        center: MapPosition,
+        force: LuaSurfaceMethodsFindEnemyUnitsForceUnion,
+        radius: f64,
+    ) -> Vec<LuaEntity>;
     /// Find entities in a given area.
     ///
     /// If no area is given all entities on the surface are returned.
-    fn find_entities() -> Vec<LuaEntity>;
+    fn find_entities(area: BoundingBox) -> Vec<LuaEntity>;
     /// Find all entities of the given type or name in the given area.
     ///
     /// If no filters (`name`, `type`, `force`, etc.) are given, this returns all entities in the search area. If multiple filters are specified, only entities matching all given filters are returned.
@@ -5449,104 +6562,213 @@ pub trait LuaSurfaceMethods {
     /// - If `position` is given, this returns the entities colliding with that position (i.e the given position is within the entity's collision box).
     /// - If `position` and `radius` are given, this returns the entities within the radius of the position. Looks for the center of entities.
     /// - If `area` is specified, this returns the entities colliding with that area.
-    fn find_entities_filtered() -> Vec<LuaEntity>;
+    fn find_entities_filtered(
+        area: BoundingBox,
+        collision_mask: LuaSurfaceMethodsFindEntitiesFilteredCollisionMaskUnion,
+        direction: LuaSurfaceMethodsFindEntitiesFilteredDirectionUnion,
+        force: LuaSurfaceMethodsFindEntitiesFilteredForceUnion,
+        ghost_name: LuaSurfaceMethodsFindEntitiesFilteredGhostNameUnion,
+        ghost_type: LuaSurfaceMethodsFindEntitiesFilteredGhostTypeUnion,
+        has_item_inside: LuaItemPrototype,
+        invert: bool,
+        is_military_target: bool,
+        limit: u32,
+        name: LuaSurfaceMethodsFindEntitiesFilteredNameUnion,
+        position: MapPosition,
+        radius: f64,
+        to_be_deconstructed: bool,
+        to_be_upgraded: bool,
+        typ: LuaSurfaceMethodsFindEntitiesFilteredTypUnion,
+    ) -> Vec<LuaEntity>;
     /// Find a specific entity at a specific position.
-    fn find_entity() -> LuaEntity;
+    fn find_entity(entity: String, position: MapPosition) -> LuaEntity;
     /// Find the logistic network that covers a given position.
-    fn find_logistic_network_by_position() -> LuaLogisticNetwork;
+    fn find_logistic_network_by_position(
+        force: ForceIdentification,
+        position: MapPosition,
+    ) -> LuaLogisticNetwork;
     /// Finds all of the logistics networks whose construction area intersects with the given position.
-    fn find_logistic_networks_by_construction_area() -> Vec<LuaLogisticNetwork>;
+    fn find_logistic_networks_by_construction_area(
+        force: ForceIdentification,
+        position: MapPosition,
+    ) -> Vec<LuaLogisticNetwork>;
     /// Find the enemy military target ([military entity](https://wiki.factorio.com/Military_units_and_structures)) closest to the given position.
-    fn find_nearest_enemy() -> LuaEntity;
+    fn find_nearest_enemy(
+        force: ForceIdentification,
+        max_distance: f64,
+        position: MapPosition,
+    ) -> LuaEntity;
     /// Find the enemy entity-with-owner closest to the given position.
-    fn find_nearest_enemy_entity_with_owner() -> LuaEntity;
+    fn find_nearest_enemy_entity_with_owner(
+        force: ForceIdentification,
+        max_distance: f64,
+        position: MapPosition,
+    ) -> LuaEntity;
     /// Find a non-colliding position within a given radius.
-    fn find_non_colliding_position() -> MapPosition;
+    fn find_non_colliding_position(
+        center: MapPosition,
+        force_to_tile_center: bool,
+        name: String,
+        precision: f64,
+        radius: f64,
+    ) -> MapPosition;
     /// Find a non-colliding position within a given rectangle.
-    fn find_non_colliding_position_in_box() -> MapPosition;
+    fn find_non_colliding_position_in_box(
+        force_to_tile_center: bool,
+        name: String,
+        precision: f64,
+        search_space: BoundingBox,
+    ) -> MapPosition;
     /// Find all tiles of the given name in the given area.
     ///
     /// If no filters are given, this returns all tiles in the search area.
     ///
     /// If no `area` or `position` and `radius` is given, the entire surface is searched. If `position` and `radius` are given, only tiles within the radius of the position are included.
-    fn find_tiles_filtered() -> Vec<LuaTile>;
+    fn find_tiles_filtered(
+        area: BoundingBox,
+        collision_mask: LuaSurfaceMethodsFindTilesFilteredCollisionMaskUnion,
+        force: LuaSurfaceMethodsFindTilesFilteredForceUnion,
+        has_hidden_tile: bool,
+        has_tile_ghost: bool,
+        invert: bool,
+        limit: u32,
+        name: LuaSurfaceMethodsFindTilesFilteredNameUnion,
+        position: MapPosition,
+        radius: f64,
+        to_be_deconstructed: bool,
+    ) -> Vec<LuaTile>;
     /// Find units (entities with type "unit") of a given force and force condition within a given area.
-    fn find_units() -> Vec<LuaEntity>;
+    fn find_units(
+        area: BoundingBox,
+        condition: ForceCondition,
+        force: LuaSurfaceMethodsFindUnitsForceUnion,
+    ) -> Vec<LuaEntity>;
     /// Blocks and generates all chunks that have been requested using all available threads.
     fn force_generate_chunk_requests();
     /// Get an iterator going over every chunk on this surface.
     fn get_chunks() -> LuaChunkIterator;
     /// Gets the closest entity in the list to this position.
-    fn get_closest() -> LuaEntity;
+    fn get_closest(entities: Vec<LuaEntity>, position: MapPosition) -> LuaEntity;
     /// Gets all tiles of the given types that are connected horizontally or vertically to the given tile position including the given tile position.
-    fn get_connected_tiles() -> Vec<TilePosition>;
+    fn get_connected_tiles(position: TilePosition, tiles: Vec<String>) -> Vec<TilePosition>;
     /// Returns all the military targets (entities with force) on this chunk for the given force.
-    fn get_entities_with_force() -> Vec<LuaEntity>;
+    fn get_entities_with_force(
+        force: LuaSurfaceMethodsGetEntitiesWithForceForceUnion,
+        position: ChunkPosition,
+    ) -> Vec<LuaEntity>;
     /// The hidden tile name.
-    fn get_hidden_tile() -> String;
+    fn get_hidden_tile(position: TilePosition) -> String;
     /// Gets the map exchange string for the current map generation settings of this surface.
     fn get_map_exchange_string() -> String;
     /// Get the pollution for a given position.
-    fn get_pollution() -> f64;
+    fn get_pollution(position: MapPosition) -> f64;
     /// Gets a random generated chunk position or 0,0 if no chunks have been generated on this surface.
     fn get_random_chunk() -> ChunkPosition;
     /// Gets the resource amount of all resources on this surface
     fn get_resource_counts() -> HashMap<String, u32>;
     /// Gets the first script area by name or id.
-    fn get_script_area() -> ScriptArea;
+    fn get_script_area(key: LuaSurfaceMethodsGetScriptAreaKeyUnion) -> ScriptArea;
     /// Gets the script areas that match the given name or if no name is given all areas are returned.
-    fn get_script_areas() -> Vec<ScriptArea>;
+    fn get_script_areas(name: String) -> Vec<ScriptArea>;
     /// Gets the first script position by name or id.
-    fn get_script_position() -> ScriptPosition;
+    fn get_script_position(key: LuaSurfaceMethodsGetScriptPositionKeyUnion) -> ScriptPosition;
     /// Gets the script positions that match the given name or if no name is given all positions are returned.
-    fn get_script_positions() -> Vec<ScriptPosition>;
+    fn get_script_positions(name: String) -> Vec<ScriptPosition>;
     /// Gets the starting area radius of this surface.
     fn get_starting_area_radius() -> f64;
     /// Get the tile at a given position. An alternative call signature for this method is passing it a single [TilePosition](TilePosition).
-    fn get_tile() -> LuaTile;
+    fn get_tile(x: i32, y: i32) -> LuaTile;
     /// Gets the total amount of pollution on the surface by iterating over all of the chunks containing pollution.
     fn get_total_pollution() -> f64;
     /// Gets train stops matching the given filters.
-    fn get_train_stops() -> Vec<LuaEntity>;
-    fn get_trains() -> Vec<LuaTrain>;
+    fn get_train_stops(
+        force: ForceIdentification,
+        name: LuaSurfaceMethodsGetTrainStopsNameUnion,
+    ) -> Vec<LuaEntity>;
+    fn get_trains(force: ForceIdentification) -> Vec<LuaTrain>;
     /// All methods and properties that this object supports.
     fn help() -> String;
     /// Is a given chunk generated?
-    fn is_chunk_generated() -> bool;
+    fn is_chunk_generated(position: ChunkPosition) -> bool;
     /// Play a sound for every player on this surface.
-    fn play_sound();
+    fn play_sound(
+        override_sound_type: SoundType,
+        path: SoundPath,
+        position: MapPosition,
+        volume_modifier: f64,
+    );
     /// Spawn pollution at the given position.
-    fn pollute();
+    fn pollute(amount: f64, source: MapPosition);
     /// Print text to the chat console of all players on this surface.
-    fn print();
+    fn print(color: Color, message: LocalisedString);
     /// Regenerate autoplacement of some decoratives on this surface. This can be used to autoplace newly-added decoratives.
-    fn regenerate_decorative();
+    fn regenerate_decorative(
+        chunks: Vec<ChunkPosition>,
+        decoratives: LuaSurfaceMethodsRegenerateDecorativeDecorativesUnion,
+    );
     /// Regenerate autoplacement of some entities on this surface. This can be used to autoplace newly-added entities.
-    fn regenerate_entity();
+    fn regenerate_entity(
+        chunks: Vec<ChunkPosition>,
+        entities: LuaSurfaceMethodsRegenerateEntityEntitiesUnion,
+    );
     /// Removes the given script area.
-    fn remove_script_area() -> bool;
+    fn remove_script_area(id: u32) -> bool;
     /// Removes the given script position.
-    fn remove_script_position() -> bool;
+    fn remove_script_position(id: u32) -> bool;
     /// Generates a path with the specified constraints (as an array of [PathfinderWaypoints](PathfinderWaypoint)) using the unit pathfinding algorithm. This path can be used to emulate pathing behavior by script for non-unit entities, such as vehicles. If you want to command actual units (such as biters or spitters) to move, use [LuaEntity::set_command](LuaEntity::set_command) instead.
     ///
     /// The resulting path is ultimately returned asynchronously via [on_script_path_request_finished](on_script_path_request_finished).
-    fn request_path() -> u32;
+    fn request_path(
+        bounding_box: BoundingBox,
+        can_open_gates: bool,
+        collision_mask: LuaSurfaceMethodsRequestPathCollisionMaskUnion,
+        entity_to_ignore: LuaEntity,
+        force: ForceIdentification,
+        goal: MapPosition,
+        path_resolution_modifier: i32,
+        pathfind_flags: PathfinderFlags,
+        radius: f64,
+        start: MapPosition,
+    ) -> u32;
     /// Request that the game's map generator generate chunks at the given position for the given radius on this surface.
-    fn request_to_generate_chunks();
+    fn request_to_generate_chunks(position: MapPosition, radius: u32);
     /// Set generated status of a chunk. Useful when copying chunks.
-    fn set_chunk_generated_status();
+    fn set_chunk_generated_status(position: ChunkPosition, status: ChunkGeneratedStatus);
     /// Set the hidden tile for the specified position. While during normal gameplay only [non-mineable](LuaTilePrototype::mineable_properties) tiles can become hidden, this method allows any kind of tile to be set as the hidden one.
-    fn set_hidden_tile();
+    fn set_hidden_tile(position: TilePosition, tile: LuaSurfaceMethodsSetHiddenTileTileUnion);
     /// Give a command to multiple units. This will automatically select suitable units for the task.
-    fn set_multi_command() -> u32;
+    fn set_multi_command(
+        command: Command,
+        force: ForceIdentification,
+        unit_count: u32,
+        unit_search_distance: u32,
+    ) -> u32;
     /// Set tiles at specified locations. Can automatically correct the edges around modified tiles.
     ///
     /// Placing a [mineable](LuaTilePrototype::mineable_properties) tile on top of a non-mineable one will turn the latter into the [LuaTile::hidden_tile](LuaTile::hidden_tile) for that tile. Placing a mineable tile on a mineable one or a non-mineable tile on a non-mineable one will not modify the hidden tile. This restriction can however be circumvented by using [LuaSurface::set_hidden_tile](LuaSurface::set_hidden_tile).
-    fn set_tiles();
+    fn set_tiles(
+        correct_tiles: bool,
+        raise_event: bool,
+        remove_colliding_decoratives: bool,
+        remove_colliding_entities: LuaSurfaceMethodsSetTilesRemoveCollidingEntitiesUnion,
+        tiles: Vec<Tile>,
+    );
     /// Spill items on the ground centered at a given location.
-    fn spill_item_stack() -> Vec<LuaEntity>;
+    fn spill_item_stack(
+        allow_belts: bool,
+        enable_looted: bool,
+        force: LuaSurfaceMethodsSpillItemStackForceUnion,
+        items: ItemStackIdentification,
+        position: MapPosition,
+    ) -> Vec<LuaEntity>;
     /// Place an upgrade request.
-    fn upgrade_area();
+    fn upgrade_area(
+        area: BoundingBox,
+        force: ForceIdentification,
+        item: LuaItemStack,
+        player: PlayerIdentification,
+        skip_fog_of_war: bool,
+    );
 }
 
 /// One research item.
@@ -5665,19 +6887,19 @@ pub struct LuaTile {
 /// A single "square" on the map.
 pub trait LuaTileMethods {
     /// Cancels deconstruction if it is scheduled, does nothing otherwise.
-    fn cancel_deconstruction();
+    fn cancel_deconstruction(force: ForceIdentification, player: PlayerIdentification);
     /// What type of things can collide with this tile?
-    fn collides_with() -> bool;
+    fn collides_with(layer: CollisionMaskLayer) -> bool;
     /// Gets all tile ghosts on this tile.
-    fn get_tile_ghosts() -> Vec<LuaTile>;
+    fn get_tile_ghosts(force: ForceIdentification) -> Vec<LuaTile>;
     /// Does this tile have any tile ghosts on it.
-    fn has_tile_ghost() -> bool;
+    fn has_tile_ghost(force: ForceIdentification) -> bool;
     /// All methods and properties that this object supports.
     fn help() -> String;
     /// Orders deconstruction of this tile by the given force.
-    fn order_deconstruction() -> LuaEntity;
+    fn order_deconstruction(force: ForceIdentification, player: PlayerIdentification) -> LuaEntity;
     /// Is this tile marked for deconstruction?
-    fn to_be_deconstructed() -> bool;
+    fn to_be_deconstructed(force: ForceIdentification) -> bool;
 }
 
 pub struct LuaTilePrototypeMineableProperties {
@@ -5812,25 +7034,25 @@ pub trait LuaTrainMethods {
     /// Gets a mapping of the train's fluid inventory.
     fn get_fluid_contents() -> HashMap<String, f64>;
     /// Get the amount of a particular fluid stored in the train.
-    fn get_fluid_count() -> f64;
+    fn get_fluid_count(fluid: String) -> f64;
     /// Get the amount of a particular item stored in the train.
-    fn get_item_count() -> u32;
+    fn get_item_count(item: String) -> u32;
     /// Gets all rails under the train.
     fn get_rails() -> Vec<LuaEntity>;
     /// Go to the station specified by the index in the train's schedule.
-    fn go_to_station();
+    fn go_to_station(index: u32);
     /// All methods and properties that this object supports.
     fn help() -> String;
     /// Insert a stack into the train.
-    fn insert();
+    fn insert(stack: ItemStackIdentification);
     /// Inserts the given fluid into the first available location in this train.
-    fn insert_fluid() -> f64;
+    fn insert_fluid(fluid: Fluid) -> f64;
     /// Checks if the path is invalid and tries to re-path if it isn't.
-    fn recalculate_path() -> bool;
+    fn recalculate_path(force: bool) -> bool;
     /// Remove some fluid from the train.
-    fn remove_fluid() -> f64;
+    fn remove_fluid(fluid: Fluid) -> f64;
     /// Remove some items from the train.
-    fn remove_item() -> u32;
+    fn remove_item(stack: ItemStackIdentification) -> u32;
 }
 
 /// Control behavior for train stops.
@@ -5904,7 +7126,7 @@ pub struct LuaTransportLine {
 /// One line on a transport belt.
 pub trait LuaTransportLineMethods {
     /// Can an item be inserted at a given position?
-    fn can_insert_at() -> bool;
+    fn can_insert_at(position: f32) -> bool;
     /// Can an item be inserted at the back of this line?
     fn can_insert_at_back() -> bool;
     /// Remove all items from this transport line.
@@ -5912,17 +7134,17 @@ pub trait LuaTransportLineMethods {
     /// Get counts of all items on this line, similar to how [LuaInventory::get_contents](LuaInventory::get_contents) does.
     fn get_contents() -> HashMap<String, u32>;
     /// Count some or all items on this line, similar to how [LuaInventory::get_item_count](LuaInventory::get_item_count) does.
-    fn get_item_count() -> u32;
+    fn get_item_count(item: String) -> u32;
     /// All methods and properties that this object supports.
     fn help() -> String;
     /// Insert items at a given position.
-    fn insert_at() -> bool;
+    fn insert_at(items: ItemStackIdentification, position: f32) -> bool;
     /// Insert items at the back of this line.
-    fn insert_at_back() -> bool;
+    fn insert_at_back(items: ItemStackIdentification) -> bool;
     /// Returns whether the associated internal transport line of this line is the same as the others associated internal transport line.
-    fn line_equals() -> bool;
+    fn line_equals(other: LuaTransportLine) -> bool;
     /// Remove some items from this line.
-    fn remove_item() -> u32;
+    fn remove_item(items: ItemStackIdentification) -> u32;
 }
 
 /// Prototype of a trivial smoke.
@@ -5988,7 +7210,7 @@ pub struct LuaUnitGroup {
 /// A collection of units moving and attacking together. The engine creates autonomous unit groups to attack polluted areas. The script can create and control such groups as well. Groups can accept commands in the same manner as regular units.
 pub trait LuaUnitGroupMethods {
     /// Make a unit a member of this group. Has the same effect as giving a `group_command` with this group to the unit.
-    fn add_member();
+    fn add_member(unit: LuaEntity);
     /// Dissolve this group. Its members won't be destroyed, they will be merely unlinked from this group.
     fn destroy();
     /// All methods and properties that this object supports.
@@ -5996,9 +7218,9 @@ pub trait LuaUnitGroupMethods {
     /// Make this group autonomous. Autonomous groups will automatically attack polluted areas. Autonomous groups aren't considered to be [script-driven](LuaUnitGroup::is_script_driven).
     fn set_autonomous();
     /// Give this group a command.
-    fn set_command();
+    fn set_command(command: Command);
     /// Give this group a distraction command.
-    fn set_distraction_command();
+    fn set_distraction_command(command: Command);
     /// Make the group start moving even if some of its members haven't yet arrived.
     fn start_moving();
 }

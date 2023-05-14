@@ -830,7 +830,29 @@ impl Method {
         let name = self.name.as_ref().unwrap();
         let prefix = format!("{prefix}{}", name.to_pascal_case());
         let name = if name == "move" { "mov" } else { name };
-        definition.push_str(&format!("    fn {name}()"));
+        definition.push_str(&format!("    fn {name}("));
+
+        for (i, parameter) in self.parameters.iter().enumerate() {
+            let name = parameter.name.as_ref().unwrap();
+            let name = if name == "type" {
+                "typ".to_owned()
+            } else if name == "mod" {
+                "mod_name".to_owned()
+            } else {
+                name.to_owned()
+            };
+            let prefix = format!("{prefix}{}", name.to_pascal_case());
+            definition.push_str(&format!(
+                "{}: {}",
+                name,
+                parameter.typ.generate_definition(&prefix, unions, true)
+            ));
+            if i != self.parameters.len() - 1 {
+                definition.push_str(", ");
+            }
+        }
+
+        definition.push(')');
 
         let return_values = &self.return_values;
         let multi_return = return_values.len() > 1;
@@ -946,7 +968,11 @@ impl ComplexType {
             } => "tuple".to_string(),
             Self::Array { value } => "array".to_string(),
             Self::Dictionary { key, value } => "dictionary".to_owned(),
-            _ => unimplemented!(),
+            Self::Function { parameters } => "function".to_owned(),
+            _ => {
+                println!("{self:?}");
+                unimplemented!()
+            }
         }
     }
 
@@ -1226,9 +1252,10 @@ impl LiteralValue {
 // TODO: fix descriptions:
 //  - resolve links
 //  - resolve defines
-// TODO: use generate definition with option for just the type name
-// TODO: methods + descriptions
-// TODO: handle notes
+// TODO: fix table type
+// TODO: add method parameter/return descriptions to doc
+// TODO: handle notes and examples
+// TODO: order by order?
 // TODO: fix clippy lints
 // TODO: add tests
 // TODO: cleanup
