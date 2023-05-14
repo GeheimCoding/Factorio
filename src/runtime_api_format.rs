@@ -901,12 +901,18 @@ impl Method {
         }
         method_definition.push_str(";\n");
 
+        if !definition.is_empty() && (has_argument_descriptions || has_return_descriptions) {
+            definition.push_str("    ///\n");
+        }
         if has_argument_descriptions {
-            definition.push_str("    ///\n    /// # Arguments\n    ///\n");
+            definition.push_str("    /// # Arguments\n    ///\n");
             definition.push_str(&argument_descriptions);
         }
         if has_return_descriptions {
-            definition.push_str("    ///\n    /// # Returns\n    ///\n");
+            if has_argument_descriptions {
+                definition.push_str("    ///\n");
+            }
+            definition.push_str("    /// # Returns\n    ///\n");
             definition.push_str(&return_descriptions);
         }
         definition.push_str(&method_definition);
@@ -1286,10 +1292,8 @@ impl LiteralValue {
     }
 }
 
-// TODO: fix descriptions:
-//  - resolve links
-//  - resolve defines
 // TODO: handle notes and examples
 // TODO: fix clippy lints
-// TODO: add tests
 // TODO: cleanup
+// TODO: add tests
+// TODO: improve docs

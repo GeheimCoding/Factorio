@@ -263,12 +263,10 @@ pub trait LuaBootstrapMethods {
     /// * `handler` - The handler to run. Passing `nil` will unregister it for the provided nth-tick(s).
     /// * `tick` - The nth-tick(s) to invoke the handler on. Passing `nil` as the only parameter will unregister all nth-tick handlers.
     fn on_nth_tick(handler: LuaBootstrapMethodsOnNthTickHandlerUnion, tick: LuaBootstrapMethodsOnNthTickTickUnion);
-    ///
     /// # Arguments
     ///
     /// * `entity` - The entity that was built.
     fn raise_biter_base_built(entity: LuaEntity);
-    ///
     /// # Arguments
     ///
     /// * `message` - The chat message to send.
@@ -292,7 +290,6 @@ pub trait LuaBootstrapMethods {
     /// * `data` - Table with extra data that will be passed to the event handler. Any invalid LuaObjects will silently stop the event from being raised.
     /// * `event` - ID of the event to raise.
     fn raise_event(data: LuaCustomTable, event: u32);
-    ///
     /// # Arguments
     ///
     /// * `count` - The amount of offers purchased.
@@ -300,14 +297,12 @@ pub trait LuaBootstrapMethods {
     /// * `offer_index` - The index of the offer purchased.
     /// * `player_index` - The player who did the purchasing.
     fn raise_market_item_purchased(count: u32, market: LuaEntity, offer_index: u32, player_index: u32);
-    ///
     /// # Arguments
     ///
     /// * `item_stack` - The item that has been crafted.
     /// * `player_index` - The player doing the crafting.
     /// * `recipe` - The recipe used to craft this item.
     fn raise_player_crafted_item(item_stack: LuaItemStack, player_index: u32, recipe: LuaRecipe);
-    ///
     /// # Arguments
     ///
     /// * `entity` - The entity transferred from or to.
@@ -315,29 +310,24 @@ pub trait LuaBootstrapMethods {
     /// * `is_split` - Whether the transfer was a split action (half stack).
     /// * `player_index` - The player transferred from or to.
     fn raise_player_fast_transferred(entity: LuaEntity, from_player: bool, is_split: bool, player_index: u32);
-    ///
     /// # Arguments
     ///
     /// * `entity` - The entity that has been built.
     fn raise_script_built(entity: LuaEntity);
-    ///
     /// # Arguments
     ///
     /// * `entity` - The entity that was destroyed.
     fn raise_script_destroy(entity: LuaEntity);
-    ///
     /// # Arguments
     ///
     /// * `entity` - The entity that was revived.
     /// * `tags` - The tags associated with this entity, if any.
     fn raise_script_revive(entity: LuaEntity, tags: Tags);
-    ///
     /// # Arguments
     ///
     /// * `surface_index` - The surface whose tiles have been changed.
     /// * `tiles` - The tiles that have been changed.
     fn raise_script_set_tiles(surface_index: u32, tiles: Vec<Tile>);
-    ///
     /// # Arguments
     ///
     /// * `entity` - The entity that was teleported.
@@ -482,7 +472,6 @@ pub struct LuaCircuitNetwork {
 
 /// A circuit network associated with a given entity, connector, and wire type.
 pub trait LuaCircuitNetworkMethods {
-    ///
     /// # Arguments
     ///
     /// * `signal` - The signal to read.
@@ -764,14 +753,12 @@ pub trait LuaControlMethods {
     fn clear_gui_arrow();
     /// Remove all items from this entity.
     fn clear_items_inside();
-    ///
     /// # Arguments
     ///
     /// * `slot_index` - The slot to clear.
     fn clear_personal_logistic_slot(slot_index: u32);
     /// Unselect any selected entity.
     fn clear_selected_entity();
-    ///
     /// # Arguments
     ///
     /// * `slot_index` - The slot to clear.
@@ -953,7 +940,6 @@ pub struct LuaControlBehavior {
 
 /// The control behavior for an entity. Inserters have logistic network and circuit network behavior logic, lamps have circuit logic and so on. This is an abstract base class that concrete control behaviors inherit.
 pub trait LuaControlBehaviorMethods {
-    ///
     /// # Arguments
     ///
     /// * `circuit_connector` - The connector to get circuit network for. Must be specified for entities with more than one circuit network connector.
@@ -1792,7 +1778,6 @@ pub trait LuaEntityMethods {
     fn get_burnt_result_inventory() -> Option<LuaInventory>;
     /// Returns all child signals. Child signals can be either RailSignal or RailChainSignal. Child signals are signals which are checked by this signal to determine a chain state.
     fn get_child_signals() -> Vec<LuaEntity>;
-    ///
     /// # Arguments
     ///
     /// * `circuit_connector` - The connector to get circuit network for. Must be specified for entities with more than one circuit network connector.
@@ -1802,7 +1787,6 @@ pub trait LuaEntityMethods {
     ///
     /// * The circuit network or nil.
     fn get_circuit_network(circuit_connector: CircuitConnectorId, wire: WireType) -> Option<LuaCircuitNetwork>;
-    ///
     /// # Returns
     ///
     /// * Rail connected in the specified manner to this one, `nil` if unsuccessful.
@@ -2037,12 +2021,10 @@ pub trait LuaEntityMethods {
     ///
     /// * Amount of fluid actually inserted.
     fn insert_fluid(fluid: Fluid) -> f64;
-    ///
     /// # Returns
     ///
     /// * `true` if this gate is currently closed.
     fn is_closed() -> bool;
-    ///
     /// # Returns
     ///
     /// * `true` if this gate is currently closing
@@ -2051,12 +2033,10 @@ pub trait LuaEntityMethods {
     fn is_connected_to_electric_network() -> bool;
     /// Returns whether a craft is currently in process. It does not indicate whether progress is currently being made, but whether a crafting process has been started in this machine.
     fn is_crafting() -> bool;
-    ///
     /// # Returns
     ///
     /// * `true` if this gate is currently opened.
     fn is_opened() -> bool;
-    ///
     /// # Returns
     ///
     /// * `true` if this gate is currently opening.
@@ -2077,7 +2057,6 @@ pub trait LuaEntityMethods {
     fn is_registered_for_repair() -> bool;
     /// Is this entity registered for upgrade? If false, it means a construction robot has been dispatched to upgrade it, or it is not marked for upgrade. This is worst-case O(N) complexity where N is the current number of things in the upgrade queue.
     fn is_registered_for_upgrade() -> bool;
-    ///
     /// # Returns
     ///
     /// * `true` if the rocket was successfully launched. Return value of `false` means the silo is not ready for launch.
@@ -2147,12 +2126,10 @@ pub trait LuaEntityMethods {
     ///
     /// * `true` if the offer was successfully removed; `false` when the given index was not valid.
     fn remove_market_item(offer: u32) -> bool;
-    ///
     /// # Arguments
     ///
     /// * `force` - The force that requests the gate to be closed.
     fn request_to_close(force: ForceIdentification);
-    ///
     /// # Arguments
     ///
     /// * `extra_time` - Extra ticks to stay open.
@@ -3645,7 +3622,6 @@ pub trait LuaForceMethods {
     fn enable_research();
     /// Finds all custom chart tags within the given bounding box on the given surface.
     fn find_chart_tags(area: BoundingBox, surface: SurfaceIdentification) -> Vec<LuaCustomChartTag>;
-    ///
     /// # Arguments
     ///
     /// * `position` - Position to find a network for
@@ -3655,7 +3631,6 @@ pub trait LuaForceMethods {
     ///
     /// * The found network or `nil`.
     fn find_logistic_network_by_position(position: MapPosition, surface: SurfaceIdentification) -> Option<LuaLogisticNetwork>;
-    ///
     /// # Arguments
     ///
     /// * `ammo` - Ammo category
@@ -3674,7 +3649,6 @@ pub trait LuaForceMethods {
     fn get_entity_count(name: String) -> u32;
     /// Is `other` force in this force's friends list.
     fn get_friend(other: ForceIdentification) -> bool;
-    ///
     /// # Arguments
     ///
     /// * `ammo` - Ammo category
@@ -3711,12 +3685,10 @@ pub trait LuaForceMethods {
     /// * `name` - The name(s) of the train stops. Not providing names will match any stop.
     /// * `surface` - The surface to search. Not providing a surface will match stops on any surface.
     fn get_train_stops(name: LuaForceMethodsGetTrainStopsNameUnion, surface: SurfaceIdentification) -> Vec<LuaEntity>;
-    ///
     /// # Arguments
     ///
     /// * `surface` - The surface to search. Not providing a surface will match trains on any surface.
     fn get_trains(surface: SurfaceIdentification) -> Vec<LuaTrain>;
-    ///
     /// # Arguments
     ///
     /// * `turret` - Turret prototype name
@@ -3768,7 +3740,6 @@ pub trait LuaForceMethods {
     fn reset_technologies();
     /// Reapplies all possible research effects, including unlocked recipes. Any custom changes are lost. Preserves research state of technologies.
     fn reset_technology_effects();
-    ///
     /// # Arguments
     ///
     /// * `ammo` - Ammo category
@@ -3777,7 +3748,6 @@ pub trait LuaForceMethods {
     fn set_cease_fire(cease_fire: bool, other: ForceIdentification);
     /// Add `other` force to this force's friends list. Friends have unrestricted access to buildings and turrets won't fire at them.
     fn set_friend(friend: bool, other: ForceIdentification);
-    ///
     /// # Arguments
     ///
     /// * `ammo` - Ammo category
@@ -3798,18 +3768,15 @@ pub trait LuaForceMethods {
     /// * `progress` - Progress as a percent. Set to `nil` to remove the saved progress.
     /// * `technology` - The technology
     fn set_saved_technology_progress(progress: f64, technology: TechnologyIdentification);
-    ///
     /// # Arguments
     ///
     /// * `position` - The new position on the given surface.
     /// * `surface` - Surface to set the spawn position for.
     fn set_spawn_position(position: MapPosition, surface: SurfaceIdentification);
-    ///
     /// # Arguments
     ///
     /// * `turret` - Turret prototype name
     fn set_turret_attack_modifier(modifier: f64, turret: String);
-    ///
     /// # Arguments
     ///
     /// * `position` - The chunk position to unchart.
@@ -5355,7 +5322,6 @@ pub trait LuaItemStackMethods {
     ///
     /// * `amount` - Amount of durability to add.
     fn add_durability(amount: f64);
-    ///
     /// # Arguments
     ///
     /// * `by_player` - The player to use if any. If provided [defines.events.on_built_entity](defines.events.on_built_entity) will also be fired on successful entity creation.
@@ -8126,7 +8092,6 @@ pub trait LuaSurfaceMethods {
     /// * `position` - Location of the new base.
     /// * `unit_count` - Number of biters to send for the base-building task.
     fn build_enemy_base(force: ForceIdentification, position: MapPosition, unit_count: u32);
-    ///
     /// # Arguments
     ///
     /// * `positions` - Positions for which to calculate property values
@@ -8274,7 +8239,6 @@ pub trait LuaSurfaceMethods {
     /// * `name` - The particle name.
     /// * `position` - Where to create the particle.
     fn create_particle(frame_speed: f32, height: f32, movement: Vector, name: String, position: MapPosition, vertical_speed: f32);
-    ///
     /// # Arguments
     ///
     /// * `name` - The smoke prototype name to create.
@@ -8304,7 +8268,6 @@ pub trait LuaSurfaceMethods {
     /// * `position` - The position to check
     /// * `prototype` - The decorative prototype to check
     fn decorative_prototype_collides(position: MapPosition, prototype: String) -> bool;
-    ///
     /// # Arguments
     ///
     /// * `position` - The chunk position to delete
@@ -8546,7 +8509,6 @@ pub trait LuaSurfaceMethods {
     /// * `force` - The force to search. Not providing a force will match stops in any force.
     /// * `name` - The name(s) of the train stops. Not providing names will match any stop.
     fn get_train_stops(force: ForceIdentification, name: LuaSurfaceMethodsGetTrainStopsNameUnion) -> Vec<LuaEntity>;
-    ///
     /// # Arguments
     ///
     /// * `force` - The force to search. Not providing a force will match trains in any force.
