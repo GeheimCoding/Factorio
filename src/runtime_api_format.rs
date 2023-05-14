@@ -830,7 +830,12 @@ impl Method {
         let name = self.name.as_ref().unwrap();
         let prefix = format!("{prefix}{}", name.to_pascal_case());
         let name = if name == "move" { "mov" } else { name };
-        definition.push_str(&format!("    fn {name}("));
+        let mut method_definition = String::new();
+        let mut argument_descriptions = String::new();
+        let mut return_descriptions = String::new();
+        let mut has_argument_descriptions = false;
+        let mut has_return_descriptions = false;
+        method_definition.push_str(&format!("    fn {name}("));
 
         for (i, parameter) in self.parameters.iter().enumerate() {
             let name = parameter.name.as_ref().unwrap();
@@ -848,40 +853,63 @@ impl Method {
             } else {
                 typ
             };
-            definition.push_str(&format!("{}: {}", name, typ));
+            if !parameter.description.is_empty() {
+                argument_descriptions.push_str(&format!(
+                    "    /// * `{name}` - {}\n",
+                    parameter.description.trim()
+                ));
+                has_argument_descriptions = true;
+            }
+            method_definition.push_str(&format!("{}: {}", name, typ));
             if i != self.parameters.len() - 1 {
-                definition.push_str(", ");
+                method_definition.push_str(", ");
             }
         }
 
-        definition.push(')');
+        // TODO: variant_parameter_groups?
+
+        method_definition.push(')');
 
         let return_values = &self.return_values;
         let multi_return = return_values.len() > 1;
         if !return_values.is_empty() {
-            definition.push_str(" -> ");
+            method_definition.push_str(" -> ");
             if multi_return {
-                definition.push('(');
+                method_definition.push('(');
             }
             for (i, return_value) in return_values.iter().enumerate() {
                 let return_type = &Type::lua_type_to_rust_type(
                     &return_value.typ.generate_definition(&prefix, unions, true),
                 );
+                if !return_value.description.is_empty() {
+                    return_descriptions
+                        .push_str(&format!("    /// * {}\n", return_value.description.trim()));
+                    has_return_descriptions = true;
+                }
                 if return_value.optional {
-                    definition.push_str(&format!("Option<{return_type}>"));
+                    method_definition.push_str(&format!("Option<{return_type}>"));
                 } else {
-                    definition.push_str(&return_type);
+                    method_definition.push_str(&return_type);
                 }
                 if i != return_values.len() - 1 {
-                    definition.push_str(", ");
+                    method_definition.push_str(", ");
                 }
             }
             if multi_return {
-                definition.push(')');
+                method_definition.push(')');
             }
         }
-        definition.push_str(";\n");
+        method_definition.push_str(";\n");
 
+        if has_argument_descriptions {
+            definition.push_str("    ///\n    /// # Arguments\n    ///\n");
+            definition.push_str(&argument_descriptions);
+        }
+        if has_return_descriptions {
+            definition.push_str("    ///\n    /// # Returns\n    ///\n");
+            definition.push_str(&return_descriptions);
+        }
+        definition.push_str(&method_definition);
         definition
     }
 }
@@ -1261,9 +1289,7 @@ impl LiteralValue {
 // TODO: fix descriptions:
 //  - resolve links
 //  - resolve defines
-// TODO: add method parameter/return descriptions to doc
 // TODO: handle notes and examples
-// TODO: order by order?
 // TODO: fix clippy lints
 // TODO: add tests
 // TODO: cleanup
