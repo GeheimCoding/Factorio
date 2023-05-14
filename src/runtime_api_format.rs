@@ -63,7 +63,11 @@ impl Description for String {
     fn to_rust_doc(&self) -> String {
         let mut description = String::new();
         for line in self.lines() {
-            description.push_str(&format!("/// {}\n", line.trim()));
+            if line.is_empty() {
+                description.push_str("///\n");
+            } else {
+                description.push_str(&format!("/// {}\n", line.trim()));
+            }
         }
         description
     }
@@ -308,7 +312,11 @@ impl GenerateDefinition for Class {
             if !attribute.description.is_empty() {
                 let descriptions = attribute.description.split("\n");
                 for description in descriptions {
-                    struct_definition.push_str(&format!("    /// {}\n", description));
+                    if description.is_empty() {
+                        struct_definition.push_str("    ///\n");
+                    } else {
+                        struct_definition.push_str(&format!("    /// {}\n", description));
+                    }
                 }
             }
             struct_definition.push_str(&format!("    pub {}: {},\n", name, typ));
@@ -319,7 +327,27 @@ impl GenerateDefinition for Class {
         }
         definition.push_str(&inline_type_definition);
         definition.push_str(&struct_definition);
+        definition.push_str(&self.generate_methods(prefix));
+
         definition
+    }
+}
+
+impl Class {
+    fn generate_methods(&self, prefix: &str) -> String {
+        let mut methods = String::from('\n');
+        let descriptions = self.description.split('\n');
+        for desciption in descriptions {
+            methods.push_str(&format!("/// {}\n", desciption));
+        }
+        methods.push_str(&format!("pub trait {prefix}Methods {{\n"));
+        // each class has at least one method
+        for method in &self.methods {
+            methods.push_str(&method.generate_definition());
+        }
+        methods.push_str("}\n");
+
+        methods
     }
 }
 
@@ -716,7 +744,11 @@ impl Parameter {
         if !self.description.is_empty() {
             let descriptions = self.description.split("\n");
             for description in descriptions {
-                definition.push_str(&format!("    /// {}\n", description));
+                if description.is_empty() {
+                    definition.push_str("    ///\n");
+                } else {
+                    definition.push_str(&format!("    /// {}\n", description));
+                }
             }
         }
         definition.push_str(&format!("    pub {}: {},\n", name, typ));
@@ -768,6 +800,44 @@ struct Method {
     table_is_optional: Option<bool>,
     /// The return values of this method, which can contain zero, one, or multiple values. Note that these have the same structure as parameters, but do not specify a name.
     return_values: Vec<Parameter>,
+}
+
+impl Method {
+    fn generate_definition(&self) -> String {
+        let mut definition = String::new();
+        if !self.description.is_empty() {
+            let descriptions = self.description.split('\n');
+            for desciption in descriptions {
+                definition.push_str(&format!("    /// {}\n", desciption));
+            }
+        }
+        let name = self.name.as_ref().unwrap();
+        let name = if name == "move" { "mov" } else { name };
+        definition.push_str(&format!("    pub fn {name}()"));
+
+        let return_values = &self.return_values;
+        let multi_return = return_values.len() > 1;
+        if !return_values.is_empty() {
+            definition.push_str(" -> ");
+            if multi_return {
+                definition.push('(');
+            }
+            for (i, return_value) in return_values.iter().enumerate() {
+                definition.push_str(&Type::lua_type_to_rust_type(
+                    &return_value.typ.get_type_name(),
+                ));
+                if i != return_values.len() - 1 {
+                    definition.push_str(", ");
+                }
+            }
+            if multi_return {
+                definition.push(')');
+            }
+        }
+        definition.push_str(";\n");
+
+        definition
+    }
 }
 
 #[derive(Debug, Deserialize)]
@@ -859,7 +929,16 @@ impl ComplexType {
             } => "tuple".to_string(),
             Self::Array { value } => "array".to_string(),
             Self::Dictionary { key, value } => "dictionary".to_owned(),
-            _ => unimplemented!(),
+            Self::Function { parameters } => "TODO_FUNCTION".to_owned(),
+            Self::Union {
+                options,
+                full_format,
+            } => "TODO_UNION".to_owned(),
+            Self::LuaCustomTable { key, value } => "TODO_TABLE".to_owned(),
+            _ => {
+                println!("{self:?}");
+                unimplemented!()
+            }
         }
     }
 
@@ -1127,7 +1206,9 @@ impl LiteralValue {
 // TODO: fix descriptions:
 //  - resolve links
 //  - resolve defines
-// TODO: add descriptions
+// TODO: use generate definition with option for just the type name
+// TODO: methods + descriptions
+// TODO: handle notes
 // TODO: fix clippy lints
 // TODO: add tests
 // TODO: cleanup

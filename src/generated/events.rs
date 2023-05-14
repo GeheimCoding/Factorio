@@ -261,7 +261,7 @@ pub struct OnCutsceneCancelled {
 }
 
 /// Called when a cutscene is playing, each time it reaches a waypoint in that cutscene.
-/// 
+///
 /// This refers to an index in the table previously passed to set_controller which started the cutscene.
 pub struct OnCutsceneWaypointReached {
     /// Identifier of the event
@@ -534,7 +534,7 @@ pub struct OnGuiClick {
 }
 
 /// Called when the player closes the GUI they have open.
-/// 
+///
 /// This can only be raised when the GUI's player controller is still valid. If a GUI is thus closed due to the player disconnecting, dying, or becoming a spectator in other ways, it won't cause this event to be raised.
 pub struct OnGuiClosed {
     /// The custom GUI element that was open

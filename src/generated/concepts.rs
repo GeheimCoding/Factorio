@@ -457,7 +457,7 @@ pub struct CliffPlacementSettings {
 pub type CollisionMask = HashSet<CollisionMaskLayer>;
 
 /// A [string](string) specifying a collision mask layer.
-/// 
+///
 /// In addition to the listed layers, there is `"layer-13"` through `"layer-55"`. These layers are currently unused by the game but may change. If a mod is going to use one of the unused layers it's recommended to start at the higher layers because the base game will take from the lower ones.
 pub enum CollisionMaskLayer {
     GroundTile,
@@ -489,7 +489,7 @@ pub enum CollisionMaskWithFlagsUnion {
 pub type CollisionMaskWithFlags = HashSet<CollisionMaskWithFlagsUnion>;
 
 /// Red, green, blue and alpha values, all in range [0, 1] or all in range [0, 255] if any value is > 1. All values here are optional. Color channels default to `0`, the alpha channel defaults to `1`.
-/// 
+///
 /// Similar to [MapPosition](MapPosition), Color allows the short-hand notation of passing an array of exactly 3 or 4 numbers. The game usually expects colors to be in pre-multiplied form (color channels are pre-multiplied by alpha).
 pub struct Color {
     pub a: Option<f32>,
@@ -795,22 +795,22 @@ pub struct EnemyEvolutionMapSettings {
 }
 
 /// Candidate chunks are given scores to determine which one of them should be expanded into. This score takes into account various settings noted below. The iteration is over a square region centered around the chunk for which the calculation is done, and includes the central chunk as well. Distances are calculated as [Manhattan distance](https://en.wikipedia.org/wiki/Taxicab_geometry).
-/// 
+///
 /// The pseudocode algorithm to determine a chunk's score is as follows:
-/// 
+///
 /// ```
 /// player = 0
 /// for neighbour in all chunks within enemy_building_influence_radius from chunk:
 /// player += number of player buildings on neighbour
 /// * building_coefficient
 /// * neighbouring_chunk_coefficient^distance(chunk, neighbour)
-/// 
+///
 /// base = 0
 /// for neighbour in all chunk within friendly_base_influence_radius from chunk:
 /// base += num of enemy bases on neighbour
 /// * other_base_coefficient
 /// * neighbouring_base_chunk_coefficient^distance(chunk, neighbour)
-/// 
+///
 /// score(chunk) = 1 / (1 + player + base)
 /// ```
 pub struct EnemyExpansionMapSettings {
@@ -979,7 +979,7 @@ pub enum EntityPrototypeFlagsUnion {
 }
 
 /// A set of flags. Active flags are in the dictionary as `true`, while inactive flags aren't present at all.
-/// 
+///
 /// By default, none of these flags are set.
 pub type EntityPrototypeFlags = HashSet<EntityPrototypeFlagsUnion>;
 
@@ -1530,7 +1530,7 @@ pub enum ItemPrototypeFlagsUnion {
 }
 
 /// A set of flags. Active flags are in the dictionary as `true`, while inactive flags aren't present at all.
-/// 
+///
 /// By default, none of these flags are set.
 pub type ItemPrototypeFlags = HashSet<ItemPrototypeFlagsUnion>;
 
@@ -1576,14 +1576,14 @@ pub enum LocalisedStringUnion {
 }
 
 /// Localised strings are a way to support translation of in-game text. It is an array where the first element is the key and the remaining elements are parameters that will be substituted for placeholders in the template designated by the key.
-/// 
+///
 /// The key identifies the string template. For example, `"gui-alert-tooltip.attack"` (for the template `"__1__
 /// objects are being damaged"`; see the file `data/core/locale/en.cfg`).
-/// 
+///
 /// The template can contain placeholders such as `__1__` or `__2__`. These will be replaced by the respective parameter in the LocalisedString. The parameters themselves can be other localised strings, which will be processed recursively in the same fashion. Localised strings can not be recursed deeper than 20 levels and can not have more than 20 parameters.
-/// 
+///
 /// There are two special flags for the localised string, indicated by the key being a particular string. First, if the key is the empty string (`""`), then all parameters will be concatenated (after processing, if any are localised strings themselves). Second, if the key is a question mark (`"?"`), then the first valid parameter will be used. A parameter can be invalid if its name doesn't match any string template. If no parameters are valid, the last one is returned. This is useful to implement a fallback for missing locale templates.
-/// 
+///
 /// Furthermore, when an API function expects a localised string, it will also accept a regular string (i.e. not a table) which will not be translated, as well as a number, boolean or `nil`, which will be converted to their textual representation.
 pub enum LocalisedString {
     String(String),
@@ -2571,7 +2571,7 @@ pub struct MapGenSettings {
 }
 
 /// A floating point number specifying an amount.
-/// 
+///
 /// For backwards compatibility, MapGenSizes can also be specified as one of the following strings, which will be converted to a number (when queried, a number will always be returned):
 pub enum MapGenSize {
     /// Specifying a map gen dimension.
@@ -2611,7 +2611,7 @@ pub enum MapGenSize {
 }
 
 /// Coordinates on a surface, for example of an entity. MapPositions may be specified either as a dictionary with `x`, `y` as keys, or simply as an array with two elements.
-/// 
+///
 /// The coordinates are saved as a fixed-size 32 bit integer, with 8 bits reserved for decimal precision, meaning the smallest value step is `1/2^8 = 0.00390625` tiles.
 pub struct MapPosition {
     pub x: f64,
@@ -2725,7 +2725,7 @@ pub enum MouseButtonFlagsUnion {
 }
 
 /// A set of flags. Active flags are in the dictionary as `true`, while inactive flags aren't present at all.
-/// 
+///
 /// To write to this, use an array[[string](string)] of the mouse buttons that should be possible to use with on button. The flag `"left-and-right"` can also be set, which will set `"left"` and `"right"` to `true`.
 pub type MouseButtonFlags = HashSet<MouseButtonFlagsUnion>;
 
@@ -2990,7 +2990,7 @@ pub struct PrototypeHistory {
 }
 
 /// The smooth orientation. It is a [float](float) in the range `[0, 1)` that covers a full circle, starting at the top and going clockwise. This means a value of `0` indicates "north", a value of `0.5` indicates "south".
-/// 
+///
 /// For example then, a value of `0.625` would indicate "south-west", and a value of `0.875` would indicate "north-west".
 pub type RealOrientation = f32;
 
@@ -3320,13 +3320,13 @@ pub struct SmokeSource {
 }
 
 /// It can be either the name of a [sound prototype](https://wiki.factorio.com/Prototype/Sound) defined in the data stage, or a path in the form `"type/name"`. The latter option can be sorted into three categories.
-/// 
+///
 /// The validity of a SoundPath can be verified at runtime using [LuaGameScript::is_valid_sound_path](LuaGameScript::is_valid_sound_path).
-/// 
+///
 /// The utility and ambient types each contain general use sound prototypes defined by the game itself.
 /// - `"utility"` - Uses the [UtilitySounds](https://wiki.factorio.com/Prototype/UtilitySounds) prototype. Example: `"utility/wire_connect_pole"`
 /// - `"ambient"` - Uses [AmbientSound](https://wiki.factorio.com/Prototype/AmbientSound) prototypes. Example: `"ambient/resource-deficiency"`
-/// 
+///
 /// The following types can be combined with any tile name as long as its prototype defines the
 /// corresponding sound.
 /// - `"tile-walking"` - Uses [Tile::walking_sound](https://wiki.factorio.com/Prototype/Tile#walking_sound). Example: `"tile-walking/concrete"`
@@ -3334,7 +3334,7 @@ pub struct SmokeSource {
 /// - `"tile-build-small"` - Uses [Tile::build_sound](https://wiki.factorio.com/Prototype/Tile#build_sound). Example: `"tile-build-small/concrete"`
 /// - `"tile-build-medium"` - Uses [Tile::build_sound](https://wiki.factorio.com/Prototype/Tile#build_sound)
 /// - `"tile-build-large"` - Uses [Tile::build_sound](https://wiki.factorio.com/Prototype/Tile#build_sound)
-/// 
+///
 /// The following types can be combined with any entity name as long as its prototype defines the
 /// corresponding sound.
 /// - `"entity-build"` - Uses [Entity::build_sound](https://wiki.factorio.com/Prototype/Entity#build_sound). Example: `"entity-build/wooden-chest"`
@@ -3365,9 +3365,9 @@ pub struct SpawnPointDefinition {
 }
 
 /// It can be either the name of a [sprite prototype](https://wiki.factorio.com/Prototype/Sprite) defined in the data stage, or a path in form "type/name".
-/// 
+///
 /// The validity of a SpritePath can be verified at runtime using [LuaGameScript::is_valid_sprite_path](LuaGameScript::is_valid_sprite_path).
-/// 
+///
 /// The supported types are:
 /// - `"item"` - for example "item/iron-plate" is the icon sprite of iron plate
 /// - `"entity"` - for example "entity/small-biter" is the icon sprite of the small biter
@@ -3413,7 +3413,7 @@ pub struct TabAndContent {
 }
 
 /// A dictionary of string to the four basic Lua types: `string`, `boolean`, `number`, `table`.
-/// 
+///
 /// Note that the API returns tags as a simple table, meaning any modifications to it will not propagate back to the game. Thus, to modify a set of tags, the whole table needs to be written back to the respective property.
 pub type Tags = HashMap<String, AnyBasic>;
 
