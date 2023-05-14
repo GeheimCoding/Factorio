@@ -335,19 +335,27 @@ impl GenerateDefinition for Class {
 
 impl Class {
     fn generate_methods(&self, prefix: &str) -> String {
-        let mut methods = String::from('\n');
+        let mut definition = String::from('\n');
+        let mut methods = String::new();
         let descriptions = self.description.split('\n');
         for desciption in descriptions {
             methods.push_str(&format!("/// {}\n", desciption));
         }
-        methods.push_str(&format!("pub trait {prefix}Methods {{\n"));
+        let prefix = format!("{prefix}Methods");
+        let mut unions = Vec::new();
+        methods.push_str(&format!("pub trait {prefix} {{\n"));
         // each class has at least one method
         for method in &self.methods {
-            methods.push_str(&method.generate_definition());
+            methods.push_str(&method.generate_definition(&prefix, &mut unions));
         }
         methods.push_str("}\n");
 
-        methods
+        for union in unions {
+            definition.push_str(&format!("{union}\n\n"));
+        }
+
+        definition.push_str(&methods);
+        definition
     }
 }
 
@@ -803,7 +811,7 @@ struct Method {
 }
 
 impl Method {
-    fn generate_definition(&self) -> String {
+    fn generate_definition(&self, prefix: &str, unions: &mut Vec<String>) -> String {
         let mut definition = String::new();
         if !self.description.is_empty() {
             let descriptions = self.description.split('\n');
@@ -812,8 +820,9 @@ impl Method {
             }
         }
         let name = self.name.as_ref().unwrap();
+        let prefix = format!("{prefix}{}", name.to_pascal_case());
         let name = if name == "move" { "mov" } else { name };
-        definition.push_str(&format!("    pub fn {name}()"));
+        definition.push_str(&format!("    fn {name}()"));
 
         let return_values = &self.return_values;
         let multi_return = return_values.len() > 1;
@@ -824,7 +833,7 @@ impl Method {
             }
             for (i, return_value) in return_values.iter().enumerate() {
                 definition.push_str(&Type::lua_type_to_rust_type(
-                    &return_value.typ.get_type_name(),
+                    &return_value.typ.generate_definition(&prefix, unions, true),
                 ));
                 if i != return_values.len() - 1 {
                     definition.push_str(", ");
@@ -929,16 +938,7 @@ impl ComplexType {
             } => "tuple".to_string(),
             Self::Array { value } => "array".to_string(),
             Self::Dictionary { key, value } => "dictionary".to_owned(),
-            Self::Function { parameters } => "TODO_FUNCTION".to_owned(),
-            Self::Union {
-                options,
-                full_format,
-            } => "TODO_UNION".to_owned(),
-            Self::LuaCustomTable { key, value } => "TODO_TABLE".to_owned(),
-            _ => {
-                println!("{self:?}");
-                unimplemented!()
-            }
+            _ => unimplemented!(),
         }
     }
 
@@ -1164,6 +1164,10 @@ impl ComplexType {
             }
             Self::LuaLazyLoadedValue { value } => {
                 definition.push_str(&value.generate_definition(prefix, unions, true));
+            }
+            Self::Function { parameters } => {
+                // TODO: implement me
+                definition.push_str("()");
             }
             _ => unimplemented!(),
         }
