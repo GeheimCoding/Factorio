@@ -315,7 +315,7 @@ impl GenerateDefinition for Class {
                     if description.is_empty() {
                         struct_definition.push_str("    ///\n");
                     } else {
-                        struct_definition.push_str(&format!("    /// {}\n", description));
+                        struct_definition.push_str(&format!("    /// {}\n", description.trim()));
                     }
                 }
             }
@@ -339,7 +339,11 @@ impl Class {
         let mut methods = String::new();
         let descriptions = self.description.split('\n');
         for desciption in descriptions {
-            methods.push_str(&format!("/// {}\n", desciption));
+            if desciption.is_empty() {
+                methods.push_str("///\n");
+            } else {
+                methods.push_str(&format!("/// {}\n", desciption.trim()));
+            }
         }
         let prefix = format!("{prefix}Methods");
         let mut unions = Vec::new();
@@ -540,7 +544,7 @@ impl GenerateDefinition for BasicMember {
     fn generate_definition(&self) -> String {
         let mut description = String::new();
         if !self.description.is_empty() {
-            description.push_str(&format!("    /// {}\n", self.description));
+            description.push_str(&format!("    /// {}\n", self.description.trim()));
         }
         description.push_str(&format!("    {},\n", self.name.to_pascal_case()));
         description
@@ -755,7 +759,7 @@ impl Parameter {
                 if description.is_empty() {
                     definition.push_str("    ///\n");
                 } else {
-                    definition.push_str(&format!("    /// {}\n", description));
+                    definition.push_str(&format!("    /// {}\n", description.trim()));
                 }
             }
         }
@@ -816,7 +820,11 @@ impl Method {
         if !self.description.is_empty() {
             let descriptions = self.description.split('\n');
             for desciption in descriptions {
-                definition.push_str(&format!("    /// {}\n", desciption));
+                if desciption.is_empty() {
+                    definition.push_str("    ///\n");
+                } else {
+                    definition.push_str(&format!("    /// {}\n", desciption.trim()));
+                }
             }
         }
         let name = self.name.as_ref().unwrap();
@@ -990,7 +998,7 @@ impl ComplexType {
                     let mut type_name = option.get_type_name();
                     let description = option.get_description();
                     if let Some(description) = description {
-                        union_definition.push_str(&format!("    /// {description}\n"));
+                        union_definition.push_str(&format!("    /// {}\n", description.trim()));
                     }
                     if option.is_owned_type() {
                         if !type_name.is_empty() {
@@ -1092,8 +1100,10 @@ impl ComplexType {
                             let name = if name == "type" { "typ" } else { &name };
                             let name = if name == "mod" { "mod_name" } else { &name };
                             if !parameter.description.is_empty() {
-                                definition
-                                    .push_str(&format!("    /// {}\n", parameter.description));
+                                definition.push_str(&format!(
+                                    "    /// {}\n",
+                                    parameter.description.trim()
+                                ));
                             }
                             definition.push_str(&format!("    pub {}: {},\n", name, typ));
                         }
@@ -1157,7 +1167,7 @@ impl ComplexType {
                     let typ = Type::lua_type_to_rust_type(
                         &attribute.typ.generate_definition(prefix, unions, true),
                     );
-                    definition.push_str(&format!("    /// {}\n", attribute.description));
+                    definition.push_str(&format!("    /// {}\n", attribute.description.trim()));
                     definition.push_str(&format!("    pub {}: {},\n", name, typ));
                 }
                 definition.push_str("}");
@@ -1166,8 +1176,14 @@ impl ComplexType {
                 definition.push_str(&value.generate_definition(prefix, unions, true));
             }
             Self::Function { parameters } => {
-                // TODO: implement me
-                definition.push_str("()");
+                definition.push_str("fn(");
+                for (i, parameter) in parameters.iter().enumerate() {
+                    definition.push_str(&parameter.generate_definition(prefix, unions, true));
+                    if i != parameters.len() - 1 {
+                        definition.push_str(", ");
+                    }
+                }
+                definition.push_str(") -> ()");
             }
             _ => unimplemented!(),
         }

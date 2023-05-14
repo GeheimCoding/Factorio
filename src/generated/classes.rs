@@ -159,7 +159,7 @@ pub trait LuaBootstrapMethods {
     /// Gets the filters for the given event.
     fn get_event_filter() -> EventFilter;
     /// Find the event handler for an event.
-    fn get_event_handler() -> ();
+    fn get_event_handler() -> fn(EventData) -> ();
     /// Gets the mod event order as a string.
     fn get_event_order() -> String;
     /// Gets the prototype history for the given type and name.
@@ -171,14 +171,14 @@ pub trait LuaBootstrapMethods {
     /// Register a function to be run on mod initialization. This is only called when a new save game is created or when a save file is loaded that previously didn't contain the mod. During it, the mod gets the chance to set up initial values that it will use for its lifetime. It has full access to [LuaGameScript](LuaGameScript) and the [global](global) table and can change anything about them that it deems appropriate. No other events will be raised for the mod until it has finished this step.
     fn on_init();
     /// Register a function to be run on save load. This is only called for mods that have been part of the save previously, or for players connecting to a running multiplayer session.
-    /// 
+    ///
     /// It gives the mod the opportunity to rectify potential differences in local state introduced by the save/load cycle. Doing anything other than the following three will lead to desyncs, breaking multiplayer and replay functionality. Access to [LuaGameScript](LuaGameScript) is not available. The [global](global) table can be accessed and is safe to read from, but not write to, as doing so will lead to an error.
-    /// 
+    ///
     /// The only legitimate uses of this event are these:
     /// - Re-setup [metatables](https://www.lua.org/pil/13.html) as they are not persisted through the save/load cycle.
     /// - Re-setup conditional event handlers, meaning subscribing to an event only when some condition is met to save processing time.
     /// - Create local references to data stored in the [global](global) table.
-    /// 
+    ///
     /// For all other purposes, [LuaBootstrap::on_init](LuaBootstrap::on_init), [LuaBootstrap::on_configuration_changed](LuaBootstrap::on_configuration_changed) or [migrations](migrations) should be used instead.
     fn on_load();
     /// Register a handler to run every nth-tick(s). When the game is on tick 0 it will trigger all registered handlers.
@@ -186,7 +186,7 @@ pub trait LuaBootstrapMethods {
     fn raise_biter_base_built();
     fn raise_console_chat();
     /// Raise an event. Only events generated with [LuaBootstrap::generate_event_name](LuaBootstrap::generate_event_name) and the following can be raised:
-    /// 
+    ///
     /// - [on_console_chat](on_console_chat)
     /// - [on_player_crafted_item](on_player_crafted_item)
     /// - [on_player_fast_transferred](on_player_fast_transferred)
@@ -297,7 +297,7 @@ pub struct LuaChunkIterator {
 }
 
 /// A chunk iterator can be used for iterating chunks coordinates of a surface.
-/// 
+///
 /// The returned type is a [ChunkPositionAndArea](ChunkPositionAndArea) containing the chunk coordinates and its area.
 pub trait LuaChunkIteratorMethods {
     /// All methods and properties that this object supports.
@@ -337,7 +337,7 @@ pub struct LuaCombinatorControlBehavior {
     pub signals_last_tick: Vec<Signal>,
 }
 
-/// 
+///
 pub trait LuaCombinatorControlBehaviorMethods {
     /// Gets the value of a specific signal sent by this combinator behavior last tick or `nil` if the signal didn't exist.
     fn get_signal_last_tick() -> i32;
@@ -574,7 +574,7 @@ pub trait LuaControlMethods {
     /// Insert items into this entity. This works the same way as inserters or shift-clicking: the "best" inventory is chosen automatically.
     fn insert() -> u32;
     /// Returns whether the player is holding a blueprint. This takes both blueprint items as well as blueprint records from the blueprint library into account.
-    /// 
+    ///
     /// Note that both this method and [LuaControl::get_blueprint_entities](LuaControl::get_blueprint_entities) refer to the currently selected blueprint, meaning a blueprint book with a selected blueprint will return the information as well.
     fn is_cursor_blueprint() -> bool;
     /// Returns whether the player is holding something in the cursor. It takes into account items from the blueprint library, as well as items and ghost cursor.
@@ -696,7 +696,7 @@ pub struct LuaCustomTable {
 }
 
 /// Lazily evaluated table. For performance reasons, we sometimes return a custom table-like type instead of a native Lua table. This custom type lazily constructs the necessary Lua wrappers of the corresponding C++ objects, therefore preventing their unnecessary construction in some cases.
-/// 
+///
 /// There are some notable consequences to the usage of a custom table type rather than the native Lua table type: Iterating a custom table is only possible using the `pairs` Lua function; `ipairs` won't work. Another key difference is that custom tables cannot be serialised into a game save file -- if saving the game would require serialisation of a custom table, an error will be displayed and the game will not be saved.
 pub trait LuaCustomTableMethods {
     /// All methods and properties that this object supports.
@@ -1217,7 +1217,7 @@ pub enum LuaEntityMethodsGetPassengerUnion {
 }
 
 /// The primary interface for interacting with entities through the Lua API. Entities are everything that exists on the map except for tiles (see [LuaTile](LuaTile)).
-/// 
+///
 /// Most functions on LuaEntity also work when the entity is contained in a ghost.
 pub trait LuaEntityMethods {
     /// Adds the given position to this spidertron's autopilot's queue of destinations.
@@ -1243,11 +1243,11 @@ pub trait LuaEntityMethods {
     /// Clones this entity.
     fn clone() -> LuaEntity;
     /// Connects current linked belt with another one.
-    /// 
+    ///
     /// Neighbours have to be of different type. If given linked belt is connected to something else it will be disconnected first. If provided neighbour is connected to something else it will also be disconnected first. Automatically updates neighbour to be connected back to this one.
     fn connect_linked_belts();
     /// Connect two devices with a circuit wire or copper cable. Depending on which type of connection should be made, there are different procedures:
-    /// 
+    ///
     /// - To connect two electric poles, `target` must be a [LuaEntity](LuaEntity) that specifies another electric pole. This will connect them with copper cable.
     /// - To connect two devices with circuit wire, `target` must be a table of type [WireConnectionDefinition](WireConnectionDefinition).
     fn connect_neighbour() -> bool;
@@ -1264,13 +1264,13 @@ pub trait LuaEntityMethods {
     /// Destroys the entity.
     fn destroy() -> bool;
     /// Immediately kills the entity. Does nothing if the entity doesn't have health.
-    /// 
+    ///
     /// Unlike [LuaEntity::destroy](LuaEntity::destroy), `die` will trigger the [on_entity_died](on_entity_died) event and the entity will produce a corpse and drop loot if it has any.
     fn die() -> bool;
     /// Disconnects linked belt from its neighbour.
     fn disconnect_linked_belts();
     /// Disconnect circuit wires or copper cables between devices. Depending on which type of connection should be cut, there are different procedures:
-    /// 
+    ///
     /// - To remove all copper cables, leave the `target` parameter blank: `pole.disconnect_neighbour()`.
     /// - To remove all wires of a specific color, set `target` to [defines.wire_type.red](defines.wire_type.red) or [defines.wire_type.green](defines.wire_type.green).
     /// - To remove a specific copper cable between two electric poles, `target` must be a [LuaEntity](LuaEntity) that specifies the other pole: `pole1.disconnect_neighbour(pole2)`.
@@ -2068,7 +2068,7 @@ pub struct LuaEquipment {
 }
 
 /// An item in a [LuaEquipmentGrid](LuaEquipmentGrid), for example a fusion reactor placed in one's power armor.
-/// 
+///
 /// An equipment reference becomes invalid once the equipment is removed or the equipment grid it resides in is destroyed.
 pub trait LuaEquipmentMethods {
     /// All methods and properties that this object supports.
@@ -2293,7 +2293,7 @@ pub enum LuaFlowStatisticsMethodsGetOutputCountUnion {
 }
 
 /// Encapsulates statistic data for different parts of the game. In the context of flow statistics, `input` and `output` describe on which side of the associated GUI the values are shown. Input values are shown on the left side, output values on the right side.
-/// 
+///
 /// Examples:
 /// - The item production GUI shows "consumption" on the right, thus `output` describes the item consumption numbers. The same goes for fluid consumption.
 /// - The kills GUI shows "losses" on the right, so `output` describes how many of the force's entities were killed by enemies.
@@ -2302,9 +2302,9 @@ pub trait LuaFlowStatisticsMethods {
     /// Reset all the statistics data to 0.
     fn clear();
     /// Gets the flow count value for the given time frame. If `sample_index` is not provided, then the value returned is the average across the provided precision time period. These are the values shown in the bottom section of the statistics GUIs.
-    /// 
+    ///
     /// Use `sample_index` to access the data used to generate the statistics graphs. Each precision level contains 300 samples of data so at a precision of 1 minute, each sample contains data averaged across 60s / 300 = 0.2s = 12 ticks.
-    /// 
+    ///
     /// All return values are normalized to be per-tick for electric networks and per-minute for all other types.
     fn get_flow_count() -> f64;
     /// Gets the total input count for a given prototype.
@@ -2339,7 +2339,7 @@ pub enum LuaFluidBoxMethodsGetPrototypeUnion {
 }
 
 /// An array of fluid boxes of an entity. Entities may contain more than one fluid box, and some can change the number of fluid boxes -- for instance, an assembling machine will change its number of fluid boxes depending on its active recipe. See [Fluid](Fluid).
-/// 
+///
 /// Do note that reading from a [LuaFluidBox](LuaFluidBox) creates a new table and writing will copy the given fields from the table into the engine's own fluid box structure. Therefore, the correct way to update a fluidbox of an entity is to read it first, modify the table, then write the modified table back. Directly accessing the returned table's attributes won't have the desired effect.
 pub trait LuaFluidBoxMethods {
     /// Flushes all fluid from this fluidbox and its fluid system.
@@ -3084,7 +3084,7 @@ pub trait LuaGuiMethods {
     /// All methods and properties that this object supports.
     fn help() -> String;
     /// Returns `true` if sprite_path is valid and contains loaded sprite, otherwise `false`. Sprite path of type `file` doesn't validate if file exists.
-    /// 
+    ///
     /// If you want to avoid needing a LuaGui object, [LuaGameScript::is_valid_sprite_path](LuaGameScript::is_valid_sprite_path) can be used instead.
     fn is_valid_sprite_path() -> bool;
 }
@@ -3275,9 +3275,9 @@ pub struct LuaGuiElement {
 }
 
 /// An element of a custom GUI. This type is used to represent any kind of a GUI element - labels, buttons and frames are all instances of this type. Just like [LuaEntity](LuaEntity), different kinds of elements support different attributes; attempting to access an attribute on an element that doesn't support it (for instance, trying to access the `column_count` of a `textfield`) will result in a runtime error.
-/// 
+///
 /// The following types of GUI element are supported:
-/// 
+///
 /// - `"button"`: A clickable element. Relevant event: [on_gui_click](on_gui_click)
 /// - `"sprite-button"`: A `button` that displays a sprite rather than text. Relevant event: [on_gui_click](on_gui_click)
 /// - `"checkbox"`: A clickable element with a check mark that can be turned off or on. Relevant event: [on_gui_checked_state_changed](on_gui_checked_state_changed)
@@ -3303,7 +3303,7 @@ pub struct LuaGuiElement {
 /// - `"tabbed-pane"`: A collection of `tab`s and their contents. Relevant event: [on_gui_selected_tab_changed](on_gui_selected_tab_changed)
 /// - `"tab"`: A tab for use in a `tabbed-pane`.
 /// - `"switch"`: A switch with three possible states. Can have labels attached to either side. Relevant event: [on_gui_switch_state_changed](on_gui_switch_state_changed)
-/// 
+///
 /// Each GUI element allows access to its children by having them as attributes. Thus, one can use the `parent.child` syntax to refer to children. Lua also supports the `parent["child"]` syntax to refer to the same element. This can be used in cases where the child has a name that isn't a valid Lua identifier.
 pub trait LuaGuiElementMethods {
     /// Add a new child element to this GuiElement.
@@ -3940,7 +3940,7 @@ pub struct LuaLazyLoadedValue {
 }
 
 /// A lazily loaded value. For performance reasons, we sometimes return a custom lazily-loaded value type instead of the native Lua value. This custom type lazily constructs the necessary value when [LuaLazyLoadedValue::get](LuaLazyLoadedValue::get) is called, therefore preventing its unnecessary construction in some cases.
-/// 
+///
 /// An instance of LuaLazyLoadedValue is only valid during the event it was created from and cannot be saved.
 pub trait LuaLazyLoadedValueMethods {
     /// Gets the value of this lazy loaded value.
@@ -5134,7 +5134,7 @@ pub struct LuaSettings {
 /// Object containing mod settings of three distinct types: `startup`, `global`, and `player`. An instance of LuaSettings is available through the global object named `settings`.
 pub trait LuaSettingsMethods {
     /// Gets the current per-player settings for the given player, indexed by prototype name. Returns the same structure as [LuaPlayer::mod_settings](LuaPlayer::mod_settings). This table becomes invalid if its associated player does.
-    /// 
+    ///
     /// Even though this attribute is marked as read-only, individual settings can be changed by overwriting their [ModSetting](ModSetting) table. Mods can only change their own settings. Using the in-game console, all player settings can be changed.
     fn get_player_settings() -> HashMap<String, ModSetting>;
 }
@@ -5402,11 +5402,11 @@ pub trait LuaSurfaceMethods {
     /// Clones the given entities.
     fn clone_entities();
     /// Count entities of given type or name in a given area. Works just like [LuaSurface::find_entities_filtered](LuaSurface::find_entities_filtered), except this only returns the count. As it doesn't construct all the wrapper objects, this is more efficient if one is only interested in the number of entities.
-    /// 
+    ///
     /// If no `area` or `position` are given, the entire surface is searched. If `position` is given, this returns the entities colliding with that position (i.e the given position is within the entity's collision box). If `position` and `radius` are given, this returns entities in the radius of the position. If `area` is specified, this returns entities colliding with that area.
     fn count_entities_filtered() -> u32;
     /// Count tiles of a given name in a given area. Works just like [LuaSurface::find_tiles_filtered](LuaSurface::find_tiles_filtered), except this only returns the count. As it doesn't construct all the wrapper objects, this is more efficient if one is only interested in the number of tiles.
-    /// 
+    ///
     /// If no `area` or `position` and `radius` is given, the entire surface is searched. If `position` and `radius` are given, only tiles within the radius of the position are included.
     fn count_tiles_filtered() -> u32;
     /// Adds the given decoratives to the surface.
@@ -5432,19 +5432,19 @@ pub trait LuaSurfaceMethods {
     /// Whether the given entity prototype collides at the given position and direction.
     fn entity_prototype_collides() -> bool;
     /// Find decoratives of a given name in a given area.
-    /// 
+    ///
     /// If no filters are given, returns all decoratives in the search area. If multiple filters are specified, returns only decoratives matching every given filter. If no area and no position are given, the entire surface is searched.
     fn find_decoratives_filtered() -> Vec<DecorativeResult>;
     /// Find enemy units (entities with type "unit") of a given force within an area.
     fn find_enemy_units() -> Vec<LuaEntity>;
     /// Find entities in a given area.
-    /// 
+    ///
     /// If no area is given all entities on the surface are returned.
     fn find_entities() -> Vec<LuaEntity>;
     /// Find all entities of the given type or name in the given area.
-    /// 
+    ///
     /// If no filters (`name`, `type`, `force`, etc.) are given, this returns all entities in the search area. If multiple filters are specified, only entities matching all given filters are returned.
-    /// 
+    ///
     /// - If no `area` or `position` are given, the entire surface is searched.
     /// - If `position` is given, this returns the entities colliding with that position (i.e the given position is within the entity's collision box).
     /// - If `position` and `radius` are given, this returns the entities within the radius of the position. Looks for the center of entities.
@@ -5465,9 +5465,9 @@ pub trait LuaSurfaceMethods {
     /// Find a non-colliding position within a given rectangle.
     fn find_non_colliding_position_in_box() -> MapPosition;
     /// Find all tiles of the given name in the given area.
-    /// 
+    ///
     /// If no filters are given, this returns all tiles in the search area.
-    /// 
+    ///
     /// If no `area` or `position` and `radius` is given, the entire surface is searched. If `position` and `radius` are given, only tiles within the radius of the position are included.
     fn find_tiles_filtered() -> Vec<LuaTile>;
     /// Find units (entities with type "unit") of a given force and force condition within a given area.
@@ -5528,7 +5528,7 @@ pub trait LuaSurfaceMethods {
     /// Removes the given script position.
     fn remove_script_position() -> bool;
     /// Generates a path with the specified constraints (as an array of [PathfinderWaypoints](PathfinderWaypoint)) using the unit pathfinding algorithm. This path can be used to emulate pathing behavior by script for non-unit entities, such as vehicles. If you want to command actual units (such as biters or spitters) to move, use [LuaEntity::set_command](LuaEntity::set_command) instead.
-    /// 
+    ///
     /// The resulting path is ultimately returned asynchronously via [on_script_path_request_finished](on_script_path_request_finished).
     fn request_path() -> u32;
     /// Request that the game's map generator generate chunks at the given position for the given radius on this surface.
@@ -5540,7 +5540,7 @@ pub trait LuaSurfaceMethods {
     /// Give a command to multiple units. This will automatically select suitable units for the task.
     fn set_multi_command() -> u32;
     /// Set tiles at specified locations. Can automatically correct the edges around modified tiles.
-    /// 
+    ///
     /// Placing a [mineable](LuaTilePrototype::mineable_properties) tile on top of a non-mineable one will turn the latter into the [LuaTile::hidden_tile](LuaTile::hidden_tile) for that tile. Placing a mineable tile on a mineable one or a non-mineable tile on a non-mineable one will not modify the hidden tile. This restriction can however be circumvented by using [LuaSurface::set_hidden_tile](LuaSurface::set_hidden_tile).
     fn set_tiles();
     /// Spill items on the ground centered at a given location.
