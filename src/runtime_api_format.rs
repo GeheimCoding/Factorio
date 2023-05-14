@@ -862,9 +862,14 @@ impl Method {
                 definition.push('(');
             }
             for (i, return_value) in return_values.iter().enumerate() {
-                definition.push_str(&Type::lua_type_to_rust_type(
+                let return_type = &Type::lua_type_to_rust_type(
                     &return_value.typ.generate_definition(&prefix, unions, true),
-                ));
+                );
+                if return_value.optional {
+                    definition.push_str(&format!("Option<{return_type}>"));
+                } else {
+                    definition.push_str(&return_type);
+                }
                 if i != return_values.len() - 1 {
                     definition.push_str(", ");
                 }
