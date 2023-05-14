@@ -302,6 +302,17 @@ pub struct BlueprintSignalIcon {
 }
 
 /// Two positions, specifying the top-left and bottom-right corner of the box respectively. Like with [MapPosition](MapPosition), the names of the members may be omitted. When read from the game, the third member `orientation` is present if it is non-zero, however it is ignored when provided to the game.
+///
+/// # Examples
+///
+/// * Explicit definition:
+/// ```text
+/// {left_top = {x = -2, y = -3}, right_bottom = {x = 5, y = 8}}
+/// ```
+/// * Shorthand:
+/// ```text
+/// {{-2, -3}, {5, 8}}
+/// ```
 pub struct BoundingBox {
     pub left_top: MapPosition,
     pub orientation: Option<RealOrientation>,
@@ -349,6 +360,9 @@ pub struct CapsuleAction {
     pub attributes: Option<CapsuleActionAttributes>,
 }
 
+/// # Notes
+///
+/// * Either `icon`, `text`, or both must be provided.
 pub struct ChartTagSpec {
     pub icon: Option<SignalID>,
     pub last_user: Option<PlayerIdentification>,
@@ -491,6 +505,15 @@ pub type CollisionMaskWithFlags = HashSet<CollisionMaskWithFlagsUnion>;
 /// Red, green, blue and alpha values, all in range [0, 1] or all in range [0, 255] if any value is > 1. All values here are optional. Color channels default to `0`, the alpha channel defaults to `1`.
 ///
 /// Similar to [MapPosition](MapPosition), Color allows the short-hand notation of passing an array of exactly 3 or 4 numbers. The game usually expects colors to be in pre-multiplied form (color channels are pre-multiplied by alpha).
+///
+/// # Examples
+///
+/// * ```text
+/// red1 = {r = 0.5, g = 0, b = 0, a = 0.5}  -- Half-opacity red
+/// red2 = {r = 0.5, a = 0.5}                -- Same color as red1
+/// black = {}                               -- All channels omitted: black
+/// red1_short = {0.5, 0, 0, 0.5}            -- Same color as red1 in short-hand notation
+/// ```
 pub struct Color {
     pub a: Option<f32>,
     pub b: Option<f32>,
@@ -605,6 +628,10 @@ pub struct Command {
 }
 
 /// A string that specifies how the inputs should be compared
+///
+/// # Notes
+///
+/// * While the API accepts both versions for `"less/greater than or equal to"` and `"not equal"`, it'll always return `"≥"`, `"≤"` or `"≠"` respectively when reading them back.
 pub enum ComparatorString {
     /// "equal to"
     EqualTo,
@@ -798,18 +825,18 @@ pub struct EnemyEvolutionMapSettings {
 ///
 /// The pseudocode algorithm to determine a chunk's score is as follows:
 ///
-/// ```
+/// ```text
 /// player = 0
 /// for neighbour in all chunks within enemy_building_influence_radius from chunk:
-/// player += number of player buildings on neighbour
-/// * building_coefficient
-/// * neighbouring_chunk_coefficient^distance(chunk, neighbour)
+///   player += number of player buildings on neighbour
+///           * building_coefficient
+///           * neighbouring_chunk_coefficient^distance(chunk, neighbour)
 ///
 /// base = 0
 /// for neighbour in all chunk within friendly_base_influence_radius from chunk:
-/// base += num of enemy bases on neighbour
-/// * other_base_coefficient
-/// * neighbouring_base_chunk_coefficient^distance(chunk, neighbour)
+///   base += num of enemy bases on neighbour
+///           * other_base_coefficient
+///           * neighbouring_base_chunk_coefficient^distance(chunk, neighbour)
 ///
 /// score(chunk) = 1 / (1 + player + base)
 /// ```
@@ -1000,6 +1027,18 @@ pub struct EquipmentPoint {
 }
 
 /// Position inside an equipment grid. This uses the same format as [MapPosition](MapPosition), meaning it can be specified either with or without explicit keys.
+///
+/// # Examples
+///
+/// * Explicit definition:
+/// ```text
+/// {x = 5, y = 2}
+/// {y = 2, x = 5}
+/// ```
+/// * Shorthand:
+/// ```text
+/// {1, 2}
+/// ```
 pub struct EquipmentPosition {
     pub x: i32,
     pub y: i32,
@@ -1066,6 +1105,10 @@ pub enum EventFilterUnion {
 }
 
 /// Used to filter out irrelevant event callbacks in a performant way.
+///
+/// # Notes
+///
+/// * Filters are always used as an array of filters of a specific type. Every filter can only be used with its corresponding event, and different types of event filters can not be mixed.
 pub type EventFilter = Vec<EventFilterUnion>;
 
 pub struct Fluid {
@@ -1578,13 +1621,38 @@ pub enum LocalisedStringUnion {
 /// Localised strings are a way to support translation of in-game text. It is an array where the first element is the key and the remaining elements are parameters that will be substituted for placeholders in the template designated by the key.
 ///
 /// The key identifies the string template. For example, `"gui-alert-tooltip.attack"` (for the template `"__1__
-/// objects are being damaged"`; see the file `data/core/locale/en.cfg`).
+///     objects are being damaged"`; see the file `data/core/locale/en.cfg`).
 ///
 /// The template can contain placeholders such as `__1__` or `__2__`. These will be replaced by the respective parameter in the LocalisedString. The parameters themselves can be other localised strings, which will be processed recursively in the same fashion. Localised strings can not be recursed deeper than 20 levels and can not have more than 20 parameters.
 ///
 /// There are two special flags for the localised string, indicated by the key being a particular string. First, if the key is the empty string (`""`), then all parameters will be concatenated (after processing, if any are localised strings themselves). Second, if the key is a question mark (`"?"`), then the first valid parameter will be used. A parameter can be invalid if its name doesn't match any string template. If no parameters are valid, the last one is returned. This is useful to implement a fallback for missing locale templates.
 ///
 /// Furthermore, when an API function expects a localised string, it will also accept a regular string (i.e. not a table) which will not be translated, as well as a number, boolean or `nil`, which will be converted to their textual representation.
+///
+/// # Examples
+///
+/// * In the English translation, this will print `"No ammo"`; in the Czech translation, it will print `"Bez munice"`:
+/// ```text
+/// game.player.print({"description.no-ammo"})
+/// ```
+///  The `description.no-ammo` template contains no placeholders, so no further parameters are necessary.
+/// * In the English translation, this will print `"Durability: 5/9"`; in the Japanese one, it will print `"耐久度: 5/9"`:
+/// ```text
+/// game.player.print({"description.durability", 5, 9})
+/// ```
+/// * This will print `"hello"` in all translations:
+/// ```text
+/// game.player.print({"", "hello"})
+/// ```
+/// * This will print `"Iron plate: 60"` in the English translation and `"Eisenplatte: 60"` in the German translation.
+/// ```text
+/// game.print({"", {"item-name.iron-plate"}, ": ", 60})
+/// ```
+/// * As an example of a localised string with fallback, consider this:
+/// ```text
+/// {"?", {"", {"entity-description.furnace"}, "\n"}, {"item-description.furnace"}, "optional fallback"}
+/// ```
+///  If `entity-description.furnace` exists, it is concatenated with `"\n"` and returned. Otherwise, if `item-description.furnace` exists, it is returned as-is. Otherwise, `"optional fallback"` is returned. If this value wasn't specified, the translation result would be `"Unknown key: 'item-description.furnace'"`.
 pub enum LocalisedString {
     String(String),
     Number(f64),
@@ -2529,6 +2597,25 @@ pub struct MapGenPreset {
 }
 
 /// The 'map type' dropdown in the map generation GUI is actually a selector for elevation generator. The base game sets `property_expression_names.elevation` to `"0_16-elevation"` to reproduce terrain from 0.16 or to `"0_17-island"` for the island preset. If generators are available for other properties, the 'map type' dropdown in the GUI will be renamed to 'elevation' and shown along with selectors for the other selectable properties.
+///
+/// # Examples
+///
+/// * Assuming a NamedNoiseExpression with the name "my-alternate-grass1-probability" is defined
+/// ```text
+/// local surface = game.player.surface
+/// local mgs = surface.map_gen_settings
+/// mgs.property_expression_names["tile:grass1:probability"] = "my-alternate-grass1-probability"
+/// surface.map_gen_settings = mgs
+/// ```
+///  would override the probability of grass1 being placed at any given point on the current surface.
+/// * To make there be no deep water on (newly generated chunks) a surface:
+/// ```text
+/// local surface = game.player.surface
+/// local mgs = surface.map_gen_settings
+/// mgs.property_expression_names["tile:deepwater:probability"] = -1000
+/// surface.map_gen_settings = mgs
+/// ```
+///  This does not require a NamedNoiseExpression to be defined, since literal numbers (and strings naming literal numbers, e.g. `"123"`) are understood to stand for constant value expressions.
 pub struct MapGenSettings {
     /// Indexed by autoplace control prototype name.
     pub autoplace_controls: HashMap<String, AutoplaceControl>,
@@ -2573,6 +2660,10 @@ pub struct MapGenSettings {
 /// A floating point number specifying an amount.
 ///
 /// For backwards compatibility, MapGenSizes can also be specified as one of the following strings, which will be converted to a number (when queried, a number will always be returned):
+///
+/// # Notes
+///
+/// * The map generation algorithm officially supports the range of values the in-game map generation screen shows (specifically `0` and values from `1/6` to `6`). Values outside this range are not guaranteed to work as expected.
 pub enum MapGenSize {
     /// Specifying a map gen dimension.
     Float(f32),
@@ -2613,12 +2704,31 @@ pub enum MapGenSize {
 /// Coordinates on a surface, for example of an entity. MapPositions may be specified either as a dictionary with `x`, `y` as keys, or simply as an array with two elements.
 ///
 /// The coordinates are saved as a fixed-size 32 bit integer, with 8 bits reserved for decimal precision, meaning the smallest value step is `1/2^8 = 0.00390625` tiles.
+///
+/// # Examples
+///
+/// * Explicit definition:
+/// ```text
+/// {x = 5.5, y = 2}
+/// {y = 2.25, x = 5.125}
+/// ```
+/// * Shorthand:
+/// ```text
+/// {1.625, 2.375}
+/// ```
 pub struct MapPosition {
     pub x: f64,
     pub y: f64,
 }
 
 /// Various game-related settings. Updating any of the attributes will immediately take effect in the game engine.
+///
+/// # Examples
+///
+/// * Increase the number of short paths the pathfinder can cache.
+/// ```text
+/// game.map_settings.path_finder.short_cache_size = 15
+/// ```
 pub struct MapSettings {
     pub enemy_evolution: EnemyEvolutionMapSettings,
     pub enemy_expansion: EnemyExpansionMapSettings,
@@ -2705,6 +2815,15 @@ pub struct ModuleEffectValue {
     pub bonus: f32,
 }
 
+/// # Examples
+///
+/// * These are the effects of the vanilla Productivity Module 3 (up to floating point imprecisions):
+/// ```text
+/// {consumption={bonus=0.6},
+///  speed={bonus=-0.15},
+///  productivity={bonus=0.06},
+///  pollution={bonus=0.075}}
+/// ```
 pub struct ModuleEffects {
     pub consumption: Option<ModuleEffectValue>,
     pub pollution: Option<ModuleEffectValue>,
@@ -2915,6 +3034,22 @@ pub enum ProductAttributes {
     Fluid(ProductAttributesFluid),
 }
 
+/// # Examples
+///
+/// * Products of the "steel-chest" recipe (an array of Product):
+/// ```text
+/// {{type="item", name="steel-chest", amount=1}}
+/// ```
+/// * Products of the "advanced-oil-processing" recipe:
+/// ```text
+/// {{type="fluid", name="heavy-oil", amount=1},
+///  {type="fluid", name="light-oil", amount=4.5},
+///  {type="fluid", name="petroleum-gas", amount=5.5}}
+/// ```
+/// * What a custom recipe would look like that had a probability of 0.5 to return a minimum amount of 1 and a maximum amount of 5:
+/// ```text
+/// {{type="item", name="custom-item", probability=0.5, amount_min=1, amount_max=5}}
+/// ```
 pub struct Product {
     /// Amount of the item or fluid to give. If not specified, `amount_min`, `amount_max` and `probability` must all be specified.
     pub amount: Option<f64>,
@@ -2980,6 +3115,10 @@ pub enum PrototypeFilterUnion {
 }
 
 /// Types `"signal"` and `"item-group"` do not support filters.
+///
+/// # Notes
+///
+/// * Filters are always used as an array of filters of a specific type. Every filter can only be used with its corresponding event, and different types of event filters can not be mixed.
 pub type PrototypeFilter = Vec<PrototypeFilterUnion>;
 
 pub struct PrototypeHistory {
@@ -3290,6 +3429,29 @@ pub struct SignalID {
 }
 
 /// An item stack may be specified in one of two ways.
+///
+/// # Examples
+///
+/// * Both of these lines specify an item stack of one iron plate:
+/// ```text
+/// {name="iron-plate"}
+/// ```
+/// 
+/// ```text
+/// {name="iron-plate", count=1}
+/// ```
+/// * This is a stack of 47 copper plates:
+/// ```text
+/// {name="copper-plate", count=47}
+/// ```
+/// * These are both full stacks of iron plates (for iron-plate, a full stack is 100 plates):
+/// ```text
+/// "iron-plate"
+/// ```
+/// 
+/// ```text
+/// {name="iron-plate", count=100}
+/// ```
 pub enum SimpleItemStack {
     /// The name of the item, which represents a full stack of that item.
     String(String),
@@ -3297,6 +3459,9 @@ pub enum SimpleItemStack {
     ItemStackDefinition(ItemStackDefinition),
 }
 
+/// # Notes
+///
+/// * The vectors for all 5 position attributes are a table with `x` and `y` keys instead of an array.
 pub struct SmokeSource {
     pub deviation: Option<MapPosition>,
     pub east_position: Option<Vector>,
@@ -3328,7 +3493,7 @@ pub struct SmokeSource {
 /// - `"ambient"` - Uses [AmbientSound](https://wiki.factorio.com/Prototype/AmbientSound) prototypes. Example: `"ambient/resource-deficiency"`
 ///
 /// The following types can be combined with any tile name as long as its prototype defines the
-/// corresponding sound.
+///     corresponding sound.
 /// - `"tile-walking"` - Uses [Tile::walking_sound](https://wiki.factorio.com/Prototype/Tile#walking_sound). Example: `"tile-walking/concrete"`
 /// - `"tile-mined"` - Uses [Tile::mined_sound](https://wiki.factorio.com/Prototype/Tile#mined_sound)
 /// - `"tile-build-small"` - Uses [Tile::build_sound](https://wiki.factorio.com/Prototype/Tile#build_sound). Example: `"tile-build-small/concrete"`
@@ -3336,7 +3501,7 @@ pub struct SmokeSource {
 /// - `"tile-build-large"` - Uses [Tile::build_sound](https://wiki.factorio.com/Prototype/Tile#build_sound)
 ///
 /// The following types can be combined with any entity name as long as its prototype defines the
-/// corresponding sound.
+///     corresponding sound.
 /// - `"entity-build"` - Uses [Entity::build_sound](https://wiki.factorio.com/Prototype/Entity#build_sound). Example: `"entity-build/wooden-chest"`
 /// - `"entity-mined"` - Uses [Entity::mined_sound](https://wiki.factorio.com/Prototype/Entity#mined_sound)
 /// - `"entity-mining"` - Uses [Entity::mining_sound](https://wiki.factorio.com/Prototype/Entity#mining_sound)
@@ -3415,6 +3580,12 @@ pub struct TabAndContent {
 /// A dictionary of string to the four basic Lua types: `string`, `boolean`, `number`, `table`.
 ///
 /// Note that the API returns tags as a simple table, meaning any modifications to it will not propagate back to the game. Thus, to modify a set of tags, the whole table needs to be written back to the respective property.
+///
+/// # Examples
+///
+/// * ```text
+/// {a = 1, b = true, c = "three", d = {e = "f"}}
+/// ```
 pub type Tags = HashMap<String, AnyBasic>;
 
 /// A technology may be specified in one of three ways.
@@ -3698,6 +3869,12 @@ pub struct UpgradeFilter {
 }
 
 /// A vector is a two-element array containing the `x` and `y` components. In some specific cases, the vector is a table with `x` and `y` keys instead, which the documentation will point out.
+///
+/// # Examples
+///
+/// * ```text
+/// right = {1.0, 0.0}
+/// ```
 pub struct Vector {
     pub x: f32,
     pub y: f32,

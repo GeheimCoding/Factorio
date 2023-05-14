@@ -52,6 +52,10 @@ pub struct OnAreaCloned {
 }
 
 /// Called when a biter migration builds a base.
+///
+/// # Notes
+///
+/// * This will be called multiple times for each migration, once for every biter that is sacrificed to build part of the new base.
 pub struct OnBiterBaseBuilt {
     /// The entity that was built.
     pub entity: LuaEntity,
@@ -130,6 +134,10 @@ pub struct OnCancelledUpgrade {
 }
 
 /// Called when a character corpse expires due to timeout or all of the items being removed from it.
+///
+/// # Notes
+///
+/// * this is not called if the corpse is mined. See [defines.events.on_pre_player_mined_item](defines.events.on_pre_player_mined_item) to detect that.
 pub struct OnCharacterCorpseExpired {
     /// The corpse.
     pub corpse: LuaEntity,
@@ -225,6 +233,10 @@ pub struct OnCombatRobotExpired {
 }
 
 /// Called when a message is sent to the in-game console, either by a player or through the server interface.
+///
+/// # Notes
+///
+/// * This event only fires for plain messages, not for any commands (including `/shout` or `/whisper`).
 pub struct OnConsoleChat {
     /// The chat message that was sent.
     pub message: String,
@@ -263,6 +275,10 @@ pub struct OnCutsceneCancelled {
 /// Called when a cutscene is playing, each time it reaches a waypoint in that cutscene.
 ///
 /// This refers to an index in the table previously passed to set_controller which started the cutscene.
+///
+/// # Notes
+///
+/// * Due to implementation omission, waypoint_index is 0-based.
 pub struct OnCutsceneWaypointReached {
     /// Identifier of the event
     pub name: Events,
@@ -275,6 +291,10 @@ pub struct OnCutsceneWaypointReached {
 }
 
 /// Called when the map difficulty settings are changed.
+///
+/// # Notes
+///
+/// * It's not guaranteed that both settings are changed - just that at least one has been changed.
 pub struct OnDifficultySettingsChanged {
     /// Identifier of the event
     pub name: Events,
@@ -295,6 +315,10 @@ pub struct OnEntityCloned {
 }
 
 /// Called when an entity is damaged. Can be filtered using [LuaEntityDamagedEventFilter](LuaEntityDamagedEventFilter).
+///
+/// # Notes
+///
+/// * This is not called when an entities health is set directly by another mod.
 pub struct OnEntityDamaged {
     /// The entity that did the attacking if available.
     pub cause: Option<LuaEntity>,
@@ -315,6 +339,10 @@ pub struct OnEntityDamaged {
 }
 
 /// Called after an entity is destroyed that has been registered with [LuaBootstrap::register_on_entity_destroyed](LuaBootstrap::register_on_entity_destroyed).
+///
+/// # Notes
+///
+/// * Depending on when a given entity is destroyed, this event will be fired at the end of the current tick or at the end of the next tick.
 pub struct OnEntityDestroyed {
     /// Identifier of the event
     pub name: Events,
@@ -345,6 +373,10 @@ pub struct OnEntityDied {
 }
 
 /// Called when one of an entity's personal logistic slots changes.
+///
+/// # Notes
+///
+/// * "Personal logistic slot" refers to a character or vehicle's personal request / auto-trash slots, not the request slots on logistic chests.
 pub struct OnEntityLogisticSlotChanged {
     /// The entity for whom a logistic slot was changed.
     pub entity: LuaEntity,
@@ -435,6 +467,10 @@ pub struct OnForceCeaseFireChanged {
 }
 
 /// Called when a new force is created using `game.create_force()`
+///
+/// # Notes
+///
+/// * This is not called when the default forces (`'player'`, `'enemy'`, `'neutral'`) are created as they will always exist.
 pub struct OnForceCreated {
     /// The newly created force.
     pub force: LuaForce,
@@ -468,6 +504,10 @@ pub struct OnForceReset {
 }
 
 /// Called after two forces have been merged using `game.merge_forces()`.
+///
+/// # Notes
+///
+/// * The source force is invalidated before this event is called and the name can be re-used in this event if desired.
 pub struct OnForcesMerged {
     /// The force entities where reassigned to.
     pub destination: LuaForce,
@@ -494,6 +534,10 @@ pub struct OnForcesMerging {
 }
 
 /// Called when a game is created from a scenario. This is fired for every mod, even when the scenario's save data already includes it. In those cases however, [LuaBootstrap::on_init](LuaBootstrap::on_init) is not fired.
+///
+/// # Notes
+///
+/// * This event is not fired when the scenario is loaded via the map editor.
 pub struct OnGameCreatedFromScenario {
     /// Identifier of the event
     pub name: Events,
@@ -536,6 +580,10 @@ pub struct OnGuiClick {
 /// Called when the player closes the GUI they have open.
 ///
 /// This can only be raised when the GUI's player controller is still valid. If a GUI is thus closed due to the player disconnecting, dying, or becoming a spectator in other ways, it won't cause this event to be raised.
+///
+/// # Notes
+///
+/// * It's not advised to open any other GUI during this event because if this is run as a request to open a different GUI the game will force close the new opened GUI without notice to ensure the original requested GUI is opened.
 pub struct OnGuiClosed {
     /// The custom GUI element that was open
     pub element: Option<LuaGuiElement>,
@@ -986,6 +1034,10 @@ pub struct OnPlayerChangedPosition {
 }
 
 /// Called after a player changes surfaces.
+///
+/// # Notes
+///
+/// * In the instance a player is moved off a surface due to it being deleted this is not called.
 pub struct OnPlayerChangedSurface {
     /// Identifier of the event
     pub name: Events,
@@ -1148,6 +1200,10 @@ pub struct OnPlayerDisplayScaleChanged {
 }
 
 /// Called when the player's driving state has changed, meaning a player has either entered or left a vehicle.
+///
+/// # Notes
+///
+/// * This event is not raised when the player is ejected from a vehicle due to it being destroyed.
 pub struct OnPlayerDrivingChangedState {
     /// The vehicle if any.
     pub entity: Option<LuaEntity>,
@@ -1255,6 +1311,10 @@ pub struct OnPlayerMainInventoryChanged {
 }
 
 /// Called after the results of an entity being mined are collected just before the entity is destroyed. After this event any items in the buffer will be transferred into the player as if they came from mining the entity. Can be filtered using [LuaPlayerMinedEntityEventFilter](LuaPlayerMinedEntityEventFilter).
+///
+/// # Notes
+///
+/// * The buffer inventory is special in that it's only valid during this event and has a dynamic size expanding as more items are transferred into it.
 pub struct OnPlayerMinedEntity {
     /// The temporary inventory that holds the result of mining the entity.
     pub buffer: LuaInventory,
@@ -1896,6 +1956,10 @@ pub struct OnRobotMined {
 }
 
 /// Called after the results of an entity being mined are collected just before the entity is destroyed. After this event any items in the buffer will be transferred into the robot as if they came from mining the entity. Can be filtered using [LuaRobotMinedEntityEventFilter](LuaRobotMinedEntityEventFilter).
+///
+/// # Notes
+///
+/// * The buffer inventory is special in that it's only valid during this event and has a dynamic size expanding as more items are transferred into it.
 pub struct OnRobotMinedEntity {
     /// The temporary inventory that holds the result of mining the entity.
     pub buffer: LuaInventory,
@@ -2086,6 +2150,10 @@ pub struct OnSurfaceCleared {
 }
 
 /// Called when a surface is created.
+///
+/// # Notes
+///
+/// * This is not called when the default surface is created as it will always exist.
 pub struct OnSurfaceCreated {
     /// Identifier of the event
     pub name: Events,

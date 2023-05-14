@@ -91,6 +91,10 @@ pub struct LuaArithmeticCombinatorControlBehavior {
     /// The class name of this object. Available even when `valid` is false. For LuaStruct objects it may also be suffixed with a dotted path to a member of the struct.
     pub object_name: String,
     /// This arithmetic combinator's parameters.
+    ///
+    /// # Notes
+    ///
+    /// * Writing `nil` clears the combinator's parameters.
     pub parameters: ArithmeticCombinatorParameters,
     /// Is this object valid? This Lua object holds a reference to an object within the game engine. It is possible that the game-engine object is removed whilst a mod still holds the corresponding Lua object. If that happens, the object becomes invalid, i.e. this attribute will be `false`. Mods are advised to check for object validity if any change to the game state might have occurred between the creation of the Lua object and its access.
     pub valid: bool,
@@ -143,6 +147,15 @@ pub struct LuaBootstrapLevel {
 /// Entry point for registering event handlers. It is accessible through the global object named `script`.
 pub struct LuaBootstrap {
     /// A dictionary listing the names of all currently active mods and mapping them to their version.
+    ///
+    /// # Examples
+    ///
+    /// * This will print the names and versions of all active mods to the console.
+    /// ```text
+    /// for name, version in pairs(script.active_mods) do
+    ///   game.print(name .. " version " .. version)
+    /// end
+    /// ```
     pub active_mods: HashMap<String, String>,
     /// Information about the currently running scenario/campaign/tutorial.
     pub level: LuaBootstrapLevel,
@@ -223,11 +236,29 @@ pub trait LuaBootstrapMethods {
     fn get_prototype_history(name: String, typ: String) -> PrototypeHistory;
     /// Register a function to be run when mod configuration changes. This is called when the game version or any mod version changed, when any mod was added or removed, when a startup setting has changed, when any prototypes have been added or removed, or when a migration was applied. It allows the mod to make any changes it deems appropriate to both the data structures in its [global](global) table or to the game state through [LuaGameScript](LuaGameScript).
     ///
+    /// # Notes
+    ///
+    /// * For more context, refer to the [Data Lifecycle](data-lifecycle) page.
+    ///
     /// # Arguments
     ///
     /// * `handler` - The handler for this event. Passing `nil` will unregister it.
     fn on_configuration_changed(handler: LuaBootstrapMethodsOnConfigurationChangedHandlerUnion);
     /// Register a handler to run on the specified event(s). Each mod can only register once for every event, as any additional registration will overwrite the previous one. This holds true even if different filters are used for subsequent registrations.
+    ///
+    /// # Examples
+    ///
+    /// * Register for the [on_tick](on_tick) event to print the current tick to console each tick.
+    /// ```text
+    /// script.on_event(defines.events.on_tick,
+    /// function(event) game.print(event.tick) end)
+    /// ```
+    /// * Register for the [on_built_entity](on_built_entity) event, limiting it to only be received when a `"fast-inserter"` is built.
+    /// ```text
+    /// script.on_event(defines.events.on_built_entity,
+    /// function(event) game.print("Gotta go fast!") end,
+    /// {{filter = "name", name = "fast-inserter"}})
+    /// ```
     ///
     /// # Arguments
     ///
@@ -236,6 +267,19 @@ pub trait LuaBootstrapMethods {
     /// * `handler` - The handler for this event. Passing `nil` will unregister it.
     fn on_event(event: LuaBootstrapMethodsOnEventEventUnion, filters: EventFilter, handler: LuaBootstrapMethodsOnEventHandlerUnion);
     /// Register a function to be run on mod initialization. This is only called when a new save game is created or when a save file is loaded that previously didn't contain the mod. During it, the mod gets the chance to set up initial values that it will use for its lifetime. It has full access to [LuaGameScript](LuaGameScript) and the [global](global) table and can change anything about them that it deems appropriate. No other events will be raised for the mod until it has finished this step.
+    ///
+    /// # Notes
+    ///
+    /// * For more context, refer to the [Data Lifecycle](data-lifecycle) page.
+    ///
+    /// # Examples
+    ///
+    /// * Initialize a `players` table in `global` for later use.
+    /// ```text
+    /// script.on_init(function()
+    ///   global.players = {}
+    /// end)
+    /// ```
     ///
     /// # Arguments
     ///
@@ -251,6 +295,10 @@ pub trait LuaBootstrapMethods {
     /// - Create local references to data stored in the [global](global) table.
     ///
     /// For all other purposes, [LuaBootstrap::on_init](LuaBootstrap::on_init), [LuaBootstrap::on_configuration_changed](LuaBootstrap::on_configuration_changed) or [migrations](migrations) should be used instead.
+    ///
+    /// # Notes
+    ///
+    /// * For more context, refer to the [Data Lifecycle](data-lifecycle) page.
     ///
     /// # Arguments
     ///
@@ -284,6 +332,14 @@ pub trait LuaBootstrapMethods {
     /// - [script_raised_revive](script_raised_revive)
     /// - [script_raised_teleported](script_raised_teleported)
     /// - [script_raised_set_tiles](script_raised_set_tiles)
+    ///
+    /// # Examples
+    ///
+    /// * Raise the [on_console_chat](on_console_chat) event with the desired message 'from' the first player.
+    /// ```text
+    /// local data = {player_index = 1, message = "Hello friends!"}
+    /// script.raise_event(defines.events.on_console_chat, data)
+    /// ```
     ///
     /// # Arguments
     ///
@@ -336,12 +392,37 @@ pub trait LuaBootstrapMethods {
     fn raise_script_teleported(entity: LuaEntity, old_position: MapPosition, old_surface_index: u8);
     /// Register a metatable to have linkage recorded and restored when saving/loading. The metatable itself will not be saved. Instead, only the linkage to a registered metatable is saved, and the metatable registered under that name will be used when loading the table.
     ///
+    /// # Notes
+    ///
+    /// * `register_metatable()` can not be used in the console, in event listeners or during a `remote.call()`.
+    ///
+    /// # Examples
+    ///
+    /// * The metatable first needs to be defined in the mod's root scope, then registered using this method. From then on, it will be properly restored for tables in [global](global).
+    /// ```text
+    /// local metatable = {
+    ///    __index = function(key)
+    ///       return "no value for key " .. key
+    ///    end
+    /// }
+    /// script.register_metatable("my_metatable", metatable)
+    /// ```
+    ///  This previously defined `metatable` can then be set on any table as usual:
+    /// ```text
+    /// local table = {key="value"}
+    /// setmetatable(table, metatable)
+    /// ```
+    ///
     /// # Arguments
     ///
     /// * `metatable` - The metatable to register.
     /// * `name` - The name of this metatable. Names must be unique per mod.
     fn register_metatable(metatable: LuaCustomTable, name: String);
     /// Registers an entity so that after it's destroyed, [on_entity_destroyed](on_entity_destroyed) is called. Once an entity is registered, it stays registered until it is actually destroyed, even through save/load cycles. The registration is global across all mods, meaning once one mod registers an entity, all mods listening to [on_entity_destroyed](on_entity_destroyed) will receive the event when it is destroyed. Registering the same entity multiple times will still only fire the destruction event once, and will return the same registration number.
+    ///
+    /// # Notes
+    ///
+    /// * Depending on when a given entity is destroyed, [on_entity_destroyed](on_entity_destroyed) will either be fired at the end of the current tick or at the end of the next tick.
     ///
     /// # Arguments
     ///
@@ -352,6 +433,21 @@ pub trait LuaBootstrapMethods {
     /// * The registration number. It is used to identify the entity in the [on_entity_destroyed](on_entity_destroyed) event.
     fn register_on_entity_destroyed(entity: LuaEntity) -> u64;
     /// Sets the filters for the given event. The filters are only retained when set after the actual event registration, because registering for an event with different or no filters will overwrite previously set ones.
+    ///
+    /// # Examples
+    ///
+    /// * Limit the [on_marked_for_deconstruction](on_marked_for_deconstruction) event to only be received when a non-ghost entity is marked for deconstruction.
+    /// ```text
+    /// script.set_event_filter(defines.events.on_marked_for_deconstruction, {{filter = "ghost", invert = true}})
+    /// ```
+    /// * Limit the [on_built_entity](on_built_entity) event to only be received when either a `unit` or a `unit-spawner` is built.
+    /// ```text
+    /// script.set_event_filter(defines.events.on_built_entity, {{filter = "type", type = "unit"}, {filter = "type", type = "unit-spawner"}})
+    /// ```
+    /// * Limit the [on_entity_damaged](on_entity_damaged) event to only be received when a `rail` is damaged by an `acid` attack.
+    /// ```text
+    /// script.set_event_filter(defines.events.on_entity_damaged, {{filter = "rail"}, {filter = "damage-type", type = "acid", mode = "and"}})
+    /// ```
     ///
     /// # Arguments
     ///
@@ -370,8 +466,16 @@ pub struct LuaBurner {
     /// The burnt result inventory.
     pub burnt_result_inventory: LuaInventory,
     /// The currently burning item. Writing `nil` will void the currently burning item without producing a [LuaBurner::burnt_result](LuaBurner::burnt_result).
+    ///
+    /// # Notes
+    ///
+    /// * Writing to this automatically handles correcting [LuaBurner::remaining_burning_fuel](LuaBurner::remaining_burning_fuel).
     pub currently_burning: Option<LuaItemPrototype>,
     /// The fuel categories this burner uses.
+    ///
+    /// # Notes
+    ///
+    /// * The value in the dictionary is meaningless and exists just to allow for easy lookup.
     pub fuel_categories: HashMap<String, bool>,
     /// The current heat (energy) stored in this burner.
     pub heat: f64,
@@ -384,6 +488,10 @@ pub struct LuaBurner {
     /// The owner of this burner energy source
     pub owner: LuaBurnerOwnerUnion,
     /// The amount of energy left in the currently-burning fuel item.
+    ///
+    /// # Notes
+    ///
+    /// * Writing to this will silently do nothing if there's no [LuaBurner::currently_burning](LuaBurner::currently_burning) set.
     pub remaining_burning_fuel: f64,
     /// Is this object valid? This Lua object holds a reference to an object within the game engine. It is possible that the game-engine object is removed whilst a mod still holds the corresponding Lua object. If that happens, the object becomes invalid, i.e. this attribute will be `false`. Mods are advised to check for object validity if any change to the game state might have occurred between the creation of the Lua object and its access.
     pub valid: bool,
@@ -412,6 +520,9 @@ pub struct LuaBurnerPrototype {
     pub effectivity: f64,
     /// The emissions of this energy source in `pollution/Joule`. Multiplying it by energy consumption in `Watt` gives `pollution/second`.
     pub emissions: f64,
+    /// # Notes
+    ///
+    /// * The value in the dictionary is meaningless and exists just to allow for easy lookup.
     pub fuel_categories: HashMap<String, bool>,
     pub fuel_inventory_size: u32,
     /// The light flicker definition for this burner prototype.
@@ -435,6 +546,15 @@ pub trait LuaBurnerPrototypeMethods {
 /// A chunk iterator can be used for iterating chunks coordinates of a surface.
 ///
 /// The returned type is a [ChunkPositionAndArea](ChunkPositionAndArea) containing the chunk coordinates and its area.
+///
+/// # Examples
+///
+/// * ```text
+/// for chunk in some_surface.get_chunks() do
+///   game.player.print("x: " .. chunk.x .. ", y: " .. chunk.y)
+///   game.player.print("area: " .. serpent.line(chunk.area))
+/// end
+/// ```
 pub struct LuaChunkIterator {
     /// The class name of this object. Available even when `valid` is false. For LuaStruct objects it may also be suffixed with a dotted path to a member of the struct.
     pub object_name: String,
@@ -513,6 +633,23 @@ pub struct LuaCommandProcessor {
 /// Allows for the registration of custom console commands through the global object named `commands`. Similarly to [event subscriptions](LuaBootstrap::on_event), these don't persist through a save-and-load cycle.
 pub trait LuaCommandProcessorMethods {
     /// Add a custom console command.
+    ///
+    /// # Notes
+    ///
+    /// * Trying to add a command with the `name` of a game command or the name of a custom command that is already in use will result in an error.
+    ///
+    /// # Examples
+    ///
+    /// * This will register a custom event called `print_tick` that prints the current tick to either the player issuing the command or to everyone on the server, depending on the command parameter. It shows the usage of the table that gets passed to any function handling a custom command. This specific example makes use of the `tick` and the optional `player_index` and `parameter` fields. The user is supposed to either call it without any parameter (`"/print_tick"`) or with the `"me"` parameter (`"/print_tick me"`).
+    /// ```text
+    /// commands.add_command("print_tick", nil, function(command)
+    ///   if command.player_index ~= nil and command.parameter == "me" then
+    ///     game.get_player(command.player_index).print(command.tick)
+    ///   else
+    ///     game.print(command.tick)
+    ///   end
+    /// end)
+    /// ```
     ///
     /// # Arguments
     ///
@@ -622,26 +759,69 @@ pub struct LuaControlWalkingState {
 pub struct LuaControl {
     /// The build distance of this character or max uint when not a character or player connected to a character.
     pub build_distance: u32,
+    /// # Notes
+    ///
+    /// * When called on a [LuaPlayer](LuaPlayer), it must be associated with a character (see [LuaPlayer::character](LuaPlayer::character)).
     pub character_additional_mining_categories: Vec<String>,
+    /// # Notes
+    ///
+    /// * When called on a [LuaPlayer](LuaPlayer), it must be associated with a character (see [LuaPlayer::character](LuaPlayer::character)).
     pub character_build_distance_bonus: u32,
+    /// # Notes
+    ///
+    /// * When called on a [LuaPlayer](LuaPlayer), it must be associated with a character (see [LuaPlayer::character](LuaPlayer::character)).
     pub character_crafting_speed_modifier: f64,
+    /// # Notes
+    ///
+    /// * When called on a [LuaPlayer](LuaPlayer), it must be associated with a character (see [LuaPlayer::character](LuaPlayer::character)).
     pub character_health_bonus: f32,
+    /// # Notes
+    ///
+    /// * When called on a [LuaPlayer](LuaPlayer), it must be associated with a character (see [LuaPlayer::character](LuaPlayer::character)).
     pub character_inventory_slots_bonus: u32,
+    /// # Notes
+    ///
+    /// * When called on a [LuaPlayer](LuaPlayer), it must be associated with a character (see [LuaPlayer::character](LuaPlayer::character)).
     pub character_item_drop_distance_bonus: u32,
+    /// # Notes
+    ///
+    /// * When called on a [LuaPlayer](LuaPlayer), it must be associated with a character (see [LuaPlayer::character](LuaPlayer::character)).
     pub character_item_pickup_distance_bonus: u32,
+    /// # Notes
+    ///
+    /// * When called on a [LuaPlayer](LuaPlayer), it must be associated with a character (see [LuaPlayer::character](LuaPlayer::character)).
     pub character_loot_pickup_distance_bonus: u32,
+    /// # Notes
+    ///
+    /// * When called on a [LuaPlayer](LuaPlayer), it must be associated with a character (see [LuaPlayer::character](LuaPlayer::character)).
     pub character_maximum_following_robot_count_bonus: u32,
     /// The current mining progress between 0 and 1 of this character, or 0 if they aren't mining.
     pub character_mining_progress: f64,
+    /// # Notes
+    ///
+    /// * When called on a [LuaPlayer](LuaPlayer), it must be associated with a character (see [LuaPlayer::character](LuaPlayer::character)).
     pub character_mining_speed_modifier: f64,
     /// If personal logistic requests are enabled for this character or players character.
     pub character_personal_logistic_requests_enabled: bool,
+    /// # Notes
+    ///
+    /// * When called on a [LuaPlayer](LuaPlayer), it must be associated with a character (see [LuaPlayer::character](LuaPlayer::character)).
     pub character_reach_distance_bonus: u32,
+    /// # Notes
+    ///
+    /// * When called on a [LuaPlayer](LuaPlayer), it must be associated with a character (see [LuaPlayer::character](LuaPlayer::character)).
     pub character_resource_reach_distance_bonus: u32,
     /// The current movement speed of this character, including effects from exoskeletons, tiles, stickers and shooting.
     pub character_running_speed: f64,
     /// Modifies the running speed of this character by the given value as a percentage. Setting the running modifier to `0.5` makes the character run 50% faster. The minimum value of `-1` reduces the movement speed by 100%, resulting in a speed of `0`.
+    ///
+    /// # Notes
+    ///
+    /// * When called on a [LuaPlayer](LuaPlayer), it must be associated with a character (see [LuaPlayer::character](LuaPlayer::character)).
     pub character_running_speed_modifier: f64,
+    /// # Notes
+    ///
+    /// * When called on a [LuaPlayer](LuaPlayer), it must be associated with a character (see [LuaPlayer::character](LuaPlayer::character)).
     pub character_trash_slot_count_bonus: u32,
     /// When `true` hand crafting is free and instant.
     pub cheat_mode: bool,
@@ -652,14 +832,29 @@ pub struct LuaControl {
     /// Size of the crafting queue.
     pub crafting_queue_size: u32,
     /// The ghost prototype in the player's cursor. When read, it will be a [LuaItemPrototype](LuaItemPrototype).
+    ///
+    /// # Notes
+    ///
+    /// * Items in the cursor stack will take priority over the cursor ghost.
     pub cursor_ghost: Option<ItemPrototypeIdentification>,
     /// The player's cursor stack. `nil` if the player controller is a spectator.
+    ///
+    /// # Examples
+    ///
+    /// * Even though this property is marked as read-only, it returns a [LuaItemStack](LuaItemStack), meaning it can be manipulated like so:
+    /// ```text
+    /// player.cursor_stack.clear()
+    /// ```
     pub cursor_stack: Option<LuaItemStack>,
     /// `true` if the player is in a vehicle. Writing to this attribute puts the player in or out of a vehicle.
     pub driving: bool,
     /// The item drop distance of this character or max uint when not a character or player connected to a character.
     pub drop_item_distance: u32,
     /// The current combat robots following the character.
+    ///
+    /// # Notes
+    ///
+    /// * When called on a [LuaPlayer](LuaPlayer), it must be associated with a character(see [LuaPlayer::character](LuaPlayer::character)).
     pub following_robots: Vec<LuaEntity>,
     /// The force of this entity. Reading will always give a [LuaForce](LuaForce), but it is possible to assign either [string](string) or [LuaForce](LuaForce) to this attribute to change the force.
     pub force: ForceIdentification,
@@ -672,10 +867,18 @@ pub struct LuaControl {
     /// The loot pickup distance of this character or max double when not a character or player connected to a character.
     pub loot_pickup_distance: f64,
     /// Current mining state.
+    ///
+    /// # Notes
+    ///
+    /// * When the player isn't mining tiles, the player will mine what ever entity is currently selected. See [LuaControl::selected](LuaControl::selected) and [LuaControl::update_selected_entity](LuaControl::update_selected_entity).
     pub mining_state: LuaControlMiningState,
     /// The GUI the player currently has open.
     ///
     /// This is the GUI that will asked to close (by firing the [on_gui_closed](on_gui_closed) event) when the `Esc` or `E` keys are pressed. If this attribute is not `nil`, and a new GUI is written to it, the existing one will be asked to close.
+    ///
+    /// # Notes
+    ///
+    /// * Write supports any of the types. Read will return the `entity`, `equipment`, `equipment-grid`, `player`, `element`, `inventory`, `technology`, or `nil`.
     pub opened: Option<LuaControlOpenedUnion>,
     pub opened_gui_type: Option<GuiType>,
     /// Current item-picking state.
@@ -703,6 +906,13 @@ pub struct LuaControl {
     /// If personal logistic requests are enabled for this vehicle (spidertron).
     pub vehicle_logistic_requests_enabled: bool,
     /// Current walking state.
+    ///
+    /// # Examples
+    ///
+    /// * Make the player go north. Note that a one-shot action like this will only make the player walk for one tick.
+    /// ```text
+    /// game.player.walking_state = {walking = true, direction = defines.direction.north}
+    /// ```
     pub walking_state: LuaControlWalkingState,
 }
 
@@ -753,12 +963,20 @@ pub trait LuaControlMethods {
     fn clear_gui_arrow();
     /// Remove all items from this entity.
     fn clear_items_inside();
+    /// # Notes
+    ///
+    /// * This will silently fail if personal logistics are not researched yet.
+    ///
     /// # Arguments
     ///
     /// * `slot_index` - The slot to clear.
     fn clear_personal_logistic_slot(slot_index: u32);
     /// Unselect any selected entity.
     fn clear_selected_entity();
+    /// # Notes
+    ///
+    /// * This will silently fail if the vehicle does not use logistics.
+    ///
     /// # Arguments
     ///
     /// * `slot_index` - The slot to clear.
@@ -784,6 +1002,10 @@ pub trait LuaControlMethods {
     /// * The count that can be crafted.
     fn get_craftable_count(recipe: LuaControlMethodsGetCraftableCountRecipeUnion) -> u32;
     /// Get an inventory belonging to this entity. This can be either the "main" inventory or some auxiliary one, like the module slots or logistic trash slots.
+    ///
+    /// # Notes
+    ///
+    /// * A given [defines.inventory](defines.inventory) is only meaningful for the corresponding LuaObject type. EG: get_inventory(defines.inventory.character_main) is only meaningful if 'this' is a player character. You may get a value back but if the type of 'this' isn't the type referred to by the [defines.inventory](defines.inventory) it's almost guaranteed to not be the inventory asked for.
     ///
     /// # Returns
     ///
@@ -890,6 +1112,10 @@ pub trait LuaControlMethods {
     fn set_gui_arrow(typ: String);
     /// Sets a personal logistic request and auto-trash slot to the given value.
     ///
+    /// # Notes
+    ///
+    /// * This will silently fail if personal logistics are not researched yet.
+    ///
     /// # Arguments
     ///
     /// * `slot_index` - The slot to set.
@@ -912,6 +1138,12 @@ pub trait LuaControlMethods {
     fn set_vehicle_logistic_slot(slot_index: u32, value: LogisticParameters) -> bool;
     /// Teleport the entity to a given position, possibly on another surface.
     ///
+    /// # Notes
+    ///
+    /// * Some entities may not be teleported. For instance, transport belts won't allow teleportation and this method will always return `false` when used on any such entity.
+    /// * You can also pass 1 or 2 numbers as the parameters and they will be used as relative teleport coordinates `'teleport(0, 1)'` to move the entity 1 tile positive y. `'teleport(4)'` to move the entity 4 tiles to the positive x.
+    /// * `script_raised_teleported` will not be raised if teleporting a player with no character.
+    ///
     /// # Arguments
     ///
     /// * `position` - Where to teleport to.
@@ -931,6 +1163,10 @@ pub trait LuaControlMethods {
 }
 
 /// The control behavior for an entity. Inserters have logistic network and circuit network behavior logic, lamps have circuit logic and so on. This is an abstract base class that concrete control behaviors inherit.
+///
+/// # Notes
+///
+/// * An control reference becomes invalid once the control behavior is removed or the entity (see [LuaEntity](LuaEntity)) it resides in is destroyed.
 pub struct LuaControlBehavior {
     /// The entity this control behavior belongs to.
     pub entity: LuaEntity,
@@ -1023,6 +1259,25 @@ pub trait LuaCustomInputPrototypeMethods {
 /// Lazily evaluated table. For performance reasons, we sometimes return a custom table-like type instead of a native Lua table. This custom type lazily constructs the necessary Lua wrappers of the corresponding C++ objects, therefore preventing their unnecessary construction in some cases.
 ///
 /// There are some notable consequences to the usage of a custom table type rather than the native Lua table type: Iterating a custom table is only possible using the `pairs` Lua function; `ipairs` won't work. Another key difference is that custom tables cannot be serialised into a game save file -- if saving the game would require serialisation of a custom table, an error will be displayed and the game will not be saved.
+///
+/// # Examples
+///
+/// * In previous versions of Factorio, this would create a [LuaPlayer](LuaPlayer) instance for every player in the game, even though only one such wrapper is needed. In the current version, accessing [game.players](LuaGameScript::players) by itself does not create any [LuaPlayer](LuaPlayer) instances; they are created lazily when accessed. Therefore, this example only constructs one [LuaPlayer](LuaPlayer) instance, no matter how many elements there are in `game.players`.
+/// ```text
+/// game.players["Oxyd"].character.die()
+/// ```
+/// * Custom tables may be iterated using `pairs`.
+/// ```text
+/// for _, p in pairs(game.players) do game.player.print(p.name); end
+/// ```
+/// * The following will produce no output because `ipairs` is not supported with custom tables.
+/// ```text
+/// for _, p in ipairs(game.players) do game.player.print(p.name); end  -- incorrect; use pairs instead
+/// ```
+/// * This statement will execute successfully and `global.p` will be useable as one might expect. However, as soon as the user tries to save the game, a "LuaCustomTable cannot be serialized" error will be shown. The game will remain unsaveable so long as `global.p` refers to an instance of a custom table.
+/// ```text
+/// global.p = game.players  -- This has high potential to make the game unsaveable
+/// ```
 pub struct LuaCustomTable {
     /// The class name of this object. Available even when `valid` is false. For LuaStruct objects it may also be suffixed with a dotted path to a member of the struct.
     pub object_name: String,
@@ -1066,6 +1321,10 @@ pub struct LuaDeciderCombinatorControlBehavior {
     /// The class name of this object. Available even when `valid` is false. For LuaStruct objects it may also be suffixed with a dotted path to a member of the struct.
     pub object_name: String,
     /// This decider combinator's parameters.
+    ///
+    /// # Notes
+    ///
+    /// * Writing `nil` clears the combinator's parameters.
     pub parameters: DeciderCombinatorParameters,
     /// Is this object valid? This Lua object holds a reference to an object within the game engine. It is possible that the game-engine object is removed whilst a mod still holds the corresponding Lua object. If that happens, the object becomes invalid, i.e. this attribute will be `false`. Mods are advised to check for object validity if any change to the game state might have occurred between the creation of the Lua object and its access.
     pub valid: bool,
@@ -1166,6 +1425,12 @@ pub struct LuaEntityCircuitConnectedEntities {
 pub struct LuaEntity {
     pub lua_control: Box<LuaControl>,
     /// Deactivating an entity will stop all its operations (car will stop moving, inserters will stop working, fish will stop moving etc).
+    ///
+    /// # Notes
+    ///
+    /// * Entities that are not active naturally can't be set to be active (setting it to be active will do nothing)
+    /// * Ghosts, simple smoke, and corpses can't be modified at this time.
+    /// * It is even possible to set the character to not be active, so he can't move and perform most of the tasks.
     pub active: bool,
     /// The ai settings of this unit.
     pub ai_settings: LuaAISettings,
@@ -1181,6 +1446,10 @@ pub struct LuaEntity {
     /// The player will be automatically disassociated when a controller is set on the character. Also, all characters associated to a player will be logged off when the player logs off in multiplayer.
     ///
     /// Reading this property will return a [LuaPlayer](LuaPlayer), while [PlayerIdentification](PlayerIdentification) can be used when writing.
+    ///
+    /// # Notes
+    ///
+    /// * A character associated with a player is not directly controlled by any player.
     pub associated_player: Option<LuaEntityAssociatedPlayerUnion>,
     /// Whether this rocket silo automatically launches the rocket when cargo is inserted.
     pub auto_launch: bool,
@@ -1189,6 +1458,10 @@ pub struct LuaEntity {
     /// The queued destination positions of spidertron's autopilot.
     pub autopilot_destinations: Vec<MapPosition>,
     /// The backer name assigned to this entity. Entities that support backer names are labs, locomotives, radars, roboports, and train stops. `nil` if this entity doesn't support backer names.
+    ///
+    /// # Notes
+    ///
+    /// * While train stops get the name of a backer when placed down, players can rename them if they want to. In this case, `backer_name` returns the player-given name of the entity.
     pub backer_name: Option<String>,
     /// Number of beacons affecting this effect receiver. Can only be used when the entity has an effect receiver (AssemblingMachine, Furnace, Lab, MiningDrills)
     pub beacons_count: Option<u32>,
@@ -1209,6 +1482,10 @@ pub struct LuaEntity {
     /// The reason this character corpse character died. `""` if there is no reason.
     pub character_corpse_death_cause: LocalisedString,
     /// The player index associated with this character corpse.
+    ///
+    /// # Notes
+    ///
+    /// * The index is not guaranteed to be valid so it should always be checked first if a player with that index actually exists.
     pub character_corpse_player_index: u32,
     /// The tick this character corpse died at.
     pub character_corpse_tick_of_death: u32,
@@ -1219,6 +1496,10 @@ pub struct LuaEntity {
     /// The orientation of this cliff.
     pub cliff_orientation: CliffOrientation,
     /// The color of this character, rolling stock, train stop, car, spider-vehicle, flying text, corpse or simple-entity-with-owner. `nil` if this entity doesn't use custom colors.
+    ///
+    /// # Notes
+    ///
+    /// * Car color is overridden by the color of the current driver/passenger, if there is one.
     pub color: Option<Color>,
     /// The owner of this combat robot, if any.
     pub combat_robot_owner: Option<Box<LuaEntity>>,
@@ -1233,8 +1514,16 @@ pub struct LuaEntity {
     /// Multiplies the energy consumption.
     pub consumption_modifier: f32,
     /// Whether this corpse will ever fade away.
+    ///
+    /// # Notes
+    ///
+    /// * Useable only on corpses.
     pub corpse_expires: bool,
     /// If true, corpse won't be destroyed when entities are placed over it. If false, whether corpse will be removed or not depends on value of CorpsePrototype::remove_on_entity_placement.
+    ///
+    /// # Notes
+    ///
+    /// * Useable only on corpses.
     pub corpse_immune_to_entity_placement: bool,
     /// The current crafting progress, as a number in range [0, 1].
     pub crafting_progress: f32,
@@ -1243,6 +1532,10 @@ pub struct LuaEntity {
     /// The damage dealt by this turret, artillery turret, or artillery wagon.
     pub damage_dealt: f64,
     /// If set to `false`, this entity can't be damaged and won't be attacked automatically. It can however still be mined.
+    ///
+    /// # Notes
+    ///
+    /// * Entities that are indestructible naturally (they have no health, like smoke, resource etc) can't be set to be destructible.
     pub destructible: bool,
     /// The current direction this entity is facing.
     pub direction: Direction,
@@ -1251,6 +1544,10 @@ pub struct LuaEntity {
     /// Whether the driver of this car or spidertron is the gunner. If `false`, the passenger is the gunner. `nil` if this is neither a car or a spidertron.
     pub driver_is_gunner: Option<bool>,
     /// Position where the entity puts its stuff.
+    ///
+    /// # Notes
+    ///
+    /// * Meaningful only for entities that put stuff somewhere, such as mining drills or inserters. Mining drills can't have their drop position changed; inserters must have `allow_custom_vectors` set to true on their prototype to allow changing the drop position.
     pub drop_position: MapPosition,
     /// The entity this entity is putting its items to. If there are multiple possible entities at the drop-off point, writing to this attribute allows a mod to choose which one to drop off items to. The entity needs to collide with the tile box under the drop-off position. `nil` if there is no entity to put items to, or if this is not an entity that puts items somewhere.
     pub drop_target: Option<Box<LuaEntity>>,
@@ -1261,6 +1558,10 @@ pub struct LuaEntity {
     /// The effects being applied to this entity, if any. For beacons, this is the effect the beacon is broadcasting.
     pub effects: Option<ModuleEffects>,
     /// The buffer size for the electric energy source. `nil` if the entity doesn't have an electric energy source.
+    ///
+    /// # Notes
+    ///
+    /// * Write access is limited to the ElectricEnergyInterface type
     pub electric_buffer_size: Option<f64>,
     /// The electric drain for the electric energy source. `nil` if the entity doesn't have an electric energy source.
     pub electric_drain: Option<f64>,
@@ -1277,6 +1578,13 @@ pub struct LuaEntity {
     /// Whether equipment grid logistics are enabled while this vehicle is moving.
     pub enable_logistics_while_moving: bool,
     /// Energy stored in the entity (heat in furnace, energy stored in electrical devices etc.). always 0 for entities that don't have the concept of energy stored inside.
+    ///
+    /// # Examples
+    ///
+    /// * ```text
+    /// game.player.print("Machine energy: " .. game.player.selected.energy .. "J")
+    /// game.player.selected.energy = 3000
+    /// ```
     pub energy: f64,
     /// How much energy this generator generated in the last tick.
     pub energy_generated_last_tick: f64,
@@ -1291,6 +1599,13 @@ pub struct LuaEntity {
     /// The follow target of this spidertron, if any.
     pub follow_target: Option<Box<LuaEntity>>,
     /// Multiplies the car friction rate.
+    ///
+    /// # Examples
+    ///
+    /// * This will allow the car to go much faster
+    /// ```text
+    /// game.player.vehicle.friction_modifier = 0.5
+    /// ```
     pub friction_modifier: f32,
     pub ghost_localised_description: LocalisedString,
     /// Localised name of the entity or tile contained in this ghost.
@@ -1308,6 +1623,10 @@ pub struct LuaEntity {
     /// This entity's equipment grid, if any.
     pub grid: Option<LuaEquipmentGrid>,
     /// The current health of the entity, if any. Health is automatically clamped to be between `0` and max health (inclusive). Entities with a health of `0` can not be attacked.
+    ///
+    /// # Notes
+    ///
+    /// * To get the maximum possible health of this entity, see [LuaEntityPrototype::max_health](LuaEntityPrototype::max_health) on its prototype.
     pub health: Option<f32>,
     /// The item stack currently held in an inserter's hand.
     pub held_stack: LuaItemStack,
@@ -1320,12 +1639,24 @@ pub struct LuaEntity {
     /// The filters for this infinity container.
     pub infinity_container_filters: Vec<InfinityInventoryFilter>,
     /// Count of initial resource units contained. `nil` if this is not an infinite resource.
+    ///
+    /// # Notes
+    ///
+    /// * If this is not an infinite resource, writing will produce an error.
     pub initial_amount: Option<u32>,
     /// The filter mode for this filter inserter. Either `"whitelist"` or `"blacklist"`. `nil` if this inserter doesn't use filters.
     pub inserter_filter_mode: Option<String>,
     /// Sets the stack size limit on this inserter. If the stack size is > than the force stack size limit the value is ignored.
+    ///
+    /// # Notes
+    ///
+    /// * Set to 0 to reset.
     pub inserter_stack_size_override: u32,
     /// Returns the current target pickup count of the inserter.
+    ///
+    /// # Notes
+    ///
+    /// * This considers the circuit network, manual override and the inserter stack size limit based on technology.
     pub inserter_target_pickup_count: u32,
     /// (deprecated by 1.1.51) If this entity is a MilitaryTarget. Returns same value as LuaEntity::is_military_target
     pub is_entity_with_force: bool,
@@ -1346,8 +1677,18 @@ pub struct LuaEntity {
     /// The link ID this linked container is using.
     pub link_id: u32,
     /// Neighbour to which this linked belt is connected to, if any.
+    ///
+    /// # Notes
+    ///
+    /// * Can also be used on entity ghost if it contains linked-belt
+    /// * May return entity ghost which contains linked belt to which connection is made
     pub linked_belt_neighbour: Option<Box<LuaEntity>>,
     /// Type of linked belt: it is either `"input"` or `"output"`. Changing type will also flip direction so the belt is out of the same side
+    ///
+    /// # Notes
+    ///
+    /// * Can only be changed when linked belt is disconnected (has no neighbour set)
+    /// * Can also be used on entity ghost if it contains linked-belt
     pub linked_belt_type: String,
     /// The container entity this loader is pointing at/pulling from depending on the [LuaEntity::loader_type](LuaEntity::loader_type), if any.
     pub loader_container: Option<Box<LuaEntity>>,
@@ -1360,6 +1701,10 @@ pub struct LuaEntity {
     pub logistic_cell: LuaLogisticCell,
     /// The logistic network this entity is a part of, or `nil` if this entity is not a part of any logistic network.
     pub logistic_network: LuaLogisticNetwork,
+    /// # Notes
+    ///
+    /// * Not minable entities can still be destroyed.
+    /// * Entities that are not minable naturally (like smoke, character, enemy units etc) can't be set to minable.
     pub minable: bool,
     /// The mining progress for this mining drill. Is a number in range [0, mining_target.prototype.mineable_properties.mining_time]. `nil` if this isn't a mining drill.
     pub mining_progress: Option<f64>,
@@ -1387,6 +1732,10 @@ pub struct LuaEntity {
     pub orientation: RealOrientation,
     pub parameters: ProgrammableSpeakerParameters,
     /// Where the inserter will pick up items from.
+    ///
+    /// # Notes
+    ///
+    /// * Inserters must have `allow_custom_vectors` set to true on their prototype to allow changing the pickup position.
     pub pickup_position: MapPosition,
     /// The entity this inserter will attempt to pick up items from. If there are multiple possible entities at the pick-up point, writing to this attribute allows a mod to choose which one to pick up items from. The entity needs to collide with the tile box under the pick-up position. `nil` if there is no entity to pull items from.
     pub pickup_target: Option<Box<LuaEntity>>,
@@ -1403,6 +1752,10 @@ pub struct LuaEntity {
     /// The previous recipe this furnace was using, if any.
     pub previous_recipe: Option<LuaRecipe>,
     /// The productivity bonus of this entity.
+    ///
+    /// # Notes
+    ///
+    /// * This includes force based bonuses as well as beacon/module bonuses.
     pub productivity_bonus: f64,
     /// The number of products this machine finished crafting in its lifetime.
     pub products_finished: u32,
@@ -1417,6 +1770,10 @@ pub struct LuaEntity {
     /// When locked; the recipe in this assembling machine can't be changed by the player.
     pub recipe_locked: bool,
     /// The relative orientation of the vehicle turret, artillery turret, artillery wagon. `nil` if this entity isn't a vehicle with a vehicle turret or artillery turret/wagon.
+    ///
+    /// # Notes
+    ///
+    /// * Writing does nothing if the vehicle doesn't have a turret.
     pub relative_turret_orientation: Option<RealOrientation>,
     /// Whether items not included in this infinity container filters should be removed from the container.
     pub remove_unfiltered_items: bool,
@@ -1425,8 +1782,16 @@ pub struct LuaEntity {
     /// Reading this property will return a [LuaPlayer](LuaPlayer), while [PlayerIdentification](PlayerIdentification) can be used when writing.
     pub render_player: Option<LuaEntityRenderPlayerUnion>,
     /// The forces that this `simple-entity-with-owner`, `simple-entity-with-force`, or `flying-text` is visible to. `nil` or an empty array when this entity is rendered for all forces.
+    ///
+    /// # Notes
+    ///
+    /// * Reading will always give an array of [LuaForce](LuaForce)
     pub render_to_forces: Option<Vec<ForceIdentification>>,
     /// Whether this requester chest is set to also request from buffer chests.
+    ///
+    /// # Notes
+    ///
+    /// * Useable only on entities that have requester slots.
     pub request_from_buffers: bool,
     /// The index of the configured request with the highest index for this entity. This means 0 if no requests are set and e.g. 20 if the 20th request slot is configured.
     pub request_slot_count: u32,
@@ -1435,6 +1800,10 @@ pub struct LuaEntity {
     /// The status of this rocket silo entity.
     pub rocket_silo_status: RocketSiloStatus,
     /// When entity is not to be rotatable (inserter, transport belt etc), it can't be rotated by player using the R key.
+    ///
+    /// # Notes
+    ///
+    /// * Entities that are not rotatable naturally (like chest or furnace) can't be set to be rotatable.
     pub rotatable: bool,
     /// The secondary bounding box of this entity or `nil` if it doesn't have one. This only exists for curved rails, and is automatically determined by the game.
     pub secondary_bounding_box: Option<BoundingBox>,
@@ -1455,6 +1824,10 @@ pub struct LuaEntity {
     /// Only the speed of units, cars, and projectiles are writable.
     pub speed: Option<f32>,
     /// The speed bonus of this entity.
+    ///
+    /// # Notes
+    ///
+    /// * This includes force based bonuses as well as beacon/module bonuses.
     pub speed_bonus: f64,
     /// The filter for this splitter, if any is set.
     pub splitter_filter: Option<LuaItemPrototype>,
@@ -1503,10 +1876,19 @@ pub struct LuaEntity {
     /// The train this rolling stock belongs to, if any. `nil` if this is not a rolling stock.
     pub train: Option<Box<LuaTrain>>,
     /// Amount of trains related to this particular train stop. Includes train stopped at this train stop (until it finds a path to next target) and trains having this train stop as goal or waypoint.
+    ///
+    /// # Notes
+    ///
+    /// * Train may be included multiple times when braking distance covers this train stop multiple times
+    /// * Value may be read even when train stop has no control behavior
     pub trains_count: u32,
     /// The number of trains in this rail block for this rail entity.
     pub trains_in_block: u32,
     /// Amount of trains above which no new trains will be sent to this train stop. Writing nil will disable the limit (will set a maximum possible value).
+    ///
+    /// # Notes
+    ///
+    /// * When a train stop has a control behavior with wire connected and set_trains_limit enabled, this value will be overwritten by it
     pub trains_limit: u32,
     /// Index of the tree color.
     pub tree_color_index: u8,
@@ -1618,6 +2000,17 @@ pub trait LuaEntityMethods {
     /// * `position` - The position the spidertron should move to.
     fn add_autopilot_destination(position: MapPosition);
     /// Offer a thing on the market.
+    ///
+    /// # Examples
+    ///
+    /// * Adds market offer, 1 copper ore for 10 iron ore.
+    /// ```text
+    /// market.add_market_item{price={{"iron-ore", 10}}, offer={type="give-item", item="copper-ore"}}
+    /// ```
+    /// * Adds market offer, 1 copper ore for 5 iron ore and 5 stone ore.
+    /// ```text
+    /// market.add_market_item{price={{"iron-ore", 5}, {"stone", 5}}, offer={type="give-item", item="copper-ore"}}
+    /// ```
     fn add_market_item(offer: Offer);
     /// Checks if the entity can be destroyed
     ///
@@ -1653,6 +2046,10 @@ pub trait LuaEntityMethods {
     fn clear_market_items();
     /// Clear a logistic requester slot.
     ///
+    /// # Notes
+    ///
+    /// * Useable only on entities that have requester slots.
+    ///
     /// # Arguments
     ///
     /// * `slot` - The slot index.
@@ -1672,6 +2069,10 @@ pub trait LuaEntityMethods {
     /// Connects current linked belt with another one.
     ///
     /// Neighbours have to be of different type. If given linked belt is connected to something else it will be disconnected first. If provided neighbour is connected to something else it will also be disconnected first. Automatically updates neighbour to be connected back to this one.
+    ///
+    /// # Notes
+    ///
+    /// * Can also be used on entity ghost if it contains linked-belt
     ///
     /// # Arguments
     ///
@@ -1725,6 +2126,10 @@ pub trait LuaEntityMethods {
     fn deplete();
     /// Destroys the entity.
     ///
+    /// # Notes
+    ///
+    /// * Not all entities can be destroyed - things such as rails under trains cannot be destroyed until the train is moved or destroyed.
+    ///
     /// # Arguments
     ///
     /// * `do_cliff_correction` - Whether neighbouring cliffs should be corrected. Defaults to `false`.
@@ -1738,6 +2143,13 @@ pub trait LuaEntityMethods {
     ///
     /// Unlike [LuaEntity::destroy](LuaEntity::destroy), `die` will trigger the [on_entity_died](on_entity_died) event and the entity will produce a corpse and drop loot if it has any.
     ///
+    /// # Examples
+    ///
+    /// * This function can be called with only the `cause` argument and no `force`:
+    /// ```text
+    /// entity.die(nil, killer_entity)
+    /// ```
+    ///
     /// # Arguments
     ///
     /// * `cause` - The cause to attribute the kill to.
@@ -1748,6 +2160,10 @@ pub trait LuaEntityMethods {
     /// * Whether the entity was successfully killed.
     fn die(cause: LuaEntity, force: ForceIdentification) -> bool;
     /// Disconnects linked belt from its neighbour.
+    ///
+    /// # Notes
+    ///
+    /// * Can also be used on entity ghost if it contains linked-belt
     fn disconnect_linked_belts();
     /// Disconnect circuit wires or copper cables between devices. Depending on which type of connection should be cut, there are different procedures:
     ///
@@ -1822,6 +2238,10 @@ pub trait LuaEntityMethods {
     fn get_driver() -> Option<LuaEntityMethodsGetDriverUnion>;
     /// Get the filter for a slot in an inserter, loader, or logistic storage container.
     ///
+    /// # Notes
+    ///
+    /// * The entity must allow filters.
+    ///
     /// # Arguments
     ///
     /// * `slot_index` - Index of the slot to get the filter for.
@@ -1832,11 +2252,19 @@ pub trait LuaEntityMethods {
     fn get_filter(slot_index: u32) -> Option<String>;
     /// Get amounts of all fluids in this entity.
     ///
+    /// # Notes
+    ///
+    /// * If information about fluid temperatures is required, [LuaEntity::fluidbox](LuaEntity::fluidbox) should be used instead.
+    ///
     /// # Returns
     ///
     /// * The amounts, indexed by fluid names.
     fn get_fluid_contents() -> HashMap<String, f64>;
     /// Get the amount of all or some fluid in this entity.
+    ///
+    /// # Notes
+    ///
+    /// * If information about fluid temperatures is required, [LuaEntity::fluidbox](LuaEntity::fluidbox) should be used instead.
     ///
     /// # Arguments
     ///
@@ -1863,6 +2291,10 @@ pub trait LuaEntityMethods {
     /// Gets the filter for this infinity pipe, or `nil` if the filter is empty.
     fn get_infinity_pipe_filter() -> Option<InfinityPipeFilter>;
     /// Gets all the `LuaLogisticPoint`s that this entity owns. Optionally returns only the point specified by the index parameter.
+    ///
+    /// # Notes
+    ///
+    /// * When `index` is not given, this will be a single `LuaLogisticPoint` for most entities. For some (such as the player character), it can be zero or more.
     ///
     /// # Arguments
     ///
@@ -1913,6 +2345,10 @@ pub trait LuaEntityMethods {
     fn get_parent_signals() -> Vec<LuaEntity>;
     /// Gets the passenger of this car or spidertron if any.
     ///
+    /// # Notes
+    ///
+    /// * This differs over [LuaEntity::get_driver](LuaEntity::get_driver) in that the passenger can't drive the car.
+    ///
     /// # Returns
     ///
     /// * `nil` if the vehicle contains no passenger. To check if there's a driver see [LuaEntity::get_driver](LuaEntity::get_driver).
@@ -1921,12 +2357,20 @@ pub trait LuaEntityMethods {
     fn get_radius() -> f64;
     /// Get the rail at the end of the rail segment this rail is in.
     ///
+    /// # Notes
+    ///
+    /// * A rail segment is a continuous section of rail with no branches, signals, nor train stops.
+    ///
     /// # Returns
     ///
     /// * The rail entity.
     /// * A rail direction pointing out of the rail segment from the end rail.
     fn get_rail_segment_end(direction: RailDirection) -> (LuaEntity, RailDirection);
     /// Get the rail signal or train stop at the start/end of the rail segment this rail is in.
+    ///
+    /// # Notes
+    ///
+    /// * A rail segment is a continuous section of rail with no branches, signals, nor train stops.
     ///
     /// # Arguments
     ///
@@ -1938,10 +2382,22 @@ pub trait LuaEntityMethods {
     /// * `nil` if the rail segment doesn't start/end with a signal nor a train stop.
     fn get_rail_segment_entity(direction: RailDirection, in_else_out: bool) -> Option<LuaEntity>;
     /// Get the length of the rail segment this rail is in.
+    ///
+    /// # Notes
+    ///
+    /// * A rail segment is a continuous section of rail with no branches, signals, nor train stops.
     fn get_rail_segment_length() -> f64;
     /// Get a rail from each rail segment that overlaps with this rail's rail segment.
+    ///
+    /// # Notes
+    ///
+    /// * A rail segment is a continuous section of rail with no branches, signals, nor train stops.
     fn get_rail_segment_overlaps() -> Vec<LuaEntity>;
     /// Get all rails of a rail segment this rail is in
+    ///
+    /// # Notes
+    ///
+    /// * A rail segment is a continuous section of rail with no branches, signals, nor train stops.
     ///
     /// # Arguments
     ///
@@ -1954,6 +2410,10 @@ pub trait LuaEntityMethods {
     /// Current recipe being assembled by this machine, if any.
     fn get_recipe() -> Option<LuaRecipe>;
     /// Get a logistic requester slot.
+    ///
+    /// # Notes
+    ///
+    /// * Useable only on entities that have requester slots.
     ///
     /// # Arguments
     ///
@@ -2000,6 +2460,10 @@ pub trait LuaEntityMethods {
     /// Has this unit been assigned a command?
     fn has_command() -> bool;
     /// Test whether this entity's prototype has a certain flag set.
+    ///
+    /// # Notes
+    ///
+    /// * `entity.has_flag(f)` is a shortcut for `entity.prototype.has_flag(f)`.
     ///
     /// # Arguments
     ///
@@ -2063,6 +2527,11 @@ pub trait LuaEntityMethods {
     fn launch_rocket() -> bool;
     /// Mines this entity.
     ///
+    /// # Notes
+    ///
+    /// * 'Standard' operation is to keep calling `LuaEntity.mine` with an inventory until all items are transferred and the items dealt with.
+    /// * The result of mining the entity (the item(s) it produces when mined) will be dropped on the ground if they don't fit into the provided inventory.
+    ///
     /// # Arguments
     ///
     /// * `force` - If true, when the item(s) don't fit into the given inventory the entity is force mined. If false, the mining operation fails when there isn't enough room to transfer all of the items into the inventory. Defaults to false. This is ignored and acts as `true` if no inventory is provided.
@@ -2107,6 +2576,10 @@ pub trait LuaEntityMethods {
     fn release_from_spawner();
     /// Remove fluid from this entity.
     ///
+    /// # Notes
+    ///
+    /// * If temperature is given only fluid matching that exact temperature is removed. If minimum and maximum is given fluid within that range is removed.
+    ///
     /// # Arguments
     ///
     /// * `amount` - Amount to remove
@@ -2117,6 +2590,10 @@ pub trait LuaEntityMethods {
     /// * Amount of fluid actually removed.
     fn remove_fluid(amount: f64, maximum_temperature: f64, minimum_temperature: f64, name: String, temperature: f64) -> f64;
     /// Remove an offer from a market.
+    ///
+    /// # Notes
+    ///
+    /// * The other offers are moved down to fill the gap created by removing the offer, which decrements the overall size of the offer array.
     ///
     /// # Arguments
     ///
@@ -2173,11 +2650,19 @@ pub trait LuaEntityMethods {
     fn set_distraction_command(command: Command);
     /// Sets the driver of this vehicle.
     ///
+    /// # Notes
+    ///
+    /// * This differs from [LuaEntity::set_passenger](LuaEntity::set_passenger) in that the passenger can't drive the vehicle.
+    ///
     /// # Arguments
     ///
     /// * `driver` - The new driver. Writing `nil` ejects the current driver, if any.
     fn set_driver(driver: LuaEntityMethodsSetDriverDriverUnion);
     /// Set the filter for a slot in an inserter, loader, or logistic storage container.
+    ///
+    /// # Notes
+    ///
+    /// * The entity must allow filters.
     ///
     /// # Arguments
     ///
@@ -2205,6 +2690,10 @@ pub trait LuaEntityMethods {
     fn set_infinity_pipe_filter(filter: LuaEntityMethodsSetInfinityPipeFilterFilterUnion);
     /// Sets the passenger of this car or spidertron.
     ///
+    /// # Notes
+    ///
+    /// * This differs from [LuaEntity::get_driver](LuaEntity::get_driver) in that the passenger can't drive the car.
+    ///
     /// # Arguments
     ///
     /// * `passenger` - The new passenger. Writing `nil` ejects the current passenger, if any.
@@ -2220,6 +2709,10 @@ pub trait LuaEntityMethods {
     /// * Any items removed from this entity as a result of setting the recipe.
     fn set_recipe(recipe: LuaEntityMethodsSetRecipeRecipeUnion) -> HashMap<String, u32>;
     /// Set a logistic requester slot.
+    ///
+    /// # Notes
+    ///
+    /// * Useable only on entities that have requester slots.
     ///
     /// # Arguments
     ///
@@ -2256,6 +2749,10 @@ pub trait LuaEntityMethods {
     /// Is this entity marked for upgrade?
     fn to_be_upgraded() -> bool;
     /// Toggle this entity's equipment movement bonus. Does nothing if the entity does not have an equipment grid.
+    ///
+    /// # Notes
+    ///
+    /// * This property can also be read and written on the equipment grid of this entity.
     fn toggle_equipment_movement_bonus();
     /// Reconnect loader, beacon, cliff and mining drill connections to entities that might have been teleported out or in by the script. The game doesn't do this automatically as we don't want to loose performance by checking this in normal games.
     fn update_connections();
@@ -2424,10 +2921,18 @@ pub struct LuaEntityPrototype {
     /// If this simple-entity is counted as a rock for the deconstruction planner "trees and rocks only" filter.
     pub count_as_rock_for_filtered_deconstruction: Option<bool>,
     /// The crafting categories this entity prototype supports.
+    ///
+    /// # Notes
+    ///
+    /// * The value in the dictionary is meaningless and exists just to allow for easy lookup.
     pub crafting_categories: Option<HashMap<String, bool>>,
     /// The crafting speed..
     pub crafting_speed: Option<f64>,
     /// If this prototype will attempt to create a ghost of itself on death.
+    ///
+    /// # Notes
+    ///
+    /// * If this is false then a ghost will never be made, if it's true a ghost may be made.
     pub create_ghost_on_death: bool,
     /// The trigger to run when this entity is created, if any.
     pub created_effect: Option<Vec<TriggerItem>>,
@@ -2491,6 +2996,10 @@ pub struct LuaEntityPrototype {
     /// The fluid this offshore pump produces.
     pub fluid: Option<LuaFluidPrototype>,
     /// The fluid capacity of this entity or 0 if this entity doesn't support fluids.
+    ///
+    /// # Notes
+    ///
+    /// * Crafting machines will report 0 due to their fluid capacity being whatever a given recipe needs.
     pub fluid_capacity: f64,
     /// The fluid energy source prototype this entity uses, if any.
     pub fluid_energy_source_prototype: Option<LuaFluidEnergySourcePrototype>,
@@ -2613,6 +3122,10 @@ pub struct LuaEntityPrototype {
     /// The logistic mode of this logistic container. One of `"requester"`, `"active-provider"`, `"passive-provider"`, `"buffer"`, `"storage"`, `"none"`.
     pub logistic_mode: Option<String>,
     /// The logistic parameters for this roboport.
+    ///
+    /// # Notes
+    ///
+    /// * Both the `charging_station_shift` and `stationing_offset` vectors are tables with `x` and `y` keys instead of an array.
     pub logistic_parameters: Option<LuaEntityPrototypeLogisticParameters>,
     /// The logistic radius for this roboport prototype.
     pub logistic_radius: Option<f64>,
@@ -2718,8 +3231,16 @@ pub struct LuaEntityPrototype {
     /// List of resistances towards each damage type. It is a dictionary indexed by damage type names (see `data/base/prototypes/damage-type.lua`).
     pub resistances: Option<HashMap<String, Resistance>>,
     /// The resource categories this character or mining drill supports.
+    ///
+    /// # Notes
+    ///
+    /// * The value in the dictionary is meaningless and exists just to allow for easy lookup.
     pub resource_categories: Option<HashMap<String, bool>>,
     /// Name of the category of this resource.
+    ///
+    /// # Notes
+    ///
+    /// * During data stage, this property is named "category".
     pub resource_category: Option<String>,
     pub respawn_time: Option<u32>,
     /// The result units and spawn points with weight and evolution factor for a biter spawner entity.
@@ -2864,6 +3385,10 @@ pub struct LuaEquipment {
     /// Shape of this equipment.
     pub shape: LuaEquipmentShape,
     /// Current shield value of the equipment.
+    ///
+    /// # Notes
+    ///
+    /// * Can't be set higher than [LuaEquipment::max_shield](LuaEquipment::max_shield).
     pub shield: f64,
     /// Type of this equipment.
     pub typ: String,
@@ -3101,6 +3626,10 @@ pub struct LuaEquipmentPrototype {
     pub localised_description: LocalisedString,
     pub localised_name: LocalisedString,
     /// The logistic parameters for this roboport equipment.
+    ///
+    /// # Notes
+    ///
+    /// * Both the `charging_station_shift` and `stationing_offset` vectors are tables with `x` and `y` keys instead of an array.
     pub logistic_parameters: Option<LuaEquipmentPrototypeLogisticParameters>,
     pub movement_bonus: Option<f32>,
     /// Name of this prototype.
@@ -3239,6 +3768,15 @@ pub trait LuaFlowStatisticsMethods {
 /// An array of fluid boxes of an entity. Entities may contain more than one fluid box, and some can change the number of fluid boxes -- for instance, an assembling machine will change its number of fluid boxes depending on its active recipe. See [Fluid](Fluid).
 ///
 /// Do note that reading from a [LuaFluidBox](LuaFluidBox) creates a new table and writing will copy the given fields from the table into the engine's own fluid box structure. Therefore, the correct way to update a fluidbox of an entity is to read it first, modify the table, then write the modified table back. Directly accessing the returned table's attributes won't have the desired effect.
+///
+/// # Examples
+///
+/// * Double the temperature of the fluid in `entity`'s first fluid box.
+/// ```text
+/// fluid = entity.fluidbox[1]
+/// fluid.temperature = fluid.temperature * 2
+/// entity.fluidbox[1] = fluid
+/// ```
 pub struct LuaFluidBox {
     /// The class name of this object. Available even when `valid` is false. For LuaStruct objects it may also be suffixed with a dotted path to a member of the struct.
     pub object_name: String,
@@ -3287,6 +3825,10 @@ pub trait LuaFluidBoxMethods {
     /// * The filter at the requested index, or `nil` if there isn't one.
     fn get_filter(index: u32) -> Option<FluidBoxFilter>;
     /// Flow through the fluidbox in the last tick. It is the larger of in-flow and out-flow.
+    ///
+    /// # Notes
+    ///
+    /// * Fluid wagons do not track it and will return 0.
     fn get_flow(index: u32) -> f64;
     /// Gets unique fluid system identifier of selected fluid box. May return nil for fluid wagon, fluid turret's internal buffer or a fluidbox which does not belong to a fluid system
     fn get_fluid_system_id(index: u32) -> u32;
@@ -3301,6 +3843,10 @@ pub trait LuaFluidBoxMethods {
     /// All methods and properties that this object supports.
     fn help() -> String;
     /// Set a fluid box filter.
+    ///
+    /// # Notes
+    ///
+    /// * Some entities cannot have their fluidbox filter set, notably fluid wagons and crafting machines.
     ///
     /// # Arguments
     ///
@@ -3443,6 +3989,11 @@ pub trait LuaFontPrototypeMethods {
 /// `LuaForce` encapsulates data local to each "force" or "faction" of the game. Default forces are player, enemy and neutral. Players and mods can create additional forces (up to 64 total).
 pub struct LuaForce {
     /// Enables some higher-level AI behaviour for this force. When set to `true`, biters belonging to this force will automatically expand into new territories, build new spawners, and form unit groups. By default, this value is `true` for the enemy force and `false` for all others.
+    ///
+    /// # Notes
+    ///
+    /// * Setting this to `false` does not turn off biters' AI. They will still move around and attack players who come close.
+    /// * It is necessary for a force to be AI controllable in order to be able to create unit groups or build bases from scripts.
     pub ai_controllable: bool,
     pub artillery_range_modifier: f64,
     pub character_build_distance_bonus: u32,
@@ -3465,6 +4016,10 @@ pub struct LuaForce {
     /// The connected players belonging to this force.
     ///
     /// This is primarily useful when you want to do some action against all online players of this force.
+    ///
+    /// # Notes
+    ///
+    /// * This does *not* index using player index. See [LuaPlayer::index](LuaPlayer::index) on each player instance for the player index.
     pub connected_players: Vec<LuaPlayer>,
     /// The currently ongoing technology research, if any.
     pub current_research: Option<LuaTechnology>,
@@ -3502,8 +4057,22 @@ pub struct LuaForce {
     /// List of logistic networks, grouped by surface.
     pub logistic_networks: HashMap<String, Vec<LuaLogisticNetwork>>,
     /// Multiplier of the manual crafting speed. Default value is `0`. The actual crafting speed will be multiplied by `1 + manual_crafting_speed_modifier`.
+    ///
+    /// # Examples
+    ///
+    /// * Double the player's crafting speed
+    /// ```text
+    /// game.player.force.manual_crafting_speed_modifier = 1
+    /// ```
     pub manual_crafting_speed_modifier: f64,
     /// Multiplier of the manual mining speed. Default value is `0`. The actual mining speed will be multiplied by `1 + manual_mining_speed_modifier`.
+    ///
+    /// # Examples
+    ///
+    /// * Double the player's mining speed
+    /// ```text
+    /// game.player.force.manual_mining_speed_modifier = 1
+    /// ```
     pub manual_mining_speed_modifier: f64,
     pub max_failed_attempts_per_tick_per_construction_queue: u32,
     pub max_successful_attempts_per_tick_per_construction_queue: u32,
@@ -3511,6 +4080,13 @@ pub struct LuaForce {
     pub maximum_following_robot_count: u32,
     pub mining_drill_productivity_bonus: f64,
     /// Name of the force.
+    ///
+    /// # Examples
+    ///
+    /// * Prints "`player`"
+    /// ```text
+    /// game.player.print(game.player.force.name)
+    /// ```
     pub name: String,
     /// The class name of this object. Available even when `valid` is false. For LuaStruct objects it may also be suffixed with a dotted path to a member of the struct.
     pub object_name: String,
@@ -3519,6 +4095,13 @@ pub struct LuaForce {
     /// The previous research, if any.
     pub previous_research: Option<LuaTechnology>,
     /// Recipes available to this force, indexed by `name`.
+    ///
+    /// # Examples
+    ///
+    /// * Prints the category of the given recipe
+    /// ```text
+    /// game.player.print(game.player.force.recipes["transport-belt"].category)
+    /// ```
     pub recipes: HashMap<String, LuaRecipe>,
     /// Whether research is enabled for this force, see [LuaForce::enable_research](LuaForce::enable_research) and [LuaForce::disable_research](LuaForce::disable_research)
     pub research_enabled: bool,
@@ -3527,6 +4110,10 @@ pub struct LuaForce {
     /// The research queue of this force. The first technology in the array is the currently active one. Reading this attribute gives an array of [LuaTechnology](LuaTechnology).
     ///
     /// To write to this, the entire table must be written. Providing an empty table or `nil` will empty the research queue and cancel the current research. Writing to this when the research queue is disabled will simply set the last research in the table as the current research.
+    ///
+    /// # Notes
+    ///
+    /// * This only allows mods to queue research that this force is able to research in the first place. As an example, an already researched technology or one whose prerequisites are not fulfilled will not be queued, but dropped silently instead.
     pub research_queue: Vec<TechnologyIdentification>,
     /// Whether the research queue is available for this force.
     pub research_queue_enabled: bool,
@@ -3537,6 +4124,13 @@ pub struct LuaForce {
     /// Number of items that can be transferred by stack inserters. When writing to this value, it must be >= 0 and <= 254.
     pub stack_inserter_capacity_bonus: u32,
     /// Technologies owned by this force, indexed by `name`.
+    ///
+    /// # Examples
+    ///
+    /// * Researches the technology for the player's force
+    /// ```text
+    /// game.player.force.technologies["steel-processing"].researched = true
+    /// ```
     pub technologies: HashMap<String, LuaTechnology>,
     pub train_braking_force_bonus: f64,
     /// Is this object valid? This Lua object holds a reference to an object within the game engine. It is possible that the game-engine object is removed whilst a mod still holds the corresponding Lua object. If that happens, the object becomes invalid, i.e. this attribute will be `false`. Mods are advised to check for object validity if any change to the game state might have occurred between the creation of the Lua object and its access.
@@ -3575,6 +4169,10 @@ pub enum LuaForceMethodsSetHandCraftingDisabledForRecipeRecipeUnion {
 pub trait LuaForceMethods {
     /// Adds a custom chart tag to the given surface and returns the new tag or `nil` if the given position isn't valid for a chart tag.
     ///
+    /// # Notes
+    ///
+    /// * The chunk must be charted for a tag to be valid at that location.
+    ///
     /// # Arguments
     ///
     /// * `surface` - Which surface to add the tag to.
@@ -3591,6 +4189,13 @@ pub trait LuaForceMethods {
     /// Stop the research currently in progress. This will remove any dependent technologies from the research queue.
     fn cancel_current_research();
     /// Chart a portion of the map. The chart for the given area is refreshed; it creates chart for any parts of the given area that haven't been charted yet.
+    ///
+    /// # Examples
+    ///
+    /// * Charts a 2048x2048 rectangle centered around the origin.
+    /// ```text
+    /// game.player.force.chart(game.player.surface, {{x = -1024, y = -1024}, {x = 1024, y = 1024}})
+    /// ```
     ///
     /// # Arguments
     ///
@@ -3638,6 +4243,10 @@ pub trait LuaForceMethods {
     /// Is `other` force in this force's cease fire list?
     fn get_cease_fire(other: ForceIdentification) -> bool;
     /// Count entities of given type.
+    ///
+    /// # Notes
+    ///
+    /// * This function has O(1) time complexity as entity counts are kept and maintained in the game engine.
     ///
     /// # Arguments
     ///
@@ -3721,6 +4330,10 @@ pub trait LuaForceMethods {
     /// * `volume_modifier` - The volume of the sound to play. Must be between 0 and 1 inclusive.
     fn play_sound(override_sound_type: SoundType, path: SoundPath, position: MapPosition, volume_modifier: f64);
     /// Print text to the chat console of all players on this force.
+    ///
+    /// # Notes
+    ///
+    /// * Messages that are identical to a message sent in the last 60 ticks are not printed again.
     fn print(color: Color, message: LocalisedString);
     /// Force a rechart of the whole chart.
     fn rechart();
@@ -3824,6 +4437,15 @@ pub struct LuaGameScript {
     /// A dictionary containing every LuaAchievementPrototype indexed by `name`.
     pub achievement_prototypes: HashMap<String, LuaAchievementPrototype>,
     /// The active mods versions. The keys are mod names, the values are the versions.
+    ///
+    /// # Examples
+    ///
+    /// * This will print the names and versions of active mods to player p's console.
+    /// ```text
+    /// for name, version in pairs(game.active_mods) do
+    ///   p.print(name .. " version " .. version)
+    /// end
+    /// ```
     pub active_mods: HashMap<String, String>,
     /// A dictionary containing every LuaAmmoCategoryPrototype indexed by `name`.
     pub ammo_category_prototypes: HashMap<String, LuaAmmoCategoryPrototype>,
@@ -3836,6 +4458,10 @@ pub struct LuaGameScript {
     /// The players that are currently online.
     ///
     /// This is primarily useful when you want to do some action against all online players.
+    ///
+    /// # Notes
+    ///
+    /// * This does *not* index using player index. See [LuaPlayer::index](LuaPlayer::index) on each player instance for the player index.
     pub connected_players: Vec<LuaPlayer>,
     /// Whether a console command has been used.
     pub console_command_used: bool,
@@ -3850,6 +4476,13 @@ pub struct LuaGameScript {
     /// Current scenario difficulty.
     pub difficulty: Difficulty,
     /// The currently active set of difficulty settings. Even though this property is marked as read-only, the members of the dictionary that is returned can be modified mid-game. This is however not recommended as different difficulties can have differing technology and recipe trees, which can cause problems for players.
+    ///
+    /// # Examples
+    ///
+    /// * This will set the technology price multiplier to 12.
+    /// ```text
+    /// game.difficulty_settings.technology_price_multiplier = 12
+    /// ```
     pub difficulty_settings: DifficultySettings,
     /// True by default. Can be used to disable the highlighting of resource patches when they are hovered on the map.
     pub draw_resource_selection: bool,
@@ -3882,8 +4515,16 @@ pub struct LuaGameScript {
     /// A dictionary containing every ItemSubgroup indexed by `name`.
     pub item_subgroup_prototypes: HashMap<String, LuaGroup>,
     /// A dictionary containing every MapGenPreset indexed by `name`.
+    ///
+    /// # Notes
+    ///
+    /// * A MapGenPreset is an exact copy of the prototype table provided from the data stage.
     pub map_gen_presets: HashMap<String, MapGenPreset>,
     /// The currently active set of map settings. Even though this property is marked as read-only, the members of the dictionary that is returned can be modified mid-game.
+    ///
+    /// # Notes
+    ///
+    /// * This does not contain difficulty settings, use [LuaGameScript::difficulty_settings](LuaGameScript::difficulty_settings) instead.
     pub map_settings: MapSettings,
     pub max_beacon_supply_area_distance: f64,
     pub max_electric_pole_connection_distance: f64,
@@ -3926,6 +4567,10 @@ pub struct LuaGameScript {
     /// A dictionary containing every LuaShortcutPrototype indexed by `name`.
     pub shortcut_prototypes: HashMap<String, LuaShortcutPrototype>,
     /// Speed to update the map at. 1.0 is normal speed -- 60 UPS.
+    ///
+    /// # Notes
+    ///
+    /// * Minimum value is 0.01.
     pub speed: f32,
     /// The styles that [LuaGuiElement](LuaGuiElement) can use, indexed by `name`.
     pub styles: HashMap<String, String>,
@@ -3938,6 +4583,11 @@ pub struct LuaGameScript {
     /// If the tick has been paused. This means that entity update has been paused.
     pub tick_paused: bool,
     /// The number of ticks since this game was 'created'. A game is 'created' either by using "new game" or "new game from scenario".
+    ///
+    /// # Notes
+    ///
+    /// * This differs over [LuaGameScript::tick](LuaGameScript::tick) in that making a game from a scenario always starts with ticks_played value at 0 even if the scenario has its own level data where the [LuaGameScript::tick](LuaGameScript::tick) is > 0.
+    /// * This value has no relation with [LuaGameScript::tick](LuaGameScript::tick) and can be completely different values.
     pub ticks_played: u32,
     /// The number of ticks to be run while the tick is paused. When [LuaGameScript::tick_paused](LuaGameScript::tick_paused) is true, ticks_to_run behaves the following way: While this is > 0, the entity update is running normally and this value is decremented every tick. When this reaches 0, the game will pause again.
     pub ticks_to_run: u32,
@@ -3983,6 +4633,10 @@ pub enum LuaGameScriptMethodsRemoveOfflinePlayersPlayersUnion {
 pub trait LuaGameScriptMethods {
     /// Instruct the game to perform an auto-save.
     ///
+    /// # Notes
+    ///
+    /// * Only the server will save in multiplayer. In single player a standard auto-save is triggered.
+    ///
     /// # Arguments
     ///
     /// * `name` - The autosave name if any. Saves will be named _autosave-*name* when provided.
@@ -3995,12 +4649,25 @@ pub trait LuaGameScriptMethods {
     /// * `reason` - The reason given if any.
     fn ban_player(player: PlayerIdentification, reason: LocalisedString);
     /// Run internal consistency checks. Allegedly prints any errors it finds.
+    ///
+    /// # Notes
+    ///
+    /// * Exists mainly for debugging reasons.
     fn check_consistency();
     /// Goes over all items, entities, tiles, recipes, technologies among other things and logs if the locale is incorrect.
+    ///
+    /// # Notes
+    ///
+    /// * Also prints true/false if called from the console.
     fn check_prototype_translations();
     /// Counts how many distinct groups of pipes exist in the world.
     fn count_pipe_groups();
     /// Create a new force.
+    ///
+    /// # Notes
+    ///
+    /// * The game currently supports a maximum of 64 forces, including the three built-in forces. This means that a maximum of 61 new forces may be created.
+    /// * Force names must be unique.
     ///
     /// # Arguments
     ///
@@ -4012,19 +4679,36 @@ pub trait LuaGameScriptMethods {
     fn create_force(force: String) -> LuaForce;
     /// Creates an inventory that is not owned by any game object. It can be resized later with [LuaInventory::resize](LuaInventory::resize).
     ///
+    /// # Notes
+    ///
+    /// * Make sure to destroy it when you are done with it using [LuaInventory::destroy](LuaInventory::destroy).
+    ///
     /// # Arguments
     ///
     /// * `size` - The number of slots the inventory initially has.
     fn create_inventory(size: u16) -> LuaInventory;
     /// Creates a [LuaProfiler](LuaProfiler), which is used for measuring script performance.
     ///
+    /// # Notes
+    ///
+    /// * LuaProfiler cannot be serialized.
+    ///
     /// # Arguments
     ///
     /// * `stopped` - Create the timer stopped
     fn create_profiler(stopped: bool) -> LuaProfiler;
     /// Creates a deterministic standalone random generator with the given seed or if a seed is not provided the initial map seed is used.
+    ///
+    /// # Notes
+    ///
+    /// * *Make sure* you actually want to use this over math.random(...) as this provides entirely different functionality over math.random(...).
     fn create_random_generator(seed: u32) -> LuaRandomGenerator;
     /// Create a new surface.
+    ///
+    /// # Notes
+    ///
+    /// * The game currently supports a maximum of 4,294,967,295 surfaces, including the default surface.
+    /// * Surface names must be unique.
     ///
     /// # Arguments
     ///
@@ -4069,6 +4753,14 @@ pub trait LuaGameScriptMethods {
     fn encode_string(string: String) -> Option<String>;
     /// Evaluate an expression, substituting variables as provided. For details on the formula, see the relevant page on the [Factorio wiki](https://wiki.factorio.com/Prototype/Technology#unit).
     ///
+    /// # Examples
+    ///
+    /// * Calculate the number of research units required to unlock mining productivity level 10.
+    /// ```text
+    /// local formula = game.forces["player"].technologies["mining-productivity-4"].research_unit_count_formula
+    /// local units = game.evaluate_expression(formula, { L = 10, l = 10 })
+    /// ```
+    ///
     /// # Arguments
     ///
     /// * `expression` - The expression to evaluate.
@@ -4078,30 +4770,104 @@ pub trait LuaGameScriptMethods {
     fn force_crc();
     /// Gets the number of entities that are active (updated each tick).
     ///
+    /// # Notes
+    ///
+    /// * This is very expensive to determine.
+    ///
     /// # Arguments
     ///
     /// * `surface` - If given, only the entities active on this surface are counted.
     fn get_active_entities_count(surface: SurfaceIdentification) -> u32;
     fn get_entity_by_tag(tag: String) -> Option<LuaEntity>;
     /// Returns a dictionary of all LuaAchievementPrototypes that fit the given filters. The prototypes are indexed by `name`.
+    ///
+    /// # Examples
+    ///
+    /// * Get every achievement prototype that is not allowed to be completed on the peaceful difficulty setting.
+    /// ```text
+    /// local prototypes = game.get_filtered_achievement_prototypes{{filter="allowed-without-fight", invert=true}}
+    /// ```
     fn get_filtered_achievement_prototypes(filters: Vec<AchievementPrototypeFilter>) -> HashMap<String, LuaAchievementPrototype>;
     /// Returns a dictionary of all LuaDecorativePrototypes that fit the given filters. The prototypes are indexed by `name`.
+    ///
+    /// # Examples
+    ///
+    /// * Get every decorative prototype that is auto-placed.
+    /// ```text
+    /// local prototypes = game.get_filtered_decorative_prototypes{{filter="autoplace"}}
+    /// ```
     fn get_filtered_decorative_prototypes(filters: Vec<DecorativePrototypeFilter>) -> HashMap<String, LuaDecorativePrototype>;
     /// Returns a dictionary of all LuaEntityPrototypes that fit the given filters. The prototypes are indexed by `name`.
+    ///
+    /// # Examples
+    ///
+    /// * Get every entity prototype that can craft recipes involving fluids in the way some assembling machines can.
+    /// ```text
+    /// local prototypes = game.get_filtered_entity_prototypes{{filter="crafting-category", crafting_category="crafting-with-fluid"}}
+    /// ```
     fn get_filtered_entity_prototypes(filters: Vec<EntityPrototypeFilter>) -> HashMap<String, LuaEntityPrototype>;
     /// Returns a dictionary of all LuaEquipmentPrototypes that fit the given filters. The prototypes are indexed by `name`.
+    ///
+    /// # Examples
+    ///
+    /// * Get every equipment prototype that functions as a battery.
+    /// ```text
+    /// local prototypes = game.get_filtered_equipment_prototypes{{filter="type", type="battery-equipment"}}
+    /// ```
     fn get_filtered_equipment_prototypes(filters: Vec<EquipmentPrototypeFilter>) -> HashMap<String, LuaEquipmentPrototype>;
     /// Returns a dictionary of all LuaFluidPrototypes that fit the given filters. The prototypes are indexed by `name`.
+    ///
+    /// # Examples
+    ///
+    /// * Get every fluid prototype that has a heat capacity of exactly `100`.
+    /// ```text
+    /// local prototypes = game.get_filtered_fluid_prototypes{{filter="heat-capacity", comparison="=", value=100}}
+    /// ```
     fn get_filtered_fluid_prototypes(filters: Vec<FluidPrototypeFilter>) -> HashMap<String, LuaFluidPrototype>;
     /// Returns a dictionary of all LuaItemPrototypes that fit the given filters. The prototypes are indexed by `name`.
+    ///
+    /// # Examples
+    ///
+    /// * Get every item prototype that, when launched with a rocket, produces a result.
+    /// ```text
+    /// local prototypes = game.get_filtered_item_prototypes{{filter="has-rocket-launch-products"}}
+    /// ```
     fn get_filtered_item_prototypes(filters: Vec<ItemPrototypeFilter>) -> HashMap<String, LuaItemPrototype>;
     /// Returns a dictionary of all LuaModSettingPrototypes that fit the given filters. The prototypes are indexed by `name`.
+    ///
+    /// # Examples
+    ///
+    /// * Get every mod setting prototype that belongs to the specified mod.
+    /// ```text
+    /// local prototypes = game.get_filtered_mod_setting_prototypes{{filter="mod", mod="space-exploration"}}
+    /// ```
     fn get_filtered_mod_setting_prototypes(filters: Vec<ModSettingPrototypeFilter>) -> HashMap<String, LuaModSettingPrototype>;
     /// Returns a dictionary of all LuaRecipePrototypes that fit the given filters. The prototypes are indexed by `name`.
+    ///
+    /// # Examples
+    ///
+    /// * Get every recipe prototype that takes less than half a second to craft (at crafting speed `1`).
+    /// ```text
+    /// local prototypes = game.get_filtered_recipe_prototypes{{filter="energy", comparison="<", value=0.5}}
+    /// ```
     fn get_filtered_recipe_prototypes(filters: Vec<RecipePrototypeFilter>) -> HashMap<String, LuaRecipePrototype>;
     /// Returns a dictionary of all LuaTechnologyPrototypes that fit the given filters. The prototypes are indexed by `name`.
+    ///
+    /// # Examples
+    ///
+    /// * Get every technology prototype that can be researched at the start of the game.
+    /// ```text
+    /// local prototypes = game.get_filtered_technology_prototypes{{filter="has-prerequisites", invert=true}}
+    /// ```
     fn get_filtered_technology_prototypes(filters: Vec<TechnologyPrototypeFilter>) -> HashMap<String, LuaTechnologyPrototype>;
     /// Returns a dictionary of all LuaTilePrototypes that fit the given filters. The prototypes are indexed by `name`.
+    ///
+    /// # Examples
+    ///
+    /// * Get every tile prototype that improves a player's walking speed by at least 50%.
+    /// ```text
+    /// local prototypes = game.get_filtered_tile_prototypes{{filter="walking-speed-modifier", comparison="≥", value=1.5}}
+    /// ```
     fn get_filtered_tile_prototypes(filters: Vec<TilePrototypeFilter>) -> HashMap<String, LuaTilePrototype>;
     /// Gets the map exchange string for the map generation settings that were used to create this map.
     fn get_map_exchange_string() -> String;
@@ -4113,6 +4879,10 @@ pub trait LuaGameScriptMethods {
     fn get_player(player: LuaGameScriptMethodsGetPlayerPlayerUnion) -> Option<LuaPlayer>;
     /// Gets the inventories created through [LuaGameScript::create_inventory](LuaGameScript::create_inventory)
     ///
+    /// # Notes
+    ///
+    /// * Inventories created through console commands will be owned by `"core"`.
+    ///
     /// # Arguments
     ///
     /// * `mod_name` - The mod who's inventories to get. If not provided all inventories are returned.
@@ -4122,6 +4892,10 @@ pub trait LuaGameScriptMethods {
     /// * A mapping of mod name to array of inventories owned by that mod.
     fn get_script_inventories(mod_name: String) -> HashMap<String, Vec<LuaInventory>>;
     /// Gets the given surface or returns `nil` if no surface is found.
+    ///
+    /// # Notes
+    ///
+    /// * This is a shortcut for game.surfaces[...]
     ///
     /// # Arguments
     ///
@@ -4170,6 +4944,11 @@ pub trait LuaGameScriptMethods {
     fn kick_player(player: PlayerIdentification, reason: LocalisedString);
     /// Marks two forces to be merged together. All players and entities in the source force will be reassigned to the target force. The source force will then be destroyed. Importantly, this does not merge technologies or bonuses, which are instead retained from the target force.
     ///
+    /// # Notes
+    ///
+    /// * The three built-in forces (player, enemy and neutral) can't be destroyed, meaning they can't be used as the source argument to this function.
+    /// * The source force is not removed until the end of the current tick, or if called during the [on_forces_merging](on_forces_merging) or [on_forces_merged](on_forces_merged) event, the end of the next tick.
+    ///
     /// # Arguments
     ///
     /// * `destination` - The force to reassign all entities to.
@@ -4193,6 +4972,10 @@ pub trait LuaGameScriptMethods {
     /// * `volume_modifier` - The volume of the sound to play. Must be between 0 and 1 inclusive.
     fn play_sound(override_sound_type: SoundType, path: SoundPath, position: MapPosition, volume_modifier: f64);
     /// Print text to the chat console all players.
+    ///
+    /// # Notes
+    ///
+    /// * Messages that are identical to a message sent in the last 60 ticks are not printed again.
     fn print(color: Color, message: LocalisedString);
     /// Purges the given players messages from the game. Does nothing if the player running this isn't an admin.
     ///
@@ -4202,13 +4985,27 @@ pub trait LuaGameScriptMethods {
     fn purge_player(player: PlayerIdentification);
     /// Regenerate autoplacement of some entities on all surfaces. This can be used to autoplace newly-added entities.
     ///
+    /// # Notes
+    ///
+    /// * All specified entity prototypes must be autoplacable.
+    ///
     /// # Arguments
     ///
     /// * `entities` - Prototype names of entity or entities to autoplace.
     fn regenerate_entity(entities: LuaGameScriptMethodsRegenerateEntityEntitiesUnion);
     /// Forces a reload of all mods.
+    ///
+    /// # Notes
+    ///
+    /// * This will act like saving and loading from the mod(s) perspective.
+    /// * This will do nothing if run in multiplayer.
+    /// * This disables the replay if replay is enabled.
     fn reload_mods();
     /// Forces a reload of the scenario script from the original scenario location.
+    ///
+    /// # Notes
+    ///
+    /// * This disables the replay if replay is enabled.
     fn reload_script();
     /// Remove players who are currently not connected from the map.
     ///
@@ -4227,6 +5024,10 @@ pub trait LuaGameScriptMethods {
     /// Resets the amount of time played for this map.
     fn reset_time_played();
     /// Saves the current configuration of Atlas to a file. This will result in huge file containing all of the game graphics moved to as small space as possible.
+    ///
+    /// # Notes
+    ///
+    /// * Exists mainly for debugging reasons.
     fn save_atlas();
     /// Instruct the server to save the map.
     ///
@@ -4240,6 +5041,10 @@ pub trait LuaGameScriptMethods {
     fn set_wait_for_screenshots_to_finish();
     /// Show an in-game message dialog.
     ///
+    /// # Notes
+    ///
+    /// * Can only be used when the map contains exactly one player.
+    ///
     /// # Arguments
     ///
     /// * `image` - Path to an image to show on the dialog
@@ -4251,6 +5056,10 @@ pub trait LuaGameScriptMethods {
     /// Convert a table to a JSON string
     fn table_to_json(data: LuaCustomTable) -> String;
     /// Take a screenshot of the game and save it to the `script-output` folder, located in the game's [user data directory](https://wiki.factorio.com/User_data_directory). The name of the image file can be specified via the `path` parameter.
+    ///
+    /// # Notes
+    ///
+    /// * If Factorio is running headless, this function will do nothing.
     ///
     /// # Arguments
     ///
@@ -4309,12 +5118,30 @@ pub trait LuaGameScriptMethods {
 pub struct LuaGenericOnOffControlBehavior {
     pub lua_control_behavior: Box<LuaControlBehavior>,
     /// The circuit condition. Writing `nil` clears the circuit condition.
+    ///
+    /// # Examples
+    ///
+    /// * Tell an entity to be active (e.g. a lamp to be lit) when it receives a circuit signal of more than 4 chain signals.
+    /// ```text
+    /// a_behavior.circuit_condition = {condition={comparator=">",
+    ///                                            first_signal={type="item", name="rail-chain-signal"},
+    ///                                            constant=4}}
+    /// ```
     pub circuit_condition: CircuitConditionDefinition,
     /// `true` if this should connect to the logistic network.
     pub connect_to_logistic_network: bool,
     /// If the entity is currently disabled because of the control behavior.
     pub disabled: bool,
     /// The logistic condition. Writing `nil` clears the logistic condition.
+    ///
+    /// # Examples
+    ///
+    /// * Tell an entity to be active (e.g. a lamp to be lit) when the logistics network it's connected to has more than four chain signals.
+    /// ```text
+    /// a_behavior.logistic_condition = {condition={comparator=">",
+    ///                                             first_signal={type="item", name="rail-chain-signal"},
+    ///                                             constant=4}}
+    /// ```
     pub logistic_condition: CircuitConditionDefinition,
     /// The class name of this object. Available even when `valid` is false. For LuaStruct objects it may also be suffixed with a dotted path to a member of the struct.
     pub object_name: String,
@@ -4355,6 +5182,10 @@ pub trait LuaGroupMethods {
 }
 
 /// The root of the GUI. This type houses the root elements, `top`, `left`, `center`, `goal`, and `screen`, to which other elements can be added to be displayed on screen.
+///
+/// # Notes
+///
+/// * Every player can have a different GUI state.
 pub struct LuaGui {
     /// The center part of the GUI. It is a flow element.
     pub center: LuaGuiElement,
@@ -4433,12 +5264,35 @@ pub enum LuaGuiElementStyleUnion {
 /// - `"switch"`: A switch with three possible states. Can have labels attached to either side. Relevant event: [on_gui_switch_state_changed](on_gui_switch_state_changed)
 ///
 /// Each GUI element allows access to its children by having them as attributes. Thus, one can use the `parent.child` syntax to refer to children. Lua also supports the `parent["child"]` syntax to refer to the same element. This can be used in cases where the child has a name that isn't a valid Lua identifier.
+///
+/// # Examples
+///
+/// * This will add a label called `greeting` to the top flow. Immediately after, it will change its text to illustrate accessing child elements.
+/// ```text
+/// game.player.gui.top.add{type="label", name="greeting", caption="Hi"}
+/// game.player.gui.top.greeting.caption = "Hello there!"
+/// game.player.gui.top["greeting"].caption = "Actually, never mind, I don't like your face"
+/// ```
+/// * This will add a tabbed-pane and 2 tabs with contents.
+/// ```text
+/// local tabbed_pane = game.player.gui.top.add{type="tabbed-pane"}
+/// local tab1 = tabbed_pane.add{type="tab", caption="Tab 1"}
+/// local tab2 = tabbed_pane.add{type="tab", caption="Tab 2"}
+/// local label1 = tabbed_pane.add{type="label", caption="Label 1"}
+/// local label2 = tabbed_pane.add{type="label", caption="Label 2"}
+/// tabbed_pane.add_tab(tab1, label1)
+/// tabbed_pane.add_tab(tab2, label2)
+/// ```
 pub struct LuaGuiElement {
     /// Whether this textfield (when in numeric mode) allows decimal numbers.
     pub allow_decimal: bool,
     /// Whether this textfield (when in numeric mode) allows negative numbers.
     pub allow_negative: bool,
     /// Whether the `"none"` state is allowed for this switch.
+    ///
+    /// # Notes
+    ///
+    /// * This can't be set to false if the current switch_state is 'none'.
     pub allow_none_state: bool,
     /// The anchor for this relative widget, if any. Setting `nil` clears the anchor.
     pub anchor: Option<GuiAnchor>,
@@ -4447,6 +5301,10 @@ pub struct LuaGuiElement {
     /// The text to display after the normal tab text (designed to work with numbers)
     pub badge_text: LocalisedString,
     /// The text displayed on this element. For frames, this is the "heading". For other elements, like buttons or labels, this is the content.
+    ///
+    /// # Notes
+    ///
+    /// * Whilst this attribute may be used on all elements without producing an error, it doesn't make sense for tables and flows as they won't display it.
     pub caption: LocalisedString,
     /// The child-elements of this GUI element.
     pub children: Vec<LuaGuiElement>,
@@ -4461,6 +5319,20 @@ pub struct LuaGuiElement {
     /// Direction of this element's layout. May be either `"horizontal"` or `"vertical"`.
     pub direction: String,
     /// The `frame` that is being moved when dragging this GUI element, if any. This element needs to be a child of the `drag_target` at some level.
+    ///
+    /// # Notes
+    ///
+    /// * Only top-level elements in [LuaGui::screen](LuaGui::screen) can be `drag_target`s.
+    ///
+    /// # Examples
+    ///
+    /// * This creates a frame that contains a dragging handle which can move the frame.
+    /// ```text
+    /// local frame = player.gui.screen.add{type="frame", direction="vertical"}
+    /// local dragger = frame.add{type="empty-widget", style="draggable_space"}
+    /// dragger.style.size = {128, 24}
+    /// dragger.drag_target = frame
+    /// ```
     pub drag_target: Option<Box<LuaGuiElement>>,
     /// Whether this table should draw a horizontal grid line below the first table row.
     pub draw_horizontal_line_after_headers: bool,
@@ -4469,10 +5341,33 @@ pub struct LuaGuiElement {
     /// Whether this table should draw vertical grid lines.
     pub draw_vertical_lines: bool,
     /// The elem filters of this choose-elem-button, if any. The compatible type of filter is determined by `elem_type`.
+    ///
+    /// # Notes
+    ///
+    /// * Writing to this field does not change or clear the currently selected element.
+    ///
+    /// # Examples
+    ///
+    /// * This will configure a choose-elem-button of type `"entity"` to only show items of type `"furnace"`.
+    /// ```text
+    /// button.elem_filters = {{filter = "type", type = "furnace"}}
+    /// ```
+    /// * Then, there are some types of filters that work on a specific kind of attribute. The following will configure a choose-elem-button of type `"entity"` to only show entities that have their `"hidden"` [flags](EntityPrototypeFlags) set.
+    /// ```text
+    /// button.elem_filters = {{filter = "hidden"}}
+    /// ```
+    /// * Lastly, these filters can be combined at will, taking care to specify how they should be combined (either `"and"` or `"or"`. The following will filter for any `"entities"` that are `"furnaces"` and that are not `"hidden"`.
+    /// ```text
+    /// button.elem_filters = {{filter = "type", type = "furnace"}, {filter = "hidden", invert = true, mode = "and"}}
+    /// ```
     pub elem_filters: Option<PrototypeFilter>,
     /// The elem type of this choose-elem-button.
     pub elem_type: String,
     /// The elem value of this choose-elem-button, if any.
+    ///
+    /// # Notes
+    ///
+    /// * The `"signal"` type operates with [SignalID](SignalID), while all other types use strings.
     pub elem_value: Option<LuaGuiElementElemValueUnion>,
     /// Whether this GUI element is enabled. Disabled GUI elements don't trigger events when clicked.
     pub enabled: bool,
@@ -4509,6 +5404,12 @@ pub struct LuaGuiElement {
     /// The mouse button filters for this button or sprite-button.
     pub mouse_button_filter: MouseButtonFlags,
     /// The name of this element. `""` if no name was set.
+    ///
+    /// # Examples
+    ///
+    /// * ```text
+    /// game.player.gui.top.greeting.name == "greeting"
+    /// ```
     pub name: String,
     /// The number to be shown in the bottom right corner of this sprite-button. Set this to `nil` to show nothing.
     pub number: f64,
@@ -4551,6 +5452,10 @@ pub struct LuaGuiElement {
     /// The surface index this camera or minimap is using.
     pub surface_index: u32,
     /// The switch state (left, none, right) for this switch.
+    ///
+    /// # Notes
+    ///
+    /// * If [LuaGuiElement::allow_none_state](LuaGuiElement::allow_none_state) is false this can't be set to `"none"`.
     pub switch_state: String,
     /// The tabs and contents being shown in this tabbed-pane.
     pub tabs: Vec<TabAndContent>,
@@ -4644,20 +5549,44 @@ pub trait LuaGuiElementMethods {
     /// * `tab` - The tab to add, must be a GUI element of type "tab".
     fn add_tab(content: LuaGuiElement, tab: LuaGuiElement);
     /// Moves this GUI element to the "front" so it will draw over other elements.
+    ///
+    /// # Notes
+    ///
+    /// * Only works for elements in [LuaGui::screen](LuaGui::screen)
     fn bring_to_front();
     /// Remove children of this element. Any [LuaGuiElement](LuaGuiElement) objects referring to the destroyed elements become invalid after this operation.
+    ///
+    /// # Examples
+    ///
+    /// * ```text
+    /// game.player.gui.top.clear()
+    /// ```
     fn clear();
     /// Removes the items in this dropdown or listbox.
     fn clear_items();
     /// Closes the dropdown list if this is a dropdown and it is open.
     fn close_dropdown();
     /// Remove this element, along with its children. Any [LuaGuiElement](LuaGuiElement) objects referring to the destroyed elements become invalid after this operation.
+    ///
+    /// # Notes
+    ///
+    /// * The top-level GUI elements - [LuaGui::top](LuaGui::top), [LuaGui::left](LuaGui::left), [LuaGui::center](LuaGui::center) and [LuaGui::screen](LuaGui::screen) - can't be destroyed.
+    ///
+    /// # Examples
+    ///
+    /// * ```text
+    /// game.player.gui.top.greeting.destroy()
+    /// ```
     fn destroy();
     /// Focuses this GUI element if possible.
     fn focus();
     /// Forces this frame to re-auto-center. Only works on frames stored directly in [LuaGui::screen](LuaGui::screen).
     fn force_auto_center();
     /// Gets the index that this element has in its parent element.
+    ///
+    /// # Notes
+    ///
+    /// * This iterates through the children of the parent of this element, meaning this has a non-free cost to get, but is faster than doing the equivalent in Lua.
     fn get_index_in_parent() -> u32;
     /// Gets the item at the given index from this dropdown or listbox.
     ///
@@ -4666,6 +5595,10 @@ pub trait LuaGuiElementMethods {
     /// * `index` - The index to get
     fn get_item(index: u32) -> LocalisedString;
     /// The mod that owns this Gui element or `nil` if it's owned by the scenario script.
+    ///
+    /// # Notes
+    ///
+    /// * This has a not-super-expensive, but non-free cost to get.
     fn get_mod() -> Option<String>;
     /// Returns whether this slider only allows being moved to discrete positions.
     fn get_slider_discrete_slider() -> bool;
@@ -4686,6 +5619,11 @@ pub trait LuaGuiElementMethods {
     /// * `index` - The index
     fn remove_item(index: u32);
     /// Removes the given tab and its associated content from this tabbed pane.
+    ///
+    /// # Notes
+    ///
+    /// * Removing a tab does not destroy the tab or the tab contents. It just removes them from the view.
+    /// * When removing tabs, [LuaGuiElement::selected_tab_index](LuaGuiElement::selected_tab_index) needs to be manually updated.
     ///
     /// # Arguments
     ///
@@ -4715,6 +5653,17 @@ pub trait LuaGuiElementMethods {
     fn scroll_to_top();
     /// Selects a range of text in this textbox.
     ///
+    /// # Examples
+    ///
+    /// * Select the characters `amp` from `example`:
+    /// ```text
+    /// textbox.select(3, 5)
+    /// ```
+    /// * Move the cursor to the start of the text box:
+    /// ```text
+    /// textbox.select(1, 0)
+    /// ```
+    ///
     /// # Arguments
     ///
     /// * `end` - The index of the last character to select
@@ -4734,8 +5683,16 @@ pub trait LuaGuiElementMethods {
     /// Sets whether this slider only allows discrete values.
     fn set_slider_discrete_values(value: bool);
     /// Sets this sliders minimum and maximum values.
+    ///
+    /// # Notes
+    ///
+    /// * The minimum can't be >= the maximum.
     fn set_slider_minimum_maximum(maximum: f64, minimum: f64);
     /// Sets the minimum distance this slider can move.
+    ///
+    /// # Notes
+    ///
+    /// * The minimum distance can't be > (max - min).
     fn set_slider_value_step(value: f64);
     /// Swaps the children at the given indices in this element.
     ///
@@ -4872,6 +5829,10 @@ pub trait LuaInventoryMethods {
     /// * `include_filtered` - If true, filtered slots will be included. Defaults to false.
     fn count_empty_stacks(include_bar: bool, include_filtered: bool) -> u32;
     /// Destroys this inventory.
+    ///
+    /// # Notes
+    ///
+    /// * Only inventories created by [LuaGameScript::create_inventory](LuaGameScript::create_inventory) can be destroyed this way.
     fn destroy();
     /// Finds the first empty stack. Filtered slots are excluded unless a filter item is given.
     ///
@@ -4896,6 +5857,10 @@ pub trait LuaInventoryMethods {
     /// * The stack index of the matching stack, if any is found.
     fn find_item_stack(item: String) -> (Option<LuaItemStack>, Option<u32>);
     /// Get the current bar. This is the index at which the red area starts.
+    ///
+    /// # Notes
+    ///
+    /// * Only useable if this inventory supports having a bar.
     fn get_bar() -> u32;
     /// Get counts of all items in this inventory.
     ///
@@ -4914,6 +5879,12 @@ pub trait LuaInventoryMethods {
     /// * The current filter or `nil` if none.
     fn get_filter(index: u32) -> Option<String>;
     /// Gets the number of the given item that can be inserted into this inventory.
+    ///
+    /// # Notes
+    ///
+    /// * This is a "best guess" number; things like assembling machine filtered slots, module slots, items with durability, and items with mixed health will cause the result to be inaccurate.
+    /// * The main use for this is in checking how many of a basic item can fit into a basic inventory.
+    /// * This accounts for the 'bar' on the inventory.
     ///
     /// # Arguments
     ///
@@ -4955,17 +5926,30 @@ pub trait LuaInventoryMethods {
     fn remove(items: ItemStackIdentification) -> u32;
     /// Resizes the inventory.
     ///
+    /// # Notes
+    ///
+    /// * Items in slots beyond the new capacity are deleted.
+    /// * Only inventories created by [LuaGameScript::create_inventory](LuaGameScript::create_inventory) can be resized.
+    ///
     /// # Arguments
     ///
     /// * `size` - New size of a inventory
     fn resize(size: u16);
     /// Set the current bar.
     ///
+    /// # Notes
+    ///
+    /// * Only useable if this inventory supports having a bar.
+    ///
     /// # Arguments
     ///
     /// * `bar` - The new limit. Omitting this parameter will clear the limit.
     fn set_bar(bar: u32);
     /// Sets the filter for the given item stack index.
+    ///
+    /// # Notes
+    ///
+    /// * Some inventory slots don't allow some filters (gun ammo can't be filtered for non-ammo).
     ///
     /// # Arguments
     ///
@@ -4979,24 +5963,42 @@ pub trait LuaInventoryMethods {
     /// Sorts and merges the items in this inventory.
     fn sort_and_merge();
     /// Does this inventory support a bar? Bar is the draggable red thing, found for example on chests, that limits the portion of the inventory that may be manipulated by machines.
+    ///
+    /// # Notes
+    ///
+    /// * "Supporting a bar" doesn't mean that the bar is set to some nontrivial value. Supporting a bar means the inventory supports having this limit at all. The character's inventory is an example of an inventory without a bar; the wooden chest's inventory is an example of one with a bar.
     fn supports_bar() -> bool;
     /// If this inventory supports filters.
     fn supports_filters() -> bool;
 }
 
 /// Prototype of an item.
+///
+/// # Examples
+///
+/// * ```text
+/// game.item_prototypes["iron-plate"]
+/// ```
 pub struct LuaItemPrototype {
     /// The alt entity filter mode used by this selection tool.
     pub alt_entity_filter_mode: Option<String>,
     /// The alt entity filters used by this selection tool indexed by entity name.
     pub alt_entity_filters: Option<HashMap<String, LuaEntityPrototype>>,
     /// The alt entity type filters used by this selection tool indexed by entity type.
+    ///
+    /// # Notes
+    ///
+    /// * The boolean value is meaningless and is used to allow easy lookup if a type exists in the dictionary.
     pub alt_entity_type_filters: Option<HashMap<String, bool>>,
     /// The alt reverse entity filter mode used by this selection tool.
     pub alt_reverse_alt_entity_filter_mode: Option<String>,
     /// The alt reverse entity filters used by this selection tool indexed by entity name.
     pub alt_reverse_entity_filters: Option<HashMap<String, LuaEntityPrototype>>,
     /// The alt reverse entity type filters used by this selection tool indexed by entity type.
+    ///
+    /// # Notes
+    ///
+    /// * The boolean value is meaningless and is used to allow easy lookup if a type exists in the dictionary.
     pub alt_reverse_entity_type_filters: Option<HashMap<String, bool>>,
     /// The color used when doing alt reverse selection with this selection tool prototype.
     pub alt_reverse_selection_border_color: Option<Color>,
@@ -5047,6 +6049,10 @@ pub struct LuaItemPrototype {
     /// The entity filters used by this selection tool indexed by entity name.
     pub entity_filters: Option<HashMap<String, LuaEntityPrototype>>,
     /// The entity type filters used by this selection tool indexed by entity type.
+    ///
+    /// # Notes
+    ///
+    /// * The boolean value is meaningless and is used to allow easy lookup if a type exists in the dictionary.
     pub entity_type_filters: Option<HashMap<String, bool>>,
     /// The prototype of this armor equipment grid, if any.
     pub equipment_grid: Option<LuaEquipmentGridPrototype>,
@@ -5116,6 +6122,10 @@ pub struct LuaItemPrototype {
     /// The reverse entity filters used by this selection tool indexed by entity name.
     pub reverse_entity_filters: Option<HashMap<String, LuaEntityPrototype>>,
     /// The reverse entity type filters used by this selection tool indexed by entity type.
+    ///
+    /// # Notes
+    ///
+    /// * The boolean value is meaningless and is used to allow easy lookup if a type exists in the dictionary.
     pub reverse_entity_type_filters: Option<HashMap<String, bool>>,
     /// The color used when doing reverse selection with this selection tool prototype.
     pub reverse_selection_border_color: Option<Color>,
@@ -5178,6 +6188,11 @@ pub trait LuaItemPrototypeMethods {
 }
 
 /// A reference to an item and count owned by some external entity.
+///
+/// # Notes
+///
+/// * In most instances this is a simple reference as in: it points at a specific slot in an inventory and not the item in the slot.
+/// * In the instance this references an item on a [LuaTransportLine](LuaTransportLine) the reference is only guaranteed to stay valid (and refer to the same item) as long as nothing changes the transport line.
 pub struct LuaItemStack {
     /// The active blueprint index for this blueprint book. `nil` if this blueprint book is empty.
     pub active_index: Option<u32>,
@@ -5322,6 +6337,10 @@ pub trait LuaItemStackMethods {
     ///
     /// * `amount` - Amount of durability to add.
     fn add_durability(amount: f64);
+    /// # Notes
+    ///
+    /// * Built entities can be come invalid between the building of the blueprint and the function returning if by_player or raise_built is used and one of those events invalidates the entity.
+    ///
     /// # Arguments
     ///
     /// * `by_player` - The player to use if any. If provided [defines.events.on_built_entity](defines.events.on_built_entity) will also be fired on successful entity creation.
@@ -5822,8 +6841,16 @@ pub struct LuaLogisticPoint {
     /// If this logistic point is using the exact mode. In exact mode robots never over-deliver requests.
     pub exact: bool,
     /// The logistic filters for this logistic point, if this uses any.
+    ///
+    /// # Notes
+    ///
+    /// * The returned array will always have an entry for each filter and will be indexed in sequence when not nil.
     pub filters: Option<Vec<LogisticFilter>>,
     /// The force of this logistic point.
+    ///
+    /// # Notes
+    ///
+    /// * This will always be the same as the [LuaLogisticPoint::owner](LuaLogisticPoint::owner) force.
     pub force: LuaForce,
     /// The Logistic member index of this logistic point.
     pub logistic_member_index: u32,
@@ -6029,6 +7056,10 @@ pub struct LuaPermissionGroup {
     /// The group ID
     pub group_id: u32,
     /// The name of this group.
+    ///
+    /// # Notes
+    ///
+    /// * Setting the name to `nil` or an empty string sets the name to the default value.
     pub name: String,
     /// The class name of this object. Available even when `valid` is false. For LuaStruct objects it may also be suffixed with a dotted path to a member of the struct.
     pub object_name: String,
@@ -6116,6 +7147,10 @@ pub trait LuaPermissionGroupsMethods {
 pub struct LuaPlayer {
     pub lua_control: Box<LuaControl>,
     /// `true` if the player is an admin.
+    ///
+    /// # Notes
+    ///
+    /// * Trying to change player admin status from the console when you aren't an admin does nothing.
     pub admin: bool,
     /// How many ticks since the last action of this player
     pub afk_time: u32,
@@ -6137,8 +7172,16 @@ pub struct LuaPlayer {
     /// When in a cutscene; the character this player would be using once the cutscene is over, if any. Returns `nil` when the player is disconnected (see [LuaPlayer::connected](LuaPlayer::connected)).
     pub cutscene_character: Option<Box<LuaEntity>>,
     /// The display resolution for this player.
+    ///
+    /// # Notes
+    ///
+    /// * During [on_player_created](on_player_created), this attribute will always return a resolution of `{width=1920, height=1080}`. To get the actual resolution, listen to the [on_player_display_resolution_changed](on_player_display_resolution_changed) event raised shortly afterwards.
     pub display_resolution: DisplayResolution,
     /// The display scale for this player.
+    ///
+    /// # Notes
+    ///
+    /// * During [on_player_created](on_player_created), this attribute will always return a scale of `1`. To get the actual scale, listen to the [on_player_display_scale_changed](on_player_display_scale_changed) event raised shortly afterwards.
     pub display_scale: f64,
     /// The wire drag target for this player, if any.
     pub drag_target: Option<Box<DragTarget>>,
@@ -6162,6 +7205,13 @@ pub struct LuaPlayer {
     /// The current per-player settings for the this player, indexed by prototype name. Returns the same structure as [LuaSettings::get_player_settings](LuaSettings::get_player_settings). This table becomes invalid if its associated player does.
     ///
     /// Even though this attribute is marked as read-only, individual settings can be changed by overwriting their [ModSetting](ModSetting) table. Mods can only change their own settings. Using the in-game console, all player settings can be changed.
+    ///
+    /// # Examples
+    ///
+    /// * ```text
+    /// -- Change the value of the "active_lifestyle" setting
+    /// player.mod_settings["active_lifestyle"] = {value = true}
+    /// ```
     pub mod_settings: HashMap<String, ModSetting>,
     /// The player's username.
     pub name: String,
@@ -6182,12 +7232,20 @@ pub struct LuaPlayer {
     /// If `true`, zoom-to-world noise effect will be disabled and environmental sounds will be based on zoom-to-world view instead of position of player's character.
     pub spectator: bool,
     /// The stashed controller type, if any.
+    ///
+    /// # Notes
+    ///
+    /// * This is mainly useful when a player is in the map editor.
     pub stashed_controller_type: Option<Controllers>,
     /// The tag that is shown after the player in chat and on the map.
     pub tag: String,
     /// The number of ticks until this player will respawn. `nil` if this player is not waiting to respawn.
     ///
     /// Set to `nil` to immediately respawn the player.
+    ///
+    /// # Notes
+    ///
+    /// * Set to any positive value to trigger the respawn state for this player.
     pub ticks_to_respawn: Option<u32>,
     /// Is this object valid? This Lua object holds a reference to an object within the game engine. It is possible that the game-engine object is removed whilst a mod still holds the corresponding Lua object. If that happens, the object becomes invalid, i.e. this attribute will be `false`. Mods are advised to check for object validity if any change to the game state might have occurred between the creation of the Lua object and its access.
     pub valid: bool,
@@ -6243,6 +7301,12 @@ pub trait LuaPlayerMethods {
     fn add_to_clipboard(blueprint: LuaItemStack);
     /// Associates a character with this player.
     ///
+    /// # Notes
+    ///
+    /// * The character must not be connected to any controller.
+    /// * If this player is currently disconnected (see [LuaPlayer::connected](LuaPlayer::connected)) the character will be immediately "logged off".
+    /// * See [LuaPlayer::get_associated_characters](LuaPlayer::get_associated_characters) for more information.
+    ///
     /// # Arguments
     ///
     /// * `character` - The character entity.
@@ -6291,6 +7355,10 @@ pub trait LuaPlayerMethods {
     fn close_map();
     /// Asks the player if they would like to connect to the given server.
     ///
+    /// # Notes
+    ///
+    /// * This only does anything when used on a multiplayer peer. Single player and server hosts will ignore the prompt.
+    ///
     /// # Arguments
     ///
     /// * `address` - The server (address:port) if port is not given the default Factorio port is used.
@@ -6298,6 +7366,10 @@ pub trait LuaPlayerMethods {
     /// * `password` - The password if different from the one used to join this game. Note, if the current password is not empty but the one required to join the new server is an empty string should be given for this field.
     fn connect_to_server(address: String, description: LocalisedString, name: LocalisedString, password: String);
     /// Creates and attaches a character entity to this player.
+    ///
+    /// # Notes
+    ///
+    /// * The player must not have a character already connected and must be online (see [LuaPlayer::connected](LuaPlayer::connected)).
     ///
     /// # Arguments
     ///
@@ -6308,6 +7380,11 @@ pub trait LuaPlayerMethods {
     /// * Whether the character was created.
     fn create_character(character: String) -> bool;
     /// Spawn flying text that is only visible to this player. Either `position` or `create_at_cursor` are required. When `create_at_cursor` is `true`, all parameters other than `text` are ignored.
+    ///
+    /// # Notes
+    ///
+    /// * If no custom `speed` is set and the text is longer than 25 characters, its `time_to_live` and `speed` are dynamically adjusted to give players more time to read it.
+    /// * Local flying text is not saved, which means it will disappear after a save/load-cycle.
     ///
     /// # Arguments
     ///
@@ -6329,6 +7406,10 @@ pub trait LuaPlayerMethods {
     /// Disable recipe subgroups.
     fn disable_recipe_subgroups();
     /// Disassociates a character from this player. This is functionally the same as setting [LuaEntity::associated_player](LuaEntity::associated_player) to `nil`.
+    ///
+    /// # Notes
+    ///
+    /// * See [LuaPlayer::get_associated_characters](LuaPlayer::get_associated_characters) for more information.
     ///
     /// # Arguments
     ///
@@ -6369,6 +7450,11 @@ pub trait LuaPlayerMethods {
     /// * A mapping of surface index to an array of arrays of [alerts](Alert) indexed by the [alert type](defines.alert_type).
     fn get_alerts(entity: LuaEntity, position: MapPosition, prototype: LuaEntityPrototype, surface: SurfaceIdentification, typ: AlertType) -> HashMap<u32, HashMap<AlertType, Vec<Alert>>>;
     /// The characters associated with this player.
+    ///
+    /// # Notes
+    ///
+    /// * The array will always be empty when the player is disconnected (see [LuaPlayer::connected](LuaPlayer::connected)) regardless of there being associated characters.
+    /// * Characters associated with this player will be logged off when this player disconnects but are not controlled by any player.
     fn get_associated_characters() -> Vec<LuaEntity>;
     /// Get the current goal description, as a localised string.
     fn get_goal_description() -> LocalisedString;
@@ -6436,6 +7522,10 @@ pub trait LuaPlayerMethods {
     /// * `volume_modifier` - The volume of the sound to play. Must be between 0 and 1 inclusive.
     fn play_sound(override_sound_type: SoundType, path: SoundPath, position: MapPosition, volume_modifier: f64);
     /// Print text to the chat console.
+    ///
+    /// # Notes
+    ///
+    /// * Messages that are identical to a message sent in the last 60 ticks are not printed again.
     fn print(color: Color, message: LocalisedString);
     /// Print entity statistics to the player's console.
     ///
@@ -6451,11 +7541,19 @@ pub trait LuaPlayerMethods {
     fn remove_alert(entity: LuaEntity, icon: SignalID, message: LocalisedString, position: MapPosition, prototype: LuaPlayerMethodsRemoveAlertPrototypeUnion, surface: SurfaceIdentification, typ: AlertType);
     /// Requests a translation for the given localised string. If the request is successful, the [on_string_translated](on_string_translated) event will be fired with the results.
     ///
+    /// # Notes
+    ///
+    /// * Does nothing if this player is not connected (see [LuaPlayer::connected](LuaPlayer::connected)).
+    ///
     /// # Returns
     ///
     /// * The unique ID for the requested translation.
     fn request_translation(localised_string: LocalisedString) -> Option<u32>;
     /// Requests translation for the given set of localised strings. If the request is successful, a [on_string_translated](on_string_translated) event will be fired for each string with the results.
+    ///
+    /// # Notes
+    ///
+    /// * Does nothing if this player is not connected (see [LuaPlayer::connected](LuaPlayer::connected)).
     ///
     /// # Returns
     ///
@@ -6469,6 +7567,11 @@ pub trait LuaPlayerMethods {
     /// * `screen_index` - The screen page. Index 1 is the top row in the gui. Index can go beyond the visible number of bars on the screen to account for the interface config setting change.
     fn set_active_quick_bar_page(page_index: u32, screen_index: u32);
     /// Set the controller type of the player.
+    ///
+    /// # Notes
+    ///
+    /// * Setting a player to [defines.controllers.editor](defines.controllers.editor) auto promotes the player to admin and enables cheat mode.
+    /// * Setting a player to [defines.controllers.editor](defines.controllers.editor) also requires the calling player be an admin.
     ///
     /// # Arguments
     ///
@@ -6556,6 +7659,10 @@ pub trait LuaPlayerMethods {
 }
 
 /// An object used to measure script performance.
+///
+/// # Notes
+///
+/// * Since performance is non-deterministic, these objects don't allow reading the raw time values from Lua. They can be used anywhere a [LocalisedString](LocalisedString) is used, except for [LuaGuiElement::add](LuaGuiElement::add)'s LocalisedString arguments, [LuaSurface::create_entity](LuaSurface::create_entity)'s `text` argument, and [LuaEntity::add_market_item](LuaEntity::add_market_item).
 pub struct LuaProfiler {
     /// The class name of this object. Available even when `valid` is false. For LuaStruct objects it may also be suffixed with a dotted path to a member of the struct.
     pub object_name: String,
@@ -6567,11 +7674,19 @@ pub struct LuaProfiler {
 pub trait LuaProfilerMethods {
     /// Add the duration of another timer to this timer. Useful to reduce start/stop overhead when accumulating time onto many timers at once.
     ///
+    /// # Notes
+    ///
+    /// * If other is running, the time to now will be added.
+    ///
     /// # Arguments
     ///
     /// * `other` - The timer to add to this timer.
     fn add(other: LuaProfiler);
     /// Divides the current duration by a set value. Useful for calculating the average of many iterations.
+    ///
+    /// # Notes
+    ///
+    /// * Does nothing if this isn't stopped.
     ///
     /// # Arguments
     ///
@@ -6686,6 +7801,14 @@ pub trait LuaRailSignalControlBehaviorMethods {
 }
 
 /// A deterministic random generator independent from the core games random generator that can be seeded and re-seeded at will. This random generator can be saved and loaded and will maintain its state. Note this is entirely different from calling [math.random](Libraries.html#math.random)() and you should be sure you actually want to use this over calling `math.random()`. If you aren't sure if you need to use this over calling `math.random()` then you probably don't need to use this.
+///
+/// # Examples
+///
+/// * Create a generator and use it to print a random number.
+/// ```text
+/// global.generator = game.create_random_generator()
+/// game.player.print(global.generator())
+/// ```
 pub struct LuaRandomGenerator {
     /// The class name of this object. Available even when `valid` is false. For LuaStruct objects it may also be suffixed with a dotted path to a member of the struct.
     pub object_name: String,
@@ -6698,6 +7821,10 @@ pub trait LuaRandomGeneratorMethods {
     /// All methods and properties that this object supports.
     fn help() -> String;
     /// Re-seeds the random generator with the given value.
+    ///
+    /// # Notes
+    ///
+    /// * Seeds that are close together will produce similar results. Seeds from 0 to 341 will produce the same results.
     fn re_seed(seed: u32);
 }
 
@@ -6718,6 +7845,13 @@ pub struct LuaRecipe {
     /// Is the recipe hidden from flow statistics?
     pub hidden_from_flow_stats: bool,
     /// The ingredients to this recipe.
+    ///
+    /// # Examples
+    ///
+    /// * The ingredients of `"advanced-oil-processing"` would look like this:
+    /// ```text
+    /// {{type="fluid", name="crude-oil", amount=100}, {type="fluid", name="water", amount=50}}
+    /// ```
     pub ingredients: Vec<Ingredient>,
     pub localised_description: LocalisedString,
     /// Localised name of the recipe.
@@ -6729,6 +7863,13 @@ pub struct LuaRecipe {
     /// The string used to alphabetically sort these prototypes. It is a simple string that has no additional semantic meaning.
     pub order: String,
     /// The results/products of this recipe.
+    ///
+    /// # Examples
+    ///
+    /// * The products of `"advanced-oil-processing"` would look like this:
+    /// ```text
+    /// {{type="fluid", name="heavy-oil", amount=25}, {type="fluid", name="light-oil", amount=45}, {type="fluid", name="petroleum-gas", amount=55}}
+    /// ```
     pub products: Vec<Product>,
     /// The prototype for this recipe.
     pub prototype: LuaRecipePrototype,
@@ -6797,6 +7938,13 @@ pub struct LuaRecipePrototype {
     /// Is the recipe hidden from player crafting? The recipe will still show up for selection in machines.
     pub hidden_from_player_crafting: bool,
     /// The ingredients to this recipe.
+    ///
+    /// # Examples
+    ///
+    /// * The ingredients of `"advanced-oil-processing"` would look like this:
+    /// ```text
+    /// {{type="fluid", name="crude-oil", amount=100}, {type="fluid", name="water", amount=50}}
+    /// ```
     pub ingredients: Vec<Ingredient>,
     pub localised_description: LocalisedString,
     /// Localised name of the recipe.
@@ -6812,6 +7960,13 @@ pub struct LuaRecipePrototype {
     /// Used to determine how many extra items are put into an assembling machine before it's considered "full enough".
     pub overload_multiplier: u32,
     /// The results/products of this recipe.
+    ///
+    /// # Examples
+    ///
+    /// * The products of `"advanced-oil-processing"` would look like this:
+    /// ```text
+    /// {{type="fluid", name="heavy-oil", amount=25}, {type="fluid", name="light-oil", amount=45}, {type="fluid", name="petroleum-gas", amount=55}}
+    /// ```
     pub products: Vec<Product>,
     /// The multiplier used when this recipe is copied from an assembling machine to a requester chest. For each item in the recipe the item count * this value is set in the requester chest.
     pub request_paste_multiplier: u32,
@@ -6832,8 +7987,28 @@ pub trait LuaRecipePrototypeMethods {
 }
 
 /// Registry of interfaces between scripts. An interface is simply a dictionary mapping names to functions. A script or mod can then register an interface with [LuaRemote](LuaRemote), after that any script can call the registered functions, provided it knows the interface name and the desired function name. An instance of LuaRemote is available through the global object named `remote`.
+///
+/// # Examples
+///
+/// * Will register a remote interface containing two functions. Later, it will call these functions through `remote`.
+/// ```text
+/// remote.add_interface("human interactor",
+///                      {hello = function() game.player.print("Hi!") end,
+///                       bye = function(name) game.player.print("Bye " .. name) end})
+/// -- Some time later, possibly in a different mod...
+/// remote.call("human interactor", "hello")
+/// remote.call("human interactor", "bye", "dear reader")
+/// ```
 pub struct LuaRemote {
     /// List of all registered interfaces. For each interface name, `remote.interfaces[name]` is a dictionary mapping the interface's registered functions to `true`.
+    ///
+    /// # Examples
+    ///
+    /// * Assuming the "human interactor" interface is registered as above
+    /// ```text
+    /// game.player.print(tostring(remote.interfaces["human interactor"]["hello"]))        -- prints true
+    /// game.player.print(tostring(remote.interfaces["human interactor"]["nonexistent"]))  -- prints nil
+    /// ```
     pub interfaces: HashMap<String, HashSet<String>>,
     /// This object's name.
     pub object_name: String,
@@ -6868,6 +8043,10 @@ pub trait LuaRemoteMethods {
 }
 
 /// Allows rendering of geometric shapes, text and sprites in the game world through the global object named `rendering`. Each render object is identified by an id that is universally unique for the lifetime of a whole game.
+///
+/// # Notes
+///
+/// * If an entity target of an object is destroyed or changes surface, then the object is also destroyed.
 pub struct LuaRendering {
     /// This object's name.
     pub object_name: String,
@@ -7062,6 +8241,10 @@ pub trait LuaRenderingMethods {
     fn draw_circle(color: Color, draw_on_ground: bool, filled: bool, forces: Vec<ForceIdentification>, only_in_alt_mode: bool, players: Vec<PlayerIdentification>, radius: f64, surface: SurfaceIdentification, target: LuaRenderingMethodsDrawCircleTargetUnion, target_offset: Vector, time_to_live: u32, visible: bool, width: f32) -> u64;
     /// Create a light.
     ///
+    /// # Notes
+    ///
+    /// * The base game uses the utility sprites `light_medium` and `light_small` for lights.
+    ///
     /// # Arguments
     ///
     /// * `color` - Defaults to white (no tint).
@@ -7083,6 +8266,17 @@ pub trait LuaRenderingMethods {
     /// * Id of the render object
     fn draw_light(color: Color, forces: Vec<ForceIdentification>, intensity: f32, minimum_darkness: f32, only_in_alt_mode: bool, orientation: RealOrientation, oriented: bool, players: Vec<PlayerIdentification>, scale: f32, sprite: SpritePath, surface: SurfaceIdentification, target: LuaRenderingMethodsDrawLightTargetUnion, target_offset: Vector, time_to_live: u32, visible: bool) -> u64;
     /// Create a line.
+    ///
+    /// # Examples
+    ///
+    /// * Draw a white and 2 pixel wide line from {0, 0} to {2, 2}.
+    /// ```text
+    /// rendering.draw_line{surface = game.player.surface, from = {0, 0}, to = {2, 2}, color = {1, 1, 1}, width = 2}
+    /// ```
+    /// * Draw a red and 3 pixel wide line from {0, 0} to {0, 5}. The line has 1 tile long dashes and gaps.
+    /// ```text
+    /// rendering.draw_line{surface = game.player.surface, from = {0, 0}, to = {0, 5}, color = {r = 1}, width = 3, gap_length = 1, dash_length = 1}
+    /// ```
     ///
     /// # Arguments
     ///
@@ -7144,6 +8338,17 @@ pub trait LuaRenderingMethods {
     fn draw_rectangle(color: Color, draw_on_ground: bool, filled: bool, forces: Vec<ForceIdentification>, left_top: LuaRenderingMethodsDrawRectangleLeftTopUnion, left_top_offset: Vector, only_in_alt_mode: bool, players: Vec<PlayerIdentification>, right_bottom: LuaRenderingMethodsDrawRectangleRightBottomUnion, right_bottom_offset: Vector, surface: SurfaceIdentification, time_to_live: u32, visible: bool, width: f32) -> u64;
     /// Create a sprite.
     ///
+    /// # Examples
+    ///
+    /// * This will draw an iron plate icon at the character's feet. The sprite will move together with the character.
+    /// ```text
+    /// rendering.draw_sprite{sprite = "item.iron-plate", target = game.player.character, surface = game.player.surface}
+    /// ```
+    /// * This will draw an iron plate icon at the character's head. The sprite will move together with the character.
+    /// ```text
+    /// rendering.draw_sprite{sprite = "item.iron-plate", target = game.player.character, target_offset = {0, -2}, surface = game.player.surface}
+    /// ```
+    ///
     /// # Arguments
     ///
     /// * `forces` - The forces that this object is rendered to. Passing `nil` or an empty table will render it to all forces.
@@ -7166,6 +8371,10 @@ pub trait LuaRenderingMethods {
     /// * Id of the render object
     fn draw_sprite(forces: Vec<ForceIdentification>, only_in_alt_mode: bool, orientation: RealOrientation, orientation_target: LuaRenderingMethodsDrawSpriteOrientationTargetUnion, orientation_target_offset: Vector, oriented_offset: Vector, players: Vec<PlayerIdentification>, render_layer: RenderLayer, sprite: SpritePath, surface: SurfaceIdentification, target: LuaRenderingMethodsDrawSpriteTargetUnion, target_offset: Vector, time_to_live: u32, tint: Color, use_target_orientation: bool, visible: bool, x_scale: f64, y_scale: f64) -> u64;
     /// Create a text.
+    ///
+    /// # Notes
+    ///
+    /// * Not all fonts support scaling.
     ///
     /// # Arguments
     ///
@@ -7298,11 +8507,19 @@ pub trait LuaRenderingMethods {
     fn get_only_in_alt_mode(id: u64) -> bool;
     /// Get the orientation of the object with this id.
     ///
+    /// # Notes
+    ///
+    /// * Polygon vertices that are set to an entity will ignore this.
+    ///
     /// # Returns
     ///
     /// * `nil` if the object is not a text, polygon, sprite, light or animation.
     fn get_orientation(id: u64) -> Option<RealOrientation>;
     /// The object rotates so that it faces this target. Note that `orientation` is still applied to the object. Get the orientation_target of the object with this id.
+    ///
+    /// # Notes
+    ///
+    /// * Polygon vertices that are set to an entity will ignore this.
     ///
     /// # Returns
     ///
@@ -7367,6 +8584,10 @@ pub trait LuaRenderingMethods {
     /// The surface the object with this id is rendered on.
     fn get_surface(id: u64) -> LuaSurface;
     /// Get where the object with this id is drawn.
+    ///
+    /// # Notes
+    ///
+    /// * Polygon vertices that are set to an entity will ignore this.
     ///
     /// # Returns
     ///
@@ -7499,8 +8720,16 @@ pub trait LuaRenderingMethods {
     /// Set whether this is only rendered in alt-mode.
     fn set_only_in_alt_mode(id: u64, only_in_alt_mode: bool);
     /// Set the orientation of the object with this id. Does nothing if this object is not a text, polygon, sprite, light or animation.
+    ///
+    /// # Notes
+    ///
+    /// * Polygon vertices that are set to an entity will ignore this.
     fn set_orientation(id: u64, orientation: RealOrientation);
     /// The object rotates so that it faces this target. Note that `orientation` is still applied to the object. Set the orientation_target of the object with this id. Does nothing if this object is not a polygon, sprite, or animation. Set to `nil` if the object should not have an orientation_target.
+    ///
+    /// # Notes
+    ///
+    /// * Polygon vertices that are set to an entity will ignore this.
     fn set_orientation_target(id: u64, orientation_target: LuaRenderingMethodsSetOrientationTargetOrientationTargetUnion, orientation_target_offset: Vector);
     /// Set if the light with this id is rendered has the same orientation as the target entity. Does nothing if this object is not a light. Note that `orientation` is still applied to the sprite.
     fn set_oriented(id: u64, oriented: bool);
@@ -7531,6 +8760,10 @@ pub trait LuaRenderingMethods {
     /// * `start_angle` - angle in radian
     fn set_start_angle(id: u64, start_angle: f32);
     /// Set where the object with this id is drawn. Does nothing if this object does not support target.
+    ///
+    /// # Notes
+    ///
+    /// * Polygon vertices that are set to an entity will ignore this.
     fn set_target(id: u64, target: LuaRenderingMethodsSetTargetTargetUnion, target_offset: Vector);
     /// Set the text that is displayed by the text with this id. Does nothing if this object is not a text.
     fn set_text(id: u64, text: LocalisedString);
@@ -7624,6 +8857,13 @@ pub trait LuaSettingsMethods {
     /// Gets the current per-player settings for the given player, indexed by prototype name. Returns the same structure as [LuaPlayer::mod_settings](LuaPlayer::mod_settings). This table becomes invalid if its associated player does.
     ///
     /// Even though this attribute is marked as read-only, individual settings can be changed by overwriting their [ModSetting](ModSetting) table. Mods can only change their own settings. Using the in-game console, all player settings can be changed.
+    ///
+    /// # Examples
+    ///
+    /// * ```text
+    /// -- Change the value of the "active_lifestyle" setting
+    /// settings.get_player_settings(player_index)["active_lifestyle"] = {value = true}
+    /// ```
     fn get_player_settings(player: PlayerIdentification) -> HashMap<String, ModSetting>;
 }
 
@@ -7710,6 +8950,12 @@ pub struct LuaStyle {
     pub clicked_vertical_offset: i32,
     pub color: Color,
     /// Array containing the alignment for every column of this table element. Even though this property is marked as read-only, the alignment can be changed by indexing the LuaCustomTable, like so:
+    ///
+    /// # Examples
+    ///
+    /// * ```text
+    /// table_element.style.column_alignments[1] = "center"
+    /// ```
     pub column_alignments: HashMap<u32, Alignment>,
     pub default_badge_font_color: Color,
     pub disabled_badge_font_color: Color,
@@ -7815,6 +9061,13 @@ pub struct LuaSurface {
     /// The LUT is multiplied by `((1 - weight) + brightness * weight)` and result is clamped to range [0, 1].
     ///
     /// Default is `{0, 0, 0}`, which means no influence.
+    ///
+    /// # Examples
+    ///
+    /// * Makes night on the surface pitch black, assuming [LuaSurface::min_brightness](LuaSurface::min_brightness) being set to default value `0.15`.
+    /// ```text
+    /// game.surfaces[1].brightness_visual_weights = { 1 / 0.85, 1 / 0.85, 1 / 0.85 }
+    /// ```
     pub brightness_visual_weights: ColorModifier,
     /// Amount of darkness at the current time, as a number in range [0, 1].
     pub darkness: f32,
@@ -7839,14 +9092,26 @@ pub struct LuaSurface {
     /// The daytime when morning starts.
     pub morning: f64,
     /// The name of this surface. Names are unique among surfaces.
+    ///
+    /// # Notes
+    ///
+    /// * the default surface can't be renamed.
     pub name: String,
     /// The class name of this object. Available even when `valid` is false. For LuaStruct objects it may also be suffixed with a dotted path to a member of the struct.
     pub object_name: String,
     /// Is peaceful mode enabled on this surface?
     pub peaceful_mode: bool,
     /// If clouds are shown on this surface.
+    ///
+    /// # Notes
+    ///
+    /// * If false, clouds are never shown. If true the player must also have clouds enabled in graphics settings for them to be shown.
     pub show_clouds: bool,
     /// The multiplier of solar power on this surface. Cannot be less than 0.
+    ///
+    /// # Notes
+    ///
+    /// * Solar equipment is still limited to its maximum power output.
     pub solar_power_multiplier: f64,
     /// The number of ticks per day for this surface.
     pub ticks_per_day: u32,
@@ -8086,6 +9351,10 @@ pub trait LuaSurfaceMethods {
     fn build_checkerboard(area: BoundingBox);
     /// Send a group to build a new base.
     ///
+    /// # Notes
+    ///
+    /// * The specified force must be AI-controlled; i.e. `force.ai_controllable` must be `true`.
+    ///
     /// # Arguments
     ///
     /// * `force` - Force the new base will belong to. Defaults to enemy.
@@ -8152,6 +9421,10 @@ pub trait LuaSurfaceMethods {
     fn clear_pollution();
     /// Clones the given area.
     ///
+    /// # Notes
+    ///
+    /// * Entities are cloned in an order such that they can always be created, eg rails before trains.
+    ///
     /// # Arguments
     ///
     /// * `clear_destination_decoratives` - If the destination decoratives should be cleared
@@ -8163,6 +9436,11 @@ pub trait LuaSurfaceMethods {
     /// * `expand_map` - If the destination surface should be expanded when destination_area is outside current bounds. Default false.
     fn clone_area(clear_destination_decoratives: bool, clear_destination_entities: bool, clone_decoratives: bool, clone_entities: bool, clone_tiles: bool, create_build_effect_smoke: bool, destination_area: BoundingBox, destination_force: LuaSurfaceMethodsCloneAreaDestinationForceUnion, destination_surface: SurfaceIdentification, expand_map: bool, source_area: BoundingBox);
     /// Clones the given area.
+    ///
+    /// # Notes
+    ///
+    /// * [defines.events.on_entity_cloned](defines.events.on_entity_cloned) is raised for each entity, and then [defines.events.on_area_cloned](defines.events.on_area_cloned) is raised.
+    /// * Entities are cloned in an order such that they can always be created, eg rails before trains.
     ///
     /// # Arguments
     ///
@@ -8176,6 +9454,10 @@ pub trait LuaSurfaceMethods {
     /// * `manual_collision_mode` - If manual-style collision checks should be done.
     fn clone_brush(clear_destination_decoratives: bool, clear_destination_entities: bool, clone_decoratives: bool, clone_entities: bool, clone_tiles: bool, create_build_effect_smoke: bool, destination_force: LuaSurfaceMethodsCloneBrushDestinationForceUnion, destination_offset: TilePosition, destination_surface: SurfaceIdentification, expand_map: bool, manual_collision_mode: bool, source_offset: TilePosition, source_positions: Vec<TilePosition>);
     /// Clones the given entities.
+    ///
+    /// # Notes
+    ///
+    /// * Entities are cloned in an order such that they can always be created, eg rails before trains.
     ///
     /// # Arguments
     ///
@@ -8204,11 +9486,46 @@ pub trait LuaSurfaceMethods {
     fn count_tiles_filtered(area: BoundingBox, collision_mask: LuaSurfaceMethodsCountTilesFilteredCollisionMaskUnion, force: LuaSurfaceMethodsCountTilesFilteredForceUnion, has_hidden_tile: bool, has_tile_ghost: bool, invert: bool, limit: u32, name: LuaSurfaceMethodsCountTilesFilteredNameUnion, position: MapPosition, radius: f64, to_be_deconstructed: bool) -> u32;
     /// Adds the given decoratives to the surface.
     ///
+    /// # Notes
+    ///
+    /// * This will merge decoratives of the same type that already exist effectively increasing the "amount" field.
+    ///
     /// # Arguments
     ///
     /// * `check_collision` - If collision should be checked against entities/tiles.
     fn create_decoratives(check_collision: bool, decoratives: Vec<Decorative>);
     /// Create an entity on this surface.
+    ///
+    /// # Examples
+    ///
+    /// * ```text
+    /// asm = game.surfaces[1].create_entity{name = "assembling-machine-1", position = {15, 3}, force = game.forces.player, recipe = "iron-stick"}
+    /// ```
+    /// * Creates a filter inserter with circuit conditions and a filter
+    /// ```text
+    /// game.surfaces[1].create_entity{
+    ///   name = "filter-inserter", position = {20, 15}, force = game.player.force,
+    ///   conditions = {red = {name = "wood", count = 3, operator = ">"},
+    ///               green = {name = "iron-ore", count = 1, operator = "<"},
+    ///   logistics = {name = "wood", count = 3, operator = "="}},
+    ///   filters = {{index = 1, name = "iron-ore"}}
+    /// }
+    /// ```
+    /// * Creates a requester chest already set to request 128 iron plates.
+    /// ```text
+    /// game.surfaces[1].create_entity{
+    ///   name = "logistic-chest-requester", position = {game.player.position.x+3, game.player.position.y},
+    ///   force = game.player.force, request_filters = {{index = 1, name = "iron-plate", count = 128}}
+    /// }
+    /// ```
+    /// * ```text
+    /// game.surfaces[1].create_entity{name = "big-biter", position = {15, 3}, force = game.forces.player} -- Friendly biter
+    /// game.surfaces[1].create_entity{name = "medium-biter", position = {15, 3}, force = game.forces.enemy} -- Enemy biter
+    /// ```
+    /// * Creates a basic inserter at the player's location facing north
+    /// ```text
+    /// game.surfaces[1].create_entity{name = "inserter", position = game.player.position, direction = defines.direction.north}
+    /// ```
     ///
     /// # Arguments
     ///
@@ -8303,12 +9620,30 @@ pub trait LuaSurfaceMethods {
     ///
     /// If no filters are given, returns all decoratives in the search area. If multiple filters are specified, returns only decoratives matching every given filter. If no area and no position are given, the entire surface is searched.
     ///
+    /// # Examples
+    ///
+    /// * ```text
+    /// game.surfaces[1].find_decoratives_filtered{area = {{-10, -10}, {10, 10}}, name = "sand-decal"} -- gets all sand-decals in the rectangle
+    /// game.surfaces[1].find_decoratives_filtered{area = {{-10, -10}, {10, 10}}, limit = 5}  -- gets the first 5 decoratives in the rectangle
+    /// ```
+    ///
     /// # Arguments
     ///
     /// * `exclude_soft` - Soft decoratives can be drawn over rails.
     /// * `invert` - If the filters should be inverted.
     fn find_decoratives_filtered(area: BoundingBox, collision_mask: LuaSurfaceMethodsFindDecorativesFilteredCollisionMaskUnion, exclude_soft: bool, from_layer: String, invert: bool, limit: u32, name: LuaSurfaceMethodsFindDecorativesFilteredNameUnion, position: TilePosition, to_layer: String) -> Vec<DecorativeResult>;
     /// Find enemy units (entities with type "unit") of a given force within an area.
+    ///
+    /// # Notes
+    ///
+    /// * This is more efficient than [LuaSurface::find_entities](LuaSurface::find_entities).
+    ///
+    /// # Examples
+    ///
+    /// * Find all units who would be interested to attack the player, within 100-tile area.
+    /// ```text
+    /// local enemies = game.player.surface.find_enemy_units(game.player.position, 100)
+    /// ```
     ///
     /// # Arguments
     ///
@@ -8319,6 +9654,13 @@ pub trait LuaSurfaceMethods {
     /// Find entities in a given area.
     ///
     /// If no area is given all entities on the surface are returned.
+    ///
+    /// # Examples
+    ///
+    /// * Will evaluate to a list of all entities within given area.
+    /// ```text
+    /// game.surfaces["nauvis"].find_entities({{-10, -10}, {10, 10}})
+    /// ```
     fn find_entities(area: BoundingBox) -> Vec<LuaEntity>;
     /// Find all entities of the given type or name in the given area.
     ///
@@ -8329,12 +9671,29 @@ pub trait LuaSurfaceMethods {
     /// - If `position` and `radius` are given, this returns the entities within the radius of the position. Looks for the center of entities.
     /// - If `area` is specified, this returns the entities colliding with that area.
     ///
+    /// # Examples
+    ///
+    /// * ```text
+    /// game.surfaces[1].find_entities_filtered{area = {{-10, -10}, {10, 10}}, type = "resource"} -- gets all resources in the rectangle
+    /// game.surfaces[1].find_entities_filtered{area = {{-10, -10}, {10, 10}}, name = "iron-ore"} -- gets all iron ores in the rectangle
+    /// game.surfaces[1].find_entities_filtered{area = {{-10, -10}, {10, 10}}, name = {"iron-ore", "copper-ore"}} -- gets all iron ore and copper ore in the rectangle
+    /// game.surfaces[1].find_entities_filtered{area = {{-10, -10}, {10, 10}}, force = "player"}  -- gets player owned entities in the rectangle
+    /// game.surfaces[1].find_entities_filtered{area = {{-10, -10}, {10, 10}}, limit = 5}  -- gets the first 5 entities in the rectangle
+    /// game.surfaces[1].find_entities_filtered{position = {0, 0}, radius = 10}  -- gets all entities within 10 tiles of the position [0,0].
+    /// ```
+    ///
     /// # Arguments
     ///
     /// * `invert` - Whether the filters should be inverted.
     /// * `position` - Has precedence over area field.
     fn find_entities_filtered(area: BoundingBox, collision_mask: LuaSurfaceMethodsFindEntitiesFilteredCollisionMaskUnion, direction: LuaSurfaceMethodsFindEntitiesFilteredDirectionUnion, force: LuaSurfaceMethodsFindEntitiesFilteredForceUnion, ghost_name: LuaSurfaceMethodsFindEntitiesFilteredGhostNameUnion, ghost_type: LuaSurfaceMethodsFindEntitiesFilteredGhostTypeUnion, has_item_inside: LuaItemPrototype, invert: bool, is_military_target: bool, limit: u32, name: LuaSurfaceMethodsFindEntitiesFilteredNameUnion, position: MapPosition, radius: f64, to_be_deconstructed: bool, to_be_upgraded: bool, typ: LuaSurfaceMethodsFindEntitiesFilteredTypUnion) -> Vec<LuaEntity>;
     /// Find a specific entity at a specific position.
+    ///
+    /// # Examples
+    ///
+    /// * ```text
+    /// game.player.selected.surface.find_entity('filter-inserter', {0,0})
+    /// ```
     ///
     /// # Arguments
     ///
@@ -8387,6 +9746,10 @@ pub trait LuaSurfaceMethods {
     fn find_nearest_enemy_entity_with_owner(force: ForceIdentification, max_distance: f64, position: MapPosition) -> LuaEntity;
     /// Find a non-colliding position within a given radius.
     ///
+    /// # Notes
+    ///
+    /// * Special care needs to be taken when using a radius of `0`. The game will not stop searching until it finds a suitable position, so it is important to make sure such a position exists. One particular case where it would not be able to find a solution is running it before any chunks have been generated.
+    ///
     /// # Arguments
     ///
     /// * `center` - Center of the search area.
@@ -8428,6 +9791,21 @@ pub trait LuaSurfaceMethods {
     fn find_tiles_filtered(area: BoundingBox, collision_mask: LuaSurfaceMethodsFindTilesFilteredCollisionMaskUnion, force: LuaSurfaceMethodsFindTilesFilteredForceUnion, has_hidden_tile: bool, has_tile_ghost: bool, invert: bool, limit: u32, name: LuaSurfaceMethodsFindTilesFilteredNameUnion, position: MapPosition, radius: f64, to_be_deconstructed: bool) -> Vec<LuaTile>;
     /// Find units (entities with type "unit") of a given force and force condition within a given area.
     ///
+    /// # Notes
+    ///
+    /// * This is more efficient than [LuaSurface::find_entities](LuaSurface::find_entities).
+    ///
+    /// # Examples
+    ///
+    /// * Find friendly units to "player" force
+    /// ```text
+    /// local friendly_units = game.player.surface.find_units({area = {{-10, -10},{10, 10}}, force = "player", condition = "friend")
+    /// ```
+    /// * Find units of "player" force
+    /// ```text
+    /// local units = game.player.surface.find_units({area = {{-10, -10},{10, 10}}, force = "player", condition = "same"})
+    /// ```
+    ///
     /// # Arguments
     ///
     /// * `area` - Box to find units within.
@@ -8445,6 +9823,10 @@ pub trait LuaSurfaceMethods {
     /// * `entities` - The Entities to check
     fn get_closest(entities: Vec<LuaEntity>, position: MapPosition) -> Option<LuaEntity>;
     /// Gets all tiles of the given types that are connected horizontally or vertically to the given tile position including the given tile position.
+    ///
+    /// # Notes
+    ///
+    /// * This won't find tiles in non-generated chunks.
     ///
     /// # Arguments
     ///
@@ -8475,6 +9857,16 @@ pub trait LuaSurfaceMethods {
     /// Gets the map exchange string for the current map generation settings of this surface.
     fn get_map_exchange_string() -> String;
     /// Get the pollution for a given position.
+    ///
+    /// # Notes
+    ///
+    /// * Pollution is stored per chunk, so this will return the same value for all positions in one chunk.
+    ///
+    /// # Examples
+    ///
+    /// * ```text
+    /// game.surfaces[1].get_pollution({1,2})
+    /// ```
     fn get_pollution(position: MapPosition) -> f64;
     /// Gets a random generated chunk position or 0,0 if no chunks have been generated on this surface.
     fn get_random_chunk() -> ChunkPosition;
@@ -8499,6 +9891,10 @@ pub trait LuaSurfaceMethods {
     /// Gets the starting area radius of this surface.
     fn get_starting_area_radius() -> f64;
     /// Get the tile at a given position. An alternative call signature for this method is passing it a single [TilePosition](TilePosition).
+    ///
+    /// # Notes
+    ///
+    /// * Non-integer values will result in them being rounded down.
     fn get_tile(x: i32, y: i32) -> LuaTile;
     /// Gets the total amount of pollution on the surface by iterating over all of the chunks containing pollution.
     fn get_total_pollution() -> f64;
@@ -8538,8 +9934,16 @@ pub trait LuaSurfaceMethods {
     /// * `source` - Where to spawn the pollution.
     fn pollute(amount: f64, source: MapPosition);
     /// Print text to the chat console of all players on this surface.
+    ///
+    /// # Notes
+    ///
+    /// * Messages that are identical to a message sent in the last 60 ticks are not printed again.
     fn print(color: Color, message: LocalisedString);
     /// Regenerate autoplacement of some decoratives on this surface. This can be used to autoplace newly-added decoratives.
+    ///
+    /// # Notes
+    ///
+    /// * All specified decorative prototypes must be autoplacable. If nothing is given all decoratives are generated on all chunks.
     ///
     /// # Arguments
     ///
@@ -8547,6 +9951,10 @@ pub trait LuaSurfaceMethods {
     /// * `decoratives` - Prototype names of decorative or decoratives to autoplace. When `nil` all decoratives with an autoplace are used.
     fn regenerate_decorative(chunks: Vec<ChunkPosition>, decoratives: LuaSurfaceMethodsRegenerateDecorativeDecorativesUnion);
     /// Regenerate autoplacement of some entities on this surface. This can be used to autoplace newly-added entities.
+    ///
+    /// # Notes
+    ///
+    /// * All specified entity prototypes must be autoplacable. If nothing is given all entities are generated on all chunks.
     ///
     /// # Arguments
     ///
@@ -8623,6 +10031,10 @@ pub trait LuaSurfaceMethods {
     ///
     /// Placing a [mineable](LuaTilePrototype::mineable_properties) tile on top of a non-mineable one will turn the latter into the [LuaTile::hidden_tile](LuaTile::hidden_tile) for that tile. Placing a mineable tile on a mineable one or a non-mineable tile on a non-mineable one will not modify the hidden tile. This restriction can however be circumvented by using [LuaSurface::set_hidden_tile](LuaSurface::set_hidden_tile).
     ///
+    /// # Notes
+    ///
+    /// * It is recommended to call this method once for all the tiles you want to change rather than calling it individually for every tile. As the tile correction is used after every step, calling it one by one could cause the tile correction logic to redo some of the changes. Also, many small API calls are generally more performance intensive than one big one.
+    ///
     /// # Arguments
     ///
     /// * `correct_tiles` - If `false`, the correction logic is not applied to the changed tiles. Defaults to `true`.
@@ -8680,6 +10092,10 @@ pub struct LuaTechnology {
     /// The prototype of this technology.
     pub prototype: LuaTechnologyPrototype,
     /// The number of research units required for this technology.
+    ///
+    /// # Notes
+    ///
+    /// * This is multiplied by the current research cost multiplier, unless [LuaTechnologyPrototype::ignore_tech_cost_multiplier](LuaTechnologyPrototype::ignore_tech_cost_multiplier) is `true`.
     pub research_unit_count: u32,
     /// The count formula, if this research has any. See the [wiki](https://wiki.factorio.com/Prototype/Technology#Technology_data) for details.
     pub research_unit_count_formula: Option<String>,
@@ -8714,6 +10130,10 @@ pub struct LuaTechnologyPrototype {
     /// If this technology prototype is hidden.
     pub hidden: bool,
     /// If this technology ignores the technology cost multiplier setting.
+    ///
+    /// # Notes
+    ///
+    /// * [LuaTechnologyPrototype::research_unit_count](LuaTechnologyPrototype::research_unit_count) will already take this setting into account.
     pub ignore_tech_cost_multiplier: bool,
     /// The level of this research.
     pub level: u32,
@@ -8731,6 +10151,10 @@ pub struct LuaTechnologyPrototype {
     /// Prerequisites of this technology. The result maps technology name to the [LuaTechnologyPrototype](LuaTechnologyPrototype) object.
     pub prerequisites: HashMap<String, LuaTechnologyPrototype>,
     /// The number of research units required for this technology.
+    ///
+    /// # Notes
+    ///
+    /// * This is multiplied by the current research cost multiplier, unless [LuaTechnologyPrototype::ignore_tech_cost_multiplier](LuaTechnologyPrototype::ignore_tech_cost_multiplier) is `true`.
     pub research_unit_count: u32,
     /// The count formula, if this research has any. See the [wiki](https://wiki.factorio.com/Prototype/Technology#Technology_data) for details.
     pub research_unit_count_formula: Option<String>,
@@ -8779,6 +10203,13 @@ pub trait LuaTileMethods {
     /// * `player` - The player to set the last_user to if any.
     fn cancel_deconstruction(force: ForceIdentification, player: PlayerIdentification);
     /// What type of things can collide with this tile?
+    ///
+    /// # Examples
+    ///
+    /// * Check if the character would collide with a tile
+    /// ```text
+    /// game.player.print(tostring(game.player.surface.get_tile(1, 1).collides_with("player-layer")))
+    /// ```
     fn collides_with(layer: CollisionMaskLayer) -> bool;
     /// Gets all tile ghosts on this tile.
     ///
@@ -8907,6 +10338,10 @@ pub struct LuaTrain {
     /// The class name of this object. Available even when `valid` is false. For LuaStruct objects it may also be suffixed with a dotted path to a member of the struct.
     pub object_name: String,
     /// The player passengers on the train
+    ///
+    /// # Notes
+    ///
+    /// * This does *not* index using player index. See [LuaPlayer::index](LuaPlayer::index) on each player instance for the player index.
     pub passengers: Vec<LuaPlayer>,
     /// The path this train is using, if any.
     pub path: Option<LuaRailPath>,
@@ -8919,10 +10354,18 @@ pub struct LuaTrain {
     /// The riding state of this train.
     pub riding_state: RidingState,
     /// This train's current schedule, if any. Set to `nil` to clear.
+    ///
+    /// # Notes
+    ///
+    /// * The schedule can't be changed by modifying the returned table. Instead, changes must be made by assigning a new table to this attribute.
     pub schedule: Option<TrainSchedule>,
     /// The signal this train is arriving or waiting at, if any.
     pub signal: Option<LuaEntity>,
     /// Current speed.
+    ///
+    /// # Notes
+    ///
+    /// * Changing the speed of the train is potentially an unsafe operation because train uses the speed for its internal calculations of break distances, etc.
     pub speed: f64,
     /// This train's current state.
     pub state: TrainState,
@@ -9118,6 +10561,10 @@ pub trait LuaTransportLineMethods {
     /// * Were the items inserted successfully?
     fn insert_at_back(items: ItemStackIdentification) -> bool;
     /// Returns whether the associated internal transport line of this line is the same as the others associated internal transport line.
+    ///
+    /// # Notes
+    ///
+    /// * This can return true even when the [LuaTransportLine::owner](LuaTransportLine::owner)s are different (so `this == other` is false), because the internal transport lines can span multiple tiles.
     fn line_equals(other: LuaTransportLine) -> bool;
     /// Remove some items from this line.
     ///
@@ -9194,6 +10641,10 @@ pub struct LuaUnitGroup {
 /// A collection of units moving and attacking together. The engine creates autonomous unit groups to attack polluted areas. The script can create and control such groups as well. Groups can accept commands in the same manner as regular units.
 pub trait LuaUnitGroupMethods {
     /// Make a unit a member of this group. Has the same effect as giving a `group_command` with this group to the unit.
+    ///
+    /// # Notes
+    ///
+    /// * The member must have the same force as the unit group.
     fn add_member(unit: LuaEntity);
     /// Dissolve this group. Its members won't be destroyed, they will be merely unlinked from this group.
     fn destroy();

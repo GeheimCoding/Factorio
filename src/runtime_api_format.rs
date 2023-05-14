@@ -2,6 +2,7 @@ use std::{
     collections::{HashMap, HashSet},
     fmt::Display,
     fs::{self, File},
+    hash::Hash,
     io::{BufWriter, Write},
     path::PathBuf,
 };
@@ -18,6 +19,58 @@ trait SnakeCase {
 
 trait Description {
     fn to_rust_doc(&self) -> String;
+}
+
+trait NotesExamples {
+    fn get_notes(&self) -> Option<Vec<String>>;
+    fn get_examples(&self) -> Option<Vec<String>>;
+}
+
+fn generate_notes_and_examples<T: NotesExamples>(
+    interface: &T,
+    first_description: bool,
+    indent: bool,
+) -> String {
+    let mut description = String::new();
+    let notes = interface.get_notes();
+    let examples = interface.get_examples();
+    let has_notes = notes.is_some();
+    let has_examples = examples.is_some();
+    let indent = if indent { "    " } else { "" };
+
+    if !first_description && (has_notes || has_examples) {
+        description.push_str(&format!("{indent}///\n"));
+    }
+    if let Some(notes) = notes {
+        description.push_str(&format!("{indent}/// # Notes\n{indent}///\n"));
+        for note in notes {
+            description.push_str(&format!("{indent}/// * {}\n", note.trim_end()));
+        }
+    }
+    if let Some(examples) = examples {
+        if has_notes {
+            description.push_str(&format!("{indent}///\n"));
+        }
+        description.push_str(&format!("{indent}/// # Examples\n{indent}///\n"));
+        for example in examples {
+            let mut mark_code_block = true;
+            for (i, line) in example.split('\n').enumerate() {
+                description.push_str(&format!("{indent}/// "));
+                if i == 0 {
+                    description.push_str("* ");
+                }
+                let mut line = line.trim_end().to_owned();
+                if line.ends_with("```") {
+                    if mark_code_block {
+                        line.push_str("text");
+                    }
+                    mark_code_block = !mark_code_block;
+                }
+                description.push_str(&format!("{}\n", line));
+            }
+        }
+    }
+    description
 }
 
 impl PascalCase for String {
@@ -62,11 +115,19 @@ impl SnakeCase for String {
 impl Description for String {
     fn to_rust_doc(&self) -> String {
         let mut description = String::new();
+        let mut mark_code_block = true;
         for line in self.lines() {
             if line.is_empty() {
                 description.push_str("///\n");
             } else {
-                description.push_str(&format!("/// {}\n", line.trim()));
+                let mut line = line.trim_end().to_owned();
+                if line == "```" {
+                    if mark_code_block {
+                        line.push_str("text");
+                    }
+                    mark_code_block = !mark_code_block;
+                }
+                description.push_str(&format!("/// {}\n", line));
             }
         }
         description
@@ -224,6 +285,16 @@ struct Class {
     base_classes: Option<Vec<String>>,
 }
 
+impl NotesExamples for Class {
+    fn get_notes(&self) -> Option<Vec<String>> {
+        self.notes.clone()
+    }
+
+    fn get_examples(&self) -> Option<Vec<String>> {
+        self.examples.clone()
+    }
+}
+
 impl GenerateDefinition for Class {
     fn generate_definition(&self) -> String {
         let mut definition = String::new();
@@ -263,6 +334,11 @@ impl GenerateDefinition for Class {
         let prefix = &self.name;
 
         struct_definition.push_str(&self.description.to_rust_doc());
+        struct_definition.push_str(&generate_notes_and_examples(
+            self,
+            struct_definition.is_empty(),
+            false,
+        ));
         struct_definition.push_str(&format!("pub struct {} {{\n", prefix));
         if let Some(base_classes) = &self.base_classes {
             // TODO: there is only one base class here?
@@ -309,16 +385,24 @@ impl GenerateDefinition for Class {
             } else {
                 name
             };
+            let mut attribute_description = String::new();
             if !attribute.description.is_empty() {
                 let descriptions = attribute.description.split("\n");
                 for description in descriptions {
                     if description.is_empty() {
-                        struct_definition.push_str("    ///\n");
+                        attribute_description.push_str("    ///\n");
                     } else {
-                        struct_definition.push_str(&format!("    /// {}\n", description.trim()));
+                        attribute_description
+                            .push_str(&format!("    /// {}\n", description.trim_end()));
                     }
                 }
             }
+            attribute_description.push_str(&generate_notes_and_examples(
+                attribute,
+                attribute_description.is_empty(),
+                true,
+            ));
+            struct_definition.push_str(&attribute_description);
             struct_definition.push_str(&format!("    pub {}: {},\n", name, typ));
         }
         struct_definition.push_str("}\n");
@@ -342,7 +426,7 @@ impl Class {
             if desciption.is_empty() {
                 methods.push_str("///\n");
             } else {
-                methods.push_str(&format!("/// {}\n", desciption.trim()));
+                methods.push_str(&format!("/// {}\n", desciption.trim_end()));
             }
         }
         let prefix = format!("{prefix}Methods");
@@ -388,10 +472,25 @@ struct Event {
     data: Vec<Parameter>,
 }
 
+impl NotesExamples for Event {
+    fn get_notes(&self) -> Option<Vec<String>> {
+        self.notes.clone()
+    }
+
+    fn get_examples(&self) -> Option<Vec<String>> {
+        self.examples.clone()
+    }
+}
+
 impl GenerateDefinition for Event {
     fn generate_definition(&self) -> String {
         let mut definition = String::new();
         definition.push_str(&self.description.to_rust_doc());
+        definition.push_str(&generate_notes_and_examples(
+            self,
+            definition.is_empty(),
+            false,
+        ));
         definition.push_str(&format!("pub struct {} {{\n", self.name.to_pascal_case()));
         for parameter in &self.data {
             definition.push_str(&parameter.get_definition(&mut Vec::new(), ""));
@@ -495,6 +594,16 @@ struct Concept {
     typ: Type,
 }
 
+impl NotesExamples for Concept {
+    fn get_notes(&self) -> Option<Vec<String>> {
+        self.notes.clone()
+    }
+
+    fn get_examples(&self) -> Option<Vec<String>> {
+        self.examples.clone()
+    }
+}
+
 impl GenerateDefinition for Concept {
     fn generate_definition(&self) -> String {
         let mut definition = String::new();
@@ -509,7 +618,13 @@ impl GenerateDefinition for Concept {
         } else {
             0
         };
-        type_definition.insert_str(position, &self.description.to_rust_doc());
+        let mut description = self.description.to_rust_doc();
+        description.push_str(&generate_notes_and_examples(
+            self,
+            description.is_empty(),
+            false,
+        ));
+        type_definition.insert_str(position, &description);
         definition.push_str(&format!("{}\n", &type_definition));
         definition
     }
@@ -544,7 +659,7 @@ impl GenerateDefinition for BasicMember {
     fn generate_definition(&self) -> String {
         let mut description = String::new();
         if !self.description.is_empty() {
-            description.push_str(&format!("    /// {}\n", self.description.trim()));
+            description.push_str(&format!("    /// {}\n", self.description.trim_end()));
         }
         description.push_str(&format!("    {},\n", self.name.to_pascal_case()));
         description
@@ -759,7 +874,7 @@ impl Parameter {
                 if description.is_empty() {
                     definition.push_str("    ///\n");
                 } else {
-                    definition.push_str(&format!("    /// {}\n", description.trim()));
+                    definition.push_str(&format!("    /// {}\n", description.trim_end()));
                 }
             }
         }
@@ -814,6 +929,16 @@ struct Method {
     return_values: Vec<Parameter>,
 }
 
+impl NotesExamples for Method {
+    fn get_notes(&self) -> Option<Vec<String>> {
+        self.notes.clone()
+    }
+
+    fn get_examples(&self) -> Option<Vec<String>> {
+        self.examples.clone()
+    }
+}
+
 impl Method {
     fn generate_definition(&self, prefix: &str, unions: &mut Vec<String>) -> String {
         let mut definition = String::new();
@@ -823,10 +948,15 @@ impl Method {
                 if desciption.is_empty() {
                     definition.push_str("    ///\n");
                 } else {
-                    definition.push_str(&format!("    /// {}\n", desciption.trim()));
+                    definition.push_str(&format!("    /// {}\n", desciption.trim_end()));
                 }
             }
         }
+        definition.push_str(&generate_notes_and_examples(
+            self,
+            definition.is_empty(),
+            true,
+        ));
         let name = self.name.as_ref().unwrap();
         let prefix = format!("{prefix}{}", name.to_pascal_case());
         let name = if name == "move" { "mov" } else { name };
@@ -856,7 +986,7 @@ impl Method {
             if !parameter.description.is_empty() {
                 argument_descriptions.push_str(&format!(
                     "    /// * `{name}` - {}\n",
-                    parameter.description.trim()
+                    parameter.description.trim_end()
                 ));
                 has_argument_descriptions = true;
             }
@@ -882,8 +1012,10 @@ impl Method {
                     &return_value.typ.generate_definition(&prefix, unions, true),
                 );
                 if !return_value.description.is_empty() {
-                    return_descriptions
-                        .push_str(&format!("    /// * {}\n", return_value.description.trim()));
+                    return_descriptions.push_str(&format!(
+                        "    /// * {}\n",
+                        return_value.description.trim_end()
+                    ));
                     has_return_descriptions = true;
                 }
                 if return_value.optional {
@@ -945,6 +1077,16 @@ struct Attribute {
     read: bool,
     /// Whether the attribute can be written to.
     write: bool,
+}
+
+impl NotesExamples for Attribute {
+    fn get_notes(&self) -> Option<Vec<String>> {
+        self.notes.clone()
+    }
+
+    fn get_examples(&self) -> Option<Vec<String>> {
+        self.examples.clone()
+    }
 }
 
 impl Type {
@@ -1065,7 +1207,7 @@ impl ComplexType {
                     let mut type_name = option.get_type_name();
                     let description = option.get_description();
                     if let Some(description) = description {
-                        union_definition.push_str(&format!("    /// {}\n", description.trim()));
+                        union_definition.push_str(&format!("    /// {}\n", description.trim_end()));
                     }
                     if option.is_owned_type() {
                         if !type_name.is_empty() {
@@ -1171,7 +1313,7 @@ impl ComplexType {
                             if !parameter.description.is_empty() {
                                 definition.push_str(&format!(
                                     "    /// {}\n",
-                                    parameter.description.trim()
+                                    parameter.description.trim_end()
                                 ));
                             }
                             definition.push_str(&format!("    pub {}: {},\n", name, typ));
@@ -1236,7 +1378,12 @@ impl ComplexType {
                     let typ = Type::lua_type_to_rust_type(
                         &attribute.typ.generate_definition(prefix, unions, true),
                     );
-                    definition.push_str(&format!("    /// {}\n", attribute.description.trim()));
+                    definition.push_str(&format!("    /// {}\n", attribute.description.trim_end()));
+                    definition.push_str(&generate_notes_and_examples(
+                        attribute,
+                        definition.is_empty(),
+                        true,
+                    ));
                     definition.push_str(&format!("    pub {}: {},\n", name, typ));
                 }
                 definition.push_str("}");
@@ -1292,7 +1439,6 @@ impl LiteralValue {
     }
 }
 
-// TODO: handle notes and examples
 // TODO: fix clippy lints
 // TODO: cleanup
 // TODO: add tests
