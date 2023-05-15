@@ -4,7 +4,7 @@ use std::{
     fs::{self, File},
     hash::Hash,
     io::{BufWriter, Write},
-    path::PathBuf,
+    path::{Path, PathBuf},
 };
 
 use serde::Deserialize;
@@ -83,7 +83,12 @@ impl PascalCase for String {
             return String::new();
         }
         let mut chars = self.chars();
-        let mut pascal_case = String::from(chars.next().unwrap().to_ascii_uppercase());
+        let mut pascal_case = String::from(
+            chars
+                .next()
+                .expect("there should be at least one character")
+                .to_ascii_uppercase(),
+        );
         while let Some(c) = chars.next() {
             if c == '_' || c == '.' || c == '-' {
                 if let Some(next) = chars.next() {
@@ -103,8 +108,13 @@ impl SnakeCase for String {
             return String::new();
         }
         let mut chars = self.chars();
-        let mut snake_case = String::from(chars.next().unwrap().to_ascii_lowercase());
-        while let Some(c) = chars.next() {
+        let mut snake_case = String::from(
+            chars
+                .next()
+                .expect("there should be at least one character")
+                .to_ascii_lowercase(),
+        );
+        for c in chars {
             if c.is_ascii_uppercase() {
                 snake_case.push('_');
                 snake_case.push(c.to_ascii_lowercase());
@@ -206,7 +216,11 @@ impl RuntimeApiFormat {
         imports: Vec<Import>,
         mod_content: &mut String,
     ) -> std::io::Result<()> {
-        let file_stem = file_path.file_stem().unwrap().to_str().unwrap();
+        let file_stem = file_path
+            .file_stem()
+            .expect("the file should have a stem")
+            .to_str()
+            .expect("stem should be valid UTF-8");
         mod_content.push_str(&format!("mod {file_stem};\n"));
         mod_content.push_str(&format!("pub use {file_stem}::*;\n\n"));
 
@@ -234,11 +248,7 @@ impl RuntimeApiFormat {
         Ok(())
     }
 
-    fn generate_classes(
-        &self,
-        base_path: &PathBuf,
-        mod_content: &mut String,
-    ) -> std::io::Result<()> {
+    fn generate_classes(&self, base_path: &Path, mod_content: &mut String) -> std::io::Result<()> {
         let imports = vec![
             Import::HashMap,
             Import::HashSet,
@@ -255,11 +265,7 @@ impl RuntimeApiFormat {
         )
     }
 
-    fn generate_events(
-        &self,
-        base_path: &PathBuf,
-        mod_content: &mut String,
-    ) -> std::io::Result<()> {
+    fn generate_events(&self, base_path: &Path, mod_content: &mut String) -> std::io::Result<()> {
         let imports = vec![
             Import::HashMap,
             Import::LineBreak,
@@ -276,11 +282,7 @@ impl RuntimeApiFormat {
         )
     }
 
-    fn generate_concepts(
-        &self,
-        base_path: &PathBuf,
-        mod_content: &mut String,
-    ) -> std::io::Result<()> {
+    fn generate_concepts(&self, base_path: &Path, mod_content: &mut String) -> std::io::Result<()> {
         let imports = vec![
             Import::HashMap,
             Import::HashSet,
@@ -297,11 +299,7 @@ impl RuntimeApiFormat {
         )
     }
 
-    fn generate_defines(
-        &self,
-        base_path: &PathBuf,
-        mod_content: &mut String,
-    ) -> std::io::Result<()> {
+    fn generate_defines(&self, base_path: &Path, mod_content: &mut String) -> std::io::Result<()> {
         self.generate_definition(
             base_path.join("defines.rs"),
             &self.defines,
@@ -403,7 +401,10 @@ impl GenerateDefinition for Class {
             }
         }
         for attribute in &self.attributes {
-            let name = attribute.name.as_ref().unwrap();
+            let name = attribute
+                .name
+                .as_ref()
+                .expect("attribute should have a name");
             let prefix = &format!("{}{}", prefix, name.to_pascal_case());
             let typ = Type::lua_type_to_rust_type(&attribute.typ.generate_definition(
                 prefix,
@@ -419,7 +420,7 @@ impl GenerateDefinition for Class {
             let typ = if cycles.contains_key(self.name.as_str())
                 && cycles
                     .get(self.name.as_str())
-                    .unwrap()
+                    .expect("map should have name as key")
                     .contains(&typ.as_str())
             {
                 format!("Box<{typ}>")
@@ -440,7 +441,7 @@ impl GenerateDefinition for Class {
             };
             let mut attribute_description = String::new();
             if !attribute.description.is_empty() {
-                let descriptions = attribute.description.split("\n");
+                let descriptions = attribute.description.split('\n');
                 for description in descriptions {
                     if description.is_empty() {
                         attribute_description.push_str("    ///\n");
@@ -595,7 +596,7 @@ impl Define {
             for variant in variants {
                 definition.push_str(&variant.generate_definition());
             }
-            definition.push_str("}");
+            definition.push('}');
         // or sub-defines
         } else if let Some(sub_defines) = &self.subkeys {
             if self.values.is_some() {
@@ -754,10 +755,7 @@ impl Type {
         if let Type::ComplexType(ComplexType::Literal { value, description }) = self {
             true
         } else {
-            match self.get_type_name().as_str() {
-                "table" | "nil" | "LuaObject" => true,
-                _ => false,
-            }
+            matches!(self.get_type_name().as_str(), "table" | "nil" | "LuaObject")
         }
     }
 
@@ -859,19 +857,18 @@ enum ComplexType {
 
 impl ComplexType {
     fn is_inline_type(&self) -> bool {
-        match self {
+        matches!(
+            self,
             Self::Table {
                 parameters,
                 variant_parameter_groups,
                 variant_parameter_description,
-            }
-            | Self::Tuple {
+            } | Self::Tuple {
                 parameters,
                 variant_parameter_groups,
                 variant_parameter_description,
-            } => true,
-            _ => false,
-        }
+            }
+        )
     }
 }
 
@@ -902,7 +899,7 @@ struct Parameter {
 impl Parameter {
     fn get_definition(&self, unions: &mut Vec<String>, prefix: &str) -> String {
         let mut definition = String::new();
-        let name = self.name.as_ref().unwrap();
+        let name = self.name.as_ref().expect("parameter should have a name");
         let prefix = &format!("{}{}", prefix, name.to_pascal_case());
         let typ = Type::lua_type_to_rust_type(&self.typ.generate_definition(prefix, unions, true));
         let typ = if self.optional {
@@ -919,10 +916,10 @@ impl Parameter {
         } else if name == "_" {
             format!("field_{}", self.order)
         } else {
-            name.replace("-", "_")
+            name.replace('-', "_")
         };
         if !self.description.is_empty() {
-            let descriptions = self.description.split("\n");
+            let descriptions = self.description.split('\n');
             for description in descriptions {
                 if description.is_empty() {
                     definition.push_str("    ///\n");
@@ -1010,7 +1007,7 @@ impl Method {
             definition.is_empty(),
             true,
         ));
-        let name = self.name.as_ref().unwrap();
+        let name = self.name.as_ref().expect("method should have a name");
         let prefix = format!("{prefix}{}", name.to_pascal_case());
         let name = if name == "move" { "mov" } else { name };
         let mut method_definition = String::new();
@@ -1021,7 +1018,10 @@ impl Method {
         method_definition.push_str(&format!("    fn {name}("));
 
         for (i, parameter) in self.parameters.iter().enumerate() {
-            let name = parameter.name.as_ref().unwrap();
+            let name = parameter
+                .name
+                .as_ref()
+                .expect("parameter should have a name");
             let name = if name == "type" {
                 "typ".to_owned()
             } else if name == "mod" {
@@ -1074,7 +1074,7 @@ impl Method {
                 if return_value.optional {
                     method_definition.push_str(&format!("Option<{return_type}>"));
                 } else {
-                    method_definition.push_str(&return_type);
+                    method_definition.push_str(return_type);
                 }
                 if i != return_values.len() - 1 {
                     method_definition.push_str(", ");
@@ -1166,9 +1166,9 @@ impl Type {
         match self {
             Self::String(string) => {
                 if string == "BlueprintCircuitConnection" {
-                    unions.push(format!("pub struct BlueprintCircuitConnection;"));
+                    unions.push("pub struct BlueprintCircuitConnection;".to_owned());
                 } else if string == "BlueprintControlBehavior" {
-                    unions.push(format!("pub struct BlueprintControlBehavior;"));
+                    unions.push("pub struct BlueprintControlBehavior;".to_owned());
                 }
                 let mut definition = String::new();
                 if !is_nested {
@@ -1218,15 +1218,7 @@ impl ComplexType {
             ComplexType::Literal { value, description } => description.clone(),
             _ => None,
         };
-        if let Some(description) = description {
-            if description.is_empty() {
-                None
-            } else {
-                Some(description)
-            }
-        } else {
-            None
-        }
+        description.filter(|description| !description.is_empty())
     }
 
     fn generate_definition(
@@ -1277,9 +1269,7 @@ impl ComplexType {
                                     .push_str(&array_definition[4..array_definition.len() - 1]);
                             }
                             array_definition
-                        } else if type_name == "dictionary" {
-                            option.generate_definition(&prefix, unions, true)
-                        } else if type_name == "function" {
+                        } else if type_name == "dictionary" || type_name == "function" {
                             option.generate_definition(&prefix, unions, true)
                         } else {
                             Type::lua_type_to_rust_type(&type_name)
@@ -1291,10 +1281,10 @@ impl ComplexType {
                         ));
                     }
                 }
-                union_definition.push_str("}");
+                union_definition.push('}');
 
                 if is_nested {
-                    unions.push(format!("{union_definition}"));
+                    unions.push(union_definition);
                     definition.push_str(&prefix);
                 } else {
                     definition.push_str(&union_definition);
@@ -1318,7 +1308,9 @@ impl ComplexType {
                 if let Some(variant_parameter_groups) = variant_parameter_groups {
                     table_definition.push_str(&format!(
                         "    /// {}\n",
-                        variant_parameter_description.as_ref().unwrap()
+                        variant_parameter_description
+                            .as_ref()
+                            .expect("variant parameter groups should have a description")
                     ));
                     table_definition.push_str(&format!(
                         "    pub attributes: Option<{}Attributes>,\n",
@@ -1351,7 +1343,11 @@ impl ComplexType {
                         // }
                         definition.push_str(&format!("pub struct {} {{\n", name));
                         for parameter in &variant_parameter_group.parameters {
-                            let name = parameter.name.as_ref().unwrap().replace("-", "_");
+                            let name = parameter
+                                .name
+                                .as_ref()
+                                .expect("parameter should have a name")
+                                .replace('-', "_");
                             let prefix = &format!("{}{}", prefix, name.to_pascal_case());
                             let typ = Type::lua_type_to_rust_type(
                                 &parameter.typ.generate_definition(prefix, unions, true),
@@ -1362,7 +1358,7 @@ impl ComplexType {
                                 typ
                             };
                             let name = if name == "type" { "typ" } else { &name };
-                            let name = if name == "mod" { "mod_name" } else { &name };
+                            let name = if name == "mod" { "mod_name" } else { name };
                             if !parameter.description.is_empty() {
                                 definition.push_str(&format!(
                                     "    /// {}\n",
@@ -1376,7 +1372,7 @@ impl ComplexType {
                     variant_definition.push_str("}\n\n");
                     definition.push_str(&variant_definition);
                 }
-                table_definition.push_str("}");
+                table_definition.push('}');
                 definition.push_str(&table_definition);
             }
             Self::Array { value } => {
@@ -1426,7 +1422,10 @@ impl ComplexType {
             Self::Struct { attributes } => {
                 definition.push_str(&format!("pub struct {} {{\n", prefix));
                 for attribute in attributes {
-                    let name = attribute.name.as_ref().unwrap();
+                    let name = attribute
+                        .name
+                        .as_ref()
+                        .expect("attribute should have a name");
                     let prefix = &format!("{}{}", prefix, name.to_pascal_case());
                     let typ = Type::lua_type_to_rust_type(
                         &attribute.typ.generate_definition(prefix, unions, true),
@@ -1439,7 +1438,7 @@ impl ComplexType {
                     ));
                     definition.push_str(&format!("    pub {}: {},\n", name, typ));
                 }
-                definition.push_str("}");
+                definition.push('}');
             }
             Self::LuaLazyLoadedValue { value } => {
                 definition.push_str(&value.generate_definition(prefix, unions, true));
@@ -1492,7 +1491,8 @@ impl LiteralValue {
     }
 }
 
-// TODO: fix clippy lints
 // TODO: cleanup
+// TODO: add build script
+// TODO: adjust generated code with clippy?
 // TODO: add tests
 // TODO: improve docs
