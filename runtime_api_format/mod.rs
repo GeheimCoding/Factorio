@@ -1,10 +1,11 @@
+#![allow(dead_code)]
+
 use std::{
     collections::{HashMap, HashSet},
-    fmt::Display,
-    fs::{self, File},
-    hash::Hash,
-    io::{BufWriter, Write},
+    fs,
+    io::{Error, ErrorKind},
     path::{Path, PathBuf},
+    process::Command,
 };
 
 use serde::Deserialize;
@@ -180,7 +181,6 @@ enum Import {
     Classes,
     Concepts,
     Defines,
-    Events,
     LineBreak,
 }
 
@@ -221,6 +221,10 @@ impl RuntimeApiFormat {
             .expect("the file should have a stem")
             .to_str()
             .expect("stem should be valid UTF-8");
+        let file_name = file_path
+            .to_str()
+            .expect("file path should be valid UTF-8")
+            .to_owned();
         mod_content.push_str(&format!("mod {file_stem};\n"));
         mod_content.push_str(&format!("pub use {file_stem}::*;\n\n"));
 
@@ -235,7 +239,6 @@ impl RuntimeApiFormat {
                 Import::Classes => "use super::classes::*;\n",
                 Import::Concepts => "use super::concepts::*;\n",
                 Import::Defines => "use super::defines::*;\n",
-                Import::Events => "use super::events::*;\n",
                 Import::LineBreak => "\n",
             });
         }
@@ -244,6 +247,16 @@ impl RuntimeApiFormat {
         }
         definition.pop();
         fs::write(file_path, definition)?;
+
+        Command::new("rustfmt")
+            .arg(&file_name)
+            .status()
+            .map_err(|e| {
+                Error::new(
+                    ErrorKind::Other,
+                    format!("could not format {file_name} due to {e}"),
+                )
+            })?;
 
         Ok(())
     }
@@ -571,13 +584,12 @@ struct Define {
 
 impl GenerateDefinition for Define {
     fn generate_definition(&self) -> String {
-        self.generate_definition_internal("", false)
+        self.generate_definition_internal("")
     }
 }
 
 impl Define {
-    fn generate_definition_internal(&self, prefix: &str, is_sub: bool) -> String {
-        // TODO: print description as doc
+    fn generate_definition_internal(&self, prefix: &str) -> String {
         let mut definition = String::new();
         let name = &format!("{}{}", prefix, self.name.to_pascal_case());
 
@@ -605,7 +617,7 @@ impl Define {
             for sub_define in sub_defines {
                 definition.push_str(&format!(
                     "{}\n",
-                    &sub_define.generate_definition_internal(name, true)
+                    &sub_define.generate_definition_internal(name)
                 ));
             }
             definition.pop();
@@ -752,7 +764,11 @@ impl Type {
     }
 
     fn is_owned_type(&self) -> bool {
-        if let Type::ComplexType(ComplexType::Literal { value, description }) = self {
+        if let Type::ComplexType(ComplexType::Literal {
+            value: _,
+            description: _,
+        }) = self
+        {
             true
         } else {
             matches!(self.get_type_name().as_str(), "table" | "nil" | "LuaObject")
@@ -860,13 +876,13 @@ impl ComplexType {
         matches!(
             self,
             Self::Table {
-                parameters,
-                variant_parameter_groups,
-                variant_parameter_description,
+                parameters: _,
+                variant_parameter_groups: _,
+                variant_parameter_description: _,
             } | Self::Tuple {
-                parameters,
-                variant_parameter_groups,
-                variant_parameter_description,
+                parameters: _,
+                variant_parameter_groups: _,
+                variant_parameter_description: _,
             }
         )
     }
@@ -1190,21 +1206,27 @@ impl Type {
 impl ComplexType {
     fn get_type_name(&self) -> String {
         match self {
-            Self::Type { value, description } => value.get_type_name(),
-            Self::Literal { value, description } => value.get_type_name(),
+            Self::Type {
+                value,
+                description: _,
+            } => value.get_type_name(),
+            Self::Literal {
+                value,
+                description: _,
+            } => value.get_type_name(),
             Self::Table {
-                parameters,
-                variant_parameter_groups,
-                variant_parameter_description,
+                parameters: _,
+                variant_parameter_groups: _,
+                variant_parameter_description: _,
             } => "table".to_string(),
             Self::Tuple {
-                parameters,
-                variant_parameter_groups,
-                variant_parameter_description,
+                parameters: _,
+                variant_parameter_groups: _,
+                variant_parameter_description: _,
             } => "tuple".to_string(),
-            Self::Array { value } => "array".to_string(),
-            Self::Dictionary { key, value } => "dictionary".to_owned(),
-            Self::Function { parameters } => "function".to_owned(),
+            Self::Array { value: _ } => "array".to_string(),
+            Self::Dictionary { key: _, value: _ } => "dictionary".to_owned(),
+            Self::Function { parameters: _ } => "function".to_owned(),
             _ => {
                 println!("{self:?}");
                 unimplemented!()
@@ -1214,8 +1236,14 @@ impl ComplexType {
 
     fn get_description(&self) -> Option<String> {
         let description = match self {
-            ComplexType::Type { value, description } => Some(description.clone()),
-            ComplexType::Literal { value, description } => description.clone(),
+            ComplexType::Type {
+                value: _,
+                description,
+            } => Some(description.clone()),
+            ComplexType::Literal {
+                value: _,
+                description,
+            } => description.clone(),
             _ => None,
         };
         description.filter(|description| !description.is_empty())
@@ -1231,7 +1259,7 @@ impl ComplexType {
         match self {
             Self::Union {
                 options,
-                full_format,
+                full_format: _,
             } => {
                 let mut union_definition = String::new();
                 let prefix = if is_nested {
@@ -1392,8 +1420,10 @@ impl ComplexType {
                     definition.push_str(&format!("pub type {prefix} = "));
                 }
                 let mut is_map = true;
-                if let Type::ComplexType(ComplexType::Literal { value, description }) =
-                    value.as_ref()
+                if let Type::ComplexType(ComplexType::Literal {
+                    value,
+                    description: _,
+                }) = value.as_ref()
                 {
                     // description is always None
                     if value.get_type_name() == "True" {
@@ -1415,7 +1445,10 @@ impl ComplexType {
                     definition.push(';');
                 }
             }
-            Self::Literal { value, description } => {
+            Self::Literal {
+                value,
+                description: _,
+            } => {
                 // description is always None
                 definition.push_str(&value.get_type_name());
             }
@@ -1462,7 +1495,7 @@ impl ComplexType {
         match self {
             Self::Union {
                 options,
-                full_format,
+                full_format: _,
             } => {
                 let type_names: HashSet<_> = options.iter().map(Type::get_type_name).collect();
                 type_names.contains("table") && type_names.contains("tuple")
@@ -1491,8 +1524,8 @@ impl LiteralValue {
     }
 }
 
+// TODO: add events to define
 // TODO: cleanup
-// TODO: add build script
 // TODO: adjust generated code with clippy?
 // TODO: add tests
 // TODO: improve docs
