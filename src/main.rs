@@ -4,18 +4,107 @@
 //mod generated;
 mod remote_console;
 
-use std::io;
+use std::{collections::HashMap, io};
 
 use remote_console::RemoteConsole;
+use serde::Deserialize;
+use serde_json::Value;
+
+#[derive(Debug, Deserialize)]
+struct ItemStackDefinition {
+    pub ammo: Option<f64>,
+    pub count: Option<u32>,
+    pub durability: Option<f64>,
+    pub health: Option<f32>,
+    pub name: String,
+    pub tags: Option<Vec<String>>,
+}
+
+#[derive(Debug, Deserialize)]
+#[serde(untagged)]
+enum SimpleItemStack {
+    String(String),
+    ItemStackDefinition(ItemStackDefinition),
+}
+
+#[derive(Debug, Deserialize)]
+#[serde(rename_all = "snake_case")]
+#[serde(tag = "serde_tag")]
+enum EventUnion {
+    OnPlayerMinedItem(OnPlayerMinedItem),
+    OnPlayerMinedTile(OnPlayerMinedTile),
+}
+
+#[derive(Debug, Deserialize)]
+#[serde(rename_all = "snake_case")]
+enum Events {
+    OnPlayerMinedItem,
+    OnPlayerMinedTile,
+}
+
+#[derive(Debug, Deserialize)]
+struct OnPlayerMinedItem {
+    pub item_stack: SimpleItemStack,
+    pub name: Events,
+    pub player_index: u32,
+    pub tick: u32,
+}
+
+#[derive(Debug, Deserialize)]
+struct OnPlayerMinedTile {
+    pub name: Events,
+    pub player_index: u32,
+    pub tick: u32,
+}
+
+#[derive(Debug, Deserialize)]
+enum ClassUnion {}
+
+#[derive(Debug, Deserialize)]
+enum ConceptUnion {}
+
+#[derive(Debug, Deserialize)]
+#[serde(rename_all = "snake_case")]
+#[serde(tag = "serde_type")]
+enum FactorioType {
+    Class(ClassUnion),
+    Concept(ConceptUnion),
+    Event(EventUnion),
+}
 
 fn main() -> io::Result<()> {
+    let mut table = HashMap::new();
+    table.insert(8, "on_player_mined_item");
+    table.insert(48, "on_player_mined_tile");
+    let json = r#"{
+        "item_stack": {
+            "count": 1,
+            "name": "stone"
+        },
+        "name": 8,
+        "player_index": 1,
+        "tick": 773
+    }"#;
+    let mut json_value: Value = serde_json::from_str(json).unwrap();
+    if let Value::Object(obj) = &mut json_value {
+        let name = obj.get("name").unwrap();
+        let name = (*table.get(&name.as_u64().unwrap()).unwrap()).to_owned();
+        obj.insert("name".to_owned(), Value::String(name.clone()));
+        obj.insert("serde_tag".to_owned(), Value::String(name));
+        obj.insert("serde_type".to_owned(), Value::String("event".to_owned()));
+    }
+
+    let typ: Result<FactorioType, _> = serde_json::from_value(json_value);
+    println!("{typ:?}");
+
     Ok(())
 }
 
 // https://developer.valvesoftware.com/wiki/Source_RCON_Protocol
 fn remote_console() -> io::Result<()> {
     let mut console = RemoteConsole::new("10.243.166.195", 25575, "123")?;
-    let response = console.send_command("rcon.print('Hello Tomo from Factorio!')")?;
+    console.send_command("script.on_event(defines.events.on_tick, function(event) global.defines = serpent.block(defines) end)")?;
+    let response = console.send_command("rcon.print(global.defines)")?;
     println!("{response}");
 
     Ok(())
