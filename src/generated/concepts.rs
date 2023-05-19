@@ -1,23 +1,29 @@
 use std::collections::HashMap;
 use std::collections::HashSet;
 
+use serde::Deserialize;
+
 use super::classes::*;
 use super::defines::*;
 
+#[derive(Debug, Deserialize)]
 pub enum AchievementPrototypeFilterAttributesTypeUnion {
     String(String),
     Array(Vec<String>),
 }
 
+#[derive(Debug, Deserialize)]
 pub struct AchievementPrototypeFilterAttributesType {
     /// The prototype type, or a list of acceptable types.
     pub typ: AchievementPrototypeFilterAttributesTypeUnion,
 }
 
+#[derive(Debug, Deserialize)]
 pub enum AchievementPrototypeFilterAttributes {
     Type(AchievementPrototypeFilterAttributesType),
 }
 
+#[derive(Debug, Deserialize)]
 /// Depending on the value of `filter`, the table may take additional fields. `filter` may be one of the following:
 pub struct AchievementPrototypeFilter {
     /// The condition to filter on. One of `"allowed-without-fight"`, `"type"`.
@@ -30,6 +36,7 @@ pub struct AchievementPrototypeFilter {
     pub attributes: Option<AchievementPrototypeFilterAttributes>,
 }
 
+#[derive(Debug, Deserialize)]
 pub struct AdvancedMapGenSettings {
     pub difficulty_settings: DifficultySettings,
     pub enemy_evolution: EnemyEvolutionMapSettings,
@@ -37,6 +44,7 @@ pub struct AdvancedMapGenSettings {
     pub pollution: PollutionMapSettings,
 }
 
+#[derive(Debug, Deserialize)]
 pub struct Alert {
     /// The SignalID used for a custom alert. Only present for custom alerts.
     pub icon: Option<SignalID>,
@@ -50,6 +58,7 @@ pub struct Alert {
 }
 
 /// A [string](string) that specifies where a GUI element should be.
+#[derive(Debug, Deserialize)]
 pub enum Alignment {
     TopLeft,
     MiddleLeft,
@@ -67,6 +76,7 @@ pub enum Alignment {
     BottomRight,
 }
 
+#[derive(Debug, Deserialize)]
 pub struct AmmoType {
     pub action: Option<Vec<TriggerItem>>,
     /// Ammo category of this ammo.
@@ -83,6 +93,7 @@ pub struct AmmoType {
 }
 
 /// Any basic type (string, number, boolean), table, or LuaObject.
+#[derive(Debug, Deserialize)]
 pub enum Any {
     String(String),
     Boolean(bool),
@@ -92,6 +103,7 @@ pub enum Any {
 }
 
 /// Any basic type (string, number, boolean) or table.
+#[derive(Debug, Deserialize)]
 pub enum AnyBasic {
     String(String),
     Boolean(bool),
@@ -99,6 +111,7 @@ pub enum AnyBasic {
     Table,
 }
 
+#[derive(Debug, Deserialize)]
 pub struct ArithmeticCombinatorParameters {
     /// Constant to use as the first argument of the operation. Has no effect when `first_signal` is set. Defaults to `0`.
     pub first_constant: Option<i32>,
@@ -114,6 +127,7 @@ pub struct ArithmeticCombinatorParameters {
     pub second_signal: Option<SignalID>,
 }
 
+#[derive(Debug, Deserialize)]
 pub struct AttackParameterFluid {
     /// Multiplier applied to the damage of an attack.
     pub damage_modifier: f64,
@@ -121,6 +135,7 @@ pub struct AttackParameterFluid {
     pub typ: String,
 }
 
+#[derive(Debug, Deserialize)]
 pub struct AttackParametersAttributesProjectile {
     pub projectile_center: Vector,
     pub projectile_creation_distance: f32,
@@ -129,6 +144,7 @@ pub struct AttackParametersAttributesProjectile {
     pub shell_particle: Option<CircularParticleCreationSpecification>,
 }
 
+#[derive(Debug, Deserialize)]
 pub struct AttackParametersAttributesStream {
     pub fluid_consumption: f32,
     pub fluids: Option<Vec<AttackParameterFluid>>,
@@ -137,11 +153,13 @@ pub struct AttackParametersAttributesStream {
     pub projectile_creation_parameters: Option<Vec<CircularProjectileCreationSpecification>>,
 }
 
+#[derive(Debug, Deserialize)]
 pub enum AttackParametersAttributes {
     Projectile(AttackParametersAttributesProjectile),
     Stream(AttackParametersAttributesStream),
 }
 
+#[derive(Debug, Deserialize)]
 pub struct AttackParameters {
     /// List of the names of compatible [LuaAmmoCategoryPrototypes](LuaAmmoCategoryPrototype).
     pub ammo_categories: Option<Vec<String>>,
@@ -178,6 +196,7 @@ pub struct AttackParameters {
     pub attributes: Option<AttackParametersAttributes>,
 }
 
+#[derive(Debug, Deserialize)]
 pub struct AutoplaceControl {
     /// For things that are placed as spots such as ores and enemy bases, frequency is generally proportional to number of spots placed per unit area. For continuous features such as forests, frequency is how compressed the probability function is over distance, i.e. the inverse of 'scale' (similar to terrain_segmentation). When the [LuaAutoplaceControlPrototype](LuaAutoplaceControlPrototype) is of the category `"terrain"`, then scale is shown in the map generator GUI instead of frequency.
     pub frequency: MapGenSize,
@@ -187,12 +206,14 @@ pub struct AutoplaceControl {
     pub size: MapGenSize,
 }
 
+#[derive(Debug, Deserialize)]
 pub struct AutoplaceSettings {
     pub settings: HashMap<String, AutoplaceControl>,
     /// Whether missing autoplace names for this type should be default enabled.
     pub treat_missing_as_default: bool,
 }
 
+#[derive(Debug, Deserialize)]
 /// Specifies how probability and richness are calculated when placing something on the map. Can be specified either using `probability_expression` and `richness_expression` or by using all the other fields.
 pub struct AutoplaceSpecification {
     /// Control prototype name.
@@ -215,6 +236,7 @@ pub struct AutoplaceSpecification {
     pub tile_restriction: Option<Vec<AutoplaceSpecificationRestriction>>,
 }
 
+#[derive(Debug, Deserialize)]
 pub struct AutoplaceSpecificationPeak {
     pub aux_max_range: f64,
     pub aux_optimal: f64,
@@ -254,6 +276,7 @@ pub struct AutoplaceSpecificationPeak {
     pub water_top_property_limit: f64,
 }
 
+#[derive(Debug, Deserialize)]
 pub struct AutoplaceSpecificationRestriction {
     /// Tile prototype name
     pub first: Option<String>,
@@ -261,6 +284,7 @@ pub struct AutoplaceSpecificationRestriction {
     pub second: Option<String>,
 }
 
+#[derive(Debug, Deserialize)]
 pub struct BeamTarget {
     /// The target entity.
     pub entity: Option<LuaEntity>,
@@ -268,10 +292,13 @@ pub struct BeamTarget {
     pub position: Option<MapPosition>,
 }
 
+#[derive(Debug, Deserialize)]
 pub struct BlueprintCircuitConnection;
 
+#[derive(Debug, Deserialize)]
 pub struct BlueprintControlBehavior;
 
+#[derive(Debug, Deserialize)]
 /// The representation of an entity inside of a blueprint. It has at least these fields, but can contain additional ones depending on the kind of entity.
 pub struct BlueprintEntity {
     /// The circuit network connections of the entity, if there are any. Only relevant for entities that support circuit connections.
@@ -294,6 +321,7 @@ pub struct BlueprintEntity {
     pub tags: Option<Tags>,
 }
 
+#[derive(Debug, Deserialize)]
 pub struct BlueprintSignalIcon {
     /// Index of the icon in the blueprint icons slots. Has to be an integer in the range [1, 4].
     pub index: u32,
@@ -301,6 +329,7 @@ pub struct BlueprintSignalIcon {
     pub signal: SignalID,
 }
 
+#[derive(Debug, Deserialize)]
 /// Two positions, specifying the top-left and bottom-right corner of the box respectively. Like with [MapPosition](MapPosition), the names of the members may be omitted. When read from the game, the third member `orientation` is present if it is non-zero, however it is ignored when provided to the game.
 ///
 /// # Examples
@@ -319,32 +348,38 @@ pub struct BoundingBox {
     pub right_bottom: MapPosition,
 }
 
+#[derive(Debug, Deserialize)]
 pub struct CapsuleActionAttributesArtilleryRemote {
     /// Name of the [flare prototype](LuaEntityPrototype).
     pub flare: String,
 }
 
+#[derive(Debug, Deserialize)]
 pub struct CapsuleActionAttributesDestroyCliffs {
     pub attack_parameters: AttackParameters,
     pub radius: f32,
     pub timeout: u32,
 }
 
+#[derive(Debug, Deserialize)]
 pub struct CapsuleActionAttributesEquipmentRemote {
     /// Name of the [LuaEquipmentPrototype](LuaEquipmentPrototype).
     pub equipment: String,
 }
 
+#[derive(Debug, Deserialize)]
 pub struct CapsuleActionAttributesThrow {
     pub attack_parameters: AttackParameters,
     /// Whether using the capsule consumes an item from the stack.
     pub uses_stack: bool,
 }
 
+#[derive(Debug, Deserialize)]
 pub struct CapsuleActionAttributesUseOnSelf {
     pub attack_parameters: AttackParameters,
 }
 
+#[derive(Debug, Deserialize)]
 pub enum CapsuleActionAttributes {
     ArtilleryRemote(CapsuleActionAttributesArtilleryRemote),
     DestroyCliffs(CapsuleActionAttributesDestroyCliffs),
@@ -353,6 +388,7 @@ pub enum CapsuleActionAttributes {
     UseOnSelf(CapsuleActionAttributesUseOnSelf),
 }
 
+#[derive(Debug, Deserialize)]
 pub struct CapsuleAction {
     /// One of `"throw"`, `"equipment-remote"`, `"use-on-self"`, `"artillery-remote"`, `"destroy-cliffs"`.
     pub typ: String,
@@ -360,6 +396,7 @@ pub struct CapsuleAction {
     pub attributes: Option<CapsuleActionAttributes>,
 }
 
+#[derive(Debug, Deserialize)]
 /// # Notes
 ///
 /// * Either `icon`, `text`, or both must be provided.
@@ -370,12 +407,14 @@ pub struct ChartTagSpec {
     pub text: Option<String>,
 }
 
+#[derive(Debug, Deserialize)]
 /// Coordinates of a chunk in a [LuaSurface](LuaSurface) where each integer `x`/`y` represents a different chunk. This uses the same format as [MapPosition](MapPosition), meaning it can be specified either with or without explicit keys. A [MapPosition](MapPosition) can be translated to a ChunkPosition by dividing the `x`/`y` values by 32.
 pub struct ChunkPosition {
     pub x: i32,
     pub y: i32,
 }
 
+#[derive(Debug, Deserialize)]
 /// A [ChunkPosition](ChunkPosition) with an added bounding box for the area of the chunk.
 pub struct ChunkPositionAndArea {
     pub area: BoundingBox,
@@ -383,6 +422,7 @@ pub struct ChunkPositionAndArea {
     pub y: i32,
 }
 
+#[derive(Debug, Deserialize)]
 pub struct CircuitCondition {
     /// Specifies how the inputs should be compared. If not specified, defaults to `"<"`.
     pub comparator: Option<ComparatorString>,
@@ -394,12 +434,14 @@ pub struct CircuitCondition {
     pub second_signal: Option<SignalID>,
 }
 
+#[derive(Debug, Deserialize)]
 pub struct CircuitConditionDefinition {
     pub condition: CircuitCondition,
     /// Whether the condition is currently fulfilled
     pub fulfilled: Option<bool>,
 }
 
+#[derive(Debug, Deserialize)]
 pub struct CircuitConnectionDefinition {
     pub source_circuit_id: CircuitConnectorId,
     pub target_circuit_id: CircuitConnectorId,
@@ -408,6 +450,7 @@ pub struct CircuitConnectionDefinition {
     pub wire: WireType,
 }
 
+#[derive(Debug, Deserialize)]
 pub struct CircularParticleCreationSpecification {
     /// This vector is a table with `x` and `y` keys instead of an array.
     pub center: Vector,
@@ -428,11 +471,13 @@ pub struct CircularParticleCreationSpecification {
     pub vertical_speed_deviation: f32,
 }
 
+#[derive(Debug, Deserialize)]
 pub struct CircularProjectileCreationSpecification {
     pub field_0: RealOrientation,
     pub field_1: Vector,
 }
 
+#[derive(Debug, Deserialize)]
 pub enum CliffOrientation {
     WestToEast,
     NorthToSouth,
@@ -456,6 +501,7 @@ pub enum CliffOrientation {
     NoneToNorth,
 }
 
+#[derive(Debug, Deserialize)]
 pub struct CliffPlacementSettings {
     /// Elevation at which the first row of cliffs is placed. The default is `10`, and this cannot be set from the map generation GUI.
     pub cliff_elevation_0: f32,
@@ -473,6 +519,7 @@ pub type CollisionMask = HashSet<CollisionMaskLayer>;
 /// A [string](string) specifying a collision mask layer.
 ///
 /// In addition to the listed layers, there is `"layer-13"` through `"layer-55"`. These layers are currently unused by the game but may change. If a mod is going to use one of the unused layers it's recommended to start at the higher layers because the base game will take from the lower ones.
+#[derive(Debug, Deserialize, Eq, PartialEq, Hash)]
 pub enum CollisionMaskLayer {
     GroundTile,
     WaterTile,
@@ -489,6 +536,7 @@ pub enum CollisionMaskLayer {
     NotSetup,
 }
 
+#[derive(Debug, Deserialize, Eq, PartialEq, Hash)]
 pub enum CollisionMaskWithFlagsUnion {
     CollisionMaskLayer(CollisionMaskLayer),
     /// Any two entities that both have this option enabled on their prototype and have an identical collision mask layers list will not collide. Other collision mask options are not included in the identical layer list check. This does mean that two different prototypes with the same collision mask layers and this option enabled will not collide.
@@ -502,6 +550,7 @@ pub enum CollisionMaskWithFlagsUnion {
 /// A [CollisionMask](CollisionMask) which also includes any flags this mask has.
 pub type CollisionMaskWithFlags = HashSet<CollisionMaskWithFlagsUnion>;
 
+#[derive(Debug, Deserialize)]
 /// Red, green, blue and alpha values, all in range [0, 1] or all in range [0, 255] if any value is > 1. All values here are optional. Color channels default to `0`, the alpha channel defaults to `1`.
 ///
 /// Similar to [MapPosition](MapPosition), Color allows the short-hand notation of passing an array of exactly 3 or 4 numbers. The game usually expects colors to be in pre-multiplied form (color channels are pre-multiplied by alpha).
@@ -521,6 +570,7 @@ pub struct Color {
     pub r: Option<f32>,
 }
 
+#[derive(Debug, Deserialize)]
 /// Same as [Color](Color), but red, green, blue and alpha values can be any floating point number, without any special handling of the range [1, 255].
 pub struct ColorModifier {
     pub a: Option<f32>,
@@ -529,12 +579,14 @@ pub struct ColorModifier {
     pub r: Option<f32>,
 }
 
+#[derive(Debug, Deserialize)]
 pub struct CommandAttributesDefinesCommandAttack {
     /// Defaults to `defines.distraction.by_enemy`.
     pub distraction: Option<Distraction>,
     pub target: LuaEntity,
 }
 
+#[derive(Debug, Deserialize)]
 pub struct CommandAttributesDefinesCommandAttackArea {
     /// Center of the attack area.
     pub destination: MapPosition,
@@ -544,6 +596,7 @@ pub struct CommandAttributesDefinesCommandAttackArea {
     pub radius: f64,
 }
 
+#[derive(Debug, Deserialize)]
 pub struct CommandAttributesDefinesCommandBuildBase {
     /// Where to build the base.
     pub destination: MapPosition,
@@ -553,6 +606,7 @@ pub struct CommandAttributesDefinesCommandBuildBase {
     pub ignore_planner: Option<bool>,
 }
 
+#[derive(Debug, Deserialize)]
 pub struct CommandAttributesDefinesCommandCompound {
     /// The sub-commands.
     pub commands: Vec<Command>,
@@ -560,6 +614,7 @@ pub struct CommandAttributesDefinesCommandCompound {
     pub structure_type: CompoundCommand,
 }
 
+#[derive(Debug, Deserialize)]
 pub struct CommandAttributesDefinesCommandFlee {
     /// Defaults to `defines.distraction.by_enemy`.
     pub distraction: Option<Distraction>,
@@ -567,6 +622,7 @@ pub struct CommandAttributesDefinesCommandFlee {
     pub from: LuaEntity,
 }
 
+#[derive(Debug, Deserialize)]
 pub struct CommandAttributesDefinesCommandGoToLocation {
     /// The position to path to. Either this or `destination_entity` need to be specified. If both are, `destination_entity` is used.
     pub destination: Option<MapPosition>,
@@ -580,6 +636,7 @@ pub struct CommandAttributesDefinesCommandGoToLocation {
     pub radius: Option<f64>,
 }
 
+#[derive(Debug, Deserialize)]
 pub struct CommandAttributesDefinesCommandGroup {
     /// Defaults to `defines.distraction.by_enemy`.
     pub distraction: Option<Distraction>,
@@ -589,6 +646,7 @@ pub struct CommandAttributesDefinesCommandGroup {
     pub use_group_distraction: Option<bool>,
 }
 
+#[derive(Debug, Deserialize)]
 pub struct CommandAttributesDefinesCommandStop {
     /// Defaults to `defines.distraction.by_enemy`.
     pub distraction: Option<Distraction>,
@@ -596,6 +654,7 @@ pub struct CommandAttributesDefinesCommandStop {
     pub ticks_to_wait: Option<u32>,
 }
 
+#[derive(Debug, Deserialize)]
 pub struct CommandAttributesDefinesCommandWander {
     /// Defaults to `defines.distraction.by_enemy`.
     pub distraction: Option<Distraction>,
@@ -607,6 +666,7 @@ pub struct CommandAttributesDefinesCommandWander {
     pub wander_in_group: Option<bool>,
 }
 
+#[derive(Debug, Deserialize)]
 pub enum CommandAttributes {
     DefinesCommandAttack(CommandAttributesDefinesCommandAttack),
     DefinesCommandAttackArea(CommandAttributesDefinesCommandAttackArea),
@@ -619,6 +679,7 @@ pub enum CommandAttributes {
     DefinesCommandWander(CommandAttributesDefinesCommandWander),
 }
 
+#[derive(Debug, Deserialize)]
 /// Commands can be given to enemies and unit groups.
 pub struct Command {
     /// Type of command. The remaining fields depend on the value of this field.
@@ -632,6 +693,7 @@ pub struct Command {
 /// # Notes
 ///
 /// * While the API accepts both versions for `"less/greater than or equal to"` and `"not equal"`, it'll always return `"≥"`, `"≤"` or `"≠"` respectively when reading them back.
+#[derive(Debug, Deserialize)]
 pub enum ComparatorString {
     /// "equal to"
     EqualTo,
@@ -650,6 +712,7 @@ pub enum ComparatorString {
     NotEqualTo,
 }
 
+#[derive(Debug, Deserialize)]
 pub struct ConfigurationChangedData {
     /// `true` when mod prototype migrations have been applied since the last time this save was loaded.
     pub migration_applied: bool,
@@ -663,6 +726,7 @@ pub struct ConfigurationChangedData {
     pub old_version: Option<String>,
 }
 
+#[derive(Debug, Deserialize)]
 pub struct ConstantCombinatorParameters {
     /// Value of the signal to emit.
     pub count: i32,
@@ -672,6 +736,7 @@ pub struct ConstantCombinatorParameters {
     pub signal: SignalID,
 }
 
+#[derive(Debug, Deserialize)]
 pub struct CraftingQueueItem {
     /// The amount of items being crafted.
     pub count: u32,
@@ -683,6 +748,7 @@ pub struct CraftingQueueItem {
     pub recipe: String,
 }
 
+#[derive(Debug, Deserialize)]
 pub enum CursorBoxRenderType {
     /// Yellow box.
     Entity,
@@ -702,6 +768,7 @@ pub enum CursorBoxRenderType {
     BlueprintSnapRectangle,
 }
 
+#[derive(Debug, Deserialize)]
 pub struct CustomCommandData {
     /// The name of the command.
     pub name: String,
@@ -713,11 +780,13 @@ pub struct CustomCommandData {
     pub tick: u32,
 }
 
+#[derive(Debug, Deserialize)]
 pub enum CutsceneWaypointTargetUnion {
     LuaEntity(LuaEntity),
     LuaUnitGroup(LuaUnitGroup),
 }
 
+#[derive(Debug, Deserialize)]
 pub struct CutsceneWaypoint {
     /// Position to pan the camera to.
     pub position: Option<MapPosition>,
@@ -731,6 +800,7 @@ pub struct CutsceneWaypoint {
     pub zoom: Option<f64>,
 }
 
+#[derive(Debug, Deserialize)]
 pub struct DeciderCombinatorParameters {
     /// Specifies how the inputs should be compared. If not specified, defaults to `"<"`.
     pub comparator: Option<ComparatorString>,
@@ -746,6 +816,7 @@ pub struct DeciderCombinatorParameters {
     pub second_signal: Option<SignalID>,
 }
 
+#[derive(Debug, Deserialize)]
 pub struct Decorative {
     pub amount: u8,
     /// The name of the decorative prototype.
@@ -753,21 +824,25 @@ pub struct Decorative {
     pub position: TilePosition,
 }
 
+#[derive(Debug, Deserialize)]
 pub enum DecorativePrototypeFilterAttributesMaskUnion {
     CollisionMask(CollisionMask),
     CollisionMaskWithFlags(CollisionMaskWithFlags),
 }
 
+#[derive(Debug, Deserialize)]
 pub struct DecorativePrototypeFilterAttributesCollisionMask {
     pub mask: DecorativePrototypeFilterAttributesMaskUnion,
     /// How to filter: `"collides"`, `"layers-equals"`, `"contains-any"` or `"contains-all"`
     pub mask_mode: String,
 }
 
+#[derive(Debug, Deserialize)]
 pub enum DecorativePrototypeFilterAttributes {
     CollisionMask(DecorativePrototypeFilterAttributesCollisionMask),
 }
 
+#[derive(Debug, Deserialize)]
 /// Depending on the value of `filter`, the table may take additional fields. `filter` may be one of the following:
 pub struct DecorativePrototypeFilter {
     /// The condition to filter on. One of `"decal"`, `"autoplace"`, `"collision-mask"`.
@@ -780,12 +855,14 @@ pub struct DecorativePrototypeFilter {
     pub attributes: Option<DecorativePrototypeFilterAttributes>,
 }
 
+#[derive(Debug, Deserialize)]
 pub struct DecorativeResult {
     pub amount: u32,
     pub decorative: LuaDecorativePrototype,
     pub position: TilePosition,
 }
 
+#[derive(Debug, Deserialize)]
 /// Technology and recipe difficulty settings. Updating any of the attributes will immediately take effect in the game engine.
 pub struct DifficultySettings {
     pub recipe_difficulty: DifficultySettingsRecipeDifficulty,
@@ -796,11 +873,13 @@ pub struct DifficultySettings {
     pub technology_price_multiplier: f64,
 }
 
+#[derive(Debug, Deserialize)]
 pub struct DisplayResolution {
     pub height: u32,
     pub width: u32,
 }
 
+#[derive(Debug, Deserialize)]
 pub struct DragTarget {
     /// If the wire being dragged is a circuit wire this is the connector id.
     pub target_circuit_id: Option<CircuitConnectorId>,
@@ -809,6 +888,7 @@ pub struct DragTarget {
     pub target_wire_id: Option<WireConnectionId>,
 }
 
+#[derive(Debug, Deserialize)]
 /// These values represent a percentual increase in evolution. This means a value of `0.1` would increase evolution by 10%.
 pub struct EnemyEvolutionMapSettings {
     /// The amount evolution progresses for every destroyed spawner. Defaults to `0.002`.
@@ -821,6 +901,7 @@ pub struct EnemyEvolutionMapSettings {
     pub time_factor: f64,
 }
 
+#[derive(Debug, Deserialize)]
 /// Candidate chunks are given scores to determine which one of them should be expanded into. This score takes into account various settings noted below. The iteration is over a square region centered around the chunk for which the calculation is done, and includes the central chunk as well. Distances are calculated as [Manhattan distance](https://en.wikipedia.org/wiki/Taxicab_geometry).
 ///
 /// The pseudocode algorithm to determine a chunk's score is as follows:
@@ -869,65 +950,77 @@ pub struct EnemyExpansionMapSettings {
     pub settler_group_min_size: u32,
 }
 
+#[derive(Debug, Deserialize)]
 pub enum EntityPrototypeFilterAttributesMaskUnion {
     CollisionMask(CollisionMask),
     CollisionMaskWithFlags(CollisionMaskWithFlags),
 }
 
+#[derive(Debug, Deserialize)]
 pub enum EntityPrototypeFilterAttributesNameUnion {
     String(String),
     Array(Vec<String>),
 }
 
+#[derive(Debug, Deserialize)]
 pub enum EntityPrototypeFilterAttributesTypeUnion {
     String(String),
     Array(Vec<String>),
 }
 
+#[derive(Debug, Deserialize)]
 pub struct EntityPrototypeFilterAttributesBuildBaseEvolutionRequirement {
     pub comparison: ComparatorString,
     /// The value to compare against.
     pub value: f64,
 }
 
+#[derive(Debug, Deserialize)]
 pub struct EntityPrototypeFilterAttributesCollisionMask {
     pub mask: EntityPrototypeFilterAttributesMaskUnion,
     /// How to filter: `"collides"`, `"layers-equals"`, `"contains-any"` or `"contains-all"`
     pub mask_mode: String,
 }
 
+#[derive(Debug, Deserialize)]
 pub struct EntityPrototypeFilterAttributesCraftingCategory {
     /// Matches if the prototype is for a crafting machine with this crafting category.
     pub crafting_category: String,
 }
 
+#[derive(Debug, Deserialize)]
 pub struct EntityPrototypeFilterAttributesEmissions {
     pub comparison: ComparatorString,
     /// The value to compare against.
     pub value: f64,
 }
 
+#[derive(Debug, Deserialize)]
 pub struct EntityPrototypeFilterAttributesFlag {
     /// One of the values in [EntityPrototypeFlags](EntityPrototypeFlags).
     pub flag: String,
 }
 
+#[derive(Debug, Deserialize)]
 pub struct EntityPrototypeFilterAttributesName {
     /// The prototype name, or list of acceptable names.
     pub name: EntityPrototypeFilterAttributesNameUnion,
 }
 
+#[derive(Debug, Deserialize)]
 pub struct EntityPrototypeFilterAttributesSelectionPriority {
     pub comparison: ComparatorString,
     /// The value to compare against.
     pub value: u8,
 }
 
+#[derive(Debug, Deserialize)]
 pub struct EntityPrototypeFilterAttributesType {
     /// The prototype type, or a list of acceptable types.
     pub typ: EntityPrototypeFilterAttributesTypeUnion,
 }
 
+#[derive(Debug, Deserialize)]
 pub enum EntityPrototypeFilterAttributes {
     BuildBaseEvolutionRequirement(EntityPrototypeFilterAttributesBuildBaseEvolutionRequirement),
     CollisionMask(EntityPrototypeFilterAttributesCollisionMask),
@@ -939,6 +1032,7 @@ pub enum EntityPrototypeFilterAttributes {
     Type(EntityPrototypeFilterAttributesType),
 }
 
+#[derive(Debug, Deserialize)]
 /// Depending on the value of `filter`, the table may take additional fields. `filter` may be one of the following:
 pub struct EntityPrototypeFilter {
     /// The condition to filter on. One of `"flying-robot"`, `"robot-with-logistics-interface"`, `"rail"`, `"ghost"`, `"explosion"`, `"vehicle"`, `"crafting-machine"`, `"rolling-stock"`, `"turret"`, `"transport-belt-connectable"`, `"wall-connectable"`, `"buildable"`, `"placable-in-editor"`, `"clonable"`, `"selectable"`, `"hidden"`, `"entity-with-health"`, `"building"`, `"fast-replaceable"`, `"uses-direction"`, `"minable"`, `"circuit-connectable"`, `"autoplace"`, `"blueprintable"`, `"item-to-place"`, `"name"`, `"type"`, `"collision-mask"`, `"flag"`, `"build-base-evolution-requirement"`, `"selection-priority"`, `"emissions"`, `"crafting-category"`.
@@ -951,6 +1045,7 @@ pub struct EntityPrototypeFilter {
     pub attributes: Option<EntityPrototypeFilterAttributes>,
 }
 
+#[derive(Debug, Deserialize, Eq, PartialEq, Hash)]
 pub enum EntityPrototypeFlagsUnion {
     /// Prevents the entity from being rotated before or after placement.
     NotRotatable,
@@ -1011,6 +1106,7 @@ pub enum EntityPrototypeFlagsUnion {
 pub type EntityPrototypeFlags = HashSet<EntityPrototypeFlagsUnion>;
 
 /// An entity prototype may be specified in one of three ways.
+#[derive(Debug, Deserialize)]
 pub enum EntityPrototypeIdentification {
     /// The entity.
     LuaEntity(LuaEntity),
@@ -1020,12 +1116,14 @@ pub enum EntityPrototypeIdentification {
     String(String),
 }
 
+#[derive(Debug, Deserialize)]
 /// A table used to define a manual shape for a piece of equipment.
 pub struct EquipmentPoint {
     pub x: u32,
     pub y: u32,
 }
 
+#[derive(Debug, Deserialize)]
 /// Position inside an equipment grid. This uses the same format as [MapPosition](MapPosition), meaning it can be specified either with or without explicit keys.
 ///
 /// # Examples
@@ -1044,20 +1142,24 @@ pub struct EquipmentPosition {
     pub y: i32,
 }
 
+#[derive(Debug, Deserialize)]
 pub enum EquipmentPrototypeFilterAttributesTypeUnion {
     String(String),
     Array(Vec<String>),
 }
 
+#[derive(Debug, Deserialize)]
 pub struct EquipmentPrototypeFilterAttributesType {
     /// The prototype type, or a list of acceptable types.
     pub typ: EquipmentPrototypeFilterAttributesTypeUnion,
 }
 
+#[derive(Debug, Deserialize)]
 pub enum EquipmentPrototypeFilterAttributes {
     Type(EquipmentPrototypeFilterAttributesType),
 }
 
+#[derive(Debug, Deserialize)]
 /// Depending on the value of `filter`, the table may take additional fields. `filter` may be one of the following:
 pub struct EquipmentPrototypeFilter {
     /// The condition to filter on. One of `"item-to-place"`, `"type"`.
@@ -1070,6 +1172,7 @@ pub struct EquipmentPrototypeFilter {
     pub attributes: Option<EquipmentPrototypeFilterAttributes>,
 }
 
+#[derive(Debug, Deserialize)]
 /// Information about the event that has been raised. The table can also contain other fields depending on the type of event. See [the list of Factorio events](events.html) for more information on these.
 pub struct EventData {
     /// The name of the mod that raised the event if it was raised using [LuaBootstrap::raise_event](LuaBootstrap::raise_event).
@@ -1080,6 +1183,7 @@ pub struct EventData {
     pub tick: u32,
 }
 
+#[derive(Debug, Deserialize)]
 pub enum EventFilterUnion {
     LuaEntityClonedEventFilter(LuaEntityClonedEventFilter),
     LuaEntityDamagedEventFilter(LuaEntityDamagedEventFilter),
@@ -1111,6 +1215,7 @@ pub enum EventFilterUnion {
 /// * Filters are always used as an array of filters of a specific type. Every filter can only be used with its corresponding event, and different types of event filters can not be mixed.
 pub type EventFilter = Vec<EventFilterUnion>;
 
+#[derive(Debug, Deserialize)]
 pub struct Fluid {
     /// Amount of the fluid.
     pub amount: f64,
@@ -1120,6 +1225,7 @@ pub struct Fluid {
     pub temperature: Option<f64>,
 }
 
+#[derive(Debug, Deserialize)]
 /// A definition of a fluidbox connection point.
 pub struct FluidBoxConnection {
     /// The maximum tile distance this underground connection can connect at if this is an underground pipe.
@@ -1130,6 +1236,7 @@ pub struct FluidBoxConnection {
     pub typ: String,
 }
 
+#[derive(Debug, Deserialize)]
 pub struct FluidBoxFilter {
     /// The maximum temperature allowed into the fluidbox.
     pub maximum_temperature: f64,
@@ -1139,6 +1246,7 @@ pub struct FluidBoxFilter {
     pub name: String,
 }
 
+#[derive(Debug, Deserialize)]
 pub struct FluidBoxFilterSpec {
     /// Force the filter to be set, regardless of current fluid content.
     pub force: Option<bool>,
@@ -1151,6 +1259,7 @@ pub struct FluidBoxFilterSpec {
 }
 
 /// A fluid may be specified in one of three ways.
+#[derive(Debug, Deserialize)]
 pub enum FluidIdentification {
     /// The fluid name.
     String(String),
@@ -1160,57 +1269,67 @@ pub enum FluidIdentification {
     Fluid(Fluid),
 }
 
+#[derive(Debug, Deserialize)]
 pub enum FluidPrototypeFilterAttributesNameUnion {
     String(String),
     Array(Vec<String>),
 }
 
+#[derive(Debug, Deserialize)]
 pub struct FluidPrototypeFilterAttributesDefaultTemperature {
     pub comparison: ComparatorString,
     /// The value to compare against.
     pub value: f64,
 }
 
+#[derive(Debug, Deserialize)]
 pub struct FluidPrototypeFilterAttributesEmissionsMultiplier {
     pub comparison: ComparatorString,
     /// The value to compare against.
     pub value: f64,
 }
 
+#[derive(Debug, Deserialize)]
 pub struct FluidPrototypeFilterAttributesFuelValue {
     pub comparison: ComparatorString,
     /// The value to compare against.
     pub value: f64,
 }
 
+#[derive(Debug, Deserialize)]
 pub struct FluidPrototypeFilterAttributesGasTemperature {
     pub comparison: ComparatorString,
     /// The value to compare against.
     pub value: f64,
 }
 
+#[derive(Debug, Deserialize)]
 pub struct FluidPrototypeFilterAttributesHeatCapacity {
     pub comparison: ComparatorString,
     /// The value to compare against.
     pub value: f64,
 }
 
+#[derive(Debug, Deserialize)]
 pub struct FluidPrototypeFilterAttributesMaxTemperature {
     pub comparison: ComparatorString,
     /// The value to compare against.
     pub value: f64,
 }
 
+#[derive(Debug, Deserialize)]
 pub struct FluidPrototypeFilterAttributesName {
     /// The prototype name, or list of acceptable names.
     pub name: FluidPrototypeFilterAttributesNameUnion,
 }
 
+#[derive(Debug, Deserialize)]
 pub struct FluidPrototypeFilterAttributesSubgroup {
     /// A [LuaGroup](LuaGroup) (subgroup) name
     pub subgroup: String,
 }
 
+#[derive(Debug, Deserialize)]
 pub enum FluidPrototypeFilterAttributes {
     DefaultTemperature(FluidPrototypeFilterAttributesDefaultTemperature),
     EmissionsMultiplier(FluidPrototypeFilterAttributesEmissionsMultiplier),
@@ -1222,6 +1341,7 @@ pub enum FluidPrototypeFilterAttributes {
     Subgroup(FluidPrototypeFilterAttributesSubgroup),
 }
 
+#[derive(Debug, Deserialize)]
 /// Depending on the value of `filter`, the table may take additional fields. `filter` may be one of the following:
 pub struct FluidPrototypeFilter {
     /// The condition to filter on. One of `"hidden"`, `"name"`, `"subgroup"`, `"default-temperature"`, `"max-temperature"`, `"heat-capacity"`, `"fuel-value"`, `"emissions-multiplier"`, `"gas-temperature"`.
@@ -1234,6 +1354,7 @@ pub struct FluidPrototypeFilter {
     pub attributes: Option<FluidPrototypeFilterAttributes>,
 }
 
+#[derive(Debug, Deserialize)]
 pub enum ForceCondition {
     /// All forces pass.
     All,
@@ -1252,6 +1373,7 @@ pub enum ForceCondition {
 }
 
 /// A force may be specified in one of three ways.
+#[derive(Debug, Deserialize)]
 pub enum ForceIdentification {
     /// The force index.
     Uint8(u8),
@@ -1261,6 +1383,7 @@ pub enum ForceIdentification {
     LuaForce(LuaForce),
 }
 
+#[derive(Debug, Deserialize)]
 /// Parameters that affect the look and control of the game. Updating any of the member attributes here will immediately take effect in the game engine.
 pub struct GameViewSettings {
     /// Show the flashing alert icons next to the player's toolbar.
@@ -1287,6 +1410,7 @@ pub struct GameViewSettings {
     pub update_entity_selection: bool,
 }
 
+#[derive(Debug, Deserialize)]
 pub struct GuiAnchor {
     pub gui: RelativeGuiType,
     /// If provided, only anchors the GUI element when the opened thing matches the name. `name` takes precedence over `names`.
@@ -1298,15 +1422,18 @@ pub struct GuiAnchor {
     pub typ: Option<String>,
 }
 
+#[derive(Debug, Deserialize)]
 pub struct GuiArrowSpecificationAttributesCraftingQueue {
     /// Index in the crafting queue to point to.
     pub crafting_queueindex: u32,
 }
 
+#[derive(Debug, Deserialize)]
 pub struct GuiArrowSpecificationAttributesEntity {
     pub entity: LuaEntity,
 }
 
+#[derive(Debug, Deserialize)]
 pub struct GuiArrowSpecificationAttributesItemStack {
     /// Which inventory the stack is in.
     pub inventory_index: Inventory,
@@ -1316,10 +1443,12 @@ pub struct GuiArrowSpecificationAttributesItemStack {
     pub source: String,
 }
 
+#[derive(Debug, Deserialize)]
 pub struct GuiArrowSpecificationAttributesPosition {
     pub position: MapPosition,
 }
 
+#[derive(Debug, Deserialize)]
 pub enum GuiArrowSpecificationAttributes {
     CraftingQueue(GuiArrowSpecificationAttributesCraftingQueue),
     Entity(GuiArrowSpecificationAttributesEntity),
@@ -1327,6 +1456,7 @@ pub enum GuiArrowSpecificationAttributes {
     Position(GuiArrowSpecificationAttributesPosition),
 }
 
+#[derive(Debug, Deserialize)]
 /// Used for specifying where a GUI arrow should point to.
 pub struct GuiArrowSpecification {
     /// This determines which of the following fields will be required. Must be one of `"nowhere"` (will remove the arrow entirely), `"goal"` (will point to the current goal), `"entity_info"`, `"active_window"`, `"entity"`, `"position"`, `"crafting_queue"` or `"item_stack"` (will point to a given item stack in an inventory). Depending on this value, other fields may have to be specified.
@@ -1335,17 +1465,20 @@ pub struct GuiArrowSpecification {
     pub attributes: Option<GuiArrowSpecificationAttributes>,
 }
 
+#[derive(Debug, Deserialize)]
 /// Screen coordinates of a GUI element in a [LuaGui](LuaGui). This uses the same format as [TilePosition](TilePosition), meaning it can be specified either with or without explicit keys.
 pub struct GuiLocation {
     pub x: i32,
     pub y: i32,
 }
 
+#[derive(Debug, Deserialize)]
 pub struct HeatConnection {
     pub direction: Direction,
     pub position: Vector,
 }
 
+#[derive(Debug, Deserialize)]
 /// The settings used by a heat-interface type entity.
 pub struct HeatSetting {
     /// `"at-least"`, `"at-most"`, `"exactly"`, `"add"`, or `"remove"`. Defaults to `"at-least"`.
@@ -1354,6 +1487,7 @@ pub struct HeatSetting {
     pub temperature: Option<f64>,
 }
 
+#[derive(Debug, Deserialize)]
 /// A single filter used by an infinity-filters instance.
 pub struct InfinityInventoryFilter {
     /// The count of the filter.
@@ -1366,6 +1500,7 @@ pub struct InfinityInventoryFilter {
     pub name: String,
 }
 
+#[derive(Debug, Deserialize)]
 /// A single filter used by an infinity-pipe type entity.
 pub struct InfinityPipeFilter {
     /// `"at-least"`, `"at-most"`, `"exactly"`, `"add"`, or `"remove"`. Defaults to `"at-least"`.
@@ -1378,11 +1513,13 @@ pub struct InfinityPipeFilter {
     pub temperature: Option<f64>,
 }
 
+#[derive(Debug, Deserialize)]
 pub enum IngredientCatalystAmountUnion {
     Uint(u32),
     Double(f64),
 }
 
+#[derive(Debug, Deserialize)]
 pub struct IngredientAttributesFluid {
     /// The maximum fluid temperature allowed.
     pub maximum_temperature: Option<f64>,
@@ -1390,10 +1527,12 @@ pub struct IngredientAttributesFluid {
     pub minimum_temperature: Option<f64>,
 }
 
+#[derive(Debug, Deserialize)]
 pub enum IngredientAttributes {
     Fluid(IngredientAttributesFluid),
 }
 
+#[derive(Debug, Deserialize)]
 pub struct Ingredient {
     /// Amount of the item or fluid.
     pub amount: f64,
@@ -1407,11 +1546,13 @@ pub struct Ingredient {
     pub attributes: Option<IngredientAttributes>,
 }
 
+#[derive(Debug, Deserialize)]
 pub struct InserterCircuitConditions {
     pub circuit: Option<CircuitCondition>,
     pub logistics: Option<CircuitCondition>,
 }
 
+#[derive(Debug, Deserialize)]
 pub struct InventoryFilter {
     /// Position of the corresponding filter slot.
     pub index: u32,
@@ -1419,103 +1560,122 @@ pub struct InventoryFilter {
     pub name: String,
 }
 
+#[derive(Debug, Deserialize)]
 pub enum ItemPrototypeFilterAttributesNameUnion {
     String(String),
     Array(Vec<String>),
 }
 
+#[derive(Debug, Deserialize)]
 pub enum ItemPrototypeFilterAttributesTypeUnion {
     String(String),
     Array(Vec<String>),
 }
 
+#[derive(Debug, Deserialize)]
 pub struct ItemPrototypeFilterAttributesBurntResult {
     /// Filters for the burnt result.
     pub elem_filters: Option<Vec<ItemPrototypeFilter>>,
 }
 
+#[derive(Debug, Deserialize)]
 pub struct ItemPrototypeFilterAttributesDefaultRequestAmount {
     pub comparison: ComparatorString,
     /// The value to compare against.
     pub value: u32,
 }
 
+#[derive(Debug, Deserialize)]
 pub struct ItemPrototypeFilterAttributesFlag {
     /// One of the values in [ItemPrototypeFlags](ItemPrototypeFlags).
     pub flag: String,
 }
 
+#[derive(Debug, Deserialize)]
 pub struct ItemPrototypeFilterAttributesFuelAccelerationMultiplier {
     pub comparison: ComparatorString,
     /// The value to compare against.
     pub value: f64,
 }
 
+#[derive(Debug, Deserialize)]
 pub struct ItemPrototypeFilterAttributesFuelCategory {
     /// A [LuaFuelCategoryPrototype](LuaFuelCategoryPrototype) name
     pub fuel_category: String,
 }
 
+#[derive(Debug, Deserialize)]
 pub struct ItemPrototypeFilterAttributesFuelEmissionsMultiplier {
     pub comparison: ComparatorString,
     /// The value to compare against.
     pub value: f64,
 }
 
+#[derive(Debug, Deserialize)]
 pub struct ItemPrototypeFilterAttributesFuelTopSpeedMultiplier {
     pub comparison: ComparatorString,
     /// The value to compare against.
     pub value: f64,
 }
 
+#[derive(Debug, Deserialize)]
 pub struct ItemPrototypeFilterAttributesFuelValue {
     pub comparison: ComparatorString,
     /// The value to compare against.
     pub value: f64,
 }
 
+#[derive(Debug, Deserialize)]
 pub struct ItemPrototypeFilterAttributesName {
     /// The prototype name, or list of acceptable names.
     pub name: ItemPrototypeFilterAttributesNameUnion,
 }
 
+#[derive(Debug, Deserialize)]
 pub struct ItemPrototypeFilterAttributesPlaceAsTile {
     /// Filters for the placed tile.
     pub elem_filters: Option<Vec<TilePrototypeFilter>>,
 }
 
+#[derive(Debug, Deserialize)]
 pub struct ItemPrototypeFilterAttributesPlaceResult {
     /// Filters for the place result.
     pub elem_filters: Option<Vec<EntityPrototypeFilter>>,
 }
 
+#[derive(Debug, Deserialize)]
 pub struct ItemPrototypeFilterAttributesPlacedAsEquipmentResult {
     /// Filters for the placed equipment.
     pub elem_filters: Option<Vec<EquipmentPrototypeFilter>>,
 }
 
+#[derive(Debug, Deserialize)]
 pub struct ItemPrototypeFilterAttributesStackSize {
     pub comparison: ComparatorString,
     /// The value to compare against.
     pub value: u32,
 }
 
+#[derive(Debug, Deserialize)]
 pub struct ItemPrototypeFilterAttributesSubgroup {
     /// A [LuaGroup](LuaGroup) (subgroup) name
     pub subgroup: String,
 }
 
+#[derive(Debug, Deserialize)]
 pub struct ItemPrototypeFilterAttributesType {
     /// The prototype type, or a list of acceptable types.
     pub typ: ItemPrototypeFilterAttributesTypeUnion,
 }
 
+#[derive(Debug, Deserialize)]
 pub struct ItemPrototypeFilterAttributesWireCount {
     pub comparison: ComparatorString,
     /// The value to compare against.
     pub value: u32,
 }
 
+#[derive(Debug, Deserialize)]
 pub enum ItemPrototypeFilterAttributes {
     BurntResult(ItemPrototypeFilterAttributesBurntResult),
     DefaultRequestAmount(ItemPrototypeFilterAttributesDefaultRequestAmount),
@@ -1535,6 +1695,7 @@ pub enum ItemPrototypeFilterAttributes {
     WireCount(ItemPrototypeFilterAttributesWireCount),
 }
 
+#[derive(Debug, Deserialize)]
 /// Depending on the value of `filter`, the table may take additional fields. `filter` may be one of the following:
 pub struct ItemPrototypeFilter {
     /// The condition to filter on. One of `"tool"`, `"mergeable"`, `"item-with-inventory"`, `"selection-tool"`, `"item-with-label"`, `"has-rocket-launch-products"`, `"fuel"`, `"place-result"`, `"burnt-result"`, `"place-as-tile"`, `"placed-as-equipment-result"`, `"name"`, `"type"`, `"flag"`, `"subgroup"`, `"fuel-category"`, `"stack-size"`, `"default-request-amount"`, `"wire-count"`, `"fuel-value"`, `"fuel-acceleration-multiplier"`, `"fuel-top-speed-multiplier"`, `"fuel-emissions-multiplier"`.
@@ -1547,6 +1708,7 @@ pub struct ItemPrototypeFilter {
     pub attributes: Option<ItemPrototypeFilterAttributes>,
 }
 
+#[derive(Debug, Deserialize, Eq, PartialEq, Hash)]
 pub enum ItemPrototypeFlagsUnion {
     /// Determines whether the logistics areas of roboports should be drawn when holding this item. Used by the deconstruction planner by default.
     DrawLogisticOverlay,
@@ -1578,6 +1740,7 @@ pub enum ItemPrototypeFlagsUnion {
 pub type ItemPrototypeFlags = HashSet<ItemPrototypeFlagsUnion>;
 
 /// An item prototype may be specified in one of three ways.
+#[derive(Debug, Deserialize)]
 pub enum ItemPrototypeIdentification {
     /// The item.
     LuaItemStack(LuaItemStack),
@@ -1587,6 +1750,7 @@ pub enum ItemPrototypeIdentification {
     String(String),
 }
 
+#[derive(Debug, Deserialize)]
 pub struct ItemStackDefinition {
     /// Amount of ammo in the ammo items in the stack.
     pub ammo: Option<f64>,
@@ -1603,16 +1767,19 @@ pub struct ItemStackDefinition {
 }
 
 /// An item may be specified in one of two ways.
+#[derive(Debug, Deserialize)]
 pub enum ItemStackIdentification {
     SimpleItemStack(SimpleItemStack),
     LuaItemStack(LuaItemStack),
 }
 
+#[derive(Debug, Deserialize)]
 pub struct ItemStackLocation {
     pub inventory: Inventory,
     pub slot: u32,
 }
 
+#[derive(Debug, Deserialize)]
 pub enum LocalisedStringUnion {
     String(String),
     LocalisedString(LocalisedString),
@@ -1653,6 +1820,7 @@ pub enum LocalisedStringUnion {
 /// {"?", {"", {"entity-description.furnace"}, "\n"}, {"item-description.furnace"}, "optional fallback"}
 /// ```
 ///  If `entity-description.furnace` exists, it is concatenated with `"\n"` and returned. Otherwise, if `item-description.furnace` exists, it is returned as-is. Otherwise, `"optional fallback"` is returned. If this value wasn't specified, the translation result would be `"Unknown key: 'item-description.furnace'"`.
+#[derive(Debug, Deserialize)]
 pub enum LocalisedString {
     String(String),
     Number(f64),
@@ -1662,6 +1830,7 @@ pub enum LocalisedString {
     Array(Vec<LocalisedStringUnion>),
 }
 
+#[derive(Debug, Deserialize)]
 pub struct LogisticFilter {
     /// The count for this filter.
     pub count: u32,
@@ -1671,6 +1840,7 @@ pub struct LogisticFilter {
     pub name: String,
 }
 
+#[derive(Debug, Deserialize)]
 pub struct LogisticParameters {
     pub max: Option<u32>,
     pub min: Option<u32>,
@@ -1678,6 +1848,7 @@ pub struct LogisticParameters {
     pub name: Option<String>,
 }
 
+#[derive(Debug, Deserialize)]
 pub struct Loot {
     /// Maximum amount of loot to drop.
     pub count_max: f64,
@@ -1689,26 +1860,31 @@ pub struct Loot {
     pub probability: f64,
 }
 
+#[derive(Debug, Deserialize)]
 pub struct LuaEntityClonedEventFilterAttributesGhostName {
     /// The ghost prototype name
     pub name: String,
 }
 
+#[derive(Debug, Deserialize)]
 pub struct LuaEntityClonedEventFilterAttributesGhostType {
     /// The ghost prototype type
     pub typ: String,
 }
 
+#[derive(Debug, Deserialize)]
 pub struct LuaEntityClonedEventFilterAttributesName {
     /// The prototype name
     pub name: String,
 }
 
+#[derive(Debug, Deserialize)]
 pub struct LuaEntityClonedEventFilterAttributesType {
     /// The prototype type
     pub typ: String,
 }
 
+#[derive(Debug, Deserialize)]
 pub enum LuaEntityClonedEventFilterAttributes {
     GhostName(LuaEntityClonedEventFilterAttributesGhostName),
     GhostType(LuaEntityClonedEventFilterAttributesGhostType),
@@ -1716,6 +1892,7 @@ pub enum LuaEntityClonedEventFilterAttributes {
     Type(LuaEntityClonedEventFilterAttributesType),
 }
 
+#[derive(Debug, Deserialize)]
 /// Depending on the value of `filter`, the table may take additional fields. `filter` may be one of the following:
 pub struct LuaEntityClonedEventFilter {
     /// The condition to filter on. One of `"ghost"`, `"rail"`, `"rail-signal"`, `"rolling-stock"`, `"robot-with-logistics-interface"`, `"vehicle"`, `"turret"`, `"crafting-machine"`, `"wall-connectable"`, `"transport-belt-connectable"`, `"circuit-network-connectable"`, `"type"`, `"name"`, `"ghost_type"`, `"ghost_name"`.
@@ -1728,49 +1905,58 @@ pub struct LuaEntityClonedEventFilter {
     pub attributes: Option<LuaEntityClonedEventFilterAttributes>,
 }
 
+#[derive(Debug, Deserialize)]
 pub struct LuaEntityDamagedEventFilterAttributesDamageType {
     /// A [LuaDamagePrototype](LuaDamagePrototype) name
     pub typ: String,
 }
 
+#[derive(Debug, Deserialize)]
 pub struct LuaEntityDamagedEventFilterAttributesFinalDamageAmount {
     pub comparison: ComparatorString,
     /// The value to compare against.
     pub value: f32,
 }
 
+#[derive(Debug, Deserialize)]
 pub struct LuaEntityDamagedEventFilterAttributesFinalHealth {
     pub comparison: ComparatorString,
     /// The value to compare against.
     pub value: f32,
 }
 
+#[derive(Debug, Deserialize)]
 pub struct LuaEntityDamagedEventFilterAttributesGhostName {
     /// The ghost prototype name
     pub name: String,
 }
 
+#[derive(Debug, Deserialize)]
 pub struct LuaEntityDamagedEventFilterAttributesGhostType {
     /// The ghost prototype type
     pub typ: String,
 }
 
+#[derive(Debug, Deserialize)]
 pub struct LuaEntityDamagedEventFilterAttributesName {
     /// The prototype name
     pub name: String,
 }
 
+#[derive(Debug, Deserialize)]
 pub struct LuaEntityDamagedEventFilterAttributesOriginalDamageAmount {
     pub comparison: ComparatorString,
     /// The value to compare against.
     pub value: f32,
 }
 
+#[derive(Debug, Deserialize)]
 pub struct LuaEntityDamagedEventFilterAttributesType {
     /// The prototype type
     pub typ: String,
 }
 
+#[derive(Debug, Deserialize)]
 pub enum LuaEntityDamagedEventFilterAttributes {
     DamageType(LuaEntityDamagedEventFilterAttributesDamageType),
     FinalDamageAmount(LuaEntityDamagedEventFilterAttributesFinalDamageAmount),
@@ -1782,6 +1968,7 @@ pub enum LuaEntityDamagedEventFilterAttributes {
     Type(LuaEntityDamagedEventFilterAttributesType),
 }
 
+#[derive(Debug, Deserialize)]
 /// Depending on the value of `filter`, the table may take additional fields. `filter` may be one of the following:
 pub struct LuaEntityDamagedEventFilter {
     /// The condition to filter on. One of `"ghost"`, `"rail"`, `"rail-signal"`, `"rolling-stock"`, `"robot-with-logistics-interface"`, `"vehicle"`, `"turret"`, `"crafting-machine"`, `"wall-connectable"`, `"transport-belt-connectable"`, `"circuit-network-connectable"`, `"type"`, `"name"`, `"ghost_type"`, `"ghost_name"`, `"original-damage-amount"`, `"final-damage-amount"`, `"damage-type"`, `"final-health"`.
@@ -1794,26 +1981,31 @@ pub struct LuaEntityDamagedEventFilter {
     pub attributes: Option<LuaEntityDamagedEventFilterAttributes>,
 }
 
+#[derive(Debug, Deserialize)]
 pub struct LuaEntityDeconstructionCancelledEventFilterAttributesGhostName {
     /// The ghost prototype name
     pub name: String,
 }
 
+#[derive(Debug, Deserialize)]
 pub struct LuaEntityDeconstructionCancelledEventFilterAttributesGhostType {
     /// The ghost prototype type
     pub typ: String,
 }
 
+#[derive(Debug, Deserialize)]
 pub struct LuaEntityDeconstructionCancelledEventFilterAttributesName {
     /// The prototype name
     pub name: String,
 }
 
+#[derive(Debug, Deserialize)]
 pub struct LuaEntityDeconstructionCancelledEventFilterAttributesType {
     /// The prototype type
     pub typ: String,
 }
 
+#[derive(Debug, Deserialize)]
 pub enum LuaEntityDeconstructionCancelledEventFilterAttributes {
     GhostName(LuaEntityDeconstructionCancelledEventFilterAttributesGhostName),
     GhostType(LuaEntityDeconstructionCancelledEventFilterAttributesGhostType),
@@ -1821,6 +2013,7 @@ pub enum LuaEntityDeconstructionCancelledEventFilterAttributes {
     Type(LuaEntityDeconstructionCancelledEventFilterAttributesType),
 }
 
+#[derive(Debug, Deserialize)]
 /// Depending on the value of `filter`, the table may take additional fields. `filter` may be one of the following:
 pub struct LuaEntityDeconstructionCancelledEventFilter {
     /// The condition to filter on. One of `"ghost"`, `"rail"`, `"rail-signal"`, `"rolling-stock"`, `"robot-with-logistics-interface"`, `"vehicle"`, `"turret"`, `"crafting-machine"`, `"wall-connectable"`, `"transport-belt-connectable"`, `"circuit-network-connectable"`, `"type"`, `"name"`, `"ghost_type"`, `"ghost_name"`.
@@ -1833,26 +2026,31 @@ pub struct LuaEntityDeconstructionCancelledEventFilter {
     pub attributes: Option<LuaEntityDeconstructionCancelledEventFilterAttributes>,
 }
 
+#[derive(Debug, Deserialize)]
 pub struct LuaEntityDiedEventFilterAttributesGhostName {
     /// The ghost prototype name
     pub name: String,
 }
 
+#[derive(Debug, Deserialize)]
 pub struct LuaEntityDiedEventFilterAttributesGhostType {
     /// The ghost prototype type
     pub typ: String,
 }
 
+#[derive(Debug, Deserialize)]
 pub struct LuaEntityDiedEventFilterAttributesName {
     /// The prototype name
     pub name: String,
 }
 
+#[derive(Debug, Deserialize)]
 pub struct LuaEntityDiedEventFilterAttributesType {
     /// The prototype type
     pub typ: String,
 }
 
+#[derive(Debug, Deserialize)]
 pub enum LuaEntityDiedEventFilterAttributes {
     GhostName(LuaEntityDiedEventFilterAttributesGhostName),
     GhostType(LuaEntityDiedEventFilterAttributesGhostType),
@@ -1860,6 +2058,7 @@ pub enum LuaEntityDiedEventFilterAttributes {
     Type(LuaEntityDiedEventFilterAttributesType),
 }
 
+#[derive(Debug, Deserialize)]
 /// Depending on the value of `filter`, the table may take additional fields. `filter` may be one of the following:
 pub struct LuaEntityDiedEventFilter {
     /// The condition to filter on. One of `"ghost"`, `"rail"`, `"rail-signal"`, `"rolling-stock"`, `"robot-with-logistics-interface"`, `"vehicle"`, `"turret"`, `"crafting-machine"`, `"wall-connectable"`, `"transport-belt-connectable"`, `"circuit-network-connectable"`, `"type"`, `"name"`, `"ghost_type"`, `"ghost_name"`.
@@ -1872,26 +2071,31 @@ pub struct LuaEntityDiedEventFilter {
     pub attributes: Option<LuaEntityDiedEventFilterAttributes>,
 }
 
+#[derive(Debug, Deserialize)]
 pub struct LuaEntityMarkedForDeconstructionEventFilterAttributesGhostName {
     /// The ghost prototype name
     pub name: String,
 }
 
+#[derive(Debug, Deserialize)]
 pub struct LuaEntityMarkedForDeconstructionEventFilterAttributesGhostType {
     /// The ghost prototype type
     pub typ: String,
 }
 
+#[derive(Debug, Deserialize)]
 pub struct LuaEntityMarkedForDeconstructionEventFilterAttributesName {
     /// The prototype name
     pub name: String,
 }
 
+#[derive(Debug, Deserialize)]
 pub struct LuaEntityMarkedForDeconstructionEventFilterAttributesType {
     /// The prototype type
     pub typ: String,
 }
 
+#[derive(Debug, Deserialize)]
 pub enum LuaEntityMarkedForDeconstructionEventFilterAttributes {
     GhostName(LuaEntityMarkedForDeconstructionEventFilterAttributesGhostName),
     GhostType(LuaEntityMarkedForDeconstructionEventFilterAttributesGhostType),
@@ -1899,6 +2103,7 @@ pub enum LuaEntityMarkedForDeconstructionEventFilterAttributes {
     Type(LuaEntityMarkedForDeconstructionEventFilterAttributesType),
 }
 
+#[derive(Debug, Deserialize)]
 /// Depending on the value of `filter`, the table may take additional fields. `filter` may be one of the following:
 pub struct LuaEntityMarkedForDeconstructionEventFilter {
     /// The condition to filter on. One of `"ghost"`, `"rail"`, `"rail-signal"`, `"rolling-stock"`, `"robot-with-logistics-interface"`, `"vehicle"`, `"turret"`, `"crafting-machine"`, `"wall-connectable"`, `"transport-belt-connectable"`, `"circuit-network-connectable"`, `"type"`, `"name"`, `"ghost_type"`, `"ghost_name"`.
@@ -1911,26 +2116,31 @@ pub struct LuaEntityMarkedForDeconstructionEventFilter {
     pub attributes: Option<LuaEntityMarkedForDeconstructionEventFilterAttributes>,
 }
 
+#[derive(Debug, Deserialize)]
 pub struct LuaEntityMarkedForUpgradeEventFilterAttributesGhostName {
     /// The ghost prototype name
     pub name: String,
 }
 
+#[derive(Debug, Deserialize)]
 pub struct LuaEntityMarkedForUpgradeEventFilterAttributesGhostType {
     /// The ghost prototype type
     pub typ: String,
 }
 
+#[derive(Debug, Deserialize)]
 pub struct LuaEntityMarkedForUpgradeEventFilterAttributesName {
     /// The prototype name
     pub name: String,
 }
 
+#[derive(Debug, Deserialize)]
 pub struct LuaEntityMarkedForUpgradeEventFilterAttributesType {
     /// The prototype type
     pub typ: String,
 }
 
+#[derive(Debug, Deserialize)]
 pub enum LuaEntityMarkedForUpgradeEventFilterAttributes {
     GhostName(LuaEntityMarkedForUpgradeEventFilterAttributesGhostName),
     GhostType(LuaEntityMarkedForUpgradeEventFilterAttributesGhostType),
@@ -1938,6 +2148,7 @@ pub enum LuaEntityMarkedForUpgradeEventFilterAttributes {
     Type(LuaEntityMarkedForUpgradeEventFilterAttributesType),
 }
 
+#[derive(Debug, Deserialize)]
 /// Depending on the value of `filter`, the table may take additional fields. `filter` may be one of the following:
 pub struct LuaEntityMarkedForUpgradeEventFilter {
     /// The condition to filter on. One of `"ghost"`, `"rail"`, `"rail-signal"`, `"rolling-stock"`, `"robot-with-logistics-interface"`, `"vehicle"`, `"turret"`, `"crafting-machine"`, `"wall-connectable"`, `"transport-belt-connectable"`, `"circuit-network-connectable"`, `"type"`, `"name"`, `"ghost_type"`, `"ghost_name"`.
@@ -1950,31 +2161,37 @@ pub struct LuaEntityMarkedForUpgradeEventFilter {
     pub attributes: Option<LuaEntityMarkedForUpgradeEventFilterAttributes>,
 }
 
+#[derive(Debug, Deserialize)]
 pub struct LuaPlayerBuiltEntityEventFilterAttributesForce {
     /// The entity force
     pub force: String,
 }
 
+#[derive(Debug, Deserialize)]
 pub struct LuaPlayerBuiltEntityEventFilterAttributesGhostName {
     /// The ghost prototype name
     pub name: String,
 }
 
+#[derive(Debug, Deserialize)]
 pub struct LuaPlayerBuiltEntityEventFilterAttributesGhostType {
     /// The ghost prototype type
     pub typ: String,
 }
 
+#[derive(Debug, Deserialize)]
 pub struct LuaPlayerBuiltEntityEventFilterAttributesName {
     /// The prototype name
     pub name: String,
 }
 
+#[derive(Debug, Deserialize)]
 pub struct LuaPlayerBuiltEntityEventFilterAttributesType {
     /// The prototype type
     pub typ: String,
 }
 
+#[derive(Debug, Deserialize)]
 pub enum LuaPlayerBuiltEntityEventFilterAttributes {
     Force(LuaPlayerBuiltEntityEventFilterAttributesForce),
     GhostName(LuaPlayerBuiltEntityEventFilterAttributesGhostName),
@@ -1983,6 +2200,7 @@ pub enum LuaPlayerBuiltEntityEventFilterAttributes {
     Type(LuaPlayerBuiltEntityEventFilterAttributesType),
 }
 
+#[derive(Debug, Deserialize)]
 /// Depending on the value of `filter`, the table may take additional fields. `filter` may be one of the following:
 pub struct LuaPlayerBuiltEntityEventFilter {
     /// The condition to filter on. One of `"ghost"`, `"rail"`, `"rail-signal"`, `"rolling-stock"`, `"robot-with-logistics-interface"`, `"vehicle"`, `"turret"`, `"crafting-machine"`, `"wall-connectable"`, `"transport-belt-connectable"`, `"circuit-network-connectable"`, `"type"`, `"name"`, `"ghost_type"`, `"ghost_name"`, `"force"`.
@@ -1995,26 +2213,31 @@ pub struct LuaPlayerBuiltEntityEventFilter {
     pub attributes: Option<LuaPlayerBuiltEntityEventFilterAttributes>,
 }
 
+#[derive(Debug, Deserialize)]
 pub struct LuaPlayerMinedEntityEventFilterAttributesGhostName {
     /// The ghost prototype name
     pub name: String,
 }
 
+#[derive(Debug, Deserialize)]
 pub struct LuaPlayerMinedEntityEventFilterAttributesGhostType {
     /// The ghost prototype type
     pub typ: String,
 }
 
+#[derive(Debug, Deserialize)]
 pub struct LuaPlayerMinedEntityEventFilterAttributesName {
     /// The prototype name
     pub name: String,
 }
 
+#[derive(Debug, Deserialize)]
 pub struct LuaPlayerMinedEntityEventFilterAttributesType {
     /// The prototype type
     pub typ: String,
 }
 
+#[derive(Debug, Deserialize)]
 pub enum LuaPlayerMinedEntityEventFilterAttributes {
     GhostName(LuaPlayerMinedEntityEventFilterAttributesGhostName),
     GhostType(LuaPlayerMinedEntityEventFilterAttributesGhostType),
@@ -2022,6 +2245,7 @@ pub enum LuaPlayerMinedEntityEventFilterAttributes {
     Type(LuaPlayerMinedEntityEventFilterAttributesType),
 }
 
+#[derive(Debug, Deserialize)]
 /// Depending on the value of `filter`, the table may take additional fields. `filter` may be one of the following:
 pub struct LuaPlayerMinedEntityEventFilter {
     /// The condition to filter on. One of `"ghost"`, `"rail"`, `"rail-signal"`, `"rolling-stock"`, `"robot-with-logistics-interface"`, `"vehicle"`, `"turret"`, `"crafting-machine"`, `"wall-connectable"`, `"transport-belt-connectable"`, `"circuit-network-connectable"`, `"type"`, `"name"`, `"ghost_type"`, `"ghost_name"`.
@@ -2034,26 +2258,31 @@ pub struct LuaPlayerMinedEntityEventFilter {
     pub attributes: Option<LuaPlayerMinedEntityEventFilterAttributes>,
 }
 
+#[derive(Debug, Deserialize)]
 pub struct LuaPlayerRepairedEntityEventFilterAttributesGhostName {
     /// The ghost prototype name
     pub name: String,
 }
 
+#[derive(Debug, Deserialize)]
 pub struct LuaPlayerRepairedEntityEventFilterAttributesGhostType {
     /// The ghost prototype type
     pub typ: String,
 }
 
+#[derive(Debug, Deserialize)]
 pub struct LuaPlayerRepairedEntityEventFilterAttributesName {
     /// The prototype name
     pub name: String,
 }
 
+#[derive(Debug, Deserialize)]
 pub struct LuaPlayerRepairedEntityEventFilterAttributesType {
     /// The prototype type
     pub typ: String,
 }
 
+#[derive(Debug, Deserialize)]
 pub enum LuaPlayerRepairedEntityEventFilterAttributes {
     GhostName(LuaPlayerRepairedEntityEventFilterAttributesGhostName),
     GhostType(LuaPlayerRepairedEntityEventFilterAttributesGhostType),
@@ -2061,6 +2290,7 @@ pub enum LuaPlayerRepairedEntityEventFilterAttributes {
     Type(LuaPlayerRepairedEntityEventFilterAttributesType),
 }
 
+#[derive(Debug, Deserialize)]
 /// Depending on the value of `filter`, the table may take additional fields. `filter` may be one of the following:
 pub struct LuaPlayerRepairedEntityEventFilter {
     /// The condition to filter on. One of `"ghost"`, `"rail"`, `"rail-signal"`, `"rolling-stock"`, `"robot-with-logistics-interface"`, `"vehicle"`, `"turret"`, `"crafting-machine"`, `"wall-connectable"`, `"transport-belt-connectable"`, `"circuit-network-connectable"`, `"type"`, `"name"`, `"ghost_type"`, `"ghost_name"`.
@@ -2073,15 +2303,18 @@ pub struct LuaPlayerRepairedEntityEventFilter {
     pub attributes: Option<LuaPlayerRepairedEntityEventFilterAttributes>,
 }
 
+#[derive(Debug, Deserialize)]
 pub struct LuaPostEntityDiedEventFilterAttributesType {
     /// The prototype type
     pub typ: String,
 }
 
+#[derive(Debug, Deserialize)]
 pub enum LuaPostEntityDiedEventFilterAttributes {
     Type(LuaPostEntityDiedEventFilterAttributesType),
 }
 
+#[derive(Debug, Deserialize)]
 /// Depending on the value of `filter`, the table may take additional fields. `filter` may be one of the following:
 pub struct LuaPostEntityDiedEventFilter {
     /// The condition to filter on. Can only be `"type"`.
@@ -2094,26 +2327,31 @@ pub struct LuaPostEntityDiedEventFilter {
     pub attributes: Option<LuaPostEntityDiedEventFilterAttributes>,
 }
 
+#[derive(Debug, Deserialize)]
 pub struct LuaPreGhostDeconstructedEventFilterAttributesGhostName {
     /// The ghost prototype name
     pub name: String,
 }
 
+#[derive(Debug, Deserialize)]
 pub struct LuaPreGhostDeconstructedEventFilterAttributesGhostType {
     /// The ghost prototype type
     pub typ: String,
 }
 
+#[derive(Debug, Deserialize)]
 pub struct LuaPreGhostDeconstructedEventFilterAttributesName {
     /// The prototype name
     pub name: String,
 }
 
+#[derive(Debug, Deserialize)]
 pub struct LuaPreGhostDeconstructedEventFilterAttributesType {
     /// The prototype type
     pub typ: String,
 }
 
+#[derive(Debug, Deserialize)]
 pub enum LuaPreGhostDeconstructedEventFilterAttributes {
     GhostName(LuaPreGhostDeconstructedEventFilterAttributesGhostName),
     GhostType(LuaPreGhostDeconstructedEventFilterAttributesGhostType),
@@ -2121,6 +2359,7 @@ pub enum LuaPreGhostDeconstructedEventFilterAttributes {
     Type(LuaPreGhostDeconstructedEventFilterAttributesType),
 }
 
+#[derive(Debug, Deserialize)]
 /// Depending on the value of `filter`, the table may take additional fields. `filter` may be one of the following:
 pub struct LuaPreGhostDeconstructedEventFilter {
     /// The condition to filter on. One of `"ghost"`, `"rail"`, `"rail-signal"`, `"rolling-stock"`, `"robot-with-logistics-interface"`, `"vehicle"`, `"turret"`, `"crafting-machine"`, `"wall-connectable"`, `"transport-belt-connectable"`, `"circuit-network-connectable"`, `"type"`, `"name"`, `"ghost_type"`, `"ghost_name"`.
@@ -2133,26 +2372,31 @@ pub struct LuaPreGhostDeconstructedEventFilter {
     pub attributes: Option<LuaPreGhostDeconstructedEventFilterAttributes>,
 }
 
+#[derive(Debug, Deserialize)]
 pub struct LuaPreGhostUpgradedEventFilterAttributesGhostName {
     /// The ghost prototype name
     pub name: String,
 }
 
+#[derive(Debug, Deserialize)]
 pub struct LuaPreGhostUpgradedEventFilterAttributesGhostType {
     /// The ghost prototype type
     pub typ: String,
 }
 
+#[derive(Debug, Deserialize)]
 pub struct LuaPreGhostUpgradedEventFilterAttributesName {
     /// The prototype name
     pub name: String,
 }
 
+#[derive(Debug, Deserialize)]
 pub struct LuaPreGhostUpgradedEventFilterAttributesType {
     /// The prototype type
     pub typ: String,
 }
 
+#[derive(Debug, Deserialize)]
 pub enum LuaPreGhostUpgradedEventFilterAttributes {
     GhostName(LuaPreGhostUpgradedEventFilterAttributesGhostName),
     GhostType(LuaPreGhostUpgradedEventFilterAttributesGhostType),
@@ -2160,6 +2404,7 @@ pub enum LuaPreGhostUpgradedEventFilterAttributes {
     Type(LuaPreGhostUpgradedEventFilterAttributesType),
 }
 
+#[derive(Debug, Deserialize)]
 /// Depending on the value of `filter`, the table may take additional fields. `filter` may be one of the following:
 pub struct LuaPreGhostUpgradedEventFilter {
     /// The condition to filter on. One of `"ghost"`, `"rail"`, `"rail-signal"`, `"rolling-stock"`, `"robot-with-logistics-interface"`, `"vehicle"`, `"turret"`, `"crafting-machine"`, `"wall-connectable"`, `"transport-belt-connectable"`, `"circuit-network-connectable"`, `"type"`, `"name"`, `"ghost_type"`, `"ghost_name"`.
@@ -2172,26 +2417,31 @@ pub struct LuaPreGhostUpgradedEventFilter {
     pub attributes: Option<LuaPreGhostUpgradedEventFilterAttributes>,
 }
 
+#[derive(Debug, Deserialize)]
 pub struct LuaPrePlayerMinedEntityEventFilterAttributesGhostName {
     /// The ghost prototype name
     pub name: String,
 }
 
+#[derive(Debug, Deserialize)]
 pub struct LuaPrePlayerMinedEntityEventFilterAttributesGhostType {
     /// The ghost prototype type
     pub typ: String,
 }
 
+#[derive(Debug, Deserialize)]
 pub struct LuaPrePlayerMinedEntityEventFilterAttributesName {
     /// The prototype name
     pub name: String,
 }
 
+#[derive(Debug, Deserialize)]
 pub struct LuaPrePlayerMinedEntityEventFilterAttributesType {
     /// The prototype type
     pub typ: String,
 }
 
+#[derive(Debug, Deserialize)]
 pub enum LuaPrePlayerMinedEntityEventFilterAttributes {
     GhostName(LuaPrePlayerMinedEntityEventFilterAttributesGhostName),
     GhostType(LuaPrePlayerMinedEntityEventFilterAttributesGhostType),
@@ -2199,6 +2449,7 @@ pub enum LuaPrePlayerMinedEntityEventFilterAttributes {
     Type(LuaPrePlayerMinedEntityEventFilterAttributesType),
 }
 
+#[derive(Debug, Deserialize)]
 /// Depending on the value of `filter`, the table may take additional fields. `filter` may be one of the following:
 pub struct LuaPrePlayerMinedEntityEventFilter {
     /// The condition to filter on. One of `"ghost"`, `"rail"`, `"rail-signal"`, `"rolling-stock"`, `"robot-with-logistics-interface"`, `"vehicle"`, `"turret"`, `"crafting-machine"`, `"wall-connectable"`, `"transport-belt-connectable"`, `"circuit-network-connectable"`, `"type"`, `"name"`, `"ghost_type"`, `"ghost_name"`.
@@ -2211,26 +2462,31 @@ pub struct LuaPrePlayerMinedEntityEventFilter {
     pub attributes: Option<LuaPrePlayerMinedEntityEventFilterAttributes>,
 }
 
+#[derive(Debug, Deserialize)]
 pub struct LuaPreRobotMinedEntityEventFilterAttributesGhostName {
     /// The ghost prototype name
     pub name: String,
 }
 
+#[derive(Debug, Deserialize)]
 pub struct LuaPreRobotMinedEntityEventFilterAttributesGhostType {
     /// The ghost prototype type
     pub typ: String,
 }
 
+#[derive(Debug, Deserialize)]
 pub struct LuaPreRobotMinedEntityEventFilterAttributesName {
     /// The prototype name
     pub name: String,
 }
 
+#[derive(Debug, Deserialize)]
 pub struct LuaPreRobotMinedEntityEventFilterAttributesType {
     /// The prototype type
     pub typ: String,
 }
 
+#[derive(Debug, Deserialize)]
 pub enum LuaPreRobotMinedEntityEventFilterAttributes {
     GhostName(LuaPreRobotMinedEntityEventFilterAttributesGhostName),
     GhostType(LuaPreRobotMinedEntityEventFilterAttributesGhostType),
@@ -2238,6 +2494,7 @@ pub enum LuaPreRobotMinedEntityEventFilterAttributes {
     Type(LuaPreRobotMinedEntityEventFilterAttributesType),
 }
 
+#[derive(Debug, Deserialize)]
 /// Depending on the value of `filter`, the table may take additional fields. `filter` may be one of the following:
 pub struct LuaPreRobotMinedEntityEventFilter {
     /// The condition to filter on. One of `"ghost"`, `"rail"`, `"rail-signal"`, `"rolling-stock"`, `"robot-with-logistics-interface"`, `"vehicle"`, `"turret"`, `"crafting-machine"`, `"wall-connectable"`, `"transport-belt-connectable"`, `"circuit-network-connectable"`, `"type"`, `"name"`, `"ghost_type"`, `"ghost_name"`.
@@ -2250,31 +2507,37 @@ pub struct LuaPreRobotMinedEntityEventFilter {
     pub attributes: Option<LuaPreRobotMinedEntityEventFilterAttributes>,
 }
 
+#[derive(Debug, Deserialize)]
 pub struct LuaRobotBuiltEntityEventFilterAttributesForce {
     /// The entity force
     pub force: String,
 }
 
+#[derive(Debug, Deserialize)]
 pub struct LuaRobotBuiltEntityEventFilterAttributesGhostName {
     /// The ghost prototype name
     pub name: String,
 }
 
+#[derive(Debug, Deserialize)]
 pub struct LuaRobotBuiltEntityEventFilterAttributesGhostType {
     /// The ghost prototype type
     pub typ: String,
 }
 
+#[derive(Debug, Deserialize)]
 pub struct LuaRobotBuiltEntityEventFilterAttributesName {
     /// The prototype name
     pub name: String,
 }
 
+#[derive(Debug, Deserialize)]
 pub struct LuaRobotBuiltEntityEventFilterAttributesType {
     /// The prototype type
     pub typ: String,
 }
 
+#[derive(Debug, Deserialize)]
 pub enum LuaRobotBuiltEntityEventFilterAttributes {
     Force(LuaRobotBuiltEntityEventFilterAttributesForce),
     GhostName(LuaRobotBuiltEntityEventFilterAttributesGhostName),
@@ -2283,6 +2546,7 @@ pub enum LuaRobotBuiltEntityEventFilterAttributes {
     Type(LuaRobotBuiltEntityEventFilterAttributesType),
 }
 
+#[derive(Debug, Deserialize)]
 /// Depending on the value of `filter`, the table may take additional fields. `filter` may be one of the following:
 pub struct LuaRobotBuiltEntityEventFilter {
     /// The condition to filter on. One of `"ghost"`, `"rail"`, `"rail-signal"`, `"rolling-stock"`, `"robot-with-logistics-interface"`, `"vehicle"`, `"turret"`, `"crafting-machine"`, `"wall-connectable"`, `"transport-belt-connectable"`, `"circuit-network-connectable"`, `"type"`, `"name"`, `"ghost_type"`, `"ghost_name"`, `"force"`.
@@ -2295,26 +2559,31 @@ pub struct LuaRobotBuiltEntityEventFilter {
     pub attributes: Option<LuaRobotBuiltEntityEventFilterAttributes>,
 }
 
+#[derive(Debug, Deserialize)]
 pub struct LuaRobotMinedEntityEventFilterAttributesGhostName {
     /// The ghost prototype name
     pub name: String,
 }
 
+#[derive(Debug, Deserialize)]
 pub struct LuaRobotMinedEntityEventFilterAttributesGhostType {
     /// The ghost prototype type
     pub typ: String,
 }
 
+#[derive(Debug, Deserialize)]
 pub struct LuaRobotMinedEntityEventFilterAttributesName {
     /// The prototype name
     pub name: String,
 }
 
+#[derive(Debug, Deserialize)]
 pub struct LuaRobotMinedEntityEventFilterAttributesType {
     /// The prototype type
     pub typ: String,
 }
 
+#[derive(Debug, Deserialize)]
 pub enum LuaRobotMinedEntityEventFilterAttributes {
     GhostName(LuaRobotMinedEntityEventFilterAttributesGhostName),
     GhostType(LuaRobotMinedEntityEventFilterAttributesGhostType),
@@ -2322,6 +2591,7 @@ pub enum LuaRobotMinedEntityEventFilterAttributes {
     Type(LuaRobotMinedEntityEventFilterAttributesType),
 }
 
+#[derive(Debug, Deserialize)]
 /// Depending on the value of `filter`, the table may take additional fields. `filter` may be one of the following:
 pub struct LuaRobotMinedEntityEventFilter {
     /// The condition to filter on. One of `"ghost"`, `"rail"`, `"rail-signal"`, `"rolling-stock"`, `"robot-with-logistics-interface"`, `"vehicle"`, `"turret"`, `"crafting-machine"`, `"wall-connectable"`, `"transport-belt-connectable"`, `"circuit-network-connectable"`, `"type"`, `"name"`, `"ghost_type"`, `"ghost_name"`.
@@ -2334,26 +2604,31 @@ pub struct LuaRobotMinedEntityEventFilter {
     pub attributes: Option<LuaRobotMinedEntityEventFilterAttributes>,
 }
 
+#[derive(Debug, Deserialize)]
 pub struct LuaScriptRaisedBuiltEventFilterAttributesGhostName {
     /// The ghost prototype name
     pub name: String,
 }
 
+#[derive(Debug, Deserialize)]
 pub struct LuaScriptRaisedBuiltEventFilterAttributesGhostType {
     /// The ghost prototype type
     pub typ: String,
 }
 
+#[derive(Debug, Deserialize)]
 pub struct LuaScriptRaisedBuiltEventFilterAttributesName {
     /// The prototype name
     pub name: String,
 }
 
+#[derive(Debug, Deserialize)]
 pub struct LuaScriptRaisedBuiltEventFilterAttributesType {
     /// The prototype type
     pub typ: String,
 }
 
+#[derive(Debug, Deserialize)]
 pub enum LuaScriptRaisedBuiltEventFilterAttributes {
     GhostName(LuaScriptRaisedBuiltEventFilterAttributesGhostName),
     GhostType(LuaScriptRaisedBuiltEventFilterAttributesGhostType),
@@ -2361,6 +2636,7 @@ pub enum LuaScriptRaisedBuiltEventFilterAttributes {
     Type(LuaScriptRaisedBuiltEventFilterAttributesType),
 }
 
+#[derive(Debug, Deserialize)]
 /// Depending on the value of `filter`, the table may take additional fields. `filter` may be one of the following:
 pub struct LuaScriptRaisedBuiltEventFilter {
     /// The condition to filter on. One of `"ghost"`, `"rail"`, `"rail-signal"`, `"rolling-stock"`, `"robot-with-logistics-interface"`, `"vehicle"`, `"turret"`, `"crafting-machine"`, `"wall-connectable"`, `"transport-belt-connectable"`, `"circuit-network-connectable"`, `"type"`, `"name"`, `"ghost_type"`, `"ghost_name"`.
@@ -2373,26 +2649,31 @@ pub struct LuaScriptRaisedBuiltEventFilter {
     pub attributes: Option<LuaScriptRaisedBuiltEventFilterAttributes>,
 }
 
+#[derive(Debug, Deserialize)]
 pub struct LuaScriptRaisedDestroyEventFilterAttributesGhostName {
     /// The ghost prototype name
     pub name: String,
 }
 
+#[derive(Debug, Deserialize)]
 pub struct LuaScriptRaisedDestroyEventFilterAttributesGhostType {
     /// The ghost prototype type
     pub typ: String,
 }
 
+#[derive(Debug, Deserialize)]
 pub struct LuaScriptRaisedDestroyEventFilterAttributesName {
     /// The prototype name
     pub name: String,
 }
 
+#[derive(Debug, Deserialize)]
 pub struct LuaScriptRaisedDestroyEventFilterAttributesType {
     /// The prototype type
     pub typ: String,
 }
 
+#[derive(Debug, Deserialize)]
 pub enum LuaScriptRaisedDestroyEventFilterAttributes {
     GhostName(LuaScriptRaisedDestroyEventFilterAttributesGhostName),
     GhostType(LuaScriptRaisedDestroyEventFilterAttributesGhostType),
@@ -2400,6 +2681,7 @@ pub enum LuaScriptRaisedDestroyEventFilterAttributes {
     Type(LuaScriptRaisedDestroyEventFilterAttributesType),
 }
 
+#[derive(Debug, Deserialize)]
 /// Depending on the value of `filter`, the table may take additional fields. `filter` may be one of the following:
 pub struct LuaScriptRaisedDestroyEventFilter {
     /// The condition to filter on. One of `"ghost"`, `"rail"`, `"rail-signal"`, `"rolling-stock"`, `"robot-with-logistics-interface"`, `"vehicle"`, `"turret"`, `"crafting-machine"`, `"wall-connectable"`, `"transport-belt-connectable"`, `"circuit-network-connectable"`, `"type"`, `"name"`, `"ghost_type"`, `"ghost_name"`.
@@ -2412,26 +2694,31 @@ pub struct LuaScriptRaisedDestroyEventFilter {
     pub attributes: Option<LuaScriptRaisedDestroyEventFilterAttributes>,
 }
 
+#[derive(Debug, Deserialize)]
 pub struct LuaScriptRaisedReviveEventFilterAttributesGhostName {
     /// The ghost prototype name
     pub name: String,
 }
 
+#[derive(Debug, Deserialize)]
 pub struct LuaScriptRaisedReviveEventFilterAttributesGhostType {
     /// The ghost prototype type
     pub typ: String,
 }
 
+#[derive(Debug, Deserialize)]
 pub struct LuaScriptRaisedReviveEventFilterAttributesName {
     /// The prototype name
     pub name: String,
 }
 
+#[derive(Debug, Deserialize)]
 pub struct LuaScriptRaisedReviveEventFilterAttributesType {
     /// The prototype type
     pub typ: String,
 }
 
+#[derive(Debug, Deserialize)]
 pub enum LuaScriptRaisedReviveEventFilterAttributes {
     GhostName(LuaScriptRaisedReviveEventFilterAttributesGhostName),
     GhostType(LuaScriptRaisedReviveEventFilterAttributesGhostType),
@@ -2439,6 +2726,7 @@ pub enum LuaScriptRaisedReviveEventFilterAttributes {
     Type(LuaScriptRaisedReviveEventFilterAttributesType),
 }
 
+#[derive(Debug, Deserialize)]
 /// Depending on the value of `filter`, the table may take additional fields. `filter` may be one of the following:
 pub struct LuaScriptRaisedReviveEventFilter {
     /// The condition to filter on. One of `"ghost"`, `"rail"`, `"rail-signal"`, `"rolling-stock"`, `"robot-with-logistics-interface"`, `"vehicle"`, `"turret"`, `"crafting-machine"`, `"wall-connectable"`, `"transport-belt-connectable"`, `"circuit-network-connectable"`, `"type"`, `"name"`, `"ghost_type"`, `"ghost_name"`.
@@ -2451,26 +2739,31 @@ pub struct LuaScriptRaisedReviveEventFilter {
     pub attributes: Option<LuaScriptRaisedReviveEventFilterAttributes>,
 }
 
+#[derive(Debug, Deserialize)]
 pub struct LuaScriptRaisedTeleportedEventFilterAttributesGhostName {
     /// The ghost prototype name
     pub name: String,
 }
 
+#[derive(Debug, Deserialize)]
 pub struct LuaScriptRaisedTeleportedEventFilterAttributesGhostType {
     /// The ghost prototype type
     pub typ: String,
 }
 
+#[derive(Debug, Deserialize)]
 pub struct LuaScriptRaisedTeleportedEventFilterAttributesName {
     /// The prototype name
     pub name: String,
 }
 
+#[derive(Debug, Deserialize)]
 pub struct LuaScriptRaisedTeleportedEventFilterAttributesType {
     /// The prototype type
     pub typ: String,
 }
 
+#[derive(Debug, Deserialize)]
 pub enum LuaScriptRaisedTeleportedEventFilterAttributes {
     GhostName(LuaScriptRaisedTeleportedEventFilterAttributesGhostName),
     GhostType(LuaScriptRaisedTeleportedEventFilterAttributesGhostType),
@@ -2478,6 +2771,7 @@ pub enum LuaScriptRaisedTeleportedEventFilterAttributes {
     Type(LuaScriptRaisedTeleportedEventFilterAttributesType),
 }
 
+#[derive(Debug, Deserialize)]
 /// Depending on the value of `filter`, the table may take additional fields. `filter` may be one of the following:
 pub struct LuaScriptRaisedTeleportedEventFilter {
     /// The condition to filter on. One of `"ghost"`, `"rail"`, `"rail-signal"`, `"rolling-stock"`, `"robot-with-logistics-interface"`, `"vehicle"`, `"turret"`, `"crafting-machine"`, `"wall-connectable"`, `"transport-belt-connectable"`, `"circuit-network-connectable"`, `"type"`, `"name"`, `"ghost_type"`, `"ghost_name"`.
@@ -2490,26 +2784,31 @@ pub struct LuaScriptRaisedTeleportedEventFilter {
     pub attributes: Option<LuaScriptRaisedTeleportedEventFilterAttributes>,
 }
 
+#[derive(Debug, Deserialize)]
 pub struct LuaSectorScannedEventFilterAttributesGhostName {
     /// The ghost prototype name
     pub name: String,
 }
 
+#[derive(Debug, Deserialize)]
 pub struct LuaSectorScannedEventFilterAttributesGhostType {
     /// The ghost prototype type
     pub typ: String,
 }
 
+#[derive(Debug, Deserialize)]
 pub struct LuaSectorScannedEventFilterAttributesName {
     /// The prototype name
     pub name: String,
 }
 
+#[derive(Debug, Deserialize)]
 pub struct LuaSectorScannedEventFilterAttributesType {
     /// The prototype type
     pub typ: String,
 }
 
+#[derive(Debug, Deserialize)]
 pub enum LuaSectorScannedEventFilterAttributes {
     GhostName(LuaSectorScannedEventFilterAttributesGhostName),
     GhostType(LuaSectorScannedEventFilterAttributesGhostType),
@@ -2517,6 +2816,7 @@ pub enum LuaSectorScannedEventFilterAttributes {
     Type(LuaSectorScannedEventFilterAttributesType),
 }
 
+#[derive(Debug, Deserialize)]
 /// Depending on the value of `filter`, the table may take additional fields. `filter` may be one of the following:
 pub struct LuaSectorScannedEventFilter {
     /// The condition to filter on. One of `"ghost"`, `"rail"`, `"rail-signal"`, `"rolling-stock"`, `"robot-with-logistics-interface"`, `"vehicle"`, `"turret"`, `"crafting-machine"`, `"wall-connectable"`, `"transport-belt-connectable"`, `"circuit-network-connectable"`, `"type"`, `"name"`, `"ghost_type"`, `"ghost_name"`.
@@ -2529,26 +2829,31 @@ pub struct LuaSectorScannedEventFilter {
     pub attributes: Option<LuaSectorScannedEventFilterAttributes>,
 }
 
+#[derive(Debug, Deserialize)]
 pub struct LuaUpgradeCancelledEventFilterAttributesGhostName {
     /// The ghost prototype name
     pub name: String,
 }
 
+#[derive(Debug, Deserialize)]
 pub struct LuaUpgradeCancelledEventFilterAttributesGhostType {
     /// The ghost prototype type
     pub typ: String,
 }
 
+#[derive(Debug, Deserialize)]
 pub struct LuaUpgradeCancelledEventFilterAttributesName {
     /// The prototype name
     pub name: String,
 }
 
+#[derive(Debug, Deserialize)]
 pub struct LuaUpgradeCancelledEventFilterAttributesType {
     /// The prototype type
     pub typ: String,
 }
 
+#[derive(Debug, Deserialize)]
 pub enum LuaUpgradeCancelledEventFilterAttributes {
     GhostName(LuaUpgradeCancelledEventFilterAttributesGhostName),
     GhostType(LuaUpgradeCancelledEventFilterAttributesGhostType),
@@ -2556,6 +2861,7 @@ pub enum LuaUpgradeCancelledEventFilterAttributes {
     Type(LuaUpgradeCancelledEventFilterAttributesType),
 }
 
+#[derive(Debug, Deserialize)]
 /// Depending on the value of `filter`, the table may take additional fields. `filter` may be one of the following:
 pub struct LuaUpgradeCancelledEventFilter {
     /// The condition to filter on. One of `"ghost"`, `"rail"`, `"rail-signal"`, `"rolling-stock"`, `"robot-with-logistics-interface"`, `"vehicle"`, `"turret"`, `"crafting-machine"`, `"wall-connectable"`, `"transport-belt-connectable"`, `"circuit-network-connectable"`, `"type"`, `"name"`, `"ghost_type"`, `"ghost_name"`.
@@ -2568,6 +2874,7 @@ pub struct LuaUpgradeCancelledEventFilter {
     pub attributes: Option<LuaUpgradeCancelledEventFilterAttributes>,
 }
 
+#[derive(Debug, Deserialize)]
 /// All regular [MapSettings](MapSettings) plus an additional table that contains the [DifficultySettings](DifficultySettings).
 pub struct MapAndDifficultySettings {
     pub difficulty_settings: DifficultySettings,
@@ -2581,12 +2888,14 @@ pub struct MapAndDifficultySettings {
     pub unit_group: UnitGroupMapSettings,
 }
 
+#[derive(Debug, Deserialize)]
 /// The data that can be extracted from a map exchange string, as a plain table.
 pub struct MapExchangeStringData {
     pub map_gen_settings: MapGenSettings,
     pub map_settings: MapAndDifficultySettings,
 }
 
+#[derive(Debug, Deserialize)]
 pub struct MapGenPreset {
     pub advanced_settings: Option<AdvancedMapGenSettings>,
     pub basic_settings: Option<MapGenSettings>,
@@ -2596,6 +2905,7 @@ pub struct MapGenPreset {
     pub order: String,
 }
 
+#[derive(Debug, Deserialize)]
 /// The 'map type' dropdown in the map generation GUI is actually a selector for elevation generator. The base game sets `property_expression_names.elevation` to `"0_16-elevation"` to reproduce terrain from 0.16 or to `"0_17-island"` for the island preset. If generators are available for other properties, the 'map type' dropdown in the GUI will be renamed to 'elevation' and shown along with selectors for the other selectable properties.
 ///
 /// # Examples
@@ -2664,6 +2974,7 @@ pub struct MapGenSettings {
 /// # Notes
 ///
 /// * The map generation algorithm officially supports the range of values the in-game map generation screen shows (specifically `0` and values from `1/6` to `6`). Values outside this range are not guaranteed to work as expected.
+#[derive(Debug, Deserialize)]
 pub enum MapGenSize {
     /// Specifying a map gen dimension.
     Float(f32),
@@ -2701,6 +3012,7 @@ pub enum MapGenSize {
     VeryGood,
 }
 
+#[derive(Debug, Deserialize)]
 /// Coordinates on a surface, for example of an entity. MapPositions may be specified either as a dictionary with `x`, `y` as keys, or simply as an array with two elements.
 ///
 /// The coordinates are saved as a fixed-size 32 bit integer, with 8 bits reserved for decimal precision, meaning the smallest value step is `1/2^8 = 0.00390625` tiles.
@@ -2721,6 +3033,7 @@ pub struct MapPosition {
     pub y: f64,
 }
 
+#[derive(Debug, Deserialize)]
 /// Various game-related settings. Updating any of the attributes will immediately take effect in the game engine.
 ///
 /// # Examples
@@ -2740,6 +3053,7 @@ pub struct MapSettings {
     pub unit_group: UnitGroupMapSettings,
 }
 
+#[derive(Debug, Deserialize)]
 /// What is shown in the map view. If a field is not given, that setting will not be changed.
 pub struct MapViewSettings {
     pub show_electric_network: Option<bool>,
@@ -2752,6 +3066,7 @@ pub struct MapViewSettings {
     pub show_turret_range: Option<bool>,
 }
 
+#[derive(Debug, Deserialize)]
 pub struct ModChangeData {
     /// New version of the mod. May be `nil` if the mod is no longer present (i.e. it was just removed).
     pub new_version: String,
@@ -2759,6 +3074,7 @@ pub struct ModChangeData {
     pub old_version: String,
 }
 
+#[derive(Debug, Deserialize)]
 pub enum ModSettingValueUnion {
     Int(i32),
     Double(f64),
@@ -2767,37 +3083,44 @@ pub enum ModSettingValueUnion {
     Color(Color),
 }
 
+#[derive(Debug, Deserialize)]
 pub struct ModSetting {
     /// The value of the mod setting. The type depends on the kind of setting.
     pub value: ModSettingValueUnion,
 }
 
+#[derive(Debug, Deserialize)]
 pub enum ModSettingPrototypeFilterAttributesTypeUnion {
     String(String),
     Array(Vec<String>),
 }
 
+#[derive(Debug, Deserialize)]
 pub struct ModSettingPrototypeFilterAttributesMod {
     /// The mod name
     pub mod_name: String,
 }
 
+#[derive(Debug, Deserialize)]
 pub struct ModSettingPrototypeFilterAttributesSettingType {
     /// The setting scope type (`"startup"`, `"runtime-global"`, or `"runtime-per-user"`)
     pub typ: String,
 }
 
+#[derive(Debug, Deserialize)]
 pub struct ModSettingPrototypeFilterAttributesType {
     /// The prototype type, or a list of acceptable types.
     pub typ: ModSettingPrototypeFilterAttributesTypeUnion,
 }
 
+#[derive(Debug, Deserialize)]
 pub enum ModSettingPrototypeFilterAttributes {
     Mod(ModSettingPrototypeFilterAttributesMod),
     SettingType(ModSettingPrototypeFilterAttributesSettingType),
     Type(ModSettingPrototypeFilterAttributesType),
 }
 
+#[derive(Debug, Deserialize)]
 /// Depending on the value of `filter`, the table may take additional fields. `filter` may be one of the following:
 pub struct ModSettingPrototypeFilter {
     /// The condition to filter on. One of `"type"`, `"mod"`, `"setting-type"`.
@@ -2810,11 +3133,13 @@ pub struct ModSettingPrototypeFilter {
     pub attributes: Option<ModSettingPrototypeFilterAttributes>,
 }
 
+#[derive(Debug, Deserialize)]
 pub struct ModuleEffectValue {
     /// The percentual increase of the attribute. A value of `0.6` means a 60% increase.
     pub bonus: f32,
 }
 
+#[derive(Debug, Deserialize)]
 /// # Examples
 ///
 /// * These are the effects of the vanilla Productivity Module 3 (up to floating point imprecisions):
@@ -2831,6 +3156,7 @@ pub struct ModuleEffects {
     pub speed: Option<ModuleEffectValue>,
 }
 
+#[derive(Debug, Deserialize, Eq, PartialEq, Hash)]
 pub enum MouseButtonFlagsUnion {
     Left,
     Right,
@@ -2848,12 +3174,14 @@ pub enum MouseButtonFlagsUnion {
 /// To write to this, use an array[[string](string)] of the mouse buttons that should be possible to use with on button. The flag `"left-and-right"` can also be set, which will set `"left"` and `"right"` to `true`.
 pub type MouseButtonFlags = HashSet<MouseButtonFlagsUnion>;
 
+#[derive(Debug, Deserialize)]
 /// A fragment of a functional program used to generate coherent noise, probably for purposes related to terrain generation. These can only be meaningfully written/modified during the data load phase. More detailed information is found on the [wiki](https://wiki.factorio.com/Types/NoiseExpression).
 pub struct NoiseExpression {
     /// Names the type of the expression and determines what other fields are required.
     pub typ: String,
 }
 
+#[derive(Debug, Deserialize)]
 pub struct NthTickEventData {
     /// The nth tick this handler was registered to.
     pub nth_tick: u32,
@@ -2861,6 +3189,7 @@ pub struct NthTickEventData {
     pub tick: u32,
 }
 
+#[derive(Debug, Deserialize)]
 /// A single offer on a market entity.
 pub struct Offer {
     /// The action that will take place when a player accepts the offer. Usually a `"give-item"` modifier.
@@ -2869,11 +3198,13 @@ pub struct Offer {
     pub price: Vec<Ingredient>,
 }
 
+#[derive(Debug, Deserialize)]
 pub struct OldTileAndPosition {
     pub old_tile: LuaTilePrototype,
     pub position: TilePosition,
 }
 
+#[derive(Debug, Deserialize)]
 pub struct PathFinderMapSettings {
     /// When looking for a path from cache, make sure it doesn't end too far from the requested end in relative terms. This is typically more lenient than the start ratio since the end target could be moving. Defaults to `0.15`.
     pub cache_accept_path_end_distance_ratio: f64,
@@ -2943,6 +3274,7 @@ pub struct PathFinderMapSettings {
     pub use_path_cache: bool,
 }
 
+#[derive(Debug, Deserialize)]
 pub struct PathfinderFlags {
     /// Allows pathing through friendly entities. Defaults to `false`.
     pub allow_destroy_friendly_entities: Option<bool>,
@@ -2958,6 +3290,7 @@ pub struct PathfinderFlags {
     pub prefer_straight_paths: Option<bool>,
 }
 
+#[derive(Debug, Deserialize)]
 pub struct PathfinderWaypoint {
     /// `true` if the path from the previous waypoint to this one goes through an entity that must be destroyed.
     pub needs_destroy_to_reach: bool,
@@ -2965,6 +3298,7 @@ pub struct PathfinderWaypoint {
     pub position: MapPosition,
 }
 
+#[derive(Debug, Deserialize)]
 pub struct PlaceAsTileResult {
     pub condition: CollisionMask,
     pub condition_size: u32,
@@ -2973,6 +3307,7 @@ pub struct PlaceAsTileResult {
 }
 
 /// A player may be specified in one of three ways.
+#[derive(Debug, Deserialize)]
 pub enum PlayerIdentification {
     /// The player index.
     Uint(u32),
@@ -2982,6 +3317,7 @@ pub enum PlayerIdentification {
     LuaPlayer(LuaPlayer),
 }
 
+#[derive(Debug, Deserialize)]
 /// These values are for the time frame of one second (60 ticks).
 pub struct PollutionMapSettings {
     /// The amount of pollution eaten by a chunk's tiles as a percentage of 1. Defaults to `1`.
@@ -3010,30 +3346,36 @@ pub struct PollutionMapSettings {
     pub pollution_with_max_forest_damage: f64,
 }
 
+#[derive(Debug, Deserialize)]
 pub enum ProductAmountMaxUnion {
     Uint(u32),
     Double(f64),
 }
 
+#[derive(Debug, Deserialize)]
 pub enum ProductAmountMinUnion {
     Uint(u32),
     Double(f64),
 }
 
+#[derive(Debug, Deserialize)]
 pub enum ProductCatalystAmountUnion {
     Uint(u32),
     Double(f64),
 }
 
+#[derive(Debug, Deserialize)]
 pub struct ProductAttributesFluid {
     /// The fluid temperature of this product.
     pub temperature: Option<f64>,
 }
 
+#[derive(Debug, Deserialize)]
 pub enum ProductAttributes {
     Fluid(ProductAttributesFluid),
 }
 
+#[derive(Debug, Deserialize)]
 /// # Examples
 ///
 /// * Products of the "steel-chest" recipe (an array of Product):
@@ -3069,6 +3411,7 @@ pub struct Product {
     pub attributes: Option<ProductAttributes>,
 }
 
+#[derive(Debug, Deserialize)]
 pub struct ProgrammableSpeakerAlertParameters {
     pub alert_message: String,
     pub icon_signal_id: SignalID,
@@ -3076,23 +3419,27 @@ pub struct ProgrammableSpeakerAlertParameters {
     pub show_on_map: bool,
 }
 
+#[derive(Debug, Deserialize)]
 pub struct ProgrammableSpeakerCircuitParameters {
     pub instrument_id: u32,
     pub note_id: u32,
     pub signal_value_is_pitch: bool,
 }
 
+#[derive(Debug, Deserialize)]
 pub struct ProgrammableSpeakerInstrument {
     pub name: String,
     pub notes: Vec<String>,
 }
 
+#[derive(Debug, Deserialize)]
 pub struct ProgrammableSpeakerParameters {
     pub allow_polyphony: bool,
     pub playback_globally: bool,
     pub playback_volume: f64,
 }
 
+#[derive(Debug, Deserialize)]
 pub enum PrototypeFilterUnion {
     /// for type `"item"`
     ItemPrototypeFilter(ItemPrototypeFilter),
@@ -3121,6 +3468,7 @@ pub enum PrototypeFilterUnion {
 /// * Filters are always used as an array of filters of a specific type. Every filter can only be used with its corresponding event, and different types of event filters can not be mixed.
 pub type PrototypeFilter = Vec<PrototypeFilterUnion>;
 
+#[derive(Debug, Deserialize)]
 pub struct PrototypeHistory {
     /// The mods that changed this prototype in the order they changed it.
     pub changed: Vec<String>,
@@ -3133,60 +3481,71 @@ pub struct PrototypeHistory {
 /// For example then, a value of `0.625` would indicate "south-west", and a value of `0.875` would indicate "north-west".
 pub type RealOrientation = f32;
 
+#[derive(Debug, Deserialize)]
 pub struct RecipePrototypeFilterAttributesCategory {
     /// A [LuaRecipeCategoryPrototype](LuaRecipeCategoryPrototype) name
     pub category: String,
 }
 
+#[derive(Debug, Deserialize)]
 pub struct RecipePrototypeFilterAttributesEmissionsMultiplier {
     pub comparison: ComparatorString,
     /// The value to compare against.
     pub value: f64,
 }
 
+#[derive(Debug, Deserialize)]
 pub struct RecipePrototypeFilterAttributesEnergy {
     pub comparison: ComparatorString,
     /// The value to compare against.
     pub value: f64,
 }
 
+#[derive(Debug, Deserialize)]
 pub struct RecipePrototypeFilterAttributesHasIngredientFluid {
     /// Matches if at least 1 ingredient is a fluid that matches these filters.
     pub elem_filters: Option<Vec<FluidPrototypeFilter>>,
 }
 
+#[derive(Debug, Deserialize)]
 pub struct RecipePrototypeFilterAttributesHasIngredientItem {
     /// Matches if at least 1 ingredient is an item that matches these filters.
     pub elem_filters: Option<Vec<ItemPrototypeFilter>>,
 }
 
+#[derive(Debug, Deserialize)]
 pub struct RecipePrototypeFilterAttributesHasProductFluid {
     /// Matches if at least 1 product is a fluid that matches these filters.
     pub elem_filters: Option<Vec<FluidPrototypeFilter>>,
 }
 
+#[derive(Debug, Deserialize)]
 pub struct RecipePrototypeFilterAttributesHasProductItem {
     /// Matches if at least 1 product is an item that matches these filters.
     pub elem_filters: Option<Vec<ItemPrototypeFilter>>,
 }
 
+#[derive(Debug, Deserialize)]
 pub struct RecipePrototypeFilterAttributesOverloadMultiplier {
     pub comparison: ComparatorString,
     /// The value to compare against.
     pub value: u32,
 }
 
+#[derive(Debug, Deserialize)]
 pub struct RecipePrototypeFilterAttributesRequestPasteMultiplier {
     pub comparison: ComparatorString,
     /// The value to compare against.
     pub value: u32,
 }
 
+#[derive(Debug, Deserialize)]
 pub struct RecipePrototypeFilterAttributesSubgroup {
     /// A [LuaGroup](LuaGroup) (subgroup) name
     pub subgroup: String,
 }
 
+#[derive(Debug, Deserialize)]
 pub enum RecipePrototypeFilterAttributes {
     Category(RecipePrototypeFilterAttributesCategory),
     EmissionsMultiplier(RecipePrototypeFilterAttributesEmissionsMultiplier),
@@ -3200,6 +3559,7 @@ pub enum RecipePrototypeFilterAttributes {
     Subgroup(RecipePrototypeFilterAttributesSubgroup),
 }
 
+#[derive(Debug, Deserialize)]
 /// Depending on the value of `filter`, the table may take additional fields. `filter` may be one of the following:
 pub struct RecipePrototypeFilter {
     /// The condition to filter on. One of `"enabled"`, `"hidden"`, `"hidden-from-flow-stats"`, `"hidden-from-player-crafting"`, `"allow-as-intermediate"`, `"allow-intermediates"`, `"allow-decomposition"`, `"always-show-made-in"`, `"always-show-products"`, `"show-amount-in-title"`, `"has-ingredients"`, `"has-products"`, `"has-ingredient-item"`, `"has-ingredient-fluid"`, `"has-product-item"`, `"has-product-fluid"`, `"subgroup"`, `"category"`, `"energy"`, `"emissions-multiplier"`, `"request-paste-multiplier"`, `"overload-multiplier"`.
@@ -3213,6 +3573,7 @@ pub struct RecipePrototypeFilter {
 }
 
 /// A number between 0 and 255 inclusive, represented by one of the following named strings or the string version of the number. For example `"27"` and `"decals"` are both valid. Higher values are rendered above lower values.
+#[derive(Debug, Deserialize)]
 pub enum RenderLayer {
     /// A string of a number
     String(String),
@@ -3304,6 +3665,7 @@ pub enum RenderLayer {
     Cursor,
 }
 
+#[derive(Debug, Deserialize)]
 pub struct Resistance {
     /// Absolute damage decrease
     pub decrease: f32,
@@ -3311,11 +3673,13 @@ pub struct Resistance {
     pub percent: f32,
 }
 
+#[derive(Debug, Deserialize)]
 pub struct RidingState {
     pub acceleration: RidingAcceleration,
     pub direction: RidingDirection,
 }
 
+#[derive(Debug, Deserialize)]
 /// An area defined using the map editor.
 pub struct ScriptArea {
     pub area: BoundingBox,
@@ -3324,6 +3688,7 @@ pub struct ScriptArea {
     pub name: String,
 }
 
+#[derive(Debug, Deserialize)]
 /// A position defined using the map editor.
 pub struct ScriptPosition {
     pub color: Color,
@@ -3332,17 +3697,20 @@ pub struct ScriptPosition {
     pub position: MapPosition,
 }
 
+#[derive(Debug, Deserialize)]
 pub struct ScriptRenderTarget {
     pub entity: Option<LuaEntity>,
     pub entity_offset: Option<Vector>,
     pub position: Option<MapPosition>,
 }
 
+#[derive(Debug, Deserialize)]
 pub enum ScriptRenderVertexTargetTargetUnion {
     MapPosition(MapPosition),
     LuaEntity(LuaEntity),
 }
 
+#[derive(Debug, Deserialize)]
 /// One vertex of a ScriptRenderPolygon.
 pub struct ScriptRenderVertexTarget {
     pub target: ScriptRenderVertexTargetTargetUnion,
@@ -3350,6 +3718,7 @@ pub struct ScriptRenderVertexTarget {
     pub target_offset: Option<Vector>,
 }
 
+#[derive(Debug, Deserialize)]
 pub struct SelectedPrototypeData {
     /// E.g. `"entity"`.
     pub base_type: String,
@@ -3359,6 +3728,7 @@ pub struct SelectedPrototypeData {
     pub name: String,
 }
 
+#[derive(Debug, Deserialize, Eq, PartialEq, Hash)]
 pub enum SelectionModeFlagsUnion {
     /// Selects entities and tiles as if selecting them for a blueprint.
     Blueprint,
@@ -3413,6 +3783,7 @@ pub enum SelectionModeFlagsUnion {
 /// A set of flags on a selection tool that define how entities and tiles are selected. Active flags are in the dictionary as `true`, while inactive flags aren't present at all.
 pub type SelectionModeFlags = HashSet<SelectionModeFlagsUnion>;
 
+#[derive(Debug, Deserialize)]
 /// An actual signal transmitted by the network.
 pub struct Signal {
     /// Value of the signal.
@@ -3421,6 +3792,7 @@ pub struct Signal {
     pub signal: SignalID,
 }
 
+#[derive(Debug, Deserialize)]
 pub struct SignalID {
     /// Name of the item, fluid or virtual signal.
     pub name: Option<String>,
@@ -3452,6 +3824,7 @@ pub struct SignalID {
 /// ```text
 /// {name="iron-plate", count=100}
 /// ```
+#[derive(Debug, Deserialize)]
 pub enum SimpleItemStack {
     /// The name of the item, which represents a full stack of that item.
     String(String),
@@ -3459,6 +3832,7 @@ pub enum SimpleItemStack {
     ItemStackDefinition(ItemStackDefinition),
 }
 
+#[derive(Debug, Deserialize)]
 /// # Notes
 ///
 /// * The vectors for all 5 position attributes are a table with `x` and `y` keys instead of an array.
@@ -3512,6 +3886,7 @@ pub struct SmokeSource {
 pub type SoundPath = String;
 
 /// Defines which slider in the game's sound settings affects the volume of this sound. Furthermore, some sound types are mixed differently than others, e.g. zoom level effects are applied.
+#[derive(Debug, Deserialize)]
 pub enum SoundType {
     GameEffect,
     GuiEffect,
@@ -3522,6 +3897,7 @@ pub enum SoundType {
     Wind,
 }
 
+#[derive(Debug, Deserialize)]
 pub struct SpawnPointDefinition {
     /// Evolution factor for which this weight applies.
     pub evolution_factor: f64,
@@ -3548,6 +3924,7 @@ pub struct SpawnPointDefinition {
 /// - `"utility"` - sprite defined in the utility-sprites object, these are the pictures used by the game internally for the UI.
 pub type SpritePath = String;
 
+#[derive(Debug, Deserialize)]
 pub struct SteeringMapSetting {
     /// Used to make steering look better for aesthetic purposes.
     pub force_unit_fuzzy_goto_behavior: bool,
@@ -3557,12 +3934,14 @@ pub struct SteeringMapSetting {
     pub separation_force: f64,
 }
 
+#[derive(Debug, Deserialize)]
 pub struct SteeringMapSettings {
     pub default: SteeringMapSetting,
     pub moving: SteeringMapSetting,
 }
 
 /// A surface may be specified in one of three ways.
+#[derive(Debug, Deserialize)]
 pub enum SurfaceIdentification {
     /// It will be the index of the surface. `nauvis` has index `1`, the first surface-created surface will have index `2` and so on.
     Uint(u32),
@@ -3572,6 +3951,7 @@ pub enum SurfaceIdentification {
     LuaSurface(LuaSurface),
 }
 
+#[derive(Debug, Deserialize)]
 pub struct TabAndContent {
     pub content: LuaGuiElement,
     pub tab: LuaGuiElement,
@@ -3589,6 +3969,7 @@ pub struct TabAndContent {
 pub type Tags = HashMap<String, AnyBasic>;
 
 /// A technology may be specified in one of three ways.
+#[derive(Debug, Deserialize)]
 pub enum TechnologyIdentification {
     /// The technology name.
     String(String),
@@ -3598,11 +3979,13 @@ pub enum TechnologyIdentification {
     LuaTechnologyPrototype(LuaTechnologyPrototype),
 }
 
+#[derive(Debug, Deserialize)]
 pub struct TechnologyModifierAttributesOtherTypes {
     /// Modification value. This value will be added to the variable it modifies.
     pub modifier: f64,
 }
 
+#[derive(Debug, Deserialize)]
 pub struct TechnologyModifierAttributesAmmoDamage {
     /// Prototype name of the ammunition category that is affected
     pub ammo_category: String,
@@ -3610,6 +3993,7 @@ pub struct TechnologyModifierAttributesAmmoDamage {
     pub modifier: f64,
 }
 
+#[derive(Debug, Deserialize)]
 pub struct TechnologyModifierAttributesGiveItem {
     /// Number of items to give. Defaults to `1`.
     pub count: Option<u32>,
@@ -3617,6 +4001,7 @@ pub struct TechnologyModifierAttributesGiveItem {
     pub item: String,
 }
 
+#[derive(Debug, Deserialize)]
 pub struct TechnologyModifierAttributesGunSpeed {
     /// Prototype name of the ammunition category that is affected
     pub ammo_category: String,
@@ -3624,11 +4009,13 @@ pub struct TechnologyModifierAttributesGunSpeed {
     pub modifier: f64,
 }
 
+#[derive(Debug, Deserialize)]
 pub struct TechnologyModifierAttributesNothing {
     /// Description of this nothing modifier.
     pub effect_description: LocalisedString,
 }
 
+#[derive(Debug, Deserialize)]
 pub struct TechnologyModifierAttributesTurretAttack {
     /// Modification value. This will be added to the current turret damage modifier upon researching.
     pub modifier: f64,
@@ -3636,11 +4023,13 @@ pub struct TechnologyModifierAttributesTurretAttack {
     pub turret_id: String,
 }
 
+#[derive(Debug, Deserialize)]
 pub struct TechnologyModifierAttributesUnlockRecipe {
     /// Recipe prototype name to unlock.
     pub recipe: String,
 }
 
+#[derive(Debug, Deserialize)]
 pub enum TechnologyModifierAttributes {
     OtherTypes(TechnologyModifierAttributesOtherTypes),
     AmmoDamage(TechnologyModifierAttributesAmmoDamage),
@@ -3651,6 +4040,7 @@ pub enum TechnologyModifierAttributes {
     UnlockRecipe(TechnologyModifierAttributesUnlockRecipe),
 }
 
+#[derive(Debug, Deserialize)]
 /// The effect that is applied when a technology is researched. It is a table that contains at least the field `type`.
 pub struct TechnologyModifier {
     /// Modifier type. Specifies which of the other fields will be available. Possible values are: `"inserter-stack-size-bonus"`, `"stack-inserter-capacity-bonus"`, `"laboratory-speed"`, `"character-logistic-trash-slots"`, `"maximum-following-robots-count"`, `"worker-robot-speed"`, `"worker-robot-storage"`, `"ghost-time-to-live"`, `"turret-attack"`, `"ammo-damage"`, `"give-item"`, `"gun-speed"`, `"unlock-recipe"`, `"character-crafting-speed"`, `"character-mining-speed"`, `"character-running-speed"`, `"character-build-distance"`, `"character-item-drop-distance"`, `"character-reach-distance"`, `"character-resource-reach-distance"`, `"character-item-pickup-distance"`, `"character-loot-pickup-distance"`, `"character-inventory-slots-bonus"`, `"deconstruction-time-to-live"`, `"max-failed-attempts-per-tick-per-construction-queue"`, `"max-successful-attempts-per-tick-per-construction-queue"`, `"character-health-bonus"`, `"mining-drill-productivity-bonus"`, `"train-braking-force-bonus"`, `"zoom-to-world-enabled"`, `"zoom-to-world-ghost-building-enabled"`, `"zoom-to-world-blueprint-enabled"`, `"zoom-to-world-deconstruction-planner-enabled"`, `"zoom-to-world-upgrade-planner-enabled"`, `"zoom-to-world-selection-tool-enabled"`, `"worker-robot-battery"`, `"laboratory-productivity"`, `"follower-robot-lifetime"`, `"artillery-range"`, `"nothing"`, `"character-additional-mining-categories"`, `"character-logistic-requests"`.
@@ -3659,34 +4049,40 @@ pub struct TechnologyModifier {
     pub attributes: Option<TechnologyModifierAttributes>,
 }
 
+#[derive(Debug, Deserialize)]
 pub struct TechnologyPrototypeFilterAttributesLevel {
     pub comparison: ComparatorString,
     /// The value to compare against.
     pub value: u32,
 }
 
+#[derive(Debug, Deserialize)]
 pub struct TechnologyPrototypeFilterAttributesMaxLevel {
     pub comparison: ComparatorString,
     /// The value to compare against.
     pub value: u32,
 }
 
+#[derive(Debug, Deserialize)]
 pub struct TechnologyPrototypeFilterAttributesResearchUnitIngredient {
     /// The research ingredient to check.
     pub ingredient: String,
 }
 
+#[derive(Debug, Deserialize)]
 pub struct TechnologyPrototypeFilterAttributesTime {
     pub comparison: ComparatorString,
     /// The value to compare against.
     pub value: u32,
 }
 
+#[derive(Debug, Deserialize)]
 pub struct TechnologyPrototypeFilterAttributesUnlocksRecipe {
     /// The recipe to check.
     pub recipe: String,
 }
 
+#[derive(Debug, Deserialize)]
 pub enum TechnologyPrototypeFilterAttributes {
     Level(TechnologyPrototypeFilterAttributesLevel),
     MaxLevel(TechnologyPrototypeFilterAttributesMaxLevel),
@@ -3695,6 +4091,7 @@ pub enum TechnologyPrototypeFilterAttributes {
     UnlocksRecipe(TechnologyPrototypeFilterAttributesUnlocksRecipe),
 }
 
+#[derive(Debug, Deserialize)]
 /// Depending on the value of `filter`, the table may take additional fields. `filter` may be one of the following:
 pub struct TechnologyPrototypeFilter {
     /// The condition to filter on. One of `"enabled"`, `"hidden"`, `"upgrade"`, `"visible-when-disabled"`, `"has-effects"`, `"has-prerequisites"`, `"research-unit-ingredient"`, `"unlocks-recipe"`, `"level"`, `"max-level"`, `"time"`.
@@ -3707,6 +4104,7 @@ pub struct TechnologyPrototypeFilter {
     pub attributes: Option<TechnologyPrototypeFilterAttributes>,
 }
 
+#[derive(Debug, Deserialize)]
 pub struct Tile {
     /// The prototype name of the tile.
     pub name: String,
@@ -3714,47 +4112,55 @@ pub struct Tile {
     pub position: TilePosition,
 }
 
+#[derive(Debug, Deserialize)]
 /// Coordinates of a tile on a [LuaSurface](LuaSurface) where each integer `x`/`y` represents a different tile. This uses the same format as [MapPosition](MapPosition), except it rounds any non-integer `x`/`y` down to whole numbers. It can be specified either with or without explicit keys.
 pub struct TilePosition {
     pub x: i32,
     pub y: i32,
 }
 
+#[derive(Debug, Deserialize)]
 pub enum TilePrototypeFilterAttributesMaskUnion {
     CollisionMask(CollisionMask),
     CollisionMaskWithFlags(CollisionMaskWithFlags),
 }
 
+#[derive(Debug, Deserialize)]
 pub struct TilePrototypeFilterAttributesCollisionMask {
     pub mask: TilePrototypeFilterAttributesMaskUnion,
     /// How to filter: `"collides"`, `"layers-equals"`, `"contains-any"` or `"contains-all"`
     pub mask_mode: String,
 }
 
+#[derive(Debug, Deserialize)]
 pub struct TilePrototypeFilterAttributesDecorativeRemovalProbability {
     pub comparison: ComparatorString,
     /// The value to compare against.
     pub value: f32,
 }
 
+#[derive(Debug, Deserialize)]
 pub struct TilePrototypeFilterAttributesEmissions {
     pub comparison: ComparatorString,
     /// The value to compare against.
     pub value: f64,
 }
 
+#[derive(Debug, Deserialize)]
 pub struct TilePrototypeFilterAttributesVehicleFrictionModifier {
     pub comparison: ComparatorString,
     /// The value to compare against.
     pub value: f64,
 }
 
+#[derive(Debug, Deserialize)]
 pub struct TilePrototypeFilterAttributesWalkingSpeedModifier {
     pub comparison: ComparatorString,
     /// The value to compare against.
     pub value: f64,
 }
 
+#[derive(Debug, Deserialize)]
 pub enum TilePrototypeFilterAttributes {
     CollisionMask(TilePrototypeFilterAttributesCollisionMask),
     DecorativeRemovalProbability(TilePrototypeFilterAttributesDecorativeRemovalProbability),
@@ -3763,6 +4169,7 @@ pub enum TilePrototypeFilterAttributes {
     WalkingSpeedModifier(TilePrototypeFilterAttributesWalkingSpeedModifier),
 }
 
+#[derive(Debug, Deserialize)]
 /// Depending on the value of `filter`, the table may take additional fields. `filter` may be one of the following:
 pub struct TilePrototypeFilter {
     /// The condition to filter on. One of `"minable"`, `"autoplace"`, `"blueprintable"`, `"item-to-place"`, `"collision-mask"`, `"walking-speed-modifier"`, `"vehicle-friction-modifier"`, `"decorative-removal-probability"`, `"emissions"`.
@@ -3775,12 +4182,14 @@ pub struct TilePrototypeFilter {
     pub attributes: Option<TilePrototypeFilterAttributes>,
 }
 
+#[derive(Debug, Deserialize)]
 pub struct TrainSchedule {
     /// Index of the currently active record
     pub current: u32,
     pub records: Vec<TrainScheduleRecord>,
 }
 
+#[derive(Debug, Deserialize)]
 pub struct TrainScheduleRecord {
     /// Rail to path to. Ignored if `station` is present.
     pub rail: Option<LuaEntity>,
@@ -3793,6 +4202,7 @@ pub struct TrainScheduleRecord {
     pub wait_conditions: Option<Vec<WaitCondition>>,
 }
 
+#[derive(Debug, Deserialize)]
 pub struct TriggerDelivery {
     pub source_effects: Vec<TriggerEffectItem>,
     pub target_effects: Vec<TriggerEffectItem>,
@@ -3800,6 +4210,7 @@ pub struct TriggerDelivery {
     pub typ: String,
 }
 
+#[derive(Debug, Deserialize)]
 pub struct TriggerEffectItem {
     pub affects_target: bool,
     pub repeat_count: u32,
@@ -3808,6 +4219,7 @@ pub struct TriggerEffectItem {
     pub typ: String,
 }
 
+#[derive(Debug, Deserialize)]
 pub struct TriggerItem {
     pub action_delivery: Option<Vec<TriggerDelivery>>,
     /// The trigger will only affect entities that would collide with given collision mask.
@@ -3826,6 +4238,7 @@ pub struct TriggerItem {
 /// A set of trigger target masks.
 pub type TriggerTargetMask = HashMap<String, bool>;
 
+#[derive(Debug, Deserialize)]
 pub struct UnitGroupMapSettings {
     /// The maximum number of automatically created unit groups gathering for attack at any time. Defaults to `30`.
     pub max_gathering_unit_groups: u32,
@@ -3854,6 +4267,7 @@ pub struct UnitGroupMapSettings {
     pub tick_tolerance_when_member_arrives: u32,
 }
 
+#[derive(Debug, Deserialize)]
 pub struct UnitSpawnDefinition {
     /// The points at which to spawn the unit.
     pub spawn_points: Vec<SpawnPointDefinition>,
@@ -3861,6 +4275,7 @@ pub struct UnitSpawnDefinition {
     pub unit: String,
 }
 
+#[derive(Debug, Deserialize)]
 pub struct UpgradeFilter {
     /// Name of the item, or entity.
     pub name: Option<String>,
@@ -3868,6 +4283,7 @@ pub struct UpgradeFilter {
     pub typ: String,
 }
 
+#[derive(Debug, Deserialize)]
 /// A vector is a two-element array containing the `x` and `y` components. In some specific cases, the vector is a table with `x` and `y` keys instead, which the documentation will point out.
 ///
 /// # Examples
@@ -3880,11 +4296,13 @@ pub struct Vector {
     pub y: f32,
 }
 
+#[derive(Debug, Deserialize)]
 pub struct VehicleAutomaticTargetingParameters {
     pub auto_target_with_gunner: bool,
     pub auto_target_without_gunner: bool,
 }
 
+#[derive(Debug, Deserialize)]
 pub struct WaitCondition {
     /// Either `"and"`, or `"or"`. Tells how this condition is to be compared with the preceding conditions in the corresponding `wait_conditions` array.
     pub compare_type: String,
@@ -3896,6 +4314,7 @@ pub struct WaitCondition {
     pub typ: String,
 }
 
+#[derive(Debug, Deserialize)]
 pub struct WireConnectionDefinition {
     /// Mandatory if the source entity has more than one circuit connection using circuit wire.
     pub source_circuit_id: Option<CircuitConnectorId>,

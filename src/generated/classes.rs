@@ -1,10 +1,13 @@
 use std::collections::HashMap;
 use std::collections::HashSet;
 
+use serde::Deserialize;
+
 use super::concepts::*;
 use super::defines::*;
 
 /// Collection of settings for overriding default ai behavior.
+#[derive(Debug, Deserialize)]
 pub struct LuaAISettings {
     /// If enabled, units that repeatedly fail to succeed at commands will be destroyed.
     pub allow_destroy_when_commands_fail: bool,
@@ -27,6 +30,7 @@ pub trait LuaAISettingsMethods {
 }
 
 /// Control behavior for accumulators.
+#[derive(Debug, Deserialize)]
 pub struct LuaAccumulatorControlBehavior {
     pub lua_control_behavior: Box<LuaControlBehavior>,
     /// The class name of this object. Available even when `valid` is false. For LuaStruct objects it may also be suffixed with a dotted path to a member of the struct.
@@ -43,6 +47,7 @@ pub trait LuaAccumulatorControlBehaviorMethods {
 }
 
 /// Prototype of a achievement.
+#[derive(Debug, Deserialize)]
 pub struct LuaAchievementPrototype {
     pub allowed_without_fight: bool,
     pub hidden: bool,
@@ -65,6 +70,7 @@ pub trait LuaAchievementPrototypeMethods {
 }
 
 /// Prototype of a ammo category.
+#[derive(Debug, Deserialize)]
 pub struct LuaAmmoCategoryPrototype {
     pub bonus_gui_order: String,
     pub localised_description: LocalisedString,
@@ -86,6 +92,7 @@ pub trait LuaAmmoCategoryPrototypeMethods {
 }
 
 /// Control behavior for arithmetic combinators.
+#[derive(Debug, Deserialize)]
 pub struct LuaArithmeticCombinatorControlBehavior {
     pub lua_combinator_control_behavior: Box<LuaCombinatorControlBehavior>,
     /// The class name of this object. Available even when `valid` is false. For LuaStruct objects it may also be suffixed with a dotted path to a member of the struct.
@@ -107,6 +114,7 @@ pub trait LuaArithmeticCombinatorControlBehaviorMethods {
 }
 
 /// Prototype of an autoplace control.
+#[derive(Debug, Deserialize)]
 pub struct LuaAutoplaceControlPrototype {
     pub can_be_disabled: bool,
     /// Category name of this prototype.
@@ -131,6 +139,7 @@ pub trait LuaAutoplaceControlPrototypeMethods {
     fn help() -> String;
 }
 
+#[derive(Debug, Deserialize)]
 pub struct LuaBootstrapLevel {
     /// The campaign name if any.
     pub campaign_name: Option<String>,
@@ -145,6 +154,7 @@ pub struct LuaBootstrapLevel {
 }
 
 /// Entry point for registering event handlers. It is accessible through the global object named `script`.
+#[derive(Debug, Deserialize)]
 pub struct LuaBootstrap {
     /// A dictionary listing the names of all currently active mods and mapping them to their version.
     ///
@@ -170,6 +180,7 @@ pub enum LuaBootstrapMethodsOnConfigurationChangedHandlerUnion {
     Nil,
 }
 
+#[derive(Debug, Deserialize)]
 pub enum LuaBootstrapMethodsOnEventEventUnion {
     DefinesEvents(Events),
     Array(Vec<Events>),
@@ -196,6 +207,7 @@ pub enum LuaBootstrapMethodsOnNthTickHandlerUnion {
     Nil,
 }
 
+#[derive(Debug, Deserialize)]
 pub enum LuaBootstrapMethodsOnNthTickTickUnion {
     Uint(u32),
     Array(Vec<u32>),
@@ -473,12 +485,14 @@ pub trait LuaBootstrapMethods {
     fn set_event_filter(event: u32, filters: EventFilter);
 }
 
+#[derive(Debug, Deserialize)]
 pub enum LuaBurnerOwnerUnion {
     LuaEntity(LuaEntity),
     LuaEquipment(LuaEquipment),
 }
 
 /// A reference to the burner energy source owned by a specific [LuaEntity](LuaEntity) or [LuaEquipment](LuaEquipment).
+#[derive(Debug, Deserialize)]
 pub struct LuaBurner {
     /// The burnt result inventory.
     pub burnt_result_inventory: LuaInventory,
@@ -520,6 +534,7 @@ pub trait LuaBurnerMethods {
     fn help() -> String;
 }
 
+#[derive(Debug, Deserialize)]
 pub struct LuaBurnerPrototypeLightFlicker {
     pub border_fix_speed: f32,
     pub color: Color,
@@ -532,6 +547,7 @@ pub struct LuaBurnerPrototypeLightFlicker {
 }
 
 /// Prototype of a burner energy source.
+#[derive(Debug, Deserialize)]
 pub struct LuaBurnerPrototype {
     pub burnt_inventory_size: u32,
     pub effectivity: f64,
@@ -572,6 +588,7 @@ pub trait LuaBurnerPrototypeMethods {
 ///   game.player.print("area: " .. serpent.line(chunk.area))
 /// end
 /// ```
+#[derive(Debug, Deserialize)]
 pub struct LuaChunkIterator {
     /// The class name of this object. Available even when `valid` is false. For LuaStruct objects it may also be suffixed with a dotted path to a member of the struct.
     pub object_name: String,
@@ -588,6 +605,7 @@ pub trait LuaChunkIteratorMethods {
 }
 
 /// A circuit network associated with a given entity, connector, and wire type.
+#[derive(Debug, Deserialize)]
 pub struct LuaCircuitNetwork {
     /// The circuit connector ID on the associated entity this network was gotten from.
     pub circuit_connector_id: CircuitConnectorId,
@@ -621,6 +639,7 @@ pub trait LuaCircuitNetworkMethods {
     fn help() -> String;
 }
 
+#[derive(Debug, Deserialize)]
 pub struct LuaCombinatorControlBehavior {
     pub lua_control_behavior: Box<LuaControlBehavior>,
     /// The circuit network signals sent by this combinator last tick.
@@ -638,6 +657,7 @@ pub trait LuaCombinatorControlBehaviorMethods {
 }
 
 /// Allows for the registration of custom console commands through the global object named `commands`. Similarly to [event subscriptions](LuaBootstrap::on_event), these don't persist through a save-and-load cycle.
+#[derive(Debug, Deserialize)]
 pub struct LuaCommandProcessor {
     /// Lists the custom commands registered by scripts through `LuaCommandProcessor`.
     pub commands: HashMap<String, LocalisedString>,
@@ -687,6 +707,7 @@ pub trait LuaCommandProcessorMethods {
 }
 
 /// Control behavior for constant combinators.
+#[derive(Debug, Deserialize)]
 pub struct LuaConstantCombinatorControlBehavior {
     pub lua_control_behavior: Box<LuaControlBehavior>,
     /// Turns this constant combinator on and off.
@@ -718,6 +739,7 @@ pub trait LuaConstantCombinatorControlBehaviorMethods {
 }
 
 /// Control behavior for container entities.
+#[derive(Debug, Deserialize)]
 pub struct LuaContainerControlBehavior {
     pub lua_control_behavior: Box<LuaControlBehavior>,
     /// The class name of this object. Available even when `valid` is false. For LuaStruct objects it may also be suffixed with a dotted path to a member of the struct.
@@ -732,6 +754,7 @@ pub trait LuaContainerControlBehaviorMethods {
     fn help() -> String;
 }
 
+#[derive(Debug, Deserialize)]
 pub enum LuaControlOpenedUnion {
     LuaEntity(LuaEntity),
     LuaItemStack(LuaItemStack),
@@ -744,6 +767,7 @@ pub enum LuaControlOpenedUnion {
     DefinesGuiType(GuiType),
 }
 
+#[derive(Debug, Deserialize)]
 pub struct LuaControlMiningState {
     /// Whether the player is mining at all.
     pub mining: bool,
@@ -751,6 +775,7 @@ pub struct LuaControlMiningState {
     pub position: Option<MapPosition>,
 }
 
+#[derive(Debug, Deserialize)]
 pub struct LuaControlRepairState {
     /// The position being repaired
     pub position: MapPosition,
@@ -758,6 +783,7 @@ pub struct LuaControlRepairState {
     pub repairing: bool,
 }
 
+#[derive(Debug, Deserialize)]
 pub struct LuaControlShootingState {
     /// The position being shot at
     pub position: MapPosition,
@@ -765,6 +791,7 @@ pub struct LuaControlShootingState {
     pub state: Shooting,
 }
 
+#[derive(Debug, Deserialize)]
 pub struct LuaControlWalkingState {
     /// Direction where the player is walking
     pub direction: Direction,
@@ -773,6 +800,7 @@ pub struct LuaControlWalkingState {
 }
 
 /// This is an abstract base class containing the common functionality between [LuaPlayer](LuaPlayer) and entities (see [LuaEntity](LuaEntity)). When accessing player-related functions through a [LuaEntity](LuaEntity), it must refer to a character entity.
+#[derive(Debug, Deserialize)]
 pub struct LuaControl {
     /// The build distance of this character or max uint when not a character or player connected to a character.
     pub build_distance: u32,
@@ -933,11 +961,13 @@ pub struct LuaControl {
     pub walking_state: LuaControlWalkingState,
 }
 
+#[derive(Debug, Deserialize)]
 pub enum LuaControlMethodsBeginCraftingRecipeUnion {
     String(String),
     LuaRecipe(LuaRecipe),
 }
 
+#[derive(Debug, Deserialize)]
 pub enum LuaControlMethodsGetCraftableCountRecipeUnion {
     String(String),
     LuaRecipe(LuaRecipe),
@@ -1192,6 +1222,7 @@ pub trait LuaControlMethods {
 /// # Notes
 ///
 /// * An control reference becomes invalid once the control behavior is removed or the entity (see [LuaEntity](LuaEntity)) it resides in is destroyed.
+#[derive(Debug, Deserialize)]
 pub struct LuaControlBehavior {
     /// The entity this control behavior belongs to.
     pub entity: LuaEntity,
@@ -1216,6 +1247,7 @@ pub trait LuaControlBehaviorMethods {
 }
 
 /// A custom tag that shows on the map view.
+#[derive(Debug, Deserialize)]
 pub struct LuaCustomChartTag {
     /// The force this tag belongs to.
     pub force: LuaForce,
@@ -1245,6 +1277,7 @@ pub trait LuaCustomChartTagMethods {
 }
 
 /// Prototype of a custom input.
+#[derive(Debug, Deserialize)]
 pub struct LuaCustomInputPrototype {
     /// The action that happens when this custom input is triggered.
     pub action: String,
@@ -1306,6 +1339,7 @@ pub trait LuaCustomInputPrototypeMethods {
 /// ```text
 /// global.p = game.players  -- This has high potential to make the game unsaveable
 /// ```
+#[derive(Debug, Deserialize)]
 pub struct LuaCustomTable {
     /// The class name of this object. Available even when `valid` is false. For LuaStruct objects it may also be suffixed with a dotted path to a member of the struct.
     pub object_name: String,
@@ -1322,6 +1356,7 @@ pub trait LuaCustomTableMethods {
 }
 
 /// Prototype of a damage.
+#[derive(Debug, Deserialize)]
 pub struct LuaDamagePrototype {
     /// Whether this damage type is hidden from entity tooltips.
     pub hidden: bool,
@@ -1344,6 +1379,7 @@ pub trait LuaDamagePrototypeMethods {
 }
 
 /// Control behavior for decider combinators.
+#[derive(Debug, Deserialize)]
 pub struct LuaDeciderCombinatorControlBehavior {
     pub lua_combinator_control_behavior: Box<LuaCombinatorControlBehavior>,
     /// The class name of this object. Available even when `valid` is false. For LuaStruct objects it may also be suffixed with a dotted path to a member of the struct.
@@ -1365,6 +1401,7 @@ pub trait LuaDeciderCombinatorControlBehaviorMethods {
 }
 
 /// Prototype of an optimized decorative.
+#[derive(Debug, Deserialize)]
 pub struct LuaDecorativePrototype {
     /// Autoplace specification for this decorative prototype, if any.
     pub autoplace_specification: Option<AutoplaceSpecification>,
@@ -1392,6 +1429,7 @@ pub trait LuaDecorativePrototypeMethods {
 }
 
 /// Prototype of an electric energy source.
+#[derive(Debug, Deserialize)]
 pub struct LuaElectricEnergySourcePrototype {
     pub buffer_capacity: f64,
     pub drain: f64,
@@ -1414,32 +1452,38 @@ pub trait LuaElectricEnergySourcePrototypeMethods {
     fn help() -> String;
 }
 
+#[derive(Debug, Deserialize)]
 pub enum LuaEntityAssociatedPlayerUnion {
     LuaPlayer(LuaPlayer),
     PlayerIdentification(PlayerIdentification),
 }
 
+#[derive(Debug, Deserialize)]
 pub enum LuaEntityGhostPrototypeUnion {
     LuaEntityPrototype(LuaEntityPrototype),
     LuaTilePrototype(LuaTilePrototype),
 }
 
+#[derive(Debug, Deserialize)]
 pub enum LuaEntityLastUserUnion {
     LuaPlayer(LuaPlayer),
     PlayerIdentification(PlayerIdentification),
 }
 
+#[derive(Debug, Deserialize)]
 pub enum LuaEntityNeighboursUnion {
     Dictionary(HashMap<String, Vec<LuaEntity>>),
     Array(Vec<Vec<LuaEntity>>),
     LuaEntity(LuaEntity),
 }
 
+#[derive(Debug, Deserialize)]
 pub enum LuaEntityRenderPlayerUnion {
     LuaPlayer(LuaPlayer),
     PlayerIdentification(PlayerIdentification),
 }
 
+#[derive(Debug, Deserialize)]
 pub struct LuaEntityCircuitConnectedEntities {
     /// Entities connected via the green wire.
     pub green: Vec<LuaEntity>,
@@ -1450,6 +1494,7 @@ pub struct LuaEntityCircuitConnectedEntities {
 /// The primary interface for interacting with entities through the Lua API. Entities are everything that exists on the map except for tiles (see [LuaTile](LuaTile)).
 ///
 /// Most functions on LuaEntity also work when the entity is contained in a ghost.
+#[derive(Debug, Deserialize)]
 pub struct LuaEntity {
     pub lua_control: Box<LuaControl>,
     /// Deactivating an entity will stop all its operations (car will stop moving, inserters will stop working, fish will stop moving etc).
@@ -1946,72 +1991,86 @@ pub struct LuaEntity {
     pub vehicle_automatic_targeting_parameters: VehicleAutomaticTargetingParameters,
 }
 
+#[derive(Debug, Deserialize)]
 pub enum LuaEntityMethodsConnectNeighbourTargetUnion {
     LuaEntity(LuaEntity),
     WireConnectionDefinition(WireConnectionDefinition),
 }
 
+#[derive(Debug, Deserialize)]
 pub enum LuaEntityMethodsDisconnectNeighbourTargetUnion {
     DefinesWireType(WireType),
     LuaEntity(LuaEntity),
     WireConnectionDefinition(WireConnectionDefinition),
 }
 
+#[derive(Debug, Deserialize)]
 pub enum LuaEntityMethodsGetDriverUnion {
     LuaEntity(LuaEntity),
     LuaPlayer(LuaPlayer),
 }
 
+#[derive(Debug, Deserialize)]
 pub enum LuaEntityMethodsGetLogisticPointUnion {
     LuaLogisticPoint(LuaLogisticPoint),
     Array(Vec<LuaLogisticPoint>),
 }
 
+#[derive(Debug, Deserialize)]
 pub enum LuaEntityMethodsGetPassengerUnion {
     LuaEntity(LuaEntity),
     LuaPlayer(LuaPlayer),
 }
 
+#[derive(Debug, Deserialize)]
 pub enum LuaEntityMethodsRotateForceUnion {
     LuaForce(LuaForce),
     String(String),
 }
 
+#[derive(Debug, Deserialize)]
 pub enum LuaEntityMethodsSetBeamSourceSourceUnion {
     LuaEntity(LuaEntity),
     MapPosition(MapPosition),
 }
 
+#[derive(Debug, Deserialize)]
 pub enum LuaEntityMethodsSetBeamTargetTargetUnion {
     LuaEntity(LuaEntity),
     MapPosition(MapPosition),
 }
 
+#[derive(Debug, Deserialize)]
 pub enum LuaEntityMethodsSetDriverDriverUnion {
     LuaEntity(LuaEntity),
     PlayerIdentification(PlayerIdentification),
 }
 
+#[derive(Debug, Deserialize)]
 pub enum LuaEntityMethodsSetFilterItemUnion {
     String(String),
     Nil,
 }
 
+#[derive(Debug, Deserialize)]
 pub enum LuaEntityMethodsSetInfinityContainerFilterFilterUnion {
     InfinityInventoryFilter(InfinityInventoryFilter),
     Nil,
 }
 
+#[derive(Debug, Deserialize)]
 pub enum LuaEntityMethodsSetInfinityPipeFilterFilterUnion {
     InfinityPipeFilter(InfinityPipeFilter),
     Nil,
 }
 
+#[derive(Debug, Deserialize)]
 pub enum LuaEntityMethodsSetPassengerPassengerUnion {
     LuaEntity(LuaEntity),
     PlayerIdentification(PlayerIdentification),
 }
 
+#[derive(Debug, Deserialize)]
 pub enum LuaEntityMethodsSetRecipeRecipeUnion {
     String(String),
     LuaRecipe(LuaRecipe),
@@ -2844,6 +2903,7 @@ pub trait LuaEntityMethods {
     fn update_connections();
 }
 
+#[derive(Debug, Deserialize)]
 pub struct LuaEntityPrototypeCreatedSmoke {
     pub initial_height: f32,
     pub max_radius: Option<f32>,
@@ -2861,6 +2921,7 @@ pub struct LuaEntityPrototypeCreatedSmoke {
     pub starting_frame_speed_deviation: f32,
 }
 
+#[derive(Debug, Deserialize)]
 pub struct LuaEntityPrototypeLogisticParameters {
     pub charge_approach_distance: f32,
     pub charging_distance: f32,
@@ -2879,6 +2940,7 @@ pub struct LuaEntityPrototypeLogisticParameters {
     pub stationing_offset: Vector,
 }
 
+#[derive(Debug, Deserialize)]
 pub struct LuaEntityPrototypeMineableProperties {
     /// The required fluid amount if any.
     pub fluid_amount: Option<f64>,
@@ -2896,12 +2958,14 @@ pub struct LuaEntityPrototypeMineableProperties {
     pub required_fluid: Option<String>,
 }
 
+#[derive(Debug, Deserialize)]
 pub struct LuaEntityPrototypeSpawnCooldown {
     pub max: f64,
     pub min: f64,
 }
 
 /// Prototype of an entity.
+#[derive(Debug, Deserialize)]
 pub struct LuaEntityPrototype {
     /// The active energy usage of this rocket silo or combinator prototype.
     pub active_energy_usage: Option<f64>,
@@ -3438,6 +3502,7 @@ pub trait LuaEntityPrototypeMethods {
     fn help() -> String;
 }
 
+#[derive(Debug, Deserialize)]
 pub struct LuaEquipmentShape {
     pub height: u32,
     pub width: u32,
@@ -3446,6 +3511,7 @@ pub struct LuaEquipmentShape {
 /// An item in a [LuaEquipmentGrid](LuaEquipmentGrid), for example a fusion reactor placed in one's power armor.
 ///
 /// An equipment reference becomes invalid once the equipment is removed or the equipment grid it resides in is destroyed.
+#[derive(Debug, Deserialize)]
 pub struct LuaEquipment {
     /// The burner energy source for this equipment, if any.
     pub burner: Option<Box<LuaBurner>>,
@@ -3491,6 +3557,7 @@ pub trait LuaEquipmentMethods {
 }
 
 /// Prototype of an equipment category.
+#[derive(Debug, Deserialize)]
 pub struct LuaEquipmentCategoryPrototype {
     pub localised_description: LocalisedString,
     pub localised_name: LocalisedString,
@@ -3511,6 +3578,7 @@ pub trait LuaEquipmentCategoryPrototypeMethods {
 }
 
 /// An equipment grid is for example the inside of a power armor.
+#[derive(Debug, Deserialize)]
 pub struct LuaEquipmentGrid {
     /// The total energy stored in all batteries in the equipment grid.
     pub available_in_batteries: f64,
@@ -3646,6 +3714,7 @@ pub trait LuaEquipmentGridMethods {
 }
 
 /// Prototype of an equipment grid.
+#[derive(Debug, Deserialize)]
 pub struct LuaEquipmentGridPrototype {
     /// Equipment category names for the [categories](LuaEquipmentPrototype::equipment_categories) that may be inserted into this equipment grid. The grid will accept any equipment that has at least one category in this list.
     pub equipment_categories: Vec<String>,
@@ -3671,6 +3740,7 @@ pub trait LuaEquipmentGridPrototypeMethods {
     fn help() -> String;
 }
 
+#[derive(Debug, Deserialize)]
 pub struct LuaEquipmentPrototypeLogisticParameters {
     pub charge_approach_distance: f32,
     pub charging_distance: f32,
@@ -3689,6 +3759,7 @@ pub struct LuaEquipmentPrototypeLogisticParameters {
     pub stationing_offset: Vector,
 }
 
+#[derive(Debug, Deserialize)]
 pub struct LuaEquipmentPrototypeShape {
     pub height: u32,
     /// Only set when the shape is "manual"
@@ -3697,6 +3768,7 @@ pub struct LuaEquipmentPrototypeShape {
 }
 
 /// Prototype of a modular equipment.
+#[derive(Debug, Deserialize)]
 pub struct LuaEquipmentPrototype {
     /// The equipment attack parameters.
     pub attack_parameters: Option<AttackParameters>,
@@ -3750,11 +3822,13 @@ pub trait LuaEquipmentPrototypeMethods {
     fn help() -> String;
 }
 
+#[derive(Debug, Deserialize)]
 pub enum LuaFlowStatisticsInputCountsUnion {
     Uint64(u64),
     Double(f64),
 }
 
+#[derive(Debug, Deserialize)]
 pub enum LuaFlowStatisticsOutputCountsUnion {
     Uint64(u64),
     Double(f64),
@@ -3766,6 +3840,7 @@ pub enum LuaFlowStatisticsOutputCountsUnion {
 /// - The item production GUI shows "consumption" on the right, thus `output` describes the item consumption numbers. The same goes for fluid consumption.
 /// - The kills GUI shows "losses" on the right, so `output` describes how many of the force's entities were killed by enemies.
 /// - The electric network GUI shows "power consumption" on the left side, so in this case `input` describes the power consumption numbers.
+#[derive(Debug, Deserialize)]
 pub struct LuaFlowStatistics {
     /// The force these statistics belong to. `nil` for pollution statistics.
     pub force: Option<Box<LuaForce>>,
@@ -3779,21 +3854,25 @@ pub struct LuaFlowStatistics {
     pub valid: bool,
 }
 
+#[derive(Debug, Deserialize)]
 pub enum LuaFlowStatisticsMethodsGetInputCountUnion {
     Uint64(u64),
     Double(f64),
 }
 
+#[derive(Debug, Deserialize)]
 pub enum LuaFlowStatisticsMethodsGetOutputCountUnion {
     Uint64(u64),
     Double(f64),
 }
 
+#[derive(Debug, Deserialize)]
 pub enum LuaFlowStatisticsMethodsSetInputCountCountUnion {
     Uint64(u64),
     Double(f64),
 }
 
+#[derive(Debug, Deserialize)]
 pub enum LuaFlowStatisticsMethodsSetOutputCountCountUnion {
     Uint64(u64),
     Double(f64),
@@ -3877,6 +3956,7 @@ pub trait LuaFlowStatisticsMethods {
 /// fluid.temperature = fluid.temperature * 2
 /// entity.fluidbox[1] = fluid
 /// ```
+#[derive(Debug, Deserialize)]
 pub struct LuaFluidBox {
     /// The class name of this object. Available even when `valid` is false. For LuaStruct objects it may also be suffixed with a dotted path to a member of the struct.
     pub object_name: String,
@@ -3886,11 +3966,13 @@ pub struct LuaFluidBox {
     pub valid: bool,
 }
 
+#[derive(Debug, Deserialize)]
 pub enum LuaFluidBoxMethodsGetPrototypeUnion {
     LuaFluidBoxPrototype(LuaFluidBoxPrototype),
     Array(Vec<LuaFluidBoxPrototype>),
 }
 
+#[derive(Debug, Deserialize)]
 pub enum LuaFluidBoxMethodsSetFilterFilterUnion {
     FluidBoxFilterSpec(FluidBoxFilterSpec),
     Nil,
@@ -3960,6 +4042,7 @@ pub trait LuaFluidBoxMethods {
 }
 
 /// A prototype of a fluidbox owned by some [LuaEntityPrototype](LuaEntityPrototype).
+#[derive(Debug, Deserialize)]
 pub struct LuaFluidBoxPrototype {
     pub base_area: f64,
     pub base_level: f64,
@@ -3996,6 +4079,7 @@ pub trait LuaFluidBoxPrototypeMethods {
 }
 
 /// Prototype of a fluid energy source.
+#[derive(Debug, Deserialize)]
 pub struct LuaFluidEnergySourcePrototype {
     pub burns_fluid: bool,
     pub destroy_non_fuel_fluid: bool,
@@ -4024,6 +4108,7 @@ pub trait LuaFluidEnergySourcePrototypeMethods {
 }
 
 /// Prototype of a fluid.
+#[derive(Debug, Deserialize)]
 pub struct LuaFluidPrototype {
     pub base_color: Color,
     /// Default temperature of this fluid.
@@ -4064,6 +4149,7 @@ pub trait LuaFluidPrototypeMethods {
 }
 
 /// Prototype of a font.
+#[derive(Debug, Deserialize)]
 pub struct LuaFontPrototype {
     pub border: bool,
     /// The border color, if any.
@@ -4087,6 +4173,7 @@ pub trait LuaFontPrototypeMethods {
 }
 
 /// `LuaForce` encapsulates data local to each "force" or "faction" of the game. Default forces are player, enemy and neutral. Players and mods can create additional forces (up to 64 total).
+#[derive(Debug, Deserialize)]
 pub struct LuaForce {
     /// Enables some higher-level AI behaviour for this force. When set to `true`, biters belonging to this force will automatically expand into new territories, build new spawners, and form unit groups. By default, this value is `true` for the enemy force and `false` for all others.
     ///
@@ -4250,16 +4337,19 @@ pub struct LuaForce {
     pub zoom_to_world_selection_tool_enabled: bool,
 }
 
+#[derive(Debug, Deserialize)]
 pub enum LuaForceMethodsGetHandCraftingDisabledForRecipeRecipeUnion {
     String(String),
     LuaRecipe(LuaRecipe),
 }
 
+#[derive(Debug, Deserialize)]
 pub enum LuaForceMethodsGetTrainStopsNameUnion {
     String(String),
     Array(Vec<String>),
 }
 
+#[derive(Debug, Deserialize)]
 pub enum LuaForceMethodsSetHandCraftingDisabledForRecipeRecipeUnion {
     String(String),
     LuaRecipe(LuaRecipe),
@@ -4521,6 +4611,7 @@ pub trait LuaForceMethods {
 }
 
 /// Prototype of a fuel category.
+#[derive(Debug, Deserialize)]
 pub struct LuaFuelCategoryPrototype {
     pub localised_description: LocalisedString,
     pub localised_name: LocalisedString,
@@ -4540,22 +4631,26 @@ pub trait LuaFuelCategoryPrototypeMethods {
     fn help() -> String;
 }
 
+#[derive(Debug, Deserialize, Eq, PartialEq, Hash)]
 pub enum LuaGameScriptForcesUnion {
     Uint(u32),
     String(String),
 }
 
+#[derive(Debug, Deserialize, Eq, PartialEq, Hash)]
 pub enum LuaGameScriptPlayersUnion {
     Uint(u32),
     String(String),
 }
 
+#[derive(Debug, Deserialize, Eq, PartialEq, Hash)]
 pub enum LuaGameScriptSurfacesUnion {
     Uint(u32),
     String(String),
 }
 
 /// Main toplevel type, provides access to most of the API though its members. An instance of LuaGameScript is available as the global object named `game`.
+#[derive(Debug, Deserialize)]
 pub struct LuaGameScript {
     /// A dictionary containing every LuaAchievementPrototype indexed by `name`.
     pub achievement_prototypes: HashMap<String, LuaAchievementPrototype>,
@@ -4722,31 +4817,37 @@ pub struct LuaGameScript {
     pub virtual_signal_prototypes: HashMap<String, LuaVirtualSignalPrototype>,
 }
 
+#[derive(Debug, Deserialize)]
 pub enum LuaGameScriptMethodsDeleteSurfaceSurfaceUnion {
     String(String),
     LuaSurface(LuaSurface),
 }
 
+#[derive(Debug, Deserialize)]
 pub enum LuaGameScriptMethodsGetPlayerPlayerUnion {
     Uint(u32),
     String(String),
 }
 
+#[derive(Debug, Deserialize)]
 pub enum LuaGameScriptMethodsGetSurfaceSurfaceUnion {
     Uint(u32),
     String(String),
 }
 
+#[derive(Debug, Deserialize)]
 pub enum LuaGameScriptMethodsGetTrainStopsNameUnion {
     String(String),
     Array(Vec<String>),
 }
 
+#[derive(Debug, Deserialize)]
 pub enum LuaGameScriptMethodsRegenerateEntityEntitiesUnion {
     String(String),
     Array(Vec<String>),
 }
 
+#[derive(Debug, Deserialize)]
 pub enum LuaGameScriptMethodsRemoveOfflinePlayersPlayersUnion {
     LuaPlayer(LuaPlayer),
     String(String),
@@ -5303,6 +5404,7 @@ pub trait LuaGameScriptMethods {
 }
 
 /// An abstract base class for behaviors that support switching the entity on or off based on some condition.
+#[derive(Debug, Deserialize)]
 pub struct LuaGenericOnOffControlBehavior {
     pub lua_control_behavior: Box<LuaControlBehavior>,
     /// The circuit condition. Writing `nil` clears the circuit condition.
@@ -5344,6 +5446,7 @@ pub trait LuaGenericOnOffControlBehaviorMethods {
 }
 
 /// Item group or subgroup.
+#[derive(Debug, Deserialize)]
 pub struct LuaGroup {
     /// The parent group, if any.
     pub group: Option<Box<LuaGroup>>,
@@ -5374,6 +5477,7 @@ pub trait LuaGroupMethods {
 /// # Notes
 ///
 /// * Every player can have a different GUI state.
+#[derive(Debug, Deserialize)]
 pub struct LuaGui {
     /// The center part of the GUI. It is a flow element.
     pub center: LuaGuiElement,
@@ -5411,11 +5515,13 @@ pub trait LuaGuiMethods {
     fn is_valid_sprite_path(sprite_path: SpritePath) -> bool;
 }
 
+#[derive(Debug, Deserialize)]
 pub enum LuaGuiElementElemValueUnion {
     String(String),
     SignalID(SignalID),
 }
 
+#[derive(Debug, Deserialize)]
 pub enum LuaGuiElementStyleUnion {
     LuaStyle(LuaStyle),
     String(String),
@@ -5471,6 +5577,7 @@ pub enum LuaGuiElementStyleUnion {
 /// tabbed_pane.add_tab(tab1, label1)
 /// tabbed_pane.add_tab(tab2, label2)
 /// ```
+#[derive(Debug, Deserialize)]
 pub struct LuaGuiElement {
     /// Whether this textfield (when in numeric mode) allows decimal numbers.
     pub allow_decimal: bool,
@@ -5904,6 +6011,7 @@ pub trait LuaGuiElementMethods {
 }
 
 /// Prototype of a heat buffer.
+#[derive(Debug, Deserialize)]
 pub struct LuaHeatBufferPrototype {
     pub connections: Vec<HeatConnection>,
     pub default_temperature: f64,
@@ -5926,6 +6034,7 @@ pub trait LuaHeatBufferPrototypeMethods {
 }
 
 /// Prototype of a heat energy source.
+#[derive(Debug, Deserialize)]
 pub struct LuaHeatEnergySourcePrototype {
     pub connections: Vec<HeatConnection>,
     pub default_temperature: f64,
@@ -5953,6 +6062,7 @@ pub trait LuaHeatEnergySourcePrototypeMethods {
 }
 
 /// Control behavior for inserters.
+#[derive(Debug, Deserialize)]
 pub struct LuaInserterControlBehavior {
     pub lua_generic_on_off_control_behavior: Box<LuaGenericOnOffControlBehavior>,
     /// The hand read mode for the inserter.
@@ -5978,6 +6088,7 @@ pub trait LuaInserterControlBehaviorMethods {
 }
 
 /// A storage of item stacks.
+#[derive(Debug, Deserialize)]
 pub struct LuaInventory {
     /// The entity that owns this inventory, if any.
     pub entity_owner: Option<Box<LuaEntity>>,
@@ -5995,6 +6106,7 @@ pub struct LuaInventory {
     pub valid: bool,
 }
 
+#[derive(Debug, Deserialize)]
 pub enum LuaInventoryMethodsSetFilterFilterUnion {
     String(String),
     Nil,
@@ -6179,6 +6291,7 @@ pub trait LuaInventoryMethods {
 /// * ```text
 /// game.item_prototypes["iron-plate"]
 /// ```
+#[derive(Debug, Deserialize)]
 pub struct LuaItemPrototype {
     /// The alt entity filter mode used by this selection tool.
     pub alt_entity_filter_mode: Option<String>,
@@ -6393,6 +6506,7 @@ pub trait LuaItemPrototypeMethods {
 ///
 /// * In most instances this is a simple reference as in: it points at a specific slot in an inventory and not the item in the slot.
 /// * In the instance this references an item on a [LuaTransportLine](LuaTransportLine) the reference is only guaranteed to stay valid (and refer to the same item) as long as nothing changes the transport line.
+#[derive(Debug, Deserialize)]
 pub struct LuaItemStack {
     /// The active blueprint index for this blueprint book. `nil` if this blueprint book is empty.
     pub active_index: Option<u32>,
@@ -6510,6 +6624,7 @@ pub struct LuaItemStack {
     pub valid_for_read: bool,
 }
 
+#[derive(Debug, Deserialize)]
 pub enum LuaItemStackMethodsSetEntityFilterFilterUnion {
     String(String),
     LuaEntityPrototype(LuaEntityPrototype),
@@ -6517,6 +6632,7 @@ pub enum LuaItemStackMethodsSetEntityFilterFilterUnion {
     Nil,
 }
 
+#[derive(Debug, Deserialize)]
 pub enum LuaItemStackMethodsSetTileFilterFilterUnion {
     String(String),
     LuaTilePrototype(LuaTilePrototype),
@@ -6810,6 +6926,7 @@ pub trait LuaItemStackMethods {
 }
 
 /// Control behavior for lamps.
+#[derive(Debug, Deserialize)]
 pub struct LuaLampControlBehavior {
     pub lua_generic_on_off_control_behavior: Box<LuaGenericOnOffControlBehavior>,
     /// The color the lamp is showing, if any.
@@ -6831,6 +6948,7 @@ pub trait LuaLampControlBehaviorMethods {
 /// A lazily loaded value. For performance reasons, we sometimes return a custom lazily-loaded value type instead of the native Lua value. This custom type lazily constructs the necessary value when [LuaLazyLoadedValue::get](LuaLazyLoadedValue::get) is called, therefore preventing its unnecessary construction in some cases.
 ///
 /// An instance of LuaLazyLoadedValue is only valid during the event it was created from and cannot be saved.
+#[derive(Debug, Deserialize)]
 pub struct LuaLazyLoadedValue {
     /// The class name of this object. Available even when `valid` is false. For LuaStruct objects it may also be suffixed with a dotted path to a member of the struct.
     pub object_name: String,
@@ -6849,6 +6967,7 @@ pub trait LuaLazyLoadedValueMethods {
 }
 
 /// Logistic cell of a particular [LuaEntity](LuaEntity). A "Logistic Cell" is the given name for settings and properties used by what would normally be seen as a "Roboport". A logistic cell however doesn't have to be attached to the roboport entity (the character has one for the personal roboport).
+#[derive(Debug, Deserialize)]
 pub struct LuaLogisticCell {
     /// Radius at which the robots hover when waiting to be charged.
     pub charge_approach_distance: f32,
@@ -6899,6 +7018,7 @@ pub trait LuaLogisticCellMethods {
 }
 
 /// Control behavior for logistic chests.
+#[derive(Debug, Deserialize)]
 pub struct LuaLogisticContainerControlBehavior {
     pub lua_control_behavior: Box<LuaControlBehavior>,
     /// The circuit mode of operations for the logistic container. Can only be set on containers whose [logistic_mode](LuaEntityPrototype::logistic_mode) is set to "requester".
@@ -6916,6 +7036,7 @@ pub trait LuaLogisticContainerControlBehaviorMethods {
 }
 
 /// A single logistic network of a given force on a given surface.
+#[derive(Debug, Deserialize)]
 pub struct LuaLogisticNetwork {
     /// All active provider points in this network.
     pub active_provider_points: Vec<LuaLogisticPoint>,
@@ -7077,6 +7198,7 @@ pub trait LuaLogisticNetworkMethods {
 }
 
 /// Logistic point of a particular [LuaEntity](LuaEntity). A "Logistic point" is the name given for settings and properties used by requester, provider, and storage points in a given logistic network. These "points" don't have to be a logistic container but often are. One other entity that can own several points is the "character" character type entity.
+#[derive(Debug, Deserialize)]
 pub struct LuaLogisticPoint {
     /// If this logistic point is using the exact mode. In exact mode robots never over-deliver requests.
     pub exact: bool,
@@ -7116,6 +7238,7 @@ pub trait LuaLogisticPointMethods {
 }
 
 /// Control behavior for mining drills.
+#[derive(Debug, Deserialize)]
 pub struct LuaMiningDrillControlBehavior {
     pub lua_generic_on_off_control_behavior: Box<LuaGenericOnOffControlBehavior>,
     /// `true` if this drill is enabled or disabled using the logistics or circuit condition.
@@ -7138,12 +7261,14 @@ pub trait LuaMiningDrillControlBehaviorMethods {
     fn help() -> String;
 }
 
+#[derive(Debug, Deserialize)]
 pub enum LuaModSettingPrototypeAllowedValuesUnion {
     ArrayString(Vec<String>),
     ArrayI32(Vec<i32>),
     ArrayF64(Vec<f64>),
 }
 
+#[derive(Debug, Deserialize)]
 pub enum LuaModSettingPrototypeDefaultValueUnion {
     Boolean(bool),
     Double(f64),
@@ -7151,17 +7276,20 @@ pub enum LuaModSettingPrototypeDefaultValueUnion {
     String(String),
 }
 
+#[derive(Debug, Deserialize)]
 pub enum LuaModSettingPrototypeMaximumValueUnion {
     Double(f64),
     Int(i32),
 }
 
+#[derive(Debug, Deserialize)]
 pub enum LuaModSettingPrototypeMinimumValueUnion {
     Double(f64),
     Int(i32),
 }
 
 /// Prototype of a mod setting.
+#[derive(Debug, Deserialize)]
 pub struct LuaModSettingPrototype {
     /// Whether this string setting allows blank values. `nil` if not a string setting.
     pub allow_blank: Option<bool>,
@@ -7199,6 +7327,7 @@ pub trait LuaModSettingPrototypeMethods {
 }
 
 /// Prototype of a module category.
+#[derive(Debug, Deserialize)]
 pub struct LuaModuleCategoryPrototype {
     pub localised_description: LocalisedString,
     pub localised_name: LocalisedString,
@@ -7219,6 +7348,7 @@ pub trait LuaModuleCategoryPrototypeMethods {
 }
 
 /// Prototype of a named noise expression.
+#[derive(Debug, Deserialize)]
 pub struct LuaNamedNoiseExpression {
     /// The expression itself.
     pub expression: NoiseExpression,
@@ -7243,6 +7373,7 @@ pub trait LuaNamedNoiseExpressionMethods {
 }
 
 /// Prototype of a noise layer.
+#[derive(Debug, Deserialize)]
 pub struct LuaNoiseLayerPrototype {
     pub localised_description: LocalisedString,
     pub localised_name: LocalisedString,
@@ -7263,6 +7394,7 @@ pub trait LuaNoiseLayerPrototypeMethods {
 }
 
 /// Prototype of an optimized particle.
+#[derive(Debug, Deserialize)]
 pub struct LuaParticlePrototype {
     pub ended_in_water_trigger_effect: TriggerEffectItem,
     pub life_time: u32,
@@ -7292,6 +7424,7 @@ pub trait LuaParticlePrototypeMethods {
 }
 
 /// A permission group that defines what players in this group are allowed to do.
+#[derive(Debug, Deserialize)]
 pub struct LuaPermissionGroup {
     /// The group ID
     pub group_id: u32,
@@ -7351,6 +7484,7 @@ pub trait LuaPermissionGroupMethods {
 }
 
 /// All permission groups.
+#[derive(Debug, Deserialize)]
 pub struct LuaPermissionGroups {
     /// All of the permission groups.
     pub groups: Vec<LuaPermissionGroup>,
@@ -7360,6 +7494,7 @@ pub struct LuaPermissionGroups {
     pub valid: bool,
 }
 
+#[derive(Debug, Deserialize)]
 pub enum LuaPermissionGroupsMethodsGetGroupGroupUnion {
     String(String),
     Uint(u32),
@@ -7385,6 +7520,7 @@ pub trait LuaPermissionGroupsMethods {
 }
 
 /// A player in the game. Pay attention that a player may or may not have a character, which is the [LuaEntity](LuaEntity) of the little guy running around the world doing things.
+#[derive(Debug, Deserialize)]
 pub struct LuaPlayer {
     pub lua_control: Box<LuaControl>,
     /// `true` if the player is an admin.
@@ -7494,22 +7630,26 @@ pub struct LuaPlayer {
     pub zoom: f64,
 }
 
+#[derive(Debug, Deserialize)]
 pub enum LuaPlayerMethodsPipetteEntityEntityUnion {
     String(String),
     LuaEntity(LuaEntity),
     LuaEntityPrototype(LuaEntityPrototype),
 }
 
+#[derive(Debug, Deserialize)]
 pub enum LuaPlayerMethodsRemoveAlertPrototypeUnion {
     LuaEntityPrototype(LuaEntityPrototype),
     String(String),
 }
 
+#[derive(Debug, Deserialize)]
 pub enum LuaPlayerMethodsSetInfinityInventoryFilterFilterUnion {
     InfinityInventoryFilter(InfinityInventoryFilter),
     Nil,
 }
 
+#[derive(Debug, Deserialize)]
 pub enum LuaPlayerMethodsSetQuickBarSlotFilterUnion {
     String(String),
     LuaItemPrototype(LuaItemPrototype),
@@ -7963,6 +8103,7 @@ pub trait LuaPlayerMethods {
 /// # Notes
 ///
 /// * Since performance is non-deterministic, these objects don't allow reading the raw time values from Lua. They can be used anywhere a [LocalisedString](LocalisedString) is used, except for [LuaGuiElement::add](LuaGuiElement::add)'s LocalisedString arguments, [LuaSurface::create_entity](LuaSurface::create_entity)'s `text` argument, and [LuaEntity::add_market_item](LuaEntity::add_market_item).
+#[derive(Debug, Deserialize)]
 pub struct LuaProfiler {
     /// The class name of this object. Available even when `valid` is false. For LuaStruct objects it may also be suffixed with a dotted path to a member of the struct.
     pub object_name: String,
@@ -8003,6 +8144,7 @@ pub trait LuaProfilerMethods {
 }
 
 /// Control behavior for programmable speakers.
+#[derive(Debug, Deserialize)]
 pub struct LuaProgrammableSpeakerControlBehavior {
     pub lua_control_behavior: Box<LuaControlBehavior>,
     pub circuit_condition: CircuitConditionDefinition,
@@ -8020,6 +8162,7 @@ pub trait LuaProgrammableSpeakerControlBehaviorMethods {
 }
 
 /// An interface to send messages to the calling RCON interface through the global object named `rcon`.
+#[derive(Debug, Deserialize)]
 pub struct LuaRCON {
     /// This object's name.
     pub object_name: String,
@@ -8032,6 +8175,7 @@ pub trait LuaRCONMethods {
 }
 
 /// Control behavior for rail chain signals.
+#[derive(Debug, Deserialize)]
 pub struct LuaRailChainSignalControlBehavior {
     pub lua_control_behavior: Box<LuaControlBehavior>,
     pub blue_signal: SignalID,
@@ -8051,6 +8195,7 @@ pub trait LuaRailChainSignalControlBehaviorMethods {
 }
 
 /// A rail path.
+#[derive(Debug, Deserialize)]
 pub struct LuaRailPath {
     /// The current rail index.
     pub current: u32,
@@ -8077,6 +8222,7 @@ pub trait LuaRailPathMethods {
 }
 
 /// Control behavior for rail signals.
+#[derive(Debug, Deserialize)]
 pub struct LuaRailSignalControlBehavior {
     pub lua_control_behavior: Box<LuaControlBehavior>,
     /// The circuit condition when controlling the signal through the circuit network.
@@ -8109,6 +8255,7 @@ pub trait LuaRailSignalControlBehaviorMethods {
 /// global.generator = game.create_random_generator()
 /// game.player.print(global.generator())
 /// ```
+#[derive(Debug, Deserialize)]
 pub struct LuaRandomGenerator {
     /// The class name of this object. Available even when `valid` is false. For LuaStruct objects it may also be suffixed with a dotted path to a member of the struct.
     pub object_name: String,
@@ -8129,6 +8276,7 @@ pub trait LuaRandomGeneratorMethods {
 }
 
 /// A crafting recipe. Recipes belong to forces (see [LuaForce](LuaForce)) because some recipes are unlocked by research, and researches are per-force.
+#[derive(Debug, Deserialize)]
 pub struct LuaRecipe {
     /// Category of the recipe.
     pub category: String,
@@ -8188,6 +8336,7 @@ pub trait LuaRecipeMethods {
 }
 
 /// Prototype of a recipe category.
+#[derive(Debug, Deserialize)]
 pub struct LuaRecipeCategoryPrototype {
     pub localised_description: LocalisedString,
     pub localised_name: LocalisedString,
@@ -8208,6 +8357,7 @@ pub trait LuaRecipeCategoryPrototypeMethods {
 }
 
 /// A crafting recipe prototype.
+#[derive(Debug, Deserialize)]
 pub struct LuaRecipePrototype {
     /// If this recipe is enabled for the purpose of intermediate hand-crafting.
     pub allow_as_intermediate: bool,
@@ -8299,6 +8449,7 @@ pub trait LuaRecipePrototypeMethods {
 /// remote.call("human interactor", "hello")
 /// remote.call("human interactor", "bye", "dear reader")
 /// ```
+#[derive(Debug, Deserialize)]
 pub struct LuaRemote {
     /// List of all registered interfaces. For each interface name, `remote.interfaces[name]` is a dictionary mapping the interface's registered functions to `true`.
     ///
@@ -8347,116 +8498,139 @@ pub trait LuaRemoteMethods {
 /// # Notes
 ///
 /// * If an entity target of an object is destroyed or changes surface, then the object is also destroyed.
+#[derive(Debug, Deserialize)]
 pub struct LuaRendering {
     /// This object's name.
     pub object_name: String,
 }
 
+#[derive(Debug, Deserialize)]
 pub enum LuaRenderingMethodsDrawAnimationOrientationTargetUnion {
     MapPosition(MapPosition),
     LuaEntity(LuaEntity),
 }
 
+#[derive(Debug, Deserialize)]
 pub enum LuaRenderingMethodsDrawAnimationTargetUnion {
     MapPosition(MapPosition),
     LuaEntity(LuaEntity),
 }
 
+#[derive(Debug, Deserialize)]
 pub enum LuaRenderingMethodsDrawArcTargetUnion {
     MapPosition(MapPosition),
     LuaEntity(LuaEntity),
 }
 
+#[derive(Debug, Deserialize)]
 pub enum LuaRenderingMethodsDrawCircleTargetUnion {
     MapPosition(MapPosition),
     LuaEntity(LuaEntity),
 }
 
+#[derive(Debug, Deserialize)]
 pub enum LuaRenderingMethodsDrawLightTargetUnion {
     MapPosition(MapPosition),
     LuaEntity(LuaEntity),
 }
 
+#[derive(Debug, Deserialize)]
 pub enum LuaRenderingMethodsDrawLineFromUnion {
     MapPosition(MapPosition),
     LuaEntity(LuaEntity),
 }
 
+#[derive(Debug, Deserialize)]
 pub enum LuaRenderingMethodsDrawLineToUnion {
     MapPosition(MapPosition),
     LuaEntity(LuaEntity),
 }
 
+#[derive(Debug, Deserialize)]
 pub enum LuaRenderingMethodsDrawPolygonOrientationTargetUnion {
     MapPosition(MapPosition),
     LuaEntity(LuaEntity),
 }
 
+#[derive(Debug, Deserialize)]
 pub enum LuaRenderingMethodsDrawPolygonTargetUnion {
     MapPosition(MapPosition),
     LuaEntity(LuaEntity),
 }
 
+#[derive(Debug, Deserialize)]
 pub enum LuaRenderingMethodsDrawRectangleLeftTopUnion {
     MapPosition(MapPosition),
     LuaEntity(LuaEntity),
 }
 
+#[derive(Debug, Deserialize)]
 pub enum LuaRenderingMethodsDrawRectangleRightBottomUnion {
     MapPosition(MapPosition),
     LuaEntity(LuaEntity),
 }
 
+#[derive(Debug, Deserialize)]
 pub enum LuaRenderingMethodsDrawSpriteOrientationTargetUnion {
     MapPosition(MapPosition),
     LuaEntity(LuaEntity),
 }
 
+#[derive(Debug, Deserialize)]
 pub enum LuaRenderingMethodsDrawSpriteTargetUnion {
     MapPosition(MapPosition),
     LuaEntity(LuaEntity),
 }
 
+#[derive(Debug, Deserialize)]
 pub enum LuaRenderingMethodsDrawTextTargetUnion {
     MapPosition(MapPosition),
     LuaEntity(LuaEntity),
 }
 
+#[derive(Debug, Deserialize)]
 pub enum LuaRenderingMethodsSetCornersLeftTopUnion {
     MapPosition(MapPosition),
     LuaEntity(LuaEntity),
 }
 
+#[derive(Debug, Deserialize)]
 pub enum LuaRenderingMethodsSetCornersRightBottomUnion {
     MapPosition(MapPosition),
     LuaEntity(LuaEntity),
 }
 
+#[derive(Debug, Deserialize)]
 pub enum LuaRenderingMethodsSetFromFromUnion {
     MapPosition(MapPosition),
     LuaEntity(LuaEntity),
 }
 
+#[derive(Debug, Deserialize)]
 pub enum LuaRenderingMethodsSetLeftTopLeftTopUnion {
     MapPosition(MapPosition),
     LuaEntity(LuaEntity),
 }
 
+#[derive(Debug, Deserialize)]
 pub enum LuaRenderingMethodsSetOrientationTargetOrientationTargetUnion {
     MapPosition(MapPosition),
     LuaEntity(LuaEntity),
 }
 
+#[derive(Debug, Deserialize)]
 pub enum LuaRenderingMethodsSetRightBottomRightBottomUnion {
     MapPosition(MapPosition),
     LuaEntity(LuaEntity),
 }
 
+#[derive(Debug, Deserialize)]
 pub enum LuaRenderingMethodsSetTargetTargetUnion {
     MapPosition(MapPosition),
     LuaEntity(LuaEntity),
 }
 
+#[derive(Debug, Deserialize)]
 pub enum LuaRenderingMethodsSetToToUnion {
     MapPosition(MapPosition),
     LuaEntity(LuaEntity),
@@ -9263,6 +9437,7 @@ pub trait LuaRenderingMethods {
 }
 
 /// Prototype of a resource category.
+#[derive(Debug, Deserialize)]
 pub struct LuaResourceCategoryPrototype {
     pub localised_description: LocalisedString,
     pub localised_name: LocalisedString,
@@ -9283,6 +9458,7 @@ pub trait LuaResourceCategoryPrototypeMethods {
 }
 
 /// Control behavior for roboports.
+#[derive(Debug, Deserialize)]
 pub struct LuaRoboportControlBehavior {
     pub lua_control_behavior: Box<LuaControlBehavior>,
     pub available_construction_output_signal: SignalID,
@@ -9306,6 +9482,7 @@ pub trait LuaRoboportControlBehaviorMethods {
 }
 
 /// Object containing mod settings of three distinct types: `startup`, `global`, and `player`. An instance of LuaSettings is available through the global object named `settings`.
+#[derive(Debug, Deserialize)]
 pub struct LuaSettings {
     /// The current global mod settings, indexed by prototype name.
     ///
@@ -9337,6 +9514,7 @@ pub trait LuaSettingsMethods {
 }
 
 /// Prototype of a shortcut.
+#[derive(Debug, Deserialize)]
 pub struct LuaShortcutPrototype {
     pub action: String,
     /// The control input that is associated with this shortcut, if any.
@@ -9365,6 +9543,7 @@ pub trait LuaShortcutPrototypeMethods {
 }
 
 /// Control behavior for storage tanks.
+#[derive(Debug, Deserialize)]
 pub struct LuaStorageTankControlBehavior {
     pub lua_control_behavior: Box<LuaControlBehavior>,
     /// The class name of this object. Available even when `valid` is false. For LuaStruct objects it may also be suffixed with a dotted path to a member of the struct.
@@ -9379,32 +9558,38 @@ pub trait LuaStorageTankControlBehaviorMethods {
     fn help() -> String;
 }
 
+#[derive(Debug, Deserialize)]
 pub enum LuaStyleExtraMarginWhenActivatedUnion {
     Int(i32),
     Array(Vec<i32>),
 }
 
+#[derive(Debug, Deserialize)]
 pub enum LuaStyleExtraPaddingWhenActivatedUnion {
     Int(i32),
     Array(Vec<i32>),
 }
 
+#[derive(Debug, Deserialize)]
 pub enum LuaStyleMarginUnion {
     Int(i32),
     Array(Vec<i32>),
 }
 
+#[derive(Debug, Deserialize)]
 pub enum LuaStylePaddingUnion {
     Int(i32),
     Array(Vec<i32>),
 }
 
+#[derive(Debug, Deserialize)]
 pub enum LuaStyleSizeUnion {
     Int(i32),
     Array(Vec<i32>),
 }
 
 /// Style of a GUI element. All of the attributes listed here may be `nil` if not available for a particular GUI element.
+#[derive(Debug, Deserialize)]
 pub struct LuaStyle {
     pub badge_font: String,
     pub badge_horizontal_spacing: i32,
@@ -9522,6 +9707,7 @@ pub trait LuaStyleMethods {
 }
 
 /// A "domain" of the world. Surfaces can only be created and deleted through the API. Surfaces are uniquely identified by their name. Every game contains at least the surface "nauvis".
+#[derive(Debug, Deserialize)]
 pub struct LuaSurface {
     /// When set to true, the sun will always shine.
     pub always_day: bool,
@@ -9594,81 +9780,97 @@ pub struct LuaSurface {
     pub wind_speed: f64,
 }
 
+#[derive(Debug, Deserialize)]
 pub enum LuaSurfaceMethodsCloneAreaDestinationForceUnion {
     LuaForce(LuaForce),
     String(String),
 }
 
+#[derive(Debug, Deserialize)]
 pub enum LuaSurfaceMethodsCloneBrushDestinationForceUnion {
     LuaForce(LuaForce),
     String(String),
 }
 
+#[derive(Debug, Deserialize)]
 pub enum LuaSurfaceMethodsCountEntitiesFilteredCollisionMaskUnion {
     CollisionMaskLayer(CollisionMaskLayer),
     Array(Vec<CollisionMaskLayer>),
 }
 
+#[derive(Debug, Deserialize)]
 pub enum LuaSurfaceMethodsCountEntitiesFilteredDirectionUnion {
     DefinesDirection(Direction),
     Array(Vec<Direction>),
 }
 
+#[derive(Debug, Deserialize)]
 pub enum LuaSurfaceMethodsCountEntitiesFilteredForceUnion {
     ForceIdentification(ForceIdentification),
     Array(Vec<ForceIdentification>),
 }
 
+#[derive(Debug, Deserialize)]
 pub enum LuaSurfaceMethodsCountEntitiesFilteredGhostNameUnion {
     String(String),
     Array(Vec<String>),
 }
 
+#[derive(Debug, Deserialize)]
 pub enum LuaSurfaceMethodsCountEntitiesFilteredGhostTypeUnion {
     String(String),
     Array(Vec<String>),
 }
 
+#[derive(Debug, Deserialize)]
 pub enum LuaSurfaceMethodsCountEntitiesFilteredNameUnion {
     String(String),
     Array(Vec<String>),
 }
 
+#[derive(Debug, Deserialize)]
 pub enum LuaSurfaceMethodsCountEntitiesFilteredTypUnion {
     String(String),
     Array(Vec<String>),
 }
 
+#[derive(Debug, Deserialize)]
 pub enum LuaSurfaceMethodsCountTilesFilteredCollisionMaskUnion {
     CollisionMaskLayer(CollisionMaskLayer),
     Array(Vec<CollisionMaskLayer>),
 }
 
+#[derive(Debug, Deserialize)]
 pub enum LuaSurfaceMethodsCountTilesFilteredForceUnion {
     ForceIdentification(ForceIdentification),
     Array(Vec<ForceIdentification>),
 }
 
+#[derive(Debug, Deserialize)]
 pub enum LuaSurfaceMethodsCountTilesFilteredNameUnion {
     String(String),
     Array(Vec<String>),
 }
 
+#[derive(Debug, Deserialize)]
 pub enum LuaSurfaceMethodsCreateEntitySourceUnion {
     LuaEntity(LuaEntity),
     MapPosition(MapPosition),
 }
 
+#[derive(Debug, Deserialize)]
 pub enum LuaSurfaceMethodsCreateEntityTargetUnion {
     LuaEntity(LuaEntity),
     MapPosition(MapPosition),
 }
 
+#[derive(Debug, Deserialize)]
 pub enum LuaSurfaceMethodsDestroyDecorativesCollisionMaskUnion {
     CollisionMaskLayer(CollisionMaskLayer),
     Array(Vec<CollisionMaskLayer>),
 }
 
+#[derive(Debug, Deserialize)]
 pub enum LuaSurfaceMethodsDestroyDecorativesNameUnion {
     String(String),
     ArrayString(Vec<String>),
@@ -9676,11 +9878,13 @@ pub enum LuaSurfaceMethodsDestroyDecorativesNameUnion {
     ArrayLuaDecorativePrototype(Vec<LuaDecorativePrototype>),
 }
 
+#[derive(Debug, Deserialize)]
 pub enum LuaSurfaceMethodsFindDecorativesFilteredCollisionMaskUnion {
     CollisionMaskLayer(CollisionMaskLayer),
     Array(Vec<CollisionMaskLayer>),
 }
 
+#[derive(Debug, Deserialize)]
 pub enum LuaSurfaceMethodsFindDecorativesFilteredNameUnion {
     String(String),
     ArrayString(Vec<String>),
@@ -9688,111 +9892,133 @@ pub enum LuaSurfaceMethodsFindDecorativesFilteredNameUnion {
     ArrayLuaDecorativePrototype(Vec<LuaDecorativePrototype>),
 }
 
+#[derive(Debug, Deserialize)]
 pub enum LuaSurfaceMethodsFindEnemyUnitsForceUnion {
     LuaForce(LuaForce),
     String(String),
 }
 
+#[derive(Debug, Deserialize)]
 pub enum LuaSurfaceMethodsFindEntitiesFilteredCollisionMaskUnion {
     CollisionMaskLayer(CollisionMaskLayer),
     Array(Vec<CollisionMaskLayer>),
 }
 
+#[derive(Debug, Deserialize)]
 pub enum LuaSurfaceMethodsFindEntitiesFilteredDirectionUnion {
     DefinesDirection(Direction),
     Array(Vec<Direction>),
 }
 
+#[derive(Debug, Deserialize)]
 pub enum LuaSurfaceMethodsFindEntitiesFilteredForceUnion {
     ForceIdentification(ForceIdentification),
     Array(Vec<ForceIdentification>),
 }
 
+#[derive(Debug, Deserialize)]
 pub enum LuaSurfaceMethodsFindEntitiesFilteredGhostNameUnion {
     String(String),
     Array(Vec<String>),
 }
 
+#[derive(Debug, Deserialize)]
 pub enum LuaSurfaceMethodsFindEntitiesFilteredGhostTypeUnion {
     String(String),
     Array(Vec<String>),
 }
 
+#[derive(Debug, Deserialize)]
 pub enum LuaSurfaceMethodsFindEntitiesFilteredNameUnion {
     String(String),
     Array(Vec<String>),
 }
 
+#[derive(Debug, Deserialize)]
 pub enum LuaSurfaceMethodsFindEntitiesFilteredTypUnion {
     String(String),
     Array(Vec<String>),
 }
 
+#[derive(Debug, Deserialize)]
 pub enum LuaSurfaceMethodsFindTilesFilteredCollisionMaskUnion {
     CollisionMaskLayer(CollisionMaskLayer),
     Array(Vec<CollisionMaskLayer>),
 }
 
+#[derive(Debug, Deserialize)]
 pub enum LuaSurfaceMethodsFindTilesFilteredForceUnion {
     ForceIdentification(ForceIdentification),
     Array(Vec<ForceIdentification>),
 }
 
+#[derive(Debug, Deserialize)]
 pub enum LuaSurfaceMethodsFindTilesFilteredNameUnion {
     String(String),
     Array(Vec<String>),
 }
 
+#[derive(Debug, Deserialize)]
 pub enum LuaSurfaceMethodsFindUnitsForceUnion {
     LuaForce(LuaForce),
     String(String),
 }
 
+#[derive(Debug, Deserialize)]
 pub enum LuaSurfaceMethodsGetEntitiesWithForceForceUnion {
     LuaForce(LuaForce),
     String(String),
 }
 
+#[derive(Debug, Deserialize)]
 pub enum LuaSurfaceMethodsGetScriptAreaKeyUnion {
     String(String),
     Uint(u32),
 }
 
+#[derive(Debug, Deserialize)]
 pub enum LuaSurfaceMethodsGetScriptPositionKeyUnion {
     String(String),
     Uint(u32),
 }
 
+#[derive(Debug, Deserialize)]
 pub enum LuaSurfaceMethodsGetTrainStopsNameUnion {
     String(String),
     Array(Vec<String>),
 }
 
+#[derive(Debug, Deserialize)]
 pub enum LuaSurfaceMethodsRegenerateDecorativeDecorativesUnion {
     String(String),
     Array(Vec<String>),
 }
 
+#[derive(Debug, Deserialize)]
 pub enum LuaSurfaceMethodsRegenerateEntityEntitiesUnion {
     String(String),
     Array(Vec<String>),
 }
 
+#[derive(Debug, Deserialize)]
 pub enum LuaSurfaceMethodsRequestPathCollisionMaskUnion {
     CollisionMaskWithFlags(CollisionMaskWithFlags),
     Array(Vec<String>),
 }
 
+#[derive(Debug, Deserialize)]
 pub enum LuaSurfaceMethodsSetHiddenTileTileUnion {
     String(String),
     LuaTilePrototype(LuaTilePrototype),
 }
 
+#[derive(Debug, Deserialize)]
 pub enum LuaSurfaceMethodsSetTilesRemoveCollidingEntitiesUnion {
     Boolean(bool),
     String(String),
 }
 
+#[derive(Debug, Deserialize)]
 pub enum LuaSurfaceMethodsSpillItemStackForceUnion {
     LuaForce(LuaForce),
     String(String),
@@ -10796,6 +11022,7 @@ pub trait LuaSurfaceMethods {
 }
 
 /// One research item.
+#[derive(Debug, Deserialize)]
 pub struct LuaTechnology {
     /// Effects applied when this technology is researched.
     pub effects: Vec<TechnologyModifier>,
@@ -10849,6 +11076,7 @@ pub trait LuaTechnologyMethods {
 }
 
 /// A Technology prototype.
+#[derive(Debug, Deserialize)]
 pub struct LuaTechnologyPrototype {
     /// Effects applied when this technology is researched.
     pub effects: Vec<TechnologyModifier>,
@@ -10904,6 +11132,7 @@ pub trait LuaTechnologyPrototypeMethods {
 }
 
 /// A single "square" on the map.
+#[derive(Debug, Deserialize)]
 pub struct LuaTile {
     /// The name of the [LuaTilePrototype](LuaTilePrototype) hidden under this tile, if any. During normal gameplay, only [non-mineable](LuaTilePrototype::mineable_properties) tiles can become hidden. This can however be circumvented with [LuaSurface::set_hidden_tile](LuaSurface::set_hidden_tile).
     pub hidden_tile: Option<String>,
@@ -10974,6 +11203,7 @@ pub trait LuaTileMethods {
     fn to_be_deconstructed(force: ForceIdentification) -> bool;
 }
 
+#[derive(Debug, Deserialize)]
 pub struct LuaTilePrototypeMineableProperties {
     /// Is this tile mineable at all?
     pub minable: bool,
@@ -10986,6 +11216,7 @@ pub struct LuaTilePrototypeMineableProperties {
 }
 
 /// Prototype of a tile.
+#[derive(Debug, Deserialize)]
 pub struct LuaTilePrototype {
     pub allowed_neighbors: HashMap<String, LuaTilePrototype>,
     pub automatic_neighbors: bool,
@@ -11032,6 +11263,7 @@ pub trait LuaTilePrototypeMethods {
 }
 
 /// A train. Trains are a sequence of connected rolling stocks -- locomotives and wagons.
+#[derive(Debug, Deserialize)]
 pub struct LuaTrain {
     /// The rail at the back end of the train, if any.
     pub back_rail: Option<LuaEntity>,
@@ -11180,6 +11412,7 @@ pub trait LuaTrainMethods {
 }
 
 /// Control behavior for train stops.
+#[derive(Debug, Deserialize)]
 pub struct LuaTrainStopControlBehavior {
     pub lua_generic_on_off_control_behavior: Box<LuaGenericOnOffControlBehavior>,
     /// `true` if the train stop is enabled/disabled through the circuit network.
@@ -11213,6 +11446,7 @@ pub trait LuaTrainStopControlBehaviorMethods {
 }
 
 /// Control behavior for transport belts.
+#[derive(Debug, Deserialize)]
 pub struct LuaTransportBeltControlBehavior {
     pub lua_generic_on_off_control_behavior: Box<LuaGenericOnOffControlBehavior>,
     /// If the belt will be enabled/disabled based off the circuit network.
@@ -11234,6 +11468,7 @@ pub trait LuaTransportBeltControlBehaviorMethods {
 }
 
 /// One line on a transport belt.
+#[derive(Debug, Deserialize)]
 pub struct LuaTransportLine {
     /// The transport lines that this transport line is fed by or an empty table if none.
     pub input_lines: Vec<LuaTransportLine>,
@@ -11309,6 +11544,7 @@ pub trait LuaTransportLineMethods {
 }
 
 /// Prototype of a trivial smoke.
+#[derive(Debug, Deserialize)]
 pub struct LuaTrivialSmokePrototype {
     pub affected_by_wind: bool,
     pub color: Color,
@@ -11343,6 +11579,7 @@ pub trait LuaTrivialSmokePrototypeMethods {
 }
 
 /// A collection of units moving and attacking together. The engine creates autonomous unit groups to attack polluted areas. The script can create and control such groups as well. Groups can accept commands in the same manner as regular units.
+#[derive(Debug, Deserialize)]
 pub struct LuaUnitGroup {
     /// The command given to this group, if any.
     pub command: Option<Box<Command>>,
@@ -11391,6 +11628,7 @@ pub trait LuaUnitGroupMethods {
 }
 
 /// Prototype of a virtual signal.
+#[derive(Debug, Deserialize)]
 pub struct LuaVirtualSignalPrototype {
     pub localised_description: LocalisedString,
     pub localised_name: LocalisedString,
@@ -11414,6 +11652,7 @@ pub trait LuaVirtualSignalPrototypeMethods {
 }
 
 /// Prototype of a void energy source.
+#[derive(Debug, Deserialize)]
 pub struct LuaVoidEnergySourcePrototype {
     /// The emissions of this energy source in `pollution/Joule`. Multiplying it by energy consumption in `Watt` gives `pollution/second`.
     pub emissions: f64,
@@ -11432,6 +11671,7 @@ pub trait LuaVoidEnergySourcePrototypeMethods {
 }
 
 /// Control behavior for walls.
+#[derive(Debug, Deserialize)]
 pub struct LuaWallControlBehavior {
     pub lua_control_behavior: Box<LuaControlBehavior>,
     /// The circuit condition.

@@ -1,3 +1,6 @@
+use serde::Deserialize;
+
+#[derive(Debug, Deserialize)]
 pub enum AlertType {
     Custom,
     EntityDestroyed,
@@ -11,6 +14,7 @@ pub enum AlertType {
 }
 
 /// AI command exit status. See [LuaEntity::set_command](LuaEntity::set_command)
+#[derive(Debug, Deserialize)]
 pub enum BehaviorResult {
     Deleted,
     Fail,
@@ -18,6 +22,7 @@ pub enum BehaviorResult {
     Success,
 }
 
+#[derive(Debug, Deserialize)]
 pub enum BuildCheckType {
     BlueprintGhost,
     GhostRevive,
@@ -28,6 +33,7 @@ pub enum BuildCheckType {
 }
 
 /// State of a chain signal.
+#[derive(Debug, Deserialize)]
 pub enum ChainSignalState {
     AllOpen,
     None,
@@ -35,6 +41,7 @@ pub enum ChainSignalState {
     PartiallyOpen,
 }
 
+#[derive(Debug, Deserialize)]
 pub enum ChunkGeneratedStatus {
     BasicTiles,
     CorrectedTiles,
@@ -44,6 +51,7 @@ pub enum ChunkGeneratedStatus {
     Tiles,
 }
 
+#[derive(Debug, Deserialize)]
 pub enum CircuitConditionIndex {
     ArithmeticCombinator,
     ConstantCombinator,
@@ -55,6 +63,7 @@ pub enum CircuitConditionIndex {
     Pump,
 }
 
+#[derive(Debug, Deserialize)]
 pub enum CircuitConnectorId {
     Accumulator,
     CombinatorInput,
@@ -76,6 +85,7 @@ pub enum CircuitConnectorId {
 }
 
 /// Command given to units describing what they should do.
+#[derive(Debug, Deserialize)]
 pub enum CommandDefine {
     /// Attack another entity.
     Attack,
@@ -98,6 +108,7 @@ pub enum CommandDefine {
 }
 
 /// How commands are joined together in a compound command (see [defines.command.compound](defines.command.compound)).
+#[derive(Debug, Deserialize)]
 pub enum CompoundCommand {
     /// Fail on first failure. Only succeeds if all commands (executed one after another) succeed.
     LogicalAnd,
@@ -107,6 +118,7 @@ pub enum CompoundCommand {
     ReturnLast,
 }
 
+#[derive(Debug, Deserialize)]
 pub enum ControlBehaviorInserterCircuitModeOfOperation {
     EnableDisable,
     None,
@@ -115,30 +127,36 @@ pub enum ControlBehaviorInserterCircuitModeOfOperation {
     SetStackSize,
 }
 
+#[derive(Debug, Deserialize)]
 pub enum ControlBehaviorInserterHandReadMode {
     Hold,
     Pulse,
 }
 
+#[derive(Debug, Deserialize)]
 pub enum ControlBehaviorLampCircuitModeOfOperation {
     UseColors,
 }
 
+#[derive(Debug, Deserialize)]
 pub enum ControlBehaviorLogisticContainerCircuitModeOfOperation {
     SendContents,
     SetRequests,
 }
 
+#[derive(Debug, Deserialize)]
 pub enum ControlBehaviorMiningDrillResourceReadMode {
     EntirePatch,
     ThisMiner,
 }
 
+#[derive(Debug, Deserialize)]
 pub enum ControlBehaviorTransportBeltContentReadMode {
     Hold,
     Pulse,
 }
 
+#[derive(Debug, Deserialize)]
 pub enum ControlBehaviorType {
     /// [LuaAccumulatorControlBehavior](LuaAccumulatorControlBehavior)
     Accumulator,
@@ -178,6 +196,7 @@ pub enum ControlBehaviorType {
     Wall,
 }
 
+#[derive(Debug, Deserialize)]
 pub enum Controllers {
     /// The controller controls a character. This is the default controller in freeplay.
     Character,
@@ -193,16 +212,19 @@ pub enum Controllers {
     Spectator,
 }
 
+#[derive(Debug, Deserialize)]
 pub enum DeconstructionItemEntityFilterMode {
     Blacklist,
     Whitelist,
 }
 
+#[derive(Debug, Deserialize)]
 pub enum DeconstructionItemTileFilterMode {
     Blacklist,
     Whitelist,
 }
 
+#[derive(Debug, Deserialize)]
 pub enum DeconstructionItemTileSelectionMode {
     Always,
     Never,
@@ -210,22 +232,26 @@ pub enum DeconstructionItemTileSelectionMode {
     Only,
 }
 
+#[derive(Debug, Deserialize)]
 pub enum Difficulty {
     Easy,
     Hard,
     Normal,
 }
 
+#[derive(Debug, Deserialize)]
 pub enum DifficultySettingsRecipeDifficulty {
     Expensive,
     Normal,
 }
 
+#[derive(Debug, Deserialize)]
 pub enum DifficultySettingsTechnologyDifficulty {
     Expensive,
     Normal,
 }
 
+#[derive(Debug, Deserialize)]
 pub enum Direction {
     East,
     North,
@@ -237,6 +263,7 @@ pub enum Direction {
     West,
 }
 
+#[derive(Debug, Deserialize)]
 pub enum DisconnectReason {
     Afk,
     Banned,
@@ -251,6 +278,7 @@ pub enum DisconnectReason {
     WrongInput,
 }
 
+#[derive(Debug, Deserialize)]
 pub enum Distraction {
     /// Attack closer enemy entities, including entities "built" by player (belts, inserters, chests).
     ByAnything,
@@ -262,6 +290,7 @@ pub enum Distraction {
     None,
 }
 
+#[derive(Debug, Deserialize)]
 pub enum EntityStatus {
     /// Used by rail signals.
     CantDivideSegments,
@@ -342,6 +371,7 @@ pub enum EntityStatus {
 }
 
 /// See the [events page](events.html) for more info on what events contain and when they get raised.
+#[derive(Debug, Deserialize)]
 pub enum Events {
     OnAiCommandCompleted,
     OnAreaCloned,
@@ -525,6 +555,7 @@ pub enum Events {
     ScriptRaisedTeleported,
 }
 
+#[derive(Debug, Deserialize)]
 pub enum FlowPrecisionIndex {
     FiftyHours,
     FiveSeconds,
@@ -536,6 +567,7 @@ pub enum FlowPrecisionIndex {
     TwoHundredFiftyHours,
 }
 
+#[derive(Debug, Deserialize)]
 pub enum GroupState {
     AttackingDistraction,
     AttackingTarget,
@@ -546,6 +578,7 @@ pub enum GroupState {
     WanderInGroup,
 }
 
+#[derive(Debug, Deserialize)]
 pub enum GuiType {
     Achievement,
     BlueprintLibrary,
@@ -569,6 +602,7 @@ pub enum GuiType {
     Tutorials,
 }
 
+#[derive(Debug, Deserialize)]
 pub enum InputAction {
     ActivateCopy,
     ActivateCut,
@@ -775,11 +809,13 @@ pub enum InputAction {
     WriteToConsole,
 }
 
+#[derive(Debug, Deserialize)]
 pub enum InputMethod {
     GameController,
     KeyboardAndMouse,
 }
 
+#[derive(Debug, Deserialize)]
 pub enum Inventory {
     ArtilleryTurretAmmo,
     ArtilleryWagonAmmo,
@@ -828,6 +864,7 @@ pub enum Inventory {
     TurretAmmo,
 }
 
+#[derive(Debug, Deserialize)]
 pub enum LogisticMemberIndex {
     CharacterProvider,
     CharacterRequester,
@@ -837,6 +874,7 @@ pub enum LogisticMemberIndex {
     VehicleStorage,
 }
 
+#[derive(Debug, Deserialize)]
 pub enum LogisticMode {
     ActiveProvider,
     Buffer,
@@ -846,6 +884,7 @@ pub enum LogisticMode {
     Storage,
 }
 
+#[derive(Debug, Deserialize)]
 pub enum MouseButtonType {
     Left,
     Middle,
@@ -856,6 +895,7 @@ pub enum MouseButtonType {
 /// A dictionary mapping all top-level prototypes by name to a list of their associated subtypes. This list is organized as a lookup table, meaning it maps the sub-prototype names to `0`. As an example, `defines.prototypes['entity']` looks like this: `{furnace=0, inserter=0, container=0, ...}`.
 pub struct Prototypes;
 
+#[derive(Debug, Deserialize)]
 pub enum RailConnectionDirection {
     Left,
     None,
@@ -863,11 +903,13 @@ pub enum RailConnectionDirection {
     Straight,
 }
 
+#[derive(Debug, Deserialize)]
 pub enum RailDirection {
     Back,
     Front,
 }
 
+#[derive(Debug, Deserialize)]
 pub enum RelativeGuiPosition {
     Bottom,
     Left,
@@ -875,6 +917,7 @@ pub enum RelativeGuiPosition {
     Top,
 }
 
+#[derive(Debug, Deserialize)]
 pub enum RelativeGuiType {
     AccumulatorGui,
     AchievementGui,
@@ -942,18 +985,21 @@ pub enum RelativeGuiType {
     WallGui,
 }
 
+#[derive(Debug, Deserialize)]
 pub enum RenderMode {
     Chart,
     ChartZoomedIn,
     Game,
 }
 
+#[derive(Debug, Deserialize)]
 pub enum RichTextSetting {
     Disabled,
     Enabled,
     Highlight,
 }
 
+#[derive(Debug, Deserialize)]
 pub enum RidingAcceleration {
     Accelerating,
     Braking,
@@ -961,12 +1007,14 @@ pub enum RidingAcceleration {
     Reversing,
 }
 
+#[derive(Debug, Deserialize)]
 pub enum RidingDirection {
     Left,
     Right,
     Straight,
 }
 
+#[derive(Debug, Deserialize)]
 pub enum RocketSiloStatus {
     ArmsAdvance,
     ArmsRetract,
@@ -985,6 +1033,7 @@ pub enum RocketSiloStatus {
     RocketRising,
 }
 
+#[derive(Debug, Deserialize)]
 pub enum Shooting {
     NotShooting,
     ShootingEnemies,
@@ -992,6 +1041,7 @@ pub enum Shooting {
 }
 
 /// State of an ordinary rail signal.
+#[derive(Debug, Deserialize)]
 pub enum SignalState {
     /// Red.
     Closed,
@@ -1003,6 +1053,7 @@ pub enum SignalState {
     ReservedByCircuitNetwork,
 }
 
+#[derive(Debug, Deserialize)]
 pub enum TrainState {
     /// Braking before a rail signal.
     ArriveSignal,
@@ -1028,6 +1079,7 @@ pub enum TrainState {
     WaitStation,
 }
 
+#[derive(Debug, Deserialize)]
 pub enum TransportLine {
     LeftLine,
     LeftSplitLine,
@@ -1041,12 +1093,14 @@ pub enum TransportLine {
     SecondaryRightSplitLine,
 }
 
+#[derive(Debug, Deserialize)]
 pub enum WireConnectionId {
     ElectricPole,
     PowerSwitchLeft,
     PowerSwitchRight,
 }
 
+#[derive(Debug, Deserialize)]
 pub enum WireType {
     Copper,
     Green,

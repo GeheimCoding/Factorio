@@ -1,10 +1,13 @@
 use std::collections::HashMap;
 
+use serde::Deserialize;
+
 use super::classes::*;
 use super::concepts::*;
 use super::defines::*;
 
 /// Called when a [CustomInput](https://wiki.factorio.com/Prototype/CustomInput) is activated.
+#[derive(Debug, Deserialize)]
 pub struct CustomInputEvent {
     /// The mouse cursor position when the custom input was activated.
     pub cursor_position: MapPosition,
@@ -21,6 +24,7 @@ pub struct CustomInputEvent {
 }
 
 /// Called when a unit/group completes a command.
+#[derive(Debug, Deserialize)]
 pub struct OnAiCommandCompleted {
     /// Identifier of the event
     pub name: Events,
@@ -34,6 +38,7 @@ pub struct OnAiCommandCompleted {
 }
 
 /// Called when an area of the map is cloned.
+#[derive(Debug, Deserialize)]
 pub struct OnAreaCloned {
     pub clear_destination_decoratives: bool,
     pub clear_destination_entities: bool,
@@ -56,6 +61,7 @@ pub struct OnAreaCloned {
 /// # Notes
 ///
 /// * This will be called multiple times for each migration, once for every biter that is sacrificed to build part of the new base.
+#[derive(Debug, Deserialize)]
 pub struct OnBiterBaseBuilt {
     /// The entity that was built.
     pub entity: LuaEntity,
@@ -66,6 +72,7 @@ pub struct OnBiterBaseBuilt {
 }
 
 /// Called when a set of positions on the map is cloned.
+#[derive(Debug, Deserialize)]
 pub struct OnBrushCloned {
     pub clear_destination_decoratives: bool,
     pub clear_destination_entities: bool,
@@ -85,6 +92,7 @@ pub struct OnBrushCloned {
 }
 
 /// Called when a [defines.command.build_base](defines.command.build_base) command reaches its destination, and before building starts.
+#[derive(Debug, Deserialize)]
 pub struct OnBuildBaseArrived {
     /// The unit group the command was assigned to.
     pub group: Option<LuaUnitGroup>,
@@ -97,6 +105,7 @@ pub struct OnBuildBaseArrived {
 }
 
 /// Called when player builds something. Can be filtered using [LuaPlayerBuiltEntityEventFilter](LuaPlayerBuiltEntityEventFilter).
+#[derive(Debug, Deserialize)]
 pub struct OnBuiltEntity {
     pub created_entity: LuaEntity,
     /// The item prototype used to build the entity. Note this won't exist in some situations (built from blueprint, undo, etc).
@@ -112,6 +121,7 @@ pub struct OnBuiltEntity {
 }
 
 /// Called when the deconstruction of an entity is canceled. Can be filtered using [LuaEntityDeconstructionCancelledEventFilter](LuaEntityDeconstructionCancelledEventFilter).
+#[derive(Debug, Deserialize)]
 pub struct OnCancelledDeconstruction {
     pub entity: LuaEntity,
     /// Identifier of the event
@@ -122,6 +132,7 @@ pub struct OnCancelledDeconstruction {
 }
 
 /// Called when the upgrade of an entity is canceled. Can be filtered using [LuaUpgradeCancelledEventFilter](LuaUpgradeCancelledEventFilter).
+#[derive(Debug, Deserialize)]
 pub struct OnCancelledUpgrade {
     pub direction: Option<Direction>,
     pub entity: LuaEntity,
@@ -138,6 +149,7 @@ pub struct OnCancelledUpgrade {
 /// # Notes
 ///
 /// * this is not called if the corpse is mined. See [defines.events.on_pre_player_mined_item](defines.events.on_pre_player_mined_item) to detect that.
+#[derive(Debug, Deserialize)]
 pub struct OnCharacterCorpseExpired {
     /// The corpse.
     pub corpse: LuaEntity,
@@ -148,6 +160,7 @@ pub struct OnCharacterCorpseExpired {
 }
 
 /// Called when a chart tag is created.
+#[derive(Debug, Deserialize)]
 pub struct OnChartTagAdded {
     pub force: LuaForce,
     /// Identifier of the event
@@ -159,6 +172,7 @@ pub struct OnChartTagAdded {
 }
 
 /// Called when a chart tag is modified by a player.
+#[derive(Debug, Deserialize)]
 pub struct OnChartTagModified {
     pub force: LuaForce,
     /// Identifier of the event
@@ -173,6 +187,7 @@ pub struct OnChartTagModified {
 }
 
 /// Called just before a chart tag is deleted.
+#[derive(Debug, Deserialize)]
 pub struct OnChartTagRemoved {
     pub force: LuaForce,
     /// Identifier of the event
@@ -184,6 +199,7 @@ pub struct OnChartTagRemoved {
 }
 
 /// Called when a chunk is charted or re-charted.
+#[derive(Debug, Deserialize)]
 pub struct OnChunkCharted {
     /// Area of the chunk.
     pub area: BoundingBox,
@@ -197,6 +213,7 @@ pub struct OnChunkCharted {
 }
 
 /// Called when one or more chunks are deleted using [LuaSurface::delete_chunk](LuaSurface::delete_chunk).
+#[derive(Debug, Deserialize)]
 pub struct OnChunkDeleted {
     /// Identifier of the event
     pub name: Events,
@@ -208,6 +225,7 @@ pub struct OnChunkDeleted {
 }
 
 /// Called when a chunk is generated.
+#[derive(Debug, Deserialize)]
 pub struct OnChunkGenerated {
     /// Area of the chunk.
     pub area: BoundingBox,
@@ -222,6 +240,7 @@ pub struct OnChunkGenerated {
 }
 
 /// Called when a combat robot expires through a lack of energy, or timeout.
+#[derive(Debug, Deserialize)]
 pub struct OnCombatRobotExpired {
     /// Identifier of the event
     pub name: Events,
@@ -237,6 +256,7 @@ pub struct OnCombatRobotExpired {
 /// # Notes
 ///
 /// * This event only fires for plain messages, not for any commands (including `/shout` or `/whisper`).
+#[derive(Debug, Deserialize)]
 pub struct OnConsoleChat {
     /// The chat message that was sent.
     pub message: String,
@@ -249,6 +269,7 @@ pub struct OnConsoleChat {
 }
 
 /// Called when someone enters a command-like message regardless of it being a valid command.
+#[derive(Debug, Deserialize)]
 pub struct OnConsoleCommand {
     /// The command as typed without the preceding forward slash ('/').
     pub command: String,
@@ -263,6 +284,7 @@ pub struct OnConsoleCommand {
 }
 
 /// Called when a cutscene is cancelled by the player or by script.
+#[derive(Debug, Deserialize)]
 pub struct OnCutsceneCancelled {
     /// Identifier of the event
     pub name: Events,
@@ -279,6 +301,7 @@ pub struct OnCutsceneCancelled {
 /// # Notes
 ///
 /// * Due to implementation omission, waypoint_index is 0-based.
+#[derive(Debug, Deserialize)]
 pub struct OnCutsceneWaypointReached {
     /// Identifier of the event
     pub name: Events,
@@ -295,6 +318,7 @@ pub struct OnCutsceneWaypointReached {
 /// # Notes
 ///
 /// * It's not guaranteed that both settings are changed - just that at least one has been changed.
+#[derive(Debug, Deserialize)]
 pub struct OnDifficultySettingsChanged {
     /// Identifier of the event
     pub name: Events,
@@ -305,6 +329,7 @@ pub struct OnDifficultySettingsChanged {
 }
 
 /// Called when an entity is cloned. Can be filtered for the source entity using [LuaEntityClonedEventFilter](LuaEntityClonedEventFilter).
+#[derive(Debug, Deserialize)]
 pub struct OnEntityCloned {
     pub destination: LuaEntity,
     /// Identifier of the event
@@ -319,6 +344,7 @@ pub struct OnEntityCloned {
 /// # Notes
 ///
 /// * This is not called when an entities health is set directly by another mod.
+#[derive(Debug, Deserialize)]
 pub struct OnEntityDamaged {
     /// The entity that did the attacking if available.
     pub cause: Option<LuaEntity>,
@@ -343,6 +369,7 @@ pub struct OnEntityDamaged {
 /// # Notes
 ///
 /// * Depending on when a given entity is destroyed, this event will be fired at the end of the current tick or at the end of the next tick.
+#[derive(Debug, Deserialize)]
 pub struct OnEntityDestroyed {
     /// Identifier of the event
     pub name: Events,
@@ -355,6 +382,7 @@ pub struct OnEntityDestroyed {
 }
 
 /// Called when an entity dies. Can be filtered using [LuaEntityDiedEventFilter](LuaEntityDiedEventFilter).
+#[derive(Debug, Deserialize)]
 pub struct OnEntityDied {
     /// The entity that did the killing if available.
     pub cause: Option<LuaEntity>,
@@ -377,6 +405,7 @@ pub struct OnEntityDied {
 /// # Notes
 ///
 /// * "Personal logistic slot" refers to a character or vehicle's personal request / auto-trash slots, not the request slots on logistic chests.
+#[derive(Debug, Deserialize)]
 pub struct OnEntityLogisticSlotChanged {
     /// The entity for whom a logistic slot was changed.
     pub entity: LuaEntity,
@@ -391,6 +420,7 @@ pub struct OnEntityLogisticSlotChanged {
 }
 
 /// Called after an entity has been renamed either by the player or through script.
+#[derive(Debug, Deserialize)]
 pub struct OnEntityRenamed {
     pub by_script: bool,
     pub entity: LuaEntity,
@@ -404,6 +434,7 @@ pub struct OnEntityRenamed {
 }
 
 /// Called after entity copy-paste is done.
+#[derive(Debug, Deserialize)]
 pub struct OnEntitySettingsPasted {
     /// The destination entity settings were copied to.
     pub destination: LuaEntity,
@@ -417,6 +448,7 @@ pub struct OnEntitySettingsPasted {
 }
 
 /// Called when an entity is spawned by a EnemySpawner
+#[derive(Debug, Deserialize)]
 pub struct OnEntitySpawned {
     pub entity: LuaEntity,
     /// Identifier of the event
@@ -427,6 +459,7 @@ pub struct OnEntitySpawned {
 }
 
 /// Called after equipment is inserted into an equipment grid.
+#[derive(Debug, Deserialize)]
 pub struct OnEquipmentInserted {
     /// The equipment inserted.
     pub equipment: LuaEquipment,
@@ -439,6 +472,7 @@ pub struct OnEquipmentInserted {
 }
 
 /// Called after equipment is removed from an equipment grid.
+#[derive(Debug, Deserialize)]
 pub struct OnEquipmentRemoved {
     /// The count of equipment removed.
     pub count: u32,
@@ -453,6 +487,7 @@ pub struct OnEquipmentRemoved {
 }
 
 /// Called when the a forces cease fire values change.
+#[derive(Debug, Deserialize)]
 pub struct OnForceCeaseFireChanged {
     /// If the other force was added or removed.
     pub added: bool,
@@ -471,6 +506,7 @@ pub struct OnForceCeaseFireChanged {
 /// # Notes
 ///
 /// * This is not called when the default forces (`'player'`, `'enemy'`, `'neutral'`) are created as they will always exist.
+#[derive(Debug, Deserialize)]
 pub struct OnForceCreated {
     /// The newly created force.
     pub force: LuaForce,
@@ -481,6 +517,7 @@ pub struct OnForceCreated {
 }
 
 /// Called when the a forces friends change.
+#[derive(Debug, Deserialize)]
 pub struct OnForceFriendsChanged {
     /// If the other force was added or removed.
     pub added: bool,
@@ -495,6 +532,7 @@ pub struct OnForceFriendsChanged {
 }
 
 /// Called when [LuaForce::reset](LuaForce::reset) is finished.
+#[derive(Debug, Deserialize)]
 pub struct OnForceReset {
     pub force: LuaForce,
     /// Identifier of the event
@@ -508,6 +546,7 @@ pub struct OnForceReset {
 /// # Notes
 ///
 /// * The source force is invalidated before this event is called and the name can be re-used in this event if desired.
+#[derive(Debug, Deserialize)]
 pub struct OnForcesMerged {
     /// The force entities where reassigned to.
     pub destination: LuaForce,
@@ -522,6 +561,7 @@ pub struct OnForcesMerged {
 }
 
 /// Called when two forces are about to be merged using `game.merge_forces()`.
+#[derive(Debug, Deserialize)]
 pub struct OnForcesMerging {
     /// The force to reassign entities to.
     pub destination: LuaForce,
@@ -538,6 +578,7 @@ pub struct OnForcesMerging {
 /// # Notes
 ///
 /// * This event is not fired when the scenario is loaded via the map editor.
+#[derive(Debug, Deserialize)]
 pub struct OnGameCreatedFromScenario {
     /// Identifier of the event
     pub name: Events,
@@ -546,6 +587,7 @@ pub struct OnGameCreatedFromScenario {
 }
 
 /// Called when [LuaGuiElement](LuaGuiElement) checked state is changed (related to checkboxes and radio buttons).
+#[derive(Debug, Deserialize)]
 pub struct OnGuiCheckedStateChanged {
     /// The element whose checked state changed.
     pub element: LuaGuiElement,
@@ -558,6 +600,7 @@ pub struct OnGuiCheckedStateChanged {
 }
 
 /// Called when [LuaGuiElement](LuaGuiElement) is clicked.
+#[derive(Debug, Deserialize)]
 pub struct OnGuiClick {
     /// If alt was pressed.
     pub alt: bool,
@@ -584,6 +627,7 @@ pub struct OnGuiClick {
 /// # Notes
 ///
 /// * It's not advised to open any other GUI during this event because if this is run as a request to open a different GUI the game will force close the new opened GUI without notice to ensure the original requested GUI is opened.
+#[derive(Debug, Deserialize)]
 pub struct OnGuiClosed {
     /// The custom GUI element that was open
     pub element: Option<LuaGuiElement>,
@@ -612,6 +656,7 @@ pub struct OnGuiClosed {
 }
 
 /// Called when a [LuaGuiElement](LuaGuiElement) is confirmed, for example by pressing Enter in a textfield.
+#[derive(Debug, Deserialize)]
 pub struct OnGuiConfirmed {
     /// If alt was pressed.
     pub alt: bool,
@@ -630,6 +675,7 @@ pub struct OnGuiConfirmed {
 }
 
 /// Called when [LuaGuiElement](LuaGuiElement) element value is changed (related to choose element buttons).
+#[derive(Debug, Deserialize)]
 pub struct OnGuiElemChanged {
     /// The element whose element value changed.
     pub element: LuaGuiElement,
@@ -642,6 +688,7 @@ pub struct OnGuiElemChanged {
 }
 
 /// Called when [LuaGuiElement](LuaGuiElement) is hovered by the mouse.
+#[derive(Debug, Deserialize)]
 pub struct OnGuiHover {
     /// The element that is being hovered over.
     pub element: LuaGuiElement,
@@ -654,6 +701,7 @@ pub struct OnGuiHover {
 }
 
 /// Called when the player's cursor leaves a [LuaGuiElement](LuaGuiElement) that was previously hovered.
+#[derive(Debug, Deserialize)]
 pub struct OnGuiLeave {
     /// The element that was being hovered.
     pub element: LuaGuiElement,
@@ -666,6 +714,7 @@ pub struct OnGuiLeave {
 }
 
 /// Called when [LuaGuiElement](LuaGuiElement) element location is changed (related to frames in `player.gui.screen`).
+#[derive(Debug, Deserialize)]
 pub struct OnGuiLocationChanged {
     /// The element whose location changed.
     pub element: LuaGuiElement,
@@ -678,6 +727,7 @@ pub struct OnGuiLocationChanged {
 }
 
 /// Called when the player opens a GUI.
+#[derive(Debug, Deserialize)]
 pub struct OnGuiOpened {
     /// The custom GUI element that was opened
     pub element: Option<LuaGuiElement>,
@@ -702,6 +752,7 @@ pub struct OnGuiOpened {
 }
 
 /// Called when [LuaGuiElement](LuaGuiElement) selected tab is changed (related to tabbed-panes).
+#[derive(Debug, Deserialize)]
 pub struct OnGuiSelectedTabChanged {
     /// The tabbed pane whose selected tab changed.
     pub element: LuaGuiElement,
@@ -714,6 +765,7 @@ pub struct OnGuiSelectedTabChanged {
 }
 
 /// Called when [LuaGuiElement](LuaGuiElement) selection state is changed (related to drop-downs and listboxes).
+#[derive(Debug, Deserialize)]
 pub struct OnGuiSelectionStateChanged {
     /// The element whose selection state changed.
     pub element: LuaGuiElement,
@@ -726,6 +778,7 @@ pub struct OnGuiSelectionStateChanged {
 }
 
 /// Called when [LuaGuiElement](LuaGuiElement) switch state is changed (related to switches).
+#[derive(Debug, Deserialize)]
 pub struct OnGuiSwitchStateChanged {
     /// The switch whose switch state changed.
     pub element: LuaGuiElement,
@@ -738,6 +791,7 @@ pub struct OnGuiSwitchStateChanged {
 }
 
 /// Called when [LuaGuiElement](LuaGuiElement) text is changed by the player.
+#[derive(Debug, Deserialize)]
 pub struct OnGuiTextChanged {
     /// The edited element.
     pub element: LuaGuiElement,
@@ -752,6 +806,7 @@ pub struct OnGuiTextChanged {
 }
 
 /// Called when [LuaGuiElement](LuaGuiElement) slider value is changed (related to the slider element).
+#[derive(Debug, Deserialize)]
 pub struct OnGuiValueChanged {
     /// The element whose value changed.
     pub element: LuaGuiElement,
@@ -764,6 +819,7 @@ pub struct OnGuiValueChanged {
 }
 
 /// Called when a land mine is armed.
+#[derive(Debug, Deserialize)]
 pub struct OnLandMineArmed {
     pub mine: LuaEntity,
     /// Identifier of the event
@@ -773,6 +829,7 @@ pub struct OnLandMineArmed {
 }
 
 /// Called when a custom Lua shortcut is pressed.
+#[derive(Debug, Deserialize)]
 pub struct OnLuaShortcut {
     /// Identifier of the event
     pub name: Events,
@@ -784,6 +841,7 @@ pub struct OnLuaShortcut {
 }
 
 /// Called when an entity is marked for deconstruction with the Deconstruction planner or via script. Can be filtered using [LuaEntityMarkedForDeconstructionEventFilter](LuaEntityMarkedForDeconstructionEventFilter).
+#[derive(Debug, Deserialize)]
 pub struct OnMarkedForDeconstruction {
     pub entity: LuaEntity,
     /// Identifier of the event
@@ -794,6 +852,7 @@ pub struct OnMarkedForDeconstruction {
 }
 
 /// Called when an entity is marked for upgrade with the Upgrade planner or via script. Can be filtered using [LuaEntityMarkedForUpgradeEventFilter](LuaEntityMarkedForUpgradeEventFilter).
+#[derive(Debug, Deserialize)]
 pub struct OnMarkedForUpgrade {
     /// The new direction (if any)
     pub direction: Option<Direction>,
@@ -807,6 +866,7 @@ pub struct OnMarkedForUpgrade {
 }
 
 /// Called after a player purchases some offer from a `market` entity.
+#[derive(Debug, Deserialize)]
 pub struct OnMarketItemPurchased {
     /// The amount of offers purchased.
     pub count: u32,
@@ -823,6 +883,7 @@ pub struct OnMarketItemPurchased {
 }
 
 /// Called when the player uses the 'Open item GUI' control on an item defined with the 'mod-openable' flag
+#[derive(Debug, Deserialize)]
 pub struct OnModItemOpened {
     /// The item clicked on.
     pub item: LuaItemPrototype,
@@ -835,6 +896,7 @@ pub struct OnModItemOpened {
 }
 
 /// Called directly after a permission group is added.
+#[derive(Debug, Deserialize)]
 pub struct OnPermissionGroupAdded {
     /// The group added.
     pub group: LuaPermissionGroup,
@@ -847,6 +909,7 @@ pub struct OnPermissionGroupAdded {
 }
 
 /// Called directly after a permission group is deleted.
+#[derive(Debug, Deserialize)]
 pub struct OnPermissionGroupDeleted {
     /// The group that was deleted.
     pub group_name: String,
@@ -861,6 +924,7 @@ pub struct OnPermissionGroupDeleted {
 }
 
 /// Called directly after a permission group is edited in some way.
+#[derive(Debug, Deserialize)]
 pub struct OnPermissionGroupEdited {
     /// The action when the `type` is "add-permission" or "remove-permission".
     pub action: InputAction,
@@ -883,6 +947,7 @@ pub struct OnPermissionGroupEdited {
 }
 
 /// Called directly after a permission string is imported.
+#[derive(Debug, Deserialize)]
 pub struct OnPermissionStringImported {
     /// Identifier of the event
     pub name: Events,
@@ -893,6 +958,7 @@ pub struct OnPermissionStringImported {
 }
 
 /// Called when a player picks up an item.
+#[derive(Debug, Deserialize)]
 pub struct OnPickedUpItem {
     pub item_stack: SimpleItemStack,
     /// Identifier of the event
@@ -903,6 +969,7 @@ pub struct OnPickedUpItem {
 }
 
 /// Called after a player alt-reverse-selects an area with a selection-tool item.
+#[derive(Debug, Deserialize)]
 pub struct OnPlayerAltReverseSelectedArea {
     /// The area selected.
     pub area: BoundingBox,
@@ -923,6 +990,7 @@ pub struct OnPlayerAltReverseSelectedArea {
 }
 
 /// Called after a player alt-selects an area with a selection-tool item.
+#[derive(Debug, Deserialize)]
 pub struct OnPlayerAltSelectedArea {
     /// The area selected.
     pub area: BoundingBox,
@@ -943,6 +1011,7 @@ pub struct OnPlayerAltSelectedArea {
 }
 
 /// Called after a players ammo inventory changed in some way.
+#[derive(Debug, Deserialize)]
 pub struct OnPlayerAmmoInventoryChanged {
     /// Identifier of the event
     pub name: Events,
@@ -952,6 +1021,7 @@ pub struct OnPlayerAmmoInventoryChanged {
 }
 
 /// Called after a players armor inventory changed in some way.
+#[derive(Debug, Deserialize)]
 pub struct OnPlayerArmorInventoryChanged {
     /// Identifier of the event
     pub name: Events,
@@ -961,6 +1031,7 @@ pub struct OnPlayerArmorInventoryChanged {
 }
 
 /// Called when a player is banned.
+#[derive(Debug, Deserialize)]
 pub struct OnPlayerBanned {
     /// The player that did the banning if any.
     pub by_player: Option<u32>,
@@ -977,6 +1048,7 @@ pub struct OnPlayerBanned {
 }
 
 /// Called after a player builds tiles.
+#[derive(Debug, Deserialize)]
 pub struct OnPlayerBuiltTile {
     /// The item type used to build the tiles
     pub item: Option<LuaItemPrototype>,
@@ -996,6 +1068,7 @@ pub struct OnPlayerBuiltTile {
 }
 
 /// Called when a player cancels crafting.
+#[derive(Debug, Deserialize)]
 pub struct OnPlayerCancelledCrafting {
     /// The number of crafts that have been cancelled.
     pub cancel_count: u32,
@@ -1012,6 +1085,7 @@ pub struct OnPlayerCancelledCrafting {
 }
 
 /// Called after a player changes forces.
+#[derive(Debug, Deserialize)]
 pub struct OnPlayerChangedForce {
     /// The old force.
     pub force: LuaForce,
@@ -1024,6 +1098,7 @@ pub struct OnPlayerChangedForce {
 }
 
 /// Called when the tile position a player is located at changes.
+#[derive(Debug, Deserialize)]
 pub struct OnPlayerChangedPosition {
     /// Identifier of the event
     pub name: Events,
@@ -1038,6 +1113,7 @@ pub struct OnPlayerChangedPosition {
 /// # Notes
 ///
 /// * In the instance a player is moved off a surface due to it being deleted this is not called.
+#[derive(Debug, Deserialize)]
 pub struct OnPlayerChangedSurface {
     /// Identifier of the event
     pub name: Events,
@@ -1050,6 +1126,7 @@ pub struct OnPlayerChangedSurface {
 }
 
 /// Called when cheat mode is disabled on a player.
+#[derive(Debug, Deserialize)]
 pub struct OnPlayerCheatModeDisabled {
     /// Identifier of the event
     pub name: Events,
@@ -1060,6 +1137,7 @@ pub struct OnPlayerCheatModeDisabled {
 }
 
 /// Called when cheat mode is enabled on a player.
+#[derive(Debug, Deserialize)]
 pub struct OnPlayerCheatModeEnabled {
     /// Identifier of the event
     pub name: Events,
@@ -1070,6 +1148,7 @@ pub struct OnPlayerCheatModeEnabled {
 }
 
 /// Called when a player clicks a gps tag
+#[derive(Debug, Deserialize)]
 pub struct OnPlayerClickedGpsTag {
     /// Identifier of the event
     pub name: Events,
@@ -1084,6 +1163,7 @@ pub struct OnPlayerClickedGpsTag {
 }
 
 /// Called when a player clicks the "confirm" button in the configure Blueprint GUI.
+#[derive(Debug, Deserialize)]
 pub struct OnPlayerConfiguredBlueprint {
     /// Identifier of the event
     pub name: Events,
@@ -1094,6 +1174,7 @@ pub struct OnPlayerConfiguredBlueprint {
 }
 
 /// Called when a player configures spidertron remote to be connected with a given spidertron
+#[derive(Debug, Deserialize)]
 pub struct OnPlayerConfiguredSpiderRemote {
     /// Identifier of the event
     pub name: Events,
@@ -1106,6 +1187,7 @@ pub struct OnPlayerConfiguredSpiderRemote {
 }
 
 /// Called when the player finishes crafting an item. This event fires just before the results are inserted into the player's inventory, not when the crafting is queued (see [on_pre_player_crafted_item](on_pre_player_crafted_item)).
+#[derive(Debug, Deserialize)]
 pub struct OnPlayerCraftedItem {
     /// The item that has been crafted.
     pub item_stack: LuaItemStack,
@@ -1120,6 +1202,7 @@ pub struct OnPlayerCraftedItem {
 }
 
 /// Called after the player was created.
+#[derive(Debug, Deserialize)]
 pub struct OnPlayerCreated {
     /// Identifier of the event
     pub name: Events,
@@ -1129,6 +1212,7 @@ pub struct OnPlayerCreated {
 }
 
 /// Called after a player's [cursor stack](LuaControl::cursor_stack) changed in some way.
+#[derive(Debug, Deserialize)]
 pub struct OnPlayerCursorStackChanged {
     /// Identifier of the event
     pub name: Events,
@@ -1138,6 +1222,7 @@ pub struct OnPlayerCursorStackChanged {
 }
 
 /// Called when a player selects an area with a deconstruction planner.
+#[derive(Debug, Deserialize)]
 pub struct OnPlayerDeconstructedArea {
     /// If normal selection or alt selection was used.
     pub alt: bool,
@@ -1156,6 +1241,7 @@ pub struct OnPlayerDeconstructedArea {
 }
 
 /// Called when a player is demoted.
+#[derive(Debug, Deserialize)]
 pub struct OnPlayerDemoted {
     /// Identifier of the event
     pub name: Events,
@@ -1166,6 +1252,7 @@ pub struct OnPlayerDemoted {
 }
 
 /// Called after a player dies.
+#[derive(Debug, Deserialize)]
 pub struct OnPlayerDied {
     pub cause: Option<LuaEntity>,
     /// Identifier of the event
@@ -1176,6 +1263,7 @@ pub struct OnPlayerDied {
 }
 
 /// Called when the display resolution changes for a given player.
+#[derive(Debug, Deserialize)]
 pub struct OnPlayerDisplayResolutionChanged {
     /// Identifier of the event
     pub name: Events,
@@ -1188,6 +1276,7 @@ pub struct OnPlayerDisplayResolutionChanged {
 }
 
 /// Called when the display scale changes for a given player.
+#[derive(Debug, Deserialize)]
 pub struct OnPlayerDisplayScaleChanged {
     /// Identifier of the event
     pub name: Events,
@@ -1204,6 +1293,7 @@ pub struct OnPlayerDisplayScaleChanged {
 /// # Notes
 ///
 /// * This event is not raised when the player is ejected from a vehicle due to it being destroyed.
+#[derive(Debug, Deserialize)]
 pub struct OnPlayerDrivingChangedState {
     /// The vehicle if any.
     pub entity: Option<LuaEntity>,
@@ -1215,6 +1305,7 @@ pub struct OnPlayerDrivingChangedState {
 }
 
 /// Called when a player drops an item on the ground.
+#[derive(Debug, Deserialize)]
 pub struct OnPlayerDroppedItem {
     /// The item-on-ground entity.
     pub entity: LuaEntity,
@@ -1226,6 +1317,7 @@ pub struct OnPlayerDroppedItem {
 }
 
 /// Called when a player fast-transfers something to or from an entity.
+#[derive(Debug, Deserialize)]
 pub struct OnPlayerFastTransferred {
     /// The entity transferred from or to.
     pub entity: LuaEntity,
@@ -1242,6 +1334,7 @@ pub struct OnPlayerFastTransferred {
 }
 
 /// Called after player flushed fluid
+#[derive(Debug, Deserialize)]
 pub struct OnPlayerFlushedFluid {
     /// Amount of fluid that was removed
     pub amount: f64,
@@ -1260,6 +1353,7 @@ pub struct OnPlayerFlushedFluid {
 }
 
 /// Called after a players gun inventory changed in some way.
+#[derive(Debug, Deserialize)]
 pub struct OnPlayerGunInventoryChanged {
     /// Identifier of the event
     pub name: Events,
@@ -1269,6 +1363,7 @@ pub struct OnPlayerGunInventoryChanged {
 }
 
 /// Called after a player joins the game. This is not called when loading a save file in singleplayer, as the player doesn't actually leave the game, and the save is just on pause until they rejoin.
+#[derive(Debug, Deserialize)]
 pub struct OnPlayerJoinedGame {
     /// Identifier of the event
     pub name: Events,
@@ -1278,6 +1373,7 @@ pub struct OnPlayerJoinedGame {
 }
 
 /// Called when a player is kicked.
+#[derive(Debug, Deserialize)]
 pub struct OnPlayerKicked {
     /// The player that did the kicking if any.
     pub by_player: Option<u32>,
@@ -1292,6 +1388,7 @@ pub struct OnPlayerKicked {
 }
 
 /// Called after a player leaves the game. This is not called when closing a save file in singleplayer, as the player doesn't actually leave the game, and the save is just on pause until they rejoin.
+#[derive(Debug, Deserialize)]
 pub struct OnPlayerLeftGame {
     /// Identifier of the event
     pub name: Events,
@@ -1302,6 +1399,7 @@ pub struct OnPlayerLeftGame {
 }
 
 /// Called after a players main inventory changed in some way.
+#[derive(Debug, Deserialize)]
 pub struct OnPlayerMainInventoryChanged {
     /// Identifier of the event
     pub name: Events,
@@ -1315,6 +1413,7 @@ pub struct OnPlayerMainInventoryChanged {
 /// # Notes
 ///
 /// * The buffer inventory is special in that it's only valid during this event and has a dynamic size expanding as more items are transferred into it.
+#[derive(Debug, Deserialize)]
 pub struct OnPlayerMinedEntity {
     /// The temporary inventory that holds the result of mining the entity.
     pub buffer: LuaInventory,
@@ -1329,6 +1428,7 @@ pub struct OnPlayerMinedEntity {
 }
 
 /// Called when the player mines something.
+#[derive(Debug, Deserialize)]
 pub struct OnPlayerMinedItem {
     /// The item given to the player
     pub item_stack: SimpleItemStack,
@@ -1340,6 +1440,7 @@ pub struct OnPlayerMinedItem {
 }
 
 /// Called after a player mines tiles.
+#[derive(Debug, Deserialize)]
 pub struct OnPlayerMinedTile {
     /// Identifier of the event
     pub name: Events,
@@ -1353,6 +1454,7 @@ pub struct OnPlayerMinedTile {
 }
 
 /// Called when a player is muted.
+#[derive(Debug, Deserialize)]
 pub struct OnPlayerMuted {
     /// Identifier of the event
     pub name: Events,
@@ -1363,6 +1465,7 @@ pub struct OnPlayerMuted {
 }
 
 /// Called when a player invokes the "smart pipette" over an entity.
+#[derive(Debug, Deserialize)]
 pub struct OnPlayerPipette {
     /// The item put in the cursor
     pub item: LuaItemPrototype,
@@ -1377,6 +1480,7 @@ pub struct OnPlayerPipette {
 }
 
 /// Called after the player puts equipment in an equipment grid
+#[derive(Debug, Deserialize)]
 pub struct OnPlayerPlacedEquipment {
     /// The equipment put in the equipment grid.
     pub equipment: LuaEquipment,
@@ -1390,6 +1494,7 @@ pub struct OnPlayerPlacedEquipment {
 }
 
 /// Called when a player is promoted.
+#[derive(Debug, Deserialize)]
 pub struct OnPlayerPromoted {
     /// Identifier of the event
     pub name: Events,
@@ -1400,6 +1505,7 @@ pub struct OnPlayerPromoted {
 }
 
 /// Called when a player is removed (deleted) from the game. This is markedly different from a player temporarily [leaving](on_player_left_game) the game, and instead behaves like the player never existed in the save file.
+#[derive(Debug, Deserialize)]
 pub struct OnPlayerRemoved {
     /// Identifier of the event
     pub name: Events,
@@ -1410,6 +1516,7 @@ pub struct OnPlayerRemoved {
 }
 
 /// Called after the player removes equipment from an equipment grid
+#[derive(Debug, Deserialize)]
 pub struct OnPlayerRemovedEquipment {
     /// The count of equipment removed.
     pub count: u32,
@@ -1425,6 +1532,7 @@ pub struct OnPlayerRemovedEquipment {
 }
 
 /// Called when a player repairs an entity. Can be filtered using [LuaPlayerRepairedEntityEventFilter](LuaPlayerRepairedEntityEventFilter).
+#[derive(Debug, Deserialize)]
 pub struct OnPlayerRepairedEntity {
     pub entity: LuaEntity,
     /// Identifier of the event
@@ -1435,6 +1543,7 @@ pub struct OnPlayerRepairedEntity {
 }
 
 /// Called after a player respawns.
+#[derive(Debug, Deserialize)]
 pub struct OnPlayerRespawned {
     /// Identifier of the event
     pub name: Events,
@@ -1446,6 +1555,7 @@ pub struct OnPlayerRespawned {
 }
 
 /// Called after a player reverse-selects an area with a selection-tool item.
+#[derive(Debug, Deserialize)]
 pub struct OnPlayerReverseSelectedArea {
     /// The area selected.
     pub area: BoundingBox,
@@ -1466,6 +1576,7 @@ pub struct OnPlayerReverseSelectedArea {
 }
 
 /// Called when the player rotates an entity. This event is only fired when the entity actually changes its orientation -- pressing the rotate key on an entity that can't be rotated won't fire this event.
+#[derive(Debug, Deserialize)]
 pub struct OnPlayerRotatedEntity {
     /// The rotated entity.
     pub entity: LuaEntity,
@@ -1479,6 +1590,7 @@ pub struct OnPlayerRotatedEntity {
 }
 
 /// Called after a player selects an area with a selection-tool item.
+#[derive(Debug, Deserialize)]
 pub struct OnPlayerSelectedArea {
     /// The area selected.
     pub area: BoundingBox,
@@ -1499,6 +1611,7 @@ pub struct OnPlayerSelectedArea {
 }
 
 /// Called when a player sets a quickbar slot to anything (new value, or set to empty).
+#[derive(Debug, Deserialize)]
 pub struct OnPlayerSetQuickBarSlot {
     /// Identifier of the event
     pub name: Events,
@@ -1508,6 +1621,7 @@ pub struct OnPlayerSetQuickBarSlot {
 }
 
 /// Called when a player selects an area with a blueprint.
+#[derive(Debug, Deserialize)]
 pub struct OnPlayerSetupBlueprint {
     /// If normal selection or alt selection was used.
     pub alt: bool,
@@ -1528,6 +1642,7 @@ pub struct OnPlayerSetupBlueprint {
 }
 
 /// Called when a player toggles alt mode, also known as "show entity info".
+#[derive(Debug, Deserialize)]
 pub struct OnPlayerToggledAltMode {
     /// The new alt mode value. This value is a shortcut for accessing [GameViewSettings::show_entity_info](GameViewSettings::show_entity_info) on the player.
     pub alt_mode: bool,
@@ -1539,6 +1654,7 @@ pub struct OnPlayerToggledAltMode {
 }
 
 /// Called when a player toggles the map editor on or off.
+#[derive(Debug, Deserialize)]
 pub struct OnPlayerToggledMapEditor {
     /// Identifier of the event
     pub name: Events,
@@ -1548,6 +1664,7 @@ pub struct OnPlayerToggledMapEditor {
 }
 
 /// Called after a players trash inventory changed in some way.
+#[derive(Debug, Deserialize)]
 pub struct OnPlayerTrashInventoryChanged {
     /// Identifier of the event
     pub name: Events,
@@ -1557,6 +1674,7 @@ pub struct OnPlayerTrashInventoryChanged {
 }
 
 /// Called when a player is un-banned.
+#[derive(Debug, Deserialize)]
 pub struct OnPlayerUnbanned {
     /// The player that did the un-banning if any.
     pub by_player: Option<u32>,
@@ -1573,6 +1691,7 @@ pub struct OnPlayerUnbanned {
 }
 
 /// Called when a player is unmuted.
+#[derive(Debug, Deserialize)]
 pub struct OnPlayerUnmuted {
     /// Identifier of the event
     pub name: Events,
@@ -1583,6 +1702,7 @@ pub struct OnPlayerUnmuted {
 }
 
 /// Called when a player uses a capsule that results in some game action.
+#[derive(Debug, Deserialize)]
 pub struct OnPlayerUsedCapsule {
     /// The capsule item used.
     pub item: LuaItemPrototype,
@@ -1597,6 +1717,7 @@ pub struct OnPlayerUsedCapsule {
 }
 
 /// Called when a player uses spidertron remote to send a spidertron to a given position
+#[derive(Debug, Deserialize)]
 pub struct OnPlayerUsedSpiderRemote {
     /// Identifier of the event
     pub name: Events,
@@ -1613,6 +1734,7 @@ pub struct OnPlayerUsedSpiderRemote {
 }
 
 /// Called after an entity dies. Can be filtered using [LuaPostEntityDiedEventFilter](LuaPostEntityDiedEventFilter).
+#[derive(Debug, Deserialize)]
 pub struct OnPostEntityDied {
     /// The corpses created by the entity dying if any.
     pub corpses: Vec<LuaEntity>,
@@ -1637,6 +1759,7 @@ pub struct OnPostEntityDied {
 }
 
 /// Called when players uses an item to build something. Called before [on_built_entity](on_built_entity).
+#[derive(Debug, Deserialize)]
 pub struct OnPreBuild {
     /// Whether the item was placed while moving.
     pub created_by_moving: bool,
@@ -1659,6 +1782,7 @@ pub struct OnPreBuild {
 }
 
 /// Called before one or more chunks are deleted using [LuaSurface::delete_chunk](LuaSurface::delete_chunk).
+#[derive(Debug, Deserialize)]
 pub struct OnPreChunkDeleted {
     /// Identifier of the event
     pub name: Events,
@@ -1670,6 +1794,7 @@ pub struct OnPreChunkDeleted {
 }
 
 /// Called before entity copy-paste is done.
+#[derive(Debug, Deserialize)]
 pub struct OnPreEntitySettingsPasted {
     /// The destination entity settings will be copied to.
     pub destination: LuaEntity,
@@ -1683,6 +1808,7 @@ pub struct OnPreEntitySettingsPasted {
 }
 
 /// Called before a ghost entity is destroyed as a result of being marked for deconstruction. Can be filtered using [LuaPreGhostDeconstructedEventFilter](LuaPreGhostDeconstructedEventFilter).
+#[derive(Debug, Deserialize)]
 pub struct OnPreGhostDeconstructed {
     pub ghost: LuaEntity,
     /// Identifier of the event
@@ -1694,6 +1820,7 @@ pub struct OnPreGhostDeconstructed {
 }
 
 /// Called before a ghost entity is upgraded. Can be filtered using [LuaPreGhostUpgradedEventFilter](LuaPreGhostUpgradedEventFilter).
+#[derive(Debug, Deserialize)]
 pub struct OnPreGhostUpgraded {
     pub ghost: LuaEntity,
     /// Identifier of the event
@@ -1706,6 +1833,7 @@ pub struct OnPreGhostUpgraded {
 }
 
 /// Called directly before a permission group is deleted.
+#[derive(Debug, Deserialize)]
 pub struct OnPrePermissionGroupDeleted {
     /// The group to be deleted.
     pub group: LuaPermissionGroup,
@@ -1718,6 +1846,7 @@ pub struct OnPrePermissionGroupDeleted {
 }
 
 /// Called directly before a permission string is imported.
+#[derive(Debug, Deserialize)]
 pub struct OnPrePermissionStringImported {
     /// Identifier of the event
     pub name: Events,
@@ -1728,6 +1857,7 @@ pub struct OnPrePermissionStringImported {
 }
 
 /// Called when a player queues something to be crafted.
+#[derive(Debug, Deserialize)]
 pub struct OnPrePlayerCraftedItem {
     /// The items removed from the players inventory to do the crafting.
     pub items: LuaInventory,
@@ -1744,6 +1874,7 @@ pub struct OnPrePlayerCraftedItem {
 }
 
 /// Called before a players dies.
+#[derive(Debug, Deserialize)]
 pub struct OnPrePlayerDied {
     pub cause: Option<LuaEntity>,
     /// Identifier of the event
@@ -1754,6 +1885,7 @@ pub struct OnPrePlayerDied {
 }
 
 /// Called before a player leaves the game.
+#[derive(Debug, Deserialize)]
 pub struct OnPrePlayerLeftGame {
     /// Identifier of the event
     pub name: Events,
@@ -1764,6 +1896,7 @@ pub struct OnPrePlayerLeftGame {
 }
 
 /// Called when the player completes a mining action, but before the entity is potentially removed from the map. This is called even if the entity does not end up being removed. Can be filtered using [LuaPrePlayerMinedEntityEventFilter](LuaPrePlayerMinedEntityEventFilter).
+#[derive(Debug, Deserialize)]
 pub struct OnPrePlayerMinedItem {
     /// The entity being mined
     pub entity: LuaEntity,
@@ -1775,6 +1908,7 @@ pub struct OnPrePlayerMinedItem {
 }
 
 /// Called before a player is removed (deleted) from the game. This is markedly different from a player temporarily [leaving](on_player_left_game) the game, and instead behaves like the player never existed in the save file.
+#[derive(Debug, Deserialize)]
 pub struct OnPrePlayerRemoved {
     /// Identifier of the event
     pub name: Events,
@@ -1785,6 +1919,7 @@ pub struct OnPrePlayerRemoved {
 }
 
 /// Called before a player toggles the map editor on or off.
+#[derive(Debug, Deserialize)]
 pub struct OnPrePlayerToggledMapEditor {
     /// Identifier of the event
     pub name: Events,
@@ -1794,6 +1929,7 @@ pub struct OnPrePlayerToggledMapEditor {
 }
 
 /// Called directly before a robot explodes cliffs.
+#[derive(Debug, Deserialize)]
 pub struct OnPreRobotExplodedCliff {
     pub cliff: LuaEntity,
     /// The cliff explosive used.
@@ -1806,6 +1942,7 @@ pub struct OnPreRobotExplodedCliff {
 }
 
 /// Called just before a script inventory is resized.
+#[derive(Debug, Deserialize)]
 pub struct OnPreScriptInventoryResized {
     pub inventory: LuaInventory,
     /// The mod that did the resizing. This will be `"core"` if done by console command or scenario script.
@@ -1823,6 +1960,7 @@ pub struct OnPreScriptInventoryResized {
 }
 
 /// Called just before a surface is cleared (all entities removed and all chunks deleted).
+#[derive(Debug, Deserialize)]
 pub struct OnPreSurfaceCleared {
     /// Identifier of the event
     pub name: Events,
@@ -1832,6 +1970,7 @@ pub struct OnPreSurfaceCleared {
 }
 
 /// Called just before a surface is deleted.
+#[derive(Debug, Deserialize)]
 pub struct OnPreSurfaceDeleted {
     /// Identifier of the event
     pub name: Events,
@@ -1841,6 +1980,7 @@ pub struct OnPreSurfaceDeleted {
 }
 
 /// Called when research is cancelled.
+#[derive(Debug, Deserialize)]
 pub struct OnResearchCancelled {
     /// The force whose research was cancelled.
     pub force: LuaForce,
@@ -1853,6 +1993,7 @@ pub struct OnResearchCancelled {
 }
 
 /// Called when a research finishes.
+#[derive(Debug, Deserialize)]
 pub struct OnResearchFinished {
     /// If the technology was researched by script.
     pub by_script: bool,
@@ -1865,6 +2006,7 @@ pub struct OnResearchFinished {
 }
 
 /// Called when a research is reversed (unresearched).
+#[derive(Debug, Deserialize)]
 pub struct OnResearchReversed {
     /// If the technology was un-researched by script.
     pub by_script: bool,
@@ -1877,6 +2019,7 @@ pub struct OnResearchReversed {
 }
 
 /// Called when a technology research starts.
+#[derive(Debug, Deserialize)]
 pub struct OnResearchStarted {
     pub last_research: Option<LuaTechnology>,
     /// Identifier of the event
@@ -1888,6 +2031,7 @@ pub struct OnResearchStarted {
 }
 
 /// Called when a resource entity reaches 0 or its minimum yield for infinite resources.
+#[derive(Debug, Deserialize)]
 pub struct OnResourceDepleted {
     pub entity: LuaEntity,
     /// Identifier of the event
@@ -1897,6 +2041,7 @@ pub struct OnResourceDepleted {
 }
 
 /// Called when a construction robot builds an entity. Can be filtered using [LuaRobotBuiltEntityEventFilter](LuaRobotBuiltEntityEventFilter).
+#[derive(Debug, Deserialize)]
 pub struct OnRobotBuiltEntity {
     /// The entity built.
     pub created_entity: LuaEntity,
@@ -1913,6 +2058,7 @@ pub struct OnRobotBuiltEntity {
 }
 
 /// Called after a robot builds tiles.
+#[derive(Debug, Deserialize)]
 pub struct OnRobotBuiltTile {
     /// The item type used to build the tiles.
     pub item: LuaItemPrototype,
@@ -1933,6 +2079,7 @@ pub struct OnRobotBuiltTile {
 }
 
 /// Called directly after a robot explodes cliffs.
+#[derive(Debug, Deserialize)]
 pub struct OnRobotExplodedCliff {
     /// The cliff explosive used.
     pub item: LuaItemPrototype,
@@ -1944,6 +2091,7 @@ pub struct OnRobotExplodedCliff {
 }
 
 /// Called when a robot mines an entity.
+#[derive(Debug, Deserialize)]
 pub struct OnRobotMined {
     /// The entity the robot just picked up.
     pub item_stack: SimpleItemStack,
@@ -1960,6 +2108,7 @@ pub struct OnRobotMined {
 /// # Notes
 ///
 /// * The buffer inventory is special in that it's only valid during this event and has a dynamic size expanding as more items are transferred into it.
+#[derive(Debug, Deserialize)]
 pub struct OnRobotMinedEntity {
     /// The temporary inventory that holds the result of mining the entity.
     pub buffer: LuaInventory,
@@ -1974,6 +2123,7 @@ pub struct OnRobotMinedEntity {
 }
 
 /// Called after a robot mines tiles.
+#[derive(Debug, Deserialize)]
 pub struct OnRobotMinedTile {
     /// Identifier of the event
     pub name: Events,
@@ -1988,6 +2138,7 @@ pub struct OnRobotMinedTile {
 }
 
 /// Called before a robot mines an entity. Can be filtered using [LuaPreRobotMinedEntityEventFilter](LuaPreRobotMinedEntityEventFilter).
+#[derive(Debug, Deserialize)]
 pub struct OnRobotPreMined {
     /// The entity which is about to be mined.
     pub entity: LuaEntity,
@@ -2000,6 +2151,7 @@ pub struct OnRobotPreMined {
 }
 
 /// Called when a rocket silo is ordered to be launched.
+#[derive(Debug, Deserialize)]
 pub struct OnRocketLaunchOrdered {
     /// Identifier of the event
     pub name: Events,
@@ -2012,6 +2164,7 @@ pub struct OnRocketLaunchOrdered {
 }
 
 /// Called when the rocket is launched.
+#[derive(Debug, Deserialize)]
 pub struct OnRocketLaunched {
     /// Identifier of the event
     pub name: Events,
@@ -2024,6 +2177,7 @@ pub struct OnRocketLaunched {
 }
 
 /// Called when a runtime mod setting is changed by a player.
+#[derive(Debug, Deserialize)]
 pub struct OnRuntimeModSettingChanged {
     /// Identifier of the event
     pub name: Events,
@@ -2038,6 +2192,7 @@ pub struct OnRuntimeModSettingChanged {
 }
 
 /// Called just after a script inventory is resized.
+#[derive(Debug, Deserialize)]
 pub struct OnScriptInventoryResized {
     pub inventory: LuaInventory,
     /// The mod that did the resizing. This will be `"core"` if done by console command or scenario script.
@@ -2057,6 +2212,7 @@ pub struct OnScriptInventoryResized {
 }
 
 /// Called when a [LuaSurface::request_path](LuaSurface::request_path) call completes.
+#[derive(Debug, Deserialize)]
 pub struct OnScriptPathRequestFinished {
     /// Handle to associate the callback with a particular call to [LuaSurface::request_path](LuaSurface::request_path).
     pub id: u32,
@@ -2071,6 +2227,7 @@ pub struct OnScriptPathRequestFinished {
 }
 
 /// Called when a script trigger effect is triggered.
+#[derive(Debug, Deserialize)]
 pub struct OnScriptTriggerEffect {
     /// The effect_id specified in the trigger effect.
     pub effect_id: String,
@@ -2087,6 +2244,7 @@ pub struct OnScriptTriggerEffect {
 }
 
 /// Called when an entity of type `radar` finishes scanning a sector. Can be filtered for the radar using [LuaSectorScannedEventFilter](LuaSectorScannedEventFilter).
+#[derive(Debug, Deserialize)]
 pub struct OnSectorScanned {
     /// Area of the scanned chunk.
     pub area: BoundingBox,
@@ -2101,6 +2259,7 @@ pub struct OnSectorScanned {
 }
 
 /// Called after the selected entity changes for a given player.
+#[derive(Debug, Deserialize)]
 pub struct OnSelectedEntityChanged {
     /// The last selected entity if it still exists and there was one.
     pub last_entity: Option<LuaEntity>,
@@ -2113,6 +2272,7 @@ pub struct OnSelectedEntityChanged {
 }
 
 /// Called when a spider finishes moving to its autopilot position.
+#[derive(Debug, Deserialize)]
 pub struct OnSpiderCommandCompleted {
     /// Identifier of the event
     pub name: Events,
@@ -2123,6 +2283,7 @@ pub struct OnSpiderCommandCompleted {
 }
 
 /// Called when a translation request generated through [LuaPlayer::request_translation](LuaPlayer::request_translation) or [LuaPlayer::request_translations](LuaPlayer::request_translations) has been completed.
+#[derive(Debug, Deserialize)]
 pub struct OnStringTranslated {
     /// The unique id for this translation request.
     pub id: u32,
@@ -2141,6 +2302,7 @@ pub struct OnStringTranslated {
 }
 
 /// Called just after a surface is cleared (all entities removed and all chunks deleted).
+#[derive(Debug, Deserialize)]
 pub struct OnSurfaceCleared {
     /// Identifier of the event
     pub name: Events,
@@ -2154,6 +2316,7 @@ pub struct OnSurfaceCleared {
 /// # Notes
 ///
 /// * This is not called when the default surface is created as it will always exist.
+#[derive(Debug, Deserialize)]
 pub struct OnSurfaceCreated {
     /// Identifier of the event
     pub name: Events,
@@ -2163,6 +2326,7 @@ pub struct OnSurfaceCreated {
 }
 
 /// Called after a surface is deleted.
+#[derive(Debug, Deserialize)]
 pub struct OnSurfaceDeleted {
     /// Identifier of the event
     pub name: Events,
@@ -2172,6 +2336,7 @@ pub struct OnSurfaceDeleted {
 }
 
 /// Called after a surface is imported via the map editor.
+#[derive(Debug, Deserialize)]
 pub struct OnSurfaceImported {
     /// Identifier of the event
     pub name: Events,
@@ -2183,6 +2348,7 @@ pub struct OnSurfaceImported {
 }
 
 /// Called when a surface is renamed.
+#[derive(Debug, Deserialize)]
 pub struct OnSurfaceRenamed {
     /// Identifier of the event
     pub name: Events,
@@ -2194,6 +2360,7 @@ pub struct OnSurfaceRenamed {
 }
 
 /// Called when [LuaForce::reset_technology_effects](LuaForce::reset_technology_effects) is finished.
+#[derive(Debug, Deserialize)]
 pub struct OnTechnologyEffectsReset {
     pub force: LuaForce,
     /// Identifier of the event
@@ -2203,6 +2370,7 @@ pub struct OnTechnologyEffectsReset {
 }
 
 /// It is fired once every tick. Since this event is fired every tick, its handler shouldn't include performance heavy code.
+#[derive(Debug, Deserialize)]
 pub struct OnTick {
     /// Identifier of the event
     pub name: Events,
@@ -2211,6 +2379,7 @@ pub struct OnTick {
 }
 
 /// Called when a train changes state (started to stopped and vice versa)
+#[derive(Debug, Deserialize)]
 pub struct OnTrainChangedState {
     /// Identifier of the event
     pub name: Events,
@@ -2221,6 +2390,7 @@ pub struct OnTrainChangedState {
 }
 
 /// Called when a new train is created either through disconnecting/connecting an existing one or building a new one.
+#[derive(Debug, Deserialize)]
 pub struct OnTrainCreated {
     /// Identifier of the event
     pub name: Events,
@@ -2234,6 +2404,7 @@ pub struct OnTrainCreated {
 }
 
 /// Called when a trains schedule is changed either by the player or through script.
+#[derive(Debug, Deserialize)]
 pub struct OnTrainScheduleChanged {
     /// Identifier of the event
     pub name: Events,
@@ -2245,6 +2416,7 @@ pub struct OnTrainScheduleChanged {
 }
 
 /// Called when an entity with a trigger prototype (such as capsules) create an entity AND that trigger prototype defined `trigger_created_entity="true"`.
+#[derive(Debug, Deserialize)]
 pub struct OnTriggerCreatedEntity {
     pub entity: LuaEntity,
     /// Identifier of the event
@@ -2255,6 +2427,7 @@ pub struct OnTriggerCreatedEntity {
 }
 
 /// Called when an entity with a trigger prototype (such as capsules) fire an artillery projectile AND that trigger prototype defined `trigger_fired_artillery="true"`.
+#[derive(Debug, Deserialize)]
 pub struct OnTriggerFiredArtillery {
     pub entity: LuaEntity,
     /// Identifier of the event
@@ -2265,6 +2438,7 @@ pub struct OnTriggerFiredArtillery {
 }
 
 /// Called when a unit is added to a unit group.
+#[derive(Debug, Deserialize)]
 pub struct OnUnitAddedToGroup {
     pub group: LuaUnitGroup,
     /// Identifier of the event
@@ -2275,6 +2449,7 @@ pub struct OnUnitAddedToGroup {
 }
 
 /// Called when a new unit group is created, before any members are added to it.
+#[derive(Debug, Deserialize)]
 pub struct OnUnitGroupCreated {
     pub group: LuaUnitGroup,
     /// Identifier of the event
@@ -2284,6 +2459,7 @@ pub struct OnUnitGroupCreated {
 }
 
 /// Called when a unit group finishes gathering and starts executing its command.
+#[derive(Debug, Deserialize)]
 pub struct OnUnitGroupFinishedGathering {
     pub group: LuaUnitGroup,
     /// Identifier of the event
@@ -2293,6 +2469,7 @@ pub struct OnUnitGroupFinishedGathering {
 }
 
 /// Called when a unit is removed from a unit group.
+#[derive(Debug, Deserialize)]
 pub struct OnUnitRemovedFromGroup {
     pub group: LuaUnitGroup,
     /// Identifier of the event
@@ -2303,6 +2480,7 @@ pub struct OnUnitRemovedFromGroup {
 }
 
 /// Called when a worker (construction or logistic) robot expires through a lack of energy.
+#[derive(Debug, Deserialize)]
 pub struct OnWorkerRobotExpired {
     /// Identifier of the event
     pub name: Events,
@@ -2312,6 +2490,7 @@ pub struct OnWorkerRobotExpired {
 }
 
 /// A static event mods can use to tell other mods they built something by script. This event is only raised if a mod does so with [LuaBootstrap::raise_event](LuaBootstrap::raise_event) or [LuaBootstrap::raise_script_built](LuaBootstrap::raise_script_built), or when `raise_built` is passed to [LuaSurface::create_entity](LuaSurface::create_entity). Can be filtered using [LuaScriptRaisedBuiltEventFilter](LuaScriptRaisedBuiltEventFilter).
+#[derive(Debug, Deserialize)]
 pub struct ScriptRaisedBuilt {
     /// The entity that has been built.
     pub entity: LuaEntity,
@@ -2322,6 +2501,7 @@ pub struct ScriptRaisedBuilt {
 }
 
 /// A static event mods can use to tell other mods they destroyed something by script. This event is only raised if a mod does so with [LuaBootstrap::raise_event](LuaBootstrap::raise_event) or [LuaBootstrap::raise_script_destroy](LuaBootstrap::raise_script_destroy), or when `raise_destroy` is passed to [LuaEntity::destroy](LuaEntity::destroy). Can be filtered using [LuaScriptRaisedDestroyEventFilter](LuaScriptRaisedDestroyEventFilter).
+#[derive(Debug, Deserialize)]
 pub struct ScriptRaisedDestroy {
     /// The entity that was destroyed.
     pub entity: LuaEntity,
@@ -2332,6 +2512,7 @@ pub struct ScriptRaisedDestroy {
 }
 
 /// A static event mods can use to tell other mods they revived something by script. This event is only raised if a mod does so with [LuaBootstrap::raise_event](LuaBootstrap::raise_event) or [LuaBootstrap::raise_script_revive](LuaBootstrap::raise_script_revive), or when `raise_revive` is passed to [LuaEntity::revive](LuaEntity::revive). Can be filtered using [LuaScriptRaisedReviveEventFilter](LuaScriptRaisedReviveEventFilter).
+#[derive(Debug, Deserialize)]
 pub struct ScriptRaisedRevive {
     /// The entity that was revived.
     pub entity: LuaEntity,
@@ -2344,6 +2525,7 @@ pub struct ScriptRaisedRevive {
 }
 
 /// A static event mods can use to tell other mods they changed tiles on a surface by script. This event is only raised if a mod does so with [LuaBootstrap::raise_event](LuaBootstrap::raise_event) or [LuaBootstrap::raise_script_set_tiles](LuaBootstrap::raise_script_set_tiles), or when `raise_event` is passed to [LuaSurface::set_tiles](LuaSurface::set_tiles).
+#[derive(Debug, Deserialize)]
 pub struct ScriptRaisedSetTiles {
     /// Identifier of the event
     pub name: Events,
@@ -2356,6 +2538,7 @@ pub struct ScriptRaisedSetTiles {
 }
 
 /// A static event mods can use to tell other mods they teleported something by script. This event is only raised if a mod does so with [LuaBootstrap::raise_event](LuaBootstrap::raise_event) or [LuaBootstrap::raise_script_teleported](LuaBootstrap::raise_script_teleported), or when `raise_teleported` is passed to [LuaControl::teleport](LuaControl::teleport). Can be filtered using [LuaScriptRaisedTeleportedEventFilter](LuaScriptRaisedTeleportedEventFilter).
+#[derive(Debug, Deserialize)]
 pub struct ScriptRaisedTeleported {
     /// The entity that was teleported.
     pub entity: LuaEntity,

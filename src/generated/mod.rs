@@ -9,3 +9,6 @@ pub use concepts::*;
 
 mod defines;
 pub use defines::*;
+
+mod factorio_types;
+pub use factorio_types::*;

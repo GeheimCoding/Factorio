@@ -10,6 +10,9 @@ use std::{
 
 use serde::Deserialize;
 
+const DERIVE: &str = "#[derive(Debug, Deserialize)]\n";
+const DERIVE_WITH_HASH: &str = "#[derive(Debug, Deserialize, Eq, PartialEq, Hash)]\n";
+
 trait PascalCase {
     fn to_pascal_case(&self) -> String;
 }
@@ -181,6 +184,7 @@ enum Import {
     Classes,
     Concepts,
     Defines,
+    Deserialize,
     LineBreak,
 }
 
@@ -199,14 +203,51 @@ impl RuntimeApiFormat {
         self.generate_concepts(&generated_path, &mut mod_content)?;
         self.generate_defines(&generated_path, &mut mod_content)?;
 
+        let factorio_types_path = generated_path.join("factorio_types.rs");
+        if factorio_types_path.exists() {
+            fs::remove_file(&factorio_types_path)?;
+        }
+        let mut content =
+            "use serde::Deserialize;\n\nuse super::classes::*;\nuse super::concepts::*;\nuse super::events::*;\n\n".to_owned();
+        content.push_str(&self.generate_factorio_types());
+        fs::write(factorio_types_path, content)?;
+
         let mod_path = generated_path.join("mod.rs");
+        mod_content.push_str("mod factorio_types;\npub use factorio_types::*;\n");
         if mod_path.exists() {
             fs::remove_file(&mod_path)?;
         }
-        mod_content.pop();
         fs::write(mod_path, mod_content)?;
 
         Ok(())
+    }
+
+    fn generate_factorio_types(&self) -> String {
+        let mut definition = String::from(DERIVE);
+
+        definition.push_str("pub enum FactorioType {\n    Class(Class),\n    Concept(Concept),\n    Event(Event),\n",);
+
+        definition.push_str(&format!("}}\n\n{DERIVE}"));
+        definition.push_str("pub enum Class {\n");
+        for class in &self.classes {
+            let name = &class.name;
+            definition.push_str(&format!("    {name}({name}),\n"));
+        }
+        definition.push_str(&format!("}}\n\n{DERIVE}"));
+        definition.push_str("pub enum Concept {\n");
+        for concept in &self.concepts {
+            let name = &concept.name;
+            definition.push_str(&format!("    {name}({name}),\n"));
+        }
+        definition.push_str(&format!("}}\n\n{DERIVE}"));
+        definition.push_str("pub enum Event {\n");
+        for event in &self.events {
+            let name = event.name.to_pascal_case();
+            definition.push_str(&format!("    {name}({name}),\n"));
+        }
+        definition.push_str("}\n");
+
+        definition
     }
 
     fn generate_definition<T: GenerateDefinition>(
@@ -239,6 +280,7 @@ impl RuntimeApiFormat {
                 Import::Classes => "use super::classes::*;\n",
                 Import::Concepts => "use super::concepts::*;\n",
                 Import::Defines => "use super::defines::*;\n",
+                Import::Deserialize => "use serde::Deserialize;\n",
                 Import::LineBreak => "\n",
             });
         }
@@ -266,6 +308,8 @@ impl RuntimeApiFormat {
             Import::HashMap,
             Import::HashSet,
             Import::LineBreak,
+            Import::Deserialize,
+            Import::LineBreak,
             Import::Concepts,
             Import::Defines,
             Import::LineBreak,
@@ -281,6 +325,8 @@ impl RuntimeApiFormat {
     fn generate_events(&self, base_path: &Path, mod_content: &mut String) -> std::io::Result<()> {
         let imports = vec![
             Import::HashMap,
+            Import::LineBreak,
+            Import::Deserialize,
             Import::LineBreak,
             Import::Classes,
             Import::Concepts,
@@ -300,6 +346,8 @@ impl RuntimeApiFormat {
             Import::HashMap,
             Import::HashSet,
             Import::LineBreak,
+            Import::Deserialize,
+            Import::LineBreak,
             Import::Classes,
             Import::Defines,
             Import::LineBreak,
@@ -313,10 +361,11 @@ impl RuntimeApiFormat {
     }
 
     fn generate_defines(&self, base_path: &Path, mod_content: &mut String) -> std::io::Result<()> {
+        let imports = vec![Import::Deserialize, Import::LineBreak];
         self.generate_definition(
             base_path.join("defines.rs"),
             &self.defines,
-            Vec::new(),
+            imports,
             mod_content,
         )
     }
@@ -403,6 +452,7 @@ impl GenerateDefinition for Class {
             struct_definition.is_empty(),
             false,
         ));
+        struct_definition.push_str(DERIVE);
         struct_definition.push_str(&format!("pub struct {} {{\n", prefix));
         if let Some(base_classes) = &self.base_classes {
             // TODO: there is only one base class here?
@@ -558,6 +608,7 @@ impl GenerateDefinition for Event {
             definition.is_empty(),
             false,
         ));
+        definition.push_str(DERIVE);
         definition.push_str(&format!("pub struct {} {{\n", self.name.to_pascal_case()));
         for parameter in &self.data {
             definition.push_str(&parameter.get_definition(&mut Vec::new(), ""));
@@ -604,6 +655,7 @@ impl Define {
                 name
             };
             definition.push_str(&self.description.to_rust_doc());
+            definition.push_str(DERIVE);
             definition.push_str(&format!("pub enum {} {{\n", name));
             for variant in variants {
                 definition.push_str(&variant.generate_definition());
@@ -1182,9 +1234,9 @@ impl Type {
         match self {
             Self::String(string) => {
                 if string == "BlueprintCircuitConnection" {
-                    unions.push("pub struct BlueprintCircuitConnection;".to_owned());
+                    unions.push(format!("{DERIVE}pub struct BlueprintCircuitConnection;"));
                 } else if string == "BlueprintControlBehavior" {
-                    unions.push("pub struct BlueprintControlBehavior;".to_owned());
+                    unions.push(format!("{DERIVE}pub struct BlueprintControlBehavior;"));
                 }
                 let mut definition = String::new();
                 if !is_nested {
@@ -1270,6 +1322,28 @@ impl ComplexType {
                 if self.is_table_or_tuple() {
                     return options[0].generate_definition(&prefix, unions, true);
                 }
+                // TODO: use lazy_static HashSet
+                if prefix == "LuaBootstrapMethodsOnConfigurationChangedHandlerUnion"
+                    || prefix == "LuaBootstrapMethodsOnEventHandlerUnion"
+                    || prefix == "LuaBootstrapMethodsOnInitHandlerUnion"
+                    || prefix == "LuaBootstrapMethodsOnLoadHandlerUnion"
+                    || prefix == "LuaBootstrapMethodsOnNthTickHandlerUnion"
+                {
+                    // we don't want any derives here
+                } else if prefix == "CollisionMaskWithFlagsUnion"
+                    || prefix == "CollisionMaskLayer"
+                    || prefix == "EntityPrototypeFlagsUnion"
+                    || prefix == "ItemPrototypeFlagsUnion"
+                    || prefix == "MouseButtonFlagsUnion"
+                    || prefix == "SelectionModeFlagsUnion"
+                    || prefix == "LuaGameScriptPlayersUnion"
+                    || prefix == "LuaGameScriptForcesUnion"
+                    || prefix == "LuaGameScriptSurfacesUnion"
+                {
+                    union_definition.push_str(DERIVE_WITH_HASH);
+                } else {
+                    union_definition.push_str(DERIVE);
+                }
                 union_definition.push_str(&format!("pub enum {} {{\n", prefix));
                 let array_count = options
                     .iter()
@@ -1329,6 +1403,7 @@ impl ComplexType {
                 variant_parameter_description,
             } => {
                 let mut table_definition = String::new();
+                table_definition.push_str(DERIVE);
                 table_definition.push_str(&format!("pub struct {} {{\n", prefix));
                 for parameter in parameters {
                     table_definition.push_str(&parameter.get_definition(unions, prefix));
@@ -1346,6 +1421,7 @@ impl ComplexType {
                     ));
                     let mut variant_definition = String::new();
                     let prefix = &format!("{}Attributes", prefix);
+                    variant_definition.push_str(DERIVE);
                     variant_definition.push_str(&format!("pub enum {} {{\n", prefix));
                     for variant_parameter_group in variant_parameter_groups {
                         let group_name = variant_parameter_group
@@ -1369,6 +1445,7 @@ impl ComplexType {
                         //     println!("{typ}");
                         //     continue;
                         // }
+                        definition.push_str(DERIVE);
                         definition.push_str(&format!("pub struct {} {{\n", name));
                         for parameter in &variant_parameter_group.parameters {
                             let name = parameter
@@ -1453,6 +1530,7 @@ impl ComplexType {
                 definition.push_str(&value.get_type_name());
             }
             Self::Struct { attributes } => {
+                definition.push_str(DERIVE);
                 definition.push_str(&format!("pub struct {} {{\n", prefix));
                 for attribute in attributes {
                     let name = attribute
