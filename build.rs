@@ -1,6 +1,7 @@
 #![deny(clippy::unwrap_used)]
 
 use std::{
+    env,
     fs::File,
     io::{self, BufReader},
 };
@@ -9,9 +10,17 @@ mod runtime_api_format;
 use runtime_api_format::RuntimeApiFormat;
 
 fn main() -> io::Result<()> {
+    let run_build_script = env::var("RUN_BUILD_SCRIPT")
+        .map(|v| v == "1")
+        .unwrap_or(true);
     println!("cargo:rerun-if-changed=build.rs");
     println!("cargo:rerun-if-changed=generated");
-    generate_runtime_api()
+
+    if run_build_script {
+        generate_runtime_api()
+    } else {
+        Ok(())
+    }
 }
 
 fn generate_runtime_api() -> io::Result<()> {
