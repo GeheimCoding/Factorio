@@ -4,7 +4,7 @@
 //mod generated;
 mod remote_console;
 
-use std::{collections::HashMap, io};
+use std::{collections::HashMap, fs, io};
 
 use remote_console::RemoteConsole;
 use serde::Deserialize;
@@ -73,6 +73,11 @@ enum FactorioType {
 }
 
 fn main() -> io::Result<()> {
+    remote_console()?;
+    Ok(())
+}
+
+fn main_old() -> io::Result<()> {
     let mut table = HashMap::new();
     table.insert(8, "on_player_mined_item");
     table.insert(48, "on_player_mined_tile");
@@ -103,9 +108,25 @@ fn main() -> io::Result<()> {
 // https://developer.valvesoftware.com/wiki/Source_RCON_Protocol
 fn remote_console() -> io::Result<()> {
     let mut console = RemoteConsole::new("10.243.166.195", 25575, "123")?;
-    console.send_command("script.on_event(defines.events.on_tick, function(event) global.defines = serpent.block(defines) end)")?;
-    let response = console.send_command("rcon.print(global.defines)")?;
-    println!("{response}");
+    let to_json = fs::read_to_string("to_json.lua")?;
+    let response = console.send_command(&to_json)?;
+    if !response.is_empty() {
+        println!("{response}");
+    } else {
+        let response = console.send_command(
+            "
+            local lookup = {}
+            rcon.print(to_json(game, lookup, 1))
+            print('done')
+        ",
+        )?;
+        println!("{response}");
+    }
 
     Ok(())
 }
+
+// TODO: convert array to json array
+// TODO: fix trailing commmas
+// TODO: add serde tags
+// TODO: implement TODOs
