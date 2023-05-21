@@ -116,7 +116,15 @@ fn remote_console() -> io::Result<()> {
         let response = console.send_command(
             "
             local lookup = {}
-            rcon.print(to_json(game, lookup, 1))
+            --rcon.print(to_json(game.surfaces['nauvis'].find_entities({{-10, -10}, {10, 10}})[1], lookup, 1))
+            rcon.print(game.surfaces['nauvis'].find_entities({{-10, -10}, {10, 10}})[1].type)
+            if lookup['test'] then
+                rcon.print('yes')
+            end
+            if lookup['test'] then
+                rcon.print('yes')
+            end
+            rcon.print(serpent.line(lookup))
             print('done')
         ",
         )?;
@@ -126,7 +134,11 @@ fn remote_console() -> io::Result<()> {
     Ok(())
 }
 
+// TODO: prepare lookup table for allowed attribute accesses from subclasses
+// TODO: make subclass specific attributes optional and add to docs
+// -> for LuaEntity, LuaEntityPrototype, LuaEquipmentPrototype, LuaGuiElement, LuaItemPrototype, LuaItemStack, LuaStyle
 // TODO: convert array to json array
 // TODO: fix trailing commmas
 // TODO: add serde tags
 // TODO: implement TODOs
+// TODO: improve performance

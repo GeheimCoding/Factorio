@@ -38,7 +38,7 @@ function to_json(obj, lookup, depth)
     elseif name == 'LuaCustomTable' then
         for k,v in pairs(obj) do
             if depth == 1 then
-                --print(k .. ' -> ' .. tostring(depth) .. ' -> ' .. tostring(table_size(lookup)))
+                print(k .. ' -> ' .. tostring(depth) .. ' -> ' .. tostring(table_size(lookup)))
             end
             table.insert(json, '"' .. k .. '":')
             table.insert(json, to_json(v, lookup, depth + 1))
@@ -56,7 +56,7 @@ function to_json(obj, lookup, depth)
         else
             for k,v in pairs(get_values(obj)) do
                 if depth == 1 then
-                    --print(k  .. ' -1> ' .. tostring(depth) .. ' -> ' .. tostring(table_size(lookup)))
+                    print(k  .. ' -1> ' .. tostring(depth) .. ' -> ' .. tostring(table_size(lookup)))
                 end
                 if type(k) ~= 'number' and ends_with(k, 'prototypes') then
                     table.insert(json, '"' .. k .. '":')
@@ -77,3 +77,5 @@ function to_json(obj, lookup, depth)
     table.insert(json, '}')
     return table.concat(json, '')
 end
+
+-- Note: all classes except LuaControl, LuaControlBehavior and LuaCombinatorControlBehavior have member object_name
