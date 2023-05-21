@@ -514,6 +514,12 @@ impl GenerateDefinition for Class {
                     }
                 }
             }
+            if let Some(subclasses) = &attribute.subclasses {
+                let mut subclass_description = String::from("    /// Can only be used if this is ");
+                subclass_description.push_str(&subclasses.join(" or "));
+                subclass_description.push('\n');
+                attribute_description.push_str(&subclass_description);
+            }
             attribute_description.push_str(&generate_notes_and_examples(
                 attribute,
                 attribute_description.is_empty(),

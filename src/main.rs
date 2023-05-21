@@ -108,7 +108,7 @@ fn main_old() -> io::Result<()> {
 // https://developer.valvesoftware.com/wiki/Source_RCON_Protocol
 fn remote_console() -> io::Result<()> {
     let mut console = RemoteConsole::new("10.243.166.195", 25575, "123")?;
-    let to_json = fs::read_to_string("to_json.lua")?;
+    let to_json = fs::read_to_string("setup.lua")?;
     let response = console.send_command(&to_json)?;
     if !response.is_empty() {
         println!("{response}");
@@ -116,15 +116,9 @@ fn remote_console() -> io::Result<()> {
         let response = console.send_command(
             "
             local lookup = {}
-            --rcon.print(to_json(game.surfaces['nauvis'].find_entities({{-10, -10}, {10, 10}})[1], lookup, 1))
-            rcon.print(game.surfaces['nauvis'].find_entities({{-10, -10}, {10, 10}})[1].type)
-            if lookup['test'] then
-                rcon.print('yes')
-            end
-            if lookup['test'] then
-                rcon.print('yes')
-            end
-            rcon.print(serpent.line(lookup))
+            rcon.print(to_json(game.surfaces['nauvis'].find_entities({{-10, -10}, {10, 10}})[1], lookup, 1))
+            --rcon.print(game.surfaces['nauvis'].find_entities({{-10, -10}, {10, 10}})[1].type)
+            --rcon.print(game.surfaces['nauvis'].find_entities({{-10, -10}, {10, 10}})[1].idle_energy_usage)
             print('done')
         ",
         )?;
@@ -134,9 +128,9 @@ fn remote_console() -> io::Result<()> {
     Ok(())
 }
 
-// TODO: prepare lookup table for allowed attribute accesses from subclasses
-// TODO: make subclass specific attributes optional and add to docs
-// -> for LuaEntity, LuaEntityPrototype, LuaEquipmentPrototype, LuaGuiElement, LuaItemPrototype, LuaItemStack, LuaStyle
+// TODO: use global lookup table for objects and unique_ids
+// TODO: make subclass specific attributes optional?
+// TODO: fix/confirm subclasses type casing
 // TODO: convert array to json array
 // TODO: fix trailing commmas
 // TODO: add serde tags
