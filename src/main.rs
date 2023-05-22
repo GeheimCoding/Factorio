@@ -115,10 +115,7 @@ fn remote_console() -> io::Result<()> {
     } else {
         let response = console.send_command(
             "
-            local lookup = {}
-            rcon.print(to_json(game.surfaces['nauvis'].find_entities({{-10, -10}, {10, 10}})[1], lookup, 1))
-            --rcon.print(game.surfaces['nauvis'].find_entities({{-10, -10}, {10, 10}})[1].type)
-            --rcon.print(game.surfaces['nauvis'].find_entities({{-10, -10}, {10, 10}})[1].idle_energy_usage)
+            rcon.print(to_json(game, 1))
             print('done')
         ",
         )?;
@@ -128,6 +125,8 @@ fn remote_console() -> io::Result<()> {
     Ok(())
 }
 
+// TODO: split map_settings and other tables in separate files
+// TODO: check for more "cycles"
 // TODO: use global lookup table for objects and unique_ids
 // TODO: make subclass specific attributes optional?
 // TODO: fix/confirm subclasses type casing
