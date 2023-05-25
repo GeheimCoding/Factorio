@@ -10,38 +10,40 @@ function needs_special_care(obj, attribute)
 end
 
 function get_values(obj)
-    if obj.help then
-        if obj.object_name == 'LuaDifficultySettings' then
-            return get_difficulty_settings_values()
-        elseif obj.object_name == 'LuaMapSettings' then
-            return get_map_settings_values()
-        elseif obj.object_name == 'LuaMapSettings.pollution' then
-            return get_map_settings_pollution_values()
-        elseif obj.object_name == 'LuaMapSettings.enemy_evolution' then
-            return get_map_settings_enemy_evolution_values()
-        elseif obj.object_name == 'LuaMapSettings.enemy_expansion' then
-            return get_map_settings_enemy_expansion_values()
-        elseif obj.object_name == 'LuaMapSettings.unit_group' then
-            return get_map_settings_unit_group_values()
-        elseif obj.object_name == 'LuaMapSettings.steering' then
-            return get_map_settings_steering_values()
-        elseif obj.object_name == 'LuaMapSettings.steering.default'
-            or obj.object_name == 'LuaMapSettings.steering.moving' then
-            return get_steering_values()
-        elseif obj.object_name == 'LuaMapSettings.path_finder' then
-            return get_map_settings_path_finder_values()
-        elseif obj.object_name == 'LuaGameViewSettings' then
-            return get_game_view_settings_values()
-        end
-        local t = {}
-        for k, v in string.gmatch(obj.help(), '([a-z_]+)%s(%[R%u?%])') do
-            if not needs_special_care(obj, k) then
-                t[k] = 0
-            end
-        end
-        return t
+    if not obj.help then
+        return obj
     end
-    return obj
+
+    if obj.object_name == 'LuaDifficultySettings' then
+        return get_difficulty_settings_values()
+    elseif obj.object_name == 'LuaMapSettings' then
+        return get_map_settings_values()
+    elseif obj.object_name == 'LuaMapSettings.pollution' then
+        return get_map_settings_pollution_values()
+    elseif obj.object_name == 'LuaMapSettings.enemy_evolution' then
+        return get_map_settings_enemy_evolution_values()
+    elseif obj.object_name == 'LuaMapSettings.enemy_expansion' then
+        return get_map_settings_enemy_expansion_values()
+    elseif obj.object_name == 'LuaMapSettings.unit_group' then
+        return get_map_settings_unit_group_values()
+    elseif obj.object_name == 'LuaMapSettings.steering' then
+        return get_map_settings_steering_values()
+    elseif obj.object_name == 'LuaMapSettings.steering.default'
+        or obj.object_name == 'LuaMapSettings.steering.moving' then
+        return get_steering_values()
+    elseif obj.object_name == 'LuaMapSettings.path_finder' then
+        return get_map_settings_path_finder_values()
+    elseif obj.object_name == 'LuaGameViewSettings' then
+        return get_game_view_settings_values()
+    end
+
+    local t = {}
+    for k, v in string.gmatch(obj.help(), '([a-z_]+)%s(%[R%u?%])') do
+        if not needs_special_care(obj, k) then
+            t[k] = 0
+        end
+    end
+    return t
 end
 
 function get_difficulty_settings_values()
@@ -197,17 +199,14 @@ function get_game_view_settings_values()
     }
 end
 
-function lua_group_to_json(group)
-    return 'TODO: LUA_GROUP'
-end
-
-function is_cycle(obj)
+function is_cycle(obj, map)
     for k,v in pairs(global.lookup.cycles) do
         if v == obj then
-            return true
+            map[v.object_name] = 0
+            return true, k
         end
     end
-    return false
+    return false, 0
 end
 
 function ends_with(str, ending)
@@ -217,6 +216,12 @@ end
 function is_allowed_to_access_attribute(obj, values, attribute)
     if obj.object_name == 'LuaItemStack' and not obj.valid_for_read then
         return false
+    elseif obj.object_name == 'LuaGroup' then
+        if obj.type == 'item-group' then
+            return attribute ~= 'group'
+        else
+            return attribute ~= 'subgroups' and attribute ~= 'order_in_recipe'
+        end
     end
     local key = values.type
     if obj.object_name == 'LuaStyle' then
@@ -239,13 +244,13 @@ function is_allowed_to_access_attribute(obj, values, attribute)
 end
 
 function is_class(obj)
-    if not obj.object_name or not obj.help then
+    if not obj.help then
         return false
     end
     return type(obj.help) ~= 'string'
 end
 
-function to_json(obj, depth)
+function to_json(obj, depth, map)
     if type(obj) ~= 'table' then
         return '"' .. tostring(obj) .. '"'
     end
@@ -254,19 +259,22 @@ function to_json(obj, depth)
     if not name then
         name = 'nil'
     end
-    if name == 'LuaGroup' then
-        table.insert(json, lua_group_to_json(obj))
-    elseif name == 'LuaCustomTable' then
+    if name == 'LuaCustomTable' then
         for k,v in pairs(obj) do
             if depth >= 1 then
                 --print(name .. ': ' .. k .. ' -> ' .. tostring(depth) .. ' -> ' .. tostring(table_size(global.lookup.cycles)))
             end
             table.insert(json, '"' .. k .. '":')
-            table.insert(json, to_json(v, depth + 1))
+            table.insert(json, to_json(v, depth + 1, map))
             table.insert(json, ',\n')
         end
-    elseif is_cycle(obj) then
-        table.insert(json, 'TODO: CYCLE')
+        table.insert(json, '}')
+        return table.concat(json, '')
+    end
+
+    local cycle, id = is_cycle(obj, map)
+    if cycle then
+        table.insert(json, '"cycle_id":"' .. tostring(id) .. '"')
     else
         -- if name == 'LuaEntityPrototype'
         -- or name == 'LuaItemPrototype'
@@ -283,13 +291,9 @@ function to_json(obj, depth)
             if depth >= 1 then
                 --print(name .. ': ' .. k  .. ' -1> ' .. tostring(depth) .. ' -> ' .. tostring(table_size(global.lookup.cycles)))
             end
-            if type(k) ~= 'number' and ends_with(k, 'prototypes') then
+            if is_allowed_to_access_attribute(obj, values, k) then
                 table.insert(json, '"' .. k .. '":')
-                table.insert(json, 'TODO: PROTOTYPE')
-                table.insert(json, ',\n')
-            elseif is_allowed_to_access_attribute(obj, values, k) then
-                table.insert(json, '"' .. k .. '":')
-                table.insert(json, to_json(obj[k], depth + 1))
+                table.insert(json, to_json(obj[k], depth + 1, map))
                 table.insert(json, ',\n')
             end
         end

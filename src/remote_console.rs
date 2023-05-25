@@ -4,7 +4,7 @@ use std::{
     time::Duration,
 };
 
-const TCP_TIMEOUT_IN_SECONDS: u64 = 8;
+const TCP_TIMEOUT_IN_SECONDS: u64 = 80;
 const MAX_PACKET_LENGTH_IN_BYTES: usize = 4096;
 
 const PACKET_TYPE_SERVERDATA_AUTH: u32 = 3;

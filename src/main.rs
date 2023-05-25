@@ -115,7 +115,12 @@ fn remote_console() -> io::Result<()> {
     } else {
         let response = console.send_command(
             "
-            rcon.print(to_json(game, 1))
+            local map = {}
+            --rcon.print(to_json(game.item_prototypes['wood'].group.subgroups, 1, map))
+            --rcon.print(to_json(game, 1, map))
+            rcon.print(to_json(game.item_prototypes['wood'].group, 1, map))
+            --to_json(game, 1, map)
+            rcon.print(serpent.block(map))
             print('done')
         ",
         )?;
@@ -125,6 +130,11 @@ fn remote_console() -> io::Result<()> {
     Ok(())
 }
 
+// https://wiki.factorio.com/Materials_and_recipes
+// TODO: LuaGroup type item-group = root (= section in crafting window), subgroup is one line in crafting window
+
+// TODO: improve performance of lookup table with grouping (e.g. by object_name)?
+//      -> currently around 20 seconds without LuaGroup and cycles for game
 // TODO: split map_settings and other tables in separate files
 // TODO: check for more "cycles"
 // TODO: use global lookup table for objects and unique_ids
