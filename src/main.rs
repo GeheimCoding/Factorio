@@ -116,12 +116,11 @@ fn remote_console() -> io::Result<()> {
         let response = console.send_command(
             "
             local map = {}
-            --rcon.print(to_json(game.item_prototypes['wood'].group.subgroups, 1, map))
-            rcon.print(to_json(game, 1, map))
-            rcon.print(to_json(game.item_prototypes['wood'].group, 1, map))
+            --rcon.print(to_json(game, 1, map))
             --to_json(game, 1, map)
             --rcon.print(table_size(global.lookup.cycles))
             --rcon.print(serpent.block(map))
+            rcon.print(global.lookup.cycles[1144].json)
             print('done')
         ",
         )?;

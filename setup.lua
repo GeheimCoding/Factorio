@@ -201,8 +201,8 @@ end
 
 function is_cycle(obj, map)
     for k,v in pairs(global.lookup.cycles) do
-        if v == obj then
-            map[v.object_name .. ':' .. tostring(k)] = 0
+        if v.obj == obj then
+            map[v.obj.object_name .. ':' .. tostring(k)] = 0
             return true, k
         end
     end
@@ -244,7 +244,8 @@ function is_allowed_to_access_attribute(obj, values, attribute)
 end
 
 function is_class(obj)
-    if not obj.help then
+    -- game is not serializable (and there are no cycles with it anyway)
+    if not obj.help or obj.object_name == 'LuaGameScript' then
         return false
     end
     return type(obj.help) ~= 'string'
@@ -270,19 +271,13 @@ function to_json(obj, depth, map)
         return table.concat(json, '')
     end
 
+    local class = is_class(obj)
     local cycle, id = is_cycle(obj, map)
     if cycle then
         table.insert(json, '"cycle_id":"' .. tostring(id) .. '"')
     else
-        -- if name == 'LuaEntityPrototype'
-        -- or name == 'LuaItemPrototype'
-        -- or name == 'LuaTilePrototype'
-        -- or name == 'LuaEntity'
-        -- or name == 'LuaForce' then
-        --     table.insert(global.lookup.cycles, obj)
-        -- end
-        if is_class(obj) then
-            table.insert(global.lookup.cycles, obj)
+        if class then
+            table.insert(global.lookup.cycles, {obj = obj, json = ''})
             table.insert(json, '"class_id":"' .. tostring(table_size(global.lookup.cycles)) .. '",\n')
         end
         local values = get_values(obj)
@@ -296,7 +291,12 @@ function to_json(obj, depth, map)
         end
     end
     table.insert(json, '}')
-    return table.concat(json, '')
+    local obj_json = table.concat(json, '')
+    if class and not cycle then
+        local _, index = is_cycle(obj, {})
+        global.lookup.cycles[index].json = obj_json
+    end
+    return obj_json
 end
 
 function add_to_json(json, obj, attribute, depth, map)
@@ -307,7 +307,7 @@ end
 
 -- Prepare lookup table
 
-global.lookup = {}
+--global.lookup = {}
 if not global.lookup then
     global.lookup = {}
 end
@@ -828,3 +828,4 @@ global.lookup.subclasses = {
 }
 
 -- Note: all classes except LuaControl, LuaControlBehavior and LuaCombinatorControlBehavior have member object_name
+-- Note: game class is not serializable
