@@ -202,7 +202,7 @@ end
 function is_cycle(obj, map)
     for k,v in pairs(global.lookup.cycles) do
         if v == obj then
-            map[v.object_name] = 0
+            map[v.object_name .. ':' .. tostring(k)] = 0
             return true, k
         end
     end
@@ -264,9 +264,7 @@ function to_json(obj, depth, map)
             if depth >= 1 then
                 --print(name .. ': ' .. k .. ' -> ' .. tostring(depth) .. ' -> ' .. tostring(table_size(global.lookup.cycles)))
             end
-            table.insert(json, '"' .. k .. '":')
-            table.insert(json, to_json(v, depth + 1, map))
-            table.insert(json, ',\n')
+            add_to_json(json, v, k, depth, map)
         end
         table.insert(json, '}')
         return table.concat(json, '')
@@ -285,6 +283,7 @@ function to_json(obj, depth, map)
         -- end
         if is_class(obj) then
             table.insert(global.lookup.cycles, obj)
+            table.insert(json, '"class_id":"' .. tostring(table_size(global.lookup.cycles)) .. '",\n')
         end
         local values = get_values(obj)
         for k,v in pairs(values) do
@@ -292,14 +291,18 @@ function to_json(obj, depth, map)
                 --print(name .. ': ' .. k  .. ' -1> ' .. tostring(depth) .. ' -> ' .. tostring(table_size(global.lookup.cycles)))
             end
             if is_allowed_to_access_attribute(obj, values, k) then
-                table.insert(json, '"' .. k .. '":')
-                table.insert(json, to_json(obj[k], depth + 1, map))
-                table.insert(json, ',\n')
+                add_to_json(json, obj[k], k, depth, map)
             end
         end
     end
     table.insert(json, '}')
     return table.concat(json, '')
+end
+
+function add_to_json(json, obj, attribute, depth, map)
+    table.insert(json, '"' .. attribute .. '":')
+    table.insert(json, to_json(obj, depth + 1, map))
+    table.insert(json, ',\n')
 end
 
 -- Prepare lookup table
