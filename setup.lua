@@ -253,44 +253,54 @@ end
 
 function to_json(obj, depth, map)
     if type(obj) ~= 'table' then
-        return '"' .. tostring(obj) .. '"'
-    end
-    local json = {'{\n'}
-    local name = obj.object_name
-    if not name then
-        name = 'nil'
-    end
-    if name == 'LuaCustomTable' then
-        for k,v in pairs(obj) do
-            if depth >= 1 then
-                --print(name .. ': ' .. k .. ' -> ' .. tostring(depth) .. ' -> ' .. tostring(table_size(global.lookup.cycles)))
-            end
-            add_to_json(json, v, k, depth, map)
+        if type(obj) == 'string' then
+            return '"' .. obj .. '"'
+        else
+            return tostring(obj)
         end
-        table.insert(json, '}')
+    end
+    if obj.object_name == 'LuaCustomTable' then
+        local json = {'[\n'}
+        for k,v in pairs(obj) do
+            table.insert(json, to_json(v, depth + 1, map))
+            table.insert(json, ',\n')
+        end
+        table.insert(json, ']')
         return table.concat(json, '')
     end
 
+    local json = {'{\n'}
+    local is_array = false
     local class = is_class(obj)
     local cycle, id = is_cycle(obj, map)
     if cycle then
-        table.insert(json, '"cycle_id":"' .. tostring(id) .. '"')
+        if depth == 1 then
+            return global.lookup.cycles[id].json
+        end
+        table.insert(json, '"cycle_id":' .. id)
     else
         if class then
             table.insert(global.lookup.cycles, {obj = obj, json = ''})
-            table.insert(json, '"class_id":"' .. tostring(table_size(global.lookup.cycles)) .. '",\n')
+            table.insert(json, '"class_id":' .. table_size(global.lookup.cycles) .. ',\n')
         end
         local values = get_values(obj)
+        is_array = values[1] ~= nil
         for k,v in pairs(values) do
-            if depth >= 1 then
-                --print(name .. ': ' .. k  .. ' -1> ' .. tostring(depth) .. ' -> ' .. tostring(table_size(global.lookup.cycles)))
-            end
             if is_allowed_to_access_attribute(obj, values, k) then
-                add_to_json(json, obj[k], k, depth, map)
+                if not is_array then
+                    table.insert(json, '"' .. k .. '":')
+                end
+                table.insert(json, to_json(obj[k], depth + 1, map))
+                table.insert(json, ',\n')
             end
         end
     end
-    table.insert(json, '}')
+    if is_array then
+        json[1] = '['
+        table.insert(json, ']')
+    else
+        table.insert(json, '}')
+    end
     local obj_json = table.concat(json, '')
     if class and not cycle then
         local _, index = is_cycle(obj, {})
@@ -299,15 +309,9 @@ function to_json(obj, depth, map)
     return obj_json
 end
 
-function add_to_json(json, obj, attribute, depth, map)
-    table.insert(json, '"' .. attribute .. '":')
-    table.insert(json, to_json(obj, depth + 1, map))
-    table.insert(json, ',\n')
-end
-
 -- Prepare lookup table
 
---global.lookup = {}
+--global.lookup = nil
 if not global.lookup then
     global.lookup = {}
 end

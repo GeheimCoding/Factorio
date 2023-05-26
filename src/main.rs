@@ -130,6 +130,8 @@ fn remote_console() -> io::Result<()> {
     Ok(())
 }
 
+// TODO: fix trailing commmas and quotes
+
 // https://wiki.factorio.com/Materials_and_recipes
 // TODO: LuaGroup type item-group = root (= section in crafting window), subgroup is one line in crafting window
 
@@ -140,8 +142,6 @@ fn remote_console() -> io::Result<()> {
 // TODO: use global lookup table for objects and unique_ids
 // TODO: make subclass specific attributes optional?
 // TODO: fix/confirm subclasses type casing
-// TODO: convert array to json array
-// TODO: fix trailing commmas
 // TODO: add serde tags
 // TODO: implement TODOs
 // TODO: improve performance
