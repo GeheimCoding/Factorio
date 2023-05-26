@@ -209,10 +209,6 @@ function is_cycle(obj, map)
     return false, 0
 end
 
-function ends_with(str, ending)
-    return ending == '' or str:sub(-#ending) == ending
-end
-
 function is_allowed_to_access_attribute(obj, values, attribute)
     if obj.object_name == 'LuaItemStack' and not obj.valid_for_read then
         return false
@@ -251,7 +247,15 @@ function is_class(obj)
     return type(obj.help) ~= 'string'
 end
 
-function to_json(obj, depth, map)
+function to_json(obj)
+    return to_json_internal(obj, 1, {}, false)
+end
+
+function to_json_cycles_only(obj)
+    return to_json_internal(obj, 1, {}, true)
+end
+
+function to_json_internal(obj, depth, map, cycles_only)
     if type(obj) ~= 'table' then
         if type(obj) == 'string' then
             return '"' .. obj .. '"'
@@ -262,7 +266,7 @@ function to_json(obj, depth, map)
     if obj.object_name == 'LuaCustomTable' then
         local json = {'['}
         for k,v in pairs(obj) do
-            table.insert(json, to_json(v, depth + 1, map))
+            table.insert(json, to_json_internal(v, depth + 1, map))
             table.insert(json, ',\n')
         end
         local size = #json
@@ -277,15 +281,19 @@ function to_json(obj, depth, map)
     local is_array = false
     local class = is_class(obj)
     local cycle, id = is_cycle(obj, map)
-    if cycle then
+    if cycle and (not cycles_only or depth > 1) then
         if depth == 1 then
             return global.lookup.cycles[id].json
         end
         table.insert(json, '"cycle_id":' .. id)
     else
         if class then
-            table.insert(global.lookup.cycles, {obj = obj, json = ''})
-            table.insert(json, '"class_id":' .. table_size(global.lookup.cycles) .. ',\n')
+            if cycles_only then
+                table.insert(json, '"class_id":' .. id .. ',\n')
+            else
+                table.insert(global.lookup.cycles, {obj = obj, json = ''})
+                table.insert(json, '"class_id":' .. table_size(global.lookup.cycles) .. ',\n')
+            end
         end
         local values = get_values(obj)
         is_array = values[1] ~= nil
@@ -294,7 +302,7 @@ function to_json(obj, depth, map)
                 if not is_array then
                     table.insert(json, '"' .. k .. '":')
                 end
-                table.insert(json, to_json(obj[k], depth + 1, map))
+                table.insert(json, to_json_internal(obj[k], depth + 1, map))
                 table.insert(json, ',\n')
             end
         end
