@@ -260,16 +260,20 @@ function to_json(obj, depth, map)
         end
     end
     if obj.object_name == 'LuaCustomTable' then
-        local json = {'[\n'}
+        local json = {'['}
         for k,v in pairs(obj) do
             table.insert(json, to_json(v, depth + 1, map))
             table.insert(json, ',\n')
+        end
+        local size = #json
+        if json[size] == ',\n' then
+            json[size] = ''
         end
         table.insert(json, ']')
         return table.concat(json, '')
     end
 
-    local json = {'{\n'}
+    local json = {'{'}
     local is_array = false
     local class = is_class(obj)
     local cycle, id = is_cycle(obj, map)
@@ -293,6 +297,10 @@ function to_json(obj, depth, map)
                 table.insert(json, to_json(obj[k], depth + 1, map))
                 table.insert(json, ',\n')
             end
+        end
+        local size = #json
+        if json[size] == ',\n' then
+            json[size] = ''
         end
     end
     if is_array then

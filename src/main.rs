@@ -130,15 +130,13 @@ fn remote_console() -> io::Result<()> {
     Ok(())
 }
 
-// TODO: fix trailing commmas and quotes
-
 // https://wiki.factorio.com/Materials_and_recipes
 // TODO: LuaGroup type item-group = root (= section in crafting window), subgroup is one line in crafting window
-
 // TODO: improve performance of lookup table with grouping (e.g. by object_name)?
-//      -> currently around 20 seconds without LuaGroup and cycles for game
+//      -> currently around 30 seconds in total with a fresh cache
 // TODO: split map_settings and other tables in separate files
 // TODO: check for more "cycles"
+// TODO: better naming, e.g. cache instead of lookup
 // TODO: use global lookup table for objects and unique_ids
 // TODO: make subclass specific attributes optional?
 // TODO: fix/confirm subclasses type casing
