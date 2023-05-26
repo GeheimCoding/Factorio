@@ -5,6 +5,8 @@ use super::concepts::*;
 use super::events::*;
 
 #[derive(Debug, Deserialize)]
+#[serde(rename_all = "snake_case")]
+#[serde(tag = "serde_type")]
 pub enum FactorioType {
     Class(Class),
     Concept(Concept),
@@ -12,6 +14,8 @@ pub enum FactorioType {
 }
 
 #[derive(Debug, Deserialize)]
+#[serde(rename_all = "snake_case")]
+#[serde(tag = "serde_tag")]
 pub enum Class {
     LuaAISettings(LuaAISettings),
     LuaAccumulatorControlBehavior(LuaAccumulatorControlBehavior),
@@ -113,6 +117,8 @@ pub enum Class {
 }
 
 #[derive(Debug, Deserialize)]
+#[serde(rename_all = "snake_case")]
+#[serde(tag = "serde_tag")]
 pub enum Concept {
     AchievementPrototypeFilter(AchievementPrototypeFilter),
     AdvancedMapGenSettings(AdvancedMapGenSettings),
@@ -302,6 +308,8 @@ pub enum Concept {
 }
 
 #[derive(Debug, Deserialize)]
+#[serde(rename_all = "snake_case")]
+#[serde(tag = "serde_tag")]
 pub enum Event {
     CustomInputEvent(CustomInputEvent),
     OnAiCommandCompleted(OnAiCommandCompleted),

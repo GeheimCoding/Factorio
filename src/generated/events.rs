@@ -5,6 +5,7 @@ use serde::Deserialize;
 use super::classes::*;
 use super::concepts::*;
 use super::defines::*;
+use super::MaybeCycle;
 
 /// Called when a [CustomInput](https://wiki.factorio.com/Prototype/CustomInput) is activated.
 #[derive(Debug, Deserialize)]
@@ -46,12 +47,12 @@ pub struct OnAreaCloned {
     pub clone_entities: bool,
     pub clone_tiles: bool,
     pub destination_area: BoundingBox,
-    pub destination_force: Option<LuaForce>,
-    pub destination_surface: LuaSurface,
+    pub destination_force: Option<MaybeCycle<LuaForce>>,
+    pub destination_surface: MaybeCycle<LuaSurface>,
     /// Identifier of the event
     pub name: Events,
     pub source_area: BoundingBox,
-    pub source_surface: LuaSurface,
+    pub source_surface: MaybeCycle<LuaSurface>,
     /// Tick the event was generated.
     pub tick: u32,
 }
@@ -64,7 +65,7 @@ pub struct OnAreaCloned {
 #[derive(Debug, Deserialize)]
 pub struct OnBiterBaseBuilt {
     /// The entity that was built.
-    pub entity: LuaEntity,
+    pub entity: MaybeCycle<LuaEntity>,
     /// Identifier of the event
     pub name: Events,
     /// Tick the event was generated.
@@ -79,14 +80,14 @@ pub struct OnBrushCloned {
     pub clone_decoratives: bool,
     pub clone_entities: bool,
     pub clone_tiles: bool,
-    pub destination_force: Option<LuaForce>,
+    pub destination_force: Option<MaybeCycle<LuaForce>>,
     pub destination_offset: TilePosition,
-    pub destination_surface: LuaSurface,
+    pub destination_surface: MaybeCycle<LuaSurface>,
     /// Identifier of the event
     pub name: Events,
     pub source_offset: TilePosition,
     pub source_positions: Vec<TilePosition>,
-    pub source_surface: LuaSurface,
+    pub source_surface: MaybeCycle<LuaSurface>,
     /// Tick the event was generated.
     pub tick: u32,
 }
@@ -95,25 +96,25 @@ pub struct OnBrushCloned {
 #[derive(Debug, Deserialize)]
 pub struct OnBuildBaseArrived {
     /// The unit group the command was assigned to.
-    pub group: Option<LuaUnitGroup>,
+    pub group: Option<MaybeCycle<LuaUnitGroup>>,
     /// Identifier of the event
     pub name: Events,
     /// Tick the event was generated.
     pub tick: u32,
     /// The unit the command was assigned to.
-    pub unit: Option<LuaEntity>,
+    pub unit: Option<MaybeCycle<LuaEntity>>,
 }
 
 /// Called when player builds something. Can be filtered using [LuaPlayerBuiltEntityEventFilter](LuaPlayerBuiltEntityEventFilter).
 #[derive(Debug, Deserialize)]
 pub struct OnBuiltEntity {
-    pub created_entity: LuaEntity,
+    pub created_entity: MaybeCycle<LuaEntity>,
     /// The item prototype used to build the entity. Note this won't exist in some situations (built from blueprint, undo, etc).
-    pub item: Option<LuaItemPrototype>,
+    pub item: Option<MaybeCycle<LuaItemPrototype>>,
     /// Identifier of the event
     pub name: Events,
     pub player_index: u32,
-    pub stack: LuaItemStack,
+    pub stack: MaybeCycle<LuaItemStack>,
     /// The tags associated with this entity if any.
     pub tags: Option<Tags>,
     /// Tick the event was generated.
@@ -123,7 +124,7 @@ pub struct OnBuiltEntity {
 /// Called when the deconstruction of an entity is canceled. Can be filtered using [LuaEntityDeconstructionCancelledEventFilter](LuaEntityDeconstructionCancelledEventFilter).
 #[derive(Debug, Deserialize)]
 pub struct OnCancelledDeconstruction {
-    pub entity: LuaEntity,
+    pub entity: MaybeCycle<LuaEntity>,
     /// Identifier of the event
     pub name: Events,
     pub player_index: Option<u32>,
@@ -135,11 +136,11 @@ pub struct OnCancelledDeconstruction {
 #[derive(Debug, Deserialize)]
 pub struct OnCancelledUpgrade {
     pub direction: Option<Direction>,
-    pub entity: LuaEntity,
+    pub entity: MaybeCycle<LuaEntity>,
     /// Identifier of the event
     pub name: Events,
     pub player_index: Option<u32>,
-    pub target: LuaEntityPrototype,
+    pub target: MaybeCycle<LuaEntityPrototype>,
     /// Tick the event was generated.
     pub tick: u32,
 }
@@ -152,7 +153,7 @@ pub struct OnCancelledUpgrade {
 #[derive(Debug, Deserialize)]
 pub struct OnCharacterCorpseExpired {
     /// The corpse.
-    pub corpse: LuaEntity,
+    pub corpse: MaybeCycle<LuaEntity>,
     /// Identifier of the event
     pub name: Events,
     /// Tick the event was generated.
@@ -162,11 +163,11 @@ pub struct OnCharacterCorpseExpired {
 /// Called when a chart tag is created.
 #[derive(Debug, Deserialize)]
 pub struct OnChartTagAdded {
-    pub force: LuaForce,
+    pub force: MaybeCycle<LuaForce>,
     /// Identifier of the event
     pub name: Events,
     pub player_index: Option<u32>,
-    pub tag: LuaCustomChartTag,
+    pub tag: MaybeCycle<LuaCustomChartTag>,
     /// Tick the event was generated.
     pub tick: u32,
 }
@@ -174,14 +175,14 @@ pub struct OnChartTagAdded {
 /// Called when a chart tag is modified by a player.
 #[derive(Debug, Deserialize)]
 pub struct OnChartTagModified {
-    pub force: LuaForce,
+    pub force: MaybeCycle<LuaForce>,
     /// Identifier of the event
     pub name: Events,
     pub old_icon: Option<SignalID>,
     pub old_player: Option<u32>,
     pub old_text: String,
     pub player_index: Option<u32>,
-    pub tag: LuaCustomChartTag,
+    pub tag: MaybeCycle<LuaCustomChartTag>,
     /// Tick the event was generated.
     pub tick: u32,
 }
@@ -189,11 +190,11 @@ pub struct OnChartTagModified {
 /// Called just before a chart tag is deleted.
 #[derive(Debug, Deserialize)]
 pub struct OnChartTagRemoved {
-    pub force: LuaForce,
+    pub force: MaybeCycle<LuaForce>,
     /// Identifier of the event
     pub name: Events,
     pub player_index: Option<u32>,
-    pub tag: LuaCustomChartTag,
+    pub tag: MaybeCycle<LuaCustomChartTag>,
     /// Tick the event was generated.
     pub tick: u32,
 }
@@ -203,7 +204,7 @@ pub struct OnChartTagRemoved {
 pub struct OnChunkCharted {
     /// Area of the chunk.
     pub area: BoundingBox,
-    pub force: LuaForce,
+    pub force: MaybeCycle<LuaForce>,
     /// Identifier of the event
     pub name: Events,
     pub position: ChunkPosition,
@@ -234,7 +235,7 @@ pub struct OnChunkGenerated {
     /// Position of the chunk.
     pub position: ChunkPosition,
     /// The surface the chunk is on.
-    pub surface: LuaSurface,
+    pub surface: MaybeCycle<LuaSurface>,
     /// Tick the event was generated.
     pub tick: u32,
 }
@@ -245,8 +246,8 @@ pub struct OnCombatRobotExpired {
     /// Identifier of the event
     pub name: Events,
     /// The entity that owns the robot if any.
-    pub owner: Option<LuaEntity>,
-    pub robot: LuaEntity,
+    pub owner: Option<MaybeCycle<LuaEntity>>,
+    pub robot: MaybeCycle<LuaEntity>,
     /// Tick the event was generated.
     pub tick: u32,
 }
@@ -331,10 +332,10 @@ pub struct OnDifficultySettingsChanged {
 /// Called when an entity is cloned. Can be filtered for the source entity using [LuaEntityClonedEventFilter](LuaEntityClonedEventFilter).
 #[derive(Debug, Deserialize)]
 pub struct OnEntityCloned {
-    pub destination: LuaEntity,
+    pub destination: MaybeCycle<LuaEntity>,
     /// Identifier of the event
     pub name: Events,
-    pub source: LuaEntity,
+    pub source: MaybeCycle<LuaEntity>,
     /// Tick the event was generated.
     pub tick: u32,
 }
@@ -347,15 +348,15 @@ pub struct OnEntityCloned {
 #[derive(Debug, Deserialize)]
 pub struct OnEntityDamaged {
     /// The entity that did the attacking if available.
-    pub cause: Option<LuaEntity>,
-    pub damage_type: LuaDamagePrototype,
-    pub entity: LuaEntity,
+    pub cause: Option<MaybeCycle<LuaEntity>>,
+    pub damage_type: MaybeCycle<LuaDamagePrototype>,
+    pub entity: MaybeCycle<LuaEntity>,
     /// The damage amount after resistances.
     pub final_damage_amount: f32,
     /// The health of the entity after the damage was applied.
     pub final_health: f32,
     /// The force that did the attacking if any.
-    pub force: Option<LuaForce>,
+    pub force: Option<MaybeCycle<LuaForce>>,
     /// Identifier of the event
     pub name: Events,
     /// The damage amount before resistances.
@@ -385,15 +386,15 @@ pub struct OnEntityDestroyed {
 #[derive(Debug, Deserialize)]
 pub struct OnEntityDied {
     /// The entity that did the killing if available.
-    pub cause: Option<LuaEntity>,
+    pub cause: Option<MaybeCycle<LuaEntity>>,
     /// The damage type if any.
-    pub damage_type: Option<LuaDamagePrototype>,
+    pub damage_type: Option<MaybeCycle<LuaDamagePrototype>>,
     /// The entity that died.
-    pub entity: LuaEntity,
+    pub entity: MaybeCycle<LuaEntity>,
     /// The force that did the killing if any.
-    pub force: Option<LuaForce>,
+    pub force: Option<MaybeCycle<LuaForce>>,
     /// The loot generated by this entity if any.
-    pub loot: LuaInventory,
+    pub loot: MaybeCycle<LuaInventory>,
     /// Identifier of the event
     pub name: Events,
     /// Tick the event was generated.
@@ -408,7 +409,7 @@ pub struct OnEntityDied {
 #[derive(Debug, Deserialize)]
 pub struct OnEntityLogisticSlotChanged {
     /// The entity for whom a logistic slot was changed.
-    pub entity: LuaEntity,
+    pub entity: MaybeCycle<LuaEntity>,
     /// Identifier of the event
     pub name: Events,
     /// The player who changed the slot, or `nil` if changed by script.
@@ -423,7 +424,7 @@ pub struct OnEntityLogisticSlotChanged {
 #[derive(Debug, Deserialize)]
 pub struct OnEntityRenamed {
     pub by_script: bool,
-    pub entity: LuaEntity,
+    pub entity: MaybeCycle<LuaEntity>,
     /// Identifier of the event
     pub name: Events,
     pub old_name: String,
@@ -437,12 +438,12 @@ pub struct OnEntityRenamed {
 #[derive(Debug, Deserialize)]
 pub struct OnEntitySettingsPasted {
     /// The destination entity settings were copied to.
-    pub destination: LuaEntity,
+    pub destination: MaybeCycle<LuaEntity>,
     /// Identifier of the event
     pub name: Events,
     pub player_index: u32,
     /// The source entity settings were copied from.
-    pub source: LuaEntity,
+    pub source: MaybeCycle<LuaEntity>,
     /// Tick the event was generated.
     pub tick: u32,
 }
@@ -450,10 +451,10 @@ pub struct OnEntitySettingsPasted {
 /// Called when an entity is spawned by a EnemySpawner
 #[derive(Debug, Deserialize)]
 pub struct OnEntitySpawned {
-    pub entity: LuaEntity,
+    pub entity: MaybeCycle<LuaEntity>,
     /// Identifier of the event
     pub name: Events,
-    pub spawner: LuaEntity,
+    pub spawner: MaybeCycle<LuaEntity>,
     /// Tick the event was generated.
     pub tick: u32,
 }
@@ -462,9 +463,9 @@ pub struct OnEntitySpawned {
 #[derive(Debug, Deserialize)]
 pub struct OnEquipmentInserted {
     /// The equipment inserted.
-    pub equipment: LuaEquipment,
+    pub equipment: MaybeCycle<LuaEquipment>,
     /// The equipment grid inserted into.
-    pub grid: LuaEquipmentGrid,
+    pub grid: MaybeCycle<LuaEquipmentGrid>,
     /// Identifier of the event
     pub name: Events,
     /// Tick the event was generated.
@@ -479,7 +480,7 @@ pub struct OnEquipmentRemoved {
     /// The equipment removed.
     pub equipment: String,
     /// The equipment grid removed from.
-    pub grid: LuaEquipmentGrid,
+    pub grid: MaybeCycle<LuaEquipmentGrid>,
     /// Identifier of the event
     pub name: Events,
     /// Tick the event was generated.
@@ -492,11 +493,11 @@ pub struct OnForceCeaseFireChanged {
     /// If the other force was added or removed.
     pub added: bool,
     /// The force who's cease fire changed.
-    pub force: LuaForce,
+    pub force: MaybeCycle<LuaForce>,
     /// Identifier of the event
     pub name: Events,
     /// Which force was added or removed.
-    pub other_force: LuaForce,
+    pub other_force: MaybeCycle<LuaForce>,
     /// Tick the event was generated.
     pub tick: u32,
 }
@@ -509,7 +510,7 @@ pub struct OnForceCeaseFireChanged {
 #[derive(Debug, Deserialize)]
 pub struct OnForceCreated {
     /// The newly created force.
-    pub force: LuaForce,
+    pub force: MaybeCycle<LuaForce>,
     /// Identifier of the event
     pub name: Events,
     /// Tick the event was generated.
@@ -522,11 +523,11 @@ pub struct OnForceFriendsChanged {
     /// If the other force was added or removed.
     pub added: bool,
     /// The force who's friends changed.
-    pub force: LuaForce,
+    pub force: MaybeCycle<LuaForce>,
     /// Identifier of the event
     pub name: Events,
     /// Which force was added or removed.
-    pub other_force: LuaForce,
+    pub other_force: MaybeCycle<LuaForce>,
     /// Tick the event was generated.
     pub tick: u32,
 }
@@ -534,7 +535,7 @@ pub struct OnForceFriendsChanged {
 /// Called when [LuaForce::reset](LuaForce::reset) is finished.
 #[derive(Debug, Deserialize)]
 pub struct OnForceReset {
-    pub force: LuaForce,
+    pub force: MaybeCycle<LuaForce>,
     /// Identifier of the event
     pub name: Events,
     /// Tick the event was generated.
@@ -549,7 +550,7 @@ pub struct OnForceReset {
 #[derive(Debug, Deserialize)]
 pub struct OnForcesMerged {
     /// The force entities where reassigned to.
-    pub destination: LuaForce,
+    pub destination: MaybeCycle<LuaForce>,
     /// Identifier of the event
     pub name: Events,
     /// The index of the destroyed force.
@@ -564,11 +565,11 @@ pub struct OnForcesMerged {
 #[derive(Debug, Deserialize)]
 pub struct OnForcesMerging {
     /// The force to reassign entities to.
-    pub destination: LuaForce,
+    pub destination: MaybeCycle<LuaForce>,
     /// Identifier of the event
     pub name: Events,
     /// The force to be destroyed
-    pub source: LuaForce,
+    pub source: MaybeCycle<LuaForce>,
     /// Tick the event was generated.
     pub tick: u32,
 }
@@ -590,7 +591,7 @@ pub struct OnGameCreatedFromScenario {
 #[derive(Debug, Deserialize)]
 pub struct OnGuiCheckedStateChanged {
     /// The element whose checked state changed.
-    pub element: LuaGuiElement,
+    pub element: MaybeCycle<LuaGuiElement>,
     /// Identifier of the event
     pub name: Events,
     /// The player who did the change.
@@ -609,7 +610,7 @@ pub struct OnGuiClick {
     /// If control was pressed.
     pub control: bool,
     /// The clicked element.
-    pub element: LuaGuiElement,
+    pub element: MaybeCycle<LuaGuiElement>,
     /// Identifier of the event
     pub name: Events,
     /// The player who did the clicking.
@@ -630,25 +631,25 @@ pub struct OnGuiClick {
 #[derive(Debug, Deserialize)]
 pub struct OnGuiClosed {
     /// The custom GUI element that was open
-    pub element: Option<LuaGuiElement>,
+    pub element: Option<MaybeCycle<LuaGuiElement>>,
     /// The entity that was open
-    pub entity: Option<LuaEntity>,
+    pub entity: Option<MaybeCycle<LuaEntity>>,
     /// The equipment that was open
-    pub equipment: Option<LuaEquipment>,
+    pub equipment: Option<MaybeCycle<LuaEquipment>>,
     /// The GUI type that was open.
     pub gui_type: GuiType,
     /// The script inventory that was open
-    pub inventory: Option<LuaInventory>,
+    pub inventory: Option<MaybeCycle<LuaInventory>>,
     /// The item that was open
-    pub item: Option<LuaItemStack>,
+    pub item: Option<MaybeCycle<LuaItemStack>>,
     /// Identifier of the event
     pub name: Events,
     /// The other player that was open
-    pub other_player: Option<LuaPlayer>,
+    pub other_player: Option<MaybeCycle<LuaPlayer>>,
     /// The player.
     pub player_index: u32,
     /// The technology that was automatically selected when opening the research GUI
-    pub technology: Option<LuaTechnology>,
+    pub technology: Option<MaybeCycle<LuaTechnology>>,
     /// Tick the event was generated.
     pub tick: u32,
     /// The tile position that was open
@@ -663,7 +664,7 @@ pub struct OnGuiConfirmed {
     /// If control was pressed.
     pub control: bool,
     /// The confirmed element.
-    pub element: LuaGuiElement,
+    pub element: MaybeCycle<LuaGuiElement>,
     /// Identifier of the event
     pub name: Events,
     /// The player who did the confirming.
@@ -678,7 +679,7 @@ pub struct OnGuiConfirmed {
 #[derive(Debug, Deserialize)]
 pub struct OnGuiElemChanged {
     /// The element whose element value changed.
-    pub element: LuaGuiElement,
+    pub element: MaybeCycle<LuaGuiElement>,
     /// Identifier of the event
     pub name: Events,
     /// The player who did the change.
@@ -691,7 +692,7 @@ pub struct OnGuiElemChanged {
 #[derive(Debug, Deserialize)]
 pub struct OnGuiHover {
     /// The element that is being hovered over.
-    pub element: LuaGuiElement,
+    pub element: MaybeCycle<LuaGuiElement>,
     /// Identifier of the event
     pub name: Events,
     /// The player whose cursor is hovering.
@@ -704,7 +705,7 @@ pub struct OnGuiHover {
 #[derive(Debug, Deserialize)]
 pub struct OnGuiLeave {
     /// The element that was being hovered.
-    pub element: LuaGuiElement,
+    pub element: MaybeCycle<LuaGuiElement>,
     /// Identifier of the event
     pub name: Events,
     /// The player whose cursor was hovering.
@@ -717,7 +718,7 @@ pub struct OnGuiLeave {
 #[derive(Debug, Deserialize)]
 pub struct OnGuiLocationChanged {
     /// The element whose location changed.
-    pub element: LuaGuiElement,
+    pub element: MaybeCycle<LuaGuiElement>,
     /// Identifier of the event
     pub name: Events,
     /// The player who did the change.
@@ -730,21 +731,21 @@ pub struct OnGuiLocationChanged {
 #[derive(Debug, Deserialize)]
 pub struct OnGuiOpened {
     /// The custom GUI element that was opened
-    pub element: Option<LuaGuiElement>,
+    pub element: Option<MaybeCycle<LuaGuiElement>>,
     /// The entity that was opened
-    pub entity: Option<LuaEntity>,
+    pub entity: Option<MaybeCycle<LuaEntity>>,
     /// The equipment that was opened
-    pub equipment: Option<LuaEquipment>,
+    pub equipment: Option<MaybeCycle<LuaEquipment>>,
     /// The GUI type that was opened.
     pub gui_type: GuiType,
     /// The script inventory that was opened
-    pub inventory: Option<LuaInventory>,
+    pub inventory: Option<MaybeCycle<LuaInventory>>,
     /// The item that was opened
-    pub item: Option<LuaItemStack>,
+    pub item: Option<MaybeCycle<LuaItemStack>>,
     /// Identifier of the event
     pub name: Events,
     /// The other player that was opened
-    pub other_player: Option<LuaPlayer>,
+    pub other_player: Option<MaybeCycle<LuaPlayer>>,
     /// The player.
     pub player_index: u32,
     /// Tick the event was generated.
@@ -755,7 +756,7 @@ pub struct OnGuiOpened {
 #[derive(Debug, Deserialize)]
 pub struct OnGuiSelectedTabChanged {
     /// The tabbed pane whose selected tab changed.
-    pub element: LuaGuiElement,
+    pub element: MaybeCycle<LuaGuiElement>,
     /// Identifier of the event
     pub name: Events,
     /// The player who did the change.
@@ -768,7 +769,7 @@ pub struct OnGuiSelectedTabChanged {
 #[derive(Debug, Deserialize)]
 pub struct OnGuiSelectionStateChanged {
     /// The element whose selection state changed.
-    pub element: LuaGuiElement,
+    pub element: MaybeCycle<LuaGuiElement>,
     /// Identifier of the event
     pub name: Events,
     /// The player who did the change.
@@ -781,7 +782,7 @@ pub struct OnGuiSelectionStateChanged {
 #[derive(Debug, Deserialize)]
 pub struct OnGuiSwitchStateChanged {
     /// The switch whose switch state changed.
-    pub element: LuaGuiElement,
+    pub element: MaybeCycle<LuaGuiElement>,
     /// Identifier of the event
     pub name: Events,
     /// The player who did the change.
@@ -794,7 +795,7 @@ pub struct OnGuiSwitchStateChanged {
 #[derive(Debug, Deserialize)]
 pub struct OnGuiTextChanged {
     /// The edited element.
-    pub element: LuaGuiElement,
+    pub element: MaybeCycle<LuaGuiElement>,
     /// Identifier of the event
     pub name: Events,
     /// The player who did the edit.
@@ -809,7 +810,7 @@ pub struct OnGuiTextChanged {
 #[derive(Debug, Deserialize)]
 pub struct OnGuiValueChanged {
     /// The element whose value changed.
-    pub element: LuaGuiElement,
+    pub element: MaybeCycle<LuaGuiElement>,
     /// Identifier of the event
     pub name: Events,
     /// The player who did the change.
@@ -821,7 +822,7 @@ pub struct OnGuiValueChanged {
 /// Called when a land mine is armed.
 #[derive(Debug, Deserialize)]
 pub struct OnLandMineArmed {
-    pub mine: LuaEntity,
+    pub mine: MaybeCycle<LuaEntity>,
     /// Identifier of the event
     pub name: Events,
     /// Tick the event was generated.
@@ -843,7 +844,7 @@ pub struct OnLuaShortcut {
 /// Called when an entity is marked for deconstruction with the Deconstruction planner or via script. Can be filtered using [LuaEntityMarkedForDeconstructionEventFilter](LuaEntityMarkedForDeconstructionEventFilter).
 #[derive(Debug, Deserialize)]
 pub struct OnMarkedForDeconstruction {
-    pub entity: LuaEntity,
+    pub entity: MaybeCycle<LuaEntity>,
     /// Identifier of the event
     pub name: Events,
     pub player_index: Option<u32>,
@@ -856,11 +857,11 @@ pub struct OnMarkedForDeconstruction {
 pub struct OnMarkedForUpgrade {
     /// The new direction (if any)
     pub direction: Option<Direction>,
-    pub entity: LuaEntity,
+    pub entity: MaybeCycle<LuaEntity>,
     /// Identifier of the event
     pub name: Events,
     pub player_index: Option<u32>,
-    pub target: LuaEntityPrototype,
+    pub target: MaybeCycle<LuaEntityPrototype>,
     /// Tick the event was generated.
     pub tick: u32,
 }
@@ -871,7 +872,7 @@ pub struct OnMarketItemPurchased {
     /// The amount of offers purchased.
     pub count: u32,
     /// The market entity.
-    pub market: LuaEntity,
+    pub market: MaybeCycle<LuaEntity>,
     /// Identifier of the event
     pub name: Events,
     /// The index of the offer purchased.
@@ -886,7 +887,7 @@ pub struct OnMarketItemPurchased {
 #[derive(Debug, Deserialize)]
 pub struct OnModItemOpened {
     /// The item clicked on.
-    pub item: LuaItemPrototype,
+    pub item: MaybeCycle<LuaItemPrototype>,
     /// Identifier of the event
     pub name: Events,
     /// The player.
@@ -899,7 +900,7 @@ pub struct OnModItemOpened {
 #[derive(Debug, Deserialize)]
 pub struct OnPermissionGroupAdded {
     /// The group added.
-    pub group: LuaPermissionGroup,
+    pub group: MaybeCycle<LuaPermissionGroup>,
     /// Identifier of the event
     pub name: Events,
     /// The player that added the group.
@@ -929,7 +930,7 @@ pub struct OnPermissionGroupEdited {
     /// The action when the `type` is "add-permission" or "remove-permission".
     pub action: InputAction,
     /// The group being edited.
-    pub group: LuaPermissionGroup,
+    pub group: MaybeCycle<LuaPermissionGroup>,
     /// Identifier of the event
     pub name: Events,
     /// The new group name when the `type` is "rename".
@@ -982,7 +983,7 @@ pub struct OnPlayerAltReverseSelectedArea {
     /// The player doing the selection.
     pub player_index: u32,
     /// The surface selected.
-    pub surface: LuaSurface,
+    pub surface: MaybeCycle<LuaSurface>,
     /// Tick the event was generated.
     pub tick: u32,
     /// The tiles selected.
@@ -1003,7 +1004,7 @@ pub struct OnPlayerAltSelectedArea {
     /// The player doing the selection.
     pub player_index: u32,
     /// The surface selected.
-    pub surface: LuaSurface,
+    pub surface: MaybeCycle<LuaSurface>,
     /// Tick the event was generated.
     pub tick: u32,
     /// The tiles selected.
@@ -1051,18 +1052,18 @@ pub struct OnPlayerBanned {
 #[derive(Debug, Deserialize)]
 pub struct OnPlayerBuiltTile {
     /// The item type used to build the tiles
-    pub item: Option<LuaItemPrototype>,
+    pub item: Option<MaybeCycle<LuaItemPrototype>>,
     /// Identifier of the event
     pub name: Events,
     pub player_index: u32,
     /// The stack used to build the tiles (may be empty if all of the items where used to build the tiles).
-    pub stack: Option<LuaItemStack>,
+    pub stack: Option<MaybeCycle<LuaItemStack>>,
     /// The surface the tile(s) were built on.
     pub surface_index: u32,
     /// Tick the event was generated.
     pub tick: u32,
     /// The tile prototype that was placed.
-    pub tile: LuaTilePrototype,
+    pub tile: MaybeCycle<LuaTilePrototype>,
     /// The position data.
     pub tiles: Vec<OldTileAndPosition>,
 }
@@ -1073,13 +1074,13 @@ pub struct OnPlayerCancelledCrafting {
     /// The number of crafts that have been cancelled.
     pub cancel_count: u32,
     /// The crafting items returned to the player's inventory.
-    pub items: LuaInventory,
+    pub items: MaybeCycle<LuaInventory>,
     /// Identifier of the event
     pub name: Events,
     /// The player that did the crafting.
     pub player_index: u32,
     /// The recipe that has been cancelled.
-    pub recipe: LuaRecipe,
+    pub recipe: MaybeCycle<LuaRecipe>,
     /// Tick the event was generated.
     pub tick: u32,
 }
@@ -1088,7 +1089,7 @@ pub struct OnPlayerCancelledCrafting {
 #[derive(Debug, Deserialize)]
 pub struct OnPlayerChangedForce {
     /// The old force.
-    pub force: LuaForce,
+    pub force: MaybeCycle<LuaForce>,
     /// Identifier of the event
     pub name: Events,
     /// The player who changed forces.
@@ -1183,20 +1184,20 @@ pub struct OnPlayerConfiguredSpiderRemote {
     /// Tick the event was generated.
     pub tick: u32,
     /// Spider vehicle to which remote was connected to.
-    pub vehicle: LuaEntity,
+    pub vehicle: MaybeCycle<LuaEntity>,
 }
 
 /// Called when the player finishes crafting an item. This event fires just before the results are inserted into the player's inventory, not when the crafting is queued (see [on_pre_player_crafted_item](on_pre_player_crafted_item)).
 #[derive(Debug, Deserialize)]
 pub struct OnPlayerCraftedItem {
     /// The item that has been crafted.
-    pub item_stack: LuaItemStack,
+    pub item_stack: MaybeCycle<LuaItemStack>,
     /// Identifier of the event
     pub name: Events,
     /// The player doing the crafting.
     pub player_index: u32,
     /// The recipe used to craft this item.
-    pub recipe: LuaRecipe,
+    pub recipe: MaybeCycle<LuaRecipe>,
     /// Tick the event was generated.
     pub tick: u32,
 }
@@ -1235,7 +1236,7 @@ pub struct OnPlayerDeconstructedArea {
     /// The player doing the selection.
     pub player_index: u32,
     /// The surface selected.
-    pub surface: LuaSurface,
+    pub surface: MaybeCycle<LuaSurface>,
     /// Tick the event was generated.
     pub tick: u32,
 }
@@ -1254,7 +1255,7 @@ pub struct OnPlayerDemoted {
 /// Called after a player dies.
 #[derive(Debug, Deserialize)]
 pub struct OnPlayerDied {
-    pub cause: Option<LuaEntity>,
+    pub cause: Option<MaybeCycle<LuaEntity>>,
     /// Identifier of the event
     pub name: Events,
     pub player_index: u32,
@@ -1296,7 +1297,7 @@ pub struct OnPlayerDisplayScaleChanged {
 #[derive(Debug, Deserialize)]
 pub struct OnPlayerDrivingChangedState {
     /// The vehicle if any.
-    pub entity: Option<LuaEntity>,
+    pub entity: Option<MaybeCycle<LuaEntity>>,
     /// Identifier of the event
     pub name: Events,
     pub player_index: u32,
@@ -1308,7 +1309,7 @@ pub struct OnPlayerDrivingChangedState {
 #[derive(Debug, Deserialize)]
 pub struct OnPlayerDroppedItem {
     /// The item-on-ground entity.
-    pub entity: LuaEntity,
+    pub entity: MaybeCycle<LuaEntity>,
     /// Identifier of the event
     pub name: Events,
     pub player_index: u32,
@@ -1320,7 +1321,7 @@ pub struct OnPlayerDroppedItem {
 #[derive(Debug, Deserialize)]
 pub struct OnPlayerFastTransferred {
     /// The entity transferred from or to.
-    pub entity: LuaEntity,
+    pub entity: MaybeCycle<LuaEntity>,
     /// Whether the transfer was from player to entity. If `false`, the transfer was from entity to player.
     pub from_player: bool,
     /// Whether the transfer was a split action (half stack).
@@ -1339,7 +1340,7 @@ pub struct OnPlayerFlushedFluid {
     /// Amount of fluid that was removed
     pub amount: f64,
     /// Entity from which flush was performed
-    pub entity: LuaEntity,
+    pub entity: MaybeCycle<LuaEntity>,
     /// Name of a fluid that was flushed
     pub fluid: String,
     /// Identifier of the event
@@ -1416,9 +1417,9 @@ pub struct OnPlayerMainInventoryChanged {
 #[derive(Debug, Deserialize)]
 pub struct OnPlayerMinedEntity {
     /// The temporary inventory that holds the result of mining the entity.
-    pub buffer: LuaInventory,
+    pub buffer: MaybeCycle<LuaInventory>,
     /// The entity that has been mined.
-    pub entity: LuaEntity,
+    pub entity: MaybeCycle<LuaEntity>,
     /// Identifier of the event
     pub name: Events,
     /// The index of the player doing the mining.
@@ -1468,7 +1469,7 @@ pub struct OnPlayerMuted {
 #[derive(Debug, Deserialize)]
 pub struct OnPlayerPipette {
     /// The item put in the cursor
-    pub item: LuaItemPrototype,
+    pub item: MaybeCycle<LuaItemPrototype>,
     /// Identifier of the event
     pub name: Events,
     /// The player
@@ -1483,9 +1484,9 @@ pub struct OnPlayerPipette {
 #[derive(Debug, Deserialize)]
 pub struct OnPlayerPlacedEquipment {
     /// The equipment put in the equipment grid.
-    pub equipment: LuaEquipment,
+    pub equipment: MaybeCycle<LuaEquipment>,
     /// The equipment grid the equipment was put in.
-    pub grid: LuaEquipmentGrid,
+    pub grid: MaybeCycle<LuaEquipmentGrid>,
     /// Identifier of the event
     pub name: Events,
     pub player_index: u32,
@@ -1523,7 +1524,7 @@ pub struct OnPlayerRemovedEquipment {
     /// The equipment removed.
     pub equipment: String,
     /// The equipment grid removed from.
-    pub grid: LuaEquipmentGrid,
+    pub grid: MaybeCycle<LuaEquipmentGrid>,
     /// Identifier of the event
     pub name: Events,
     pub player_index: u32,
@@ -1534,7 +1535,7 @@ pub struct OnPlayerRemovedEquipment {
 /// Called when a player repairs an entity. Can be filtered using [LuaPlayerRepairedEntityEventFilter](LuaPlayerRepairedEntityEventFilter).
 #[derive(Debug, Deserialize)]
 pub struct OnPlayerRepairedEntity {
-    pub entity: LuaEntity,
+    pub entity: MaybeCycle<LuaEntity>,
     /// Identifier of the event
     pub name: Events,
     pub player_index: u32,
@@ -1549,7 +1550,7 @@ pub struct OnPlayerRespawned {
     pub name: Events,
     pub player_index: u32,
     /// The player port used to respawn if one was used.
-    pub player_port: Option<LuaEntity>,
+    pub player_port: Option<MaybeCycle<LuaEntity>>,
     /// Tick the event was generated.
     pub tick: u32,
 }
@@ -1568,7 +1569,7 @@ pub struct OnPlayerReverseSelectedArea {
     /// The player doing the selection.
     pub player_index: u32,
     /// The surface selected.
-    pub surface: LuaSurface,
+    pub surface: MaybeCycle<LuaSurface>,
     /// Tick the event was generated.
     pub tick: u32,
     /// The tiles selected.
@@ -1579,7 +1580,7 @@ pub struct OnPlayerReverseSelectedArea {
 #[derive(Debug, Deserialize)]
 pub struct OnPlayerRotatedEntity {
     /// The rotated entity.
-    pub entity: LuaEntity,
+    pub entity: MaybeCycle<LuaEntity>,
     /// Identifier of the event
     pub name: Events,
     pub player_index: u32,
@@ -1603,7 +1604,7 @@ pub struct OnPlayerSelectedArea {
     /// The player doing the selection.
     pub player_index: u32,
     /// The surface selected.
-    pub surface: LuaSurface,
+    pub surface: MaybeCycle<LuaSurface>,
     /// Tick the event was generated.
     pub tick: u32,
     /// The tiles selected.
@@ -1636,7 +1637,7 @@ pub struct OnPlayerSetupBlueprint {
     /// The player doing the selection.
     pub player_index: u32,
     /// The surface selected.
-    pub surface: LuaSurface,
+    pub surface: MaybeCycle<LuaSurface>,
     /// Tick the event was generated.
     pub tick: u32,
 }
@@ -1705,7 +1706,7 @@ pub struct OnPlayerUnmuted {
 #[derive(Debug, Deserialize)]
 pub struct OnPlayerUsedCapsule {
     /// The capsule item used.
-    pub item: LuaItemPrototype,
+    pub item: MaybeCycle<LuaItemPrototype>,
     /// Identifier of the event
     pub name: Events,
     /// The player.
@@ -1730,7 +1731,7 @@ pub struct OnPlayerUsedSpiderRemote {
     /// Tick the event was generated.
     pub tick: u32,
     /// Spider vehicle which was requested to move.
-    pub vehicle: LuaEntity,
+    pub vehicle: MaybeCycle<LuaEntity>,
 }
 
 /// Called after an entity dies. Can be filtered using [LuaPostEntityDiedEventFilter](LuaPostEntityDiedEventFilter).
@@ -1739,17 +1740,17 @@ pub struct OnPostEntityDied {
     /// The corpses created by the entity dying if any.
     pub corpses: Vec<LuaEntity>,
     /// The damage type if any.
-    pub damage_type: Option<LuaDamagePrototype>,
+    pub damage_type: Option<MaybeCycle<LuaDamagePrototype>>,
     /// The force that did the killing if any.
-    pub force: Option<LuaForce>,
+    pub force: Option<MaybeCycle<LuaForce>>,
     /// The ghost created by the entity dying if any.
-    pub ghost: Option<LuaEntity>,
+    pub ghost: Option<MaybeCycle<LuaEntity>>,
     /// Identifier of the event
     pub name: Events,
     /// Position where the entity died.
     pub position: MapPosition,
     /// The entity prototype of the entity that died.
-    pub prototype: LuaEntityPrototype,
+    pub prototype: MaybeCycle<LuaEntityPrototype>,
     /// The surface the entity was on.
     pub surface_index: u32,
     /// Tick the event was generated.
@@ -1797,12 +1798,12 @@ pub struct OnPreChunkDeleted {
 #[derive(Debug, Deserialize)]
 pub struct OnPreEntitySettingsPasted {
     /// The destination entity settings will be copied to.
-    pub destination: LuaEntity,
+    pub destination: MaybeCycle<LuaEntity>,
     /// Identifier of the event
     pub name: Events,
     pub player_index: u32,
     /// The source entity settings will be copied from.
-    pub source: LuaEntity,
+    pub source: MaybeCycle<LuaEntity>,
     /// Tick the event was generated.
     pub tick: u32,
 }
@@ -1810,7 +1811,7 @@ pub struct OnPreEntitySettingsPasted {
 /// Called before a ghost entity is destroyed as a result of being marked for deconstruction. Can be filtered using [LuaPreGhostDeconstructedEventFilter](LuaPreGhostDeconstructedEventFilter).
 #[derive(Debug, Deserialize)]
 pub struct OnPreGhostDeconstructed {
-    pub ghost: LuaEntity,
+    pub ghost: MaybeCycle<LuaEntity>,
     /// Identifier of the event
     pub name: Events,
     /// The player that did the deconstruction if any.
@@ -1822,12 +1823,12 @@ pub struct OnPreGhostDeconstructed {
 /// Called before a ghost entity is upgraded. Can be filtered using [LuaPreGhostUpgradedEventFilter](LuaPreGhostUpgradedEventFilter).
 #[derive(Debug, Deserialize)]
 pub struct OnPreGhostUpgraded {
-    pub ghost: LuaEntity,
+    pub ghost: MaybeCycle<LuaEntity>,
     /// Identifier of the event
     pub name: Events,
     /// The player that did the upgrade if any.
     pub player_index: Option<u32>,
-    pub target: LuaEntityPrototype,
+    pub target: MaybeCycle<LuaEntityPrototype>,
     /// Tick the event was generated.
     pub tick: u32,
 }
@@ -1836,7 +1837,7 @@ pub struct OnPreGhostUpgraded {
 #[derive(Debug, Deserialize)]
 pub struct OnPrePermissionGroupDeleted {
     /// The group to be deleted.
-    pub group: LuaPermissionGroup,
+    pub group: MaybeCycle<LuaPermissionGroup>,
     /// Identifier of the event
     pub name: Events,
     /// The player doing the deletion.
@@ -1860,7 +1861,7 @@ pub struct OnPrePermissionStringImported {
 #[derive(Debug, Deserialize)]
 pub struct OnPrePlayerCraftedItem {
     /// The items removed from the players inventory to do the crafting.
-    pub items: LuaInventory,
+    pub items: MaybeCycle<LuaInventory>,
     /// Identifier of the event
     pub name: Events,
     /// The player doing the crafting.
@@ -1868,7 +1869,7 @@ pub struct OnPrePlayerCraftedItem {
     /// The number of times the recipe is being queued.
     pub queued_count: u32,
     /// The recipe being queued.
-    pub recipe: LuaRecipe,
+    pub recipe: MaybeCycle<LuaRecipe>,
     /// Tick the event was generated.
     pub tick: u32,
 }
@@ -1876,7 +1877,7 @@ pub struct OnPrePlayerCraftedItem {
 /// Called before a players dies.
 #[derive(Debug, Deserialize)]
 pub struct OnPrePlayerDied {
-    pub cause: Option<LuaEntity>,
+    pub cause: Option<MaybeCycle<LuaEntity>>,
     /// Identifier of the event
     pub name: Events,
     pub player_index: u32,
@@ -1899,7 +1900,7 @@ pub struct OnPrePlayerLeftGame {
 #[derive(Debug, Deserialize)]
 pub struct OnPrePlayerMinedItem {
     /// The entity being mined
-    pub entity: LuaEntity,
+    pub entity: MaybeCycle<LuaEntity>,
     /// Identifier of the event
     pub name: Events,
     pub player_index: u32,
@@ -1931,12 +1932,12 @@ pub struct OnPrePlayerToggledMapEditor {
 /// Called directly before a robot explodes cliffs.
 #[derive(Debug, Deserialize)]
 pub struct OnPreRobotExplodedCliff {
-    pub cliff: LuaEntity,
+    pub cliff: MaybeCycle<LuaEntity>,
     /// The cliff explosive used.
-    pub item: LuaItemPrototype,
+    pub item: MaybeCycle<LuaItemPrototype>,
     /// Identifier of the event
     pub name: Events,
-    pub robot: LuaEntity,
+    pub robot: MaybeCycle<LuaEntity>,
     /// Tick the event was generated.
     pub tick: u32,
 }
@@ -1944,7 +1945,7 @@ pub struct OnPreRobotExplodedCliff {
 /// Called just before a script inventory is resized.
 #[derive(Debug, Deserialize)]
 pub struct OnPreScriptInventoryResized {
-    pub inventory: LuaInventory,
+    pub inventory: MaybeCycle<LuaInventory>,
     /// The mod that did the resizing. This will be `"core"` if done by console command or scenario script.
     pub mod_name: String,
     /// Identifier of the event
@@ -1983,7 +1984,7 @@ pub struct OnPreSurfaceDeleted {
 #[derive(Debug, Deserialize)]
 pub struct OnResearchCancelled {
     /// The force whose research was cancelled.
-    pub force: LuaForce,
+    pub force: MaybeCycle<LuaForce>,
     /// Identifier of the event
     pub name: Events,
     /// A mapping of technology name to how many times it was cancelled.
@@ -2000,7 +2001,7 @@ pub struct OnResearchFinished {
     /// Identifier of the event
     pub name: Events,
     /// The researched technology
-    pub research: LuaTechnology,
+    pub research: MaybeCycle<LuaTechnology>,
     /// Tick the event was generated.
     pub tick: u32,
 }
@@ -2013,7 +2014,7 @@ pub struct OnResearchReversed {
     /// Identifier of the event
     pub name: Events,
     /// The technology un-researched
-    pub research: LuaTechnology,
+    pub research: MaybeCycle<LuaTechnology>,
     /// Tick the event was generated.
     pub tick: u32,
 }
@@ -2021,11 +2022,11 @@ pub struct OnResearchReversed {
 /// Called when a technology research starts.
 #[derive(Debug, Deserialize)]
 pub struct OnResearchStarted {
-    pub last_research: Option<LuaTechnology>,
+    pub last_research: Option<MaybeCycle<LuaTechnology>>,
     /// Identifier of the event
     pub name: Events,
     /// The technology being researched
-    pub research: LuaTechnology,
+    pub research: MaybeCycle<LuaTechnology>,
     /// Tick the event was generated.
     pub tick: u32,
 }
@@ -2033,7 +2034,7 @@ pub struct OnResearchStarted {
 /// Called when a resource entity reaches 0 or its minimum yield for infinite resources.
 #[derive(Debug, Deserialize)]
 pub struct OnResourceDepleted {
-    pub entity: LuaEntity,
+    pub entity: MaybeCycle<LuaEntity>,
     /// Identifier of the event
     pub name: Events,
     /// Tick the event was generated.
@@ -2044,13 +2045,13 @@ pub struct OnResourceDepleted {
 #[derive(Debug, Deserialize)]
 pub struct OnRobotBuiltEntity {
     /// The entity built.
-    pub created_entity: LuaEntity,
+    pub created_entity: MaybeCycle<LuaEntity>,
     /// Identifier of the event
     pub name: Events,
     /// The robot that did the building.
-    pub robot: LuaEntity,
+    pub robot: MaybeCycle<LuaEntity>,
     /// The item used to do the building.
-    pub stack: LuaItemStack,
+    pub stack: MaybeCycle<LuaItemStack>,
     /// The tags associated with this entity if any.
     pub tags: Option<Tags>,
     /// Tick the event was generated.
@@ -2061,19 +2062,19 @@ pub struct OnRobotBuiltEntity {
 #[derive(Debug, Deserialize)]
 pub struct OnRobotBuiltTile {
     /// The item type used to build the tiles.
-    pub item: LuaItemPrototype,
+    pub item: MaybeCycle<LuaItemPrototype>,
     /// Identifier of the event
     pub name: Events,
     /// The robot.
-    pub robot: LuaEntity,
+    pub robot: MaybeCycle<LuaEntity>,
     /// The stack used to build the tiles (may be empty if all of the items where used to build the tiles).
-    pub stack: LuaItemStack,
+    pub stack: MaybeCycle<LuaItemStack>,
     /// The surface the tile(s) are build on.
     pub surface_index: u32,
     /// Tick the event was generated.
     pub tick: u32,
     /// The tile prototype that was placed.
-    pub tile: LuaTilePrototype,
+    pub tile: MaybeCycle<LuaTilePrototype>,
     /// The position data.
     pub tiles: Vec<OldTileAndPosition>,
 }
@@ -2082,10 +2083,10 @@ pub struct OnRobotBuiltTile {
 #[derive(Debug, Deserialize)]
 pub struct OnRobotExplodedCliff {
     /// The cliff explosive used.
-    pub item: LuaItemPrototype,
+    pub item: MaybeCycle<LuaItemPrototype>,
     /// Identifier of the event
     pub name: Events,
-    pub robot: LuaEntity,
+    pub robot: MaybeCycle<LuaEntity>,
     /// Tick the event was generated.
     pub tick: u32,
 }
@@ -2098,7 +2099,7 @@ pub struct OnRobotMined {
     /// Identifier of the event
     pub name: Events,
     /// The robot that did the mining.
-    pub robot: LuaEntity,
+    pub robot: MaybeCycle<LuaEntity>,
     /// Tick the event was generated.
     pub tick: u32,
 }
@@ -2111,13 +2112,13 @@ pub struct OnRobotMined {
 #[derive(Debug, Deserialize)]
 pub struct OnRobotMinedEntity {
     /// The temporary inventory that holds the result of mining the entity.
-    pub buffer: LuaInventory,
+    pub buffer: MaybeCycle<LuaInventory>,
     /// The entity that has been mined.
-    pub entity: LuaEntity,
+    pub entity: MaybeCycle<LuaEntity>,
     /// Identifier of the event
     pub name: Events,
     /// The robot doing the mining.
-    pub robot: LuaEntity,
+    pub robot: MaybeCycle<LuaEntity>,
     /// Tick the event was generated.
     pub tick: u32,
 }
@@ -2128,7 +2129,7 @@ pub struct OnRobotMinedTile {
     /// Identifier of the event
     pub name: Events,
     /// The robot.
-    pub robot: LuaEntity,
+    pub robot: MaybeCycle<LuaEntity>,
     /// The surface the tile(s) were mined on.
     pub surface_index: u32,
     /// Tick the event was generated.
@@ -2141,11 +2142,11 @@ pub struct OnRobotMinedTile {
 #[derive(Debug, Deserialize)]
 pub struct OnRobotPreMined {
     /// The entity which is about to be mined.
-    pub entity: LuaEntity,
+    pub entity: MaybeCycle<LuaEntity>,
     /// Identifier of the event
     pub name: Events,
     /// The robot that's about to do the mining.
-    pub robot: LuaEntity,
+    pub robot: MaybeCycle<LuaEntity>,
     /// Tick the event was generated.
     pub tick: u32,
 }
@@ -2157,8 +2158,8 @@ pub struct OnRocketLaunchOrdered {
     pub name: Events,
     /// The player that is riding the rocket, if any.
     pub player_index: Option<u32>,
-    pub rocket: LuaEntity,
-    pub rocket_silo: LuaEntity,
+    pub rocket: MaybeCycle<LuaEntity>,
+    pub rocket_silo: MaybeCycle<LuaEntity>,
     /// Tick the event was generated.
     pub tick: u32,
 }
@@ -2170,8 +2171,8 @@ pub struct OnRocketLaunched {
     pub name: Events,
     /// The player that is riding the rocket, if any.
     pub player_index: Option<u32>,
-    pub rocket: LuaEntity,
-    pub rocket_silo: Option<LuaEntity>,
+    pub rocket: MaybeCycle<LuaEntity>,
+    pub rocket_silo: Option<MaybeCycle<LuaEntity>>,
     /// Tick the event was generated.
     pub tick: u32,
 }
@@ -2194,7 +2195,7 @@ pub struct OnRuntimeModSettingChanged {
 /// Called just after a script inventory is resized.
 #[derive(Debug, Deserialize)]
 pub struct OnScriptInventoryResized {
-    pub inventory: LuaInventory,
+    pub inventory: MaybeCycle<LuaInventory>,
     /// The mod that did the resizing. This will be `"core"` if done by console command or scenario script.
     pub mod_name: String,
     /// Identifier of the event
@@ -2204,7 +2205,7 @@ pub struct OnScriptInventoryResized {
     /// The old inventory size.
     pub old_size: u32,
     /// Any items which didn't fit into the new inventory size.
-    pub overflow_inventory: LuaInventory,
+    pub overflow_inventory: MaybeCycle<LuaInventory>,
     /// If done by console command; the player who ran the command.
     pub player_index: Option<u32>,
     /// Tick the event was generated.
@@ -2233,11 +2234,11 @@ pub struct OnScriptTriggerEffect {
     pub effect_id: String,
     /// Identifier of the event
     pub name: Events,
-    pub source_entity: Option<LuaEntity>,
+    pub source_entity: Option<MaybeCycle<LuaEntity>>,
     pub source_position: Option<MapPosition>,
     /// The surface the effect happened on.
     pub surface_index: u32,
-    pub target_entity: Option<LuaEntity>,
+    pub target_entity: Option<MaybeCycle<LuaEntity>>,
     pub target_position: Option<MapPosition>,
     /// Tick the event was generated.
     pub tick: u32,
@@ -2253,7 +2254,7 @@ pub struct OnSectorScanned {
     /// Identifier of the event
     pub name: Events,
     /// The radar that did the scanning.
-    pub radar: LuaEntity,
+    pub radar: MaybeCycle<LuaEntity>,
     /// Tick the event was generated.
     pub tick: u32,
 }
@@ -2262,7 +2263,7 @@ pub struct OnSectorScanned {
 #[derive(Debug, Deserialize)]
 pub struct OnSelectedEntityChanged {
     /// The last selected entity if it still exists and there was one.
-    pub last_entity: Option<LuaEntity>,
+    pub last_entity: Option<MaybeCycle<LuaEntity>>,
     /// Identifier of the event
     pub name: Events,
     /// The player whose selected entity changed.
@@ -2279,7 +2280,7 @@ pub struct OnSpiderCommandCompleted {
     /// Tick the event was generated.
     pub tick: u32,
     /// Spider vehicle which was requested to move.
-    pub vehicle: LuaEntity,
+    pub vehicle: MaybeCycle<LuaEntity>,
 }
 
 /// Called when a translation request generated through [LuaPlayer::request_translation](LuaPlayer::request_translation) or [LuaPlayer::request_translations](LuaPlayer::request_translations) has been completed.
@@ -2362,7 +2363,7 @@ pub struct OnSurfaceRenamed {
 /// Called when [LuaForce::reset_technology_effects](LuaForce::reset_technology_effects) is finished.
 #[derive(Debug, Deserialize)]
 pub struct OnTechnologyEffectsReset {
-    pub force: LuaForce,
+    pub force: MaybeCycle<LuaForce>,
     /// Identifier of the event
     pub name: Events,
     /// Tick the event was generated.
@@ -2386,7 +2387,7 @@ pub struct OnTrainChangedState {
     pub old_state: TrainState,
     /// Tick the event was generated.
     pub tick: u32,
-    pub train: LuaTrain,
+    pub train: MaybeCycle<LuaTrain>,
 }
 
 /// Called when a new train is created either through disconnecting/connecting an existing one or building a new one.
@@ -2400,7 +2401,7 @@ pub struct OnTrainCreated {
     pub old_train_id_2: Option<u32>,
     /// Tick the event was generated.
     pub tick: u32,
-    pub train: LuaTrain,
+    pub train: MaybeCycle<LuaTrain>,
 }
 
 /// Called when a trains schedule is changed either by the player or through script.
@@ -2412,16 +2413,16 @@ pub struct OnTrainScheduleChanged {
     pub player_index: Option<u32>,
     /// Tick the event was generated.
     pub tick: u32,
-    pub train: LuaTrain,
+    pub train: MaybeCycle<LuaTrain>,
 }
 
 /// Called when an entity with a trigger prototype (such as capsules) create an entity AND that trigger prototype defined `trigger_created_entity="true"`.
 #[derive(Debug, Deserialize)]
 pub struct OnTriggerCreatedEntity {
-    pub entity: LuaEntity,
+    pub entity: MaybeCycle<LuaEntity>,
     /// Identifier of the event
     pub name: Events,
-    pub source: Option<LuaEntity>,
+    pub source: Option<MaybeCycle<LuaEntity>>,
     /// Tick the event was generated.
     pub tick: u32,
 }
@@ -2429,10 +2430,10 @@ pub struct OnTriggerCreatedEntity {
 /// Called when an entity with a trigger prototype (such as capsules) fire an artillery projectile AND that trigger prototype defined `trigger_fired_artillery="true"`.
 #[derive(Debug, Deserialize)]
 pub struct OnTriggerFiredArtillery {
-    pub entity: LuaEntity,
+    pub entity: MaybeCycle<LuaEntity>,
     /// Identifier of the event
     pub name: Events,
-    pub source: Option<LuaEntity>,
+    pub source: Option<MaybeCycle<LuaEntity>>,
     /// Tick the event was generated.
     pub tick: u32,
 }
@@ -2440,18 +2441,18 @@ pub struct OnTriggerFiredArtillery {
 /// Called when a unit is added to a unit group.
 #[derive(Debug, Deserialize)]
 pub struct OnUnitAddedToGroup {
-    pub group: LuaUnitGroup,
+    pub group: MaybeCycle<LuaUnitGroup>,
     /// Identifier of the event
     pub name: Events,
     /// Tick the event was generated.
     pub tick: u32,
-    pub unit: LuaEntity,
+    pub unit: MaybeCycle<LuaEntity>,
 }
 
 /// Called when a new unit group is created, before any members are added to it.
 #[derive(Debug, Deserialize)]
 pub struct OnUnitGroupCreated {
-    pub group: LuaUnitGroup,
+    pub group: MaybeCycle<LuaUnitGroup>,
     /// Identifier of the event
     pub name: Events,
     /// Tick the event was generated.
@@ -2461,7 +2462,7 @@ pub struct OnUnitGroupCreated {
 /// Called when a unit group finishes gathering and starts executing its command.
 #[derive(Debug, Deserialize)]
 pub struct OnUnitGroupFinishedGathering {
-    pub group: LuaUnitGroup,
+    pub group: MaybeCycle<LuaUnitGroup>,
     /// Identifier of the event
     pub name: Events,
     /// Tick the event was generated.
@@ -2471,12 +2472,12 @@ pub struct OnUnitGroupFinishedGathering {
 /// Called when a unit is removed from a unit group.
 #[derive(Debug, Deserialize)]
 pub struct OnUnitRemovedFromGroup {
-    pub group: LuaUnitGroup,
+    pub group: MaybeCycle<LuaUnitGroup>,
     /// Identifier of the event
     pub name: Events,
     /// Tick the event was generated.
     pub tick: u32,
-    pub unit: LuaEntity,
+    pub unit: MaybeCycle<LuaEntity>,
 }
 
 /// Called when a worker (construction or logistic) robot expires through a lack of energy.
@@ -2484,7 +2485,7 @@ pub struct OnUnitRemovedFromGroup {
 pub struct OnWorkerRobotExpired {
     /// Identifier of the event
     pub name: Events,
-    pub robot: LuaEntity,
+    pub robot: MaybeCycle<LuaEntity>,
     /// Tick the event was generated.
     pub tick: u32,
 }
@@ -2493,7 +2494,7 @@ pub struct OnWorkerRobotExpired {
 #[derive(Debug, Deserialize)]
 pub struct ScriptRaisedBuilt {
     /// The entity that has been built.
-    pub entity: LuaEntity,
+    pub entity: MaybeCycle<LuaEntity>,
     /// Identifier of the event
     pub name: Events,
     /// Tick the event was generated.
@@ -2504,7 +2505,7 @@ pub struct ScriptRaisedBuilt {
 #[derive(Debug, Deserialize)]
 pub struct ScriptRaisedDestroy {
     /// The entity that was destroyed.
-    pub entity: LuaEntity,
+    pub entity: MaybeCycle<LuaEntity>,
     /// Identifier of the event
     pub name: Events,
     /// Tick the event was generated.
@@ -2515,7 +2516,7 @@ pub struct ScriptRaisedDestroy {
 #[derive(Debug, Deserialize)]
 pub struct ScriptRaisedRevive {
     /// The entity that was revived.
-    pub entity: LuaEntity,
+    pub entity: MaybeCycle<LuaEntity>,
     /// Identifier of the event
     pub name: Events,
     /// The tags associated with this entity, if any.
@@ -2541,7 +2542,7 @@ pub struct ScriptRaisedSetTiles {
 #[derive(Debug, Deserialize)]
 pub struct ScriptRaisedTeleported {
     /// The entity that was teleported.
-    pub entity: LuaEntity,
+    pub entity: MaybeCycle<LuaEntity>,
     /// Identifier of the event
     pub name: Events,
     /// The entity's position before the teleportation.

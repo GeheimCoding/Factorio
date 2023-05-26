@@ -1,7 +1,7 @@
 #![allow(dead_code)]
 
 use std::{
-    collections::{HashMap, HashSet},
+    collections::HashSet,
     fs,
     io::{Error, ErrorKind},
     path::{Path, PathBuf},
@@ -10,8 +10,11 @@ use std::{
 
 use serde::Deserialize;
 
+const UNTAGGED: &str = "#[serde(untagged)]\n";
 const DERIVE: &str = "#[derive(Debug, Deserialize)]\n";
 const DERIVE_WITH_HASH: &str = "#[derive(Debug, Deserialize, Eq, PartialEq, Hash)]\n";
+const RENAME_WITH_TAG: &str =
+    "#[serde(rename_all = \"snake_case\")]\n#[serde(tag = \"serde_tag\")]\n";
 
 trait PascalCase {
     fn to_pascal_case(&self) -> String;
@@ -184,6 +187,7 @@ enum Import {
     Classes,
     Concepts,
     Defines,
+    MaybeCycle,
     Deserialize,
     LineBreak,
 }
@@ -213,10 +217,16 @@ impl RuntimeApiFormat {
         fs::write(factorio_types_path, content)?;
 
         let mod_path = generated_path.join("mod.rs");
-        mod_content.push_str("mod factorio_types;\npub use factorio_types::*;\n");
+        mod_content.push_str("mod factorio_types;\npub use factorio_types::*;\n\n");
         if mod_path.exists() {
             fs::remove_file(&mod_path)?;
         }
+        mod_content.push_str("use serde::Deserialize;\n\n");
+        mod_content.push_str(DERIVE);
+        mod_content.push_str(UNTAGGED);
+        mod_content.push_str(
+            "pub enum MaybeCycle<T> {\n    Cycle { cycle_id: u32 },\n    Value(Box<T>),\n}",
+        );
         fs::write(mod_path, mod_content)?;
 
         Ok(())
@@ -225,21 +235,23 @@ impl RuntimeApiFormat {
     fn generate_factorio_types(&self) -> String {
         let mut definition = String::from(DERIVE);
 
+        definition
+            .push_str("#[serde(rename_all = \"snake_case\")]\n#[serde(tag = \"serde_type\")]\n");
         definition.push_str("pub enum FactorioType {\n    Class(Class),\n    Concept(Concept),\n    Event(Event),\n",);
 
-        definition.push_str(&format!("}}\n\n{DERIVE}"));
+        definition.push_str(&format!("}}\n\n{DERIVE}{RENAME_WITH_TAG}"));
         definition.push_str("pub enum Class {\n");
         for class in &self.classes {
             let name = &class.name;
             definition.push_str(&format!("    {name}({name}),\n"));
         }
-        definition.push_str(&format!("}}\n\n{DERIVE}"));
+        definition.push_str(&format!("}}\n\n{DERIVE}{RENAME_WITH_TAG}"));
         definition.push_str("pub enum Concept {\n");
         for concept in &self.concepts {
             let name = &concept.name;
             definition.push_str(&format!("    {name}({name}),\n"));
         }
-        definition.push_str(&format!("}}\n\n{DERIVE}"));
+        definition.push_str(&format!("}}\n\n{DERIVE}{RENAME_WITH_TAG}"));
         definition.push_str("pub enum Event {\n");
         for event in &self.events {
             let name = event.name.to_pascal_case();
@@ -280,6 +292,7 @@ impl RuntimeApiFormat {
                 Import::Classes => "use super::classes::*;\n",
                 Import::Concepts => "use super::concepts::*;\n",
                 Import::Defines => "use super::defines::*;\n",
+                Import::MaybeCycle => "use super::MaybeCycle;\n",
                 Import::Deserialize => "use serde::Deserialize;\n",
                 Import::LineBreak => "\n",
             });
@@ -312,6 +325,7 @@ impl RuntimeApiFormat {
             Import::LineBreak,
             Import::Concepts,
             Import::Defines,
+            Import::MaybeCycle,
             Import::LineBreak,
         ];
         self.generate_definition(
@@ -331,6 +345,7 @@ impl RuntimeApiFormat {
             Import::Classes,
             Import::Concepts,
             Import::Defines,
+            Import::MaybeCycle,
             Import::LineBreak,
         ];
         self.generate_definition(
@@ -350,6 +365,7 @@ impl RuntimeApiFormat {
             Import::LineBreak,
             Import::Classes,
             Import::Defines,
+            Import::MaybeCycle,
             Import::LineBreak,
         ];
         self.generate_definition(
@@ -414,36 +430,6 @@ impl GenerateDefinition for Class {
         let mut inline_type_definition = String::new();
         let mut struct_definition = String::new();
         let mut unions = Vec::new();
-        let mut cycles = HashMap::new();
-        // TODO: find better way to resolve cycles?
-        cycles.insert("LuaGroup", vec!["LuaGroup"]);
-        cycles.insert(
-            "LuaEntity",
-            vec![
-                "LuaEntity",
-                "LuaBurner",
-                "Command",
-                "LuaEntityNeighboursUnion",
-                "LuaTrain",
-                "LuaUnitGroup",
-            ],
-        );
-        cycles.insert("LuaGuiElement", vec!["LuaGuiElement", "LuaGui"]);
-        cycles.insert("LuaItemPrototype", vec!["LuaItemPrototype"]);
-        cycles.insert("LuaTilePrototype", vec!["LuaTilePrototype"]);
-        cycles.insert("LuaEntityPrototype", vec!["LuaEntityPrototype"]);
-        cycles.insert("LuaTechnology", vec!["LuaForce"]);
-        cycles.insert("LuaPlayer", vec!["LuaEntity", "DragTarget", "LuaGui"]);
-        cycles.insert("LuaFluidBox", vec!["LuaEntity"]);
-        cycles.insert("LuaLogisticCell", vec!["LuaEntity"]);
-        cycles.insert("LuaFluidBoxPrototype", vec!["LuaEntityPrototype"]);
-        cycles.insert("LuaFlowStatistics", vec!["LuaForce"]);
-        cycles.insert("LuaEquipmentPrototype", vec!["LuaItemPrototype"]);
-        cycles.insert("LuaItemStack", vec!["LuaEntity"]);
-        cycles.insert("LuaInventory", vec!["LuaEntity", "LuaEquipment"]);
-        cycles.insert("LuaEquipment", vec!["LuaBurner"]);
-        cycles.insert("LuaStyle", vec!["LuaGui"]);
-        cycles.insert("LuaUnitGroup", vec!["Command"]);
         let prefix = &self.name;
 
         struct_definition.push_str(&self.description.to_rust_doc());
@@ -480,16 +466,12 @@ impl GenerateDefinition for Class {
             } else {
                 &typ
             };
-            let typ = if cycles.contains_key(self.name.as_str())
-                && cycles
-                    .get(self.name.as_str())
-                    .expect("map should have name as key")
-                    .contains(&typ.as_str())
-            {
-                format!("Box<{typ}>")
-            } else {
-                typ.to_owned()
-            };
+            let typ =
+                if typ.starts_with("Lua") && !typ.ends_with("Filter") && !typ.ends_with("Union") {
+                    format!("MaybeCycle<{typ}>")
+                } else {
+                    typ.to_owned()
+                };
             let typ = if attribute.optional {
                 format!("Option<{typ}>")
             } else {
@@ -976,6 +958,11 @@ impl Parameter {
         let name = self.name.as_ref().expect("parameter should have a name");
         let prefix = &format!("{}{}", prefix, name.to_pascal_case());
         let typ = Type::lua_type_to_rust_type(&self.typ.generate_definition(prefix, unions, true));
+        let typ = if typ.starts_with("Lua") && !typ.ends_with("Filter") && !typ.ends_with("Union") {
+            format!("MaybeCycle<{typ}>")
+        } else {
+            typ.to_owned()
+        };
         let typ = if self.optional {
             format!("Option<{}>", typ)
         } else {
@@ -1347,8 +1334,10 @@ impl ComplexType {
                     || prefix == "LuaGameScriptSurfacesUnion"
                 {
                     union_definition.push_str(DERIVE_WITH_HASH);
+                    union_definition.push_str(UNTAGGED);
                 } else {
                     union_definition.push_str(DERIVE);
+                    union_definition.push_str(UNTAGGED);
                 }
                 union_definition.push_str(&format!("pub enum {} {{\n", prefix));
                 let array_count = options
@@ -1381,6 +1370,14 @@ impl ComplexType {
                             option.generate_definition(&prefix, unions, true)
                         } else {
                             Type::lua_type_to_rust_type(&type_name)
+                        };
+                        let typ = if typ.starts_with("Lua")
+                            && !typ.ends_with("Filter")
+                            && !typ.ends_with("Union")
+                        {
+                            format!("MaybeCycle<{typ}>")
+                        } else {
+                            typ.to_owned()
                         };
                         union_definition.push_str(&format!(
                             "    {}({}),\n",
@@ -1463,6 +1460,14 @@ impl ComplexType {
                             let typ = Type::lua_type_to_rust_type(
                                 &parameter.typ.generate_definition(prefix, unions, true),
                             );
+                            let typ = if typ.starts_with("Lua")
+                                && !typ.ends_with("Filter")
+                                && !typ.ends_with("Union")
+                            {
+                                format!("MaybeCycle<{typ}>")
+                            } else {
+                                typ.to_owned()
+                            };
                             let typ = if parameter.optional {
                                 format!("Option<{typ}>")
                             } else {

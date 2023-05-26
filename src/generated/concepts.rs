@@ -5,8 +5,10 @@ use serde::Deserialize;
 
 use super::classes::*;
 use super::defines::*;
+use super::MaybeCycle;
 
 #[derive(Debug, Deserialize)]
+#[serde(untagged)]
 pub enum AchievementPrototypeFilterAttributesTypeUnion {
     String(String),
     Array(Vec<String>),
@@ -51,14 +53,15 @@ pub struct Alert {
     /// The message for a custom alert. Only present for custom alerts.
     pub message: Option<LocalisedString>,
     pub position: Option<MapPosition>,
-    pub prototype: Option<LuaEntityPrototype>,
-    pub target: Option<LuaEntity>,
+    pub prototype: Option<MaybeCycle<LuaEntityPrototype>>,
+    pub target: Option<MaybeCycle<LuaEntity>>,
     /// The tick this alert was created.
     pub tick: u32,
 }
 
 /// A [string](string) that specifies where a GUI element should be.
 #[derive(Debug, Deserialize)]
+#[serde(untagged)]
 pub enum Alignment {
     TopLeft,
     MiddleLeft,
@@ -94,6 +97,7 @@ pub struct AmmoType {
 
 /// Any basic type (string, number, boolean), table, or LuaObject.
 #[derive(Debug, Deserialize)]
+#[serde(untagged)]
 pub enum Any {
     String(String),
     Boolean(bool),
@@ -104,6 +108,7 @@ pub enum Any {
 
 /// Any basic type (string, number, boolean) or table.
 #[derive(Debug, Deserialize)]
+#[serde(untagged)]
 pub enum AnyBasic {
     String(String),
     Boolean(bool),
@@ -287,7 +292,7 @@ pub struct AutoplaceSpecificationRestriction {
 #[derive(Debug, Deserialize)]
 pub struct BeamTarget {
     /// The target entity.
-    pub entity: Option<LuaEntity>,
+    pub entity: Option<MaybeCycle<LuaEntity>>,
     /// The target position.
     pub position: Option<MapPosition>,
 }
@@ -445,7 +450,7 @@ pub struct CircuitConditionDefinition {
 pub struct CircuitConnectionDefinition {
     pub source_circuit_id: CircuitConnectorId,
     pub target_circuit_id: CircuitConnectorId,
-    pub target_entity: LuaEntity,
+    pub target_entity: MaybeCycle<LuaEntity>,
     /// Wire color, either [defines.wire_type.red](defines.wire_type.red) or [defines.wire_type.green](defines.wire_type.green).
     pub wire: WireType,
 }
@@ -478,6 +483,7 @@ pub struct CircularProjectileCreationSpecification {
 }
 
 #[derive(Debug, Deserialize)]
+#[serde(untagged)]
 pub enum CliffOrientation {
     WestToEast,
     NorthToSouth,
@@ -520,6 +526,7 @@ pub type CollisionMask = HashSet<CollisionMaskLayer>;
 ///
 /// In addition to the listed layers, there is `"layer-13"` through `"layer-55"`. These layers are currently unused by the game but may change. If a mod is going to use one of the unused layers it's recommended to start at the higher layers because the base game will take from the lower ones.
 #[derive(Debug, Deserialize, Eq, PartialEq, Hash)]
+#[serde(untagged)]
 pub enum CollisionMaskLayer {
     GroundTile,
     WaterTile,
@@ -537,6 +544,7 @@ pub enum CollisionMaskLayer {
 }
 
 #[derive(Debug, Deserialize, Eq, PartialEq, Hash)]
+#[serde(untagged)]
 pub enum CollisionMaskWithFlagsUnion {
     CollisionMaskLayer(CollisionMaskLayer),
     /// Any two entities that both have this option enabled on their prototype and have an identical collision mask layers list will not collide. Other collision mask options are not included in the identical layer list check. This does mean that two different prototypes with the same collision mask layers and this option enabled will not collide.
@@ -583,7 +591,7 @@ pub struct ColorModifier {
 pub struct CommandAttributesDefinesCommandAttack {
     /// Defaults to `defines.distraction.by_enemy`.
     pub distraction: Option<Distraction>,
-    pub target: LuaEntity,
+    pub target: MaybeCycle<LuaEntity>,
 }
 
 #[derive(Debug, Deserialize)]
@@ -619,7 +627,7 @@ pub struct CommandAttributesDefinesCommandFlee {
     /// Defaults to `defines.distraction.by_enemy`.
     pub distraction: Option<Distraction>,
     /// The entity to flee from
-    pub from: LuaEntity,
+    pub from: MaybeCycle<LuaEntity>,
 }
 
 #[derive(Debug, Deserialize)]
@@ -627,7 +635,7 @@ pub struct CommandAttributesDefinesCommandGoToLocation {
     /// The position to path to. Either this or `destination_entity` need to be specified. If both are, `destination_entity` is used.
     pub destination: Option<MapPosition>,
     /// The entity to path to. Either this or `destination` need to be specified. If both are, `destination_entity` is used.
-    pub destination_entity: Option<LuaEntity>,
+    pub destination_entity: Option<MaybeCycle<LuaEntity>>,
     /// Defaults to `defines.distraction.by_enemy`.
     pub distraction: Option<Distraction>,
     /// Flags that affect pathfinder behavior.
@@ -641,7 +649,7 @@ pub struct CommandAttributesDefinesCommandGroup {
     /// Defaults to `defines.distraction.by_enemy`.
     pub distraction: Option<Distraction>,
     /// The group whose command to follow.
-    pub group: LuaUnitGroup,
+    pub group: MaybeCycle<LuaUnitGroup>,
     /// Whether the unit will use the group distraction or the commands distraction. Defaults to true.
     pub use_group_distraction: Option<bool>,
 }
@@ -694,6 +702,7 @@ pub struct Command {
 ///
 /// * While the API accepts both versions for `"less/greater than or equal to"` and `"not equal"`, it'll always return `"≥"`, `"≤"` or `"≠"` respectively when reading them back.
 #[derive(Debug, Deserialize)]
+#[serde(untagged)]
 pub enum ComparatorString {
     /// "equal to"
     EqualTo,
@@ -749,6 +758,7 @@ pub struct CraftingQueueItem {
 }
 
 #[derive(Debug, Deserialize)]
+#[serde(untagged)]
 pub enum CursorBoxRenderType {
     /// Yellow box.
     Entity,
@@ -781,9 +791,10 @@ pub struct CustomCommandData {
 }
 
 #[derive(Debug, Deserialize)]
+#[serde(untagged)]
 pub enum CutsceneWaypointTargetUnion {
-    LuaEntity(LuaEntity),
-    LuaUnitGroup(LuaUnitGroup),
+    LuaEntity(MaybeCycle<LuaEntity>),
+    LuaUnitGroup(MaybeCycle<LuaUnitGroup>),
 }
 
 #[derive(Debug, Deserialize)]
@@ -825,6 +836,7 @@ pub struct Decorative {
 }
 
 #[derive(Debug, Deserialize)]
+#[serde(untagged)]
 pub enum DecorativePrototypeFilterAttributesMaskUnion {
     CollisionMask(CollisionMask),
     CollisionMaskWithFlags(CollisionMaskWithFlags),
@@ -858,7 +870,7 @@ pub struct DecorativePrototypeFilter {
 #[derive(Debug, Deserialize)]
 pub struct DecorativeResult {
     pub amount: u32,
-    pub decorative: LuaDecorativePrototype,
+    pub decorative: MaybeCycle<LuaDecorativePrototype>,
     pub position: TilePosition,
 }
 
@@ -883,7 +895,7 @@ pub struct DisplayResolution {
 pub struct DragTarget {
     /// If the wire being dragged is a circuit wire this is the connector id.
     pub target_circuit_id: Option<CircuitConnectorId>,
-    pub target_entity: LuaEntity,
+    pub target_entity: MaybeCycle<LuaEntity>,
     /// If the wire being dragged is copper wire this is the wire id.
     pub target_wire_id: Option<WireConnectionId>,
 }
@@ -951,18 +963,21 @@ pub struct EnemyExpansionMapSettings {
 }
 
 #[derive(Debug, Deserialize)]
+#[serde(untagged)]
 pub enum EntityPrototypeFilterAttributesMaskUnion {
     CollisionMask(CollisionMask),
     CollisionMaskWithFlags(CollisionMaskWithFlags),
 }
 
 #[derive(Debug, Deserialize)]
+#[serde(untagged)]
 pub enum EntityPrototypeFilterAttributesNameUnion {
     String(String),
     Array(Vec<String>),
 }
 
 #[derive(Debug, Deserialize)]
+#[serde(untagged)]
 pub enum EntityPrototypeFilterAttributesTypeUnion {
     String(String),
     Array(Vec<String>),
@@ -1046,6 +1061,7 @@ pub struct EntityPrototypeFilter {
 }
 
 #[derive(Debug, Deserialize, Eq, PartialEq, Hash)]
+#[serde(untagged)]
 pub enum EntityPrototypeFlagsUnion {
     /// Prevents the entity from being rotated before or after placement.
     NotRotatable,
@@ -1107,11 +1123,12 @@ pub type EntityPrototypeFlags = HashSet<EntityPrototypeFlagsUnion>;
 
 /// An entity prototype may be specified in one of three ways.
 #[derive(Debug, Deserialize)]
+#[serde(untagged)]
 pub enum EntityPrototypeIdentification {
     /// The entity.
-    LuaEntity(LuaEntity),
+    LuaEntity(MaybeCycle<LuaEntity>),
     /// The entity prototype.
-    LuaEntityPrototype(LuaEntityPrototype),
+    LuaEntityPrototype(MaybeCycle<LuaEntityPrototype>),
     /// The prototype name.
     String(String),
 }
@@ -1143,6 +1160,7 @@ pub struct EquipmentPosition {
 }
 
 #[derive(Debug, Deserialize)]
+#[serde(untagged)]
 pub enum EquipmentPrototypeFilterAttributesTypeUnion {
     String(String),
     Array(Vec<String>),
@@ -1184,6 +1202,7 @@ pub struct EventData {
 }
 
 #[derive(Debug, Deserialize)]
+#[serde(untagged)]
 pub enum EventFilterUnion {
     LuaEntityClonedEventFilter(LuaEntityClonedEventFilter),
     LuaEntityDamagedEventFilter(LuaEntityDamagedEventFilter),
@@ -1260,16 +1279,18 @@ pub struct FluidBoxFilterSpec {
 
 /// A fluid may be specified in one of three ways.
 #[derive(Debug, Deserialize)]
+#[serde(untagged)]
 pub enum FluidIdentification {
     /// The fluid name.
     String(String),
     /// The fluid prototype.
-    LuaFluidPrototype(LuaFluidPrototype),
+    LuaFluidPrototype(MaybeCycle<LuaFluidPrototype>),
     /// The fluid.
     Fluid(Fluid),
 }
 
 #[derive(Debug, Deserialize)]
+#[serde(untagged)]
 pub enum FluidPrototypeFilterAttributesNameUnion {
     String(String),
     Array(Vec<String>),
@@ -1355,6 +1376,7 @@ pub struct FluidPrototypeFilter {
 }
 
 #[derive(Debug, Deserialize)]
+#[serde(untagged)]
 pub enum ForceCondition {
     /// All forces pass.
     All,
@@ -1374,13 +1396,14 @@ pub enum ForceCondition {
 
 /// A force may be specified in one of three ways.
 #[derive(Debug, Deserialize)]
+#[serde(untagged)]
 pub enum ForceIdentification {
     /// The force index.
     Uint8(u8),
     /// The force name.
     String(String),
     /// A reference to [LuaForce](LuaForce) may be passed directly.
-    LuaForce(LuaForce),
+    LuaForce(MaybeCycle<LuaForce>),
 }
 
 #[derive(Debug, Deserialize)]
@@ -1430,7 +1453,7 @@ pub struct GuiArrowSpecificationAttributesCraftingQueue {
 
 #[derive(Debug, Deserialize)]
 pub struct GuiArrowSpecificationAttributesEntity {
-    pub entity: LuaEntity,
+    pub entity: MaybeCycle<LuaEntity>,
 }
 
 #[derive(Debug, Deserialize)]
@@ -1514,6 +1537,7 @@ pub struct InfinityPipeFilter {
 }
 
 #[derive(Debug, Deserialize)]
+#[serde(untagged)]
 pub enum IngredientCatalystAmountUnion {
     Uint(u32),
     Double(f64),
@@ -1561,12 +1585,14 @@ pub struct InventoryFilter {
 }
 
 #[derive(Debug, Deserialize)]
+#[serde(untagged)]
 pub enum ItemPrototypeFilterAttributesNameUnion {
     String(String),
     Array(Vec<String>),
 }
 
 #[derive(Debug, Deserialize)]
+#[serde(untagged)]
 pub enum ItemPrototypeFilterAttributesTypeUnion {
     String(String),
     Array(Vec<String>),
@@ -1709,6 +1735,7 @@ pub struct ItemPrototypeFilter {
 }
 
 #[derive(Debug, Deserialize, Eq, PartialEq, Hash)]
+#[serde(untagged)]
 pub enum ItemPrototypeFlagsUnion {
     /// Determines whether the logistics areas of roboports should be drawn when holding this item. Used by the deconstruction planner by default.
     DrawLogisticOverlay,
@@ -1741,11 +1768,12 @@ pub type ItemPrototypeFlags = HashSet<ItemPrototypeFlagsUnion>;
 
 /// An item prototype may be specified in one of three ways.
 #[derive(Debug, Deserialize)]
+#[serde(untagged)]
 pub enum ItemPrototypeIdentification {
     /// The item.
-    LuaItemStack(LuaItemStack),
+    LuaItemStack(MaybeCycle<LuaItemStack>),
     /// The item prototype.
-    LuaItemPrototype(LuaItemPrototype),
+    LuaItemPrototype(MaybeCycle<LuaItemPrototype>),
     /// The prototype name.
     String(String),
 }
@@ -1768,9 +1796,10 @@ pub struct ItemStackDefinition {
 
 /// An item may be specified in one of two ways.
 #[derive(Debug, Deserialize)]
+#[serde(untagged)]
 pub enum ItemStackIdentification {
     SimpleItemStack(SimpleItemStack),
-    LuaItemStack(LuaItemStack),
+    LuaItemStack(MaybeCycle<LuaItemStack>),
 }
 
 #[derive(Debug, Deserialize)]
@@ -1780,6 +1809,7 @@ pub struct ItemStackLocation {
 }
 
 #[derive(Debug, Deserialize)]
+#[serde(untagged)]
 pub enum LocalisedStringUnion {
     String(String),
     LocalisedString(LocalisedString),
@@ -1821,6 +1851,7 @@ pub enum LocalisedStringUnion {
 /// ```
 ///  If `entity-description.furnace` exists, it is concatenated with `"\n"` and returned. Otherwise, if `item-description.furnace` exists, it is returned as-is. Otherwise, `"optional fallback"` is returned. If this value wasn't specified, the translation result would be `"Unknown key: 'item-description.furnace'"`.
 #[derive(Debug, Deserialize)]
+#[serde(untagged)]
 pub enum LocalisedString {
     String(String),
     Number(f64),
@@ -2975,6 +3006,7 @@ pub struct MapGenSettings {
 ///
 /// * The map generation algorithm officially supports the range of values the in-game map generation screen shows (specifically `0` and values from `1/6` to `6`). Values outside this range are not guaranteed to work as expected.
 #[derive(Debug, Deserialize)]
+#[serde(untagged)]
 pub enum MapGenSize {
     /// Specifying a map gen dimension.
     Float(f32),
@@ -3075,6 +3107,7 @@ pub struct ModChangeData {
 }
 
 #[derive(Debug, Deserialize)]
+#[serde(untagged)]
 pub enum ModSettingValueUnion {
     Int(i32),
     Double(f64),
@@ -3090,6 +3123,7 @@ pub struct ModSetting {
 }
 
 #[derive(Debug, Deserialize)]
+#[serde(untagged)]
 pub enum ModSettingPrototypeFilterAttributesTypeUnion {
     String(String),
     Array(Vec<String>),
@@ -3157,6 +3191,7 @@ pub struct ModuleEffects {
 }
 
 #[derive(Debug, Deserialize, Eq, PartialEq, Hash)]
+#[serde(untagged)]
 pub enum MouseButtonFlagsUnion {
     Left,
     Right,
@@ -3200,7 +3235,7 @@ pub struct Offer {
 
 #[derive(Debug, Deserialize)]
 pub struct OldTileAndPosition {
-    pub old_tile: LuaTilePrototype,
+    pub old_tile: MaybeCycle<LuaTilePrototype>,
     pub position: TilePosition,
 }
 
@@ -3303,18 +3338,19 @@ pub struct PlaceAsTileResult {
     pub condition: CollisionMask,
     pub condition_size: u32,
     /// The tile prototype.
-    pub result: LuaTilePrototype,
+    pub result: MaybeCycle<LuaTilePrototype>,
 }
 
 /// A player may be specified in one of three ways.
 #[derive(Debug, Deserialize)]
+#[serde(untagged)]
 pub enum PlayerIdentification {
     /// The player index.
     Uint(u32),
     /// The player name.
     String(String),
     /// A reference to [LuaPlayer](LuaPlayer) may be passed directly.
-    LuaPlayer(LuaPlayer),
+    LuaPlayer(MaybeCycle<LuaPlayer>),
 }
 
 #[derive(Debug, Deserialize)]
@@ -3347,18 +3383,21 @@ pub struct PollutionMapSettings {
 }
 
 #[derive(Debug, Deserialize)]
+#[serde(untagged)]
 pub enum ProductAmountMaxUnion {
     Uint(u32),
     Double(f64),
 }
 
 #[derive(Debug, Deserialize)]
+#[serde(untagged)]
 pub enum ProductAmountMinUnion {
     Uint(u32),
     Double(f64),
 }
 
 #[derive(Debug, Deserialize)]
+#[serde(untagged)]
 pub enum ProductCatalystAmountUnion {
     Uint(u32),
     Double(f64),
@@ -3440,6 +3479,7 @@ pub struct ProgrammableSpeakerParameters {
 }
 
 #[derive(Debug, Deserialize)]
+#[serde(untagged)]
 pub enum PrototypeFilterUnion {
     /// for type `"item"`
     ItemPrototypeFilter(ItemPrototypeFilter),
@@ -3574,6 +3614,7 @@ pub struct RecipePrototypeFilter {
 
 /// A number between 0 and 255 inclusive, represented by one of the following named strings or the string version of the number. For example `"27"` and `"decals"` are both valid. Higher values are rendered above lower values.
 #[derive(Debug, Deserialize)]
+#[serde(untagged)]
 pub enum RenderLayer {
     /// A string of a number
     String(String),
@@ -3699,15 +3740,16 @@ pub struct ScriptPosition {
 
 #[derive(Debug, Deserialize)]
 pub struct ScriptRenderTarget {
-    pub entity: Option<LuaEntity>,
+    pub entity: Option<MaybeCycle<LuaEntity>>,
     pub entity_offset: Option<Vector>,
     pub position: Option<MapPosition>,
 }
 
 #[derive(Debug, Deserialize)]
+#[serde(untagged)]
 pub enum ScriptRenderVertexTargetTargetUnion {
     MapPosition(MapPosition),
-    LuaEntity(LuaEntity),
+    LuaEntity(MaybeCycle<LuaEntity>),
 }
 
 #[derive(Debug, Deserialize)]
@@ -3729,6 +3771,7 @@ pub struct SelectedPrototypeData {
 }
 
 #[derive(Debug, Deserialize, Eq, PartialEq, Hash)]
+#[serde(untagged)]
 pub enum SelectionModeFlagsUnion {
     /// Selects entities and tiles as if selecting them for a blueprint.
     Blueprint,
@@ -3825,6 +3868,7 @@ pub struct SignalID {
 /// {name="iron-plate", count=100}
 /// ```
 #[derive(Debug, Deserialize)]
+#[serde(untagged)]
 pub enum SimpleItemStack {
     /// The name of the item, which represents a full stack of that item.
     String(String),
@@ -3887,6 +3931,7 @@ pub type SoundPath = String;
 
 /// Defines which slider in the game's sound settings affects the volume of this sound. Furthermore, some sound types are mixed differently than others, e.g. zoom level effects are applied.
 #[derive(Debug, Deserialize)]
+#[serde(untagged)]
 pub enum SoundType {
     GameEffect,
     GuiEffect,
@@ -3942,19 +3987,20 @@ pub struct SteeringMapSettings {
 
 /// A surface may be specified in one of three ways.
 #[derive(Debug, Deserialize)]
+#[serde(untagged)]
 pub enum SurfaceIdentification {
     /// It will be the index of the surface. `nauvis` has index `1`, the first surface-created surface will have index `2` and so on.
     Uint(u32),
     /// It will be the surface name. E.g. `"nauvis"`.
     String(String),
     /// A reference to [LuaSurface](LuaSurface) may be passed directly.
-    LuaSurface(LuaSurface),
+    LuaSurface(MaybeCycle<LuaSurface>),
 }
 
 #[derive(Debug, Deserialize)]
 pub struct TabAndContent {
-    pub content: LuaGuiElement,
-    pub tab: LuaGuiElement,
+    pub content: MaybeCycle<LuaGuiElement>,
+    pub tab: MaybeCycle<LuaGuiElement>,
 }
 
 /// A dictionary of string to the four basic Lua types: `string`, `boolean`, `number`, `table`.
@@ -3970,13 +4016,14 @@ pub type Tags = HashMap<String, AnyBasic>;
 
 /// A technology may be specified in one of three ways.
 #[derive(Debug, Deserialize)]
+#[serde(untagged)]
 pub enum TechnologyIdentification {
     /// The technology name.
     String(String),
     /// A reference to [LuaTechnology](LuaTechnology) may be passed directly.
-    LuaTechnology(LuaTechnology),
+    LuaTechnology(MaybeCycle<LuaTechnology>),
     /// A reference to [LuaTechnologyPrototype](LuaTechnologyPrototype) may be passed directly.
-    LuaTechnologyPrototype(LuaTechnologyPrototype),
+    LuaTechnologyPrototype(MaybeCycle<LuaTechnologyPrototype>),
 }
 
 #[derive(Debug, Deserialize)]
@@ -4120,6 +4167,7 @@ pub struct TilePosition {
 }
 
 #[derive(Debug, Deserialize)]
+#[serde(untagged)]
 pub enum TilePrototypeFilterAttributesMaskUnion {
     CollisionMask(CollisionMask),
     CollisionMaskWithFlags(CollisionMaskWithFlags),
@@ -4192,7 +4240,7 @@ pub struct TrainSchedule {
 #[derive(Debug, Deserialize)]
 pub struct TrainScheduleRecord {
     /// Rail to path to. Ignored if `station` is present.
-    pub rail: Option<LuaEntity>,
+    pub rail: Option<MaybeCycle<LuaEntity>>,
     /// When a train is allowed to reach rail target from any direction it will be `nil`. If rail has to be reached from specific direction, this value allows to choose the direction. This value corresponds to [LuaEntity::connected_rail_direction](LuaEntity::connected_rail_direction) of a TrainStop.
     pub rail_direction: Option<RailDirection>,
     /// Name of the station.
@@ -4323,7 +4371,7 @@ pub struct WireConnectionDefinition {
     /// Mandatory if the target entity has more than one circuit connection using circuit wire.
     pub target_circuit_id: Option<CircuitConnectorId>,
     /// The entity to (dis)connect the source entity with.
-    pub target_entity: LuaEntity,
+    pub target_entity: MaybeCycle<LuaEntity>,
     /// Mandatory if the target entity has more than one wire connection using copper wire.
     pub target_wire_id: Option<WireConnectionId>,
     /// The type of wire used.

@@ -5,6 +5,7 @@ use serde::Deserialize;
 
 use super::concepts::*;
 use super::defines::*;
+use super::MaybeCycle;
 
 /// Collection of settings for overriding default ai behavior.
 #[derive(Debug, Deserialize)]
@@ -168,7 +169,7 @@ pub struct LuaBootstrap {
     /// ```
     pub active_mods: HashMap<String, String>,
     /// Information about the currently running scenario/campaign/tutorial.
-    pub level: LuaBootstrapLevel,
+    pub level: MaybeCycle<LuaBootstrapLevel>,
     /// The name of the mod from the environment this is used in.
     pub mod_name: String,
     /// This object's name.
@@ -181,6 +182,7 @@ pub enum LuaBootstrapMethodsOnConfigurationChangedHandlerUnion {
 }
 
 #[derive(Debug, Deserialize)]
+#[serde(untagged)]
 pub enum LuaBootstrapMethodsOnEventEventUnion {
     DefinesEvents(Events),
     Array(Vec<Events>),
@@ -208,6 +210,7 @@ pub enum LuaBootstrapMethodsOnNthTickHandlerUnion {
 }
 
 #[derive(Debug, Deserialize)]
+#[serde(untagged)]
 pub enum LuaBootstrapMethodsOnNthTickTickUnion {
     Uint(u32),
     Array(Vec<u32>),
@@ -486,22 +489,23 @@ pub trait LuaBootstrapMethods {
 }
 
 #[derive(Debug, Deserialize)]
+#[serde(untagged)]
 pub enum LuaBurnerOwnerUnion {
-    LuaEntity(LuaEntity),
-    LuaEquipment(LuaEquipment),
+    LuaEntity(MaybeCycle<LuaEntity>),
+    LuaEquipment(MaybeCycle<LuaEquipment>),
 }
 
 /// A reference to the burner energy source owned by a specific [LuaEntity](LuaEntity) or [LuaEquipment](LuaEquipment).
 #[derive(Debug, Deserialize)]
 pub struct LuaBurner {
     /// The burnt result inventory.
-    pub burnt_result_inventory: LuaInventory,
+    pub burnt_result_inventory: MaybeCycle<LuaInventory>,
     /// The currently burning item. Writing `nil` will void the currently burning item without producing a [LuaBurner::burnt_result](LuaBurner::burnt_result).
     ///
     /// # Notes
     ///
     /// * Writing to this automatically handles correcting [LuaBurner::remaining_burning_fuel](LuaBurner::remaining_burning_fuel).
-    pub currently_burning: Option<LuaItemPrototype>,
+    pub currently_burning: Option<MaybeCycle<LuaItemPrototype>>,
     /// The fuel categories this burner uses.
     ///
     /// # Notes
@@ -513,7 +517,7 @@ pub struct LuaBurner {
     /// The maximum heat (maximum energy) that this burner can store.
     pub heat_capacity: f64,
     /// The fuel inventory.
-    pub inventory: LuaInventory,
+    pub inventory: MaybeCycle<LuaInventory>,
     /// The class name of this object. Available even when `valid` is false. For LuaStruct objects it may also be suffixed with a dotted path to a member of the struct.
     pub object_name: String,
     /// The owner of this burner energy source
@@ -559,7 +563,7 @@ pub struct LuaBurnerPrototype {
     pub fuel_categories: HashMap<String, bool>,
     pub fuel_inventory_size: u32,
     /// The light flicker definition for this burner prototype.
-    pub light_flicker: Option<LuaBurnerPrototypeLightFlicker>,
+    pub light_flicker: Option<MaybeCycle<LuaBurnerPrototypeLightFlicker>>,
     /// The class name of this object. Available even when `valid` is false. For LuaStruct objects it may also be suffixed with a dotted path to a member of the struct.
     pub object_name: String,
     pub render_no_network_icon: bool,
@@ -612,7 +616,7 @@ pub struct LuaCircuitNetwork {
     /// The number of circuits connected to this network.
     pub connected_circuit_count: u32,
     /// The entity this circuit network reference is associated with.
-    pub entity: LuaEntity,
+    pub entity: MaybeCycle<LuaEntity>,
     /// The circuit networks ID.
     pub network_id: u32,
     /// The class name of this object. Available even when `valid` is false. For LuaStruct objects it may also be suffixed with a dotted path to a member of the struct.
@@ -755,15 +759,16 @@ pub trait LuaContainerControlBehaviorMethods {
 }
 
 #[derive(Debug, Deserialize)]
+#[serde(untagged)]
 pub enum LuaControlOpenedUnion {
-    LuaEntity(LuaEntity),
-    LuaItemStack(LuaItemStack),
-    LuaEquipment(LuaEquipment),
-    LuaEquipmentGrid(LuaEquipmentGrid),
-    LuaPlayer(LuaPlayer),
-    LuaGuiElement(LuaGuiElement),
-    LuaInventory(LuaInventory),
-    LuaTechnology(LuaTechnology),
+    LuaEntity(MaybeCycle<LuaEntity>),
+    LuaItemStack(MaybeCycle<LuaItemStack>),
+    LuaEquipment(MaybeCycle<LuaEquipment>),
+    LuaEquipmentGrid(MaybeCycle<LuaEquipmentGrid>),
+    LuaPlayer(MaybeCycle<LuaPlayer>),
+    LuaGuiElement(MaybeCycle<LuaGuiElement>),
+    LuaInventory(MaybeCycle<LuaInventory>),
+    LuaTechnology(MaybeCycle<LuaTechnology>),
     DefinesGuiType(GuiType),
 }
 
@@ -890,7 +895,7 @@ pub struct LuaControl {
     /// ```text
     /// player.cursor_stack.clear()
     /// ```
-    pub cursor_stack: Option<LuaItemStack>,
+    pub cursor_stack: Option<MaybeCycle<LuaItemStack>>,
     /// `true` if the player is in a vehicle. Writing to this attribute puts the player in or out of a vehicle.
     pub driving: bool,
     /// The item drop distance of this character or max uint when not a character or player connected to a character.
@@ -916,7 +921,7 @@ pub struct LuaControl {
     /// # Notes
     ///
     /// * When the player isn't mining tiles, the player will mine what ever entity is currently selected. See [LuaControl::selected](LuaControl::selected) and [LuaControl::update_selected_entity](LuaControl::update_selected_entity).
-    pub mining_state: LuaControlMiningState,
+    pub mining_state: MaybeCycle<LuaControlMiningState>,
     /// The GUI the player currently has open.
     ///
     /// This is the GUI that will asked to close (by firing the [on_gui_closed](on_gui_closed) event) when the `Esc` or `E` keys are pressed. If this attribute is not `nil`, and a new GUI is written to it, the existing one will be asked to close.
@@ -933,21 +938,21 @@ pub struct LuaControl {
     /// The reach distance of this character or max uint when not a character or player connected to a character.
     pub reach_distance: u32,
     /// Current repair state.
-    pub repair_state: LuaControlRepairState,
+    pub repair_state: MaybeCycle<LuaControlRepairState>,
     /// The resource reach distance of this character or max double when not a character or player connected to a character.
     pub resource_reach_distance: f64,
     /// Current riding state of this car, or of the car this player is riding in.
     pub riding_state: RidingState,
     /// The currently selected entity. Assigning an entity will select it if is selectable, otherwise the selection is cleared.
-    pub selected: Option<LuaEntity>,
+    pub selected: Option<MaybeCycle<LuaEntity>>,
     /// Current shooting state.
-    pub shooting_state: LuaControlShootingState,
+    pub shooting_state: MaybeCycle<LuaControlShootingState>,
     /// The surface this entity is currently on.
-    pub surface: LuaSurface,
+    pub surface: MaybeCycle<LuaSurface>,
     /// Unique [index](LuaSurface::index) (ID) associated with the surface this entity is currently on.
     pub surface_index: u32,
     /// The vehicle the player is currently sitting in.
-    pub vehicle: Option<LuaEntity>,
+    pub vehicle: Option<MaybeCycle<LuaEntity>>,
     /// If personal logistic requests are enabled for this vehicle (spidertron).
     pub vehicle_logistic_requests_enabled: bool,
     /// Current walking state.
@@ -958,19 +963,21 @@ pub struct LuaControl {
     /// ```text
     /// game.player.walking_state = {walking = true, direction = defines.direction.north}
     /// ```
-    pub walking_state: LuaControlWalkingState,
+    pub walking_state: MaybeCycle<LuaControlWalkingState>,
 }
 
 #[derive(Debug, Deserialize)]
+#[serde(untagged)]
 pub enum LuaControlMethodsBeginCraftingRecipeUnion {
     String(String),
-    LuaRecipe(LuaRecipe),
+    LuaRecipe(MaybeCycle<LuaRecipe>),
 }
 
 #[derive(Debug, Deserialize)]
+#[serde(untagged)]
 pub enum LuaControlMethodsGetCraftableCountRecipeUnion {
     String(String),
-    LuaRecipe(LuaRecipe),
+    LuaRecipe(MaybeCycle<LuaRecipe>),
 }
 
 /// This is an abstract base class containing the common functionality between [LuaPlayer](LuaPlayer) and entities (see [LuaEntity](LuaEntity)). When accessing player-related functions through a [LuaEntity](LuaEntity), it must refer to a character entity.
@@ -1225,7 +1232,7 @@ pub trait LuaControlMethods {
 #[derive(Debug, Deserialize)]
 pub struct LuaControlBehavior {
     /// The entity this control behavior belongs to.
-    pub entity: LuaEntity,
+    pub entity: MaybeCycle<LuaEntity>,
     /// The concrete type of this control behavior.
     pub typ: ControlBehaviorType,
 }
@@ -1250,17 +1257,17 @@ pub trait LuaControlBehaviorMethods {
 #[derive(Debug, Deserialize)]
 pub struct LuaCustomChartTag {
     /// The force this tag belongs to.
-    pub force: LuaForce,
+    pub force: MaybeCycle<LuaForce>,
     /// This tag's icon, if it has one. Writing `nil` removes it.
     pub icon: SignalID,
     /// The player who last edited this tag.
-    pub last_user: Option<LuaPlayer>,
+    pub last_user: Option<MaybeCycle<LuaPlayer>>,
     /// The class name of this object. Available even when `valid` is false. For LuaStruct objects it may also be suffixed with a dotted path to a member of the struct.
     pub object_name: String,
     /// The position of this tag.
     pub position: MapPosition,
     /// The surface this tag belongs to.
-    pub surface: LuaSurface,
+    pub surface: MaybeCycle<LuaSurface>,
     /// The unique ID for this tag on this force.
     pub tag_number: u32,
     pub text: String,
@@ -1294,7 +1301,7 @@ pub struct LuaCustomInputPrototype {
     /// Whether this custom input will include the selected prototype (if any) when triggered.
     pub include_selected_prototype: bool,
     /// The item that gets spawned when this custom input is fired, if any.
-    pub item_to_spawn: Option<LuaItemPrototype>,
+    pub item_to_spawn: Option<MaybeCycle<LuaItemPrototype>>,
     /// The default key sequence for this custom input.
     pub key_sequence: String,
     /// The linked game control name, if any.
@@ -1453,33 +1460,38 @@ pub trait LuaElectricEnergySourcePrototypeMethods {
 }
 
 #[derive(Debug, Deserialize)]
+#[serde(untagged)]
 pub enum LuaEntityAssociatedPlayerUnion {
-    LuaPlayer(LuaPlayer),
+    LuaPlayer(MaybeCycle<LuaPlayer>),
     PlayerIdentification(PlayerIdentification),
 }
 
 #[derive(Debug, Deserialize)]
+#[serde(untagged)]
 pub enum LuaEntityGhostPrototypeUnion {
-    LuaEntityPrototype(LuaEntityPrototype),
-    LuaTilePrototype(LuaTilePrototype),
+    LuaEntityPrototype(MaybeCycle<LuaEntityPrototype>),
+    LuaTilePrototype(MaybeCycle<LuaTilePrototype>),
 }
 
 #[derive(Debug, Deserialize)]
+#[serde(untagged)]
 pub enum LuaEntityLastUserUnion {
-    LuaPlayer(LuaPlayer),
+    LuaPlayer(MaybeCycle<LuaPlayer>),
     PlayerIdentification(PlayerIdentification),
 }
 
 #[derive(Debug, Deserialize)]
+#[serde(untagged)]
 pub enum LuaEntityNeighboursUnion {
     Dictionary(HashMap<String, Vec<LuaEntity>>),
     Array(Vec<Vec<LuaEntity>>),
-    LuaEntity(LuaEntity),
+    LuaEntity(MaybeCycle<LuaEntity>),
 }
 
 #[derive(Debug, Deserialize)]
+#[serde(untagged)]
 pub enum LuaEntityRenderPlayerUnion {
-    LuaPlayer(LuaPlayer),
+    LuaPlayer(MaybeCycle<LuaPlayer>),
     PlayerIdentification(PlayerIdentification),
 }
 
@@ -1507,7 +1519,7 @@ pub struct LuaEntity {
     pub active: bool,
     /// The ai settings of this unit.
     /// Can only be used if this is Unit
-    pub ai_settings: LuaAISettings,
+    pub ai_settings: MaybeCycle<LuaAISettings>,
     /// Can only be used if this is ProgrammableSpeaker
     pub alert_parameters: ProgrammableSpeakerAlertParameters,
     /// Whether this character's personal roboports are allowed to dispatch robots.
@@ -1561,7 +1573,7 @@ pub struct LuaEntity {
     /// [LuaEntityPrototype::collision_box](LuaEntityPrototype::collision_box) around entity's given position and respecting the current entity orientation.
     pub bounding_box: BoundingBox,
     /// The burner energy source for this entity, if any.
-    pub burner: Option<Box<LuaBurner>>,
+    pub burner: Option<MaybeCycle<LuaBurner>>,
     /// The state of this chain signal.
     /// Can only be used if this is RailChainSignal
     pub chain_signal_state: ChainSignalState,
@@ -1579,7 +1591,7 @@ pub struct LuaEntity {
     /// Can only be used if this is CharacterCorpse
     pub character_corpse_tick_of_death: u32,
     /// Entities that are directly connected to this entity via the circuit network. `nil` if this entity can't be connected to the circuit network.
-    pub circuit_connected_entities: Option<LuaEntityCircuitConnectedEntities>,
+    pub circuit_connected_entities: Option<MaybeCycle<LuaEntityCircuitConnectedEntities>>,
     /// The connection definition for entities that are directly connected to this entity via the circuit network. `nil` if this entity can't be connected to the circuit network.
     pub circuit_connection_definitions: Option<Vec<CircuitConnectionDefinition>>,
     /// The orientation of this cliff.
@@ -1591,13 +1603,13 @@ pub struct LuaEntity {
     /// * Car color is overridden by the color of the current driver/passenger, if there is one.
     pub color: Option<Color>,
     /// The owner of this combat robot, if any.
-    pub combat_robot_owner: Option<Box<LuaEntity>>,
+    pub combat_robot_owner: Option<MaybeCycle<LuaEntity>>,
     /// The command given to this unit, if any.
     /// Can only be used if this is Unit
-    pub command: Option<Box<Command>>,
+    pub command: Option<Command>,
     /// The rail entity this train stop is connected to, if any.
     /// Can only be used if this is TrainStop
-    pub connected_rail: Option<Box<LuaEntity>>,
+    pub connected_rail: Option<MaybeCycle<LuaEntity>>,
     /// Rail direction to which this train stop is binding. This returns a value even when no rails are present.
     /// Can only be used if this is TrainStop
     pub connected_rail_direction: RailDirection,
@@ -1637,7 +1649,7 @@ pub struct LuaEntity {
     pub direction: Direction,
     /// The distraction command given to this unit, if any.
     /// Can only be used if this is Unit
-    pub distraction_command: Option<Box<Command>>,
+    pub distraction_command: Option<Command>,
     /// Whether the driver of this car or spidertron is the gunner. If `false`, the passenger is the gunner. `nil` if this is neither a car or a spidertron.
     /// Can only be used if this is Car or SpiderVehicle
     pub driver_is_gunner: Option<bool>,
@@ -1648,7 +1660,7 @@ pub struct LuaEntity {
     /// * Meaningful only for entities that put stuff somewhere, such as mining drills or inserters. Mining drills can't have their drop position changed; inserters must have `allow_custom_vectors` set to true on their prototype to allow changing the drop position.
     pub drop_position: MapPosition,
     /// The entity this entity is putting its items to. If there are multiple possible entities at the drop-off point, writing to this attribute allows a mod to choose which one to drop off items to. The entity needs to collide with the tile box under the drop-off position. `nil` if there is no entity to put items to, or if this is not an entity that puts items somewhere.
-    pub drop_target: Option<Box<LuaEntity>>,
+    pub drop_target: Option<MaybeCycle<LuaEntity>>,
     /// The current speed of this unit in tiles per tick, taking into account any walking speed modifier given by the tile the unit is standing on. `nil` if this is not a unit.
     /// Can only be used if this is Unit
     pub effective_speed: Option<f32>,
@@ -1673,7 +1685,7 @@ pub struct LuaEntity {
     pub electric_network_id: Option<u32>,
     /// The electric network statistics for this electric pole.
     /// Can only be used if this is ElectricPole
-    pub electric_network_statistics: LuaFlowStatistics,
+    pub electric_network_statistics: MaybeCycle<LuaFlowStatistics>,
     /// The output flow limit for the electric energy source. `nil` if the entity doesn't have an electric energy source.
     pub electric_output_flow_limit: Option<f64>,
     /// Whether equipment grid logistics are enabled while this vehicle is moving.
@@ -1696,13 +1708,13 @@ pub struct LuaEntity {
     /// The number of filter slots this inserter, loader, or logistic storage container has. 0 if not one of those entities.
     pub filter_slot_count: u32,
     /// Fluidboxes of this entity.
-    pub fluidbox: LuaFluidBox,
+    pub fluidbox: MaybeCycle<LuaFluidBox>,
     /// The follow offset of this spidertron, if any entity is being followed. This is randomized each time the follow entity is set.
     /// Can only be used if this is SpiderVehicle
     pub follow_offset: Option<Vector>,
     /// The follow target of this spidertron, if any.
     /// Can only be used if this is SpiderVehicle
-    pub follow_target: Option<Box<LuaEntity>>,
+    pub follow_target: Option<MaybeCycle<LuaEntity>>,
     /// Multiplies the car friction rate.
     /// Can only be used if this is Car
     ///
@@ -1733,7 +1745,7 @@ pub struct LuaEntity {
     /// The graphics variation for this entity. `nil` if this entity doesn't use graphics variations.
     pub graphics_variation: Option<u8>,
     /// This entity's equipment grid, if any.
-    pub grid: Option<LuaEquipmentGrid>,
+    pub grid: Option<MaybeCycle<LuaEquipmentGrid>>,
     /// The current health of the entity, if any. Health is automatically clamped to be between `0` and max health (inclusive). Entities with a health of `0` can not be attacked.
     ///
     /// # Notes
@@ -1742,7 +1754,7 @@ pub struct LuaEntity {
     pub health: Option<f32>,
     /// The item stack currently held in an inserter's hand.
     /// Can only be used if this is Inserter
-    pub held_stack: LuaItemStack,
+    pub held_stack: MaybeCycle<LuaItemStack>,
     /// Current position of the inserter's "hand".
     /// Can only be used if this is Inserter
     pub held_stack_position: MapPosition,
@@ -1804,7 +1816,7 @@ pub struct LuaEntity {
     ///
     /// * Can also be used on entity ghost if it contains linked-belt
     /// * May return entity ghost which contains linked belt to which connection is made
-    pub linked_belt_neighbour: Option<Box<LuaEntity>>,
+    pub linked_belt_neighbour: Option<MaybeCycle<LuaEntity>>,
     /// Type of linked belt: it is either `"input"` or `"output"`. Changing type will also flip direction so the belt is out of the same side
     /// Can only be used if this is LinkedBelt
     ///
@@ -1815,7 +1827,7 @@ pub struct LuaEntity {
     pub linked_belt_type: String,
     /// The container entity this loader is pointing at/pulling from depending on the [LuaEntity::loader_type](LuaEntity::loader_type), if any.
     /// Can only be used if this is Loader
-    pub loader_container: Option<Box<LuaEntity>>,
+    pub loader_container: Option<MaybeCycle<LuaEntity>>,
     /// `"input"` or `"output"`, depending on whether this loader puts to or gets from a container.
     /// Can only be used if this is Loader
     pub loader_type: String,
@@ -1823,9 +1835,9 @@ pub struct LuaEntity {
     /// Localised name of the entity.
     pub localised_name: LocalisedString,
     /// The logistic cell this entity is a part of. Will be `nil` if this entity is not a part of any logistic cell.
-    pub logistic_cell: LuaLogisticCell,
+    pub logistic_cell: MaybeCycle<LuaLogisticCell>,
     /// The logistic network this entity is a part of, or `nil` if this entity is not a part of any logistic network.
-    pub logistic_network: LuaLogisticNetwork,
+    pub logistic_network: MaybeCycle<LuaLogisticNetwork>,
     /// # Notes
     ///
     /// * Not minable entities can still be destroyed.
@@ -1835,7 +1847,7 @@ pub struct LuaEntity {
     pub mining_progress: Option<f64>,
     /// The mining target, if any.
     /// Can only be used if this is MiningDrill
-    pub mining_target: Option<Box<LuaEntity>>,
+    pub mining_target: Option<MaybeCycle<LuaEntity>>,
     /// Returns true if this unit is moving.
     /// Can only be used if this is Unit
     pub moving: bool,
@@ -1851,7 +1863,7 @@ pub struct LuaEntity {
     /// - When called on an underground transport belt, this is the other end of the underground belt connection, or `nil` if none.
     /// - When called on a wall-connectable entity or reactor, this is a dictionary of all connections indexed by the connection direction "north", "south", "east", and "west".
     /// - When called on a cliff entity, this is a dictionary of all connections indexed by the connection direction "north", "south", "east", and "west".
-    pub neighbours: Box<LuaEntityNeighboursUnion>,
+    pub neighbours: LuaEntityNeighboursUnion,
     /// The class name of this object. Available even when `valid` is false. For LuaStruct objects it may also be suffixed with a dotted path to a member of the struct.
     pub object_name: String,
     /// Player can't open gui of this entity and he can't quick insert/input stuff in to the entity when it is not operable.
@@ -1869,10 +1881,10 @@ pub struct LuaEntity {
     pub pickup_position: MapPosition,
     /// The entity this inserter will attempt to pick up items from. If there are multiple possible entities at the pick-up point, writing to this attribute allows a mod to choose which one to pick up items from. The entity needs to collide with the tile box under the pick-up position. `nil` if there is no entity to pull items from.
     /// Can only be used if this is Inserter
-    pub pickup_target: Option<Box<LuaEntity>>,
+    pub pickup_target: Option<MaybeCycle<LuaEntity>>,
     /// The player connected to this character, if any.
     /// Can only be used if this is Character
-    pub player: Option<LuaPlayer>,
+    pub player: Option<MaybeCycle<LuaPlayer>>,
     /// The pollution bonus of this entity.
     pub pollution_bonus: f64,
     /// The power production specific to the ElectricEnergyInterface entity type.
@@ -1885,7 +1897,7 @@ pub struct LuaEntity {
     pub power_usage: f64,
     /// The previous recipe this furnace was using, if any.
     /// Can only be used if this is Furnace
-    pub previous_recipe: Option<LuaRecipe>,
+    pub previous_recipe: Option<MaybeCycle<LuaRecipe>>,
     /// The productivity bonus of this entity.
     ///
     /// # Notes
@@ -1896,12 +1908,12 @@ pub struct LuaEntity {
     /// Can only be used if this is CraftingMachine
     pub products_finished: u32,
     /// The entity prototype of this entity.
-    pub prototype: LuaEntityPrototype,
+    pub prototype: MaybeCycle<LuaEntityPrototype>,
     /// The target entity for this item-request-proxy, if any.
-    pub proxy_target: Option<Box<LuaEntity>>,
+    pub proxy_target: Option<MaybeCycle<LuaEntity>>,
     /// The rail target of this pump, if any.
     /// Can only be used if this is Pump
-    pub pump_rail_target: Option<Box<LuaEntity>>,
+    pub pump_rail_target: Option<MaybeCycle<LuaEntity>>,
     /// The current radar scan progress, as a number in range [0, 1].
     /// Can only be used if this is Radar
     pub radar_scan_progress: f32,
@@ -1956,12 +1968,12 @@ pub struct LuaEntity {
     /// [LuaEntityPrototype::selection_box](LuaEntityPrototype::selection_box) around entity's given position and respecting the current entity orientation.
     pub selection_box: BoundingBox,
     /// The shooting target for this turret, if any. Can't be set to `nil` via script.
-    pub shooting_target: Option<Box<LuaEntity>>,
+    pub shooting_target: Option<MaybeCycle<LuaEntity>>,
     /// The state of this rail signal.
     /// Can only be used if this is RailSignal or RailChainSignal
     pub signal_state: SignalState,
     /// The spawner associated with this unit entity, if any.
-    pub spawner: Option<Box<LuaEntity>>,
+    pub spawner: Option<MaybeCycle<LuaEntity>>,
     /// The current speed if this is a car, rolling stock, projectile or spidertron, or the maximum speed if this is a unit. The speed is in tiles per tick. `nil` if this is not a car, rolling stock, unit, projectile or spidertron.
     ///
     /// Only the speed of units, cars, and projectiles are writable.
@@ -1974,7 +1986,7 @@ pub struct LuaEntity {
     pub speed_bonus: f64,
     /// The filter for this splitter, if any is set.
     /// Can only be used if this is Splitter
-    pub splitter_filter: Option<LuaItemPrototype>,
+    pub splitter_filter: Option<MaybeCycle<LuaItemPrototype>>,
     /// The input priority for this splitter. Either `"left"`, `"none"`, or `"right"`.
     /// Can only be used if this is Splitter
     pub splitter_input_priority: String,
@@ -1982,15 +1994,15 @@ pub struct LuaEntity {
     /// Can only be used if this is Splitter
     pub splitter_output_priority: String,
     /// Can only be used if this is ItemEntity
-    pub stack: LuaItemStack,
+    pub stack: MaybeCycle<LuaItemStack>,
     /// The status of this entity, if any.
     pub status: Option<EntityStatus>,
     /// The entity this sticker is sticked to.
-    pub sticked_to: Box<LuaEntity>,
+    pub sticked_to: MaybeCycle<LuaEntity>,
     /// The sticker entities attached to this entity, if any.
     pub stickers: Option<Vec<LuaEntity>>,
     /// The storage filter for this logistic storage container.
-    pub storage_filter: LuaItemPrototype,
+    pub storage_filter: MaybeCycle<LuaItemPrototype>,
     /// Whether the entity has direction. When it is false for this entity, it will always return north direction when asked for.
     pub supports_direction: bool,
     /// The tags associated with this entity ghost. `nil` if this is not an entity ghost.
@@ -2028,7 +2040,7 @@ pub struct LuaEntity {
     /// Can only be used if this is SpiderVehicle
     pub torso_orientation: RealOrientation,
     /// The train this rolling stock belongs to, if any. `nil` if this is not a rolling stock.
-    pub train: Option<Box<LuaTrain>>,
+    pub train: Option<MaybeCycle<LuaTrain>>,
     /// Amount of trains related to this particular train stop. Includes train stopped at this train stop (until it finds a path to next target) and trains having this train stop as goal or waypoint.
     /// Can only be used if this is TrainStop
     ///
@@ -2063,7 +2075,7 @@ pub struct LuaEntity {
     pub typ: String,
     /// The unit group this unit is a member of, if any.
     /// Can only be used if this is Unit
-    pub unit_group: Option<Box<LuaUnitGroup>>,
+    pub unit_group: Option<MaybeCycle<LuaUnitGroup>>,
     /// A unique number identifying this entity for the lifetime of the save. These are allocated sequentially, and not re-used (until overflow).
     ///
     /// Only entities inheriting from [EntityWithOwner](https://wiki.factorio.com/Prototype/EntityWithOwner), as well as [ItemRequestProxy](https://wiki.factorio.com/Prototype/ItemRequestProxy) and [EntityGhost](https://wiki.factorio.com/Prototype/EntityGhost) are assigned a unit number. Returns `nil` otherwise.
@@ -2078,88 +2090,102 @@ pub struct LuaEntity {
 }
 
 #[derive(Debug, Deserialize)]
+#[serde(untagged)]
 pub enum LuaEntityMethodsConnectNeighbourTargetUnion {
-    LuaEntity(LuaEntity),
+    LuaEntity(MaybeCycle<LuaEntity>),
     WireConnectionDefinition(WireConnectionDefinition),
 }
 
 #[derive(Debug, Deserialize)]
+#[serde(untagged)]
 pub enum LuaEntityMethodsDisconnectNeighbourTargetUnion {
     DefinesWireType(WireType),
-    LuaEntity(LuaEntity),
+    LuaEntity(MaybeCycle<LuaEntity>),
     WireConnectionDefinition(WireConnectionDefinition),
 }
 
 #[derive(Debug, Deserialize)]
+#[serde(untagged)]
 pub enum LuaEntityMethodsGetDriverUnion {
-    LuaEntity(LuaEntity),
-    LuaPlayer(LuaPlayer),
+    LuaEntity(MaybeCycle<LuaEntity>),
+    LuaPlayer(MaybeCycle<LuaPlayer>),
 }
 
 #[derive(Debug, Deserialize)]
+#[serde(untagged)]
 pub enum LuaEntityMethodsGetLogisticPointUnion {
-    LuaLogisticPoint(LuaLogisticPoint),
+    LuaLogisticPoint(MaybeCycle<LuaLogisticPoint>),
     Array(Vec<LuaLogisticPoint>),
 }
 
 #[derive(Debug, Deserialize)]
+#[serde(untagged)]
 pub enum LuaEntityMethodsGetPassengerUnion {
-    LuaEntity(LuaEntity),
-    LuaPlayer(LuaPlayer),
+    LuaEntity(MaybeCycle<LuaEntity>),
+    LuaPlayer(MaybeCycle<LuaPlayer>),
 }
 
 #[derive(Debug, Deserialize)]
+#[serde(untagged)]
 pub enum LuaEntityMethodsRotateForceUnion {
-    LuaForce(LuaForce),
+    LuaForce(MaybeCycle<LuaForce>),
     String(String),
 }
 
 #[derive(Debug, Deserialize)]
+#[serde(untagged)]
 pub enum LuaEntityMethodsSetBeamSourceSourceUnion {
-    LuaEntity(LuaEntity),
+    LuaEntity(MaybeCycle<LuaEntity>),
     MapPosition(MapPosition),
 }
 
 #[derive(Debug, Deserialize)]
+#[serde(untagged)]
 pub enum LuaEntityMethodsSetBeamTargetTargetUnion {
-    LuaEntity(LuaEntity),
+    LuaEntity(MaybeCycle<LuaEntity>),
     MapPosition(MapPosition),
 }
 
 #[derive(Debug, Deserialize)]
+#[serde(untagged)]
 pub enum LuaEntityMethodsSetDriverDriverUnion {
-    LuaEntity(LuaEntity),
+    LuaEntity(MaybeCycle<LuaEntity>),
     PlayerIdentification(PlayerIdentification),
 }
 
 #[derive(Debug, Deserialize)]
+#[serde(untagged)]
 pub enum LuaEntityMethodsSetFilterItemUnion {
     String(String),
     Nil,
 }
 
 #[derive(Debug, Deserialize)]
+#[serde(untagged)]
 pub enum LuaEntityMethodsSetInfinityContainerFilterFilterUnion {
     InfinityInventoryFilter(InfinityInventoryFilter),
     Nil,
 }
 
 #[derive(Debug, Deserialize)]
+#[serde(untagged)]
 pub enum LuaEntityMethodsSetInfinityPipeFilterFilterUnion {
     InfinityPipeFilter(InfinityPipeFilter),
     Nil,
 }
 
 #[derive(Debug, Deserialize)]
+#[serde(untagged)]
 pub enum LuaEntityMethodsSetPassengerPassengerUnion {
-    LuaEntity(LuaEntity),
+    LuaEntity(MaybeCycle<LuaEntity>),
     PlayerIdentification(PlayerIdentification),
 }
 
 #[derive(Debug, Deserialize)]
+#[serde(untagged)]
 pub enum LuaEntityMethodsSetRecipeRecipeUnion {
     String(String),
-    LuaRecipe(LuaRecipe),
+    LuaRecipe(MaybeCycle<LuaRecipe>),
 }
 
 /// The primary interface for interacting with entities through the Lua API. Entities are everything that exists on the map except for tiles (see [LuaTile](LuaTile)).
@@ -3143,7 +3169,7 @@ pub struct LuaEntityPrototype {
     /// The log2 of grid size of the building
     pub building_grid_bit_shift: u32,
     /// The burner energy source prototype this entity uses, if any.
-    pub burner_prototype: Option<LuaBurnerPrototype>,
+    pub burner_prototype: Option<MaybeCycle<LuaBurnerPrototype>>,
     /// Whether this generator prototype burns fluid.
     /// Can only be used if this is Generator
     pub burns_fluid: Option<bool>,
@@ -3159,7 +3185,7 @@ pub struct LuaEntityPrototype {
     /// Can only be used if this is SpiderVehicle
     pub chain_shooting_cooldown_modifier: Option<f64>,
     /// Can only be used if this is Character
-    pub character_corpse: Option<Box<LuaEntityPrototype>>,
+    pub character_corpse: Option<MaybeCycle<LuaEntityPrototype>>,
     /// The chunk exploration radius of this spider vehicle prototype.
     /// Can only be used if this is SpiderVehicle
     pub chunk_exploration_radius: Option<f64>,
@@ -3212,7 +3238,7 @@ pub struct LuaEntityPrototype {
     /// The trigger to run when this entity is created, if any.
     pub created_effect: Option<Vec<TriggerItem>>,
     /// The smoke trigger run when this entity is built, if any.
-    pub created_smoke: Option<LuaEntityPrototypeCreatedSmoke>,
+    pub created_smoke: Option<MaybeCycle<LuaEntityPrototypeCreatedSmoke>>,
     /// Can only be used if this is Character
     pub damage_hit_tint: Option<Color>,
     /// Value between 0 and 1 darkness where all lamps of this lamp prototype are off.
@@ -3249,7 +3275,7 @@ pub struct LuaEntityPrototype {
     /// Can only be used if this is Car or Generator
     pub effectivity: Option<f64>,
     /// The electric energy source prototype this entity uses, if any.
-    pub electric_energy_source_prototype: Option<LuaElectricEnergySourcePrototype>,
+    pub electric_energy_source_prototype: Option<MaybeCycle<LuaElectricEnergySourcePrototype>>,
     /// Amount of pollution emissions per second this entity will create.
     pub emissions_per_second: f64,
     /// The enemy map color used when charting this entity.
@@ -3291,7 +3317,7 @@ pub struct LuaEntityPrototype {
     pub flags: EntityPrototypeFlags,
     /// The fluid this offshore pump produces.
     /// Can only be used if this is OffshorePump
-    pub fluid: Option<LuaFluidPrototype>,
+    pub fluid: Option<MaybeCycle<LuaFluidPrototype>>,
     /// The fluid capacity of this entity or 0 if this entity doesn't support fluids.
     ///
     /// # Notes
@@ -3299,7 +3325,7 @@ pub struct LuaEntityPrototype {
     /// * Crafting machines will report 0 due to their fluid capacity being whatever a given recipe needs.
     pub fluid_capacity: f64,
     /// The fluid energy source prototype this entity uses, if any.
-    pub fluid_energy_source_prototype: Option<LuaFluidEnergySourcePrototype>,
+    pub fluid_energy_source_prototype: Option<MaybeCycle<LuaFluidEnergySourcePrototype>>,
     /// The fluid usage of this generator prototype.
     /// Can only be used if this is Generator
     pub fluid_usage_per_tick: Option<f64>,
@@ -3317,9 +3343,9 @@ pub struct LuaEntityPrototype {
     /// The friendly map color used when charting this entity.
     pub friendly_map_color: Color,
     /// The equipment grid prototype for this entity, if any.
-    pub grid_prototype: Option<LuaEquipmentGridPrototype>,
+    pub grid_prototype: Option<MaybeCycle<LuaEquipmentGridPrototype>>,
     /// Group of this entity.
-    pub group: LuaGroup,
+    pub group: MaybeCycle<LuaGroup>,
     /// A mapping of the gun name to the gun prototype this prototype uses. `nil` if this entity prototype doesn't use guns.
     pub guns: Option<HashMap<String, LuaItemPrototype>>,
     /// Whether this unit, car, or character prototype has belt immunity.
@@ -3328,9 +3354,9 @@ pub struct LuaEntityPrototype {
     /// Amount this entity can heal per tick, if any.
     pub healing_per_tick: Option<f32>,
     /// The heat buffer prototype this entity uses, if any.
-    pub heat_buffer_prototype: Option<LuaHeatBufferPrototype>,
+    pub heat_buffer_prototype: Option<MaybeCycle<LuaHeatBufferPrototype>>,
     /// The heat energy source prototype this entity uses, if any.
-    pub heat_energy_source_prototype: Option<LuaHeatEnergySourcePrototype>,
+    pub heat_energy_source_prototype: Option<MaybeCycle<LuaHeatEnergySourcePrototype>>,
     /// The height of this spider vehicle prototype.
     /// Can only be used if this is SpiderVehicle
     pub height: Option<f64>,
@@ -3450,7 +3476,7 @@ pub struct LuaEntityPrototype {
     /// # Notes
     ///
     /// * Both the `charging_station_shift` and `stationing_offset` vectors are tables with `x` and `y` keys instead of an array.
-    pub logistic_parameters: Option<LuaEntityPrototypeLogisticParameters>,
+    pub logistic_parameters: Option<MaybeCycle<LuaEntityPrototypeLogisticParameters>>,
     /// The logistic radius for this roboport prototype.
     /// Can only be used if this is Roboport
     pub logistic_radius: Option<f64>,
@@ -3531,7 +3557,7 @@ pub struct LuaEntityPrototype {
     /// Can only be used if this is FlyingRobot
     pub min_to_charge: Option<f32>,
     /// Whether this entity is minable and what can be obtained by mining it.
-    pub mineable_properties: LuaEntityPrototypeMineableProperties,
+    pub mineable_properties: MaybeCycle<LuaEntityPrototypeMineableProperties>,
     /// Minimum amount of this resource.
     /// Can only be used if this is ResourceEntity
     pub minimum_resource_amount: Option<u32>,
@@ -3551,7 +3577,7 @@ pub struct LuaEntityPrototype {
     /// Can only be used if this is Reactor
     pub neighbour_bonus: Option<f64>,
     /// The next upgrade for this entity, if any.
-    pub next_upgrade: Option<Box<LuaEntityPrototype>>,
+    pub next_upgrade: Option<MaybeCycle<LuaEntityPrototype>>,
     /// The normal amount for this resource.
     /// Can only be used if this is ResourceEntity
     pub normal_resource_amount: Option<u32>,
@@ -3577,7 +3603,7 @@ pub struct LuaEntityPrototype {
     /// Can only be used if this is Character
     pub reach_resource_distance: Option<f64>,
     /// Can only be used if this is TransportBelt
-    pub related_underground_belt: Option<Box<LuaEntityPrototype>>,
+    pub related_underground_belt: Option<MaybeCycle<LuaEntityPrototype>>,
     /// The remains left behind when this entity is mined.
     pub remains_when_mined: Vec<LuaEntityPrototype>,
     pub remove_decoratives: String,
@@ -3614,7 +3640,7 @@ pub struct LuaEntityPrototype {
     pub rising_speed: Option<f64>,
     /// The rocket entity prototype associated with this rocket silo prototype.
     /// Can only be used if this is RocketSilo
-    pub rocket_entity_prototype: Option<Box<LuaEntityPrototype>>,
+    pub rocket_entity_prototype: Option<MaybeCycle<LuaEntityPrototype>>,
     /// The rocket parts required for this rocket silo prototype.
     /// Can only be used if this is RocketSilo
     pub rocket_parts_required: Option<u32>,
@@ -3642,7 +3668,7 @@ pub struct LuaEntityPrototype {
     pub shooting_cursor_size: f64,
     /// The spawning cooldown for this enemy spawner prototype.
     /// Can only be used if this is Spawner
-    pub spawn_cooldown: Option<LuaEntityPrototypeSpawnCooldown>,
+    pub spawn_cooldown: Option<MaybeCycle<LuaEntityPrototypeSpawnCooldown>>,
     /// How far from the spawner can the units be spawned.
     /// Can only be used if this is Spawner
     pub spawning_radius: Option<f64>,
@@ -3664,7 +3690,7 @@ pub struct LuaEntityPrototype {
     /// The bounding box used to attach sticker type entities.
     pub sticker_box: BoundingBox,
     /// Subgroup of this entity.
-    pub subgroup: LuaGroup,
+    pub subgroup: MaybeCycle<LuaGroup>,
     /// The supply area of this electric pole or beacon prototype.
     /// Can only be used if this is ElectricPole or Beacon
     pub supply_area_distance: Option<f64>,
@@ -3723,7 +3749,7 @@ pub struct LuaEntityPrototype {
     /// Can only be used if this is Unit
     pub vision_distance: Option<f64>,
     /// The void energy source prototype this entity uses, if any.
-    pub void_energy_source_prototype: Option<LuaVoidEnergySourcePrototype>,
+    pub void_energy_source_prototype: Option<MaybeCycle<LuaVoidEnergySourcePrototype>>,
     /// The weight of this vehicle prototype.
     /// Can only be used if this is Vehicle
     pub weight: Option<f64>,
@@ -3759,7 +3785,7 @@ pub struct LuaEquipmentShape {
 #[derive(Debug, Deserialize)]
 pub struct LuaEquipment {
     /// The burner energy source for this equipment, if any.
-    pub burner: Option<Box<LuaBurner>>,
+    pub burner: Option<MaybeCycle<LuaBurner>>,
     /// Current available energy.
     pub energy: f64,
     /// Energy generated per tick.
@@ -3778,9 +3804,9 @@ pub struct LuaEquipment {
     pub object_name: String,
     /// Position of this equipment in the equipment grid.
     pub position: EquipmentPosition,
-    pub prototype: LuaEquipmentPrototype,
+    pub prototype: MaybeCycle<LuaEquipmentPrototype>,
     /// Shape of this equipment.
-    pub shape: LuaEquipmentShape,
+    pub shape: MaybeCycle<LuaEquipmentShape>,
     /// Current shield value of the equipment.
     ///
     /// # Notes
@@ -3843,7 +3869,7 @@ pub struct LuaEquipmentGrid {
     pub max_solar_energy: f64,
     /// The class name of this object. Available even when `valid` is false. For LuaStruct objects it may also be suffixed with a dotted path to a member of the struct.
     pub object_name: String,
-    pub prototype: LuaEquipmentGridPrototype,
+    pub prototype: MaybeCycle<LuaEquipmentGridPrototype>,
     /// The amount of shields this equipment grid has.
     pub shield: f32,
     /// Unique identifier of this equipment grid.
@@ -4023,16 +4049,16 @@ pub struct LuaEquipmentPrototype {
     /// The background color of this equipment prototype.
     pub background_color: Color,
     /// The burner energy source prototype this equipment uses, if any.
-    pub burner_prototype: Option<LuaBurnerPrototype>,
+    pub burner_prototype: Option<MaybeCycle<LuaBurnerPrototype>>,
     /// The electric energy source prototype this equipment uses, if any.
-    pub electric_energy_source_prototype: Option<LuaElectricEnergySourcePrototype>,
+    pub electric_energy_source_prototype: Option<MaybeCycle<LuaElectricEnergySourcePrototype>>,
     pub energy_consumption: f64,
     /// The energy per shield point restored. 0 for non-shield equipment.
     pub energy_per_shield: f64,
     /// The max power generated by this equipment.
     pub energy_production: f64,
     /// The energy source prototype for the equipment.
-    pub energy_source: LuaElectricEnergySourcePrototype,
+    pub energy_source: MaybeCycle<LuaElectricEnergySourcePrototype>,
     /// Category names for this equipment. These [categories](LuaEquipmentGridPrototype::equipment_categories) will be used to determine whether this equipment is allowed in a particular equipment grid.
     pub equipment_categories: Vec<String>,
     pub localised_description: LocalisedString,
@@ -4043,7 +4069,7 @@ pub struct LuaEquipmentPrototype {
     /// # Notes
     ///
     /// * Both the `charging_station_shift` and `stationing_offset` vectors are tables with `x` and `y` keys instead of an array.
-    pub logistic_parameters: Option<LuaEquipmentPrototypeLogisticParameters>,
+    pub logistic_parameters: Option<MaybeCycle<LuaEquipmentPrototypeLogisticParameters>>,
     /// Can only be used if this is MovementBonusEquipment
     pub movement_bonus: Option<f32>,
     /// Name of this prototype.
@@ -4053,11 +4079,11 @@ pub struct LuaEquipmentPrototype {
     /// The string used to alphabetically sort these prototypes. It is a simple string that has no additional semantic meaning.
     pub order: String,
     /// Shape of this equipment prototype.
-    pub shape: LuaEquipmentPrototypeShape,
+    pub shape: MaybeCycle<LuaEquipmentPrototypeShape>,
     /// The shield value of this equipment. 0 for non-shield equipment.
     pub shield: f32,
     /// The result item when taking this equipment out of an equipment grid, if any.
-    pub take_result: Option<Box<LuaItemPrototype>>,
+    pub take_result: Option<MaybeCycle<LuaItemPrototype>>,
     /// Type of this equipment prototype.
     pub typ: String,
     /// Is this object valid? This Lua object holds a reference to an object within the game engine. It is possible that the game-engine object is removed whilst a mod still holds the corresponding Lua object. If that happens, the object becomes invalid, i.e. this attribute will be `false`. Mods are advised to check for object validity if any change to the game state might have occurred between the creation of the Lua object and its access.
@@ -4071,12 +4097,14 @@ pub trait LuaEquipmentPrototypeMethods {
 }
 
 #[derive(Debug, Deserialize)]
+#[serde(untagged)]
 pub enum LuaFlowStatisticsInputCountsUnion {
     Uint64(u64),
     Double(f64),
 }
 
 #[derive(Debug, Deserialize)]
+#[serde(untagged)]
 pub enum LuaFlowStatisticsOutputCountsUnion {
     Uint64(u64),
     Double(f64),
@@ -4091,7 +4119,7 @@ pub enum LuaFlowStatisticsOutputCountsUnion {
 #[derive(Debug, Deserialize)]
 pub struct LuaFlowStatistics {
     /// The force these statistics belong to. `nil` for pollution statistics.
-    pub force: Option<Box<LuaForce>>,
+    pub force: Option<MaybeCycle<LuaForce>>,
     /// List of input counts indexed by prototype name. Represents the data that is shown on the left side of the GUI for the given statistics.
     pub input_counts: HashMap<String, LuaFlowStatisticsInputCountsUnion>,
     /// The class name of this object. Available even when `valid` is false. For LuaStruct objects it may also be suffixed with a dotted path to a member of the struct.
@@ -4103,24 +4131,28 @@ pub struct LuaFlowStatistics {
 }
 
 #[derive(Debug, Deserialize)]
+#[serde(untagged)]
 pub enum LuaFlowStatisticsMethodsGetInputCountUnion {
     Uint64(u64),
     Double(f64),
 }
 
 #[derive(Debug, Deserialize)]
+#[serde(untagged)]
 pub enum LuaFlowStatisticsMethodsGetOutputCountUnion {
     Uint64(u64),
     Double(f64),
 }
 
 #[derive(Debug, Deserialize)]
+#[serde(untagged)]
 pub enum LuaFlowStatisticsMethodsSetInputCountCountUnion {
     Uint64(u64),
     Double(f64),
 }
 
 #[derive(Debug, Deserialize)]
+#[serde(untagged)]
 pub enum LuaFlowStatisticsMethodsSetOutputCountCountUnion {
     Uint64(u64),
     Double(f64),
@@ -4209,18 +4241,20 @@ pub struct LuaFluidBox {
     /// The class name of this object. Available even when `valid` is false. For LuaStruct objects it may also be suffixed with a dotted path to a member of the struct.
     pub object_name: String,
     /// The entity that owns this fluidbox.
-    pub owner: Box<LuaEntity>,
+    pub owner: MaybeCycle<LuaEntity>,
     /// Is this object valid? This Lua object holds a reference to an object within the game engine. It is possible that the game-engine object is removed whilst a mod still holds the corresponding Lua object. If that happens, the object becomes invalid, i.e. this attribute will be `false`. Mods are advised to check for object validity if any change to the game state might have occurred between the creation of the Lua object and its access.
     pub valid: bool,
 }
 
 #[derive(Debug, Deserialize)]
+#[serde(untagged)]
 pub enum LuaFluidBoxMethodsGetPrototypeUnion {
-    LuaFluidBoxPrototype(LuaFluidBoxPrototype),
+    LuaFluidBoxPrototype(MaybeCycle<LuaFluidBoxPrototype>),
     Array(Vec<LuaFluidBoxPrototype>),
 }
 
 #[derive(Debug, Deserialize)]
+#[serde(untagged)]
 pub enum LuaFluidBoxMethodsSetFilterFilterUnion {
     FluidBoxFilterSpec(FluidBoxFilterSpec),
     Nil,
@@ -4295,9 +4329,9 @@ pub struct LuaFluidBoxPrototype {
     pub base_area: f64,
     pub base_level: f64,
     /// The entity that this belongs to.
-    pub entity: Box<LuaEntityPrototype>,
+    pub entity: MaybeCycle<LuaEntityPrototype>,
     /// The filter, if any is set.
-    pub filter: Option<LuaFluidPrototype>,
+    pub filter: Option<MaybeCycle<LuaFluidPrototype>>,
     pub height: f64,
     /// The index of this fluidbox prototype in the owning entity.
     pub index: u32,
@@ -4335,7 +4369,7 @@ pub struct LuaFluidEnergySourcePrototype {
     /// The emissions of this energy source in `pollution/Joule`. Multiplying it by energy consumption in `Watt` gives `pollution/second`.
     pub emissions: f64,
     /// The fluid box for this energy source.
-    pub fluid_box: LuaFluidBoxPrototype,
+    pub fluid_box: MaybeCycle<LuaFluidBoxPrototype>,
     pub fluid_usage_per_tick: f64,
     pub maximum_temperature: f64,
     /// The class name of this object. Available even when `valid` is false. For LuaStruct objects it may also be suffixed with a dotted path to a member of the struct.
@@ -4369,7 +4403,7 @@ pub struct LuaFluidPrototype {
     /// The temperature above which this fluid will be shown as gaseous inside tanks and pipes.
     pub gas_temperature: f64,
     /// Group of this prototype.
-    pub group: LuaGroup,
+    pub group: MaybeCycle<LuaGroup>,
     /// The amount of energy in Joules required to heat one unit of this fluid by 1°C.
     pub heat_capacity: f64,
     /// Whether this fluid is hidden from the fluid and signal selectors.
@@ -4385,7 +4419,7 @@ pub struct LuaFluidPrototype {
     /// The string used to alphabetically sort these prototypes. It is a simple string that has no additional semantic meaning.
     pub order: String,
     /// Subgroup of this prototype.
-    pub subgroup: LuaGroup,
+    pub subgroup: MaybeCycle<LuaGroup>,
     /// Is this object valid? This Lua object holds a reference to an object within the game engine. It is possible that the game-engine object is removed whilst a mod still holds the corresponding Lua object. If that happens, the object becomes invalid, i.e. this attribute will be `false`. Mods are advised to check for object validity if any change to the game state might have occurred between the creation of the Lua object and its access.
     pub valid: bool,
 }
@@ -4457,20 +4491,20 @@ pub struct LuaForce {
     /// * This does *not* index using player index. See [LuaPlayer::index](LuaPlayer::index) on each player instance for the player index.
     pub connected_players: Vec<LuaPlayer>,
     /// The currently ongoing technology research, if any.
-    pub current_research: Option<LuaTechnology>,
+    pub current_research: Option<MaybeCycle<LuaTechnology>>,
     /// Custom color for this force. If specified, will take priority over other sources of the force color. Writing nil clears custom color. Will return nil if it was not specified or if was set to {0,0,0,0}
     pub custom_color: Option<Color>,
     /// The time, in ticks, before a deconstruction order is removed.
     pub deconstruction_time_to_live: u32,
     /// The entity build statistics for this force (built and mined)
-    pub entity_build_count_statistics: LuaFlowStatistics,
+    pub entity_build_count_statistics: MaybeCycle<LuaFlowStatistics>,
     /// Evolution factor of this force.
     pub evolution_factor: f64,
     pub evolution_factor_by_killing_spawners: f64,
     pub evolution_factor_by_pollution: f64,
     pub evolution_factor_by_time: f64,
     /// The fluid production statistics for this force.
-    pub fluid_production_statistics: LuaFlowStatistics,
+    pub fluid_production_statistics: MaybeCycle<LuaFlowStatistics>,
     /// Additional lifetime for following robots.
     pub following_robots_lifetime_modifier: f64,
     /// If friendly fire is enabled for this force.
@@ -4482,11 +4516,11 @@ pub struct LuaForce {
     /// The inserter stack size bonus for non stack inserters
     pub inserter_stack_size_bonus: f64,
     /// The item production statistics for this force.
-    pub item_production_statistics: LuaFlowStatistics,
+    pub item_production_statistics: MaybeCycle<LuaFlowStatistics>,
     /// All of the items that have been launched in rockets. The attribute is a dictionary mapping the item prototype names to the launched amounts.
     pub items_launched: HashMap<String, u32>,
     /// The kill counter statistics for this force.
-    pub kill_count_statistics: LuaFlowStatistics,
+    pub kill_count_statistics: MaybeCycle<LuaFlowStatistics>,
     pub laboratory_productivity_bonus: f64,
     pub laboratory_speed_modifier: f64,
     /// List of logistic networks, grouped by surface.
@@ -4528,7 +4562,7 @@ pub struct LuaForce {
     /// Players belonging to this force.
     pub players: Vec<LuaPlayer>,
     /// The previous research, if any.
-    pub previous_research: Option<LuaTechnology>,
+    pub previous_research: Option<MaybeCycle<LuaTechnology>>,
     /// Recipes available to this force, indexed by `name`.
     ///
     /// # Examples
@@ -4586,21 +4620,24 @@ pub struct LuaForce {
 }
 
 #[derive(Debug, Deserialize)]
+#[serde(untagged)]
 pub enum LuaForceMethodsGetHandCraftingDisabledForRecipeRecipeUnion {
     String(String),
-    LuaRecipe(LuaRecipe),
+    LuaRecipe(MaybeCycle<LuaRecipe>),
 }
 
 #[derive(Debug, Deserialize)]
+#[serde(untagged)]
 pub enum LuaForceMethodsGetTrainStopsNameUnion {
     String(String),
     Array(Vec<String>),
 }
 
 #[derive(Debug, Deserialize)]
+#[serde(untagged)]
 pub enum LuaForceMethodsSetHandCraftingDisabledForRecipeRecipeUnion {
     String(String),
-    LuaRecipe(LuaRecipe),
+    LuaRecipe(MaybeCycle<LuaRecipe>),
 }
 
 /// `LuaForce` encapsulates data local to each "force" or "faction" of the game. Default forces are player, enemy and neutral. Players and mods can create additional forces (up to 64 total).
@@ -4880,18 +4917,21 @@ pub trait LuaFuelCategoryPrototypeMethods {
 }
 
 #[derive(Debug, Deserialize, Eq, PartialEq, Hash)]
+#[serde(untagged)]
 pub enum LuaGameScriptForcesUnion {
     Uint(u32),
     String(String),
 }
 
 #[derive(Debug, Deserialize, Eq, PartialEq, Hash)]
+#[serde(untagged)]
 pub enum LuaGameScriptPlayersUnion {
     Uint(u32),
     String(String),
 }
 
 #[derive(Debug, Deserialize, Eq, PartialEq, Hash)]
+#[serde(untagged)]
 pub enum LuaGameScriptSurfacesUnion {
     Uint(u32),
     String(String),
@@ -5013,17 +5053,17 @@ pub struct LuaGameScript {
     pub object_name: String,
     /// A dictionary containing every LuaParticlePrototype indexed by `name`.
     pub particle_prototypes: HashMap<String, LuaParticlePrototype>,
-    pub permissions: LuaPermissionGroups,
+    pub permissions: MaybeCycle<LuaPermissionGroups>,
     /// This property is only populated inside [custom command](LuaCommandProcessor) handlers and when writing [Lua console commands](https://wiki.factorio.com/Console#Scripting_and_cheat_commands). Returns the player that is typing the command, `nil` in all other instances.
     ///
     /// See [LuaGameScript::players](LuaGameScript::players) for accessing all players.
-    pub player: Option<LuaPlayer>,
+    pub player: Option<MaybeCycle<LuaPlayer>>,
     /// Get a table of all the players that currently exist. This sparse table allows you to find players by indexing it with either their `name` or `index`. Iterating this table with `pairs()` will only iterate the array part of the table. Iterating with `ipairs()` will not work at all.
     ///
     /// If only a single player is required, [LuaGameScript::get_player](LuaGameScript::get_player) should be used instead, as it avoids the unnecessary overhead of passing the whole table to Lua.
     pub players: HashMap<LuaGameScriptPlayersUnion, LuaPlayer>,
     /// The pollution statistics for this map.
-    pub pollution_statistics: LuaFlowStatistics,
+    pub pollution_statistics: MaybeCycle<LuaFlowStatistics>,
     /// A dictionary containing every LuaRecipeCategoryPrototype indexed by `name`.
     pub recipe_category_prototypes: HashMap<String, LuaRecipeCategoryPrototype>,
     /// A dictionary containing every LuaRecipePrototype indexed by `name`.
@@ -5066,38 +5106,44 @@ pub struct LuaGameScript {
 }
 
 #[derive(Debug, Deserialize)]
+#[serde(untagged)]
 pub enum LuaGameScriptMethodsDeleteSurfaceSurfaceUnion {
     String(String),
-    LuaSurface(LuaSurface),
+    LuaSurface(MaybeCycle<LuaSurface>),
 }
 
 #[derive(Debug, Deserialize)]
+#[serde(untagged)]
 pub enum LuaGameScriptMethodsGetPlayerPlayerUnion {
     Uint(u32),
     String(String),
 }
 
 #[derive(Debug, Deserialize)]
+#[serde(untagged)]
 pub enum LuaGameScriptMethodsGetSurfaceSurfaceUnion {
     Uint(u32),
     String(String),
 }
 
 #[derive(Debug, Deserialize)]
+#[serde(untagged)]
 pub enum LuaGameScriptMethodsGetTrainStopsNameUnion {
     String(String),
     Array(Vec<String>),
 }
 
 #[derive(Debug, Deserialize)]
+#[serde(untagged)]
 pub enum LuaGameScriptMethodsRegenerateEntityEntitiesUnion {
     String(String),
     Array(Vec<String>),
 }
 
 #[derive(Debug, Deserialize)]
+#[serde(untagged)]
 pub enum LuaGameScriptMethodsRemoveOfflinePlayersPlayersUnion {
-    LuaPlayer(LuaPlayer),
+    LuaPlayer(MaybeCycle<LuaPlayer>),
     String(String),
 }
 
@@ -5697,7 +5743,7 @@ pub trait LuaGenericOnOffControlBehaviorMethods {
 #[derive(Debug, Deserialize)]
 pub struct LuaGroup {
     /// The parent group, if any.
-    pub group: Option<Box<LuaGroup>>,
+    pub group: Option<MaybeCycle<LuaGroup>>,
     /// Localised name of the group.
     pub localised_name: Option<LocalisedString>,
     pub name: Option<String>,
@@ -5728,23 +5774,23 @@ pub trait LuaGroupMethods {
 #[derive(Debug, Deserialize)]
 pub struct LuaGui {
     /// The center part of the GUI. It is a flow element.
-    pub center: LuaGuiElement,
+    pub center: MaybeCycle<LuaGuiElement>,
     /// The children GUI elements mapped by name <> element.
     pub children: HashMap<String, LuaGuiElement>,
     /// The flow used in the objectives window. It is a flow element. The objectives window is only visible when the flow is not empty or the objective text is set.
-    pub goal: LuaGuiElement,
+    pub goal: MaybeCycle<LuaGuiElement>,
     /// The left part of the GUI. It is a flow element inside a scroll pane element.
-    pub left: LuaGuiElement,
+    pub left: MaybeCycle<LuaGuiElement>,
     /// The class name of this object. Available even when `valid` is false. For LuaStruct objects it may also be suffixed with a dotted path to a member of the struct.
     pub object_name: String,
     /// The player who owns this gui.
-    pub player: LuaPlayer,
+    pub player: MaybeCycle<LuaPlayer>,
     /// For showing a GUI somewhere relative to one of the game GUIs. It is an empty-widget element.
-    pub relative: LuaGuiElement,
+    pub relative: MaybeCycle<LuaGuiElement>,
     /// For showing a GUI somewhere on the entire screen. It is an empty-widget element.
-    pub screen: LuaGuiElement,
+    pub screen: MaybeCycle<LuaGuiElement>,
     /// The top part of the GUI. It is a flow element inside a scroll pane element.
-    pub top: LuaGuiElement,
+    pub top: MaybeCycle<LuaGuiElement>,
     /// Is this object valid? This Lua object holds a reference to an object within the game engine. It is possible that the game-engine object is removed whilst a mod still holds the corresponding Lua object. If that happens, the object becomes invalid, i.e. this attribute will be `false`. Mods are advised to check for object validity if any change to the game state might have occurred between the creation of the Lua object and its access.
     pub valid: bool,
 }
@@ -5764,14 +5810,16 @@ pub trait LuaGuiMethods {
 }
 
 #[derive(Debug, Deserialize)]
+#[serde(untagged)]
 pub enum LuaGuiElementElemValueUnion {
     String(String),
     SignalID(SignalID),
 }
 
 #[derive(Debug, Deserialize)]
+#[serde(untagged)]
 pub enum LuaGuiElementStyleUnion {
-    LuaStyle(LuaStyle),
+    LuaStyle(MaybeCycle<LuaStyle>),
     String(String),
 }
 
@@ -5886,7 +5934,7 @@ pub struct LuaGuiElement {
     /// dragger.style.size = {128, 24}
     /// dragger.drag_target = frame
     /// ```
-    pub drag_target: Option<Box<LuaGuiElement>>,
+    pub drag_target: Option<MaybeCycle<LuaGuiElement>>,
     /// Whether this table should draw a horizontal grid line below the first table row.
     /// Can only be used if this is table
     pub draw_horizontal_line_after_headers: bool,
@@ -5932,12 +5980,12 @@ pub struct LuaGuiElement {
     pub enabled: bool,
     /// The entity associated with this entity-preview, camera, minimap, if any.
     /// Can only be used if this is entity-preview or camera or minimap
-    pub entity: Option<LuaEntity>,
+    pub entity: Option<MaybeCycle<LuaEntity>>,
     /// The force this minimap is using, if any.
     /// Can only be used if this is minimap
     pub force: Option<String>,
     /// The GUI this element is a child of.
-    pub gui: Box<LuaGui>,
+    pub gui: MaybeCycle<LuaGui>,
     /// Policy of the horizontal scroll bar. Possible values are `"auto"`, `"never"`, `"always"`, `"auto-and-reserve-space"`, `"dont-show-but-allow-scrolling"`.
     /// Can only be used if this is scroll-pane
     pub horizontal_scroll_policy: String,
@@ -5991,7 +6039,7 @@ pub struct LuaGuiElement {
     /// The class name of this object. Available even when `valid` is false. For LuaStruct objects it may also be suffixed with a dotted path to a member of the struct.
     pub object_name: String,
     /// The direct parent of this element. `nil` if this is a top-level element.
-    pub parent: Option<Box<LuaGuiElement>>,
+    pub parent: Option<MaybeCycle<LuaGuiElement>>,
     /// Index into [LuaGameScript::players](LuaGameScript::players) specifying the player who owns this element.
     pub player_index: u32,
     /// The position this camera or minimap is focused on, if any.
@@ -6339,7 +6387,7 @@ pub struct LuaHeatEnergySourcePrototype {
     pub default_temperature: f64,
     /// The emissions of this energy source in `pollution/Joule`. Multiplying it by energy consumption in `Watt` gives `pollution/second`.
     pub emissions: f64,
-    pub heat_buffer_prototype: LuaHeatBufferPrototype,
+    pub heat_buffer_prototype: MaybeCycle<LuaHeatBufferPrototype>,
     pub max_temperature: f64,
     pub max_transfer: f64,
     pub min_temperature_gradient: f64,
@@ -6390,9 +6438,9 @@ pub trait LuaInserterControlBehaviorMethods {
 #[derive(Debug, Deserialize)]
 pub struct LuaInventory {
     /// The entity that owns this inventory, if any.
-    pub entity_owner: Option<Box<LuaEntity>>,
+    pub entity_owner: Option<MaybeCycle<LuaEntity>>,
     /// The equipment that owns this inventory, if any.
-    pub equipment_owner: Option<Box<LuaEquipment>>,
+    pub equipment_owner: Option<MaybeCycle<LuaEquipment>>,
     /// The inventory index this inventory uses, if any.
     pub index: Option<Inventory>,
     /// The mod that owns this inventory, if any.
@@ -6400,12 +6448,13 @@ pub struct LuaInventory {
     /// The class name of this object. Available even when `valid` is false. For LuaStruct objects it may also be suffixed with a dotted path to a member of the struct.
     pub object_name: String,
     /// The player that owns this inventory, if any.
-    pub player_owner: Option<LuaPlayer>,
+    pub player_owner: Option<MaybeCycle<LuaPlayer>>,
     /// Is this object valid? This Lua object holds a reference to an object within the game engine. It is possible that the game-engine object is removed whilst a mod still holds the corresponding Lua object. If that happens, the object becomes invalid, i.e. this attribute will be `false`. Mods are advised to check for object validity if any change to the game state might have occurred between the creation of the Lua object and its access.
     pub valid: bool,
 }
 
 #[derive(Debug, Deserialize)]
+#[serde(untagged)]
 pub enum LuaInventoryMethodsSetFilterFilterUnion {
     String(String),
     Nil,
@@ -6653,7 +6702,7 @@ pub struct LuaItemPrototype {
     /// Can only be used if this is Gun
     pub attack_parameters: Option<AttackParameters>,
     /// The result of burning this item as fuel, if any.
-    pub burnt_result: Option<Box<LuaItemPrototype>>,
+    pub burnt_result: Option<MaybeCycle<LuaItemPrototype>>,
     /// If this item can be mod-opened.
     pub can_be_mod_opened: bool,
     /// The capsule action for this capsule item prototype.
@@ -6664,7 +6713,7 @@ pub struct LuaItemPrototype {
     pub category: Option<String>,
     /// The curved rail prototype used for this rail planner prototype.
     /// Can only be used if this is RailPlanner
-    pub curved_rail: Option<LuaEntityPrototype>,
+    pub curved_rail: Option<MaybeCycle<LuaEntityPrototype>>,
     /// The default label color used for this item with label, if any.
     /// Can only be used if this is ItemWithLabel
     pub default_label_color: Option<Color>,
@@ -6697,7 +6746,7 @@ pub struct LuaItemPrototype {
     pub entity_type_filters: Option<HashMap<String, bool>>,
     /// The prototype of this armor equipment grid, if any.
     /// Can only be used if this is Armor
-    pub equipment_grid: Option<LuaEquipmentGridPrototype>,
+    pub equipment_grid: Option<MaybeCycle<LuaEquipmentGridPrototype>>,
     /// If this item with inventory extends the inventory it resides in by default.
     /// Can only be used if this is ItemWithInventory
     pub extend_inventory_by_default: Option<bool>,
@@ -6717,7 +6766,7 @@ pub struct LuaItemPrototype {
     /// Fuel value when burned.
     pub fuel_value: f32,
     /// The group this prototype belongs to.
-    pub group: LuaGroup,
+    pub group: MaybeCycle<LuaGroup>,
     /// If this tool item has infinite durability.
     /// Can only be used if this is ToolItem
     pub infinite: Option<bool>,
@@ -6763,11 +6812,11 @@ pub struct LuaItemPrototype {
     /// The string used to alphabetically sort these prototypes. It is a simple string that has no additional semantic meaning.
     pub order: String,
     /// Prototype of the equipment that will be created by placing this item in an equipment grid, if any.
-    pub place_as_equipment_result: Option<LuaEquipmentPrototype>,
+    pub place_as_equipment_result: Option<MaybeCycle<LuaEquipmentPrototype>>,
     /// The place-as-tile result if one is defined, if any.
     pub place_as_tile_result: Option<PlaceAsTileResult>,
     /// Prototype of the entity that will be created by placing this item, if any.
-    pub place_result: Option<LuaEntityPrototype>,
+    pub place_result: Option<MaybeCycle<LuaEntityPrototype>>,
     /// Amount of extra time (in ticks) it takes to reload the weapon after depleting the magazine.
     /// Can only be used if this is AmmoItem
     pub reload_time: Option<f32>,
@@ -6823,9 +6872,9 @@ pub struct LuaItemPrototype {
     pub stackable: bool,
     /// The straight rail prototype used for this rail planner prototype.
     /// Can only be used if this is RailPlanner
-    pub straight_rail: Option<LuaEntityPrototype>,
+    pub straight_rail: Option<MaybeCycle<LuaEntityPrototype>>,
     /// The subgroup this prototype belongs to.
-    pub subgroup: LuaGroup,
+    pub subgroup: MaybeCycle<LuaGroup>,
     /// Tier of the module inside its category. Used when upgrading modules: Ctrl + click modules into an entity and it will replace lower tier modules with higher tier modules if they have the same category.
     /// Can only be used if this is ModuleItem
     pub tier: Option<u32>,
@@ -6895,7 +6944,7 @@ pub struct LuaItemStack {
     pub blueprint_snap_to_grid: Option<TilePosition>,
     /// If this item is a spidertron remote that has a spidertron bound to it, it returns the connected spider-vehicle entity.
     /// Can only be used if this is SpidertronRemote
-    pub connected_entity: Option<Box<LuaEntity>>,
+    pub connected_entity: Option<MaybeCycle<LuaEntity>>,
     /// Raw materials required to build this blueprint. Result is a dictionary mapping each item prototype name to the required count.
     /// Can only be used if this is BlueprintItem
     pub cost_to_build: HashMap<String, u32>,
@@ -6927,7 +6976,7 @@ pub struct LuaItemStack {
     /// Can only be used if this is ItemWithInventory
     pub extends_inventory: bool,
     /// The equipment grid of this item, if any.
-    pub grid: Option<LuaEquipmentGrid>,
+    pub grid: Option<MaybeCycle<LuaEquipmentGrid>>,
     /// How much health the item has, as a number in range [0, 1].
     pub health: f32,
     /// If this is an armor item.
@@ -6987,7 +7036,7 @@ pub struct LuaItemStack {
     /// Can only be used if this is ItemWithInventory
     pub prioritize_insertion_mode: String,
     /// Prototype of the item held in this stack.
-    pub prototype: LuaItemPrototype,
+    pub prototype: MaybeCycle<LuaItemPrototype>,
     /// Can only be used if this is ItemWithTags
     pub tags: Tags,
     /// The number of tile filters this deconstruction item supports.
@@ -7013,18 +7062,20 @@ pub struct LuaItemStack {
 }
 
 #[derive(Debug, Deserialize)]
+#[serde(untagged)]
 pub enum LuaItemStackMethodsSetEntityFilterFilterUnion {
     String(String),
-    LuaEntityPrototype(LuaEntityPrototype),
-    LuaEntity(LuaEntity),
+    LuaEntityPrototype(MaybeCycle<LuaEntityPrototype>),
+    LuaEntity(MaybeCycle<LuaEntity>),
     Nil,
 }
 
 #[derive(Debug, Deserialize)]
+#[serde(untagged)]
 pub enum LuaItemStackMethodsSetTileFilterFilterUnion {
     String(String),
-    LuaTilePrototype(LuaTilePrototype),
-    LuaTile(LuaTile),
+    LuaTilePrototype(MaybeCycle<LuaTilePrototype>),
+    LuaTile(MaybeCycle<LuaTile>),
 }
 
 /// A reference to an item and count owned by some external entity.
@@ -7366,7 +7417,7 @@ pub struct LuaLogisticCell {
     /// Construction radius of this cell.
     pub construction_radius: f32,
     /// The network that owns this cell, if any.
-    pub logistic_network: Option<LuaLogisticNetwork>,
+    pub logistic_network: Option<MaybeCycle<LuaLogisticNetwork>>,
     /// Logistic radius of this cell.
     pub logistic_radius: f32,
     /// Logistic connection distance of this cell.
@@ -7378,7 +7429,7 @@ pub struct LuaLogisticCell {
     /// The class name of this object. Available even when `valid` is false. For LuaStruct objects it may also be suffixed with a dotted path to a member of the struct.
     pub object_name: String,
     /// This cell's owner.
-    pub owner: Box<LuaEntity>,
+    pub owner: MaybeCycle<LuaEntity>,
     /// Number of stationed construction robots in this cell.
     pub stationed_construction_robot_count: u32,
     /// Number of stationed logistic robots in this cell.
@@ -7445,7 +7496,7 @@ pub struct LuaLogisticNetwork {
     /// All entities that have empty logistic provider points in this network.
     pub empty_providers: Vec<LuaEntity>,
     /// The force this logistic network belongs to.
-    pub force: LuaForce,
+    pub force: MaybeCycle<LuaForce>,
     /// All other entities that have logistic points in this network (inserters mostly).
     pub logistic_members: Vec<LuaEntity>,
     /// All logistic robots in this logistic network.
@@ -7601,16 +7652,16 @@ pub struct LuaLogisticPoint {
     /// # Notes
     ///
     /// * This will always be the same as the [LuaLogisticPoint::owner](LuaLogisticPoint::owner) force.
-    pub force: LuaForce,
+    pub force: MaybeCycle<LuaForce>,
     /// The Logistic member index of this logistic point.
     pub logistic_member_index: u32,
-    pub logistic_network: LuaLogisticNetwork,
+    pub logistic_network: MaybeCycle<LuaLogisticNetwork>,
     /// The logistic mode.
     pub mode: LogisticMode,
     /// The class name of this object. Available even when `valid` is false. For LuaStruct objects it may also be suffixed with a dotted path to a member of the struct.
     pub object_name: String,
     /// The [LuaEntity](LuaEntity) owner of this [LuaLogisticPoint](LuaLogisticPoint).
-    pub owner: LuaEntity,
+    pub owner: MaybeCycle<LuaEntity>,
     /// Items targeted to be dropped off into this logistic point by robots. The attribute is a dictionary mapping the item prototype names to their item counts.
     pub targeted_items_deliver: HashMap<String, u32>,
     /// Items targeted to be picked up from this logistic point by robots. The attribute is a dictionary mapping the item prototype names to their item counts.
@@ -7650,6 +7701,7 @@ pub trait LuaMiningDrillControlBehaviorMethods {
 }
 
 #[derive(Debug, Deserialize)]
+#[serde(untagged)]
 pub enum LuaModSettingPrototypeAllowedValuesUnion {
     ArrayString(Vec<String>),
     ArrayI32(Vec<i32>),
@@ -7657,6 +7709,7 @@ pub enum LuaModSettingPrototypeAllowedValuesUnion {
 }
 
 #[derive(Debug, Deserialize)]
+#[serde(untagged)]
 pub enum LuaModSettingPrototypeDefaultValueUnion {
     Boolean(bool),
     Double(f64),
@@ -7665,12 +7718,14 @@ pub enum LuaModSettingPrototypeDefaultValueUnion {
 }
 
 #[derive(Debug, Deserialize)]
+#[serde(untagged)]
 pub enum LuaModSettingPrototypeMaximumValueUnion {
     Double(f64),
     Int(i32),
 }
 
 #[derive(Debug, Deserialize)]
+#[serde(untagged)]
 pub enum LuaModSettingPrototypeMinimumValueUnion {
     Double(f64),
     Int(i32),
@@ -7883,6 +7938,7 @@ pub struct LuaPermissionGroups {
 }
 
 #[derive(Debug, Deserialize)]
+#[serde(untagged)]
 pub enum LuaPermissionGroupsMethodsGetGroupGroupUnion {
     String(String),
     Uint(u32),
@@ -7922,9 +7978,9 @@ pub struct LuaPlayer {
     /// If the main inventory will be auto sorted.
     pub auto_sort_main_inventory: bool,
     /// The item stack containing a blueprint to be setup.
-    pub blueprint_to_setup: LuaItemStack,
+    pub blueprint_to_setup: MaybeCycle<LuaItemStack>,
     /// The character attached to this player, if any. Returns `nil` when the player is disconnected (see [LuaPlayer::connected](LuaPlayer::connected)).
-    pub character: Option<Box<LuaEntity>>,
+    pub character: Option<MaybeCycle<LuaEntity>>,
     /// The color used when this player talks in game.
     pub chat_color: Color,
     /// The color associated with the player. This will be used to tint the player's character as well as their buildings and vehicles.
@@ -7935,7 +7991,7 @@ pub struct LuaPlayer {
     /// Returns true if the current item stack in cursor will be destroyed after clearing the cursor. Manually putting it into inventory still preserves the item. If the cursor stack is not one of the supported types (blueprint, blueprint-book, deconstruction-planner, upgrade-planner), write operation will be silently ignored.
     pub cursor_stack_temporary: bool,
     /// When in a cutscene; the character this player would be using once the cutscene is over, if any. Returns `nil` when the player is disconnected (see [LuaPlayer::connected](LuaPlayer::connected)).
-    pub cutscene_character: Option<Box<LuaEntity>>,
+    pub cutscene_character: Option<MaybeCycle<LuaEntity>>,
     /// The display resolution for this player.
     ///
     /// # Notes
@@ -7949,12 +8005,12 @@ pub struct LuaPlayer {
     /// * During [on_player_created](on_player_created), this attribute will always return a scale of `1`. To get the actual scale, listen to the [on_player_display_scale_changed](on_player_display_scale_changed) event raised shortly afterwards.
     pub display_scale: f64,
     /// The wire drag target for this player, if any.
-    pub drag_target: Option<Box<DragTarget>>,
+    pub drag_target: Option<DragTarget>,
     /// The source entity used during entity settings copy-paste, if any.
-    pub entity_copy_source: Option<Box<LuaEntity>>,
+    pub entity_copy_source: Option<MaybeCycle<LuaEntity>>,
     /// The player's game view settings.
     pub game_view_settings: GameViewSettings,
-    pub gui: Box<LuaGui>,
+    pub gui: MaybeCycle<LuaGui>,
     /// The original location of the item in the cursor, marked with a hand. `nil` if the cursor stack is empty. When writing, the specified inventory slot must be empty and the cursor stack must not be empty.
     pub hand_location: Option<ItemStackLocation>,
     /// This player's index in [LuaGameScript::players](LuaGameScript::players) (unique ID). It is assigned when a player is created, and remains so (even when the player is not [connected](LuaPlayer::connected)) until the player is irreversably [removed](on_player_removed). Indexes of removed players can be reused.
@@ -7987,7 +8043,7 @@ pub struct LuaPlayer {
     /// `true` if the player opened itself. I.e. if they opened the character or god-controller GUI.
     pub opened_self: bool,
     /// The permission group this player is part of, if any.
-    pub permission_group: Option<LuaPermissionGroup>,
+    pub permission_group: Option<MaybeCycle<LuaPermissionGroup>>,
     /// If items not included in this map editor infinity inventory filters should be removed.
     pub remove_unfiltered_items: bool,
     /// The render mode of the player, like map or zoom to world. The render mode can be set using [LuaPlayer::open_map](LuaPlayer::open_map), [LuaPlayer::zoom_to_world](LuaPlayer::zoom_to_world) and [LuaPlayer::close_map](LuaPlayer::close_map).
@@ -8019,29 +8075,33 @@ pub struct LuaPlayer {
 }
 
 #[derive(Debug, Deserialize)]
+#[serde(untagged)]
 pub enum LuaPlayerMethodsPipetteEntityEntityUnion {
     String(String),
-    LuaEntity(LuaEntity),
-    LuaEntityPrototype(LuaEntityPrototype),
+    LuaEntity(MaybeCycle<LuaEntity>),
+    LuaEntityPrototype(MaybeCycle<LuaEntityPrototype>),
 }
 
 #[derive(Debug, Deserialize)]
+#[serde(untagged)]
 pub enum LuaPlayerMethodsRemoveAlertPrototypeUnion {
-    LuaEntityPrototype(LuaEntityPrototype),
+    LuaEntityPrototype(MaybeCycle<LuaEntityPrototype>),
     String(String),
 }
 
 #[derive(Debug, Deserialize)]
+#[serde(untagged)]
 pub enum LuaPlayerMethodsSetInfinityInventoryFilterFilterUnion {
     InfinityInventoryFilter(InfinityInventoryFilter),
     Nil,
 }
 
 #[derive(Debug, Deserialize)]
+#[serde(untagged)]
 pub enum LuaPlayerMethodsSetQuickBarSlotFilterUnion {
     String(String),
-    LuaItemPrototype(LuaItemPrototype),
-    LuaItemStack(LuaItemStack),
+    LuaItemPrototype(MaybeCycle<LuaItemPrototype>),
+    LuaItemStack(MaybeCycle<LuaItemStack>),
 }
 
 /// A player in the game. Pay attention that a player may or may not have a character, which is the [LuaEntity](LuaEntity) of the little guy running around the world doing things.
@@ -8673,9 +8733,9 @@ pub struct LuaRecipe {
     /// Energy required to execute this recipe. This directly affects the crafting time: Recipe's energy is exactly its crafting time in seconds, when crafted in an assembling machine with crafting speed exactly equal to one.
     pub energy: f64,
     /// The force that owns this recipe.
-    pub force: LuaForce,
+    pub force: MaybeCycle<LuaForce>,
     /// Group of this recipe.
-    pub group: LuaGroup,
+    pub group: MaybeCycle<LuaGroup>,
     /// Is the recipe hidden? Hidden recipe don't show up in the crafting menu.
     pub hidden: bool,
     /// Is the recipe hidden from flow statistics?
@@ -8708,9 +8768,9 @@ pub struct LuaRecipe {
     /// ```
     pub products: Vec<Product>,
     /// The prototype for this recipe.
-    pub prototype: LuaRecipePrototype,
+    pub prototype: MaybeCycle<LuaRecipePrototype>,
     /// Subgroup of this recipe.
-    pub subgroup: LuaGroup,
+    pub subgroup: MaybeCycle<LuaGroup>,
     /// Is this object valid? This Lua object holds a reference to an object within the game engine. It is possible that the game-engine object is removed whilst a mod still holds the corresponding Lua object. If that happens, the object becomes invalid, i.e. this attribute will be `false`. Mods are advised to check for object validity if any change to the game state might have occurred between the creation of the Lua object and its access.
     pub valid: bool,
 }
@@ -8768,7 +8828,7 @@ pub struct LuaRecipePrototype {
     /// Energy required to execute this recipe. This directly affects the crafting time: Recipe's energy is exactly its crafting time in seconds, when crafted in an assembling machine with crafting speed exactly equal to one.
     pub energy: f64,
     /// Group of this recipe.
-    pub group: LuaGroup,
+    pub group: MaybeCycle<LuaGroup>,
     /// Is the recipe hidden? Hidden recipe don't show up in the crafting menu.
     pub hidden: bool,
     /// Is the recipe hidden from flow statistics (item/fluid production statistics)?
@@ -8811,7 +8871,7 @@ pub struct LuaRecipePrototype {
     /// If the amount is shown in the recipe tooltip title when the recipe produces more than 1 product.
     pub show_amount_in_title: bool,
     /// Subgroup of this recipe.
-    pub subgroup: LuaGroup,
+    pub subgroup: MaybeCycle<LuaGroup>,
     /// Is this recipe unlocks the result item(s) so they're shown in filter-select GUIs.
     pub unlock_results: bool,
     /// Is this object valid? This Lua object holds a reference to an object within the game engine. It is possible that the game-engine object is removed whilst a mod still holds the corresponding Lua object. If that happens, the object becomes invalid, i.e. this attribute will be `false`. Mods are advised to check for object validity if any change to the game state might have occurred between the creation of the Lua object and its access.
@@ -8893,135 +8953,157 @@ pub struct LuaRendering {
 }
 
 #[derive(Debug, Deserialize)]
+#[serde(untagged)]
 pub enum LuaRenderingMethodsDrawAnimationOrientationTargetUnion {
     MapPosition(MapPosition),
-    LuaEntity(LuaEntity),
+    LuaEntity(MaybeCycle<LuaEntity>),
 }
 
 #[derive(Debug, Deserialize)]
+#[serde(untagged)]
 pub enum LuaRenderingMethodsDrawAnimationTargetUnion {
     MapPosition(MapPosition),
-    LuaEntity(LuaEntity),
+    LuaEntity(MaybeCycle<LuaEntity>),
 }
 
 #[derive(Debug, Deserialize)]
+#[serde(untagged)]
 pub enum LuaRenderingMethodsDrawArcTargetUnion {
     MapPosition(MapPosition),
-    LuaEntity(LuaEntity),
+    LuaEntity(MaybeCycle<LuaEntity>),
 }
 
 #[derive(Debug, Deserialize)]
+#[serde(untagged)]
 pub enum LuaRenderingMethodsDrawCircleTargetUnion {
     MapPosition(MapPosition),
-    LuaEntity(LuaEntity),
+    LuaEntity(MaybeCycle<LuaEntity>),
 }
 
 #[derive(Debug, Deserialize)]
+#[serde(untagged)]
 pub enum LuaRenderingMethodsDrawLightTargetUnion {
     MapPosition(MapPosition),
-    LuaEntity(LuaEntity),
+    LuaEntity(MaybeCycle<LuaEntity>),
 }
 
 #[derive(Debug, Deserialize)]
+#[serde(untagged)]
 pub enum LuaRenderingMethodsDrawLineFromUnion {
     MapPosition(MapPosition),
-    LuaEntity(LuaEntity),
+    LuaEntity(MaybeCycle<LuaEntity>),
 }
 
 #[derive(Debug, Deserialize)]
+#[serde(untagged)]
 pub enum LuaRenderingMethodsDrawLineToUnion {
     MapPosition(MapPosition),
-    LuaEntity(LuaEntity),
+    LuaEntity(MaybeCycle<LuaEntity>),
 }
 
 #[derive(Debug, Deserialize)]
+#[serde(untagged)]
 pub enum LuaRenderingMethodsDrawPolygonOrientationTargetUnion {
     MapPosition(MapPosition),
-    LuaEntity(LuaEntity),
+    LuaEntity(MaybeCycle<LuaEntity>),
 }
 
 #[derive(Debug, Deserialize)]
+#[serde(untagged)]
 pub enum LuaRenderingMethodsDrawPolygonTargetUnion {
     MapPosition(MapPosition),
-    LuaEntity(LuaEntity),
+    LuaEntity(MaybeCycle<LuaEntity>),
 }
 
 #[derive(Debug, Deserialize)]
+#[serde(untagged)]
 pub enum LuaRenderingMethodsDrawRectangleLeftTopUnion {
     MapPosition(MapPosition),
-    LuaEntity(LuaEntity),
+    LuaEntity(MaybeCycle<LuaEntity>),
 }
 
 #[derive(Debug, Deserialize)]
+#[serde(untagged)]
 pub enum LuaRenderingMethodsDrawRectangleRightBottomUnion {
     MapPosition(MapPosition),
-    LuaEntity(LuaEntity),
+    LuaEntity(MaybeCycle<LuaEntity>),
 }
 
 #[derive(Debug, Deserialize)]
+#[serde(untagged)]
 pub enum LuaRenderingMethodsDrawSpriteOrientationTargetUnion {
     MapPosition(MapPosition),
-    LuaEntity(LuaEntity),
+    LuaEntity(MaybeCycle<LuaEntity>),
 }
 
 #[derive(Debug, Deserialize)]
+#[serde(untagged)]
 pub enum LuaRenderingMethodsDrawSpriteTargetUnion {
     MapPosition(MapPosition),
-    LuaEntity(LuaEntity),
+    LuaEntity(MaybeCycle<LuaEntity>),
 }
 
 #[derive(Debug, Deserialize)]
+#[serde(untagged)]
 pub enum LuaRenderingMethodsDrawTextTargetUnion {
     MapPosition(MapPosition),
-    LuaEntity(LuaEntity),
+    LuaEntity(MaybeCycle<LuaEntity>),
 }
 
 #[derive(Debug, Deserialize)]
+#[serde(untagged)]
 pub enum LuaRenderingMethodsSetCornersLeftTopUnion {
     MapPosition(MapPosition),
-    LuaEntity(LuaEntity),
+    LuaEntity(MaybeCycle<LuaEntity>),
 }
 
 #[derive(Debug, Deserialize)]
+#[serde(untagged)]
 pub enum LuaRenderingMethodsSetCornersRightBottomUnion {
     MapPosition(MapPosition),
-    LuaEntity(LuaEntity),
+    LuaEntity(MaybeCycle<LuaEntity>),
 }
 
 #[derive(Debug, Deserialize)]
+#[serde(untagged)]
 pub enum LuaRenderingMethodsSetFromFromUnion {
     MapPosition(MapPosition),
-    LuaEntity(LuaEntity),
+    LuaEntity(MaybeCycle<LuaEntity>),
 }
 
 #[derive(Debug, Deserialize)]
+#[serde(untagged)]
 pub enum LuaRenderingMethodsSetLeftTopLeftTopUnion {
     MapPosition(MapPosition),
-    LuaEntity(LuaEntity),
+    LuaEntity(MaybeCycle<LuaEntity>),
 }
 
 #[derive(Debug, Deserialize)]
+#[serde(untagged)]
 pub enum LuaRenderingMethodsSetOrientationTargetOrientationTargetUnion {
     MapPosition(MapPosition),
-    LuaEntity(LuaEntity),
+    LuaEntity(MaybeCycle<LuaEntity>),
 }
 
 #[derive(Debug, Deserialize)]
+#[serde(untagged)]
 pub enum LuaRenderingMethodsSetRightBottomRightBottomUnion {
     MapPosition(MapPosition),
-    LuaEntity(LuaEntity),
+    LuaEntity(MaybeCycle<LuaEntity>),
 }
 
 #[derive(Debug, Deserialize)]
+#[serde(untagged)]
 pub enum LuaRenderingMethodsSetTargetTargetUnion {
     MapPosition(MapPosition),
-    LuaEntity(LuaEntity),
+    LuaEntity(MaybeCycle<LuaEntity>),
 }
 
 #[derive(Debug, Deserialize)]
+#[serde(untagged)]
 pub enum LuaRenderingMethodsSetToToUnion {
     MapPosition(MapPosition),
-    LuaEntity(LuaEntity),
+    LuaEntity(MaybeCycle<LuaEntity>),
 }
 
 /// Allows rendering of geometric shapes, text and sprites in the game world through the global object named `rendering`. Each render object is identified by an id that is universally unique for the lifetime of a whole game.
@@ -9908,7 +9990,7 @@ pub struct LuaShortcutPrototype {
     /// The control input that is associated with this shortcut, if any.
     pub associated_control_input: Option<String>,
     /// The item to create when this shortcut is used, if any.
-    pub item_to_spawn: Option<LuaItemPrototype>,
+    pub item_to_spawn: Option<MaybeCycle<LuaItemPrototype>>,
     pub localised_description: LocalisedString,
     pub localised_name: LocalisedString,
     /// Name of this prototype.
@@ -9918,7 +10000,7 @@ pub struct LuaShortcutPrototype {
     /// The string used to alphabetically sort these prototypes. It is a simple string that has no additional semantic meaning.
     pub order: String,
     /// The technology that needs to be researched once (in any save) for this shortcut to be unlocked (in all saves).
-    pub technology_to_unlock: Option<LuaTechnologyPrototype>,
+    pub technology_to_unlock: Option<MaybeCycle<LuaTechnologyPrototype>>,
     pub toggleable: bool,
     /// Is this object valid? This Lua object holds a reference to an object within the game engine. It is possible that the game-engine object is removed whilst a mod still holds the corresponding Lua object. If that happens, the object becomes invalid, i.e. this attribute will be `false`. Mods are advised to check for object validity if any change to the game state might have occurred between the creation of the Lua object and its access.
     pub valid: bool,
@@ -9947,30 +10029,35 @@ pub trait LuaStorageTankControlBehaviorMethods {
 }
 
 #[derive(Debug, Deserialize)]
+#[serde(untagged)]
 pub enum LuaStyleExtraMarginWhenActivatedUnion {
     Int(i32),
     Array(Vec<i32>),
 }
 
 #[derive(Debug, Deserialize)]
+#[serde(untagged)]
 pub enum LuaStyleExtraPaddingWhenActivatedUnion {
     Int(i32),
     Array(Vec<i32>),
 }
 
 #[derive(Debug, Deserialize)]
+#[serde(untagged)]
 pub enum LuaStyleMarginUnion {
     Int(i32),
     Array(Vec<i32>),
 }
 
 #[derive(Debug, Deserialize)]
+#[serde(untagged)]
 pub enum LuaStylePaddingUnion {
     Int(i32),
     Array(Vec<i32>),
 }
 
 #[derive(Debug, Deserialize)]
+#[serde(untagged)]
 pub enum LuaStyleSizeUnion {
     Int(i32),
     Array(Vec<i32>),
@@ -10036,7 +10123,7 @@ pub struct LuaStyle {
     pub font: String,
     pub font_color: Color,
     /// Gui of the [LuaGuiElement](LuaGuiElement) of this style.
-    pub gui: Box<LuaGui>,
+    pub gui: MaybeCycle<LuaGui>,
     /// Sets both minimal and maximal height to the given value.
     pub height: i32,
     /// Horizontal align of the inner content of the widget, if any. Possible values are "left", "center" or "right".
@@ -10204,246 +10291,286 @@ pub struct LuaSurface {
 }
 
 #[derive(Debug, Deserialize)]
+#[serde(untagged)]
 pub enum LuaSurfaceMethodsCloneAreaDestinationForceUnion {
-    LuaForce(LuaForce),
+    LuaForce(MaybeCycle<LuaForce>),
     String(String),
 }
 
 #[derive(Debug, Deserialize)]
+#[serde(untagged)]
 pub enum LuaSurfaceMethodsCloneBrushDestinationForceUnion {
-    LuaForce(LuaForce),
+    LuaForce(MaybeCycle<LuaForce>),
     String(String),
 }
 
 #[derive(Debug, Deserialize)]
+#[serde(untagged)]
 pub enum LuaSurfaceMethodsCountEntitiesFilteredCollisionMaskUnion {
     CollisionMaskLayer(CollisionMaskLayer),
     Array(Vec<CollisionMaskLayer>),
 }
 
 #[derive(Debug, Deserialize)]
+#[serde(untagged)]
 pub enum LuaSurfaceMethodsCountEntitiesFilteredDirectionUnion {
     DefinesDirection(Direction),
     Array(Vec<Direction>),
 }
 
 #[derive(Debug, Deserialize)]
+#[serde(untagged)]
 pub enum LuaSurfaceMethodsCountEntitiesFilteredForceUnion {
     ForceIdentification(ForceIdentification),
     Array(Vec<ForceIdentification>),
 }
 
 #[derive(Debug, Deserialize)]
+#[serde(untagged)]
 pub enum LuaSurfaceMethodsCountEntitiesFilteredGhostNameUnion {
     String(String),
     Array(Vec<String>),
 }
 
 #[derive(Debug, Deserialize)]
+#[serde(untagged)]
 pub enum LuaSurfaceMethodsCountEntitiesFilteredGhostTypeUnion {
     String(String),
     Array(Vec<String>),
 }
 
 #[derive(Debug, Deserialize)]
+#[serde(untagged)]
 pub enum LuaSurfaceMethodsCountEntitiesFilteredNameUnion {
     String(String),
     Array(Vec<String>),
 }
 
 #[derive(Debug, Deserialize)]
+#[serde(untagged)]
 pub enum LuaSurfaceMethodsCountEntitiesFilteredTypUnion {
     String(String),
     Array(Vec<String>),
 }
 
 #[derive(Debug, Deserialize)]
+#[serde(untagged)]
 pub enum LuaSurfaceMethodsCountTilesFilteredCollisionMaskUnion {
     CollisionMaskLayer(CollisionMaskLayer),
     Array(Vec<CollisionMaskLayer>),
 }
 
 #[derive(Debug, Deserialize)]
+#[serde(untagged)]
 pub enum LuaSurfaceMethodsCountTilesFilteredForceUnion {
     ForceIdentification(ForceIdentification),
     Array(Vec<ForceIdentification>),
 }
 
 #[derive(Debug, Deserialize)]
+#[serde(untagged)]
 pub enum LuaSurfaceMethodsCountTilesFilteredNameUnion {
     String(String),
     Array(Vec<String>),
 }
 
 #[derive(Debug, Deserialize)]
+#[serde(untagged)]
 pub enum LuaSurfaceMethodsCreateEntitySourceUnion {
-    LuaEntity(LuaEntity),
+    LuaEntity(MaybeCycle<LuaEntity>),
     MapPosition(MapPosition),
 }
 
 #[derive(Debug, Deserialize)]
+#[serde(untagged)]
 pub enum LuaSurfaceMethodsCreateEntityTargetUnion {
-    LuaEntity(LuaEntity),
+    LuaEntity(MaybeCycle<LuaEntity>),
     MapPosition(MapPosition),
 }
 
 #[derive(Debug, Deserialize)]
+#[serde(untagged)]
 pub enum LuaSurfaceMethodsDestroyDecorativesCollisionMaskUnion {
     CollisionMaskLayer(CollisionMaskLayer),
     Array(Vec<CollisionMaskLayer>),
 }
 
 #[derive(Debug, Deserialize)]
+#[serde(untagged)]
 pub enum LuaSurfaceMethodsDestroyDecorativesNameUnion {
     String(String),
     ArrayString(Vec<String>),
-    LuaDecorativePrototype(LuaDecorativePrototype),
+    LuaDecorativePrototype(MaybeCycle<LuaDecorativePrototype>),
     ArrayLuaDecorativePrototype(Vec<LuaDecorativePrototype>),
 }
 
 #[derive(Debug, Deserialize)]
+#[serde(untagged)]
 pub enum LuaSurfaceMethodsFindDecorativesFilteredCollisionMaskUnion {
     CollisionMaskLayer(CollisionMaskLayer),
     Array(Vec<CollisionMaskLayer>),
 }
 
 #[derive(Debug, Deserialize)]
+#[serde(untagged)]
 pub enum LuaSurfaceMethodsFindDecorativesFilteredNameUnion {
     String(String),
     ArrayString(Vec<String>),
-    LuaDecorativePrototype(LuaDecorativePrototype),
+    LuaDecorativePrototype(MaybeCycle<LuaDecorativePrototype>),
     ArrayLuaDecorativePrototype(Vec<LuaDecorativePrototype>),
 }
 
 #[derive(Debug, Deserialize)]
+#[serde(untagged)]
 pub enum LuaSurfaceMethodsFindEnemyUnitsForceUnion {
-    LuaForce(LuaForce),
+    LuaForce(MaybeCycle<LuaForce>),
     String(String),
 }
 
 #[derive(Debug, Deserialize)]
+#[serde(untagged)]
 pub enum LuaSurfaceMethodsFindEntitiesFilteredCollisionMaskUnion {
     CollisionMaskLayer(CollisionMaskLayer),
     Array(Vec<CollisionMaskLayer>),
 }
 
 #[derive(Debug, Deserialize)]
+#[serde(untagged)]
 pub enum LuaSurfaceMethodsFindEntitiesFilteredDirectionUnion {
     DefinesDirection(Direction),
     Array(Vec<Direction>),
 }
 
 #[derive(Debug, Deserialize)]
+#[serde(untagged)]
 pub enum LuaSurfaceMethodsFindEntitiesFilteredForceUnion {
     ForceIdentification(ForceIdentification),
     Array(Vec<ForceIdentification>),
 }
 
 #[derive(Debug, Deserialize)]
+#[serde(untagged)]
 pub enum LuaSurfaceMethodsFindEntitiesFilteredGhostNameUnion {
     String(String),
     Array(Vec<String>),
 }
 
 #[derive(Debug, Deserialize)]
+#[serde(untagged)]
 pub enum LuaSurfaceMethodsFindEntitiesFilteredGhostTypeUnion {
     String(String),
     Array(Vec<String>),
 }
 
 #[derive(Debug, Deserialize)]
+#[serde(untagged)]
 pub enum LuaSurfaceMethodsFindEntitiesFilteredNameUnion {
     String(String),
     Array(Vec<String>),
 }
 
 #[derive(Debug, Deserialize)]
+#[serde(untagged)]
 pub enum LuaSurfaceMethodsFindEntitiesFilteredTypUnion {
     String(String),
     Array(Vec<String>),
 }
 
 #[derive(Debug, Deserialize)]
+#[serde(untagged)]
 pub enum LuaSurfaceMethodsFindTilesFilteredCollisionMaskUnion {
     CollisionMaskLayer(CollisionMaskLayer),
     Array(Vec<CollisionMaskLayer>),
 }
 
 #[derive(Debug, Deserialize)]
+#[serde(untagged)]
 pub enum LuaSurfaceMethodsFindTilesFilteredForceUnion {
     ForceIdentification(ForceIdentification),
     Array(Vec<ForceIdentification>),
 }
 
 #[derive(Debug, Deserialize)]
+#[serde(untagged)]
 pub enum LuaSurfaceMethodsFindTilesFilteredNameUnion {
     String(String),
     Array(Vec<String>),
 }
 
 #[derive(Debug, Deserialize)]
+#[serde(untagged)]
 pub enum LuaSurfaceMethodsFindUnitsForceUnion {
-    LuaForce(LuaForce),
+    LuaForce(MaybeCycle<LuaForce>),
     String(String),
 }
 
 #[derive(Debug, Deserialize)]
+#[serde(untagged)]
 pub enum LuaSurfaceMethodsGetEntitiesWithForceForceUnion {
-    LuaForce(LuaForce),
+    LuaForce(MaybeCycle<LuaForce>),
     String(String),
 }
 
 #[derive(Debug, Deserialize)]
+#[serde(untagged)]
 pub enum LuaSurfaceMethodsGetScriptAreaKeyUnion {
     String(String),
     Uint(u32),
 }
 
 #[derive(Debug, Deserialize)]
+#[serde(untagged)]
 pub enum LuaSurfaceMethodsGetScriptPositionKeyUnion {
     String(String),
     Uint(u32),
 }
 
 #[derive(Debug, Deserialize)]
+#[serde(untagged)]
 pub enum LuaSurfaceMethodsGetTrainStopsNameUnion {
     String(String),
     Array(Vec<String>),
 }
 
 #[derive(Debug, Deserialize)]
+#[serde(untagged)]
 pub enum LuaSurfaceMethodsRegenerateDecorativeDecorativesUnion {
     String(String),
     Array(Vec<String>),
 }
 
 #[derive(Debug, Deserialize)]
+#[serde(untagged)]
 pub enum LuaSurfaceMethodsRegenerateEntityEntitiesUnion {
     String(String),
     Array(Vec<String>),
 }
 
 #[derive(Debug, Deserialize)]
+#[serde(untagged)]
 pub enum LuaSurfaceMethodsRequestPathCollisionMaskUnion {
     CollisionMaskWithFlags(CollisionMaskWithFlags),
     Array(Vec<String>),
 }
 
 #[derive(Debug, Deserialize)]
+#[serde(untagged)]
 pub enum LuaSurfaceMethodsSetHiddenTileTileUnion {
     String(String),
-    LuaTilePrototype(LuaTilePrototype),
+    LuaTilePrototype(MaybeCycle<LuaTilePrototype>),
 }
 
 #[derive(Debug, Deserialize)]
+#[serde(untagged)]
 pub enum LuaSurfaceMethodsSetTilesRemoveCollidingEntitiesUnion {
     Boolean(bool),
     String(String),
 }
 
 #[derive(Debug, Deserialize)]
+#[serde(untagged)]
 pub enum LuaSurfaceMethodsSpillItemStackForceUnion {
-    LuaForce(LuaForce),
+    LuaForce(MaybeCycle<LuaForce>),
     String(String),
 }
 
@@ -11452,7 +11579,7 @@ pub struct LuaTechnology {
     /// Can this technology be researched?
     pub enabled: bool,
     /// The force this technology belongs to.
-    pub force: Box<LuaForce>,
+    pub force: MaybeCycle<LuaForce>,
     /// The current level of this technology. For level-based technology writing to this is the same as researching the technology to the previous level. Writing the level will set [LuaTechnology::enabled](LuaTechnology::enabled) to `true`.
     pub level: u32,
     pub localised_description: LocalisedString,
@@ -11467,7 +11594,7 @@ pub struct LuaTechnology {
     /// Prerequisites of this technology. The result maps technology name to the [LuaTechnology](LuaTechnology) object.
     pub prerequisites: HashMap<String, LuaTechnology>,
     /// The prototype of this technology.
-    pub prototype: LuaTechnologyPrototype,
+    pub prototype: MaybeCycle<LuaTechnologyPrototype>,
     /// The number of research units required for this technology.
     ///
     /// # Notes
@@ -11565,9 +11692,9 @@ pub struct LuaTile {
     pub object_name: String,
     /// The position this tile references.
     pub position: TilePosition,
-    pub prototype: LuaTilePrototype,
+    pub prototype: MaybeCycle<LuaTilePrototype>,
     /// The surface this tile is on.
-    pub surface: LuaSurface,
+    pub surface: MaybeCycle<LuaSurface>,
     /// Is this object valid? This Lua object holds a reference to an object within the game engine. It is possible that the game-engine object is removed whilst a mod still holds the corresponding Lua object. If that happens, the object becomes invalid, i.e. this attribute will be `false`. Mods are advised to check for object validity if any change to the game state might have occurred between the creation of the Lua object and its access.
     pub valid: bool,
 }
@@ -11662,13 +11789,13 @@ pub struct LuaTilePrototype {
     pub localised_description: LocalisedString,
     pub localised_name: LocalisedString,
     pub map_color: Color,
-    pub mineable_properties: LuaTilePrototypeMineableProperties,
+    pub mineable_properties: MaybeCycle<LuaTilePrototypeMineableProperties>,
     /// Name of this prototype.
     pub name: String,
     /// If this tile needs correction logic applied when it's generated in the world..
     pub needs_correction: bool,
     /// The next direction of this tile, if any. Used when a tile has multiple directions (such as hazard concrete)
-    pub next_direction: Option<Box<LuaTilePrototype>>,
+    pub next_direction: Option<MaybeCycle<LuaTilePrototype>>,
     /// The class name of this object. Available even when `valid` is false. For LuaStruct objects it may also be suffixed with a dotted path to a member of the struct.
     pub object_name: String,
     /// The string used to alphabetically sort these prototypes. It is a simple string that has no additional semantic meaning.
@@ -11689,9 +11816,9 @@ pub trait LuaTilePrototypeMethods {
 #[derive(Debug, Deserialize)]
 pub struct LuaTrain {
     /// The rail at the back end of the train, if any.
-    pub back_rail: Option<LuaEntity>,
+    pub back_rail: Option<MaybeCycle<LuaEntity>>,
     /// The back stock of this train, if any. The back of the train is at the opposite end of the [front](LuaTrain::front_stock).
-    pub back_stock: Option<LuaEntity>,
+    pub back_stock: Option<MaybeCycle<LuaEntity>>,
     /// The cargo carriages the train contains.
     pub cargo_wagons: Vec<LuaEntity>,
     /// The rolling stocks this train is composed of, with the numbering starting at the [front](LuaTrain::front_stock) of the train.
@@ -11699,9 +11826,9 @@ pub struct LuaTrain {
     /// The fluid carriages the train contains.
     pub fluid_wagons: Vec<LuaEntity>,
     /// The rail at the front end of the train, if any.
-    pub front_rail: Option<LuaEntity>,
+    pub front_rail: Option<MaybeCycle<LuaEntity>>,
     /// The front stock of this train, if any. The front of the train is in the direction that a majority of locomotives are pointing in. If it's a tie, the North and West directions take precedence.
-    pub front_stock: Option<LuaEntity>,
+    pub front_stock: Option<MaybeCycle<LuaEntity>>,
     /// If this train has a path.
     pub has_path: bool,
     /// The unique train ID.
@@ -11729,11 +11856,11 @@ pub struct LuaTrain {
     /// * This does *not* index using player index. See [LuaPlayer::index](LuaPlayer::index) on each player instance for the player index.
     pub passengers: Vec<LuaPlayer>,
     /// The path this train is using, if any.
-    pub path: Option<LuaRailPath>,
+    pub path: Option<MaybeCycle<LuaRailPath>>,
     /// The destination rail this train is currently pathing to, if any.
-    pub path_end_rail: Option<LuaEntity>,
+    pub path_end_rail: Option<MaybeCycle<LuaEntity>>,
     /// The destination train stop this train is currently pathing to, if any.
-    pub path_end_stop: Option<LuaEntity>,
+    pub path_end_stop: Option<MaybeCycle<LuaEntity>>,
     pub rail_direction_from_back_rail: RailDirection,
     pub rail_direction_from_front_rail: RailDirection,
     /// The riding state of this train.
@@ -11745,7 +11872,7 @@ pub struct LuaTrain {
     /// * The schedule can't be changed by modifying the returned table. Instead, changes must be made by assigning a new table to this attribute.
     pub schedule: Option<TrainSchedule>,
     /// The signal this train is arriving or waiting at, if any.
-    pub signal: Option<LuaEntity>,
+    pub signal: Option<MaybeCycle<LuaEntity>>,
     /// Current speed.
     ///
     /// # Notes
@@ -11755,7 +11882,7 @@ pub struct LuaTrain {
     /// This train's current state.
     pub state: TrainState,
     /// The train stop this train is stopped at, if any.
-    pub station: Option<LuaEntity>,
+    pub station: Option<MaybeCycle<LuaEntity>>,
     /// Is this object valid? This Lua object holds a reference to an object within the game engine. It is possible that the game-engine object is removed whilst a mod still holds the corresponding Lua object. If that happens, the object becomes invalid, i.e. this attribute will be `false`. Mods are advised to check for object validity if any change to the game state might have occurred between the creation of the Lua object and its access.
     pub valid: bool,
     /// The weight of this train.
@@ -11900,7 +12027,7 @@ pub struct LuaTransportLine {
     /// The transport lines that this transport line outputs items to or an empty table if none.
     pub output_lines: Vec<LuaTransportLine>,
     /// The entity this transport line belongs to.
-    pub owner: LuaEntity,
+    pub owner: MaybeCycle<LuaEntity>,
     /// Is this object valid? This Lua object holds a reference to an object within the game engine. It is possible that the game-engine object is removed whilst a mod still holds the corresponding Lua object. If that happens, the object becomes invalid, i.e. this attribute will be `false`. Mods are advised to check for object validity if any change to the game state might have occurred between the creation of the Lua object and its access.
     pub valid: bool,
 }
@@ -12005,11 +12132,11 @@ pub trait LuaTrivialSmokePrototypeMethods {
 #[derive(Debug, Deserialize)]
 pub struct LuaUnitGroup {
     /// The command given to this group, if any.
-    pub command: Option<Box<Command>>,
+    pub command: Option<Command>,
     /// The distraction command given to this group, if any.
-    pub distraction_command: Option<Box<Command>>,
+    pub distraction_command: Option<Command>,
     /// The force of this unit group.
-    pub force: LuaForce,
+    pub force: MaybeCycle<LuaForce>,
     /// The group number for this unit group.
     pub group_number: u32,
     /// Whether this unit group is controlled by a script or by the game engine. This can be changed using [LuaUnitGroup::set_autonomous](LuaUnitGroup::set_autonomous).
@@ -12023,7 +12150,7 @@ pub struct LuaUnitGroup {
     /// Whether this group is gathering, moving or attacking.
     pub state: GroupState,
     /// The surface of this unit group.
-    pub surface: LuaSurface,
+    pub surface: MaybeCycle<LuaSurface>,
     /// Is this object valid? This Lua object holds a reference to an object within the game engine. It is possible that the game-engine object is removed whilst a mod still holds the corresponding Lua object. If that happens, the object becomes invalid, i.e. this attribute will be `false`. Mods are advised to check for object validity if any change to the game state might have occurred between the creation of the Lua object and its access.
     pub valid: bool,
 }
@@ -12063,7 +12190,7 @@ pub struct LuaVirtualSignalPrototype {
     pub order: String,
     /// Whether this is a special signal. The `everything`, `anything`, `each`, and `unknown` signals are considered special.
     pub special: bool,
-    pub subgroup: LuaGroup,
+    pub subgroup: MaybeCycle<LuaGroup>,
     /// Is this object valid? This Lua object holds a reference to an object within the game engine. It is possible that the game-engine object is removed whilst a mod still holds the corresponding Lua object. If that happens, the object becomes invalid, i.e. this attribute will be `false`. Mods are advised to check for object validity if any change to the game state might have occurred between the creation of the Lua object and its access.
     pub valid: bool,
 }
