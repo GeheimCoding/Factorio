@@ -1,6 +1,5 @@
 0.json: invalid type: sequence, expected a map
 63.json: invalid type: map, expected a sequence
-64.json: missing field `object_name`
 73.json: invalid type: map, expected a sequence
 75.json: invalid type: map, expected a sequence
 77.json: invalid type: map, expected a sequence
@@ -48,7 +47,6 @@
 130.json: missing field `distance_max_range`
 131.json: invalid type: map, expected a sequence
 132.json: invalid type: map, expected a sequence
-133.json: missing field `object_name`
 143.json: invalid type: map, expected a sequence
 144.json: invalid type: map, expected a sequence
 145.json: invalid type: map, expected a sequence
@@ -90,7 +88,6 @@
 195.json: invalid type: map, expected a sequence
 196.json: invalid type: map, expected a sequence
 197.json: invalid type: map, expected a sequence
-198.json: missing field `object_name`
 206.json: invalid type: map, expected a sequence
 207.json: missing field `x`
 208.json: invalid type: map, expected a sequence
@@ -119,7 +116,6 @@
 237.json: invalid type: map, expected a sequence
 238.json: invalid type: map, expected a sequence
 240.json: invalid type: map, expected a sequence
-244.json: missing field `object_name`
 248.json: invalid type: map, expected a sequence
 251.json: invalid type: map, expected a sequence
 253.json: invalid type: map, expected a sequence
@@ -158,7 +154,6 @@
 323.json: invalid type: map, expected a sequence
 324.json: invalid type: map, expected a sequence
 326.json: invalid type: map, expected a sequence
-327.json: missing field `object_name`
 329.json: invalid type: map, expected a sequence
 330.json: invalid type: map, expected a sequence
 332.json: invalid type: map, expected a sequence
@@ -171,12 +166,10 @@
 340.json: missing field `x`
 342.json: invalid type: map, expected a sequence
 343.json: invalid type: map, expected a sequence
-344.json: missing field `object_name`
 353.json: invalid type: map, expected a sequence
 354.json: invalid type: map, expected a sequence
 355.json: invalid type: map, expected a sequence
 356.json: invalid type: map, expected a sequence
-357.json: missing field `object_name`
 359.json: invalid type: map, expected a sequence
 360.json: invalid type: map, expected a sequence
 361.json: invalid type: map, expected a sequence
@@ -192,7 +185,6 @@
 371.json: invalid type: map, expected a sequence
 372.json: invalid type: map, expected a sequence
 373.json: invalid type: map, expected a sequence
-374.json: missing field `object_name`
 397.json: invalid type: map, expected a sequence
 398.json: invalid type: map, expected a sequence
 399.json: invalid type: map, expected a sequence
@@ -349,7 +341,6 @@
 550.json: invalid type: map, expected a sequence
 551.json: invalid type: map, expected a sequence
 552.json: invalid type: map, expected a sequence
-553.json: missing field `object_name`
 578.json: invalid type: map, expected a sequence
 579.json: invalid type: map, expected a sequence
 580.json: invalid type: map, expected a sequence
@@ -638,7 +629,6 @@
 932.json: missing field `badge_font`
 933.json: invalid type: map, expected a sequence
 934.json: missing field `badge_font`
-935.json: missing field `lua_control`
 936.json: missing field `default_enable_all_autoplace_controls`
 1363.json: missing field `effects`
 1364.json: invalid type: map, expected a sequence
@@ -1386,7 +1376,6 @@
 2560.json: missing field `effects`
 2561.json: missing field `effects`
 2562.json: missing field `effects`
-2565.json: missing field `object_name`
 2571.json: invalid type: map, expected a sequence
 2572.json: invalid type: map, expected a sequence
 2573.json: invalid type: map, expected a sequence
@@ -2328,7 +2317,6 @@
 3604.json: invalid type: map, expected a boolean
 3605.json: invalid type: map, expected a boolean
 3606.json: invalid type: map, expected a boolean
-3607.json: missing field `group_id`
 3608.json: unknown variant `LuaPollutionFlowStatistics`, expected one of `LuaAISettings`, `LuaAccumulatorControlBehavior`, `LuaAchievementPrototype`, `LuaAmmoCategoryPrototype`, `LuaArithmeticCombinatorControlBehavior`, `LuaAutoplaceControlPrototype`, `LuaBootstrap`, `LuaBurner`, `LuaBurnerPrototype`, `LuaChunkIterator`, `LuaCircuitNetwork`, `LuaCombinatorControlBehavior`, `LuaCommandProcessor`, `LuaConstantCombinatorControlBehavior`, `LuaContainerControlBehavior`, `LuaControl`, `LuaControlBehavior`, `LuaCustomChartTag`, `LuaCustomInputPrototype`, `LuaCustomTable`, `LuaDamagePrototype`, `LuaDeciderCombinatorControlBehavior`, `LuaDecorativePrototype`, `LuaElectricEnergySourcePrototype`, `LuaEntity`, `LuaEntityPrototype`, `LuaEquipment`, `LuaEquipmentCategoryPrototype`, `LuaEquipmentGrid`, `LuaEquipmentGridPrototype`, `LuaEquipmentPrototype`, `LuaFlowStatistics`, `LuaFluidBox`, `LuaFluidBoxPrototype`, `LuaFluidEnergySourcePrototype`, `LuaFluidPrototype`, `LuaFontPrototype`, `LuaForce`, `LuaFuelCategoryPrototype`, `LuaGameScript`, `LuaGenericOnOffControlBehavior`, `LuaGroup`, `LuaGui`, `LuaGuiElement`, `LuaHeatBufferPrototype`, `LuaHeatEnergySourcePrototype`, `LuaInserterControlBehavior`, `LuaInventory`, `LuaItemPrototype`, `LuaItemStack`, `LuaLampControlBehavior`, `LuaLazyLoadedValue`, `LuaLogisticCell`, `LuaLogisticContainerControlBehavior`, `LuaLogisticNetwork`, `LuaLogisticPoint`, `LuaMiningDrillControlBehavior`, `LuaModSettingPrototype`, `LuaModuleCategoryPrototype`, `LuaNamedNoiseExpression`, `LuaNoiseLayerPrototype`, `LuaParticlePrototype`, `LuaPermissionGroup`, `LuaPermissionGroups`, `LuaPlayer`, `LuaProfiler`, `LuaProgrammableSpeakerControlBehavior`, `LuaRCON`, `LuaRailChainSignalControlBehavior`, `LuaRailPath`, `LuaRailSignalControlBehavior`, `LuaRandomGenerator`, `LuaRecipe`, `LuaRecipeCategoryPrototype`, `LuaRecipePrototype`, `LuaRemote`, `LuaRendering`, `LuaResourceCategoryPrototype`, `LuaRoboportControlBehavior`, `LuaSettings`, `LuaShortcutPrototype`, `LuaStorageTankControlBehavior`, `LuaStyle`, `LuaSurface`, `LuaTechnology`, `LuaTechnologyPrototype`, `LuaTile`, `LuaTilePrototype`, `LuaTrain`, `LuaTrainStopControlBehavior`, `LuaTransportBeltControlBehavior`, `LuaTransportLine`, `LuaTrivialSmokePrototype`, `LuaUnitGroup`, `LuaVirtualSignalPrototype`, `LuaVoidEnergySourcePrototype`, `LuaWallControlBehavior`
 3632.json: data did not match any variant of untagged enum RenderLayer
 3633.json: data did not match any variant of untagged enum RenderLayer

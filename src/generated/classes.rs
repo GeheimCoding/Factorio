@@ -905,7 +905,7 @@ pub struct LuaControl {
     /// # Notes
     ///
     /// * When called on a [LuaPlayer](LuaPlayer), it must be associated with a character(see [LuaPlayer::character](LuaPlayer::character)).
-    pub following_robots: Vec<LuaEntity>,
+    pub following_robots: Vec<MaybeCycle<LuaEntity>>,
     /// The force of this entity. Reading will always give a [LuaForce](LuaForce), but it is possible to assign either [string](string) or [LuaForce](LuaForce) to this attribute to change the force.
     pub force: ForceIdentification,
     /// Unique [index](LuaForce::index) (ID) associated with the force of this entity.
@@ -1484,8 +1484,8 @@ pub enum LuaEntityLastUserUnion {
 #[derive(Debug, Deserialize)]
 #[serde(untagged)]
 pub enum LuaEntityNeighboursUnion {
-    Dictionary(HashMap<String, Vec<LuaEntity>>),
-    Array(Vec<Vec<LuaEntity>>),
+    Dictionary(HashMap<String, Vec<MaybeCycle<LuaEntity>>>),
+    Array(Vec<Vec<MaybeCycle<LuaEntity>>>),
     LuaEntity(MaybeCycle<LuaEntity>),
 }
 
@@ -1499,9 +1499,9 @@ pub enum LuaEntityRenderPlayerUnion {
 #[derive(Debug, Deserialize)]
 pub struct LuaEntityCircuitConnectedEntities {
     /// Entities connected via the green wire.
-    pub green: Vec<LuaEntity>,
+    pub green: Vec<MaybeCycle<LuaEntity>>,
     /// Entities connected via the red wire.
-    pub red: Vec<LuaEntity>,
+    pub red: Vec<MaybeCycle<LuaEntity>>,
 }
 
 /// The primary interface for interacting with entities through the Lua API. Entities are everything that exists on the map except for tiles (see [LuaTile](LuaTile)).
@@ -1562,7 +1562,7 @@ pub struct LuaEntity {
     pub beacons_count: Option<u32>,
     /// The belt connectable neighbours of this belt connectable entity. Only entities that input to or are outputs of this entity. Does not contain the other end of an underground belt, see [LuaEntity::neighbours](LuaEntity::neighbours) for that. This is a dictionary with `"inputs"`, `"outputs"` entries that are arrays of transport belt connectable entities, or empty tables if no entities.
     /// Can only be used if this is TransportBeltConnectable
-    pub belt_neighbours: HashMap<String, Vec<LuaEntity>>,
+    pub belt_neighbours: HashMap<String, Vec<MaybeCycle<LuaEntity>>>,
     /// `"input"` or `"output"`, depending on whether this underground belt goes down or up.
     /// Can only be used if this is TransportBeltToGround
     pub belt_to_ground_type: String,
@@ -2001,7 +2001,7 @@ pub struct LuaEntity {
     /// The entity this sticker is sticked to.
     pub sticked_to: MaybeCycle<LuaEntity>,
     /// The sticker entities attached to this entity, if any.
-    pub stickers: Option<Vec<LuaEntity>>,
+    pub stickers: Option<Vec<MaybeCycle<LuaEntity>>>,
     /// The storage filter for this logistic storage container.
     pub storage_filter: MaybeCycle<LuaItemPrototype>,
     /// Whether the entity has direction. When it is false for this entity, it will always return north direction when asked for.
@@ -2083,7 +2083,7 @@ pub struct LuaEntity {
     /// Only entities inheriting from [EntityWithOwner](https://wiki.factorio.com/Prototype/EntityWithOwner), as well as [ItemRequestProxy](https://wiki.factorio.com/Prototype/ItemRequestProxy) and [EntityGhost](https://wiki.factorio.com/Prototype/EntityGhost) are assigned a unit number. Returns `nil` otherwise.
     pub unit_number: Option<u32>,
     /// The units associated with this spawner entity.
-    pub units: Vec<LuaEntity>,
+    pub units: Vec<MaybeCycle<LuaEntity>>,
     /// Is this object valid? This Lua object holds a reference to an object within the game engine. It is possible that the game-engine object is removed whilst a mod still holds the corresponding Lua object. If that happens, the object becomes invalid, i.e. this attribute will be `false`. Mods are advised to check for object validity if any change to the game state might have occurred between the creation of the Lua object and its access.
     pub valid: bool,
     /// Read when this spidertron auto-targets enemies
@@ -2117,7 +2117,7 @@ pub enum LuaEntityMethodsGetDriverUnion {
 #[serde(untagged)]
 pub enum LuaEntityMethodsGetLogisticPointUnion {
     LuaLogisticPoint(MaybeCycle<LuaLogisticPoint>),
-    Array(Vec<LuaLogisticPoint>),
+    Array(Vec<MaybeCycle<LuaLogisticPoint>>),
 }
 
 #[derive(Debug, Deserialize)]
@@ -2389,9 +2389,9 @@ pub trait LuaEntityMethods {
     /// * If anything was disconnected
     fn disconnect_rolling_stock(direction: RailDirection) -> bool;
     /// Returns a table with all entities affected by this beacon
-    fn get_beacon_effect_receivers() -> Vec<LuaEntity>;
+    fn get_beacon_effect_receivers() -> Vec<MaybeCycle<LuaEntity>>;
     /// Returns a table with all beacons affecting this effect receiver. Can only be used when the entity has an effect receiver (AssemblingMachine, Furnace, Lab, MiningDrills)
-    fn get_beacons() -> Option<Vec<LuaEntity>>;
+    fn get_beacons() -> Option<Vec<MaybeCycle<LuaEntity>>>;
     /// Get the source of this beam.
     fn get_beam_source() -> Option<BeamTarget>;
     /// Get the target of this beam.
@@ -2399,7 +2399,7 @@ pub trait LuaEntityMethods {
     /// The burnt result inventory for this entity or `nil` if this entity doesn't have a burnt result inventory.
     fn get_burnt_result_inventory() -> Option<LuaInventory>;
     /// Returns all child signals. Child signals can be either RailSignal or RailChainSignal. Child signals are signals which are checked by this signal to determine a chain state.
-    fn get_child_signals() -> Vec<LuaEntity>;
+    fn get_child_signals() -> Vec<MaybeCycle<LuaEntity>>;
     /// # Arguments
     ///
     /// * `circuit_connector` - The connector to get circuit network for. Must be specified for entities with more than one circuit network connector.
@@ -2426,7 +2426,7 @@ pub trait LuaEntityMethods {
         Option<RailConnectionDirection>,
     );
     /// Get the rails that this signal is connected to.
-    fn get_connected_rails() -> Vec<LuaEntity>;
+    fn get_connected_rails() -> Vec<MaybeCycle<LuaEntity>>;
     /// Gets rolling stock connected to the given end of this stock.
     ///
     /// # Returns
@@ -2499,7 +2499,7 @@ pub trait LuaEntityMethods {
     /// Gets the heat setting for this heat interface.
     fn get_heat_setting() -> HeatSetting;
     /// Returns all signals guarding entrance to a rail block this rail belongs to.
-    fn get_inbound_signals() -> Vec<LuaEntity>;
+    fn get_inbound_signals() -> Vec<MaybeCycle<LuaEntity>>;
     /// Gets the filter for this infinity container at the given index, or `nil` if the filter index doesn't exist or is empty.
     ///
     /// # Arguments
@@ -2554,7 +2554,7 @@ pub trait LuaEntityMethods {
     /// * The control behavior or `nil`.
     fn get_or_create_control_behavior() -> Option<LuaControlBehavior>;
     /// Returns all signals guarding exit from a rail block this rail belongs to.
-    fn get_outbound_signals() -> Vec<LuaEntity>;
+    fn get_outbound_signals() -> Vec<MaybeCycle<LuaEntity>>;
     /// Gets the entity's output inventory if it has one.
     ///
     /// # Returns
@@ -2562,7 +2562,7 @@ pub trait LuaEntityMethods {
     /// * A reference to the entity's output inventory.
     fn get_output_inventory() -> Option<LuaInventory>;
     /// Returns all parent signals. Parent signals are always RailChainSignal. Parent signals are those signals that are checking state of this signal to determine their own chain state.
-    fn get_parent_signals() -> Vec<LuaEntity>;
+    fn get_parent_signals() -> Vec<MaybeCycle<LuaEntity>>;
     /// Gets the passenger of this car or spidertron if any.
     ///
     /// # Notes
@@ -2612,7 +2612,7 @@ pub trait LuaEntityMethods {
     /// # Notes
     ///
     /// * A rail segment is a continuous section of rail with no branches, signals, nor train stops.
-    fn get_rail_segment_overlaps() -> Vec<LuaEntity>;
+    fn get_rail_segment_overlaps() -> Vec<MaybeCycle<LuaEntity>>;
     /// Get all rails of a rail segment this rail is in
     ///
     /// # Notes
@@ -2626,7 +2626,7 @@ pub trait LuaEntityMethods {
     /// # Returns
     ///
     /// * Rails of this rail segment
-    fn get_rail_segment_rails(direction: RailDirection) -> Vec<LuaEntity>;
+    fn get_rail_segment_rails(direction: RailDirection) -> Vec<MaybeCycle<LuaEntity>>;
     /// Current recipe being assembled by this machine, if any.
     fn get_recipe() -> Option<LuaRecipe>;
     /// Get a logistic requester slot.
@@ -2644,11 +2644,11 @@ pub trait LuaEntityMethods {
     /// * Contents of the specified slot; `nil` if the given slot contains no request.
     fn get_request_slot(slot: u32) -> Option<SimpleItemStack>;
     /// Gets legs of given SpiderVehicle.
-    fn get_spider_legs() -> Vec<LuaEntity>;
+    fn get_spider_legs() -> Vec<MaybeCycle<LuaEntity>>;
     /// The train currently stopped at this train stop, if any.
     fn get_stopped_train() -> Option<LuaTrain>;
     /// The trains scheduled to stop at this train stop.
-    fn get_train_stop_trains() -> Vec<LuaTrain>;
+    fn get_train_stop_trains() -> Vec<MaybeCycle<LuaTrain>>;
     /// Get a transport line of a belt or belt connectable entity.
     ///
     /// # Arguments
@@ -3085,7 +3085,7 @@ pub struct LuaEntityPrototype {
     /// Can only be used if this is RocketSilo or Combinator
     pub active_energy_usage: Option<f64>,
     /// Entities this entity can be pasted onto in addition to the normal allowed ones.
-    pub additional_pastable_entities: Vec<LuaEntityPrototype>,
+    pub additional_pastable_entities: Vec<MaybeCycle<LuaEntityPrototype>>,
     /// The bounding box that specifies which tiles adjacent to the offshore pump should be checked.
     /// Can only be used if this is OffshorePump
     pub adjacent_tile_collision_box: Option<BoundingBox>,
@@ -3332,7 +3332,7 @@ pub struct LuaEntityPrototype {
     /// Can only be used if this is Generator
     pub fluid_usage_per_tick: Option<f64>,
     /// The fluidbox prototypes for this entity.
-    pub fluidbox_prototypes: Vec<LuaFluidBoxPrototype>,
+    pub fluidbox_prototypes: Vec<MaybeCycle<LuaFluidBoxPrototype>>,
     /// The flying acceleration for this rocket silo rocket prototype.
     /// Can only be used if this is RocketSiloRocket
     pub flying_acceleration: Option<f64>,
@@ -3367,7 +3367,7 @@ pub struct LuaEntityPrototype {
     pub idle_energy_usage: Option<f64>,
     /// A vector of the gun prototypes of this car, spider vehicle, artillery wagon, or turret.
     /// Can only be used if this is Car or SpiderVehicle or ArtilleryTurret or ArtilleryWagon
-    pub indexed_guns: Option<Vec<LuaItemPrototype>>,
+    pub indexed_guns: Option<Vec<MaybeCycle<LuaItemPrototype>>>,
     /// Every time this infinite resource 'ticks' down, it is reduced by this amount. Meaningless if this isn't an infinite resource.
     /// Can only be used if this is ResourceEntity
     pub infinite_depletion_resource_amount: Option<u32>,
@@ -3607,7 +3607,7 @@ pub struct LuaEntityPrototype {
     /// Can only be used if this is TransportBelt
     pub related_underground_belt: Option<MaybeCycle<LuaEntityPrototype>>,
     /// The remains left behind when this entity is mined.
-    pub remains_when_mined: Vec<LuaEntityPrototype>,
+    pub remains_when_mined: Vec<MaybeCycle<LuaEntityPrototype>>,
     pub remove_decoratives: String,
     /// Repair-speed modifier for this entity, if any. Actual repair speed will be `tool_repair_speed * entity_repair_speed_modifier`.
     /// Can only be used if this is EntityWithHealth
@@ -3860,7 +3860,7 @@ pub struct LuaEquipmentGrid {
     /// Total energy storage capacity of all batteries in the equipment grid.
     pub battery_capacity: f64,
     /// All the equipment in this grid.
-    pub equipment: Vec<LuaEquipment>,
+    pub equipment: Vec<MaybeCycle<LuaEquipment>>,
     /// Total energy per tick generated by the equipment inside this grid.
     pub generator_energy: f64,
     /// Height of the equipment grid.
@@ -4255,7 +4255,7 @@ pub struct LuaFluidBox {
 #[serde(untagged)]
 pub enum LuaFluidBoxMethodsGetPrototypeUnion {
     LuaFluidBoxPrototype(MaybeCycle<LuaFluidBoxPrototype>),
-    Array(Vec<LuaFluidBoxPrototype>),
+    Array(Vec<MaybeCycle<LuaFluidBoxPrototype>>),
 }
 
 #[derive(Debug, Deserialize)]
@@ -4282,7 +4282,7 @@ pub trait LuaFluidBoxMethods {
     /// The capacity of the given fluidbox index.
     fn get_capacity(index: u32) -> f64;
     /// The fluidboxes to which the fluidbox at the given index is connected.
-    fn get_connections(index: u32) -> Vec<LuaFluidBox>;
+    fn get_connections(index: u32) -> Vec<MaybeCycle<LuaFluidBox>>;
     /// Get a fluid box filter
     ///
     /// # Arguments
@@ -4494,7 +4494,7 @@ pub struct LuaForce {
     /// # Notes
     ///
     /// * This does *not* index using player index. See [LuaPlayer::index](LuaPlayer::index) on each player instance for the player index.
-    pub connected_players: Vec<LuaPlayer>,
+    pub connected_players: Vec<MaybeCycle<LuaPlayer>>,
     /// The currently ongoing technology research, if any.
     pub current_research: Option<MaybeCycle<LuaTechnology>>,
     /// Custom color for this force. If specified, will take priority over other sources of the force color. Writing nil clears custom color. Will return nil if it was not specified or if was set to {0,0,0,0}
@@ -4529,7 +4529,7 @@ pub struct LuaForce {
     pub laboratory_productivity_bonus: f64,
     pub laboratory_speed_modifier: f64,
     /// List of logistic networks, grouped by surface.
-    pub logistic_networks: HashMap<String, Vec<LuaLogisticNetwork>>,
+    pub logistic_networks: HashMap<String, Vec<MaybeCycle<LuaLogisticNetwork>>>,
     /// Multiplier of the manual crafting speed. Default value is `0`. The actual crafting speed will be multiplied by `1 + manual_crafting_speed_modifier`.
     ///
     /// # Examples
@@ -4565,7 +4565,7 @@ pub struct LuaForce {
     /// The class name of this object. Available even when `valid` is false. For LuaStruct objects it may also be suffixed with a dotted path to a member of the struct.
     pub object_name: String,
     /// Players belonging to this force.
-    pub players: Vec<LuaPlayer>,
+    pub players: Vec<MaybeCycle<LuaPlayer>>,
     /// The previous research, if any.
     pub previous_research: Option<MaybeCycle<LuaTechnology>>,
     /// Recipes available to this force, indexed by `name`.
@@ -4709,8 +4709,10 @@ pub trait LuaForceMethods {
     /// Enable research for this force.
     fn enable_research();
     /// Finds all custom chart tags within the given bounding box on the given surface.
-    fn find_chart_tags(area: BoundingBox, surface: SurfaceIdentification)
-        -> Vec<LuaCustomChartTag>;
+    fn find_chart_tags(
+        area: BoundingBox,
+        surface: SurfaceIdentification,
+    ) -> Vec<MaybeCycle<LuaCustomChartTag>>;
     /// # Arguments
     ///
     /// * `position` - Position to find a network for
@@ -4788,11 +4790,11 @@ pub trait LuaForceMethods {
     fn get_train_stops(
         name: LuaForceMethodsGetTrainStopsNameUnion,
         surface: SurfaceIdentification,
-    ) -> Vec<LuaEntity>;
+    ) -> Vec<MaybeCycle<LuaEntity>>;
     /// # Arguments
     ///
     /// * `surface` - The surface to search. Not providing a surface will match trains on any surface.
-    fn get_trains(surface: SurfaceIdentification) -> Vec<LuaTrain>;
+    fn get_trains(surface: SurfaceIdentification) -> Vec<MaybeCycle<LuaTrain>>;
     /// # Arguments
     ///
     /// * `turret` - Turret prototype name
@@ -4973,7 +4975,7 @@ pub struct LuaGameScript {
     /// # Notes
     ///
     /// * This does *not* index using player index. See [LuaPlayer::index](LuaPlayer::index) on each player instance for the player index.
-    pub connected_players: Vec<LuaPlayer>,
+    pub connected_players: Vec<MaybeCycle<LuaPlayer>>,
     /// Whether a console command has been used.
     pub console_command_used: bool,
     /// A dictionary containing every LuaCustomInputPrototype indexed by `name`.
@@ -5433,7 +5435,7 @@ pub trait LuaGameScriptMethods {
     /// # Returns
     ///
     /// * A mapping of mod name to array of inventories owned by that mod.
-    fn get_script_inventories(mod_name: String) -> HashMap<String, Vec<LuaInventory>>;
+    fn get_script_inventories(mod_name: String) -> HashMap<String, Vec<MaybeCycle<LuaInventory>>>;
     /// Gets the given surface or returns `nil` if no surface is found.
     ///
     /// # Notes
@@ -5455,7 +5457,7 @@ pub trait LuaGameScriptMethods {
         force: ForceIdentification,
         name: LuaGameScriptMethodsGetTrainStopsNameUnion,
         surface: SurfaceIdentification,
-    ) -> Vec<LuaEntity>;
+    ) -> Vec<MaybeCycle<LuaEntity>>;
     /// Is this the demo version of Factorio?
     fn is_demo() -> bool;
     /// Is the map loaded is multiplayer?
@@ -5759,7 +5761,7 @@ pub struct LuaGroup {
     /// The additional order value used in recipe ordering. Can only be used on groups, not on subgroups.
     pub order_in_recipe: Option<String>,
     /// Subgroups of this group. Can only be used on groups, not on subgroups.
-    pub subgroups: Option<Vec<LuaGroup>>,
+    pub subgroups: Option<Vec<MaybeCycle<LuaGroup>>>,
     #[serde(rename = "type")]
     pub typ: Option<String>,
     /// Is this object valid? This Lua object holds a reference to an object within the game engine. It is possible that the game-engine object is removed whilst a mod still holds the corresponding Lua object. If that happens, the object becomes invalid, i.e. this attribute will be `false`. Mods are advised to check for object validity if any change to the game state might have occurred between the creation of the Lua object and its access.
@@ -5909,7 +5911,7 @@ pub struct LuaGuiElement {
     /// * Whilst this attribute may be used on all elements without producing an error, it doesn't make sense for tables and flows as they won't display it.
     pub caption: LocalisedString,
     /// The child-elements of this GUI element.
-    pub children: Vec<LuaGuiElement>,
+    pub children: Vec<MaybeCycle<LuaGuiElement>>,
     /// Names of all the children of this element. These are the identifiers that can be used to access the child as an attribute of this element.
     pub children_names: Vec<String>,
     /// Makes it so right-clicking on this textfield clears and focuses it.
@@ -7128,7 +7130,7 @@ pub trait LuaItemStackMethods {
         raise_built: bool,
         skip_fog_of_war: bool,
         surface: SurfaceIdentification,
-    ) -> Vec<LuaEntity>;
+    ) -> Vec<MaybeCycle<LuaEntity>>;
     /// Would a call to [LuaItemStack::set_stack](LuaItemStack::set_stack) succeed?
     ///
     /// # Arguments
@@ -7370,7 +7372,7 @@ pub trait LuaItemStackMethods {
     /// # Returns
     ///
     /// * Array of the entities that were created by the capsule action.
-    fn use_capsule(entity: LuaEntity, target_position: MapPosition) -> Vec<LuaEntity>;
+    fn use_capsule(entity: LuaEntity, target_position: MapPosition) -> Vec<MaybeCycle<LuaEntity>>;
 }
 
 /// Control behavior for lamps.
@@ -7422,7 +7424,7 @@ pub struct LuaLogisticCell {
     /// Number of robots currently charging.
     pub charging_robot_count: u32,
     /// Robots currently being charged.
-    pub charging_robots: Vec<LuaEntity>,
+    pub charging_robots: Vec<MaybeCycle<LuaEntity>>,
     /// Construction radius of this cell.
     pub construction_radius: f32,
     /// The network that owns this cell, if any.
@@ -7434,7 +7436,7 @@ pub struct LuaLogisticCell {
     /// `true` if this is a mobile cell. In vanilla, only the logistic cell created by a character's personal roboport is mobile.
     pub mobile: bool,
     /// Neighbouring cells.
-    pub neighbours: Vec<LuaLogisticCell>,
+    pub neighbours: Vec<MaybeCycle<LuaLogisticCell>>,
     /// The class name of this object. Available even when `valid` is false. For LuaStruct objects it may also be suffixed with a dotted path to a member of the struct.
     pub object_name: String,
     /// This cell's owner.
@@ -7446,7 +7448,7 @@ pub struct LuaLogisticCell {
     /// Number of robots waiting to charge.
     pub to_charge_robot_count: u32,
     /// Robots waiting to charge.
-    pub to_charge_robots: Vec<LuaEntity>,
+    pub to_charge_robots: Vec<MaybeCycle<LuaEntity>>,
     /// `true` if this cell is active.
     pub transmitting: bool,
     /// Is this object valid? This Lua object holds a reference to an object within the game engine. It is possible that the game-engine object is removed whilst a mod still holds the corresponding Lua object. If that happens, the object becomes invalid, i.e. this attribute will be `false`. Mods are advised to check for object validity if any change to the game state might have occurred between the creation of the Lua object and its access.
@@ -7487,7 +7489,7 @@ pub trait LuaLogisticContainerControlBehaviorMethods {
 #[derive(Debug, Deserialize)]
 pub struct LuaLogisticNetwork {
     /// All active provider points in this network.
-    pub active_provider_points: Vec<LuaLogisticPoint>,
+    pub active_provider_points: Vec<MaybeCycle<LuaLogisticPoint>>,
     /// The total number of construction robots in the network (idle and active + in roboports).
     pub all_construction_robots: u32,
     /// The total number of logistic robots in the network (idle and active + in roboports).
@@ -7497,39 +7499,39 @@ pub struct LuaLogisticNetwork {
     /// Number of logistic robots available for a job.
     pub available_logistic_robots: u32,
     /// All cells in this network.
-    pub cells: Vec<LuaLogisticCell>,
+    pub cells: Vec<MaybeCycle<LuaLogisticCell>>,
     /// All construction robots in this logistic network.
-    pub construction_robots: Vec<LuaEntity>,
+    pub construction_robots: Vec<MaybeCycle<LuaEntity>>,
     /// All things that have empty provider points in this network.
-    pub empty_provider_points: Vec<LuaLogisticPoint>,
+    pub empty_provider_points: Vec<MaybeCycle<LuaLogisticPoint>>,
     /// All entities that have empty logistic provider points in this network.
-    pub empty_providers: Vec<LuaEntity>,
+    pub empty_providers: Vec<MaybeCycle<LuaEntity>>,
     /// The force this logistic network belongs to.
     pub force: MaybeCycle<LuaForce>,
     /// All other entities that have logistic points in this network (inserters mostly).
-    pub logistic_members: Vec<LuaEntity>,
+    pub logistic_members: Vec<MaybeCycle<LuaEntity>>,
     /// All logistic robots in this logistic network.
-    pub logistic_robots: Vec<LuaEntity>,
+    pub logistic_robots: Vec<MaybeCycle<LuaEntity>>,
     /// The class name of this object. Available even when `valid` is false. For LuaStruct objects it may also be suffixed with a dotted path to a member of the struct.
     pub object_name: String,
     /// All passive provider points in this network.
-    pub passive_provider_points: Vec<LuaLogisticPoint>,
+    pub passive_provider_points: Vec<MaybeCycle<LuaLogisticPoint>>,
     /// All things that have provider points in this network.
-    pub provider_points: Vec<LuaLogisticPoint>,
+    pub provider_points: Vec<MaybeCycle<LuaLogisticPoint>>,
     /// All entities that have logistic provider points in this network.
-    pub providers: Vec<LuaEntity>,
+    pub providers: Vec<MaybeCycle<LuaEntity>>,
     /// All things that have requester points in this network.
-    pub requester_points: Vec<LuaLogisticPoint>,
+    pub requester_points: Vec<MaybeCycle<LuaLogisticPoint>>,
     /// All entities that have logistic requester points in this network.
-    pub requesters: Vec<LuaEntity>,
+    pub requesters: Vec<MaybeCycle<LuaEntity>>,
     /// Maximum number of robots the network can work with. Currently only used for the personal roboport.
     pub robot_limit: u32,
     /// All robots in this logistic network.
-    pub robots: Vec<LuaEntity>,
+    pub robots: Vec<MaybeCycle<LuaEntity>>,
     /// All things that have storage points in this network.
-    pub storage_points: Vec<LuaLogisticPoint>,
+    pub storage_points: Vec<MaybeCycle<LuaLogisticPoint>>,
     /// All entities that have logistic storage points in this network.
-    pub storages: Vec<LuaEntity>,
+    pub storages: Vec<MaybeCycle<LuaEntity>>,
     /// Is this object valid? This Lua object holds a reference to an object within the game engine. It is possible that the game-engine object is removed whilst a mod still holds the corresponding Lua object. If that happens, the object becomes invalid, i.e. this attribute will be `false`. Mods are advised to check for object validity if any change to the game state might have occurred between the creation of the Lua object and its access.
     pub valid: bool,
 }
@@ -7586,7 +7588,7 @@ pub trait LuaLogisticNetworkMethods {
     /// # Returns
     ///
     /// * A mapping of member types ("storage", "passive-provider", "buffer", "active-provider") to an array of LuaLogisticPoint.
-    fn get_supply_points(item: String) -> HashMap<String, Vec<LuaLogisticPoint>>;
+    fn get_supply_points(item: String) -> HashMap<String, Vec<MaybeCycle<LuaLogisticPoint>>>;
     /// All methods and properties that this object supports.
     fn help() -> String;
     /// Insert items into the logistic network. This will actually insert the items into some logistic chests.
@@ -7698,7 +7700,7 @@ pub struct LuaMiningDrillControlBehavior {
     /// If the mining drill should send just the resources in its area or the entire field it's on to the circuit network.
     pub resource_read_mode: ControlBehaviorMiningDrillResourceReadMode,
     /// The resource entities that the mining drill will send information about to the circuit network or an empty array.
-    pub resource_read_targets: Vec<LuaEntity>,
+    pub resource_read_targets: Vec<MaybeCycle<LuaEntity>>,
     /// Is this object valid? This Lua object holds a reference to an object within the game engine. It is possible that the game-engine object is removed whilst a mod still holds the corresponding Lua object. If that happens, the object becomes invalid, i.e. this attribute will be `false`. Mods are advised to check for object validity if any change to the game state might have occurred between the creation of the Lua object and its access.
     pub valid: bool,
 }
@@ -7890,7 +7892,7 @@ pub struct LuaPermissionGroup {
     /// The class name of this object. Available even when `valid` is false. For LuaStruct objects it may also be suffixed with a dotted path to a member of the struct.
     pub object_name: String,
     /// The players in this group.
-    pub players: Vec<LuaPlayer>,
+    pub players: Vec<MaybeCycle<LuaPlayer>>,
     /// Is this object valid? This Lua object holds a reference to an object within the game engine. It is possible that the game-engine object is removed whilst a mod still holds the corresponding Lua object. If that happens, the object becomes invalid, i.e. this attribute will be `false`. Mods are advised to check for object validity if any change to the game state might have occurred between the creation of the Lua object and its access.
     pub valid: bool,
 }
@@ -7940,7 +7942,7 @@ pub trait LuaPermissionGroupMethods {
 #[derive(Debug, Deserialize)]
 pub struct LuaPermissionGroups {
     /// All of the permission groups.
-    pub groups: Vec<LuaPermissionGroup>,
+    pub groups: Vec<MaybeCycle<LuaPermissionGroup>>,
     /// The class name of this object. Available even when `valid` is false. For LuaStruct objects it may also be suffixed with a dotted path to a member of the struct.
     pub object_name: String,
     /// Is this object valid? This Lua object holds a reference to an object within the game engine. It is possible that the game-engine object is removed whilst a mod still holds the corresponding Lua object. If that happens, the object becomes invalid, i.e. this attribute will be `false`. Mods are advised to check for object validity if any change to the game state might have occurred between the creation of the Lua object and its access.
@@ -8329,7 +8331,7 @@ pub trait LuaPlayerMethods {
     ///
     /// * The array will always be empty when the player is disconnected (see [LuaPlayer::connected](LuaPlayer::connected)) regardless of there being associated characters.
     /// * Characters associated with this player will be logged off when this player disconnects but are not controlled by any player.
-    fn get_associated_characters() -> Vec<LuaEntity>;
+    fn get_associated_characters() -> Vec<MaybeCycle<LuaEntity>>;
     /// Get the current goal description, as a localised string.
     fn get_goal_description() -> LocalisedString;
     /// Gets the filter for this map editor infinity filters at the given index or `nil` if the filter index doesn't exist or is empty.
@@ -9565,7 +9567,7 @@ pub trait LuaRenderingMethods {
     /// * `nil` if the object is not a text.
     fn get_font(id: u64) -> Option<String>;
     /// Get the forces that the object with this id is rendered to or `nil` if visible to all forces.
-    fn get_forces(id: u64) -> Option<Vec<LuaForce>>;
+    fn get_forces(id: u64) -> Option<Vec<MaybeCycle<LuaForce>>>;
     /// Get from where the line with this id is drawn.
     ///
     /// # Returns
@@ -9643,7 +9645,7 @@ pub trait LuaRenderingMethods {
     /// * `nil` if this object is not a sprite or animation.
     fn get_oriented_offset(id: u64) -> Option<Vector>;
     /// Get the players that the object with this id is rendered to or `nil` if visible to all players.
-    fn get_players(id: u64) -> Option<Vec<LuaPlayer>>;
+    fn get_players(id: u64) -> Option<Vec<MaybeCycle<LuaPlayer>>>;
     /// Get the radius of the circle with this id.
     ///
     /// # Returns
@@ -10411,7 +10413,7 @@ pub enum LuaSurfaceMethodsDestroyDecorativesNameUnion {
     String(String),
     ArrayString(Vec<String>),
     LuaDecorativePrototype(MaybeCycle<LuaDecorativePrototype>),
-    ArrayLuaDecorativePrototype(Vec<LuaDecorativePrototype>),
+    ArrayMaybeCycleLuaDecorativePrototype(Vec<MaybeCycle<LuaDecorativePrototype>>),
 }
 
 #[derive(Debug, Deserialize)]
@@ -10427,7 +10429,7 @@ pub enum LuaSurfaceMethodsFindDecorativesFilteredNameUnion {
     String(String),
     ArrayString(Vec<String>),
     LuaDecorativePrototype(MaybeCycle<LuaDecorativePrototype>),
-    ArrayLuaDecorativePrototype(Vec<LuaDecorativePrototype>),
+    ArrayMaybeCycleLuaDecorativePrototype(Vec<MaybeCycle<LuaDecorativePrototype>>),
 }
 
 #[derive(Debug, Deserialize)]
@@ -10776,7 +10778,7 @@ pub trait LuaSurfaceMethods {
         destination_force: ForceIdentification,
         destination_offset: Vector,
         destination_surface: SurfaceIdentification,
-        entities: Vec<LuaEntity>,
+        entities: Vec<MaybeCycle<LuaEntity>>,
         snap_to_grid: bool,
     );
     /// Count entities of given type or name in a given area. Works just like [LuaSurface::find_entities_filtered](LuaSurface::find_entities_filtered), except this only returns the count. As it doesn't construct all the wrapper objects, this is more efficient if one is only interested in the number of entities.
@@ -11052,7 +11054,7 @@ pub trait LuaSurfaceMethods {
         center: MapPosition,
         force: LuaSurfaceMethodsFindEnemyUnitsForceUnion,
         radius: f64,
-    ) -> Vec<LuaEntity>;
+    ) -> Vec<MaybeCycle<LuaEntity>>;
     /// Find entities in a given area.
     ///
     /// If no area is given all entities on the surface are returned.
@@ -11063,7 +11065,7 @@ pub trait LuaSurfaceMethods {
     /// ```text
     /// game.surfaces["nauvis"].find_entities({{-10, -10}, {10, 10}})
     /// ```
-    fn find_entities(area: BoundingBox) -> Vec<LuaEntity>;
+    fn find_entities(area: BoundingBox) -> Vec<MaybeCycle<LuaEntity>>;
     /// Find all entities of the given type or name in the given area.
     ///
     /// If no filters (`name`, `type`, `force`, etc.) are given, this returns all entities in the search area. If multiple filters are specified, only entities matching all given filters are returned.
@@ -11105,7 +11107,7 @@ pub trait LuaSurfaceMethods {
         to_be_deconstructed: bool,
         to_be_upgraded: bool,
         typ: LuaSurfaceMethodsFindEntitiesFilteredTypUnion,
-    ) -> Vec<LuaEntity>;
+    ) -> Vec<MaybeCycle<LuaEntity>>;
     /// Find a specific entity at a specific position.
     ///
     /// # Examples
@@ -11144,7 +11146,7 @@ pub trait LuaSurfaceMethods {
     fn find_logistic_networks_by_construction_area(
         force: ForceIdentification,
         position: MapPosition,
-    ) -> Vec<LuaLogisticNetwork>;
+    ) -> Vec<MaybeCycle<LuaLogisticNetwork>>;
     /// Find the enemy military target ([military entity](https://wiki.factorio.com/Military_units_and_structures)) closest to the given position.
     ///
     /// # Arguments
@@ -11244,7 +11246,7 @@ pub trait LuaSurfaceMethods {
         position: MapPosition,
         radius: f64,
         to_be_deconstructed: bool,
-    ) -> Vec<LuaTile>;
+    ) -> Vec<MaybeCycle<LuaTile>>;
     /// Find units (entities with type "unit") of a given force and force condition within a given area.
     ///
     /// # Notes
@@ -11271,7 +11273,7 @@ pub trait LuaSurfaceMethods {
         area: BoundingBox,
         condition: ForceCondition,
         force: LuaSurfaceMethodsFindUnitsForceUnion,
-    ) -> Vec<LuaEntity>;
+    ) -> Vec<MaybeCycle<LuaEntity>>;
     /// Blocks and generates all chunks that have been requested using all available threads.
     fn force_generate_chunk_requests();
     /// Get an iterator going over every chunk on this surface.
@@ -11281,7 +11283,10 @@ pub trait LuaSurfaceMethods {
     /// # Arguments
     ///
     /// * `entities` - The Entities to check
-    fn get_closest(entities: Vec<LuaEntity>, position: MapPosition) -> Option<LuaEntity>;
+    fn get_closest(
+        entities: Vec<MaybeCycle<LuaEntity>>,
+        position: MapPosition,
+    ) -> Option<LuaEntity>;
     /// Gets all tiles of the given types that are connected horizontally or vertically to the given tile position including the given tile position.
     ///
     /// # Notes
@@ -11306,7 +11311,7 @@ pub trait LuaSurfaceMethods {
     fn get_entities_with_force(
         force: LuaSurfaceMethodsGetEntitiesWithForceForceUnion,
         position: ChunkPosition,
-    ) -> Vec<LuaEntity>;
+    ) -> Vec<MaybeCycle<LuaEntity>>;
     /// The hidden tile name.
     ///
     /// # Arguments
@@ -11372,11 +11377,11 @@ pub trait LuaSurfaceMethods {
     fn get_train_stops(
         force: ForceIdentification,
         name: LuaSurfaceMethodsGetTrainStopsNameUnion,
-    ) -> Vec<LuaEntity>;
+    ) -> Vec<MaybeCycle<LuaEntity>>;
     /// # Arguments
     ///
     /// * `force` - The force to search. Not providing a force will match trains in any force.
-    fn get_trains(force: ForceIdentification) -> Vec<LuaTrain>;
+    fn get_trains(force: ForceIdentification) -> Vec<MaybeCycle<LuaTrain>>;
     /// All methods and properties that this object supports.
     fn help() -> String;
     /// Is a given chunk generated?
@@ -11562,7 +11567,7 @@ pub trait LuaSurfaceMethods {
         force: LuaSurfaceMethodsSpillItemStackForceUnion,
         items: ItemStackIdentification,
         position: MapPosition,
-    ) -> Vec<LuaEntity>;
+    ) -> Vec<MaybeCycle<LuaEntity>>;
     /// Place an upgrade request.
     ///
     /// # Arguments
@@ -11732,7 +11737,7 @@ pub trait LuaTileMethods {
     /// # Arguments
     ///
     /// * `force` - Get tile ghosts of this force.
-    fn get_tile_ghosts(force: ForceIdentification) -> Vec<LuaTile>;
+    fn get_tile_ghosts(force: ForceIdentification) -> Vec<MaybeCycle<LuaTile>>;
     /// Does this tile have any tile ghosts on it.
     ///
     /// # Arguments
@@ -11830,11 +11835,11 @@ pub struct LuaTrain {
     /// The back stock of this train, if any. The back of the train is at the opposite end of the [front](LuaTrain::front_stock).
     pub back_stock: Option<MaybeCycle<LuaEntity>>,
     /// The cargo carriages the train contains.
-    pub cargo_wagons: Vec<LuaEntity>,
+    pub cargo_wagons: Vec<MaybeCycle<LuaEntity>>,
     /// The rolling stocks this train is composed of, with the numbering starting at the [front](LuaTrain::front_stock) of the train.
-    pub carriages: Vec<LuaEntity>,
+    pub carriages: Vec<MaybeCycle<LuaEntity>>,
     /// The fluid carriages the train contains.
-    pub fluid_wagons: Vec<LuaEntity>,
+    pub fluid_wagons: Vec<MaybeCycle<LuaEntity>>,
     /// The rail at the front end of the train, if any.
     pub front_rail: Option<MaybeCycle<LuaEntity>>,
     /// The front stock of this train, if any. The front of the train is in the direction that a majority of locomotives are pointing in. If it's a tie, the North and West directions take precedence.
@@ -11850,7 +11855,7 @@ pub struct LuaTrain {
     /// The keys are the player indices, the values are how often this train killed that player.
     pub killed_players: HashMap<u32, u32>,
     /// Arrays of locomotives. The result is two arrays, indexed by `"front_movers"` and `"back_movers"` containing the locomotives. E.g. `{front_movers={loco1, loco2}, back_movers={loco3}}`.
-    pub locomotives: HashMap<String, Vec<LuaEntity>>,
+    pub locomotives: HashMap<String, Vec<MaybeCycle<LuaEntity>>>,
     /// When `true`, the train is explicitly controlled by the player or script. When `false`, the train moves autonomously according to its schedule.
     pub manual_mode: bool,
     /// Current max speed when moving backwards, depends on locomotive prototype and fuel.
@@ -11864,7 +11869,7 @@ pub struct LuaTrain {
     /// # Notes
     ///
     /// * This does *not* index using player index. See [LuaPlayer::index](LuaPlayer::index) on each player instance for the player index.
-    pub passengers: Vec<LuaPlayer>,
+    pub passengers: Vec<MaybeCycle<LuaPlayer>>,
     /// The path this train is using, if any.
     pub path: Option<MaybeCycle<LuaRailPath>>,
     /// The destination rail this train is currently pathing to, if any.
@@ -11930,7 +11935,7 @@ pub trait LuaTrainMethods {
     /// * `item` - Item name to count. If not given, counts all items.
     fn get_item_count(item: String) -> u32;
     /// Gets all rails under the train.
-    fn get_rails() -> Vec<LuaEntity>;
+    fn get_rails() -> Vec<MaybeCycle<LuaEntity>>;
     /// Go to the station specified by the index in the train's schedule.
     fn go_to_station(index: u32);
     /// All methods and properties that this object supports.
@@ -12031,11 +12036,11 @@ pub trait LuaTransportBeltControlBehaviorMethods {
 #[derive(Debug, Deserialize)]
 pub struct LuaTransportLine {
     /// The transport lines that this transport line is fed by or an empty table if none.
-    pub input_lines: Vec<LuaTransportLine>,
+    pub input_lines: Vec<MaybeCycle<LuaTransportLine>>,
     /// The class name of this object. Available even when `valid` is false. For LuaStruct objects it may also be suffixed with a dotted path to a member of the struct.
     pub object_name: String,
     /// The transport lines that this transport line outputs items to or an empty table if none.
-    pub output_lines: Vec<LuaTransportLine>,
+    pub output_lines: Vec<MaybeCycle<LuaTransportLine>>,
     /// The entity this transport line belongs to.
     pub owner: MaybeCycle<LuaEntity>,
     /// Is this object valid? This Lua object holds a reference to an object within the game engine. It is possible that the game-engine object is removed whilst a mod still holds the corresponding Lua object. If that happens, the object becomes invalid, i.e. this attribute will be `false`. Mods are advised to check for object validity if any change to the game state might have occurred between the creation of the Lua object and its access.
@@ -12152,7 +12157,7 @@ pub struct LuaUnitGroup {
     /// Whether this unit group is controlled by a script or by the game engine. This can be changed using [LuaUnitGroup::set_autonomous](LuaUnitGroup::set_autonomous).
     pub is_script_driven: bool,
     /// Members of this group.
-    pub members: Vec<LuaEntity>,
+    pub members: Vec<MaybeCycle<LuaEntity>>,
     /// The class name of this object. Available even when `valid` is false. For LuaStruct objects it may also be suffixed with a dotted path to a member of the struct.
     pub object_name: String,
     /// Group position. This can have different meanings depending on the group state. When the group is gathering, the position is the place of gathering. When the group is moving, the position is the expected position of its members along the path. When the group is attacking, it is the average position of its members.

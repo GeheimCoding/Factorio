@@ -976,7 +976,7 @@ pub struct OnPlayerAltReverseSelectedArea {
     /// The area selected.
     pub area: BoundingBox,
     /// The entities selected.
-    pub entities: Vec<LuaEntity>,
+    pub entities: Vec<MaybeCycle<LuaEntity>>,
     /// The item used to select the area.
     pub item: String,
     /// Identifier of the event
@@ -988,7 +988,7 @@ pub struct OnPlayerAltReverseSelectedArea {
     /// Tick the event was generated.
     pub tick: u32,
     /// The tiles selected.
-    pub tiles: Vec<LuaTile>,
+    pub tiles: Vec<MaybeCycle<LuaTile>>,
 }
 
 /// Called after a player alt-selects an area with a selection-tool item.
@@ -997,7 +997,7 @@ pub struct OnPlayerAltSelectedArea {
     /// The area selected.
     pub area: BoundingBox,
     /// The entities selected.
-    pub entities: Vec<LuaEntity>,
+    pub entities: Vec<MaybeCycle<LuaEntity>>,
     /// The item used to select the area.
     pub item: String,
     /// Identifier of the event
@@ -1009,7 +1009,7 @@ pub struct OnPlayerAltSelectedArea {
     /// Tick the event was generated.
     pub tick: u32,
     /// The tiles selected.
-    pub tiles: Vec<LuaTile>,
+    pub tiles: Vec<MaybeCycle<LuaTile>>,
 }
 
 /// Called after a players ammo inventory changed in some way.
@@ -1562,7 +1562,7 @@ pub struct OnPlayerReverseSelectedArea {
     /// The area selected.
     pub area: BoundingBox,
     /// The entities selected.
-    pub entities: Vec<LuaEntity>,
+    pub entities: Vec<MaybeCycle<LuaEntity>>,
     /// The item used to select the area.
     pub item: String,
     /// Identifier of the event
@@ -1574,7 +1574,7 @@ pub struct OnPlayerReverseSelectedArea {
     /// Tick the event was generated.
     pub tick: u32,
     /// The tiles selected.
-    pub tiles: Vec<LuaTile>,
+    pub tiles: Vec<MaybeCycle<LuaTile>>,
 }
 
 /// Called when the player rotates an entity. This event is only fired when the entity actually changes its orientation -- pressing the rotate key on an entity that can't be rotated won't fire this event.
@@ -1597,7 +1597,7 @@ pub struct OnPlayerSelectedArea {
     /// The area selected.
     pub area: BoundingBox,
     /// The entities selected.
-    pub entities: Vec<LuaEntity>,
+    pub entities: Vec<MaybeCycle<LuaEntity>>,
     /// The item used to select the area.
     pub item: String,
     /// Identifier of the event
@@ -1609,7 +1609,7 @@ pub struct OnPlayerSelectedArea {
     /// Tick the event was generated.
     pub tick: u32,
     /// The tiles selected.
-    pub tiles: Vec<LuaTile>,
+    pub tiles: Vec<MaybeCycle<LuaTile>>,
 }
 
 /// Called when a player sets a quickbar slot to anything (new value, or set to empty).
@@ -1739,7 +1739,7 @@ pub struct OnPlayerUsedSpiderRemote {
 #[derive(Debug, Deserialize)]
 pub struct OnPostEntityDied {
     /// The corpses created by the entity dying if any.
-    pub corpses: Vec<LuaEntity>,
+    pub corpses: Vec<MaybeCycle<LuaEntity>>,
     /// The damage type if any.
     pub damage_type: Option<MaybeCycle<LuaDamagePrototype>>,
     /// The force that did the killing if any.

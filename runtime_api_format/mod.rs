@@ -518,7 +518,7 @@ impl GenerateDefinition for Class {
             ));
             struct_definition.push_str(&attribute_description);
             if needs_rename {
-                struct_definition.push_str(&format!("    #[serde(rename = \"{name}\")]"));
+                struct_definition.push_str(&format!("    #[serde(rename = \"{name}\")]\n"));
             }
             struct_definition.push_str(&format!("    pub {}: {},\n", rust_name, typ));
         }
@@ -992,7 +992,7 @@ impl Parameter {
             }
         }
         if needs_rename {
-            definition.push_str(&format!("    #[serde(rename = \"{name}\")]"));
+            definition.push_str(&format!("    #[serde(rename = \"{name}\")]\n"));
         }
         definition.push_str(&format!("    pub {}: {},\n", rust_name, typ));
         definition
@@ -1359,10 +1359,11 @@ impl ComplexType {
                         let typ = if type_name == "array" {
                             let array_definition =
                                 option.generate_definition(&prefix, unions, true);
+                            let extension = &array_definition[4..array_definition.len() - 1];
+                            let extension = extension.replace('<', "").replace('>', "");
                             if array_count > 1 {
                                 type_name.push('_');
-                                type_name
-                                    .push_str(&array_definition[4..array_definition.len() - 1]);
+                                type_name.push_str(&extension);
                             }
                             array_definition
                         } else if type_name == "dictionary" || type_name == "function" {
@@ -1480,7 +1481,8 @@ impl ComplexType {
                                 ));
                             }
                             if needs_rename {
-                                definition.push_str(&format!("    #[serde(rename = \"{name}\")]"));
+                                definition
+                                    .push_str(&format!("    #[serde(rename = \"{name}\")]\n"));
                             }
                             definition.push_str(&format!("    pub {}: {},\n", rust_name, typ));
                         }
@@ -1496,10 +1498,16 @@ impl ComplexType {
                 if !is_nested {
                     definition.push_str(&format!("pub type {prefix} = "));
                 }
-                definition.push_str(&format!(
-                    "Vec<{}>",
-                    value.generate_definition(prefix, unions, true)
-                ));
+                let typ = value.generate_definition(prefix, unions, true);
+                let typ = if typ.starts_with("Lua")
+                    && !typ.ends_with("Filter")
+                    && !typ.ends_with("Union")
+                {
+                    format!("MaybeCycle<{typ}>")
+                } else {
+                    typ.to_owned()
+                };
+                definition.push_str(&format!("Vec<{typ}>"));
                 if !is_nested {
                     definition.push(';');
                 }
