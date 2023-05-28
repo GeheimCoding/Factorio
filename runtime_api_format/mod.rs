@@ -975,7 +975,7 @@ impl Parameter {
         } else {
             typ.to_owned()
         };
-        let typ = if self.optional {
+        let typ = if self.optional || prefix.starts_with("AutoplaceSpecification") {
             format!("Option<{}>", typ)
         } else {
             typ

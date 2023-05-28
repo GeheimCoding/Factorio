@@ -4,10 +4,10 @@
 75.json: invalid type: map, expected a sequence
 77.json: invalid type: map, expected a sequence
 89.json: invalid type: string "nan", expected f64
-90.json: missing field `aux_max_range`
-91.json: missing field `aux_max_range`
+90.json: invalid type: map, expected a sequence
+91.json: invalid type: map, expected a sequence
 92.json: invalid type: string "nan", expected f64
-93.json: missing field `aux_max_range`
+93.json: invalid type: map, expected a sequence
 94.json: invalid type: map, expected a sequence
 95.json: invalid type: string "nan", expected f64
 96.json: invalid type: string "nan", expected f64
@@ -26,25 +26,25 @@
 109.json: invalid type: string "nan", expected f64
 110.json: invalid type: string "nan", expected f64
 111.json: invalid type: string "nan", expected f64
-112.json: missing field `distance_max_range`
-113.json: missing field `distance_max_range`
-114.json: missing field `aux_max_range`
+112.json: invalid type: map, expected a sequence
+113.json: invalid type: map, expected a sequence
+114.json: invalid type: map, expected a sequence
 115.json: invalid type: string "nan", expected f64
-116.json: missing field `distance_max_range`
-117.json: missing field `distance_max_range`
-118.json: missing field `distance_max_range`
-119.json: missing field `aux_max_range`
-120.json: missing field `aux_max_range`
-121.json: missing field `aux_max_range`
+116.json: invalid type: map, expected a sequence
+117.json: invalid type: map, expected a sequence
+118.json: invalid type: map, expected a sequence
+119.json: invalid type: map, expected a sequence
+120.json: invalid type: map, expected a sequence
+121.json: invalid type: map, expected a sequence
 122.json: invalid type: map, expected a sequence
 123.json: invalid type: map, expected a sequence
 124.json: invalid type: map, expected a sequence
-125.json: missing field `distance_max_range`
-126.json: missing field `distance_max_range`
-127.json: missing field `distance_max_range`
+125.json: invalid type: map, expected a sequence
+126.json: invalid type: map, expected a sequence
+127.json: invalid type: map, expected a sequence
 128.json: invalid type: map, expected a sequence
-129.json: missing field `distance_max_range`
-130.json: missing field `distance_max_range`
+129.json: invalid type: map, expected a sequence
+130.json: invalid type: map, expected a sequence
 131.json: invalid type: map, expected a sequence
 132.json: invalid type: map, expected a sequence
 143.json: invalid type: map, expected a sequence
