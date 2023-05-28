@@ -17,6 +17,7 @@ pub enum AchievementPrototypeFilterAttributesTypeUnion {
 #[derive(Debug, Deserialize)]
 pub struct AchievementPrototypeFilterAttributesType {
     /// The prototype type, or a list of acceptable types.
+    #[serde(rename = "type")]
     pub typ: AchievementPrototypeFilterAttributesTypeUnion,
 }
 
@@ -137,6 +138,7 @@ pub struct AttackParameterFluid {
     /// Multiplier applied to the damage of an attack.
     pub damage_modifier: f64,
     /// Name of the [LuaFluidPrototype](LuaFluidPrototype).
+    #[serde(rename = "type")]
     pub typ: String,
 }
 
@@ -194,6 +196,7 @@ pub struct AttackParameters {
     /// The arc that the entity can attack in as a fraction of a circle. A value of `1` means the full 360 degrees.
     pub turn_range: f32,
     /// The type of AttackParameter. One of `'projectile'`, `'stream'` or `'beam'`.
+    #[serde(rename = "type")]
     pub typ: String,
     /// Number of ticks it takes for the weapon to actually shoot after it has been ordered to do so.
     pub warmup: u32,
@@ -258,6 +261,7 @@ pub struct AutoplaceSpecificationPeak {
     pub influence: f64,
     pub max_influence: f64,
     pub min_influence: f64,
+    #[serde(rename = "noisePersistence")]
     pub noise_persistence: f64,
     /// Prototype name of the noise layer.
     pub noise_layer: Option<String>,
@@ -396,6 +400,7 @@ pub enum CapsuleActionAttributes {
 #[derive(Debug, Deserialize)]
 pub struct CapsuleAction {
     /// One of `"throw"`, `"equipment-remote"`, `"use-on-self"`, `"artillery-remote"`, `"destroy-cliffs"`.
+    #[serde(rename = "type")]
     pub typ: String,
     /// Other attributes may be specified depending on `type`:
     pub attributes: Option<CapsuleActionAttributes>,
@@ -478,7 +483,9 @@ pub struct CircularParticleCreationSpecification {
 
 #[derive(Debug, Deserialize)]
 pub struct CircularProjectileCreationSpecification {
+    #[serde(rename = "_")]
     pub field_0: RealOrientation,
+    #[serde(rename = "_")]
     pub field_1: Vector,
 }
 
@@ -691,6 +698,7 @@ pub enum CommandAttributes {
 /// Commands can be given to enemies and unit groups.
 pub struct Command {
     /// Type of command. The remaining fields depend on the value of this field.
+    #[serde(rename = "type")]
     pub typ: CommandDefine,
     /// Other attributes may be specified depending on `type`:
     pub attributes: Option<CommandAttributes>,
@@ -1032,6 +1040,7 @@ pub struct EntityPrototypeFilterAttributesSelectionPriority {
 #[derive(Debug, Deserialize)]
 pub struct EntityPrototypeFilterAttributesType {
     /// The prototype type, or a list of acceptable types.
+    #[serde(rename = "type")]
     pub typ: EntityPrototypeFilterAttributesTypeUnion,
 }
 
@@ -1169,6 +1178,7 @@ pub enum EquipmentPrototypeFilterAttributesTypeUnion {
 #[derive(Debug, Deserialize)]
 pub struct EquipmentPrototypeFilterAttributesType {
     /// The prototype type, or a list of acceptable types.
+    #[serde(rename = "type")]
     pub typ: EquipmentPrototypeFilterAttributesTypeUnion,
 }
 
@@ -1252,6 +1262,7 @@ pub struct FluidBoxConnection {
     /// The 4 cardinal direction connection points for this pipe. This vector is a table with `x` and `y` keys instead of an array.
     pub positions: Vec<Vector>,
     /// The connection type: "input", "output", or "input-output".
+    #[serde(rename = "type")]
     pub typ: String,
 }
 
@@ -1442,6 +1453,7 @@ pub struct GuiAnchor {
     pub names: Option<Vec<String>>,
     pub position: RelativeGuiPosition,
     /// If provided, only anchors the GUI element when the opened things type matches the type.
+    #[serde(rename = "type")]
     pub typ: Option<String>,
 }
 
@@ -1483,6 +1495,7 @@ pub enum GuiArrowSpecificationAttributes {
 /// Used for specifying where a GUI arrow should point to.
 pub struct GuiArrowSpecification {
     /// This determines which of the following fields will be required. Must be one of `"nowhere"` (will remove the arrow entirely), `"goal"` (will point to the current goal), `"entity_info"`, `"active_window"`, `"entity"`, `"position"`, `"crafting_queue"` or `"item_stack"` (will point to a given item stack in an inventory). Depending on this value, other fields may have to be specified.
+    #[serde(rename = "type")]
     pub typ: String,
     /// Other attributes may be specified depending on `type`:
     pub attributes: Option<GuiArrowSpecificationAttributes>,
@@ -1565,6 +1578,7 @@ pub struct Ingredient {
     /// Prototype name of the required item or fluid.
     pub name: String,
     /// `"item"` or `"fluid"`.
+    #[serde(rename = "type")]
     pub typ: String,
     /// Other attributes may be specified depending on `type`:
     pub attributes: Option<IngredientAttributes>,
@@ -1691,6 +1705,7 @@ pub struct ItemPrototypeFilterAttributesSubgroup {
 #[derive(Debug, Deserialize)]
 pub struct ItemPrototypeFilterAttributesType {
     /// The prototype type, or a list of acceptable types.
+    #[serde(rename = "type")]
     pub typ: ItemPrototypeFilterAttributesTypeUnion,
 }
 
@@ -1900,6 +1915,7 @@ pub struct LuaEntityClonedEventFilterAttributesGhostName {
 #[derive(Debug, Deserialize)]
 pub struct LuaEntityClonedEventFilterAttributesGhostType {
     /// The ghost prototype type
+    #[serde(rename = "type")]
     pub typ: String,
 }
 
@@ -1912,6 +1928,7 @@ pub struct LuaEntityClonedEventFilterAttributesName {
 #[derive(Debug, Deserialize)]
 pub struct LuaEntityClonedEventFilterAttributesType {
     /// The prototype type
+    #[serde(rename = "type")]
     pub typ: String,
 }
 
@@ -1939,6 +1956,7 @@ pub struct LuaEntityClonedEventFilter {
 #[derive(Debug, Deserialize)]
 pub struct LuaEntityDamagedEventFilterAttributesDamageType {
     /// A [LuaDamagePrototype](LuaDamagePrototype) name
+    #[serde(rename = "type")]
     pub typ: String,
 }
 
@@ -1965,6 +1983,7 @@ pub struct LuaEntityDamagedEventFilterAttributesGhostName {
 #[derive(Debug, Deserialize)]
 pub struct LuaEntityDamagedEventFilterAttributesGhostType {
     /// The ghost prototype type
+    #[serde(rename = "type")]
     pub typ: String,
 }
 
@@ -1984,6 +2003,7 @@ pub struct LuaEntityDamagedEventFilterAttributesOriginalDamageAmount {
 #[derive(Debug, Deserialize)]
 pub struct LuaEntityDamagedEventFilterAttributesType {
     /// The prototype type
+    #[serde(rename = "type")]
     pub typ: String,
 }
 
@@ -2021,6 +2041,7 @@ pub struct LuaEntityDeconstructionCancelledEventFilterAttributesGhostName {
 #[derive(Debug, Deserialize)]
 pub struct LuaEntityDeconstructionCancelledEventFilterAttributesGhostType {
     /// The ghost prototype type
+    #[serde(rename = "type")]
     pub typ: String,
 }
 
@@ -2033,6 +2054,7 @@ pub struct LuaEntityDeconstructionCancelledEventFilterAttributesName {
 #[derive(Debug, Deserialize)]
 pub struct LuaEntityDeconstructionCancelledEventFilterAttributesType {
     /// The prototype type
+    #[serde(rename = "type")]
     pub typ: String,
 }
 
@@ -2066,6 +2088,7 @@ pub struct LuaEntityDiedEventFilterAttributesGhostName {
 #[derive(Debug, Deserialize)]
 pub struct LuaEntityDiedEventFilterAttributesGhostType {
     /// The ghost prototype type
+    #[serde(rename = "type")]
     pub typ: String,
 }
 
@@ -2078,6 +2101,7 @@ pub struct LuaEntityDiedEventFilterAttributesName {
 #[derive(Debug, Deserialize)]
 pub struct LuaEntityDiedEventFilterAttributesType {
     /// The prototype type
+    #[serde(rename = "type")]
     pub typ: String,
 }
 
@@ -2111,6 +2135,7 @@ pub struct LuaEntityMarkedForDeconstructionEventFilterAttributesGhostName {
 #[derive(Debug, Deserialize)]
 pub struct LuaEntityMarkedForDeconstructionEventFilterAttributesGhostType {
     /// The ghost prototype type
+    #[serde(rename = "type")]
     pub typ: String,
 }
 
@@ -2123,6 +2148,7 @@ pub struct LuaEntityMarkedForDeconstructionEventFilterAttributesName {
 #[derive(Debug, Deserialize)]
 pub struct LuaEntityMarkedForDeconstructionEventFilterAttributesType {
     /// The prototype type
+    #[serde(rename = "type")]
     pub typ: String,
 }
 
@@ -2156,6 +2182,7 @@ pub struct LuaEntityMarkedForUpgradeEventFilterAttributesGhostName {
 #[derive(Debug, Deserialize)]
 pub struct LuaEntityMarkedForUpgradeEventFilterAttributesGhostType {
     /// The ghost prototype type
+    #[serde(rename = "type")]
     pub typ: String,
 }
 
@@ -2168,6 +2195,7 @@ pub struct LuaEntityMarkedForUpgradeEventFilterAttributesName {
 #[derive(Debug, Deserialize)]
 pub struct LuaEntityMarkedForUpgradeEventFilterAttributesType {
     /// The prototype type
+    #[serde(rename = "type")]
     pub typ: String,
 }
 
@@ -2207,6 +2235,7 @@ pub struct LuaPlayerBuiltEntityEventFilterAttributesGhostName {
 #[derive(Debug, Deserialize)]
 pub struct LuaPlayerBuiltEntityEventFilterAttributesGhostType {
     /// The ghost prototype type
+    #[serde(rename = "type")]
     pub typ: String,
 }
 
@@ -2219,6 +2248,7 @@ pub struct LuaPlayerBuiltEntityEventFilterAttributesName {
 #[derive(Debug, Deserialize)]
 pub struct LuaPlayerBuiltEntityEventFilterAttributesType {
     /// The prototype type
+    #[serde(rename = "type")]
     pub typ: String,
 }
 
@@ -2253,6 +2283,7 @@ pub struct LuaPlayerMinedEntityEventFilterAttributesGhostName {
 #[derive(Debug, Deserialize)]
 pub struct LuaPlayerMinedEntityEventFilterAttributesGhostType {
     /// The ghost prototype type
+    #[serde(rename = "type")]
     pub typ: String,
 }
 
@@ -2265,6 +2296,7 @@ pub struct LuaPlayerMinedEntityEventFilterAttributesName {
 #[derive(Debug, Deserialize)]
 pub struct LuaPlayerMinedEntityEventFilterAttributesType {
     /// The prototype type
+    #[serde(rename = "type")]
     pub typ: String,
 }
 
@@ -2298,6 +2330,7 @@ pub struct LuaPlayerRepairedEntityEventFilterAttributesGhostName {
 #[derive(Debug, Deserialize)]
 pub struct LuaPlayerRepairedEntityEventFilterAttributesGhostType {
     /// The ghost prototype type
+    #[serde(rename = "type")]
     pub typ: String,
 }
 
@@ -2310,6 +2343,7 @@ pub struct LuaPlayerRepairedEntityEventFilterAttributesName {
 #[derive(Debug, Deserialize)]
 pub struct LuaPlayerRepairedEntityEventFilterAttributesType {
     /// The prototype type
+    #[serde(rename = "type")]
     pub typ: String,
 }
 
@@ -2337,6 +2371,7 @@ pub struct LuaPlayerRepairedEntityEventFilter {
 #[derive(Debug, Deserialize)]
 pub struct LuaPostEntityDiedEventFilterAttributesType {
     /// The prototype type
+    #[serde(rename = "type")]
     pub typ: String,
 }
 
@@ -2367,6 +2402,7 @@ pub struct LuaPreGhostDeconstructedEventFilterAttributesGhostName {
 #[derive(Debug, Deserialize)]
 pub struct LuaPreGhostDeconstructedEventFilterAttributesGhostType {
     /// The ghost prototype type
+    #[serde(rename = "type")]
     pub typ: String,
 }
 
@@ -2379,6 +2415,7 @@ pub struct LuaPreGhostDeconstructedEventFilterAttributesName {
 #[derive(Debug, Deserialize)]
 pub struct LuaPreGhostDeconstructedEventFilterAttributesType {
     /// The prototype type
+    #[serde(rename = "type")]
     pub typ: String,
 }
 
@@ -2412,6 +2449,7 @@ pub struct LuaPreGhostUpgradedEventFilterAttributesGhostName {
 #[derive(Debug, Deserialize)]
 pub struct LuaPreGhostUpgradedEventFilterAttributesGhostType {
     /// The ghost prototype type
+    #[serde(rename = "type")]
     pub typ: String,
 }
 
@@ -2424,6 +2462,7 @@ pub struct LuaPreGhostUpgradedEventFilterAttributesName {
 #[derive(Debug, Deserialize)]
 pub struct LuaPreGhostUpgradedEventFilterAttributesType {
     /// The prototype type
+    #[serde(rename = "type")]
     pub typ: String,
 }
 
@@ -2457,6 +2496,7 @@ pub struct LuaPrePlayerMinedEntityEventFilterAttributesGhostName {
 #[derive(Debug, Deserialize)]
 pub struct LuaPrePlayerMinedEntityEventFilterAttributesGhostType {
     /// The ghost prototype type
+    #[serde(rename = "type")]
     pub typ: String,
 }
 
@@ -2469,6 +2509,7 @@ pub struct LuaPrePlayerMinedEntityEventFilterAttributesName {
 #[derive(Debug, Deserialize)]
 pub struct LuaPrePlayerMinedEntityEventFilterAttributesType {
     /// The prototype type
+    #[serde(rename = "type")]
     pub typ: String,
 }
 
@@ -2502,6 +2543,7 @@ pub struct LuaPreRobotMinedEntityEventFilterAttributesGhostName {
 #[derive(Debug, Deserialize)]
 pub struct LuaPreRobotMinedEntityEventFilterAttributesGhostType {
     /// The ghost prototype type
+    #[serde(rename = "type")]
     pub typ: String,
 }
 
@@ -2514,6 +2556,7 @@ pub struct LuaPreRobotMinedEntityEventFilterAttributesName {
 #[derive(Debug, Deserialize)]
 pub struct LuaPreRobotMinedEntityEventFilterAttributesType {
     /// The prototype type
+    #[serde(rename = "type")]
     pub typ: String,
 }
 
@@ -2553,6 +2596,7 @@ pub struct LuaRobotBuiltEntityEventFilterAttributesGhostName {
 #[derive(Debug, Deserialize)]
 pub struct LuaRobotBuiltEntityEventFilterAttributesGhostType {
     /// The ghost prototype type
+    #[serde(rename = "type")]
     pub typ: String,
 }
 
@@ -2565,6 +2609,7 @@ pub struct LuaRobotBuiltEntityEventFilterAttributesName {
 #[derive(Debug, Deserialize)]
 pub struct LuaRobotBuiltEntityEventFilterAttributesType {
     /// The prototype type
+    #[serde(rename = "type")]
     pub typ: String,
 }
 
@@ -2599,6 +2644,7 @@ pub struct LuaRobotMinedEntityEventFilterAttributesGhostName {
 #[derive(Debug, Deserialize)]
 pub struct LuaRobotMinedEntityEventFilterAttributesGhostType {
     /// The ghost prototype type
+    #[serde(rename = "type")]
     pub typ: String,
 }
 
@@ -2611,6 +2657,7 @@ pub struct LuaRobotMinedEntityEventFilterAttributesName {
 #[derive(Debug, Deserialize)]
 pub struct LuaRobotMinedEntityEventFilterAttributesType {
     /// The prototype type
+    #[serde(rename = "type")]
     pub typ: String,
 }
 
@@ -2644,6 +2691,7 @@ pub struct LuaScriptRaisedBuiltEventFilterAttributesGhostName {
 #[derive(Debug, Deserialize)]
 pub struct LuaScriptRaisedBuiltEventFilterAttributesGhostType {
     /// The ghost prototype type
+    #[serde(rename = "type")]
     pub typ: String,
 }
 
@@ -2656,6 +2704,7 @@ pub struct LuaScriptRaisedBuiltEventFilterAttributesName {
 #[derive(Debug, Deserialize)]
 pub struct LuaScriptRaisedBuiltEventFilterAttributesType {
     /// The prototype type
+    #[serde(rename = "type")]
     pub typ: String,
 }
 
@@ -2689,6 +2738,7 @@ pub struct LuaScriptRaisedDestroyEventFilterAttributesGhostName {
 #[derive(Debug, Deserialize)]
 pub struct LuaScriptRaisedDestroyEventFilterAttributesGhostType {
     /// The ghost prototype type
+    #[serde(rename = "type")]
     pub typ: String,
 }
 
@@ -2701,6 +2751,7 @@ pub struct LuaScriptRaisedDestroyEventFilterAttributesName {
 #[derive(Debug, Deserialize)]
 pub struct LuaScriptRaisedDestroyEventFilterAttributesType {
     /// The prototype type
+    #[serde(rename = "type")]
     pub typ: String,
 }
 
@@ -2734,6 +2785,7 @@ pub struct LuaScriptRaisedReviveEventFilterAttributesGhostName {
 #[derive(Debug, Deserialize)]
 pub struct LuaScriptRaisedReviveEventFilterAttributesGhostType {
     /// The ghost prototype type
+    #[serde(rename = "type")]
     pub typ: String,
 }
 
@@ -2746,6 +2798,7 @@ pub struct LuaScriptRaisedReviveEventFilterAttributesName {
 #[derive(Debug, Deserialize)]
 pub struct LuaScriptRaisedReviveEventFilterAttributesType {
     /// The prototype type
+    #[serde(rename = "type")]
     pub typ: String,
 }
 
@@ -2779,6 +2832,7 @@ pub struct LuaScriptRaisedTeleportedEventFilterAttributesGhostName {
 #[derive(Debug, Deserialize)]
 pub struct LuaScriptRaisedTeleportedEventFilterAttributesGhostType {
     /// The ghost prototype type
+    #[serde(rename = "type")]
     pub typ: String,
 }
 
@@ -2791,6 +2845,7 @@ pub struct LuaScriptRaisedTeleportedEventFilterAttributesName {
 #[derive(Debug, Deserialize)]
 pub struct LuaScriptRaisedTeleportedEventFilterAttributesType {
     /// The prototype type
+    #[serde(rename = "type")]
     pub typ: String,
 }
 
@@ -2824,6 +2879,7 @@ pub struct LuaSectorScannedEventFilterAttributesGhostName {
 #[derive(Debug, Deserialize)]
 pub struct LuaSectorScannedEventFilterAttributesGhostType {
     /// The ghost prototype type
+    #[serde(rename = "type")]
     pub typ: String,
 }
 
@@ -2836,6 +2892,7 @@ pub struct LuaSectorScannedEventFilterAttributesName {
 #[derive(Debug, Deserialize)]
 pub struct LuaSectorScannedEventFilterAttributesType {
     /// The prototype type
+    #[serde(rename = "type")]
     pub typ: String,
 }
 
@@ -2869,6 +2926,7 @@ pub struct LuaUpgradeCancelledEventFilterAttributesGhostName {
 #[derive(Debug, Deserialize)]
 pub struct LuaUpgradeCancelledEventFilterAttributesGhostType {
     /// The ghost prototype type
+    #[serde(rename = "type")]
     pub typ: String,
 }
 
@@ -2881,6 +2939,7 @@ pub struct LuaUpgradeCancelledEventFilterAttributesName {
 #[derive(Debug, Deserialize)]
 pub struct LuaUpgradeCancelledEventFilterAttributesType {
     /// The prototype type
+    #[serde(rename = "type")]
     pub typ: String,
 }
 
@@ -3132,18 +3191,21 @@ pub enum ModSettingPrototypeFilterAttributesTypeUnion {
 #[derive(Debug, Deserialize)]
 pub struct ModSettingPrototypeFilterAttributesMod {
     /// The mod name
+    #[serde(rename = "mod")]
     pub mod_name: String,
 }
 
 #[derive(Debug, Deserialize)]
 pub struct ModSettingPrototypeFilterAttributesSettingType {
     /// The setting scope type (`"startup"`, `"runtime-global"`, or `"runtime-per-user"`)
+    #[serde(rename = "type")]
     pub typ: String,
 }
 
 #[derive(Debug, Deserialize)]
 pub struct ModSettingPrototypeFilterAttributesType {
     /// The prototype type, or a list of acceptable types.
+    #[serde(rename = "type")]
     pub typ: ModSettingPrototypeFilterAttributesTypeUnion,
 }
 
@@ -3213,6 +3275,7 @@ pub type MouseButtonFlags = HashSet<MouseButtonFlagsUnion>;
 /// A fragment of a functional program used to generate coherent noise, probably for purposes related to terrain generation. These can only be meaningfully written/modified during the data load phase. More detailed information is found on the [wiki](https://wiki.factorio.com/Types/NoiseExpression).
 pub struct NoiseExpression {
     /// Names the type of the expression and determines what other fields are required.
+    #[serde(rename = "type")]
     pub typ: String,
 }
 
@@ -3445,6 +3508,7 @@ pub struct Product {
     /// A value in range [0, 1]. Item or fluid is only given with this probability; otherwise no product is produced.
     pub probability: Option<f64>,
     /// `"item"` or `"fluid"`.
+    #[serde(rename = "type")]
     pub typ: String,
     /// Other attributes may be specified depending on `type`:
     pub attributes: Option<ProductAttributes>,
@@ -3840,6 +3904,7 @@ pub struct SignalID {
     /// Name of the item, fluid or virtual signal.
     pub name: Option<String>,
     /// `"item"`, `"fluid"`, or `"virtual"`.
+    #[serde(rename = "type")]
     pub typ: String,
 }
 
@@ -4091,6 +4156,7 @@ pub enum TechnologyModifierAttributes {
 /// The effect that is applied when a technology is researched. It is a table that contains at least the field `type`.
 pub struct TechnologyModifier {
     /// Modifier type. Specifies which of the other fields will be available. Possible values are: `"inserter-stack-size-bonus"`, `"stack-inserter-capacity-bonus"`, `"laboratory-speed"`, `"character-logistic-trash-slots"`, `"maximum-following-robots-count"`, `"worker-robot-speed"`, `"worker-robot-storage"`, `"ghost-time-to-live"`, `"turret-attack"`, `"ammo-damage"`, `"give-item"`, `"gun-speed"`, `"unlock-recipe"`, `"character-crafting-speed"`, `"character-mining-speed"`, `"character-running-speed"`, `"character-build-distance"`, `"character-item-drop-distance"`, `"character-reach-distance"`, `"character-resource-reach-distance"`, `"character-item-pickup-distance"`, `"character-loot-pickup-distance"`, `"character-inventory-slots-bonus"`, `"deconstruction-time-to-live"`, `"max-failed-attempts-per-tick-per-construction-queue"`, `"max-successful-attempts-per-tick-per-construction-queue"`, `"character-health-bonus"`, `"mining-drill-productivity-bonus"`, `"train-braking-force-bonus"`, `"zoom-to-world-enabled"`, `"zoom-to-world-ghost-building-enabled"`, `"zoom-to-world-blueprint-enabled"`, `"zoom-to-world-deconstruction-planner-enabled"`, `"zoom-to-world-upgrade-planner-enabled"`, `"zoom-to-world-selection-tool-enabled"`, `"worker-robot-battery"`, `"laboratory-productivity"`, `"follower-robot-lifetime"`, `"artillery-range"`, `"nothing"`, `"character-additional-mining-categories"`, `"character-logistic-requests"`.
+    #[serde(rename = "type")]
     pub typ: String,
     /// Other attributes may be specified depending on `type`:
     pub attributes: Option<TechnologyModifierAttributes>,
@@ -4255,6 +4321,7 @@ pub struct TriggerDelivery {
     pub source_effects: Vec<TriggerEffectItem>,
     pub target_effects: Vec<TriggerEffectItem>,
     /// One of `"instant"`, `"projectile"`, `"flame-thrower"`, `"beam"`, `"stream"`, `"artillery"`.
+    #[serde(rename = "type")]
     pub typ: String,
 }
 
@@ -4264,6 +4331,7 @@ pub struct TriggerEffectItem {
     pub repeat_count: u32,
     pub show_in_tooltip: bool,
     /// One of`"damage"`, `"create-entity"`, `"create-explosion"`, `"create-fire"`, `"create-smoke"`, `"create-trivial-smoke"`, `"create-particle"`, `"create-sticker"`, `"nested-result"`, `"play-sound"`, `"push-back"`, `"destroy-cliffs"`, `"show-explosion-on-chart"`, `"insert-item"`, `"script"`.
+    #[serde(rename = "type")]
     pub typ: String,
 }
 
@@ -4280,6 +4348,7 @@ pub struct TriggerItem {
     pub repeat_count: u32,
     pub trigger_target_mask: TriggerTargetMask,
     /// One of `"direct"`, `"area"`, `"line"`, `"cluster"`.
+    #[serde(rename = "type")]
     pub typ: String,
 }
 
@@ -4328,6 +4397,7 @@ pub struct UpgradeFilter {
     /// Name of the item, or entity.
     pub name: Option<String>,
     /// `"item"`, or `"entity"`.
+    #[serde(rename = "type")]
     pub typ: String,
 }
 
@@ -4359,6 +4429,7 @@ pub struct WaitCondition {
     /// Number of ticks to wait when `type` is `"time"`, or number of ticks of inactivity when `type` is `"inactivity"`.
     pub ticks: Option<u32>,
     /// One of `"time"`, `"inactivity"`, `"full"`, `"empty"`, `"item_count"`, `"circuit"`, `"robots_inactive"`, `"fluid_count"`, `"passenger_present"`, `"passenger_not_present"`.
+    #[serde(rename = "type")]
     pub typ: String,
 }
 

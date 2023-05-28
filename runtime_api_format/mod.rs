@@ -155,6 +155,20 @@ impl Description for String {
     }
 }
 
+fn get_rust_name(name: &str, order: u8) -> (String, bool) {
+    if name == "type" {
+        ("typ".to_owned(), true)
+    } else if name == "mod" {
+        ("mod_name".to_owned(), true)
+    } else if name == "noisePersistence" {
+        ("noise_persistence".to_owned(), true)
+    } else if name == "_" {
+        (format!("field_{}", order), true)
+    } else {
+        (name.replace('-', "_").to_owned(), false)
+    }
+}
+
 #[derive(Debug, Deserialize)]
 pub struct RuntimeApiFormat {
     /// The application this documentation is for. Will always be "factorio".
@@ -477,13 +491,8 @@ impl GenerateDefinition for Class {
             } else {
                 typ
             };
-            let name = if name == "type" {
-                "typ"
-            } else if name == "mod" {
-                "mod_name"
-            } else {
-                name
-            };
+            let (rust_name, needs_rename) = get_rust_name(name, self.order);
+
             let mut attribute_description = String::new();
             if !attribute.description.is_empty() {
                 let descriptions = attribute.description.split('\n');
@@ -508,7 +517,10 @@ impl GenerateDefinition for Class {
                 true,
             ));
             struct_definition.push_str(&attribute_description);
-            struct_definition.push_str(&format!("    pub {}: {},\n", name, typ));
+            if needs_rename {
+                struct_definition.push_str(&format!("    #[serde(rename = \"{name}\")]"));
+            }
+            struct_definition.push_str(&format!("    pub {}: {},\n", rust_name, typ));
         }
         struct_definition.push_str("}\n");
         for union in unions {
@@ -968,17 +980,7 @@ impl Parameter {
         } else {
             typ
         };
-        let name = if name == "type" {
-            "typ".to_owned()
-        } else if name == "mod" {
-            "mod_name".to_owned()
-        } else if name == "noisePersistence" {
-            "noise_persistence".to_owned()
-        } else if name == "_" {
-            format!("field_{}", self.order)
-        } else {
-            name.replace('-', "_")
-        };
+        let (rust_name, needs_rename) = get_rust_name(name, self.order);
         if !self.description.is_empty() {
             let descriptions = self.description.split('\n');
             for description in descriptions {
@@ -989,7 +991,10 @@ impl Parameter {
                 }
             }
         }
-        definition.push_str(&format!("    pub {}: {},\n", name, typ));
+        if needs_rename {
+            definition.push_str(&format!("    #[serde(rename = \"{name}\")]"));
+        }
+        definition.push_str(&format!("    pub {}: {},\n", rust_name, typ));
         definition
     }
 }
@@ -1083,14 +1088,8 @@ impl Method {
                 .name
                 .as_ref()
                 .expect("parameter should have a name");
-            let name = if name == "type" {
-                "typ".to_owned()
-            } else if name == "mod" {
-                "mod_name".to_owned()
-            } else {
-                name.to_owned()
-            };
-            let prefix = format!("{prefix}{}", name.to_pascal_case());
+            let (rust_name, _needs_rename) = get_rust_name(name, self.order);
+            let prefix = format!("{prefix}{}", rust_name.to_pascal_case());
             let typ = parameter.typ.generate_definition(&prefix, unions, true);
             let typ = if typ == "table" {
                 "LuaCustomTable".to_owned()
@@ -1099,12 +1098,12 @@ impl Method {
             };
             if !parameter.description.is_empty() {
                 argument_descriptions.push_str(&format!(
-                    "    /// * `{name}` - {}\n",
+                    "    /// * `{rust_name}` - {}\n",
                     parameter.description.trim_end()
                 ));
                 has_argument_descriptions = true;
             }
-            method_definition.push_str(&format!("{}: {}", name, typ));
+            method_definition.push_str(&format!("{}: {}", rust_name, typ));
             if i != self.parameters.len() - 1 {
                 method_definition.push_str(", ");
             }
@@ -1473,15 +1472,17 @@ impl ComplexType {
                             } else {
                                 typ
                             };
-                            let name = if name == "type" { "typ" } else { &name };
-                            let name = if name == "mod" { "mod_name" } else { name };
+                            let (rust_name, needs_rename) = get_rust_name(&name, 0);
                             if !parameter.description.is_empty() {
                                 definition.push_str(&format!(
                                     "    /// {}\n",
                                     parameter.description.trim_end()
                                 ));
                             }
-                            definition.push_str(&format!("    pub {}: {},\n", name, typ));
+                            if needs_rename {
+                                definition.push_str(&format!("    #[serde(rename = \"{name}\")]"));
+                            }
+                            definition.push_str(&format!("    pub {}: {},\n", rust_name, typ));
                         }
                         definition.push_str("}\n\n");
                     }

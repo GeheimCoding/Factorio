@@ -100,7 +100,6 @@ fn test_sample(sample_path: PathBuf) -> io::Result<Option<String>> {
     }
 }
 
-// TODO: serde rename reserved keywords
 // TODO: make all jsons parse successfully
 
 // https://wiki.factorio.com/Materials_and_recipes

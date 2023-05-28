@@ -1234,6 +1234,7 @@ pub struct LuaControlBehavior {
     /// The entity this control behavior belongs to.
     pub entity: MaybeCycle<LuaEntity>,
     /// The concrete type of this control behavior.
+    #[serde(rename = "type")]
     pub typ: ControlBehaviorType,
 }
 
@@ -2072,6 +2073,7 @@ pub struct LuaEntity {
     /// Maximum index of the tree stages.
     pub tree_stage_index_max: u8,
     /// The entity prototype type of this entity.
+    #[serde(rename = "type")]
     pub typ: String,
     /// The unit group this unit is a member of, if any.
     /// Can only be used if this is Unit
@@ -3739,6 +3741,7 @@ pub struct LuaEntityPrototype {
     /// Can only be used if this is Car
     pub turret_rotation_speed: Option<f64>,
     /// Type of this prototype.
+    #[serde(rename = "type")]
     pub typ: String,
     /// Whether this logistic container prototype uses exact mode
     /// Can only be used if this is LogisticContainer
@@ -3814,6 +3817,7 @@ pub struct LuaEquipment {
     /// * Can't be set higher than [LuaEquipment::max_shield](LuaEquipment::max_shield).
     pub shield: f64,
     /// Type of this equipment.
+    #[serde(rename = "type")]
     pub typ: String,
     /// Is this object valid? This Lua object holds a reference to an object within the game engine. It is possible that the game-engine object is removed whilst a mod still holds the corresponding Lua object. If that happens, the object becomes invalid, i.e. this attribute will be `false`. Mods are advised to check for object validity if any change to the game state might have occurred between the creation of the Lua object and its access.
     pub valid: bool,
@@ -4085,6 +4089,7 @@ pub struct LuaEquipmentPrototype {
     /// The result item when taking this equipment out of an equipment grid, if any.
     pub take_result: Option<MaybeCycle<LuaItemPrototype>>,
     /// Type of this equipment prototype.
+    #[serde(rename = "type")]
     pub typ: String,
     /// Is this object valid? This Lua object holds a reference to an object within the game engine. It is possible that the game-engine object is removed whilst a mod still holds the corresponding Lua object. If that happens, the object becomes invalid, i.e. this attribute will be `false`. Mods are advised to check for object validity if any change to the game state might have occurred between the creation of the Lua object and its access.
     pub valid: bool,
@@ -5755,6 +5760,7 @@ pub struct LuaGroup {
     pub order_in_recipe: Option<String>,
     /// Subgroups of this group. Can only be used on groups, not on subgroups.
     pub subgroups: Option<Vec<LuaGroup>>,
+    #[serde(rename = "type")]
     pub typ: Option<String>,
     /// Is this object valid? This Lua object holds a reference to an object within the game engine. It is possible that the game-engine object is removed whilst a mod still holds the corresponding Lua object. If that happens, the object becomes invalid, i.e. this attribute will be `false`. Mods are advised to check for object validity if any change to the game state might have occurred between the creation of the Lua object and its access.
     pub valid: bool,
@@ -6102,6 +6108,7 @@ pub struct LuaGuiElement {
     pub text: String,
     pub tooltip: LocalisedString,
     /// The type of this GUI element.
+    #[serde(rename = "type")]
     pub typ: String,
     /// Is this object valid? This Lua object holds a reference to an object within the game engine. It is possible that the game-engine object is removed whilst a mod still holds the corresponding Lua object. If that happens, the object becomes invalid, i.e. this attribute will be `false`. Mods are advised to check for object validity if any change to the game state might have occurred between the creation of the Lua object and its access.
     pub valid: bool,
@@ -6888,6 +6895,7 @@ pub struct LuaItemPrototype {
     /// Can only be used if this is SelectionTool
     pub tile_filters: Option<HashMap<String, LuaTilePrototype>>,
     /// Type of this prototype. E.g. `"gun"` or `"mining-tool"`.
+    #[serde(rename = "type")]
     pub typ: String,
     /// Is this object valid? This Lua object holds a reference to an object within the game engine. It is possible that the game-engine object is removed whilst a mod still holds the corresponding Lua object. If that happens, the object becomes invalid, i.e. this attribute will be `false`. Mods are advised to check for object validity if any change to the game state might have occurred between the creation of the Lua object and its access.
     pub valid: bool,
@@ -7054,6 +7062,7 @@ pub struct LuaItemStack {
     /// Can only be used if this is DeconstructionItem
     pub trees_and_rocks_only: bool,
     /// Type of the item prototype.
+    #[serde(rename = "type")]
     pub typ: String,
     /// Is this object valid? This Lua object holds a reference to an object within the game engine. It is possible that the game-engine object is removed whilst a mod still holds the corresponding Lua object. If that happens, the object becomes invalid, i.e. this attribute will be `false`. Mods are advised to check for object validity if any change to the game state might have occurred between the creation of the Lua object and its access.
     pub valid: bool,
@@ -7751,6 +7760,7 @@ pub struct LuaModSettingPrototype {
     /// The minimum value for this setting. `nil` if this setting type doesn't support a minimum.
     pub minimum_value: Option<LuaModSettingPrototypeMinimumValueUnion>,
     /// The mod that owns this setting.
+    #[serde(rename = "mod")]
     pub mod_name: String,
     /// Name of this prototype.
     pub name: String,

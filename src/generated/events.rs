@@ -944,6 +944,7 @@ pub struct OnPermissionGroupEdited {
     /// Tick the event was generated.
     pub tick: u32,
     /// The edit type: "add-permission", "remove-permission", "enable-all", "disable-all", "add-player", "remove-player", "rename".
+    #[serde(rename = "type")]
     pub typ: String,
 }
 
@@ -1947,6 +1948,7 @@ pub struct OnPreRobotExplodedCliff {
 pub struct OnPreScriptInventoryResized {
     pub inventory: MaybeCycle<LuaInventory>,
     /// The mod that did the resizing. This will be `"core"` if done by console command or scenario script.
+    #[serde(rename = "mod")]
     pub mod_name: String,
     /// Identifier of the event
     pub name: Events,
@@ -2197,6 +2199,7 @@ pub struct OnRuntimeModSettingChanged {
 pub struct OnScriptInventoryResized {
     pub inventory: MaybeCycle<LuaInventory>,
     /// The mod that did the resizing. This will be `"core"` if done by console command or scenario script.
+    #[serde(rename = "mod")]
     pub mod_name: String,
     /// Identifier of the event
     pub name: Events,
