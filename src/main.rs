@@ -1,21 +1,19 @@
 #![allow(unused)]
 #![deny(clippy::unwrap_used)]
 
-//mod generated;
+mod generated;
 mod remote_console;
 
-use std::{collections::HashMap, fs, io, path::PathBuf};
+use std::{cmp::Ordering, collections::HashMap, fs, io, path::PathBuf};
 
 use remote_console::RemoteConsole;
 
-//use crate::generated::*;
+use crate::generated::*;
 
 fn main() -> io::Result<()> {
-    remote_console()?;
+    //remote_console()?;
 
-    // let sample_json = fs::read_to_string("samples/960.json")?;
-    // let factorio_type = serde_json::from_str::<FactorioType>(&sample_json);
-    // println!("{factorio_type:#?}");
+    test_samples()?;
 
     Ok(())
 }
@@ -60,7 +58,50 @@ fn class_to_json_file(console: &mut RemoteConsole, class_id: u32, class: &str) -
     fs::write(file_path, response)
 }
 
+fn test_samples() -> io::Result<()> {
+    let paths = fs::read_dir("samples")?;
+    let mut errors = Vec::new();
+    for path in paths {
+        let error = test_sample(path?.path())?;
+        if let Some(error) = error {
+            errors.push(error);
+        }
+    }
+    errors.sort_by(|a, b| {
+        let diff = a.split(".json").next().unwrap().parse::<i32>().unwrap()
+            - b.split(".json").next().unwrap().parse::<i32>().unwrap();
+        if diff == 0 {
+            Ordering::Equal
+        } else if diff < 0 {
+            Ordering::Less
+        } else {
+            Ordering::Greater
+        }
+    });
+    for error in errors {
+        println!("{error}");
+    }
+    Ok(())
+}
+
+fn test_sample(sample_path: PathBuf) -> io::Result<Option<String>> {
+    let file_name = sample_path
+        .file_name()
+        .unwrap_or_default()
+        .to_str()
+        .unwrap_or("not_found")
+        .to_owned();
+    let sample_json = fs::read_to_string(sample_path)?;
+    let factorio_type = serde_json::from_str::<FactorioType>(&sample_json);
+    if let Err(e) = factorio_type {
+        Ok(Some(format!("{file_name}: {e}")))
+    } else {
+        Ok(None)
+    }
+}
+
 // TODO: serde rename reserved keywords
+// TODO: make all jsons parse successfully
 
 // https://wiki.factorio.com/Materials_and_recipes
 // TODO: LuaGroup type item-group = root (= section in crafting window), subgroup is one line in crafting window
