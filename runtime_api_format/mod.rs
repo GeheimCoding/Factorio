@@ -239,7 +239,7 @@ impl RuntimeApiFormat {
             .push_str("#[serde(rename_all = \"snake_case\")]\n#[serde(tag = \"serde_type\")]\n");
         definition.push_str("pub enum FactorioType {\n    Class(Class),\n    Concept(Concept),\n    Event(Event),\n",);
 
-        definition.push_str(&format!("}}\n\n{DERIVE}{RENAME_WITH_TAG}"));
+        definition.push_str(&format!("}}\n\n{DERIVE}#[serde(tag = \"serde_tag\")]\n"));
         definition.push_str("pub enum Class {\n");
         for class in &self.classes {
             let name = &class.name;

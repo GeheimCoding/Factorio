@@ -258,9 +258,14 @@ end
 function to_json_internal(obj, depth, map, cycles_only)
     if type(obj) ~= 'table' then
         if type(obj) == 'string' then
-            return '"' .. obj .. '"'
+            return '"' .. obj:gsub('"', '\\"') .. '"'
         else
-            return tostring(obj)
+            local string = tostring(obj)
+            if string == 'nan' or string == '-inf' or string == 'inf' then
+                return '"' .. string .. '"'
+            else
+                return string
+            end
         end
     end
     if obj.object_name == 'LuaCustomTable' then
@@ -292,18 +297,33 @@ function to_json_internal(obj, depth, map, cycles_only)
                 table.insert(json, '"class_id":' .. id .. ',\n')
             else
                 table.insert(global.lookup.cycles, {obj = obj, json = ''})
-                table.insert(json, '"class_id":' .. table_size(global.lookup.cycles) .. ',\n')
+                table.insert(json, '"class_id":' .. #global.lookup.cycles .. ',\n')
             end
+        end
+        if class or obj.object_name == 'LuaGameScript' then
+            table.insert(json, '"serde_tag":"' .. obj.object_name .. '",\n')
+        end
+        if depth == 1 then
+            local typ = 'concept'
+             if class or obj.object_name == 'LuaGameScript' then
+                typ = 'class'
+             elseif type(obj.name) == 'number' then
+                typ = 'event'
+             end
+             table.insert(json, '"serde_type":"' .. typ .. '",\n')
         end
         local values = get_values(obj)
         is_array = values[1] ~= nil
         for k,v in pairs(values) do
             if is_allowed_to_access_attribute(obj, values, k) then
-                if not is_array then
-                    table.insert(json, '"' .. k .. '":')
+                local internal = to_json_internal(obj[k], depth + 1, map)
+                if internal ~= 'nil' then
+                    if not is_array then
+                        table.insert(json, '"' .. k .. '":')
+                    end
+                    table.insert(json, internal)
+                    table.insert(json, ',\n')
                 end
-                table.insert(json, to_json_internal(obj[k], depth + 1, map))
-                table.insert(json, ',\n')
             end
         end
         local size = #json

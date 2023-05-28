@@ -1,21 +1,21 @@
 #![allow(unused)]
 #![deny(clippy::unwrap_used)]
 
-mod generated;
+//mod generated;
 mod remote_console;
 
 use std::{collections::HashMap, fs, io, path::PathBuf};
 
 use remote_console::RemoteConsole;
 
-use crate::generated::*;
+//use crate::generated::*;
 
 fn main() -> io::Result<()> {
-    //remote_console()?;
+    remote_console()?;
 
-    let sample_json = fs::read_to_string("samples/1.json")?;
-    let factorio_type = serde_json::from_str::<FactorioType>(&sample_json);
-    println!("{factorio_type:#?}");
+    // let sample_json = fs::read_to_string("samples/960.json")?;
+    // let factorio_type = serde_json::from_str::<FactorioType>(&sample_json);
+    // println!("{factorio_type:#?}");
 
     Ok(())
 }
@@ -43,6 +43,7 @@ fn generate_samples(console: &mut RemoteConsole) -> io::Result<()> {
     // game is "special", because it can't be stored in the global table
     class_to_json_file(console, 0, "game")?;
     for class_id in 1..=class_amount {
+        println!("{class_id}/{class_amount}");
         class_to_json_file(
             console,
             class_id,
@@ -59,8 +60,7 @@ fn class_to_json_file(console: &mut RemoteConsole, class_id: u32, class: &str) -
     fs::write(file_path, response)
 }
 
-// TODO: fix nil in json
-// TODO: escape double quote in json
+// TODO: serde rename reserved keywords
 
 // https://wiki.factorio.com/Materials_and_recipes
 // TODO: LuaGroup type item-group = root (= section in crafting window), subgroup is one line in crafting window
@@ -74,6 +74,5 @@ fn class_to_json_file(console: &mut RemoteConsole, class_id: u32, class: &str) -
 // TODO: use global lookup table for objects and unique_ids
 // TODO: make subclass specific attributes optional?
 // TODO: fix/confirm subclasses type casing
-// TODO: add serde tags
 // TODO: implement TODOs
 // TODO: improve performance

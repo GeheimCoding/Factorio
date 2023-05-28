@@ -14,7 +14,6 @@ pub enum FactorioType {
 }
 
 #[derive(Debug, Deserialize)]
-#[serde(rename_all = "snake_case")]
 #[serde(tag = "serde_tag")]
 pub enum Class {
     LuaAISettings(LuaAISettings),
