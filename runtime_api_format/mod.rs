@@ -730,18 +730,22 @@ impl GenerateDefinition for Concept {
         for union in unions {
             definition.push_str(&format!("{}\n\n", &union));
         }
-        let position = type_definition.rfind("pub struct");
-        let position = if let Some(position) = position {
-            position
-        } else {
-            0
-        };
         let mut description = self.description.to_rust_doc();
         description.push_str(&generate_notes_and_examples(
             self,
             description.is_empty(),
             false,
         ));
+        if self.name == "MapPosition" {
+            type_definition = fs::read_to_string("runtime_api_format/patches/map_position.rs")
+                .unwrap_or_default();
+        }
+        let position = type_definition.rfind("pub struct");
+        let position = if let Some(position) = position {
+            position
+        } else {
+            0
+        };
         type_definition.insert_str(position, &description);
         definition.push_str(&format!("{}\n", &type_definition));
         definition

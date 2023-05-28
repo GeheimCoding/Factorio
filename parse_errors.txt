@@ -63,7 +63,6 @@
 158.json: invalid type: map, expected a sequence
 160.json: invalid type: map, expected a sequence
 162.json: invalid type: map, expected a sequence
-163.json: missing field `x`
 164.json: invalid type: map, expected a sequence
 166.json: invalid type: map, expected a sequence
 168.json: invalid type: map, expected a sequence
@@ -83,16 +82,13 @@
 190.json: invalid type: map, expected a sequence
 191.json: invalid type: map, expected a sequence
 192.json: invalid type: map, expected a sequence
-193.json: missing field `x`
 194.json: invalid type: map, expected a sequence
 195.json: invalid type: map, expected a sequence
 196.json: invalid type: map, expected a sequence
 197.json: invalid type: map, expected a sequence
 206.json: invalid type: map, expected a sequence
-207.json: missing field `x`
 208.json: invalid type: map, expected a sequence
 209.json: invalid type: map, expected a sequence
-210.json: missing field `x`
 211.json: invalid type: map, expected a sequence
 212.json: invalid type: map, expected a sequence
 213.json: invalid type: map, expected a sequence
@@ -128,12 +124,10 @@
 264.json: invalid type: integer `4`, expected string or map
 265.json: invalid type: map, expected a sequence
 268.json: invalid type: map, expected a sequence
-269.json: missing field `x`
 270.json: invalid type: map, expected a sequence
 273.json: invalid type: map, expected a sequence
 275.json: invalid type: map, expected a sequence
 278.json: invalid type: map, expected a sequence
-279.json: missing field `x`
 280.json: invalid type: map, expected a sequence
 282.json: invalid type: map, expected a sequence
 284.json: invalid type: map, expected a sequence
@@ -163,7 +157,6 @@
 336.json: invalid type: map, expected a sequence
 337.json: invalid type: map, expected a sequence
 339.json: invalid type: map, expected a sequence
-340.json: missing field `x`
 342.json: invalid type: map, expected a sequence
 343.json: invalid type: map, expected a sequence
 353.json: invalid type: map, expected a sequence

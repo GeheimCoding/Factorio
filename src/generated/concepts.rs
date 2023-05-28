@@ -3103,6 +3103,15 @@ pub enum MapGenSize {
     VeryGood,
 }
 
+// ================================
+// ========= MANUAL PATCH =========
+
+#[derive(Debug, Deserialize)]
+pub struct MapPositionTable {
+    pub x: f64,
+    pub y: f64,
+}
+
 #[derive(Debug, Deserialize)]
 /// Coordinates on a surface, for example of an entity. MapPositions may be specified either as a dictionary with `x`, `y` as keys, or simply as an array with two elements.
 ///
@@ -3119,10 +3128,21 @@ pub enum MapGenSize {
 /// ```text
 /// {1.625, 2.375}
 /// ```
-pub struct MapPosition {
-    pub x: f64,
-    pub y: f64,
+pub struct MapPositionTuple {
+    pub position: MapPositionTable,
 }
+
+#[derive(Debug, Deserialize)]
+#[serde(untagged)]
+pub enum MapPosition {
+    Table(MapPositionTable),
+    Tuple(MapPositionTuple),
+}
+
+// TODO: macro for table or tuple?
+
+// ========= MANUAL PATCH =========
+// ================================
 
 #[derive(Debug, Deserialize)]
 /// Various game-related settings. Updating any of the attributes will immediately take effect in the game engine.
