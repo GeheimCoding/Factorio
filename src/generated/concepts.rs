@@ -4336,8 +4336,8 @@ pub struct TrainScheduleRecord {
 
 #[derive(Debug, Deserialize)]
 pub struct TriggerDelivery {
-    pub source_effects: Vec<TriggerEffectItem>,
-    pub target_effects: Vec<TriggerEffectItem>,
+    pub source_effects: Option<Vec<TriggerEffectItem>>,
+    pub target_effects: Option<Vec<TriggerEffectItem>>,
     /// One of `"instant"`, `"projectile"`, `"flame-thrower"`, `"beam"`, `"stream"`, `"artillery"`.
     #[serde(rename = "type")]
     pub typ: String,

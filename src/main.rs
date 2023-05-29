@@ -104,6 +104,7 @@ fn test_sample(sample_path: PathBuf) -> io::Result<Option<String>> {
 // TODO: make all jsons parse successfully
 // TODO: add #[serde(deny_unknown_fields)]
 // TODO: check more serde attributes like #[serde(default)] or content for Table/Tuple?
+//      -> Option<ContainerType> could drop the option with default
 
 // https://wiki.factorio.com/Materials_and_recipes
 // TODO: LuaGroup type item-group = root (= section in crafting window), subgroup is one line in crafting window

@@ -1556,7 +1556,11 @@ impl ComplexType {
                 } else {
                     typ.to_owned()
                 };
-                definition.push_str(&format!("Vec<{typ}>"));
+                if typ == "TriggerEffectItem" {
+                    definition.push_str("Option<Vec<TriggerEffectItem>>");
+                } else {
+                    definition.push_str(&format!("Vec<{typ}>"));
+                }
                 if !is_nested {
                     definition.push(';');
                 }
