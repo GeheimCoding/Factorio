@@ -92,13 +92,13 @@
 211.json: data did not match any variant of untagged enum ItemPrototypeFlagsUnion
 212.json: data did not match any variant of untagged enum ItemPrototypeFlagsUnion
 213.json: data did not match any variant of untagged enum ItemPrototypeFlagsUnion
-214.json: invalid type: sequence, expected a map
+214.json: data did not match any variant of untagged enum CollisionMaskWithFlagsUnion
 216.json: data did not match any variant of untagged enum ItemPrototypeFlagsUnion
 217.json: data did not match any variant of untagged enum ItemPrototypeFlagsUnion
 218.json: data did not match any variant of untagged enum ItemPrototypeFlagsUnion
 219.json: data did not match any variant of untagged enum ItemPrototypeFlagsUnion
-221.json: invalid type: sequence, expected a map
-222.json: invalid type: sequence, expected a map
+221.json: data did not match any variant of untagged enum EntityPrototypeFlagsUnion
+222.json: data did not match any variant of untagged enum EntityPrototypeFlagsUnion
 223.json: data did not match any variant of untagged enum CollisionMaskLayer
 224.json: data did not match any variant of untagged enum CollisionMaskLayer
 225.json: data did not match any variant of untagged enum CollisionMaskLayer
@@ -181,27 +181,27 @@
 397.json: data did not match any variant of untagged enum CollisionMaskLayer
 398.json: invalid type: string "nan", expected f64
 399.json: invalid type: string "nan", expected f64
-400.json: invalid type: sequence, expected a map
+400.json: data did not match any variant of untagged enum EntityPrototypeFlagsUnion
 401.json: invalid type: string "nan", expected f64
-402.json: invalid type: sequence, expected a map
+402.json: data did not match any variant of untagged enum EntityPrototypeFlagsUnion
 403.json: invalid type: string "nan", expected f64
-404.json: invalid type: sequence, expected a map
+404.json: data did not match any variant of untagged enum EntityPrototypeFlagsUnion
 405.json: invalid type: string "nan", expected f64
-406.json: invalid type: sequence, expected a map
+406.json: data did not match any variant of untagged enum EntityPrototypeFlagsUnion
 407.json: invalid type: string "nan", expected f64
-408.json: invalid type: sequence, expected a map
+408.json: data did not match any variant of untagged enum EntityPrototypeFlagsUnion
 409.json: invalid type: string "nan", expected f64
-410.json: invalid type: sequence, expected a map
+410.json: data did not match any variant of untagged enum EntityPrototypeFlagsUnion
 411.json: invalid type: string "nan", expected f64
 412.json: invalid type: string "nan", expected f64
-413.json: invalid type: sequence, expected a map
+413.json: data did not match any variant of untagged enum EntityPrototypeFlagsUnion
 414.json: invalid type: string "nan", expected f64
-415.json: invalid type: sequence, expected a map
+415.json: data did not match any variant of untagged enum EntityPrototypeFlagsUnion
 416.json: invalid type: string "nan", expected f64
 417.json: invalid type: string "nan", expected f64
 418.json: invalid type: string "nan", expected f64
 419.json: invalid type: string "nan", expected f64
-420.json: invalid type: sequence, expected a map
+420.json: data did not match any variant of untagged enum EntityPrototypeFlagsUnion
 421.json: invalid type: string "nan", expected f64
 422.json: invalid type: string "nan", expected f64
 423.json: invalid type: string "nan", expected f64
@@ -212,106 +212,106 @@
 428.json: data did not match any variant of untagged enum CollisionMaskLayer
 429.json: data did not match any variant of untagged enum CollisionMaskLayer
 430.json: data did not match any variant of untagged enum CollisionMaskLayer
-431.json: invalid type: sequence, expected a map
-432.json: invalid type: sequence, expected a map
-433.json: invalid type: sequence, expected a map
-434.json: invalid type: sequence, expected a map
-435.json: invalid type: sequence, expected a map
-436.json: invalid type: sequence, expected a map
-437.json: invalid type: sequence, expected a map
-438.json: invalid type: sequence, expected a map
-439.json: invalid type: sequence, expected a map
-440.json: invalid type: sequence, expected a map
-441.json: invalid type: sequence, expected a map
-442.json: invalid type: sequence, expected a map
-443.json: invalid type: sequence, expected a map
-444.json: invalid type: sequence, expected a map
-445.json: invalid type: sequence, expected a map
-446.json: invalid type: sequence, expected a map
-447.json: invalid type: sequence, expected a map
-448.json: invalid type: sequence, expected a map
-449.json: invalid type: sequence, expected a map
-450.json: invalid type: sequence, expected a map
-451.json: invalid type: sequence, expected a map
-452.json: invalid type: sequence, expected a map
-453.json: invalid type: sequence, expected a map
-454.json: invalid type: sequence, expected a map
-455.json: invalid type: sequence, expected a map
-456.json: invalid type: sequence, expected a map
-457.json: invalid type: sequence, expected a map
-458.json: invalid type: sequence, expected a map
-459.json: invalid type: sequence, expected a map
-460.json: invalid type: sequence, expected a map
-461.json: invalid type: sequence, expected a map
-462.json: invalid type: sequence, expected a map
-463.json: invalid type: sequence, expected a map
-464.json: invalid type: sequence, expected a map
-465.json: invalid type: sequence, expected a map
-466.json: invalid type: sequence, expected a map
-467.json: invalid type: sequence, expected a map
-468.json: invalid type: sequence, expected a map
-469.json: invalid type: sequence, expected a map
-470.json: invalid type: sequence, expected a map
-471.json: invalid type: sequence, expected a map
-472.json: invalid type: sequence, expected a map
-473.json: invalid type: sequence, expected a map
-474.json: invalid type: sequence, expected a map
-475.json: invalid type: sequence, expected a map
-476.json: invalid type: sequence, expected a map
-477.json: invalid type: sequence, expected a map
-478.json: invalid type: sequence, expected a map
-479.json: invalid type: sequence, expected a map
-480.json: invalid type: sequence, expected a map
-481.json: invalid type: sequence, expected a map
-482.json: invalid type: sequence, expected a map
-483.json: invalid type: sequence, expected a map
-484.json: invalid type: sequence, expected a map
-485.json: invalid type: sequence, expected a map
-486.json: invalid type: sequence, expected a map
-487.json: invalid type: sequence, expected a map
-488.json: invalid type: sequence, expected a map
-489.json: invalid type: sequence, expected a map
-490.json: invalid type: sequence, expected a map
-491.json: invalid type: sequence, expected a map
-492.json: invalid type: sequence, expected a map
-493.json: invalid type: sequence, expected a map
-494.json: invalid type: sequence, expected a map
-495.json: invalid type: sequence, expected a map
-496.json: invalid type: sequence, expected a map
-497.json: invalid type: sequence, expected a map
-498.json: invalid type: sequence, expected a map
-499.json: invalid type: sequence, expected a map
-500.json: invalid type: sequence, expected a map
-501.json: invalid type: sequence, expected a map
-502.json: invalid type: sequence, expected a map
-503.json: invalid type: sequence, expected a map
-504.json: invalid type: sequence, expected a map
-505.json: invalid type: sequence, expected a map
-506.json: invalid type: sequence, expected a map
-507.json: invalid type: sequence, expected a map
-508.json: invalid type: sequence, expected a map
-509.json: invalid type: sequence, expected a map
-510.json: invalid type: sequence, expected a map
-511.json: invalid type: sequence, expected a map
-512.json: invalid type: sequence, expected a map
-513.json: invalid type: sequence, expected a map
-514.json: invalid type: sequence, expected a map
-515.json: invalid type: sequence, expected a map
-516.json: invalid type: sequence, expected a map
-517.json: invalid type: sequence, expected a map
-518.json: invalid type: sequence, expected a map
-519.json: invalid type: sequence, expected a map
-520.json: invalid type: sequence, expected a map
-521.json: invalid type: sequence, expected a map
-522.json: invalid type: sequence, expected a map
-523.json: invalid type: sequence, expected a map
-524.json: invalid type: sequence, expected a map
-525.json: invalid type: sequence, expected a map
-526.json: invalid type: sequence, expected a map
-527.json: invalid type: sequence, expected a map
-528.json: invalid type: sequence, expected a map
-529.json: invalid type: sequence, expected a map
-530.json: invalid type: sequence, expected a map
+431.json: data did not match any variant of untagged enum EntityPrototypeFlagsUnion
+432.json: data did not match any variant of untagged enum EntityPrototypeFlagsUnion
+433.json: data did not match any variant of untagged enum EntityPrototypeFlagsUnion
+434.json: data did not match any variant of untagged enum EntityPrototypeFlagsUnion
+435.json: data did not match any variant of untagged enum EntityPrototypeFlagsUnion
+436.json: data did not match any variant of untagged enum EntityPrototypeFlagsUnion
+437.json: data did not match any variant of untagged enum EntityPrototypeFlagsUnion
+438.json: data did not match any variant of untagged enum EntityPrototypeFlagsUnion
+439.json: data did not match any variant of untagged enum EntityPrototypeFlagsUnion
+440.json: data did not match any variant of untagged enum EntityPrototypeFlagsUnion
+441.json: data did not match any variant of untagged enum EntityPrototypeFlagsUnion
+442.json: data did not match any variant of untagged enum EntityPrototypeFlagsUnion
+443.json: data did not match any variant of untagged enum EntityPrototypeFlagsUnion
+444.json: data did not match any variant of untagged enum EntityPrototypeFlagsUnion
+445.json: data did not match any variant of untagged enum EntityPrototypeFlagsUnion
+446.json: data did not match any variant of untagged enum EntityPrototypeFlagsUnion
+447.json: data did not match any variant of untagged enum EntityPrototypeFlagsUnion
+448.json: data did not match any variant of untagged enum EntityPrototypeFlagsUnion
+449.json: data did not match any variant of untagged enum EntityPrototypeFlagsUnion
+450.json: data did not match any variant of untagged enum EntityPrototypeFlagsUnion
+451.json: data did not match any variant of untagged enum EntityPrototypeFlagsUnion
+452.json: data did not match any variant of untagged enum EntityPrototypeFlagsUnion
+453.json: data did not match any variant of untagged enum EntityPrototypeFlagsUnion
+454.json: data did not match any variant of untagged enum EntityPrototypeFlagsUnion
+455.json: data did not match any variant of untagged enum EntityPrototypeFlagsUnion
+456.json: data did not match any variant of untagged enum EntityPrototypeFlagsUnion
+457.json: data did not match any variant of untagged enum EntityPrototypeFlagsUnion
+458.json: data did not match any variant of untagged enum EntityPrototypeFlagsUnion
+459.json: data did not match any variant of untagged enum EntityPrototypeFlagsUnion
+460.json: data did not match any variant of untagged enum EntityPrototypeFlagsUnion
+461.json: data did not match any variant of untagged enum EntityPrototypeFlagsUnion
+462.json: data did not match any variant of untagged enum EntityPrototypeFlagsUnion
+463.json: data did not match any variant of untagged enum EntityPrototypeFlagsUnion
+464.json: data did not match any variant of untagged enum EntityPrototypeFlagsUnion
+465.json: data did not match any variant of untagged enum EntityPrototypeFlagsUnion
+466.json: data did not match any variant of untagged enum EntityPrototypeFlagsUnion
+467.json: data did not match any variant of untagged enum EntityPrototypeFlagsUnion
+468.json: data did not match any variant of untagged enum EntityPrototypeFlagsUnion
+469.json: data did not match any variant of untagged enum EntityPrototypeFlagsUnion
+470.json: data did not match any variant of untagged enum EntityPrototypeFlagsUnion
+471.json: data did not match any variant of untagged enum EntityPrototypeFlagsUnion
+472.json: data did not match any variant of untagged enum EntityPrototypeFlagsUnion
+473.json: data did not match any variant of untagged enum EntityPrototypeFlagsUnion
+474.json: data did not match any variant of untagged enum EntityPrototypeFlagsUnion
+475.json: data did not match any variant of untagged enum EntityPrototypeFlagsUnion
+476.json: data did not match any variant of untagged enum EntityPrototypeFlagsUnion
+477.json: data did not match any variant of untagged enum EntityPrototypeFlagsUnion
+478.json: data did not match any variant of untagged enum EntityPrototypeFlagsUnion
+479.json: data did not match any variant of untagged enum EntityPrototypeFlagsUnion
+480.json: data did not match any variant of untagged enum EntityPrototypeFlagsUnion
+481.json: data did not match any variant of untagged enum EntityPrototypeFlagsUnion
+482.json: data did not match any variant of untagged enum EntityPrototypeFlagsUnion
+483.json: data did not match any variant of untagged enum EntityPrototypeFlagsUnion
+484.json: data did not match any variant of untagged enum EntityPrototypeFlagsUnion
+485.json: data did not match any variant of untagged enum EntityPrototypeFlagsUnion
+486.json: data did not match any variant of untagged enum EntityPrototypeFlagsUnion
+487.json: data did not match any variant of untagged enum EntityPrototypeFlagsUnion
+488.json: data did not match any variant of untagged enum EntityPrototypeFlagsUnion
+489.json: data did not match any variant of untagged enum EntityPrototypeFlagsUnion
+490.json: data did not match any variant of untagged enum EntityPrototypeFlagsUnion
+491.json: data did not match any variant of untagged enum EntityPrototypeFlagsUnion
+492.json: data did not match any variant of untagged enum EntityPrototypeFlagsUnion
+493.json: data did not match any variant of untagged enum EntityPrototypeFlagsUnion
+494.json: data did not match any variant of untagged enum EntityPrototypeFlagsUnion
+495.json: data did not match any variant of untagged enum EntityPrototypeFlagsUnion
+496.json: data did not match any variant of untagged enum EntityPrototypeFlagsUnion
+497.json: data did not match any variant of untagged enum EntityPrototypeFlagsUnion
+498.json: data did not match any variant of untagged enum EntityPrototypeFlagsUnion
+499.json: data did not match any variant of untagged enum EntityPrototypeFlagsUnion
+500.json: data did not match any variant of untagged enum EntityPrototypeFlagsUnion
+501.json: data did not match any variant of untagged enum EntityPrototypeFlagsUnion
+502.json: data did not match any variant of untagged enum EntityPrototypeFlagsUnion
+503.json: data did not match any variant of untagged enum EntityPrototypeFlagsUnion
+504.json: data did not match any variant of untagged enum EntityPrototypeFlagsUnion
+505.json: data did not match any variant of untagged enum EntityPrototypeFlagsUnion
+506.json: data did not match any variant of untagged enum EntityPrototypeFlagsUnion
+507.json: data did not match any variant of untagged enum EntityPrototypeFlagsUnion
+508.json: data did not match any variant of untagged enum EntityPrototypeFlagsUnion
+509.json: data did not match any variant of untagged enum EntityPrototypeFlagsUnion
+510.json: data did not match any variant of untagged enum EntityPrototypeFlagsUnion
+511.json: data did not match any variant of untagged enum EntityPrototypeFlagsUnion
+512.json: data did not match any variant of untagged enum EntityPrototypeFlagsUnion
+513.json: data did not match any variant of untagged enum EntityPrototypeFlagsUnion
+514.json: data did not match any variant of untagged enum EntityPrototypeFlagsUnion
+515.json: data did not match any variant of untagged enum EntityPrototypeFlagsUnion
+516.json: data did not match any variant of untagged enum EntityPrototypeFlagsUnion
+517.json: data did not match any variant of untagged enum EntityPrototypeFlagsUnion
+518.json: data did not match any variant of untagged enum EntityPrototypeFlagsUnion
+519.json: data did not match any variant of untagged enum EntityPrototypeFlagsUnion
+520.json: data did not match any variant of untagged enum EntityPrototypeFlagsUnion
+521.json: data did not match any variant of untagged enum EntityPrototypeFlagsUnion
+522.json: data did not match any variant of untagged enum EntityPrototypeFlagsUnion
+523.json: data did not match any variant of untagged enum EntityPrototypeFlagsUnion
+524.json: data did not match any variant of untagged enum EntityPrototypeFlagsUnion
+525.json: data did not match any variant of untagged enum EntityPrototypeFlagsUnion
+526.json: data did not match any variant of untagged enum EntityPrototypeFlagsUnion
+527.json: data did not match any variant of untagged enum EntityPrototypeFlagsUnion
+528.json: data did not match any variant of untagged enum EntityPrototypeFlagsUnion
+529.json: data did not match any variant of untagged enum EntityPrototypeFlagsUnion
+530.json: data did not match any variant of untagged enum EntityPrototypeFlagsUnion
 531.json: data did not match any variant of untagged enum CollisionMaskLayer
 532.json: data did not match any variant of untagged enum CollisionMaskLayer
 533.json: data did not match any variant of untagged enum CollisionMaskLayer
@@ -320,173 +320,173 @@
 536.json: data did not match any variant of untagged enum CollisionMaskLayer
 537.json: data did not match any variant of untagged enum CollisionMaskLayer
 538.json: data did not match any variant of untagged enum CollisionMaskLayer
-539.json: invalid type: sequence, expected a map
-540.json: invalid type: sequence, expected a map
-541.json: invalid type: sequence, expected a map
-542.json: invalid type: sequence, expected a map
-543.json: invalid type: sequence, expected a map
-544.json: invalid type: sequence, expected a map
-545.json: invalid type: sequence, expected a map
-546.json: invalid type: sequence, expected a map
+539.json: data did not match any variant of untagged enum EntityPrototypeFlagsUnion
+540.json: data did not match any variant of untagged enum EntityPrototypeFlagsUnion
+541.json: data did not match any variant of untagged enum EntityPrototypeFlagsUnion
+542.json: data did not match any variant of untagged enum EntityPrototypeFlagsUnion
+543.json: data did not match any variant of untagged enum EntityPrototypeFlagsUnion
+544.json: data did not match any variant of untagged enum EntityPrototypeFlagsUnion
+545.json: data did not match any variant of untagged enum EntityPrototypeFlagsUnion
+546.json: data did not match any variant of untagged enum EntityPrototypeFlagsUnion
 547.json: data did not match any variant of untagged enum CollisionMaskLayer
 548.json: data did not match any variant of untagged enum CollisionMaskLayer
 549.json: data did not match any variant of untagged enum CollisionMaskLayer
 550.json: data did not match any variant of untagged enum CollisionMaskLayer
 551.json: data did not match any variant of untagged enum CollisionMaskLayer
-552.json: invalid type: sequence, expected a map
-578.json: invalid type: sequence, expected a map
-579.json: invalid type: sequence, expected a map
-580.json: invalid type: sequence, expected a map
-581.json: invalid type: sequence, expected a map
-582.json: invalid type: sequence, expected a map
-583.json: invalid type: sequence, expected a map
-584.json: invalid type: sequence, expected a map
-585.json: invalid type: sequence, expected a map
-586.json: invalid type: sequence, expected a map
-587.json: invalid type: sequence, expected a map
-588.json: invalid type: sequence, expected a map
-589.json: invalid type: sequence, expected a map
-590.json: invalid type: sequence, expected a map
-591.json: invalid type: sequence, expected a map
-592.json: invalid type: sequence, expected a map
-593.json: invalid type: sequence, expected a map
-594.json: invalid type: sequence, expected a map
-595.json: invalid type: sequence, expected a map
-596.json: invalid type: sequence, expected a map
-597.json: invalid type: sequence, expected a map
-598.json: invalid type: sequence, expected a map
-599.json: invalid type: sequence, expected a map
-600.json: invalid type: sequence, expected a map
-601.json: invalid type: sequence, expected a map
-602.json: invalid type: sequence, expected a map
-603.json: invalid type: sequence, expected a map
-604.json: invalid type: sequence, expected a map
-605.json: invalid type: sequence, expected a map
-606.json: invalid type: sequence, expected a map
-607.json: invalid type: sequence, expected a map
-608.json: invalid type: sequence, expected a map
-609.json: invalid type: sequence, expected a map
-610.json: invalid type: sequence, expected a map
-611.json: invalid type: sequence, expected a map
-612.json: invalid type: sequence, expected a map
-613.json: invalid type: sequence, expected a map
-614.json: invalid type: sequence, expected a map
-615.json: invalid type: sequence, expected a map
-616.json: invalid type: sequence, expected a map
-617.json: invalid type: sequence, expected a map
-618.json: invalid type: sequence, expected a map
-619.json: invalid type: sequence, expected a map
-620.json: invalid type: sequence, expected a map
-621.json: invalid type: sequence, expected a map
-622.json: invalid type: sequence, expected a map
-623.json: invalid type: sequence, expected a map
-624.json: invalid type: sequence, expected a map
-625.json: invalid type: sequence, expected a map
-626.json: invalid type: sequence, expected a map
-627.json: invalid type: sequence, expected a map
-628.json: invalid type: sequence, expected a map
-629.json: invalid type: sequence, expected a map
-630.json: invalid type: sequence, expected a map
-631.json: invalid type: sequence, expected a map
-632.json: invalid type: sequence, expected a map
-633.json: invalid type: sequence, expected a map
-634.json: invalid type: sequence, expected a map
-635.json: invalid type: sequence, expected a map
-636.json: invalid type: sequence, expected a map
-637.json: invalid type: sequence, expected a map
-638.json: invalid type: sequence, expected a map
-639.json: invalid type: sequence, expected a map
-640.json: invalid type: sequence, expected a map
-641.json: invalid type: sequence, expected a map
-642.json: invalid type: sequence, expected a map
-643.json: invalid type: sequence, expected a map
-644.json: invalid type: sequence, expected a map
-645.json: invalid type: sequence, expected a map
-646.json: invalid type: sequence, expected a map
-647.json: invalid type: sequence, expected a map
-648.json: invalid type: sequence, expected a map
-649.json: invalid type: sequence, expected a map
-650.json: invalid type: sequence, expected a map
-651.json: invalid type: sequence, expected a map
-652.json: invalid type: sequence, expected a map
-653.json: invalid type: sequence, expected a map
-654.json: invalid type: sequence, expected a map
-655.json: invalid type: sequence, expected a map
-656.json: invalid type: sequence, expected a map
-657.json: invalid type: sequence, expected a map
-658.json: invalid type: sequence, expected a map
-659.json: invalid type: sequence, expected a map
-660.json: invalid type: sequence, expected a map
-661.json: invalid type: sequence, expected a map
-662.json: invalid type: sequence, expected a map
-663.json: invalid type: sequence, expected a map
-664.json: invalid type: sequence, expected a map
-665.json: invalid type: sequence, expected a map
-666.json: invalid type: sequence, expected a map
-667.json: invalid type: sequence, expected a map
-668.json: invalid type: sequence, expected a map
-669.json: invalid type: sequence, expected a map
-670.json: invalid type: sequence, expected a map
-671.json: invalid type: sequence, expected a map
-672.json: invalid type: sequence, expected a map
-673.json: invalid type: sequence, expected a map
-674.json: invalid type: sequence, expected a map
-675.json: invalid type: sequence, expected a map
-676.json: invalid type: sequence, expected a map
-677.json: invalid type: sequence, expected a map
-678.json: invalid type: sequence, expected a map
-679.json: invalid type: sequence, expected a map
-680.json: invalid type: sequence, expected a map
-681.json: invalid type: sequence, expected a map
-682.json: invalid type: sequence, expected a map
-683.json: invalid type: sequence, expected a map
-684.json: invalid type: sequence, expected a map
-685.json: invalid type: sequence, expected a map
-686.json: invalid type: sequence, expected a map
-687.json: invalid type: sequence, expected a map
-688.json: invalid type: sequence, expected a map
-689.json: invalid type: sequence, expected a map
-690.json: invalid type: sequence, expected a map
-691.json: invalid type: sequence, expected a map
-692.json: invalid type: sequence, expected a map
-693.json: invalid type: sequence, expected a map
-694.json: invalid type: sequence, expected a map
-695.json: invalid type: sequence, expected a map
-696.json: invalid type: sequence, expected a map
-697.json: invalid type: sequence, expected a map
-698.json: invalid type: sequence, expected a map
-699.json: invalid type: sequence, expected a map
-700.json: invalid type: sequence, expected a map
-701.json: invalid type: sequence, expected a map
-702.json: invalid type: sequence, expected a map
-703.json: invalid type: sequence, expected a map
-704.json: invalid type: sequence, expected a map
-705.json: invalid type: sequence, expected a map
-706.json: invalid type: sequence, expected a map
-707.json: invalid type: sequence, expected a map
-708.json: invalid type: sequence, expected a map
-709.json: invalid type: sequence, expected a map
-710.json: invalid type: sequence, expected a map
-711.json: invalid type: sequence, expected a map
-712.json: invalid type: sequence, expected a map
-713.json: invalid type: sequence, expected a map
-714.json: invalid type: sequence, expected a map
-715.json: invalid type: sequence, expected a map
-716.json: invalid type: sequence, expected a map
-717.json: invalid type: sequence, expected a map
-718.json: invalid type: sequence, expected a map
-719.json: invalid type: sequence, expected a map
-720.json: invalid type: sequence, expected a map
-721.json: invalid type: sequence, expected a map
-722.json: invalid type: sequence, expected a map
-723.json: invalid type: sequence, expected a map
-724.json: invalid type: sequence, expected a map
-725.json: invalid type: sequence, expected a map
-726.json: invalid type: sequence, expected a map
-727.json: invalid type: sequence, expected a map
-728.json: invalid type: sequence, expected a map
-729.json: invalid type: sequence, expected a map
-730.json: invalid type: sequence, expected a map
+552.json: missing field `source_effects`
+578.json: missing field `source_effects`
+579.json: missing field `source_effects`
+580.json: missing field `source_effects`
+581.json: missing field `source_effects`
+582.json: missing field `source_effects`
+583.json: missing field `source_effects`
+584.json: missing field `source_effects`
+585.json: missing field `source_effects`
+586.json: missing field `source_effects`
+587.json: missing field `source_effects`
+588.json: missing field `source_effects`
+589.json: missing field `source_effects`
+590.json: missing field `source_effects`
+591.json: missing field `source_effects`
+592.json: missing field `source_effects`
+593.json: missing field `source_effects`
+594.json: missing field `source_effects`
+595.json: missing field `source_effects`
+596.json: missing field `source_effects`
+597.json: missing field `source_effects`
+598.json: missing field `source_effects`
+599.json: missing field `source_effects`
+600.json: missing field `source_effects`
+601.json: missing field `source_effects`
+602.json: missing field `source_effects`
+603.json: missing field `source_effects`
+604.json: missing field `source_effects`
+605.json: missing field `source_effects`
+606.json: missing field `source_effects`
+607.json: missing field `source_effects`
+608.json: missing field `source_effects`
+609.json: missing field `source_effects`
+610.json: missing field `source_effects`
+611.json: missing field `source_effects`
+612.json: missing field `source_effects`
+613.json: missing field `source_effects`
+614.json: missing field `source_effects`
+615.json: missing field `source_effects`
+616.json: missing field `source_effects`
+617.json: missing field `source_effects`
+618.json: missing field `source_effects`
+619.json: missing field `source_effects`
+620.json: missing field `source_effects`
+621.json: missing field `source_effects`
+622.json: missing field `source_effects`
+623.json: missing field `source_effects`
+624.json: missing field `source_effects`
+625.json: missing field `source_effects`
+626.json: missing field `source_effects`
+627.json: missing field `source_effects`
+628.json: missing field `source_effects`
+629.json: missing field `source_effects`
+630.json: missing field `source_effects`
+631.json: missing field `source_effects`
+632.json: missing field `source_effects`
+633.json: missing field `source_effects`
+634.json: missing field `source_effects`
+635.json: missing field `source_effects`
+636.json: missing field `source_effects`
+637.json: missing field `source_effects`
+638.json: missing field `source_effects`
+639.json: missing field `source_effects`
+640.json: missing field `source_effects`
+641.json: missing field `source_effects`
+642.json: missing field `source_effects`
+643.json: missing field `source_effects`
+644.json: missing field `source_effects`
+645.json: missing field `source_effects`
+646.json: missing field `source_effects`
+647.json: missing field `source_effects`
+648.json: missing field `source_effects`
+649.json: missing field `source_effects`
+650.json: missing field `source_effects`
+651.json: missing field `source_effects`
+652.json: data did not match any variant of untagged enum EntityPrototypeFlagsUnion
+653.json: missing field `source_effects`
+654.json: missing field `source_effects`
+655.json: missing field `source_effects`
+656.json: missing field `source_effects`
+657.json: missing field `source_effects`
+658.json: missing field `source_effects`
+659.json: missing field `source_effects`
+660.json: missing field `source_effects`
+661.json: missing field `source_effects`
+662.json: missing field `source_effects`
+663.json: missing field `source_effects`
+664.json: missing field `source_effects`
+665.json: data did not match any variant of untagged enum EntityPrototypeFlagsUnion
+666.json: data did not match any variant of untagged enum EntityPrototypeFlagsUnion
+667.json: missing field `source_effects`
+668.json: missing field `source_effects`
+669.json: missing field `source_effects`
+670.json: missing field `source_effects`
+671.json: missing field `source_effects`
+672.json: data did not match any variant of untagged enum EntityPrototypeFlagsUnion
+673.json: missing field `source_effects`
+674.json: missing field `source_effects`
+675.json: missing field `source_effects`
+676.json: missing field `source_effects`
+677.json: missing field `source_effects`
+678.json: missing field `source_effects`
+679.json: data did not match any variant of untagged enum EntityPrototypeFlagsUnion
+680.json: data did not match any variant of untagged enum EntityPrototypeFlagsUnion
+681.json: data did not match any variant of untagged enum EntityPrototypeFlagsUnion
+682.json: data did not match any variant of untagged enum EntityPrototypeFlagsUnion
+683.json: data did not match any variant of untagged enum EntityPrototypeFlagsUnion
+684.json: data did not match any variant of untagged enum EntityPrototypeFlagsUnion
+685.json: missing field `source_effects`
+686.json: data did not match any variant of untagged enum EntityPrototypeFlagsUnion
+687.json: missing field `source_effects`
+688.json: missing field `source_effects`
+689.json: missing field `source_effects`
+690.json: missing field `source_effects`
+691.json: missing field `source_effects`
+692.json: data did not match any variant of untagged enum EntityPrototypeFlagsUnion
+693.json: missing field `source_effects`
+694.json: missing field `source_effects`
+695.json: missing field `source_effects`
+696.json: missing field `source_effects`
+697.json: data did not match any variant of untagged enum EntityPrototypeFlagsUnion
+698.json: data did not match any variant of untagged enum EntityPrototypeFlagsUnion
+699.json: missing field `source_effects`
+700.json: missing field `source_effects`
+701.json: missing field `source_effects`
+702.json: missing field `source_effects`
+703.json: missing field `source_effects`
+704.json: missing field `source_effects`
+705.json: missing field `source_effects`
+706.json: missing field `flags`
+707.json: missing field `flags`
+708.json: missing field `flags`
+709.json: missing field `flags`
+710.json: data did not match any variant of untagged enum EntityPrototypeFlagsUnion
+711.json: data did not match any variant of untagged enum EntityPrototypeFlagsUnion
+712.json: data did not match any variant of untagged enum EntityPrototypeFlagsUnion
+713.json: data did not match any variant of untagged enum EntityPrototypeFlagsUnion
+714.json: data did not match any variant of untagged enum EntityPrototypeFlagsUnion
+715.json: data did not match any variant of untagged enum EntityPrototypeFlagsUnion
+716.json: data did not match any variant of untagged enum EntityPrototypeFlagsUnion
+717.json: data did not match any variant of untagged enum EntityPrototypeFlagsUnion
+718.json: data did not match any variant of untagged enum EntityPrototypeFlagsUnion
+719.json: data did not match any variant of untagged enum EntityPrototypeFlagsUnion
+720.json: data did not match any variant of untagged enum EntityPrototypeFlagsUnion
+721.json: data did not match any variant of untagged enum EntityPrototypeFlagsUnion
+722.json: data did not match any variant of untagged enum EntityPrototypeFlagsUnion
+723.json: data did not match any variant of untagged enum EntityPrototypeFlagsUnion
+724.json: data did not match any variant of untagged enum EntityPrototypeFlagsUnion
+725.json: data did not match any variant of untagged enum EntityPrototypeFlagsUnion
+726.json: data did not match any variant of untagged enum EntityPrototypeFlagsUnion
+727.json: data did not match any variant of untagged enum EntityPrototypeFlagsUnion
+728.json: data did not match any variant of untagged enum EntityPrototypeFlagsUnion
+729.json: data did not match any variant of untagged enum EntityPrototypeFlagsUnion
+730.json: data did not match any variant of untagged enum EntityPrototypeFlagsUnion
 731.json: missing field `affects_target`
 732.json: missing field `source_effects`
 733.json: missing field `source_effects`
@@ -494,18 +494,18 @@
 735.json: missing field `source_effects`
 736.json: missing field `source_effects`
 737.json: missing field `source_effects`
-738.json: invalid type: sequence, expected a map
+738.json: missing field `flags`
 739.json: missing field `affects_target`
 740.json: missing field `source_effects`
 741.json: missing field `source_effects`
-742.json: invalid type: sequence, expected a map
+742.json: data did not match any variant of untagged enum EntityPrototypeFlagsUnion
 743.json: missing field `source_effects`
 744.json: missing field `source_effects`
-745.json: invalid type: sequence, expected a map
+745.json: data did not match any variant of untagged enum EntityPrototypeFlagsUnion
 746.json: data did not match any variant of untagged enum CollisionMaskLayer
 747.json: data did not match any variant of untagged enum CollisionMaskLayer
 748.json: missing field `source_effects`
-749.json: invalid type: sequence, expected a map
+749.json: data did not match any variant of untagged enum EntityPrototypeFlagsUnion
 750.json: missing field `source_effects`
 751.json: data did not match any variant of untagged enum CollisionMaskLayer
 752.json: data did not match any variant of untagged enum CollisionMaskLayer
@@ -523,45 +523,45 @@
 764.json: missing field `source_effects`
 765.json: missing field `source_effects`
 766.json: missing field `source_effects`
-767.json: invalid type: sequence, expected a map
+767.json: data did not match any variant of untagged enum EntityPrototypeFlagsUnion
 768.json: missing field `source_effects`
 769.json: missing field `source_effects`
 770.json: data did not match any variant of untagged enum CollisionMaskLayer
-771.json: invalid type: sequence, expected a map
+771.json: data did not match any variant of untagged enum EntityPrototypeFlagsUnion
 772.json: missing field `source_effects`
 773.json: missing field `affects_target`
 774.json: missing field `source_effects`
 775.json: data did not match any variant of untagged enum CollisionMaskLayer
 776.json: data did not match any variant of untagged enum CollisionMaskLayer
 777.json: data did not match any variant of untagged enum CollisionMaskLayer
-778.json: invalid type: sequence, expected a map
-779.json: invalid type: sequence, expected a map
-780.json: invalid type: sequence, expected a map
-781.json: invalid type: sequence, expected a map
+778.json: data did not match any variant of untagged enum EntityPrototypeFlagsUnion
+779.json: data did not match any variant of untagged enum EntityPrototypeFlagsUnion
+780.json: data did not match any variant of untagged enum EntityPrototypeFlagsUnion
+781.json: data did not match any variant of untagged enum EntityPrototypeFlagsUnion
 782.json: missing field `source_effects`
-783.json: invalid type: sequence, expected a map
+783.json: data did not match any variant of untagged enum EntityPrototypeFlagsUnion
 784.json: missing field `source_effects`
 785.json: missing field `source_effects`
-786.json: invalid type: sequence, expected a map
+786.json: missing field `flags`
 787.json: data did not match any variant of untagged enum CollisionMaskLayer
-788.json: invalid type: sequence, expected a map
+788.json: data did not match any variant of untagged enum EntityPrototypeFlagsUnion
 789.json: missing field `source_effects`
 790.json: missing field `source_effects`
-791.json: invalid type: sequence, expected a map
+791.json: missing field `flags`
 792.json: data did not match any variant of untagged enum CollisionMaskLayer
-794.json: invalid type: sequence, expected a map
-795.json: invalid type: sequence, expected a map
+794.json: data did not match any variant of untagged enum EntityPrototypeFlagsUnion
+795.json: missing field `flags`
 796.json: missing field `source_effects`
 797.json: missing field `source_effects`
 798.json: missing field `affects_target`
-799.json: invalid type: sequence, expected a map
+799.json: data did not match any variant of untagged enum EntityPrototypeFlagsUnion
 800.json: missing field `source_effects`
-801.json: invalid type: sequence, expected a map
-802.json: invalid type: sequence, expected a map
+801.json: data did not match any variant of untagged enum CollisionMaskWithFlagsUnion
+802.json: data did not match any variant of untagged enum CollisionMaskWithFlagsUnion
 803.json: missing field `source_effects`
 804.json: missing field `source_effects`
-805.json: invalid type: sequence, expected a map
-806.json: invalid type: sequence, expected a map
+805.json: missing field `flags`
+806.json: data did not match any variant of untagged enum EntityPrototypeFlagsUnion
 807.json: data did not match any variant of untagged enum CollisionMaskLayer
 808.json: data did not match any variant of untagged enum CollisionMaskLayer
 809.json: data did not match any variant of untagged enum CollisionMaskLayer
@@ -570,14 +570,14 @@
 812.json: data did not match any variant of untagged enum CollisionMaskLayer
 813.json: data did not match any variant of untagged enum CollisionMaskLayer
 814.json: data did not match any variant of untagged enum CollisionMaskLayer
-815.json: invalid type: sequence, expected a map
-816.json: invalid type: sequence, expected a map
+815.json: data did not match any variant of untagged enum CollisionMaskWithFlagsUnion
+816.json: data did not match any variant of untagged enum EntityPrototypeFlagsUnion
 817.json: missing field `source_effects`
 818.json: data did not match any variant of untagged enum CollisionMaskLayer
-819.json: invalid type: sequence, expected a map
-820.json: invalid type: sequence, expected a map
-821.json: invalid type: sequence, expected a map
-822.json: invalid type: sequence, expected a map
+819.json: data did not match any variant of untagged enum EntityPrototypeFlagsUnion
+820.json: data did not match any variant of untagged enum EntityPrototypeFlagsUnion
+821.json: data did not match any variant of untagged enum EntityPrototypeFlagsUnion
+822.json: data did not match any variant of untagged enum EntityPrototypeFlagsUnion
 823.json: missing field `source_effects`
 824.json: data did not match any variant of untagged enum CollisionMaskLayer
 825.json: data did not match any variant of untagged enum CollisionMaskLayer
@@ -609,49 +609,25 @@
 932.json: missing field `badge_font`
 933.json: invalid type: sequence, expected a map
 934.json: missing field `badge_font`
-936.json: invalid type: sequence, expected a map
-1361.json: invalid type: sequence, expected a map
+936.json: missing field `default_enable_all_autoplace_controls`
 1362.json: invalid type: sequence, expected a map
-1366.json: invalid type: sequence, expected a map
 1367.json: invalid type: sequence, expected a map
-1368.json: invalid type: sequence, expected a map
 1369.json: invalid type: sequence, expected a map
-1399.json: invalid type: sequence, expected a map
 1400.json: invalid type: sequence, expected a map
-1419.json: invalid type: sequence, expected a map
 1420.json: invalid type: sequence, expected a map
-1427.json: invalid type: sequence, expected a map
 1428.json: invalid type: sequence, expected a map
-1432.json: invalid type: sequence, expected a map
 1433.json: invalid type: sequence, expected a map
-1435.json: invalid type: sequence, expected a map
 1436.json: invalid type: sequence, expected a map
 1745.json: invalid type: sequence, expected a map
 1746.json: unknown variant `LuaEntityBuildFlowStatistics`, expected one of `LuaAISettings`, `LuaAccumulatorControlBehavior`, `LuaAchievementPrototype`, `LuaAmmoCategoryPrototype`, `LuaArithmeticCombinatorControlBehavior`, `LuaAutoplaceControlPrototype`, `LuaBootstrap`, `LuaBurner`, `LuaBurnerPrototype`, `LuaChunkIterator`, `LuaCircuitNetwork`, `LuaCombinatorControlBehavior`, `LuaCommandProcessor`, `LuaConstantCombinatorControlBehavior`, `LuaContainerControlBehavior`, `LuaControl`, `LuaControlBehavior`, `LuaCustomChartTag`, `LuaCustomInputPrototype`, `LuaCustomTable`, `LuaDamagePrototype`, `LuaDeciderCombinatorControlBehavior`, `LuaDecorativePrototype`, `LuaElectricEnergySourcePrototype`, `LuaEntity`, `LuaEntityPrototype`, `LuaEquipment`, `LuaEquipmentCategoryPrototype`, `LuaEquipmentGrid`, `LuaEquipmentGridPrototype`, `LuaEquipmentPrototype`, `LuaFlowStatistics`, `LuaFluidBox`, `LuaFluidBoxPrototype`, `LuaFluidEnergySourcePrototype`, `LuaFluidPrototype`, `LuaFontPrototype`, `LuaForce`, `LuaFuelCategoryPrototype`, `LuaGameScript`, `LuaGenericOnOffControlBehavior`, `LuaGroup`, `LuaGui`, `LuaGuiElement`, `LuaHeatBufferPrototype`, `LuaHeatEnergySourcePrototype`, `LuaInserterControlBehavior`, `LuaInventory`, `LuaItemPrototype`, `LuaItemStack`, `LuaLampControlBehavior`, `LuaLazyLoadedValue`, `LuaLogisticCell`, `LuaLogisticContainerControlBehavior`, `LuaLogisticNetwork`, `LuaLogisticPoint`, `LuaMiningDrillControlBehavior`, `LuaModSettingPrototype`, `LuaModuleCategoryPrototype`, `LuaNamedNoiseExpression`, `LuaNoiseLayerPrototype`, `LuaParticlePrototype`, `LuaPermissionGroup`, `LuaPermissionGroups`, `LuaPlayer`, `LuaProfiler`, `LuaProgrammableSpeakerControlBehavior`, `LuaRCON`, `LuaRailChainSignalControlBehavior`, `LuaRailPath`, `LuaRailSignalControlBehavior`, `LuaRandomGenerator`, `LuaRecipe`, `LuaRecipeCategoryPrototype`, `LuaRecipePrototype`, `LuaRemote`, `LuaRendering`, `LuaResourceCategoryPrototype`, `LuaRoboportControlBehavior`, `LuaSettings`, `LuaShortcutPrototype`, `LuaStorageTankControlBehavior`, `LuaStyle`, `LuaSurface`, `LuaTechnology`, `LuaTechnologyPrototype`, `LuaTile`, `LuaTilePrototype`, `LuaTrain`, `LuaTrainStopControlBehavior`, `LuaTransportBeltControlBehavior`, `LuaTransportLine`, `LuaTrivialSmokePrototype`, `LuaUnitGroup`, `LuaVirtualSignalPrototype`, `LuaVoidEnergySourcePrototype`, `LuaWallControlBehavior`
 1747.json: unknown variant `LuaFluidProductionFlowStatistics`, expected one of `LuaAISettings`, `LuaAccumulatorControlBehavior`, `LuaAchievementPrototype`, `LuaAmmoCategoryPrototype`, `LuaArithmeticCombinatorControlBehavior`, `LuaAutoplaceControlPrototype`, `LuaBootstrap`, `LuaBurner`, `LuaBurnerPrototype`, `LuaChunkIterator`, `LuaCircuitNetwork`, `LuaCombinatorControlBehavior`, `LuaCommandProcessor`, `LuaConstantCombinatorControlBehavior`, `LuaContainerControlBehavior`, `LuaControl`, `LuaControlBehavior`, `LuaCustomChartTag`, `LuaCustomInputPrototype`, `LuaCustomTable`, `LuaDamagePrototype`, `LuaDeciderCombinatorControlBehavior`, `LuaDecorativePrototype`, `LuaElectricEnergySourcePrototype`, `LuaEntity`, `LuaEntityPrototype`, `LuaEquipment`, `LuaEquipmentCategoryPrototype`, `LuaEquipmentGrid`, `LuaEquipmentGridPrototype`, `LuaEquipmentPrototype`, `LuaFlowStatistics`, `LuaFluidBox`, `LuaFluidBoxPrototype`, `LuaFluidEnergySourcePrototype`, `LuaFluidPrototype`, `LuaFontPrototype`, `LuaForce`, `LuaFuelCategoryPrototype`, `LuaGameScript`, `LuaGenericOnOffControlBehavior`, `LuaGroup`, `LuaGui`, `LuaGuiElement`, `LuaHeatBufferPrototype`, `LuaHeatEnergySourcePrototype`, `LuaInserterControlBehavior`, `LuaInventory`, `LuaItemPrototype`, `LuaItemStack`, `LuaLampControlBehavior`, `LuaLazyLoadedValue`, `LuaLogisticCell`, `LuaLogisticContainerControlBehavior`, `LuaLogisticNetwork`, `LuaLogisticPoint`, `LuaMiningDrillControlBehavior`, `LuaModSettingPrototype`, `LuaModuleCategoryPrototype`, `LuaNamedNoiseExpression`, `LuaNoiseLayerPrototype`, `LuaParticlePrototype`, `LuaPermissionGroup`, `LuaPermissionGroups`, `LuaPlayer`, `LuaProfiler`, `LuaProgrammableSpeakerControlBehavior`, `LuaRCON`, `LuaRailChainSignalControlBehavior`, `LuaRailPath`, `LuaRailSignalControlBehavior`, `LuaRandomGenerator`, `LuaRecipe`, `LuaRecipeCategoryPrototype`, `LuaRecipePrototype`, `LuaRemote`, `LuaRendering`, `LuaResourceCategoryPrototype`, `LuaRoboportControlBehavior`, `LuaSettings`, `LuaShortcutPrototype`, `LuaStorageTankControlBehavior`, `LuaStyle`, `LuaSurface`, `LuaTechnology`, `LuaTechnologyPrototype`, `LuaTile`, `LuaTilePrototype`, `LuaTrain`, `LuaTrainStopControlBehavior`, `LuaTransportBeltControlBehavior`, `LuaTransportLine`, `LuaTrivialSmokePrototype`, `LuaUnitGroup`, `LuaVirtualSignalPrototype`, `LuaVoidEnergySourcePrototype`, `LuaWallControlBehavior`
 1748.json: unknown variant `LuaItemProductionFlowStatistics`, expected one of `LuaAISettings`, `LuaAccumulatorControlBehavior`, `LuaAchievementPrototype`, `LuaAmmoCategoryPrototype`, `LuaArithmeticCombinatorControlBehavior`, `LuaAutoplaceControlPrototype`, `LuaBootstrap`, `LuaBurner`, `LuaBurnerPrototype`, `LuaChunkIterator`, `LuaCircuitNetwork`, `LuaCombinatorControlBehavior`, `LuaCommandProcessor`, `LuaConstantCombinatorControlBehavior`, `LuaContainerControlBehavior`, `LuaControl`, `LuaControlBehavior`, `LuaCustomChartTag`, `LuaCustomInputPrototype`, `LuaCustomTable`, `LuaDamagePrototype`, `LuaDeciderCombinatorControlBehavior`, `LuaDecorativePrototype`, `LuaElectricEnergySourcePrototype`, `LuaEntity`, `LuaEntityPrototype`, `LuaEquipment`, `LuaEquipmentCategoryPrototype`, `LuaEquipmentGrid`, `LuaEquipmentGridPrototype`, `LuaEquipmentPrototype`, `LuaFlowStatistics`, `LuaFluidBox`, `LuaFluidBoxPrototype`, `LuaFluidEnergySourcePrototype`, `LuaFluidPrototype`, `LuaFontPrototype`, `LuaForce`, `LuaFuelCategoryPrototype`, `LuaGameScript`, `LuaGenericOnOffControlBehavior`, `LuaGroup`, `LuaGui`, `LuaGuiElement`, `LuaHeatBufferPrototype`, `LuaHeatEnergySourcePrototype`, `LuaInserterControlBehavior`, `LuaInventory`, `LuaItemPrototype`, `LuaItemStack`, `LuaLampControlBehavior`, `LuaLazyLoadedValue`, `LuaLogisticCell`, `LuaLogisticContainerControlBehavior`, `LuaLogisticNetwork`, `LuaLogisticPoint`, `LuaMiningDrillControlBehavior`, `LuaModSettingPrototype`, `LuaModuleCategoryPrototype`, `LuaNamedNoiseExpression`, `LuaNoiseLayerPrototype`, `LuaParticlePrototype`, `LuaPermissionGroup`, `LuaPermissionGroups`, `LuaPlayer`, `LuaProfiler`, `LuaProgrammableSpeakerControlBehavior`, `LuaRCON`, `LuaRailChainSignalControlBehavior`, `LuaRailPath`, `LuaRailSignalControlBehavior`, `LuaRandomGenerator`, `LuaRecipe`, `LuaRecipeCategoryPrototype`, `LuaRecipePrototype`, `LuaRemote`, `LuaRendering`, `LuaResourceCategoryPrototype`, `LuaRoboportControlBehavior`, `LuaSettings`, `LuaShortcutPrototype`, `LuaStorageTankControlBehavior`, `LuaStyle`, `LuaSurface`, `LuaTechnology`, `LuaTechnologyPrototype`, `LuaTile`, `LuaTilePrototype`, `LuaTrain`, `LuaTrainStopControlBehavior`, `LuaTransportBeltControlBehavior`, `LuaTransportLine`, `LuaTrivialSmokePrototype`, `LuaUnitGroup`, `LuaVirtualSignalPrototype`, `LuaVoidEnergySourcePrototype`, `LuaWallControlBehavior`
 1749.json: unknown variant `LuaKillCountFlowStatistics`, expected one of `LuaAISettings`, `LuaAccumulatorControlBehavior`, `LuaAchievementPrototype`, `LuaAmmoCategoryPrototype`, `LuaArithmeticCombinatorControlBehavior`, `LuaAutoplaceControlPrototype`, `LuaBootstrap`, `LuaBurner`, `LuaBurnerPrototype`, `LuaChunkIterator`, `LuaCircuitNetwork`, `LuaCombinatorControlBehavior`, `LuaCommandProcessor`, `LuaConstantCombinatorControlBehavior`, `LuaContainerControlBehavior`, `LuaControl`, `LuaControlBehavior`, `LuaCustomChartTag`, `LuaCustomInputPrototype`, `LuaCustomTable`, `LuaDamagePrototype`, `LuaDeciderCombinatorControlBehavior`, `LuaDecorativePrototype`, `LuaElectricEnergySourcePrototype`, `LuaEntity`, `LuaEntityPrototype`, `LuaEquipment`, `LuaEquipmentCategoryPrototype`, `LuaEquipmentGrid`, `LuaEquipmentGridPrototype`, `LuaEquipmentPrototype`, `LuaFlowStatistics`, `LuaFluidBox`, `LuaFluidBoxPrototype`, `LuaFluidEnergySourcePrototype`, `LuaFluidPrototype`, `LuaFontPrototype`, `LuaForce`, `LuaFuelCategoryPrototype`, `LuaGameScript`, `LuaGenericOnOffControlBehavior`, `LuaGroup`, `LuaGui`, `LuaGuiElement`, `LuaHeatBufferPrototype`, `LuaHeatEnergySourcePrototype`, `LuaInserterControlBehavior`, `LuaInventory`, `LuaItemPrototype`, `LuaItemStack`, `LuaLampControlBehavior`, `LuaLazyLoadedValue`, `LuaLogisticCell`, `LuaLogisticContainerControlBehavior`, `LuaLogisticNetwork`, `LuaLogisticPoint`, `LuaMiningDrillControlBehavior`, `LuaModSettingPrototype`, `LuaModuleCategoryPrototype`, `LuaNamedNoiseExpression`, `LuaNoiseLayerPrototype`, `LuaParticlePrototype`, `LuaPermissionGroup`, `LuaPermissionGroups`, `LuaPlayer`, `LuaProfiler`, `LuaProgrammableSpeakerControlBehavior`, `LuaRCON`, `LuaRailChainSignalControlBehavior`, `LuaRailPath`, `LuaRailSignalControlBehavior`, `LuaRandomGenerator`, `LuaRecipe`, `LuaRecipeCategoryPrototype`, `LuaRecipePrototype`, `LuaRemote`, `LuaRendering`, `LuaResourceCategoryPrototype`, `LuaRoboportControlBehavior`, `LuaSettings`, `LuaShortcutPrototype`, `LuaStorageTankControlBehavior`, `LuaStyle`, `LuaSurface`, `LuaTechnology`, `LuaTechnologyPrototype`, `LuaTile`, `LuaTilePrototype`, `LuaTrain`, `LuaTrainStopControlBehavior`, `LuaTransportBeltControlBehavior`, `LuaTransportLine`, `LuaTrivialSmokePrototype`, `LuaUnitGroup`, `LuaVirtualSignalPrototype`, `LuaVoidEnergySourcePrototype`, `LuaWallControlBehavior`
-1962.json: invalid type: sequence, expected a map
-1965.json: invalid type: sequence, expected a map
-1966.json: invalid type: sequence, expected a map
-1983.json: invalid type: sequence, expected a map
-1991.json: invalid type: sequence, expected a map
-1995.json: invalid type: sequence, expected a map
-1999.json: invalid type: sequence, expected a map
-2000.json: invalid type: sequence, expected a map
 2154.json: invalid type: sequence, expected a map
 2155.json: unknown variant `LuaEntityBuildFlowStatistics`, expected one of `LuaAISettings`, `LuaAccumulatorControlBehavior`, `LuaAchievementPrototype`, `LuaAmmoCategoryPrototype`, `LuaArithmeticCombinatorControlBehavior`, `LuaAutoplaceControlPrototype`, `LuaBootstrap`, `LuaBurner`, `LuaBurnerPrototype`, `LuaChunkIterator`, `LuaCircuitNetwork`, `LuaCombinatorControlBehavior`, `LuaCommandProcessor`, `LuaConstantCombinatorControlBehavior`, `LuaContainerControlBehavior`, `LuaControl`, `LuaControlBehavior`, `LuaCustomChartTag`, `LuaCustomInputPrototype`, `LuaCustomTable`, `LuaDamagePrototype`, `LuaDeciderCombinatorControlBehavior`, `LuaDecorativePrototype`, `LuaElectricEnergySourcePrototype`, `LuaEntity`, `LuaEntityPrototype`, `LuaEquipment`, `LuaEquipmentCategoryPrototype`, `LuaEquipmentGrid`, `LuaEquipmentGridPrototype`, `LuaEquipmentPrototype`, `LuaFlowStatistics`, `LuaFluidBox`, `LuaFluidBoxPrototype`, `LuaFluidEnergySourcePrototype`, `LuaFluidPrototype`, `LuaFontPrototype`, `LuaForce`, `LuaFuelCategoryPrototype`, `LuaGameScript`, `LuaGenericOnOffControlBehavior`, `LuaGroup`, `LuaGui`, `LuaGuiElement`, `LuaHeatBufferPrototype`, `LuaHeatEnergySourcePrototype`, `LuaInserterControlBehavior`, `LuaInventory`, `LuaItemPrototype`, `LuaItemStack`, `LuaLampControlBehavior`, `LuaLazyLoadedValue`, `LuaLogisticCell`, `LuaLogisticContainerControlBehavior`, `LuaLogisticNetwork`, `LuaLogisticPoint`, `LuaMiningDrillControlBehavior`, `LuaModSettingPrototype`, `LuaModuleCategoryPrototype`, `LuaNamedNoiseExpression`, `LuaNoiseLayerPrototype`, `LuaParticlePrototype`, `LuaPermissionGroup`, `LuaPermissionGroups`, `LuaPlayer`, `LuaProfiler`, `LuaProgrammableSpeakerControlBehavior`, `LuaRCON`, `LuaRailChainSignalControlBehavior`, `LuaRailPath`, `LuaRailSignalControlBehavior`, `LuaRandomGenerator`, `LuaRecipe`, `LuaRecipeCategoryPrototype`, `LuaRecipePrototype`, `LuaRemote`, `LuaRendering`, `LuaResourceCategoryPrototype`, `LuaRoboportControlBehavior`, `LuaSettings`, `LuaShortcutPrototype`, `LuaStorageTankControlBehavior`, `LuaStyle`, `LuaSurface`, `LuaTechnology`, `LuaTechnologyPrototype`, `LuaTile`, `LuaTilePrototype`, `LuaTrain`, `LuaTrainStopControlBehavior`, `LuaTransportBeltControlBehavior`, `LuaTransportLine`, `LuaTrivialSmokePrototype`, `LuaUnitGroup`, `LuaVirtualSignalPrototype`, `LuaVoidEnergySourcePrototype`, `LuaWallControlBehavior`
 2156.json: unknown variant `LuaFluidProductionFlowStatistics`, expected one of `LuaAISettings`, `LuaAccumulatorControlBehavior`, `LuaAchievementPrototype`, `LuaAmmoCategoryPrototype`, `LuaArithmeticCombinatorControlBehavior`, `LuaAutoplaceControlPrototype`, `LuaBootstrap`, `LuaBurner`, `LuaBurnerPrototype`, `LuaChunkIterator`, `LuaCircuitNetwork`, `LuaCombinatorControlBehavior`, `LuaCommandProcessor`, `LuaConstantCombinatorControlBehavior`, `LuaContainerControlBehavior`, `LuaControl`, `LuaControlBehavior`, `LuaCustomChartTag`, `LuaCustomInputPrototype`, `LuaCustomTable`, `LuaDamagePrototype`, `LuaDeciderCombinatorControlBehavior`, `LuaDecorativePrototype`, `LuaElectricEnergySourcePrototype`, `LuaEntity`, `LuaEntityPrototype`, `LuaEquipment`, `LuaEquipmentCategoryPrototype`, `LuaEquipmentGrid`, `LuaEquipmentGridPrototype`, `LuaEquipmentPrototype`, `LuaFlowStatistics`, `LuaFluidBox`, `LuaFluidBoxPrototype`, `LuaFluidEnergySourcePrototype`, `LuaFluidPrototype`, `LuaFontPrototype`, `LuaForce`, `LuaFuelCategoryPrototype`, `LuaGameScript`, `LuaGenericOnOffControlBehavior`, `LuaGroup`, `LuaGui`, `LuaGuiElement`, `LuaHeatBufferPrototype`, `LuaHeatEnergySourcePrototype`, `LuaInserterControlBehavior`, `LuaInventory`, `LuaItemPrototype`, `LuaItemStack`, `LuaLampControlBehavior`, `LuaLazyLoadedValue`, `LuaLogisticCell`, `LuaLogisticContainerControlBehavior`, `LuaLogisticNetwork`, `LuaLogisticPoint`, `LuaMiningDrillControlBehavior`, `LuaModSettingPrototype`, `LuaModuleCategoryPrototype`, `LuaNamedNoiseExpression`, `LuaNoiseLayerPrototype`, `LuaParticlePrototype`, `LuaPermissionGroup`, `LuaPermissionGroups`, `LuaPlayer`, `LuaProfiler`, `LuaProgrammableSpeakerControlBehavior`, `LuaRCON`, `LuaRailChainSignalControlBehavior`, `LuaRailPath`, `LuaRailSignalControlBehavior`, `LuaRandomGenerator`, `LuaRecipe`, `LuaRecipeCategoryPrototype`, `LuaRecipePrototype`, `LuaRemote`, `LuaRendering`, `LuaResourceCategoryPrototype`, `LuaRoboportControlBehavior`, `LuaSettings`, `LuaShortcutPrototype`, `LuaStorageTankControlBehavior`, `LuaStyle`, `LuaSurface`, `LuaTechnology`, `LuaTechnologyPrototype`, `LuaTile`, `LuaTilePrototype`, `LuaTrain`, `LuaTrainStopControlBehavior`, `LuaTransportBeltControlBehavior`, `LuaTransportLine`, `LuaTrivialSmokePrototype`, `LuaUnitGroup`, `LuaVirtualSignalPrototype`, `LuaVoidEnergySourcePrototype`, `LuaWallControlBehavior`
 2157.json: unknown variant `LuaItemProductionFlowStatistics`, expected one of `LuaAISettings`, `LuaAccumulatorControlBehavior`, `LuaAchievementPrototype`, `LuaAmmoCategoryPrototype`, `LuaArithmeticCombinatorControlBehavior`, `LuaAutoplaceControlPrototype`, `LuaBootstrap`, `LuaBurner`, `LuaBurnerPrototype`, `LuaChunkIterator`, `LuaCircuitNetwork`, `LuaCombinatorControlBehavior`, `LuaCommandProcessor`, `LuaConstantCombinatorControlBehavior`, `LuaContainerControlBehavior`, `LuaControl`, `LuaControlBehavior`, `LuaCustomChartTag`, `LuaCustomInputPrototype`, `LuaCustomTable`, `LuaDamagePrototype`, `LuaDeciderCombinatorControlBehavior`, `LuaDecorativePrototype`, `LuaElectricEnergySourcePrototype`, `LuaEntity`, `LuaEntityPrototype`, `LuaEquipment`, `LuaEquipmentCategoryPrototype`, `LuaEquipmentGrid`, `LuaEquipmentGridPrototype`, `LuaEquipmentPrototype`, `LuaFlowStatistics`, `LuaFluidBox`, `LuaFluidBoxPrototype`, `LuaFluidEnergySourcePrototype`, `LuaFluidPrototype`, `LuaFontPrototype`, `LuaForce`, `LuaFuelCategoryPrototype`, `LuaGameScript`, `LuaGenericOnOffControlBehavior`, `LuaGroup`, `LuaGui`, `LuaGuiElement`, `LuaHeatBufferPrototype`, `LuaHeatEnergySourcePrototype`, `LuaInserterControlBehavior`, `LuaInventory`, `LuaItemPrototype`, `LuaItemStack`, `LuaLampControlBehavior`, `LuaLazyLoadedValue`, `LuaLogisticCell`, `LuaLogisticContainerControlBehavior`, `LuaLogisticNetwork`, `LuaLogisticPoint`, `LuaMiningDrillControlBehavior`, `LuaModSettingPrototype`, `LuaModuleCategoryPrototype`, `LuaNamedNoiseExpression`, `LuaNoiseLayerPrototype`, `LuaParticlePrototype`, `LuaPermissionGroup`, `LuaPermissionGroups`, `LuaPlayer`, `LuaProfiler`, `LuaProgrammableSpeakerControlBehavior`, `LuaRCON`, `LuaRailChainSignalControlBehavior`, `LuaRailPath`, `LuaRailSignalControlBehavior`, `LuaRandomGenerator`, `LuaRecipe`, `LuaRecipeCategoryPrototype`, `LuaRecipePrototype`, `LuaRemote`, `LuaRendering`, `LuaResourceCategoryPrototype`, `LuaRoboportControlBehavior`, `LuaSettings`, `LuaShortcutPrototype`, `LuaStorageTankControlBehavior`, `LuaStyle`, `LuaSurface`, `LuaTechnology`, `LuaTechnologyPrototype`, `LuaTile`, `LuaTilePrototype`, `LuaTrain`, `LuaTrainStopControlBehavior`, `LuaTransportBeltControlBehavior`, `LuaTransportLine`, `LuaTrivialSmokePrototype`, `LuaUnitGroup`, `LuaVirtualSignalPrototype`, `LuaVoidEnergySourcePrototype`, `LuaWallControlBehavior`
 2158.json: unknown variant `LuaKillCountFlowStatistics`, expected one of `LuaAISettings`, `LuaAccumulatorControlBehavior`, `LuaAchievementPrototype`, `LuaAmmoCategoryPrototype`, `LuaArithmeticCombinatorControlBehavior`, `LuaAutoplaceControlPrototype`, `LuaBootstrap`, `LuaBurner`, `LuaBurnerPrototype`, `LuaChunkIterator`, `LuaCircuitNetwork`, `LuaCombinatorControlBehavior`, `LuaCommandProcessor`, `LuaConstantCombinatorControlBehavior`, `LuaContainerControlBehavior`, `LuaControl`, `LuaControlBehavior`, `LuaCustomChartTag`, `LuaCustomInputPrototype`, `LuaCustomTable`, `LuaDamagePrototype`, `LuaDeciderCombinatorControlBehavior`, `LuaDecorativePrototype`, `LuaElectricEnergySourcePrototype`, `LuaEntity`, `LuaEntityPrototype`, `LuaEquipment`, `LuaEquipmentCategoryPrototype`, `LuaEquipmentGrid`, `LuaEquipmentGridPrototype`, `LuaEquipmentPrototype`, `LuaFlowStatistics`, `LuaFluidBox`, `LuaFluidBoxPrototype`, `LuaFluidEnergySourcePrototype`, `LuaFluidPrototype`, `LuaFontPrototype`, `LuaForce`, `LuaFuelCategoryPrototype`, `LuaGameScript`, `LuaGenericOnOffControlBehavior`, `LuaGroup`, `LuaGui`, `LuaGuiElement`, `LuaHeatBufferPrototype`, `LuaHeatEnergySourcePrototype`, `LuaInserterControlBehavior`, `LuaInventory`, `LuaItemPrototype`, `LuaItemStack`, `LuaLampControlBehavior`, `LuaLazyLoadedValue`, `LuaLogisticCell`, `LuaLogisticContainerControlBehavior`, `LuaLogisticNetwork`, `LuaLogisticPoint`, `LuaMiningDrillControlBehavior`, `LuaModSettingPrototype`, `LuaModuleCategoryPrototype`, `LuaNamedNoiseExpression`, `LuaNoiseLayerPrototype`, `LuaParticlePrototype`, `LuaPermissionGroup`, `LuaPermissionGroups`, `LuaPlayer`, `LuaProfiler`, `LuaProgrammableSpeakerControlBehavior`, `LuaRCON`, `LuaRailChainSignalControlBehavior`, `LuaRailPath`, `LuaRailSignalControlBehavior`, `LuaRandomGenerator`, `LuaRecipe`, `LuaRecipeCategoryPrototype`, `LuaRecipePrototype`, `LuaRemote`, `LuaRendering`, `LuaResourceCategoryPrototype`, `LuaRoboportControlBehavior`, `LuaSettings`, `LuaShortcutPrototype`, `LuaStorageTankControlBehavior`, `LuaStyle`, `LuaSurface`, `LuaTechnology`, `LuaTechnologyPrototype`, `LuaTile`, `LuaTilePrototype`, `LuaTrain`, `LuaTrainStopControlBehavior`, `LuaTransportBeltControlBehavior`, `LuaTransportLine`, `LuaTrivialSmokePrototype`, `LuaUnitGroup`, `LuaVirtualSignalPrototype`, `LuaVoidEnergySourcePrototype`, `LuaWallControlBehavior`
-2371.json: invalid type: sequence, expected a map
-2374.json: invalid type: sequence, expected a map
-2375.json: invalid type: sequence, expected a map
-2392.json: invalid type: sequence, expected a map
-2400.json: invalid type: sequence, expected a map
-2404.json: invalid type: sequence, expected a map
-2408.json: invalid type: sequence, expected a map
-2409.json: invalid type: sequence, expected a map
 2584.json: data did not match any variant of untagged enum ItemPrototypeFlagsUnion
 2585.json: data did not match any variant of untagged enum ItemPrototypeFlagsUnion
 2586.json: data did not match any variant of untagged enum ItemPrototypeFlagsUnion

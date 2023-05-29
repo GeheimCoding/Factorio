@@ -199,6 +199,27 @@ function get_game_view_settings_values()
     }
 end
 
+function is_value_dictionary(obj, key)
+    if obj.object_name == 'LuaEntityPrototype' then
+        return key == 'collision_mask'
+            or key == 'collision_mask_with_flags'
+            or key == 'default_collision_mask_with_flags'
+    elseif obj.object_name == 'LuaForce' then
+        return key == 'items_launched'
+            or key == 'logistic_networks'
+            or key == 'recipes'
+            or key == 'technologies'
+    elseif obj.object_name == 'LuaTechnology' then
+        return key == 'prerequisites'
+    elseif obj.object_name == 'LuaGameScript' then
+        return key == 'mod_setting_prototypes'
+    else
+        return key == 'autoplace_controls'
+            or key == 'autoplace_settings'
+            or key == 'property_expression_names'
+    end
+end
+
 function is_cycle(obj, map)
     for k,v in pairs(global.lookup.cycles) do
         if v.obj == obj then
@@ -304,9 +325,10 @@ function to_json_internal(obj, depth, map, cycles_only)
             table.insert(json, '"serde_tag":"' .. obj.object_name .. '",\n')
         end
         local values = get_values(obj)
-        is_array = values[1] ~= nil or table_size(values) == 0
+        local is_empty = table_size(values) == 0
+        is_array = values[1] ~= nil or is_empty
 
-        if depth == 1 and not is_array then
+        if depth == 1 and not is_empty then
             local typ = 'concept'
              if class or obj.object_name == 'LuaGameScript' then
                 typ = 'class'
@@ -322,7 +344,11 @@ function to_json_internal(obj, depth, map, cycles_only)
                     if not is_array then
                         table.insert(json, '"' .. k .. '":')
                     end
-                    table.insert(json, internal)
+                    if internal == '[]' and is_value_dictionary(obj, k) then
+                        table.insert(json, '{}')
+                    else
+                        table.insert(json, internal)
+                    end
                     table.insert(json, ',\n')
                 end
             end
