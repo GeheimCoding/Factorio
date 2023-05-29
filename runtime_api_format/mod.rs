@@ -13,6 +13,7 @@ use serde::Deserialize;
 const UNTAGGED: &str = "#[serde(untagged)]\n";
 const RENAME_ALL_KEBAB_CASE: &str = "#[serde(rename_all = \"kebab-case\")]\n";
 const DERIVE: &str = "#[derive(Debug, Deserialize)]\n";
+const DERIVE_REPR: &str = "#[derive(Debug, Deserialize_repr)]\n#[repr(u8)]\n";
 const DERIVE_WITH_HASH: &str = "#[derive(Debug, Deserialize, Eq, PartialEq, Hash)]\n";
 const RENAME_WITH_TAG: &str =
     "#[serde(rename_all = \"snake_case\")]\n#[serde(tag = \"serde_tag\")]\n";
@@ -204,6 +205,7 @@ enum Import {
     Defines,
     MaybeCycle,
     Deserialize,
+    DeserializeRepr,
     LineBreak,
 }
 
@@ -309,6 +311,7 @@ impl RuntimeApiFormat {
                 Import::Defines => "use super::defines::*;\n",
                 Import::MaybeCycle => "use super::MaybeCycle;\n",
                 Import::Deserialize => "use serde::Deserialize;\n",
+                Import::DeserializeRepr => "use serde_repr::Deserialize_repr;\n",
                 Import::LineBreak => "\n",
             });
         }
@@ -392,7 +395,7 @@ impl RuntimeApiFormat {
     }
 
     fn generate_defines(&self, base_path: &Path, mod_content: &mut String) -> std::io::Result<()> {
-        let imports = vec![Import::Deserialize, Import::LineBreak];
+        let imports = vec![Import::DeserializeRepr, Import::LineBreak];
         self.generate_definition(
             base_path.join("defines.rs"),
             &self.defines,
@@ -683,7 +686,7 @@ impl Define {
                 name
             };
             definition.push_str(&self.description.to_rust_doc());
-            definition.push_str(DERIVE);
+            definition.push_str(DERIVE_REPR);
             definition.push_str(&format!("pub enum {} {{\n", name));
             for variant in variants {
                 definition.push_str(&variant.generate_definition());
@@ -1035,6 +1038,7 @@ impl Parameter {
         }
         if prefix.starts_with("TriggerEffectItem")
             || rust_name == "default_enable_all_autoplace_controls"
+            || (prefix.starts_with("LuaTilePrototypeMineableProperties") && rust_name == "products")
         {
             typ = format!("Option<{}>", typ);
         }

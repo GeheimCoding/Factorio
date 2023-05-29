@@ -1,6 +1,7 @@
-use serde::Deserialize;
+use serde_repr::Deserialize_repr;
 
-#[derive(Debug, Deserialize)]
+#[derive(Debug, Deserialize_repr)]
+#[repr(u8)]
 pub enum AlertType {
     Custom,
     EntityDestroyed,
@@ -14,7 +15,8 @@ pub enum AlertType {
 }
 
 /// AI command exit status. See [LuaEntity::set_command](LuaEntity::set_command)
-#[derive(Debug, Deserialize)]
+#[derive(Debug, Deserialize_repr)]
+#[repr(u8)]
 pub enum BehaviorResult {
     Deleted,
     Fail,
@@ -22,7 +24,8 @@ pub enum BehaviorResult {
     Success,
 }
 
-#[derive(Debug, Deserialize)]
+#[derive(Debug, Deserialize_repr)]
+#[repr(u8)]
 pub enum BuildCheckType {
     BlueprintGhost,
     GhostRevive,
@@ -33,7 +36,8 @@ pub enum BuildCheckType {
 }
 
 /// State of a chain signal.
-#[derive(Debug, Deserialize)]
+#[derive(Debug, Deserialize_repr)]
+#[repr(u8)]
 pub enum ChainSignalState {
     AllOpen,
     None,
@@ -41,7 +45,8 @@ pub enum ChainSignalState {
     PartiallyOpen,
 }
 
-#[derive(Debug, Deserialize)]
+#[derive(Debug, Deserialize_repr)]
+#[repr(u8)]
 pub enum ChunkGeneratedStatus {
     BasicTiles,
     CorrectedTiles,
@@ -51,7 +56,8 @@ pub enum ChunkGeneratedStatus {
     Tiles,
 }
 
-#[derive(Debug, Deserialize)]
+#[derive(Debug, Deserialize_repr)]
+#[repr(u8)]
 pub enum CircuitConditionIndex {
     ArithmeticCombinator,
     ConstantCombinator,
@@ -63,7 +69,8 @@ pub enum CircuitConditionIndex {
     Pump,
 }
 
-#[derive(Debug, Deserialize)]
+#[derive(Debug, Deserialize_repr)]
+#[repr(u8)]
 pub enum CircuitConnectorId {
     Accumulator,
     CombinatorInput,
@@ -85,7 +92,8 @@ pub enum CircuitConnectorId {
 }
 
 /// Command given to units describing what they should do.
-#[derive(Debug, Deserialize)]
+#[derive(Debug, Deserialize_repr)]
+#[repr(u8)]
 pub enum CommandDefine {
     /// Attack another entity.
     Attack,
@@ -108,7 +116,8 @@ pub enum CommandDefine {
 }
 
 /// How commands are joined together in a compound command (see [defines.command.compound](defines.command.compound)).
-#[derive(Debug, Deserialize)]
+#[derive(Debug, Deserialize_repr)]
+#[repr(u8)]
 pub enum CompoundCommand {
     /// Fail on first failure. Only succeeds if all commands (executed one after another) succeed.
     LogicalAnd,
@@ -118,7 +127,8 @@ pub enum CompoundCommand {
     ReturnLast,
 }
 
-#[derive(Debug, Deserialize)]
+#[derive(Debug, Deserialize_repr)]
+#[repr(u8)]
 pub enum ControlBehaviorInserterCircuitModeOfOperation {
     EnableDisable,
     None,
@@ -127,36 +137,42 @@ pub enum ControlBehaviorInserterCircuitModeOfOperation {
     SetStackSize,
 }
 
-#[derive(Debug, Deserialize)]
+#[derive(Debug, Deserialize_repr)]
+#[repr(u8)]
 pub enum ControlBehaviorInserterHandReadMode {
     Hold,
     Pulse,
 }
 
-#[derive(Debug, Deserialize)]
+#[derive(Debug, Deserialize_repr)]
+#[repr(u8)]
 pub enum ControlBehaviorLampCircuitModeOfOperation {
     UseColors,
 }
 
-#[derive(Debug, Deserialize)]
+#[derive(Debug, Deserialize_repr)]
+#[repr(u8)]
 pub enum ControlBehaviorLogisticContainerCircuitModeOfOperation {
     SendContents,
     SetRequests,
 }
 
-#[derive(Debug, Deserialize)]
+#[derive(Debug, Deserialize_repr)]
+#[repr(u8)]
 pub enum ControlBehaviorMiningDrillResourceReadMode {
     EntirePatch,
     ThisMiner,
 }
 
-#[derive(Debug, Deserialize)]
+#[derive(Debug, Deserialize_repr)]
+#[repr(u8)]
 pub enum ControlBehaviorTransportBeltContentReadMode {
     Hold,
     Pulse,
 }
 
-#[derive(Debug, Deserialize)]
+#[derive(Debug, Deserialize_repr)]
+#[repr(u8)]
 pub enum ControlBehaviorType {
     /// [LuaAccumulatorControlBehavior](LuaAccumulatorControlBehavior)
     Accumulator,
@@ -196,7 +212,8 @@ pub enum ControlBehaviorType {
     Wall,
 }
 
-#[derive(Debug, Deserialize)]
+#[derive(Debug, Deserialize_repr)]
+#[repr(u8)]
 pub enum Controllers {
     /// The controller controls a character. This is the default controller in freeplay.
     Character,
@@ -212,19 +229,22 @@ pub enum Controllers {
     Spectator,
 }
 
-#[derive(Debug, Deserialize)]
+#[derive(Debug, Deserialize_repr)]
+#[repr(u8)]
 pub enum DeconstructionItemEntityFilterMode {
     Blacklist,
     Whitelist,
 }
 
-#[derive(Debug, Deserialize)]
+#[derive(Debug, Deserialize_repr)]
+#[repr(u8)]
 pub enum DeconstructionItemTileFilterMode {
     Blacklist,
     Whitelist,
 }
 
-#[derive(Debug, Deserialize)]
+#[derive(Debug, Deserialize_repr)]
+#[repr(u8)]
 pub enum DeconstructionItemTileSelectionMode {
     Always,
     Never,
@@ -232,26 +252,30 @@ pub enum DeconstructionItemTileSelectionMode {
     Only,
 }
 
-#[derive(Debug, Deserialize)]
+#[derive(Debug, Deserialize_repr)]
+#[repr(u8)]
 pub enum Difficulty {
     Easy,
     Hard,
     Normal,
 }
 
-#[derive(Debug, Deserialize)]
+#[derive(Debug, Deserialize_repr)]
+#[repr(u8)]
 pub enum DifficultySettingsRecipeDifficulty {
     Expensive,
     Normal,
 }
 
-#[derive(Debug, Deserialize)]
+#[derive(Debug, Deserialize_repr)]
+#[repr(u8)]
 pub enum DifficultySettingsTechnologyDifficulty {
     Expensive,
     Normal,
 }
 
-#[derive(Debug, Deserialize)]
+#[derive(Debug, Deserialize_repr)]
+#[repr(u8)]
 pub enum Direction {
     East,
     North,
@@ -263,7 +287,8 @@ pub enum Direction {
     West,
 }
 
-#[derive(Debug, Deserialize)]
+#[derive(Debug, Deserialize_repr)]
+#[repr(u8)]
 pub enum DisconnectReason {
     Afk,
     Banned,
@@ -278,7 +303,8 @@ pub enum DisconnectReason {
     WrongInput,
 }
 
-#[derive(Debug, Deserialize)]
+#[derive(Debug, Deserialize_repr)]
+#[repr(u8)]
 pub enum Distraction {
     /// Attack closer enemy entities, including entities "built" by player (belts, inserters, chests).
     ByAnything,
@@ -290,7 +316,8 @@ pub enum Distraction {
     None,
 }
 
-#[derive(Debug, Deserialize)]
+#[derive(Debug, Deserialize_repr)]
+#[repr(u8)]
 pub enum EntityStatus {
     /// Used by rail signals.
     CantDivideSegments,
@@ -371,7 +398,8 @@ pub enum EntityStatus {
 }
 
 /// See the [events page](events.html) for more info on what events contain and when they get raised.
-#[derive(Debug, Deserialize)]
+#[derive(Debug, Deserialize_repr)]
+#[repr(u8)]
 pub enum Events {
     OnAiCommandCompleted,
     OnAreaCloned,
@@ -555,7 +583,8 @@ pub enum Events {
     ScriptRaisedTeleported,
 }
 
-#[derive(Debug, Deserialize)]
+#[derive(Debug, Deserialize_repr)]
+#[repr(u8)]
 pub enum FlowPrecisionIndex {
     FiftyHours,
     FiveSeconds,
@@ -567,7 +596,8 @@ pub enum FlowPrecisionIndex {
     TwoHundredFiftyHours,
 }
 
-#[derive(Debug, Deserialize)]
+#[derive(Debug, Deserialize_repr)]
+#[repr(u8)]
 pub enum GroupState {
     AttackingDistraction,
     AttackingTarget,
@@ -578,7 +608,8 @@ pub enum GroupState {
     WanderInGroup,
 }
 
-#[derive(Debug, Deserialize)]
+#[derive(Debug, Deserialize_repr)]
+#[repr(u8)]
 pub enum GuiType {
     Achievement,
     BlueprintLibrary,
@@ -602,7 +633,8 @@ pub enum GuiType {
     Tutorials,
 }
 
-#[derive(Debug, Deserialize)]
+#[derive(Debug, Deserialize_repr)]
+#[repr(u8)]
 pub enum InputAction {
     ActivateCopy,
     ActivateCut,
@@ -809,13 +841,15 @@ pub enum InputAction {
     WriteToConsole,
 }
 
-#[derive(Debug, Deserialize)]
+#[derive(Debug, Deserialize_repr)]
+#[repr(u8)]
 pub enum InputMethod {
     GameController,
     KeyboardAndMouse,
 }
 
-#[derive(Debug, Deserialize)]
+#[derive(Debug, Deserialize_repr)]
+#[repr(u8)]
 pub enum Inventory {
     ArtilleryTurretAmmo,
     ArtilleryWagonAmmo,
@@ -864,7 +898,8 @@ pub enum Inventory {
     TurretAmmo,
 }
 
-#[derive(Debug, Deserialize)]
+#[derive(Debug, Deserialize_repr)]
+#[repr(u8)]
 pub enum LogisticMemberIndex {
     CharacterProvider,
     CharacterRequester,
@@ -874,7 +909,8 @@ pub enum LogisticMemberIndex {
     VehicleStorage,
 }
 
-#[derive(Debug, Deserialize)]
+#[derive(Debug, Deserialize_repr)]
+#[repr(u8)]
 pub enum LogisticMode {
     ActiveProvider,
     Buffer,
@@ -884,7 +920,8 @@ pub enum LogisticMode {
     Storage,
 }
 
-#[derive(Debug, Deserialize)]
+#[derive(Debug, Deserialize_repr)]
+#[repr(u8)]
 pub enum MouseButtonType {
     Left,
     Middle,
@@ -895,7 +932,8 @@ pub enum MouseButtonType {
 /// A dictionary mapping all top-level prototypes by name to a list of their associated subtypes. This list is organized as a lookup table, meaning it maps the sub-prototype names to `0`. As an example, `defines.prototypes['entity']` looks like this: `{furnace=0, inserter=0, container=0, ...}`.
 pub struct Prototypes;
 
-#[derive(Debug, Deserialize)]
+#[derive(Debug, Deserialize_repr)]
+#[repr(u8)]
 pub enum RailConnectionDirection {
     Left,
     None,
@@ -903,13 +941,15 @@ pub enum RailConnectionDirection {
     Straight,
 }
 
-#[derive(Debug, Deserialize)]
+#[derive(Debug, Deserialize_repr)]
+#[repr(u8)]
 pub enum RailDirection {
     Back,
     Front,
 }
 
-#[derive(Debug, Deserialize)]
+#[derive(Debug, Deserialize_repr)]
+#[repr(u8)]
 pub enum RelativeGuiPosition {
     Bottom,
     Left,
@@ -917,7 +957,8 @@ pub enum RelativeGuiPosition {
     Top,
 }
 
-#[derive(Debug, Deserialize)]
+#[derive(Debug, Deserialize_repr)]
+#[repr(u8)]
 pub enum RelativeGuiType {
     AccumulatorGui,
     AchievementGui,
@@ -985,21 +1026,24 @@ pub enum RelativeGuiType {
     WallGui,
 }
 
-#[derive(Debug, Deserialize)]
+#[derive(Debug, Deserialize_repr)]
+#[repr(u8)]
 pub enum RenderMode {
     Chart,
     ChartZoomedIn,
     Game,
 }
 
-#[derive(Debug, Deserialize)]
+#[derive(Debug, Deserialize_repr)]
+#[repr(u8)]
 pub enum RichTextSetting {
     Disabled,
     Enabled,
     Highlight,
 }
 
-#[derive(Debug, Deserialize)]
+#[derive(Debug, Deserialize_repr)]
+#[repr(u8)]
 pub enum RidingAcceleration {
     Accelerating,
     Braking,
@@ -1007,14 +1051,16 @@ pub enum RidingAcceleration {
     Reversing,
 }
 
-#[derive(Debug, Deserialize)]
+#[derive(Debug, Deserialize_repr)]
+#[repr(u8)]
 pub enum RidingDirection {
     Left,
     Right,
     Straight,
 }
 
-#[derive(Debug, Deserialize)]
+#[derive(Debug, Deserialize_repr)]
+#[repr(u8)]
 pub enum RocketSiloStatus {
     ArmsAdvance,
     ArmsRetract,
@@ -1033,7 +1079,8 @@ pub enum RocketSiloStatus {
     RocketRising,
 }
 
-#[derive(Debug, Deserialize)]
+#[derive(Debug, Deserialize_repr)]
+#[repr(u8)]
 pub enum Shooting {
     NotShooting,
     ShootingEnemies,
@@ -1041,7 +1088,8 @@ pub enum Shooting {
 }
 
 /// State of an ordinary rail signal.
-#[derive(Debug, Deserialize)]
+#[derive(Debug, Deserialize_repr)]
+#[repr(u8)]
 pub enum SignalState {
     /// Red.
     Closed,
@@ -1053,7 +1101,8 @@ pub enum SignalState {
     ReservedByCircuitNetwork,
 }
 
-#[derive(Debug, Deserialize)]
+#[derive(Debug, Deserialize_repr)]
+#[repr(u8)]
 pub enum TrainState {
     /// Braking before a rail signal.
     ArriveSignal,
@@ -1079,7 +1128,8 @@ pub enum TrainState {
     WaitStation,
 }
 
-#[derive(Debug, Deserialize)]
+#[derive(Debug, Deserialize_repr)]
+#[repr(u8)]
 pub enum TransportLine {
     LeftLine,
     LeftSplitLine,
@@ -1093,14 +1143,16 @@ pub enum TransportLine {
     SecondaryRightSplitLine,
 }
 
-#[derive(Debug, Deserialize)]
+#[derive(Debug, Deserialize_repr)]
+#[repr(u8)]
 pub enum WireConnectionId {
     ElectricPole,
     PowerSwitchLeft,
     PowerSwitchRight,
 }
 
-#[derive(Debug, Deserialize)]
+#[derive(Debug, Deserialize_repr)]
+#[repr(u8)]
 pub enum WireType {
     Copper,
     Green,

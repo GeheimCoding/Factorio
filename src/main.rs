@@ -100,6 +100,7 @@ fn test_sample(sample_path: PathBuf) -> io::Result<Option<String>> {
     }
 }
 
+// TODO: make LuaItemStackEmpty
 // TODO: fix LuaCustomTable from array to map
 // TODO: make all jsons parse successfully
 // TODO: add #[serde(deny_unknown_fields)]

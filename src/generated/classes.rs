@@ -11777,7 +11777,7 @@ pub struct LuaTilePrototypeMineableProperties {
     /// Energy required to mine a tile.
     pub mining_time: f64,
     /// Products obtained by mining this tile.
-    pub products: Vec<Product>,
+    pub products: Option<Vec<Product>>,
 }
 
 /// Prototype of a tile.
