@@ -743,6 +743,9 @@ impl GenerateDefinition for Concept {
         if self.name == "MapPosition" {
             type_definition = fs::read_to_string("runtime_api_format/patches/map_position.rs")
                 .unwrap_or_default();
+        } else if self.name == "RenderLayer" {
+            type_definition = fs::read_to_string("runtime_api_format/patches/render_layer.rs")
+                .unwrap_or_default();
         }
         let position = type_definition.rfind("pub struct");
         let position = if let Some(position) = position {

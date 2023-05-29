@@ -3697,98 +3697,66 @@ pub struct RecipePrototypeFilter {
 }
 
 /// A number between 0 and 255 inclusive, represented by one of the following named strings or the string version of the number. For example `"27"` and `"decals"` are both valid. Higher values are rendered above lower values.
+// ================================
+// ========= MANUAL PATCH =========
+
+#[derive(Debug, Deserialize)]
+#[serde(rename_all = "snake_case")]
+pub enum RenderLayerVariants {
+    WaterTile = 15,
+    GroundTile = 25,
+    TileTransition = 26,
+    Decals = 27,
+    LowerRadiusVisualization = 29,
+    RadiusVisualization = 30,
+    TransportBeltIntegration = 65,
+    Resource = 66,
+    BuildingSmoke = 67,
+    Decorative = 92,
+    GroundPatch = 93,
+    GroundPatchHigher = 94,
+    GroundPatchHigher2 = 95,
+    Remnants = 112,
+    Floor = 113,
+    TransportBelt = 114,
+    TransportBeltEndings = 115,
+    FloorMechanicsUnderCorpse = 120,
+    Corpse = 121,
+    FloorMechanics = 122,
+    Item = 123,
+    LowerObject = 124,
+    TransportBeltCircuitConnector = 126,
+    LowerObjectAboveShadow = 127,
+    Object = 129,
+    HigherObjectUnder = 131,
+    HigherObjectAbove = 132,
+    ItemInInserterHand = 134,
+    Wires = 135,
+    WiresAbove = 136,
+    EntityInfoIcon = 138,
+    EntityInfoIconAbove = 139,
+    Explosion = 142,
+    Projectile = 143,
+    Smoke = 144,
+    AirObject = 145,
+    AirEntityInfoIcon = 147,
+    LightEffect = 148,
+    SelectionBox = 187,
+    HigherSelectionBox = 188,
+    CollisionSelectionBox = 189,
+    Arrow = 190,
+    Cursor = 210,
+}
+
 #[derive(Debug, Deserialize)]
 #[serde(untagged)]
 pub enum RenderLayer {
-    /// A string of a number
-    String(String),
-    /// 15
-    WaterTile,
-    /// 25
-    GroundTile,
-    /// 26
-    TileTransition,
-    /// 27
-    Decals,
-    /// 29
-    LowerRadiusVisualization,
-    /// 30
-    RadiusVisualization,
-    /// 65
-    TransportBeltIntegration,
-    /// 66
-    Resource,
-    /// 67
-    BuildingSmoke,
-    /// 92
-    Decorative,
-    /// 93
-    GroundPatch,
-    /// 94
-    GroundPatchHigher,
-    /// 95
-    GroundPatchHigher2,
-    /// 112
-    Remnants,
-    /// 113
-    Floor,
-    /// 114
-    TransportBelt,
-    /// 115
-    TransportBeltEndings,
-    /// 120
-    FloorMechanicsUnderCorpse,
-    /// 121
-    Corpse,
-    /// 122
-    FloorMechanics,
-    /// 123
-    Item,
-    /// 124
-    LowerObject,
-    /// 126
-    TransportBeltCircuitConnector,
-    /// 127
-    LowerObjectAboveShadow,
-    /// 129
-    Object,
-    /// 131
-    HigherObjectUnder,
-    /// 132
-    HigherObjectAbove,
-    /// 134
-    ItemInInserterHand,
-    /// 135
-    Wires,
-    /// 136
-    WiresAbove,
-    /// 138
-    EntityInfoIcon,
-    /// 139
-    EntityInfoIconAbove,
-    /// 142
-    Explosion,
-    /// 143
-    Projectile,
-    /// 144
-    Smoke,
-    /// 145
-    AirObject,
-    /// 147
-    AirEntityInfoIcon,
-    /// 148
-    LightEffect,
-    /// 187
-    SelectionBox,
-    /// 188
-    HigherSelectionBox,
-    /// 189
-    CollisionSelectionBox,
-    /// 190
-    Arrow,
-    /// 210
-    Cursor,
+    Value(u8),
+    String(RenderLayerVariants),
 }
+
+// ========= MANUAL PATCH =========
+// ================================
 
 #[derive(Debug, Deserialize)]
 pub struct Resistance {
