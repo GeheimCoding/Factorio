@@ -3054,7 +3054,7 @@ pub struct MapGenSettings {
     /// Map generation settings for entities of the type "cliff".
     pub cliff_settings: CliffPlacementSettings,
     /// Whether undefined `autoplace_controls` should fall back to the default controls or not. Defaults to `true`.
-    pub default_enable_all_autoplace_controls: bool,
+    pub default_enable_all_autoplace_controls: Option<bool>,
     /// Height in tiles. If `0`, the map has 'infinite' height, with the actual limitation being one million tiles in each direction from the center.
     pub height: u32,
     /// Whether peaceful mode is enabled for this map.
@@ -4345,12 +4345,12 @@ pub struct TriggerDelivery {
 
 #[derive(Debug, Deserialize)]
 pub struct TriggerEffectItem {
-    pub affects_target: bool,
-    pub repeat_count: u32,
-    pub show_in_tooltip: bool,
+    pub affects_target: Option<bool>,
+    pub repeat_count: Option<u32>,
+    pub show_in_tooltip: Option<bool>,
     /// One of`"damage"`, `"create-entity"`, `"create-explosion"`, `"create-fire"`, `"create-smoke"`, `"create-trivial-smoke"`, `"create-particle"`, `"create-sticker"`, `"nested-result"`, `"play-sound"`, `"push-back"`, `"destroy-cliffs"`, `"show-explosion-on-chart"`, `"insert-item"`, `"script"`.
     #[serde(rename = "type")]
-    pub typ: String,
+    pub typ: Option<String>,
 }
 
 #[derive(Debug, Deserialize)]

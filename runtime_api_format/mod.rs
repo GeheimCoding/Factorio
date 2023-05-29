@@ -498,6 +498,27 @@ impl GenerateDefinition for Class {
                 typ = "Option<Vec<TriggerEffectItem>>".to_owned();
             } else if rust_name == "flags" && self.name == "LuaItemPrototype" {
                 typ = "Option<ItemPrototypeFlags>".to_owned();
+            } else if rust_name == "flags" && self.name == "LuaEntityPrototype" {
+                typ = "Option<EntityPrototypeFlags>".to_owned();
+            } else if (rust_name == "center"
+                || rust_name == "goal"
+                || rust_name == "left"
+                || rust_name == "relative"
+                || rust_name == "screen"
+                || rust_name == "top")
+                && self.name == "LuaGui"
+            {
+                typ = format!("Option<{typ}>");
+            } else if self.name == "LuaStyle"
+                && !(rust_name == "gui"
+                    || rust_name == "horizontal_align"
+                    || rust_name == "horizontally_squashable"
+                    || rust_name == "horizontally_stretchable"
+                    || rust_name == "vertical_align"
+                    || rust_name == "vertically_squashable"
+                    || rust_name == "vertically_stretchable")
+            {
+                typ = format!("Option<{typ}>");
             }
 
             let mut attribute_description = String::new();
@@ -993,7 +1014,7 @@ impl Parameter {
         } else {
             typ.to_owned()
         };
-        let typ = if self.optional || prefix.starts_with("AutoplaceSpecification") {
+        let mut typ = if self.optional || prefix.starts_with("AutoplaceSpecification") {
             format!("Option<{}>", typ)
         } else {
             typ
@@ -1011,6 +1032,11 @@ impl Parameter {
         }
         if needs_rename {
             definition.push_str(&format!("    #[serde(rename = \"{name}\")]\n"));
+        }
+        if prefix.starts_with("TriggerEffectItem")
+            || rust_name == "default_enable_all_autoplace_controls"
+        {
+            typ = format!("Option<{}>", typ);
         }
         definition.push_str(&format!("    pub {}: {},\n", rust_name, typ));
         definition

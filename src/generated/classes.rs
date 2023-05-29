@@ -3316,7 +3316,7 @@ pub struct LuaEntityPrototype {
     /// Can only be used if this is AssemblingMachine
     pub fixed_recipe: Option<String>,
     /// The flags for this entity prototype.
-    pub flags: EntityPrototypeFlags,
+    pub flags: Option<EntityPrototypeFlags>,
     /// The fluid this offshore pump produces.
     /// Can only be used if this is OffshorePump
     pub fluid: Option<MaybeCycle<LuaFluidPrototype>>,
@@ -5782,23 +5782,23 @@ pub trait LuaGroupMethods {
 #[derive(Debug, Deserialize)]
 pub struct LuaGui {
     /// The center part of the GUI. It is a flow element.
-    pub center: MaybeCycle<LuaGuiElement>,
+    pub center: Option<MaybeCycle<LuaGuiElement>>,
     /// The children GUI elements mapped by name <> element.
     pub children: HashMap<String, MaybeCycle<LuaGuiElement>>,
     /// The flow used in the objectives window. It is a flow element. The objectives window is only visible when the flow is not empty or the objective text is set.
-    pub goal: MaybeCycle<LuaGuiElement>,
+    pub goal: Option<MaybeCycle<LuaGuiElement>>,
     /// The left part of the GUI. It is a flow element inside a scroll pane element.
-    pub left: MaybeCycle<LuaGuiElement>,
+    pub left: Option<MaybeCycle<LuaGuiElement>>,
     /// The class name of this object. Available even when `valid` is false. For LuaStruct objects it may also be suffixed with a dotted path to a member of the struct.
     pub object_name: String,
     /// The player who owns this gui.
     pub player: MaybeCycle<LuaPlayer>,
     /// For showing a GUI somewhere relative to one of the game GUIs. It is an empty-widget element.
-    pub relative: MaybeCycle<LuaGuiElement>,
+    pub relative: Option<MaybeCycle<LuaGuiElement>>,
     /// For showing a GUI somewhere on the entire screen. It is an empty-widget element.
-    pub screen: MaybeCycle<LuaGuiElement>,
+    pub screen: Option<MaybeCycle<LuaGuiElement>>,
     /// The top part of the GUI. It is a flow element inside a scroll pane element.
-    pub top: MaybeCycle<LuaGuiElement>,
+    pub top: Option<MaybeCycle<LuaGuiElement>>,
     /// Is this object valid? This Lua object holds a reference to an object within the game engine. It is possible that the game-engine object is removed whilst a mod still holds the corresponding Lua object. If that happens, the object becomes invalid, i.e. this attribute will be `false`. Mods are advised to check for object validity if any change to the game state might have occurred between the creation of the Lua object and its access.
     pub valid: bool,
 }
@@ -10079,25 +10079,25 @@ pub enum LuaStyleSizeUnion {
 #[derive(Debug, Deserialize)]
 pub struct LuaStyle {
     /// Can only be used if this is TabStyle
-    pub badge_font: String,
+    pub badge_font: Option<String>,
     /// Can only be used if this is TabStyle
-    pub badge_horizontal_spacing: i32,
+    pub badge_horizontal_spacing: Option<i32>,
     /// Can only be used if this is LuaProgressBarStyle
-    pub bar_width: u32,
+    pub bar_width: Option<u32>,
     /// Space between the table cell contents bottom and border.
     /// Can only be used if this is LuaTableStyle
-    pub bottom_cell_padding: i32,
-    pub bottom_margin: i32,
-    pub bottom_padding: i32,
+    pub bottom_cell_padding: Option<i32>,
+    pub bottom_margin: Option<i32>,
+    pub bottom_padding: Option<i32>,
     /// Space between the table cell contents and border. Sets top/right/bottom/left cell paddings to this value.
     /// Can only be used if this is LuaTableStyle
-    pub cell_padding: i32,
+    pub cell_padding: Option<i32>,
     /// Can only be used if this is LuaButtonStyle
-    pub clicked_font_color: Color,
+    pub clicked_font_color: Option<Color>,
     /// Can only be used if this is LuaButtonStyle
-    pub clicked_vertical_offset: i32,
+    pub clicked_vertical_offset: Option<i32>,
     /// Can only be used if this is LuaProgressBarStyle
-    pub color: Color,
+    pub color: Option<Color>,
     /// Array containing the alignment for every column of this table element. Even though this property is marked as read-only, the alignment can be changed by indexing the LuaCustomTable, like so:
     ///
     /// # Examples
@@ -10105,121 +10105,121 @@ pub struct LuaStyle {
     /// * ```text
     /// table_element.style.column_alignments[1] = "center"
     /// ```
-    pub column_alignments: HashMap<u32, Alignment>,
+    pub column_alignments: Option<HashMap<u32, Alignment>>,
     /// Can only be used if this is TabStyle
-    pub default_badge_font_color: Color,
+    pub default_badge_font_color: Option<Color>,
     /// Can only be used if this is TabStyle
-    pub disabled_badge_font_color: Color,
+    pub disabled_badge_font_color: Option<Color>,
     /// Can only be used if this is LuaButtonStyle or LuaTabStyle
-    pub disabled_font_color: Color,
+    pub disabled_font_color: Option<Color>,
     /// Can only be used if this is ScrollPaneStyle
-    pub extra_bottom_margin_when_activated: i32,
+    pub extra_bottom_margin_when_activated: Option<i32>,
     /// Can only be used if this is ScrollPaneStyle
-    pub extra_bottom_padding_when_activated: i32,
+    pub extra_bottom_padding_when_activated: Option<i32>,
     /// Can only be used if this is ScrollPaneStyle
-    pub extra_left_margin_when_activated: i32,
+    pub extra_left_margin_when_activated: Option<i32>,
     /// Can only be used if this is ScrollPaneStyle
-    pub extra_left_padding_when_activated: i32,
+    pub extra_left_padding_when_activated: Option<i32>,
     /// Sets `extra_top/right/bottom/left_margin_when_activated` to this value. An array with two values sets top/bottom margin to the first value and left/right margin to the second value. An array with four values sets top, right, bottom, left margin respectively.
-    pub extra_margin_when_activated: LuaStyleExtraMarginWhenActivatedUnion,
+    pub extra_margin_when_activated: Option<LuaStyleExtraMarginWhenActivatedUnion>,
     /// Sets `extra_top/right/bottom/left_padding_when_activated` to this value. An array with two values sets top/bottom padding to the first value and left/right padding to the second value. An array with four values sets top, right, bottom, left padding respectively.
-    pub extra_padding_when_activated: LuaStyleExtraPaddingWhenActivatedUnion,
+    pub extra_padding_when_activated: Option<LuaStyleExtraPaddingWhenActivatedUnion>,
     /// Can only be used if this is ScrollPaneStyle
-    pub extra_right_margin_when_activated: i32,
+    pub extra_right_margin_when_activated: Option<i32>,
     /// Can only be used if this is ScrollPaneStyle
-    pub extra_right_padding_when_activated: i32,
+    pub extra_right_padding_when_activated: Option<i32>,
     /// Can only be used if this is ScrollPaneStyle
-    pub extra_top_margin_when_activated: i32,
+    pub extra_top_margin_when_activated: Option<i32>,
     /// Can only be used if this is ScrollPaneStyle
-    pub extra_top_padding_when_activated: i32,
-    pub font: String,
-    pub font_color: Color,
+    pub extra_top_padding_when_activated: Option<i32>,
+    pub font: Option<String>,
+    pub font_color: Option<Color>,
     /// Gui of the [LuaGuiElement](LuaGuiElement) of this style.
     pub gui: MaybeCycle<LuaGui>,
     /// Sets both minimal and maximal height to the given value.
-    pub height: i32,
+    pub height: Option<i32>,
     /// Horizontal align of the inner content of the widget, if any. Possible values are "left", "center" or "right".
     pub horizontal_align: Option<String>,
     /// Horizontal space between individual cells.
     /// Can only be used if this is LuaTableStyle or LuaFlowStyle or LuaHorizontalFlowStyle
-    pub horizontal_spacing: i32,
+    pub horizontal_spacing: Option<i32>,
     /// Whether the GUI element can be squashed (by maximal width of some parent element) horizontally. `nil` if this element does not support squashing. This is mainly meant to be used for scroll-pane The default value is false.
     pub horizontally_squashable: Option<bool>,
     /// Whether the GUI element stretches its size horizontally to other elements. `nil` if this element does not support stretching.
     pub horizontally_stretchable: Option<bool>,
     /// Can only be used if this is LuaButtonStyle
-    pub hovered_font_color: Color,
+    pub hovered_font_color: Option<Color>,
     /// Space between the table cell contents left and border.
     /// Can only be used if this is LuaTableStyle
-    pub left_cell_padding: i32,
-    pub left_margin: i32,
-    pub left_padding: i32,
+    pub left_cell_padding: Option<i32>,
+    pub left_margin: Option<i32>,
+    pub left_padding: Option<i32>,
     /// Sets top/right/bottom/left margins to this value. An array with two values sets top/bottom margin to the first value and left/right margin to the second value. An array with four values sets top, right, bottom, left margin respectively.
-    pub margin: LuaStyleMarginUnion,
+    pub margin: Option<LuaStyleMarginUnion>,
     /// Maximal height ensures, that the widget will never be bigger than than that size. It can't be stretched to be bigger.
-    pub maximal_height: i32,
+    pub maximal_height: Option<i32>,
     /// Maximal width ensures, that the widget will never be bigger than than that size. It can't be stretched to be bigger.
-    pub maximal_width: i32,
+    pub maximal_width: Option<i32>,
     /// Minimal height ensures, that the widget will never be smaller than than that size. It can't be squashed to be smaller.
-    pub minimal_height: i32,
+    pub minimal_height: Option<i32>,
     /// Minimal width ensures, that the widget will never be smaller than than that size. It can't be squashed to be smaller.
-    pub minimal_width: i32,
+    pub minimal_width: Option<i32>,
     /// Name of this style.
-    pub name: String,
+    pub name: Option<String>,
     /// Natural height specifies the height of the element tries to have, but it can still be squashed/stretched to have a smaller or bigger size.
-    pub natural_height: i32,
+    pub natural_height: Option<i32>,
     /// Natural width specifies the width of the element tries to have, but it can still be squashed/stretched to have a smaller or bigger size.
-    pub natural_width: i32,
+    pub natural_width: Option<i32>,
     /// The class name of this object. Available even when `valid` is false. For LuaStruct objects it may also be suffixed with a dotted path to a member of the struct.
-    pub object_name: String,
+    pub object_name: Option<String>,
     /// Sets top/right/bottom/left paddings to this value. An array with two values sets top/bottom padding to the first value and left/right padding to the second value. An array with four values sets top, right, bottom, left padding respectively.
-    pub padding: LuaStylePaddingUnion,
+    pub padding: Option<LuaStylePaddingUnion>,
     /// Can only be used if this is LuaButtonStyle
-    pub pie_progress_color: Color,
+    pub pie_progress_color: Option<Color>,
     /// How this GUI element handles rich text.
     /// Can only be used if this is LuaLabelStyle or LuaTextBoxStyle or LuaTextFieldStyle
-    pub rich_text_setting: RichTextSetting,
+    pub rich_text_setting: Option<RichTextSetting>,
     /// Space between the table cell contents right and border.
     /// Can only be used if this is LuaTableStyle
-    pub right_cell_padding: i32,
-    pub right_margin: i32,
-    pub right_padding: i32,
+    pub right_cell_padding: Option<i32>,
+    pub right_margin: Option<i32>,
+    pub right_padding: Option<i32>,
     /// Can only be used if this is TabStyle
-    pub selected_badge_font_color: Color,
+    pub selected_badge_font_color: Option<Color>,
     /// Can only be used if this is LuaButtonStyle
-    pub selected_clicked_font_color: Color,
+    pub selected_clicked_font_color: Option<Color>,
     /// Can only be used if this is LuaButtonStyle
-    pub selected_font_color: Color,
+    pub selected_font_color: Option<Color>,
     /// Can only be used if this is LuaButtonStyle
-    pub selected_hovered_font_color: Color,
+    pub selected_hovered_font_color: Option<Color>,
     /// Can only be used if this is LabelStyle
-    pub single_line: bool,
+    pub single_line: Option<bool>,
     /// Sets both width and height to the given value. Also accepts an array with two values, setting width to the first and height to the second one.
-    pub size: LuaStyleSizeUnion,
+    pub size: Option<LuaStyleSizeUnion>,
     /// Can only be used if this is ImageStyle
-    pub stretch_image_to_widget_size: bool,
+    pub stretch_image_to_widget_size: Option<bool>,
     /// Can only be used if this is LuaButtonStyle
-    pub strikethrough_color: Color,
+    pub strikethrough_color: Option<Color>,
     /// Space between the table cell contents top and border.
     /// Can only be used if this is LuaTableStyle
-    pub top_cell_padding: i32,
-    pub top_margin: i32,
-    pub top_padding: i32,
+    pub top_cell_padding: Option<i32>,
+    pub top_margin: Option<i32>,
+    pub top_padding: Option<i32>,
     /// Can only be used if this is LuaFrameStyle
-    pub use_header_filler: bool,
+    pub use_header_filler: Option<bool>,
     /// Is this object valid? This Lua object holds a reference to an object within the game engine. It is possible that the game-engine object is removed whilst a mod still holds the corresponding Lua object. If that happens, the object becomes invalid, i.e. this attribute will be `false`. Mods are advised to check for object validity if any change to the game state might have occurred between the creation of the Lua object and its access.
-    pub valid: bool,
+    pub valid: Option<bool>,
     /// Vertical align of the inner content of the widget, if any. Possible values are "top", "center" or "bottom".
     pub vertical_align: Option<String>,
     /// Vertical space between individual cells.
     /// Can only be used if this is LuaTableStyle or LuaFlowStyle or LuaVerticalFlowStyle or LuaTabbedPaneStyle
-    pub vertical_spacing: i32,
+    pub vertical_spacing: Option<i32>,
     /// Whether the GUI element can be squashed (by maximal height of some parent element) vertically. `nil` if this element does not support squashing. This is mainly meant to be used for scroll-pane The default (parent) value for scroll pane is true, false otherwise.
     pub vertically_squashable: Option<bool>,
     /// Whether the GUI element stretches its size vertically to other elements. `nil` if this element does not support stretching.
     pub vertically_stretchable: Option<bool>,
     /// Sets both minimal and maximal width to the given value.
-    pub width: i32,
+    pub width: Option<i32>,
 }
 
 /// Style of a GUI element. All of the attributes listed here may be `nil` if not available for a particular GUI element.

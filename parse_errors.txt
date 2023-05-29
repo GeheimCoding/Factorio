@@ -20,7 +20,6 @@
 259.json: invalid type: integer `0`, expected string or map
 263.json: invalid type: integer `4`, expected string or map
 264.json: invalid type: integer `4`, expected string or map
-315.json: missing field `affects_target`
 334.json: invalid type: integer `0`, expected string or map
 398.json: invalid type: string "nan", expected f64
 399.json: invalid type: string "nan", expected f64
@@ -43,21 +42,6 @@
 425.json: invalid type: string "nan", expected f64
 426.json: invalid type: string "nan", expected f64
 427.json: invalid type: string "nan", expected f64
-706.json: missing field `flags`
-707.json: missing field `flags`
-708.json: missing field `flags`
-709.json: missing field `flags`
-731.json: missing field `affects_target`
-738.json: missing field `flags`
-739.json: missing field `affects_target`
-770.json: missing field `flags`
-773.json: missing field `affects_target`
-786.json: missing field `flags`
-791.json: missing field `flags`
-795.json: missing field `flags`
-798.json: missing field `affects_target`
-805.json: missing field `flags`
-815.json: missing field `flags`
 914.json: invalid type: sequence, expected a map
 915.json: unknown variant `LuaEntityBuildFlowStatistics`, expected one of `LuaAISettings`, `LuaAccumulatorControlBehavior`, `LuaAchievementPrototype`, `LuaAmmoCategoryPrototype`, `LuaArithmeticCombinatorControlBehavior`, `LuaAutoplaceControlPrototype`, `LuaBootstrap`, `LuaBurner`, `LuaBurnerPrototype`, `LuaChunkIterator`, `LuaCircuitNetwork`, `LuaCombinatorControlBehavior`, `LuaCommandProcessor`, `LuaConstantCombinatorControlBehavior`, `LuaContainerControlBehavior`, `LuaControl`, `LuaControlBehavior`, `LuaCustomChartTag`, `LuaCustomInputPrototype`, `LuaCustomTable`, `LuaDamagePrototype`, `LuaDeciderCombinatorControlBehavior`, `LuaDecorativePrototype`, `LuaElectricEnergySourcePrototype`, `LuaEntity`, `LuaEntityPrototype`, `LuaEquipment`, `LuaEquipmentCategoryPrototype`, `LuaEquipmentGrid`, `LuaEquipmentGridPrototype`, `LuaEquipmentPrototype`, `LuaFlowStatistics`, `LuaFluidBox`, `LuaFluidBoxPrototype`, `LuaFluidEnergySourcePrototype`, `LuaFluidPrototype`, `LuaFontPrototype`, `LuaForce`, `LuaFuelCategoryPrototype`, `LuaGameScript`, `LuaGenericOnOffControlBehavior`, `LuaGroup`, `LuaGui`, `LuaGuiElement`, `LuaHeatBufferPrototype`, `LuaHeatEnergySourcePrototype`, `LuaInserterControlBehavior`, `LuaInventory`, `LuaItemPrototype`, `LuaItemStack`, `LuaLampControlBehavior`, `LuaLazyLoadedValue`, `LuaLogisticCell`, `LuaLogisticContainerControlBehavior`, `LuaLogisticNetwork`, `LuaLogisticPoint`, `LuaMiningDrillControlBehavior`, `LuaModSettingPrototype`, `LuaModuleCategoryPrototype`, `LuaNamedNoiseExpression`, `LuaNoiseLayerPrototype`, `LuaParticlePrototype`, `LuaPermissionGroup`, `LuaPermissionGroups`, `LuaPlayer`, `LuaProfiler`, `LuaProgrammableSpeakerControlBehavior`, `LuaRCON`, `LuaRailChainSignalControlBehavior`, `LuaRailPath`, `LuaRailSignalControlBehavior`, `LuaRandomGenerator`, `LuaRecipe`, `LuaRecipeCategoryPrototype`, `LuaRecipePrototype`, `LuaRemote`, `LuaRendering`, `LuaResourceCategoryPrototype`, `LuaRoboportControlBehavior`, `LuaSettings`, `LuaShortcutPrototype`, `LuaStorageTankControlBehavior`, `LuaStyle`, `LuaSurface`, `LuaTechnology`, `LuaTechnologyPrototype`, `LuaTile`, `LuaTilePrototype`, `LuaTrain`, `LuaTrainStopControlBehavior`, `LuaTransportBeltControlBehavior`, `LuaTransportLine`, `LuaTrivialSmokePrototype`, `LuaUnitGroup`, `LuaVirtualSignalPrototype`, `LuaVoidEnergySourcePrototype`, `LuaWallControlBehavior`
 916.json: unknown variant `LuaFluidProductionFlowStatistics`, expected one of `LuaAISettings`, `LuaAccumulatorControlBehavior`, `LuaAchievementPrototype`, `LuaAmmoCategoryPrototype`, `LuaArithmeticCombinatorControlBehavior`, `LuaAutoplaceControlPrototype`, `LuaBootstrap`, `LuaBurner`, `LuaBurnerPrototype`, `LuaChunkIterator`, `LuaCircuitNetwork`, `LuaCombinatorControlBehavior`, `LuaCommandProcessor`, `LuaConstantCombinatorControlBehavior`, `LuaContainerControlBehavior`, `LuaControl`, `LuaControlBehavior`, `LuaCustomChartTag`, `LuaCustomInputPrototype`, `LuaCustomTable`, `LuaDamagePrototype`, `LuaDeciderCombinatorControlBehavior`, `LuaDecorativePrototype`, `LuaElectricEnergySourcePrototype`, `LuaEntity`, `LuaEntityPrototype`, `LuaEquipment`, `LuaEquipmentCategoryPrototype`, `LuaEquipmentGrid`, `LuaEquipmentGridPrototype`, `LuaEquipmentPrototype`, `LuaFlowStatistics`, `LuaFluidBox`, `LuaFluidBoxPrototype`, `LuaFluidEnergySourcePrototype`, `LuaFluidPrototype`, `LuaFontPrototype`, `LuaForce`, `LuaFuelCategoryPrototype`, `LuaGameScript`, `LuaGenericOnOffControlBehavior`, `LuaGroup`, `LuaGui`, `LuaGuiElement`, `LuaHeatBufferPrototype`, `LuaHeatEnergySourcePrototype`, `LuaInserterControlBehavior`, `LuaInventory`, `LuaItemPrototype`, `LuaItemStack`, `LuaLampControlBehavior`, `LuaLazyLoadedValue`, `LuaLogisticCell`, `LuaLogisticContainerControlBehavior`, `LuaLogisticNetwork`, `LuaLogisticPoint`, `LuaMiningDrillControlBehavior`, `LuaModSettingPrototype`, `LuaModuleCategoryPrototype`, `LuaNamedNoiseExpression`, `LuaNoiseLayerPrototype`, `LuaParticlePrototype`, `LuaPermissionGroup`, `LuaPermissionGroups`, `LuaPlayer`, `LuaProfiler`, `LuaProgrammableSpeakerControlBehavior`, `LuaRCON`, `LuaRailChainSignalControlBehavior`, `LuaRailPath`, `LuaRailSignalControlBehavior`, `LuaRandomGenerator`, `LuaRecipe`, `LuaRecipeCategoryPrototype`, `LuaRecipePrototype`, `LuaRemote`, `LuaRendering`, `LuaResourceCategoryPrototype`, `LuaRoboportControlBehavior`, `LuaSettings`, `LuaShortcutPrototype`, `LuaStorageTankControlBehavior`, `LuaStyle`, `LuaSurface`, `LuaTechnology`, `LuaTechnologyPrototype`, `LuaTile`, `LuaTilePrototype`, `LuaTrain`, `LuaTrainStopControlBehavior`, `LuaTransportBeltControlBehavior`, `LuaTransportLine`, `LuaTrivialSmokePrototype`, `LuaUnitGroup`, `LuaVirtualSignalPrototype`, `LuaVoidEnergySourcePrototype`, `LuaWallControlBehavior`
@@ -66,20 +50,12 @@
 919.json: invalid type: integer `1`, expected string or map
 920.json: trailing comma at line 4 column 1
 921.json: trailing comma at line 4 column 1
-922.json: missing field `center`
 923.json: invalid type: sequence, expected a map
-924.json: missing field `badge_font`
 925.json: invalid type: sequence, expected a map
-926.json: missing field `badge_font`
 927.json: invalid type: sequence, expected a map
-928.json: missing field `badge_font`
 929.json: invalid type: sequence, expected a map
-930.json: missing field `badge_font`
 931.json: invalid type: sequence, expected a map
-932.json: missing field `badge_font`
 933.json: invalid type: sequence, expected a map
-934.json: missing field `badge_font`
-936.json: missing field `default_enable_all_autoplace_controls`
 1362.json: invalid type: sequence, expected a map
 1367.json: invalid type: sequence, expected a map
 1369.json: invalid type: sequence, expected a map
