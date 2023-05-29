@@ -9,7 +9,7 @@ pub enum MaybeLuaItemStack {
 }
 
 #[derive(Debug, Deserialize)]
-pub struct LuaItemStackInvalidForRead;
+pub struct LuaItemStackInvalidForRead {}
 
 // TODO: maybe solve differently with default values?
 

@@ -1632,7 +1632,7 @@ pub struct OnPlayerSetupBlueprint {
     /// The item used to select the area.
     pub item: String,
     /// The blueprint entity index to source entity mapping. Note: if any mod changes the blueprint this will be incorrect.
-    pub mapping: HashMap<u32, MaybeCycle<LuaEntity>>,
+    pub mapping: HashMap<String, MaybeCycle<LuaEntity>>,
     /// Identifier of the event
     pub name: Events,
     /// The player doing the selection.

@@ -11,9 +11,9 @@ use remote_console::RemoteConsole;
 use crate::generated::*;
 
 fn main() -> io::Result<()> {
-    remote_console()?;
+    //remote_console()?;
 
-    //test_samples()?;
+    test_samples()?;
 
     Ok(())
 }
@@ -26,13 +26,13 @@ fn remote_console() -> io::Result<()> {
     if !response.is_empty() {
         println!("{response}");
     } else {
-        let response = console.send_command(
+        /* let response = console.send_command(
             "
-            rcon.print(to_json_cycles_only(global.lookup.cycles[920].obj))
+            rcon.print(to_json_cycles_only(global.lookup.cycles[914].obj))
         ",
         )?;
-        println!("{response}");
-        //generate_samples(&mut console)?;
+        println!("{response}"); */
+        generate_samples(&mut console)?;
     }
 
     Ok(())

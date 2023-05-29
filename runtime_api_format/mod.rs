@@ -267,12 +267,13 @@ impl RuntimeApiFormat {
             definition.push_str(&format!("    {name}({name}),\n"));
         }
         definition.push_str(&format!(
-            "{}{}{}{}{}",
+            "{}{}{}{}{}{}",
             "    LuaEntityBuildFlowStatistics(LuaEntityBuildFlowStatistics),\n",
             "    LuaFluidProductionFlowStatistics(LuaFluidProductionFlowStatistics),\n",
             "    LuaItemProductionFlowStatistics(LuaItemProductionFlowStatistics),\n",
             "    LuaKillCountFlowStatistics(LuaKillCountFlowStatistics),\n",
-            "    LuaPollutionFlowStatistics(LuaPollutionFlowStatistics),\n"
+            "    LuaPollutionFlowStatistics(LuaPollutionFlowStatistics),\n",
+            "    LuaItemStackInvalidForRead(LuaItemStackInvalidForRead),\n"
         ));
         definition.push_str(&format!("}}\n\n{DERIVE}{RENAME_WITH_TAG}"));
         definition.push_str("pub enum Concept {\n");
@@ -491,7 +492,7 @@ impl GenerateDefinition for Class {
             // TODO: there is only one base class here?
             for base_class in base_classes {
                 struct_definition.push_str(&format!(
-                    "    pub {}: Box<{base_class}>,\n",
+                    "    pub {}: Option<Box<{base_class}>>,\n",
                     base_class.to_snake_case()
                 ));
             }
@@ -556,6 +557,15 @@ impl GenerateDefinition for Class {
             {
                 // TODO: find solution for base class members
                 typ = "MaybeCycle<MaybeLuaItemStack>".to_owned();
+            } else if self.name == "LuaPlayer"
+                && (rust_name == "infinity_inventory_filters"
+                    || rust_name == "map_view_settings"
+                    || rust_name == "remove_unfiltered_items"
+                    || rust_name == "zoom")
+            {
+                typ = format!("Option<{typ}>");
+            } else if rust_name == "difficulty_settings" {
+                typ = format!("Option<{typ}>");
             }
 
             let mut attribute_description = String::new();
@@ -1073,6 +1083,16 @@ impl Parameter {
         if prefix.starts_with("TriggerEffectItem")
             || rust_name == "default_enable_all_autoplace_controls"
             || (prefix.starts_with("LuaTilePrototypeMineableProperties") && rust_name == "products")
+            || prefix.starts_with("AutoplaceControl")
+            || (prefix.starts_with("DifficultySettings") && rust_name == "research_queue_setting")
+            || rust_name == "enemy_evolution"
+            || rust_name == "enemy_expansion"
+            || rust_name == "difficulty_settings"
+            || prefix.starts_with("MapGenSettings")
+            || prefix.starts_with("PollutionMapSettings")
+            || prefix.starts_with("EnemyEvolutionMapSettings")
+            || prefix.starts_with("EnemyExpansionMapSettings")
+            || (prefix.contains("Settings") && rust_name == "pollution")
         {
             typ = format!("Option<{}>", typ);
         }
@@ -1669,11 +1689,11 @@ impl ComplexType {
                     } else {
                         value
                     };
-                    definition.push_str(&format!(
-                        "HashMap<{}, {}>",
-                        key.generate_definition(prefix, unions, true),
-                        value
-                    ));
+                    let mut key = key.generate_definition(prefix, unions, true);
+                    if key == "u32" {
+                        key = "String".to_owned();
+                    }
+                    definition.push_str(&format!("HashMap<{key}, {value}>"));
                 }
                 if !is_nested {
                     definition.push(';');

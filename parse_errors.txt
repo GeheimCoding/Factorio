@@ -1,12 +1,7 @@
-0.json: invalid type: sequence, expected a map
-914.json: invalid type: sequence, expected a map
 915.json: invalid type: sequence, expected a map
 916.json: invalid type: sequence, expected a map
 917.json: invalid type: sequence, expected a map
 918.json: invalid type: sequence, expected a map
-919.json: invalid type: sequence, expected a map
-920.json: trailing comma at line 4 column 1
-921.json: trailing comma at line 4 column 1
 923.json: invalid type: sequence, expected a map
 925.json: invalid type: sequence, expected a map
 927.json: invalid type: sequence, expected a map
@@ -21,12 +16,10 @@
 1428.json: invalid type: sequence, expected a map
 1433.json: invalid type: sequence, expected a map
 1436.json: invalid type: sequence, expected a map
-1745.json: invalid type: sequence, expected a map
 1746.json: invalid type: sequence, expected a map
 1747.json: invalid type: sequence, expected a map
 1748.json: invalid type: sequence, expected a map
 1749.json: invalid type: sequence, expected a map
-2154.json: invalid type: sequence, expected a map
 2155.json: invalid type: sequence, expected a map
 2156.json: invalid type: sequence, expected a map
 2157.json: invalid type: sequence, expected a map

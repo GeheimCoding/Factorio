@@ -33,7 +33,7 @@ pub trait LuaAISettingsMethods {
 /// Control behavior for accumulators.
 #[derive(Debug, Deserialize)]
 pub struct LuaAccumulatorControlBehavior {
-    pub lua_control_behavior: Box<LuaControlBehavior>,
+    pub lua_control_behavior: Option<Box<LuaControlBehavior>>,
     /// The class name of this object. Available even when `valid` is false. For LuaStruct objects it may also be suffixed with a dotted path to a member of the struct.
     pub object_name: String,
     pub output_signal: SignalID,
@@ -95,7 +95,7 @@ pub trait LuaAmmoCategoryPrototypeMethods {
 /// Control behavior for arithmetic combinators.
 #[derive(Debug, Deserialize)]
 pub struct LuaArithmeticCombinatorControlBehavior {
-    pub lua_combinator_control_behavior: Box<LuaCombinatorControlBehavior>,
+    pub lua_combinator_control_behavior: Option<Box<LuaCombinatorControlBehavior>>,
     /// The class name of this object. Available even when `valid` is false. For LuaStruct objects it may also be suffixed with a dotted path to a member of the struct.
     pub object_name: String,
     /// This arithmetic combinator's parameters.
@@ -645,7 +645,7 @@ pub trait LuaCircuitNetworkMethods {
 
 #[derive(Debug, Deserialize)]
 pub struct LuaCombinatorControlBehavior {
-    pub lua_control_behavior: Box<LuaControlBehavior>,
+    pub lua_control_behavior: Option<Box<LuaControlBehavior>>,
     /// The circuit network signals sent by this combinator last tick.
     pub signals_last_tick: Vec<Signal>,
 }
@@ -713,7 +713,7 @@ pub trait LuaCommandProcessorMethods {
 /// Control behavior for constant combinators.
 #[derive(Debug, Deserialize)]
 pub struct LuaConstantCombinatorControlBehavior {
-    pub lua_control_behavior: Box<LuaControlBehavior>,
+    pub lua_control_behavior: Option<Box<LuaControlBehavior>>,
     /// Turns this constant combinator on and off.
     pub enabled: bool,
     /// The class name of this object. Available even when `valid` is false. For LuaStruct objects it may also be suffixed with a dotted path to a member of the struct.
@@ -745,7 +745,7 @@ pub trait LuaConstantCombinatorControlBehaviorMethods {
 /// Control behavior for container entities.
 #[derive(Debug, Deserialize)]
 pub struct LuaContainerControlBehavior {
-    pub lua_control_behavior: Box<LuaControlBehavior>,
+    pub lua_control_behavior: Option<Box<LuaControlBehavior>>,
     /// The class name of this object. Available even when `valid` is false. For LuaStruct objects it may also be suffixed with a dotted path to a member of the struct.
     pub object_name: String,
     /// Is this object valid? This Lua object holds a reference to an object within the game engine. It is possible that the game-engine object is removed whilst a mod still holds the corresponding Lua object. If that happens, the object becomes invalid, i.e. this attribute will be `false`. Mods are advised to check for object validity if any change to the game state might have occurred between the creation of the Lua object and its access.
@@ -1389,7 +1389,7 @@ pub trait LuaDamagePrototypeMethods {
 /// Control behavior for decider combinators.
 #[derive(Debug, Deserialize)]
 pub struct LuaDeciderCombinatorControlBehavior {
-    pub lua_combinator_control_behavior: Box<LuaCombinatorControlBehavior>,
+    pub lua_combinator_control_behavior: Option<Box<LuaCombinatorControlBehavior>>,
     /// The class name of this object. Available even when `valid` is false. For LuaStruct objects it may also be suffixed with a dotted path to a member of the struct.
     pub object_name: String,
     /// This decider combinator's parameters.
@@ -1509,7 +1509,7 @@ pub struct LuaEntityCircuitConnectedEntities {
 /// Most functions on LuaEntity also work when the entity is contained in a ghost.
 #[derive(Debug, Deserialize)]
 pub struct LuaEntity {
-    pub lua_control: Box<LuaControl>,
+    pub lua_control: Option<Box<LuaControl>>,
     /// Deactivating an entity will stop all its operations (car will stop moving, inserters will stop working, fish will stop moving etc).
     ///
     /// # Notes
@@ -4967,7 +4967,7 @@ pub struct LuaGameScript {
     /// True by default. Can be used to disable autosaving. Make sure to turn it back on soon after.
     pub autosave_enabled: bool,
     /// Array of the names of all the backers that supported the game development early on. These are used as names for labs, locomotives, radars, roboports, and train stops.
-    pub backer_names: HashMap<u32, String>,
+    pub backer_names: HashMap<String, String>,
     /// The players that are currently online.
     ///
     /// This is primarily useful when you want to do some action against all online players.
@@ -4996,7 +4996,7 @@ pub struct LuaGameScript {
     /// ```text
     /// game.difficulty_settings.technology_price_multiplier = 12
     /// ```
-    pub difficulty_settings: DifficultySettings,
+    pub difficulty_settings: Option<DifficultySettings>,
     /// True by default. Can be used to disable the highlighting of resource patches when they are hovered on the map.
     pub draw_resource_selection: bool,
     /// Determines if enemy land mines are completely invisible or not.
@@ -5707,7 +5707,7 @@ pub trait LuaGameScriptMethods {
 /// An abstract base class for behaviors that support switching the entity on or off based on some condition.
 #[derive(Debug, Deserialize)]
 pub struct LuaGenericOnOffControlBehavior {
-    pub lua_control_behavior: Box<LuaControlBehavior>,
+    pub lua_control_behavior: Option<Box<LuaControlBehavior>>,
     /// The circuit condition. Writing `nil` clears the circuit condition.
     ///
     /// # Examples
@@ -6420,7 +6420,7 @@ pub trait LuaHeatEnergySourcePrototypeMethods {
 /// Control behavior for inserters.
 #[derive(Debug, Deserialize)]
 pub struct LuaInserterControlBehavior {
-    pub lua_generic_on_off_control_behavior: Box<LuaGenericOnOffControlBehavior>,
+    pub lua_generic_on_off_control_behavior: Option<Box<LuaGenericOnOffControlBehavior>>,
     /// The hand read mode for the inserter.
     pub circuit_hand_read_mode: ControlBehaviorInserterHandReadMode,
     /// The circuit mode of operations for the inserter.
@@ -7188,7 +7188,7 @@ pub trait LuaItemStackMethods {
         include_station_names: bool,
         include_trains: bool,
         surface: SurfaceIdentification,
-    ) -> HashMap<u32, MaybeCycle<LuaEntity>>;
+    ) -> HashMap<String, MaybeCycle<LuaEntity>>;
     /// Creates the equipment grid for this item if it doesn't exist and this is an item-with-entity-data that supports equipment grids.
     fn create_grid() -> LuaEquipmentGrid;
     /// Deconstruct the given area with this deconstruction item.
@@ -7378,7 +7378,7 @@ pub trait LuaItemStackMethods {
 /// Control behavior for lamps.
 #[derive(Debug, Deserialize)]
 pub struct LuaLampControlBehavior {
-    pub lua_generic_on_off_control_behavior: Box<LuaGenericOnOffControlBehavior>,
+    pub lua_generic_on_off_control_behavior: Option<Box<LuaGenericOnOffControlBehavior>>,
     /// The color the lamp is showing, if any.
     pub color: Option<Color>,
     /// The class name of this object. Available even when `valid` is false. For LuaStruct objects it may also be suffixed with a dotted path to a member of the struct.
@@ -7470,7 +7470,7 @@ pub trait LuaLogisticCellMethods {
 /// Control behavior for logistic chests.
 #[derive(Debug, Deserialize)]
 pub struct LuaLogisticContainerControlBehavior {
-    pub lua_control_behavior: Box<LuaControlBehavior>,
+    pub lua_control_behavior: Option<Box<LuaControlBehavior>>,
     /// The circuit mode of operations for the logistic container. Can only be set on containers whose [logistic_mode](LuaEntityPrototype::logistic_mode) is set to "requester".
     pub circuit_mode_of_operation: ControlBehaviorLogisticContainerCircuitModeOfOperation,
     /// The class name of this object. Available even when `valid` is false. For LuaStruct objects it may also be suffixed with a dotted path to a member of the struct.
@@ -7690,7 +7690,7 @@ pub trait LuaLogisticPointMethods {
 /// Control behavior for mining drills.
 #[derive(Debug, Deserialize)]
 pub struct LuaMiningDrillControlBehavior {
-    pub lua_generic_on_off_control_behavior: Box<LuaGenericOnOffControlBehavior>,
+    pub lua_generic_on_off_control_behavior: Option<Box<LuaGenericOnOffControlBehavior>>,
     /// `true` if this drill is enabled or disabled using the logistics or circuit condition.
     pub circuit_enable_disable: bool,
     /// `true` if this drill should send the resources in the field to the circuit network. Which resources depends on [LuaMiningDrillControlBehavior::resource_read_mode](LuaMiningDrillControlBehavior::resource_read_mode)
@@ -7978,7 +7978,7 @@ pub trait LuaPermissionGroupsMethods {
 /// A player in the game. Pay attention that a player may or may not have a character, which is the [LuaEntity](LuaEntity) of the little guy running around the world doing things.
 #[derive(Debug, Deserialize)]
 pub struct LuaPlayer {
-    pub lua_control: Box<LuaControl>,
+    pub lua_control: Option<Box<LuaControl>>,
     /// `true` if the player is an admin.
     ///
     /// # Notes
@@ -8028,11 +8028,11 @@ pub struct LuaPlayer {
     /// This player's index in [LuaGameScript::players](LuaGameScript::players) (unique ID). It is assigned when a player is created, and remains so (even when the player is not [connected](LuaPlayer::connected)) until the player is irreversably [removed](on_player_removed). Indexes of removed players can be reused.
     pub index: u32,
     /// The filters for this map editor infinity inventory settings.
-    pub infinity_inventory_filters: Vec<InfinityInventoryFilter>,
+    pub infinity_inventory_filters: Option<Vec<InfinityInventoryFilter>>,
     /// At what tick this player was last online.
     pub last_online: u32,
     /// The player's map view settings. To write to this, use a table containing the fields that should be changed.
-    pub map_view_settings: MapViewSettings,
+    pub map_view_settings: Option<MapViewSettings>,
     /// `true` if the minimap is visible.
     pub minimap_enabled: bool,
     /// The current per-player settings for the this player, indexed by prototype name. Returns the same structure as [LuaSettings::get_player_settings](LuaSettings::get_player_settings). This table becomes invalid if its associated player does.
@@ -8057,7 +8057,7 @@ pub struct LuaPlayer {
     /// The permission group this player is part of, if any.
     pub permission_group: Option<MaybeCycle<LuaPermissionGroup>>,
     /// If items not included in this map editor infinity inventory filters should be removed.
-    pub remove_unfiltered_items: bool,
+    pub remove_unfiltered_items: Option<bool>,
     /// The render mode of the player, like map or zoom to world. The render mode can be set using [LuaPlayer::open_map](LuaPlayer::open_map), [LuaPlayer::zoom_to_world](LuaPlayer::zoom_to_world) and [LuaPlayer::close_map](LuaPlayer::close_map).
     pub render_mode: RenderMode,
     /// If `true`, circle and name of given player is rendered on the map/chart.
@@ -8083,7 +8083,7 @@ pub struct LuaPlayer {
     /// Is this object valid? This Lua object holds a reference to an object within the game engine. It is possible that the game-engine object is removed whilst a mod still holds the corresponding Lua object. If that happens, the object becomes invalid, i.e. this attribute will be `false`. Mods are advised to check for object validity if any change to the game state might have occurred between the creation of the Lua object and its access.
     pub valid: bool,
     /// The player's zoom-level.
-    pub zoom: Double,
+    pub zoom: Option<Double>,
 }
 
 #[derive(Debug, Deserialize)]
@@ -8324,7 +8324,7 @@ pub trait LuaPlayerMethods {
         prototype: LuaEntityPrototype,
         surface: SurfaceIdentification,
         typ: AlertType,
-    ) -> HashMap<u32, HashMap<AlertType, Vec<Alert>>>;
+    ) -> HashMap<String, HashMap<AlertType, Vec<Alert>>>;
     /// The characters associated with this player.
     ///
     /// # Notes
@@ -8606,7 +8606,7 @@ pub trait LuaProfilerMethods {
 /// Control behavior for programmable speakers.
 #[derive(Debug, Deserialize)]
 pub struct LuaProgrammableSpeakerControlBehavior {
-    pub lua_control_behavior: Box<LuaControlBehavior>,
+    pub lua_control_behavior: Option<Box<LuaControlBehavior>>,
     pub circuit_condition: CircuitConditionDefinition,
     pub circuit_parameters: ProgrammableSpeakerCircuitParameters,
     /// The class name of this object. Available even when `valid` is false. For LuaStruct objects it may also be suffixed with a dotted path to a member of the struct.
@@ -8637,7 +8637,7 @@ pub trait LuaRCONMethods {
 /// Control behavior for rail chain signals.
 #[derive(Debug, Deserialize)]
 pub struct LuaRailChainSignalControlBehavior {
-    pub lua_control_behavior: Box<LuaControlBehavior>,
+    pub lua_control_behavior: Option<Box<LuaControlBehavior>>,
     pub blue_signal: SignalID,
     pub green_signal: SignalID,
     /// The class name of this object. Available even when `valid` is false. For LuaStruct objects it may also be suffixed with a dotted path to a member of the struct.
@@ -8664,7 +8664,7 @@ pub struct LuaRailPath {
     /// The class name of this object. Available even when `valid` is false. For LuaStruct objects it may also be suffixed with a dotted path to a member of the struct.
     pub object_name: String,
     /// Array of the rails that this path travels over.
-    pub rails: HashMap<u32, MaybeCycle<LuaEntity>>,
+    pub rails: HashMap<String, MaybeCycle<LuaEntity>>,
     /// The total number of rails in this path.
     pub size: u32,
     /// The total path distance.
@@ -8684,7 +8684,7 @@ pub trait LuaRailPathMethods {
 /// Control behavior for rail signals.
 #[derive(Debug, Deserialize)]
 pub struct LuaRailSignalControlBehavior {
-    pub lua_control_behavior: Box<LuaControlBehavior>,
+    pub lua_control_behavior: Option<Box<LuaControlBehavior>>,
     /// The circuit condition when controlling the signal through the circuit network.
     pub circuit_condition: CircuitConditionDefinition,
     /// If this will close the rail signal based off the circuit condition.
@@ -9942,7 +9942,7 @@ pub trait LuaResourceCategoryPrototypeMethods {
 /// Control behavior for roboports.
 #[derive(Debug, Deserialize)]
 pub struct LuaRoboportControlBehavior {
-    pub lua_control_behavior: Box<LuaControlBehavior>,
+    pub lua_control_behavior: Option<Box<LuaControlBehavior>>,
     pub available_construction_output_signal: SignalID,
     pub available_logistic_output_signal: SignalID,
     /// The class name of this object. Available even when `valid` is false. For LuaStruct objects it may also be suffixed with a dotted path to a member of the struct.
@@ -10027,7 +10027,7 @@ pub trait LuaShortcutPrototypeMethods {
 /// Control behavior for storage tanks.
 #[derive(Debug, Deserialize)]
 pub struct LuaStorageTankControlBehavior {
-    pub lua_control_behavior: Box<LuaControlBehavior>,
+    pub lua_control_behavior: Option<Box<LuaControlBehavior>>,
     /// The class name of this object. Available even when `valid` is false. For LuaStruct objects it may also be suffixed with a dotted path to a member of the struct.
     pub object_name: String,
     /// Is this object valid? This Lua object holds a reference to an object within the game engine. It is possible that the game-engine object is removed whilst a mod still holds the corresponding Lua object. If that happens, the object becomes invalid, i.e. this attribute will be `false`. Mods are advised to check for object validity if any change to the game state might have occurred between the creation of the Lua object and its access.
@@ -10105,7 +10105,7 @@ pub struct LuaStyle {
     /// * ```text
     /// table_element.style.column_alignments[1] = "center"
     /// ```
-    pub column_alignments: Option<HashMap<u32, Alignment>>,
+    pub column_alignments: Option<HashMap<String, Alignment>>,
     /// Can only be used if this is TabStyle
     pub default_badge_font_color: Option<Color>,
     /// Can only be used if this is TabStyle
@@ -11853,7 +11853,7 @@ pub struct LuaTrain {
     /// The players killed by this train.
     ///
     /// The keys are the player indices, the values are how often this train killed that player.
-    pub killed_players: HashMap<u32, u32>,
+    pub killed_players: HashMap<String, u32>,
     /// Arrays of locomotives. The result is two arrays, indexed by `"front_movers"` and `"back_movers"` containing the locomotives. E.g. `{front_movers={loco1, loco2}, back_movers={loco3}}`.
     pub locomotives: HashMap<String, Vec<MaybeCycle<LuaEntity>>>,
     /// When `true`, the train is explicitly controlled by the player or script. When `false`, the train moves autonomously according to its schedule.
@@ -11979,7 +11979,7 @@ pub trait LuaTrainMethods {
 /// Control behavior for train stops.
 #[derive(Debug, Deserialize)]
 pub struct LuaTrainStopControlBehavior {
-    pub lua_generic_on_off_control_behavior: Box<LuaGenericOnOffControlBehavior>,
+    pub lua_generic_on_off_control_behavior: Option<Box<LuaGenericOnOffControlBehavior>>,
     /// `true` if the train stop is enabled/disabled through the circuit network.
     pub enable_disable: bool,
     /// The class name of this object. Available even when `valid` is false. For LuaStruct objects it may also be suffixed with a dotted path to a member of the struct.
@@ -12013,7 +12013,7 @@ pub trait LuaTrainStopControlBehaviorMethods {
 /// Control behavior for transport belts.
 #[derive(Debug, Deserialize)]
 pub struct LuaTransportBeltControlBehavior {
-    pub lua_generic_on_off_control_behavior: Box<LuaGenericOnOffControlBehavior>,
+    pub lua_generic_on_off_control_behavior: Option<Box<LuaGenericOnOffControlBehavior>>,
     /// If the belt will be enabled/disabled based off the circuit network.
     pub enable_disable: bool,
     /// The class name of this object. Available even when `valid` is false. For LuaStruct objects it may also be suffixed with a dotted path to a member of the struct.
@@ -12238,7 +12238,7 @@ pub trait LuaVoidEnergySourcePrototypeMethods {
 /// Control behavior for walls.
 #[derive(Debug, Deserialize)]
 pub struct LuaWallControlBehavior {
-    pub lua_control_behavior: Box<LuaControlBehavior>,
+    pub lua_control_behavior: Option<Box<LuaControlBehavior>>,
     /// The circuit condition.
     pub circuit_condition: CircuitConditionDefinition,
     /// The class name of this object. Available even when `valid` is false. For LuaStruct objects it may also be suffixed with a dotted path to a member of the struct.
@@ -12342,7 +12342,7 @@ pub enum MaybeLuaItemStack {
 }
 
 #[derive(Debug, Deserialize)]
-pub struct LuaItemStackInvalidForRead;
+pub struct LuaItemStackInvalidForRead {}
 
 // TODO: maybe solve differently with default values?
 

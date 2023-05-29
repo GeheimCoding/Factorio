@@ -118,6 +118,7 @@ pub enum Class {
     LuaItemProductionFlowStatistics(LuaItemProductionFlowStatistics),
     LuaKillCountFlowStatistics(LuaKillCountFlowStatistics),
     LuaPollutionFlowStatistics(LuaPollutionFlowStatistics),
+    LuaItemStackInvalidForRead(LuaItemStackInvalidForRead),
 }
 
 #[derive(Debug, Deserialize)]

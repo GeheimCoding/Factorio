@@ -41,10 +41,10 @@ pub struct AchievementPrototypeFilter {
 
 #[derive(Debug, Deserialize)]
 pub struct AdvancedMapGenSettings {
-    pub difficulty_settings: DifficultySettings,
-    pub enemy_evolution: EnemyEvolutionMapSettings,
-    pub enemy_expansion: EnemyExpansionMapSettings,
-    pub pollution: PollutionMapSettings,
+    pub difficulty_settings: Option<DifficultySettings>,
+    pub enemy_evolution: Option<EnemyEvolutionMapSettings>,
+    pub enemy_expansion: Option<EnemyExpansionMapSettings>,
+    pub pollution: Option<PollutionMapSettings>,
 }
 
 #[derive(Debug, Deserialize)]
@@ -207,11 +207,11 @@ pub struct AttackParameters {
 #[derive(Debug, Deserialize)]
 pub struct AutoplaceControl {
     /// For things that are placed as spots such as ores and enemy bases, frequency is generally proportional to number of spots placed per unit area. For continuous features such as forests, frequency is how compressed the probability function is over distance, i.e. the inverse of 'scale' (similar to terrain_segmentation). When the [LuaAutoplaceControlPrototype](LuaAutoplaceControlPrototype) is of the category `"terrain"`, then scale is shown in the map generator GUI instead of frequency.
-    pub frequency: MapGenSize,
+    pub frequency: Option<MapGenSize>,
     /// Has different effects for different things, but generally affects the 'health' or density of a thing that is placed without affecting where it is placed. For trees, richness affects tree health. For ores, richness multiplies the amount of ore at any given tile in a patch. Metadata about autoplace controls (such as whether or not 'richness' does anything for them) can be found in the [LuaAutoplaceControlPrototype](LuaAutoplaceControlPrototype) by looking up `game.autoplace_control_prototypes[(control prototype name)]`, e.g. `game.autoplace_control_prototypes["enemy-base"].richness` is false, because enemy base autoplacement doesn't use richness.
-    pub richness: MapGenSize,
+    pub richness: Option<MapGenSize>,
     /// For things that are placed as spots, size is proportional to the area of each spot. For continuous features, size affects how much of the map is covered with the thing, and is called 'coverage' in the GUI.
-    pub size: MapGenSize,
+    pub size: Option<MapGenSize>,
 }
 
 #[derive(Debug, Deserialize)]
@@ -916,7 +916,7 @@ pub struct DecorativeResult {
 pub struct DifficultySettings {
     pub recipe_difficulty: DifficultySettingsRecipeDifficulty,
     /// Either `"after-victory"`, `"always"` or `"never"`. Changing this to `"always"` or `"after-victory"` does not automatically unlock the research queue. See [LuaForce](LuaForce) for that.
-    pub research_queue_setting: String,
+    pub research_queue_setting: Option<String>,
     pub technology_difficulty: DifficultySettingsTechnologyDifficulty,
     /// A value in range [0.001, 1000].
     pub technology_price_multiplier: Double,
@@ -941,13 +941,13 @@ pub struct DragTarget {
 /// These values represent a percentual increase in evolution. This means a value of `0.1` would increase evolution by 10%.
 pub struct EnemyEvolutionMapSettings {
     /// The amount evolution progresses for every destroyed spawner. Defaults to `0.002`.
-    pub destroy_factor: Double,
+    pub destroy_factor: Option<Double>,
     /// Whether enemy evolution is enabled at all.
-    pub enabled: bool,
+    pub enabled: Option<bool>,
     /// The amount evolution progresses for every unit of pollution. Defaults to `0.0000009`.
-    pub pollution_factor: Double,
+    pub pollution_factor: Option<Double>,
     /// The amount evolution naturally progresses by every second. Defaults to `0.000004`.
-    pub time_factor: Double,
+    pub time_factor: Option<Double>,
 }
 
 #[derive(Debug, Deserialize)]
@@ -972,31 +972,31 @@ pub struct EnemyEvolutionMapSettings {
 /// ```
 pub struct EnemyExpansionMapSettings {
     /// Defaults to `0.1`.
-    pub building_coefficient: Double,
+    pub building_coefficient: Option<Double>,
     /// Whether enemy expansion is enabled at all.
-    pub enabled: bool,
+    pub enabled: Option<bool>,
     /// Defaults to `2`.
-    pub enemy_building_influence_radius: u32,
+    pub enemy_building_influence_radius: Option<u32>,
     /// Defaults to `2`.
-    pub friendly_base_influence_radius: u32,
+    pub friendly_base_influence_radius: Option<u32>,
     /// A chunk has to have at most this high of a percentage of unbuildable tiles for it to be considered a candidate to avoid chunks full of water as candidates. Defaults to `0.9`, or 90%.
-    pub max_colliding_tiles_coefficient: Double,
+    pub max_colliding_tiles_coefficient: Option<Double>,
     /// The maximum time between expansions in ticks. The actual cooldown is adjusted to the current evolution levels. Defaults to `60*3,600=216,000` ticks.
-    pub max_expansion_cooldown: u32,
+    pub max_expansion_cooldown: Option<u32>,
     /// Distance in chunks from the furthest base around to prevent expansions from reaching too far into the player's territory. Defaults to `7`.
-    pub max_expansion_distance: u32,
+    pub max_expansion_distance: Option<u32>,
     /// The minimum time between expansions in ticks. The actual cooldown is adjusted to the current evolution levels. Defaults to `4*3,600=14,400` ticks.
-    pub min_expansion_cooldown: u32,
+    pub min_expansion_cooldown: Option<u32>,
     /// Defaults to `0.4`.
-    pub neighbouring_base_chunk_coefficient: Double,
+    pub neighbouring_base_chunk_coefficient: Option<Double>,
     /// Defaults to `0.5`.
-    pub neighbouring_chunk_coefficient: Double,
+    pub neighbouring_chunk_coefficient: Option<Double>,
     /// Defaults to `2.0`.
-    pub other_base_coefficient: Double,
+    pub other_base_coefficient: Option<Double>,
     /// The maximum size of a biter group that goes to build a new base. This is multiplied by the evolution factor. Defaults to `20`.
-    pub settler_group_max_size: u32,
+    pub settler_group_max_size: Option<u32>,
     /// The minimum size of a biter group that goes to build a new base. This is multiplied by the evolution factor. Defaults to `5`.
-    pub settler_group_min_size: u32,
+    pub settler_group_min_size: Option<u32>,
 }
 
 #[derive(Debug, Deserialize)]
@@ -2997,13 +2997,13 @@ pub struct LuaUpgradeCancelledEventFilter {
 #[derive(Debug, Deserialize)]
 /// All regular [MapSettings](MapSettings) plus an additional table that contains the [DifficultySettings](DifficultySettings).
 pub struct MapAndDifficultySettings {
-    pub difficulty_settings: DifficultySettings,
-    pub enemy_evolution: EnemyEvolutionMapSettings,
-    pub enemy_expansion: EnemyExpansionMapSettings,
+    pub difficulty_settings: Option<DifficultySettings>,
+    pub enemy_evolution: Option<EnemyEvolutionMapSettings>,
+    pub enemy_expansion: Option<EnemyExpansionMapSettings>,
     /// If a behavior fails this many times, the enemy (or enemy group) is destroyed. This solves biters getting stuck within their own base.
     pub max_failed_behavior_count: u32,
     pub path_finder: PathFinderMapSettings,
-    pub pollution: PollutionMapSettings,
+    pub pollution: Option<PollutionMapSettings>,
     pub steering: SteeringMapSettings,
     pub unit_group: UnitGroupMapSettings,
 }
@@ -3048,17 +3048,17 @@ pub struct MapGenPreset {
 ///  This does not require a NamedNoiseExpression to be defined, since literal numbers (and strings naming literal numbers, e.g. `"123"`) are understood to stand for constant value expressions.
 pub struct MapGenSettings {
     /// Indexed by autoplace control prototype name.
-    pub autoplace_controls: HashMap<String, AutoplaceControl>,
+    pub autoplace_controls: Option<HashMap<String, AutoplaceControl>>,
     /// Each setting in this dictionary maps the string type to the settings for that type. Valid types are `"entity"`, `"tile"` and `"decorative"`.
-    pub autoplace_settings: HashMap<String, AutoplaceSettings>,
+    pub autoplace_settings: Option<HashMap<String, AutoplaceSettings>>,
     /// Map generation settings for entities of the type "cliff".
-    pub cliff_settings: CliffPlacementSettings,
+    pub cliff_settings: Option<CliffPlacementSettings>,
     /// Whether undefined `autoplace_controls` should fall back to the default controls or not. Defaults to `true`.
     pub default_enable_all_autoplace_controls: Option<bool>,
     /// Height in tiles. If `0`, the map has 'infinite' height, with the actual limitation being one million tiles in each direction from the center.
-    pub height: u32,
+    pub height: Option<u32>,
     /// Whether peaceful mode is enabled for this map.
-    pub peaceful_mode: bool,
+    pub peaceful_mode: Option<bool>,
     /// Overrides for tile property value generators. Values either name a NamedNoiseExpression or can be literal numbers, stored as strings (e.g. `"5"`). All other controls can be overridden by a property expression names. Notable properties:
     /// - `moisture` - a value between 0 and 1 that determines whether a tile becomes sandy (low moisture) or grassy (high moisture).
     /// - `aux` - a value between 0 and 1 that determines whether low-moisture tiles become sand or red desert.
@@ -3072,19 +3072,19 @@ pub struct MapGenSettings {
     /// - `control-setting:moisture:bias` - global bias for moisture (which normally varies between 0 and 1). Default is 0.
     /// - `control-setting:aux:frequency:multiplier` - frequency (inverse of scale) multiplier for aux (called 'terrain type' in the GUI) noise. Default is 1.
     /// - `control-setting:aux:bias` - global bias for aux/terrain type (which normally varies between 0 and 1). Default is 0. All other MapGenSettings feed into named noise expressions, and therefore placement can be overridden by including the name of a property in this dictionary. The probability and richness functions for placing specific tiles, entities, and decoratives can be overridden by including an entry named `{tile|entity|decorative}:(prototype name):{probability|richness}`.
-    pub property_expression_names: HashMap<String, String>,
+    pub property_expression_names: Option<HashMap<String, String>>,
     /// The random seed used to generated this map.
-    pub seed: u32,
+    pub seed: Option<u32>,
     /// Size of the starting area.
-    pub starting_area: MapGenSize,
+    pub starting_area: Option<MapGenSize>,
     /// Positions of the starting areas.
-    pub starting_points: Vec<MapPosition>,
+    pub starting_points: Option<Vec<MapPosition>>,
     /// The inverse of 'water scale' in the map generator GUI. Lower `terrain_segmentation` increases the scale of elevation features (lakes, continents, etc). This behavior can be overridden with alternate elevation generators (see `property_expression_names`, below).
-    pub terrain_segmentation: MapGenSize,
+    pub terrain_segmentation: Option<MapGenSize>,
     /// The equivalent to 'water coverage' in the map generator GUI. Specifically, when this value is non-zero, `water_level = 10 * log2` (the value of this field), and the elevation generator subtracts water level from elevation before adding starting lakes. If water is set to 'none', elevation is clamped to a small positive value before adding starting lakes. This behavior can be overridden with alternate elevation generators (see `property_expression_names`, below).
-    pub water: MapGenSize,
+    pub water: Option<MapGenSize>,
     /// Width in tiles. If `0`, the map has 'infinite' width, with the actual limitation being one million tiles in each direction from the center.
-    pub width: u32,
+    pub width: Option<u32>,
 }
 
 /// A floating point number specifying an amount.
@@ -3184,12 +3184,12 @@ pub enum MapPosition {
 /// game.map_settings.path_finder.short_cache_size = 15
 /// ```
 pub struct MapSettings {
-    pub enemy_evolution: EnemyEvolutionMapSettings,
-    pub enemy_expansion: EnemyExpansionMapSettings,
+    pub enemy_evolution: Option<EnemyEvolutionMapSettings>,
+    pub enemy_expansion: Option<EnemyExpansionMapSettings>,
     /// If a behavior fails this many times, the enemy (or enemy group) is destroyed. This solves biters getting stuck within their own base.
     pub max_failed_behavior_count: u32,
     pub path_finder: PathFinderMapSettings,
-    pub pollution: PollutionMapSettings,
+    pub pollution: Option<PollutionMapSettings>,
     pub steering: SteeringMapSettings,
     pub unit_group: UnitGroupMapSettings,
 }
@@ -3470,29 +3470,29 @@ pub enum PlayerIdentification {
 /// These values are for the time frame of one second (60 ticks).
 pub struct PollutionMapSettings {
     /// The amount of pollution eaten by a chunk's tiles as a percentage of 1. Defaults to `1`.
-    pub ageing: Double,
+    pub ageing: Option<Double>,
     /// The amount that is diffused to a neighboring chunk (possibly repeated for other directions as well). Defaults to `0.02`.
-    pub diffusion_ratio: Double,
+    pub diffusion_ratio: Option<Double>,
     /// Whether pollution is enabled at all.
-    pub enabled: bool,
+    pub enabled: Option<bool>,
     /// Defaults to `1`.
-    pub enemy_attack_pollution_consumption_modifier: Double,
+    pub enemy_attack_pollution_consumption_modifier: Option<Double>,
     /// Any amount of pollution larger than this value is visualized as this value instead. Defaults to `150`.
-    pub expected_max_per_chunk: Double,
+    pub expected_max_per_chunk: Option<Double>,
     /// Defaults to `20`.
-    pub max_pollution_to_restore_trees: Double,
+    pub max_pollution_to_restore_trees: Option<Double>,
     /// Defaults to `60`.
-    pub min_pollution_to_damage_trees: Double,
+    pub min_pollution_to_damage_trees: Option<Double>,
     /// The amount of PUs that need to be in a chunk for it to start diffusing. Defaults to `15`.
-    pub min_to_diffuse: Double,
+    pub min_to_diffuse: Option<Double>,
     /// Any amount of pollution smaller than this value (but bigger than zero) is visualized as this value instead. Defaults to `50`.
-    pub min_to_show_per_chunk: Double,
+    pub min_to_show_per_chunk: Option<Double>,
     /// Defaults to `50`.
-    pub pollution_per_tree_damage: Double,
+    pub pollution_per_tree_damage: Option<Double>,
     /// Defaults to `10`.
-    pub pollution_restored_per_tree_damage: Double,
+    pub pollution_restored_per_tree_damage: Option<Double>,
     /// Defaults to `150`.
-    pub pollution_with_max_forest_damage: Double,
+    pub pollution_with_max_forest_damage: Option<Double>,
 }
 
 #[derive(Debug, Deserialize)]

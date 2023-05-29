@@ -290,8 +290,9 @@ function to_json_internal(obj, depth, map, cycles_only)
         end
     end
     if obj.object_name == 'LuaCustomTable' then
-        local json = {'['}
+        local json = {'{'}
         for k,v in pairs(obj) do
+            table.insert(json, '"' .. tostring(k) .. '":')
             table.insert(json, to_json_internal(v, depth + 1, map))
             table.insert(json, ',\n')
         end
@@ -299,7 +300,7 @@ function to_json_internal(obj, depth, map, cycles_only)
         if json[size] == ',\n' then
             json[size] = ''
         end
-        table.insert(json, ']')
+        table.insert(json, '}')
         return table.concat(json, '')
     end
 
@@ -345,7 +346,6 @@ function to_json_internal(obj, depth, map, cycles_only)
              table.insert(json, ',\n')
         end
         for k,v in pairs(values) do
-            print(k)
             if is_allowed_to_access_attribute(obj, values, k) then
                 local internal = to_json_internal(obj[k], depth + 1, map)
                 if internal ~= 'nil' then
