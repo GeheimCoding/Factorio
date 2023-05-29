@@ -566,6 +566,33 @@ impl GenerateDefinition for Class {
                 typ = format!("Option<{typ}>");
             } else if rust_name == "difficulty_settings" {
                 typ = format!("Option<{typ}>");
+            } else if self.name == "LuaGuiElement"
+                && !(rust_name == "caption"
+                    || rust_name == "children"
+                    || rust_name == "children_names"
+                    || rust_name == "enabled"
+                    || rust_name == "gui"
+                    || rust_name == "ignored_by_interaction"
+                    || rust_name == "index"
+                    || rust_name == "name"
+                    || rust_name == "location"
+                    || rust_name == "force"
+                    || rust_name == "entity"
+                    || rust_name == "elem_value"
+                    || rust_name == "elem_filters"
+                    || rust_name == "drag_target"
+                    || rust_name == "anchor"
+                    || rust_name == "object_name"
+                    || rust_name == "player_index"
+                    || rust_name == "raise_hover_events"
+                    || rust_name == "style"
+                    || rust_name == "tags"
+                    || rust_name == "tooltip"
+                    || rust_name == "type"
+                    || rust_name == "valid"
+                    || rust_name == "visible")
+            {
+                typ = format!("Option<{typ}>");
             }
 
             let mut attribute_description = String::new();

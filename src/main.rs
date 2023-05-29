@@ -26,13 +26,15 @@ fn remote_console() -> io::Result<()> {
     if !response.is_empty() {
         println!("{response}");
     } else {
-        /* let response = console.send_command(
-            "
-            rcon.print(to_json_cycles_only(global.lookup.cycles[914].obj))
-        ",
-        )?;
-        println!("{response}"); */
-        generate_samples(&mut console)?;
+        // let response = console.send_command(
+        //     "
+        //     rcon.print(to_json(game))
+        //     print('done')
+        // ",
+        // )?;
+        // let game: Result<FactorioType, _> = serde_json::from_str(&response);
+        // println!("{game:#?}");
+        //generate_samples(&mut console)?;
     }
 
     Ok(())
@@ -106,19 +108,14 @@ fn test_sample(sample_path: PathBuf) -> io::Result<Option<String>> {
     }
 }
 
-// TODO: make LuaItemStackEmpty
-// TODO: fix LuaCustomTable from array to map
-// TODO: make all jsons parse successfully
 // TODO: add #[serde(deny_unknown_fields)]
 // TODO: check more serde attributes like #[serde(default)] or content for Table/Tuple?
 //      -> Option<ContainerType> could drop the option with default
 
-// https://wiki.factorio.com/Materials_and_recipes
-// TODO: LuaGroup type item-group = root (= section in crafting window), subgroup is one line in crafting window
 // TODO: improve performance of lookup table with grouping (e.g. by object_name)?
 //      -> currently around 30 seconds in total with a fresh cache
 //      -> check distribution of class types
-// TODO: fix compile times (only include needed types?)
+// TODO: improve compile times (only include needed types?)
 // TODO: split map_settings and other tables in separate files
 // TODO: check for more "cycles"
 // TODO: combine all FlowStatistics

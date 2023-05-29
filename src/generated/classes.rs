@@ -5885,25 +5885,25 @@ pub enum LuaGuiElementStyleUnion {
 pub struct LuaGuiElement {
     /// Whether this textfield (when in numeric mode) allows decimal numbers.
     /// Can only be used if this is textfield
-    pub allow_decimal: bool,
+    pub allow_decimal: Option<bool>,
     /// Whether this textfield (when in numeric mode) allows negative numbers.
     /// Can only be used if this is textfield
-    pub allow_negative: bool,
+    pub allow_negative: Option<bool>,
     /// Whether the `"none"` state is allowed for this switch.
     /// Can only be used if this is switch
     ///
     /// # Notes
     ///
     /// * This can't be set to false if the current switch_state is 'none'.
-    pub allow_none_state: bool,
+    pub allow_none_state: Option<bool>,
     /// The anchor for this relative widget, if any. Setting `nil` clears the anchor.
     pub anchor: Option<GuiAnchor>,
     /// Whether this frame auto-centers on window resize when stored in [LuaGui::screen](LuaGui::screen).
     /// Can only be used if this is frame
-    pub auto_center: bool,
+    pub auto_center: Option<bool>,
     /// The text to display after the normal tab text (designed to work with numbers)
     /// Can only be used if this is tab
-    pub badge_text: LocalisedString,
+    pub badge_text: Option<LocalisedString>,
     /// The text displayed on this element. For frames, this is the "heading". For other elements, like buttons or labels, this is the content.
     ///
     /// # Notes
@@ -5916,16 +5916,16 @@ pub struct LuaGuiElement {
     pub children_names: Vec<String>,
     /// Makes it so right-clicking on this textfield clears and focuses it.
     /// Can only be used if this is textfield or text-box
-    pub clear_and_focus_on_right_click: bool,
+    pub clear_and_focus_on_right_click: Option<bool>,
     /// The sprite to display on this sprite-button when it is clicked.
     /// Can only be used if this is sprite-button
-    pub clicked_sprite: SpritePath,
+    pub clicked_sprite: Option<SpritePath>,
     /// The number of columns in this table.
     /// Can only be used if this is table
-    pub column_count: u32,
+    pub column_count: Option<u32>,
     /// Direction of this element's layout. May be either `"horizontal"` or `"vertical"`.
     /// Can only be used if this is frame or flow or line
-    pub direction: String,
+    pub direction: Option<String>,
     /// The `frame` that is being moved when dragging this GUI element, if any. This element needs to be a child of the `drag_target` at some level.
     /// Can only be used if this is flow or frame or label or table or empty-widget
     ///
@@ -5945,13 +5945,13 @@ pub struct LuaGuiElement {
     pub drag_target: Option<MaybeCycle<LuaGuiElement>>,
     /// Whether this table should draw a horizontal grid line below the first table row.
     /// Can only be used if this is table
-    pub draw_horizontal_line_after_headers: bool,
+    pub draw_horizontal_line_after_headers: Option<bool>,
     /// Whether this table should draw horizontal grid lines.
     /// Can only be used if this is table
-    pub draw_horizontal_lines: bool,
+    pub draw_horizontal_lines: Option<bool>,
     /// Whether this table should draw vertical grid lines.
     /// Can only be used if this is table
-    pub draw_vertical_lines: bool,
+    pub draw_vertical_lines: Option<bool>,
     /// The elem filters of this choose-elem-button, if any. The compatible type of filter is determined by `elem_type`.
     /// Can only be used if this is choose-elem-button
     ///
@@ -5976,7 +5976,7 @@ pub struct LuaGuiElement {
     pub elem_filters: Option<PrototypeFilter>,
     /// The elem type of this choose-elem-button.
     /// Can only be used if this is choose-elem-button
-    pub elem_type: String,
+    pub elem_type: Option<String>,
     /// The elem value of this choose-elem-button, if any.
     /// Can only be used if this is choose-elem-button
     ///
@@ -5996,40 +5996,40 @@ pub struct LuaGuiElement {
     pub gui: MaybeCycle<LuaGui>,
     /// Policy of the horizontal scroll bar. Possible values are `"auto"`, `"never"`, `"always"`, `"auto-and-reserve-space"`, `"dont-show-but-allow-scrolling"`.
     /// Can only be used if this is scroll-pane
-    pub horizontal_scroll_policy: String,
+    pub horizontal_scroll_policy: Option<String>,
     /// The sprite to display on this sprite-button when it is hovered.
     /// Can only be used if this is sprite-button
-    pub hovered_sprite: SpritePath,
+    pub hovered_sprite: Option<SpritePath>,
     /// Whether this GUI element is ignored by interaction. This makes clicks on this element 'go through' to the GUI element or even the game surface below it.
     pub ignored_by_interaction: bool,
     /// The index of this GUI element (unique amongst the GUI elements of a LuaPlayer).
     pub index: u32,
     /// Whether this textfield displays as a password field, which renders all characters as `*`.
     /// Can only be used if this is textfield
-    pub is_password: bool,
+    pub is_password: Option<bool>,
     /// The items in this dropdown or listbox.
     /// Can only be used if this is drop-down or list-box
-    pub items: Vec<LocalisedString>,
+    pub items: Option<Vec<LocalisedString>>,
     /// The text shown for the left switch label.
     /// Can only be used if this is switch
-    pub left_label_caption: LocalisedString,
+    pub left_label_caption: Option<LocalisedString>,
     /// The tooltip shown on the left switch label.
     /// Can only be used if this is switch
-    pub left_label_tooltip: LocalisedString,
+    pub left_label_tooltip: Option<LocalisedString>,
     /// The location of this widget when stored in [LuaGui::screen](LuaGui::screen). `nil` if not set or not in [LuaGui::screen](LuaGui::screen).
     pub location: Option<GuiLocation>,
     /// Whether this choose-elem-button can be changed by the player.
     /// Can only be used if this is choose-elem-button
-    pub locked: bool,
+    pub locked: Option<bool>,
     /// Whether this textfield loses focus after [defines.events.on_gui_confirmed](defines.events.on_gui_confirmed) is fired.
     /// Can only be used if this is textfield
-    pub lose_focus_on_confirm: bool,
+    pub lose_focus_on_confirm: Option<bool>,
     /// The player index this minimap is using.
     /// Can only be used if this is minimap
-    pub minimap_player_index: u32,
+    pub minimap_player_index: Option<u32>,
     /// The mouse button filters for this button or sprite-button.
     /// Can only be used if this is button or sprite-button
-    pub mouse_button_filter: MouseButtonFlags,
+    pub mouse_button_filter: Option<MouseButtonFlags>,
     /// The name of this element. `""` if no name was set.
     ///
     /// # Examples
@@ -6040,97 +6040,97 @@ pub struct LuaGuiElement {
     pub name: String,
     /// The number to be shown in the bottom right corner of this sprite-button. Set this to `nil` to show nothing.
     /// Can only be used if this is sprite-button
-    pub number: Double,
+    pub number: Option<Double>,
     /// Whether this textfield is limited to only numberic characters.
     /// Can only be used if this is textfield
-    pub numeric: bool,
+    pub numeric: Option<bool>,
     /// The class name of this object. Available even when `valid` is false. For LuaStruct objects it may also be suffixed with a dotted path to a member of the struct.
     pub object_name: String,
     /// The direct parent of this element. `nil` if this is a top-level element.
-    pub parent: Option<MaybeCycle<LuaGuiElement>>,
+    pub parent: Option<Option<MaybeCycle<LuaGuiElement>>>,
     /// Index into [LuaGameScript::players](LuaGameScript::players) specifying the player who owns this element.
     pub player_index: u32,
     /// The position this camera or minimap is focused on, if any.
     /// Can only be used if this is camera or minimap
-    pub position: MapPosition,
+    pub position: Option<MapPosition>,
     /// Whether this element will raise [on_gui_hover](on_gui_hover) and [on_gui_leave](on_gui_leave).
     pub raise_hover_events: bool,
     /// Whether this text-box is read-only. Defaults to `false`.
     /// Can only be used if this is text-box
-    pub read_only: bool,
+    pub read_only: Option<bool>,
     /// Whether the sprite widget should resize according to the sprite in it. Defaults to `true`.
     /// Can only be used if this is sprite
-    pub resize_to_sprite: bool,
+    pub resize_to_sprite: Option<bool>,
     /// The text shown for the right switch label.
     /// Can only be used if this is switch
-    pub right_label_caption: LocalisedString,
+    pub right_label_caption: Option<LocalisedString>,
     /// The tooltip shown on the right switch label.
     /// Can only be used if this is switch
-    pub right_label_tooltip: LocalisedString,
+    pub right_label_tooltip: Option<LocalisedString>,
     /// Whether the contents of this text-box are selectable. Defaults to `true`.
     /// Can only be used if this is text-box
-    pub selectable: bool,
+    pub selectable: Option<bool>,
     /// The selected index for this dropdown or listbox. Returns `0` if none is selected.
     /// Can only be used if this is drop-down or list-box
-    pub selected_index: u32,
+    pub selected_index: Option<u32>,
     /// The selected tab index for this tabbed pane, if any.
     /// Can only be used if this is tabbed-pane
-    pub selected_tab_index: Option<u32>,
+    pub selected_tab_index: Option<Option<u32>>,
     /// Related to the number to be shown in the bottom right corner of this sprite-button. When set to `true`, numbers that are non-zero and smaller than one are shown as a percentage rather than the value. For example, `0.5` will be shown as `50%` instead.
     /// Can only be used if this is sprite-button
-    pub show_percent_for_small_numbers: bool,
+    pub show_percent_for_small_numbers: Option<bool>,
     /// The value of this slider element.
     /// Can only be used if this is slider
-    pub slider_value: Double,
+    pub slider_value: Option<Double>,
     /// The sprite to display on this sprite-button or sprite in the default state.
     /// Can only be used if this is sprite-button or sprite
-    pub sprite: SpritePath,
+    pub sprite: Option<SpritePath>,
     /// Is this checkbox or radiobutton checked?
     /// Can only be used if this is checkbox or radiobutton
-    pub state: bool,
+    pub state: Option<bool>,
     /// The style of this element. When read, this evaluates to a [LuaStyle](LuaStyle). For writing, it only accepts a string that specifies the textual identifier (prototype name) of the desired style.
     pub style: LuaGuiElementStyleUnion,
     /// The surface index this camera or minimap is using.
     /// Can only be used if this is camera or minimap
-    pub surface_index: u32,
+    pub surface_index: Option<u32>,
     /// The switch state (left, none, right) for this switch.
     /// Can only be used if this is switch
     ///
     /// # Notes
     ///
     /// * If [LuaGuiElement::allow_none_state](LuaGuiElement::allow_none_state) is false this can't be set to `"none"`.
-    pub switch_state: String,
+    pub switch_state: Option<String>,
     /// The tabs and contents being shown in this tabbed-pane.
     /// Can only be used if this is tabbed-pane
-    pub tabs: Vec<TabAndContent>,
+    pub tabs: Option<Vec<TabAndContent>>,
     /// The tags associated with this LuaGuiElement.
     pub tags: Tags,
     /// The text contained in this textfield or text-box.
     /// Can only be used if this is textfield or text-box
-    pub text: String,
+    pub text: Option<String>,
     pub tooltip: LocalisedString,
     /// The type of this GUI element.
     #[serde(rename = "type")]
-    pub typ: String,
+    pub typ: Option<String>,
     /// Is this object valid? This Lua object holds a reference to an object within the game engine. It is possible that the game-engine object is removed whilst a mod still holds the corresponding Lua object. If that happens, the object becomes invalid, i.e. this attribute will be `false`. Mods are advised to check for object validity if any change to the game state might have occurred between the creation of the Lua object and its access.
     pub valid: bool,
     /// How much this progress bar is filled. It is a value in the range [0, 1].
     /// Can only be used if this is progressbar
-    pub value: Double,
+    pub value: Option<Double>,
     /// Whether the content of this table should be vertically centered. Overrides [LuaStyle::column_alignments](LuaStyle::column_alignments). Defaults to `true`.
     /// Can only be used if this is table
-    pub vertical_centering: bool,
+    pub vertical_centering: Option<bool>,
     /// Policy of the vertical scroll bar. Possible values are `"auto"`, `"never"`, `"always"`, `"auto-and-reserve-space"`, `"dont-show-but-allow-scrolling"`.
     /// Can only be used if this is scroll-pane
-    pub vertical_scroll_policy: String,
+    pub vertical_scroll_policy: Option<String>,
     /// Sets whether this GUI element is visible or completely hidden, taking no space in the layout.
     pub visible: bool,
     /// Whether this text-box will word-wrap automatically. Defaults to `false`.
     /// Can only be used if this is text-box
-    pub word_wrap: bool,
+    pub word_wrap: Option<bool>,
     /// The zoom this camera or minimap is using. This value must be positive.
     /// Can only be used if this is camera or minimap
-    pub zoom: Double,
+    pub zoom: Option<Double>,
 }
 
 /// An element of a custom GUI. This type is used to represent any kind of a GUI element - labels, buttons and frames are all instances of this type. Just like [LuaEntity](LuaEntity), different kinds of elements support different attributes; attempting to access an attribute on an element that doesn't support it (for instance, trying to access the `column_count` of a `textfield`) will result in a runtime error.
@@ -12321,7 +12321,7 @@ pub struct LuaKillCountFlowStatistics {
 
 #[derive(Debug, Deserialize)]
 pub struct LuaPollutionFlowStatistics {
-    pub force: MaybeCycle<LuaForce>,
+    pub force: Option<MaybeCycle<LuaForce>>,
     pub input_counts: HashMap<String, u32>,
     pub output_counts: HashMap<String, u32>,
     pub object_name: String,

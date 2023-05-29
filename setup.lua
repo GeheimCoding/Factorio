@@ -204,6 +204,9 @@ function is_value_dictionary(obj, key)
         return key == 'collision_mask'
             or key == 'collision_mask_with_flags'
             or key == 'default_collision_mask_with_flags'
+    elseif obj.object_name == 'LuaTilePrototype' then
+        return key == 'collision_mask'
+            or key == 'collision_mask_with_flags'
     elseif obj.object_name == 'LuaForce' then
         return key == 'items_launched'
             or key == 'logistic_networks'
@@ -213,10 +216,16 @@ function is_value_dictionary(obj, key)
         return key == 'prerequisites'
     elseif obj.object_name == 'LuaGameScript' then
         return key == 'mod_setting_prototypes'
+    elseif obj.object_name == 'LuaGuiElement' then
+        return key == 'tags'
+    elseif obj.object_name == 'LuaTechnologyPrototype' then
+        return key == 'prerequisites'
     else
         return key == 'autoplace_controls'
             or key == 'autoplace_settings'
             or key == 'property_expression_names'
+            or key == 'input_counts'
+            or key == 'output_counts'
     end
 end
 
@@ -382,7 +391,7 @@ end
 
 -- Prepare lookup table
 
---global.lookup = nil
+global.lookup = nil
 if not global.lookup then
     global.lookup = {}
 end
