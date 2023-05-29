@@ -3217,7 +3217,7 @@ pub struct LuaEntityPrototype {
     pub container_distance: Option<f64>,
     /// Corpses used when this entity is destroyed. It is a dictionary indexed by the corpse's prototype name.
     /// Can only be used if this is EntityWithHealth
-    pub corpses: Option<HashMap<String, LuaEntityPrototype>>,
+    pub corpses: Option<HashMap<String, MaybeCycle<LuaEntityPrototype>>>,
     /// If this simple-entity is counted as a rock for the deconstruction planner "trees and rocks only" filter.
     /// Can only be used if this is SimpleEntity
     pub count_as_rock_for_filtered_deconstruction: Option<bool>,
@@ -3349,7 +3349,7 @@ pub struct LuaEntityPrototype {
     /// Group of this entity.
     pub group: MaybeCycle<LuaGroup>,
     /// A mapping of the gun name to the gun prototype this prototype uses. `nil` if this entity prototype doesn't use guns.
-    pub guns: Option<HashMap<String, LuaItemPrototype>>,
+    pub guns: Option<HashMap<String, MaybeCycle<LuaItemPrototype>>>,
     /// Whether this unit, car, or character prototype has belt immunity.
     /// Can only be used if this is Unit or Car or Character
     pub has_belt_immunity: Option<bool>,
@@ -4576,7 +4576,7 @@ pub struct LuaForce {
     /// ```text
     /// game.player.print(game.player.force.recipes["transport-belt"].category)
     /// ```
-    pub recipes: HashMap<String, LuaRecipe>,
+    pub recipes: HashMap<String, MaybeCycle<LuaRecipe>>,
     /// Whether research is enabled for this force, see [LuaForce::enable_research](LuaForce::enable_research) and [LuaForce::disable_research](LuaForce::disable_research)
     pub research_enabled: bool,
     /// Progress of current research, as a number in range [0, 1].
@@ -4605,7 +4605,7 @@ pub struct LuaForce {
     /// ```text
     /// game.player.force.technologies["steel-processing"].researched = true
     /// ```
-    pub technologies: HashMap<String, LuaTechnology>,
+    pub technologies: HashMap<String, MaybeCycle<LuaTechnology>>,
     pub train_braking_force_bonus: f64,
     /// Is this object valid? This Lua object holds a reference to an object within the game engine. It is possible that the game-engine object is removed whilst a mod still holds the corresponding Lua object. If that happens, the object becomes invalid, i.e. this attribute will be `false`. Mods are advised to check for object validity if any change to the game state might have occurred between the creation of the Lua object and its access.
     pub valid: bool,
@@ -4948,7 +4948,7 @@ pub enum LuaGameScriptSurfacesUnion {
 #[derive(Debug, Deserialize)]
 pub struct LuaGameScript {
     /// A dictionary containing every LuaAchievementPrototype indexed by `name`.
-    pub achievement_prototypes: HashMap<String, LuaAchievementPrototype>,
+    pub achievement_prototypes: HashMap<String, MaybeCycle<LuaAchievementPrototype>>,
     /// The active mods versions. The keys are mod names, the values are the versions.
     ///
     /// # Examples
@@ -4961,9 +4961,9 @@ pub struct LuaGameScript {
     /// ```
     pub active_mods: HashMap<String, String>,
     /// A dictionary containing every LuaAmmoCategoryPrototype indexed by `name`.
-    pub ammo_category_prototypes: HashMap<String, LuaAmmoCategoryPrototype>,
+    pub ammo_category_prototypes: HashMap<String, MaybeCycle<LuaAmmoCategoryPrototype>>,
     /// A dictionary containing every LuaAutoplaceControlPrototype indexed by `name`.
-    pub autoplace_control_prototypes: HashMap<String, LuaAutoplaceControlPrototype>,
+    pub autoplace_control_prototypes: HashMap<String, MaybeCycle<LuaAutoplaceControlPrototype>>,
     /// True by default. Can be used to disable autosaving. Make sure to turn it back on soon after.
     pub autosave_enabled: bool,
     /// Array of the names of all the backers that supported the game development early on. These are used as names for labs, locomotives, radars, roboports, and train stops.
@@ -4979,11 +4979,11 @@ pub struct LuaGameScript {
     /// Whether a console command has been used.
     pub console_command_used: bool,
     /// A dictionary containing every LuaCustomInputPrototype indexed by `name`.
-    pub custom_input_prototypes: HashMap<String, LuaCustomInputPrototype>,
+    pub custom_input_prototypes: HashMap<String, MaybeCycle<LuaCustomInputPrototype>>,
     /// A dictionary containing every LuaDamagePrototype indexed by `name`.
-    pub damage_prototypes: HashMap<String, LuaDamagePrototype>,
+    pub damage_prototypes: HashMap<String, MaybeCycle<LuaDamagePrototype>>,
     /// A dictionary containing every LuaDecorativePrototype indexed by `name`.
-    pub decorative_prototypes: HashMap<String, LuaDecorativePrototype>,
+    pub decorative_prototypes: HashMap<String, MaybeCycle<LuaDecorativePrototype>>,
     /// The default map gen settings for this save.
     pub default_map_gen_settings: MapGenSettings,
     /// Current scenario difficulty.
@@ -5002,31 +5002,31 @@ pub struct LuaGameScript {
     /// Determines if enemy land mines are completely invisible or not.
     pub enemy_has_vision_on_land_mines: bool,
     /// A dictionary containing every LuaEntityPrototype indexed by `name`.
-    pub entity_prototypes: HashMap<String, LuaEntityPrototype>,
+    pub entity_prototypes: HashMap<String, MaybeCycle<LuaEntityPrototype>>,
     /// A dictionary containing every LuaEquipmentCategoryPrototype indexed by `name`.
-    pub equipment_category_prototypes: HashMap<String, LuaEquipmentCategoryPrototype>,
+    pub equipment_category_prototypes: HashMap<String, MaybeCycle<LuaEquipmentCategoryPrototype>>,
     /// A dictionary containing every LuaEquipmentGridPrototype indexed by `name`.
-    pub equipment_grid_prototypes: HashMap<String, LuaEquipmentGridPrototype>,
+    pub equipment_grid_prototypes: HashMap<String, MaybeCycle<LuaEquipmentGridPrototype>>,
     /// A dictionary containing every LuaEquipmentPrototype indexed by `name`.
-    pub equipment_prototypes: HashMap<String, LuaEquipmentPrototype>,
+    pub equipment_prototypes: HashMap<String, MaybeCycle<LuaEquipmentPrototype>>,
     /// True while the victory screen is shown.
     pub finished: bool,
     /// True after players finished the game and clicked "continue".
     pub finished_but_continuing: bool,
     /// A dictionary containing every LuaFluidPrototype indexed by `name`.
-    pub fluid_prototypes: HashMap<String, LuaFluidPrototype>,
+    pub fluid_prototypes: HashMap<String, MaybeCycle<LuaFluidPrototype>>,
     /// A dictionary containing every LuaFontPrototype indexed by `name`.
-    pub font_prototypes: HashMap<String, LuaFontPrototype>,
+    pub font_prototypes: HashMap<String, MaybeCycle<LuaFontPrototype>>,
     /// Get a table of all the forces that currently exist. This sparse table allows you to find forces by indexing it with either their `name` or `index`. Iterating this table with `pairs()` will only iterate the array part of the table. Iterating with `ipairs()` will not work at all.
-    pub forces: HashMap<LuaGameScriptForcesUnion, LuaForce>,
+    pub forces: HashMap<LuaGameScriptForcesUnion, MaybeCycle<LuaForce>>,
     /// A dictionary containing every LuaFuelCategoryPrototype indexed by `name`.
-    pub fuel_category_prototypes: HashMap<String, LuaFuelCategoryPrototype>,
+    pub fuel_category_prototypes: HashMap<String, MaybeCycle<LuaFuelCategoryPrototype>>,
     /// A dictionary containing every ItemGroup indexed by `name`.
-    pub item_group_prototypes: HashMap<String, LuaGroup>,
+    pub item_group_prototypes: HashMap<String, MaybeCycle<LuaGroup>>,
     /// A dictionary containing every LuaItemPrototype indexed by `name`.
-    pub item_prototypes: HashMap<String, LuaItemPrototype>,
+    pub item_prototypes: HashMap<String, MaybeCycle<LuaItemPrototype>>,
     /// A dictionary containing every ItemSubgroup indexed by `name`.
-    pub item_subgroup_prototypes: HashMap<String, LuaGroup>,
+    pub item_subgroup_prototypes: HashMap<String, MaybeCycle<LuaGroup>>,
     /// A dictionary containing every MapGenPreset indexed by `name`.
     ///
     /// # Notes
@@ -5049,17 +5049,17 @@ pub struct LuaGameScript {
     pub max_pipe_to_ground_distance: u8,
     pub max_underground_belt_distance: u8,
     /// A dictionary containing every LuaModSettingPrototype indexed by `name`.
-    pub mod_setting_prototypes: HashMap<String, LuaModSettingPrototype>,
+    pub mod_setting_prototypes: HashMap<String, MaybeCycle<LuaModSettingPrototype>>,
     /// A dictionary containing every LuaModuleCategoryPrototype indexed by `name`.
-    pub module_category_prototypes: HashMap<String, LuaModuleCategoryPrototype>,
+    pub module_category_prototypes: HashMap<String, MaybeCycle<LuaModuleCategoryPrototype>>,
     /// A dictionary containing every LuaNamedNoiseExpression indexed by `name`.
-    pub named_noise_expressions: HashMap<String, LuaNamedNoiseExpression>,
+    pub named_noise_expressions: HashMap<String, MaybeCycle<LuaNamedNoiseExpression>>,
     /// A dictionary containing every LuaNoiseLayerPrototype indexed by `name`.
-    pub noise_layer_prototypes: HashMap<String, LuaNoiseLayerPrototype>,
+    pub noise_layer_prototypes: HashMap<String, MaybeCycle<LuaNoiseLayerPrototype>>,
     /// This object's name.
     pub object_name: String,
     /// A dictionary containing every LuaParticlePrototype indexed by `name`.
-    pub particle_prototypes: HashMap<String, LuaParticlePrototype>,
+    pub particle_prototypes: HashMap<String, MaybeCycle<LuaParticlePrototype>>,
     pub permissions: MaybeCycle<LuaPermissionGroups>,
     /// This property is only populated inside [custom command](LuaCommandProcessor) handlers and when writing [Lua console commands](https://wiki.factorio.com/Console#Scripting_and_cheat_commands). Returns the player that is typing the command, `nil` in all other instances.
     ///
@@ -5068,17 +5068,17 @@ pub struct LuaGameScript {
     /// Get a table of all the players that currently exist. This sparse table allows you to find players by indexing it with either their `name` or `index`. Iterating this table with `pairs()` will only iterate the array part of the table. Iterating with `ipairs()` will not work at all.
     ///
     /// If only a single player is required, [LuaGameScript::get_player](LuaGameScript::get_player) should be used instead, as it avoids the unnecessary overhead of passing the whole table to Lua.
-    pub players: HashMap<LuaGameScriptPlayersUnion, LuaPlayer>,
+    pub players: HashMap<LuaGameScriptPlayersUnion, MaybeCycle<LuaPlayer>>,
     /// The pollution statistics for this map.
     pub pollution_statistics: MaybeCycle<LuaFlowStatistics>,
     /// A dictionary containing every LuaRecipeCategoryPrototype indexed by `name`.
-    pub recipe_category_prototypes: HashMap<String, LuaRecipeCategoryPrototype>,
+    pub recipe_category_prototypes: HashMap<String, MaybeCycle<LuaRecipeCategoryPrototype>>,
     /// A dictionary containing every LuaRecipePrototype indexed by `name`.
-    pub recipe_prototypes: HashMap<String, LuaRecipePrototype>,
+    pub recipe_prototypes: HashMap<String, MaybeCycle<LuaRecipePrototype>>,
     /// A dictionary containing every LuaResourceCategoryPrototype indexed by `name`.
-    pub resource_category_prototypes: HashMap<String, LuaResourceCategoryPrototype>,
+    pub resource_category_prototypes: HashMap<String, MaybeCycle<LuaResourceCategoryPrototype>>,
     /// A dictionary containing every LuaShortcutPrototype indexed by `name`.
-    pub shortcut_prototypes: HashMap<String, LuaShortcutPrototype>,
+    pub shortcut_prototypes: HashMap<String, MaybeCycle<LuaShortcutPrototype>>,
     /// Speed to update the map at. 1.0 is normal speed -- 60 UPS.
     ///
     /// # Notes
@@ -5088,9 +5088,9 @@ pub struct LuaGameScript {
     /// The styles that [LuaGuiElement](LuaGuiElement) can use, indexed by `name`.
     pub styles: HashMap<String, String>,
     /// Get a table of all the surfaces that currently exist. This sparse table allows you to find surfaces by indexing it with either their `name` or `index`. Iterating this table with `pairs()` will only iterate the array part of the table. Iterating with `ipairs()` will not work at all.
-    pub surfaces: HashMap<LuaGameScriptSurfacesUnion, LuaSurface>,
+    pub surfaces: HashMap<LuaGameScriptSurfacesUnion, MaybeCycle<LuaSurface>>,
     /// A dictionary containing every [LuaTechnologyPrototype](LuaTechnologyPrototype) indexed by `name`.
-    pub technology_prototypes: HashMap<String, LuaTechnologyPrototype>,
+    pub technology_prototypes: HashMap<String, MaybeCycle<LuaTechnologyPrototype>>,
     /// Current map tick.
     pub tick: u32,
     /// If the tick has been paused. This means that entity update has been paused.
@@ -5105,11 +5105,11 @@ pub struct LuaGameScript {
     /// The number of ticks to be run while the tick is paused. When [LuaGameScript::tick_paused](LuaGameScript::tick_paused) is true, ticks_to_run behaves the following way: While this is > 0, the entity update is running normally and this value is decremented every tick. When this reaches 0, the game will pause again.
     pub ticks_to_run: u32,
     /// A dictionary containing every LuaTilePrototype indexed by `name`.
-    pub tile_prototypes: HashMap<String, LuaTilePrototype>,
+    pub tile_prototypes: HashMap<String, MaybeCycle<LuaTilePrototype>>,
     /// A dictionary containing every LuaTrivialSmokePrototype indexed by `name`.
-    pub trivial_smoke_prototypes: HashMap<String, LuaTrivialSmokePrototype>,
+    pub trivial_smoke_prototypes: HashMap<String, MaybeCycle<LuaTrivialSmokePrototype>>,
     /// A dictionary containing every LuaVirtualSignalPrototype indexed by `name`.
-    pub virtual_signal_prototypes: HashMap<String, LuaVirtualSignalPrototype>,
+    pub virtual_signal_prototypes: HashMap<String, MaybeCycle<LuaVirtualSignalPrototype>>,
 }
 
 #[derive(Debug, Deserialize)]
@@ -5314,7 +5314,7 @@ pub trait LuaGameScriptMethods {
     /// ```
     fn get_filtered_achievement_prototypes(
         filters: Vec<AchievementPrototypeFilter>,
-    ) -> HashMap<String, LuaAchievementPrototype>;
+    ) -> HashMap<String, MaybeCycle<LuaAchievementPrototype>>;
     /// Returns a dictionary of all LuaDecorativePrototypes that fit the given filters. The prototypes are indexed by `name`.
     ///
     /// # Examples
@@ -5325,7 +5325,7 @@ pub trait LuaGameScriptMethods {
     /// ```
     fn get_filtered_decorative_prototypes(
         filters: Vec<DecorativePrototypeFilter>,
-    ) -> HashMap<String, LuaDecorativePrototype>;
+    ) -> HashMap<String, MaybeCycle<LuaDecorativePrototype>>;
     /// Returns a dictionary of all LuaEntityPrototypes that fit the given filters. The prototypes are indexed by `name`.
     ///
     /// # Examples
@@ -5336,7 +5336,7 @@ pub trait LuaGameScriptMethods {
     /// ```
     fn get_filtered_entity_prototypes(
         filters: Vec<EntityPrototypeFilter>,
-    ) -> HashMap<String, LuaEntityPrototype>;
+    ) -> HashMap<String, MaybeCycle<LuaEntityPrototype>>;
     /// Returns a dictionary of all LuaEquipmentPrototypes that fit the given filters. The prototypes are indexed by `name`.
     ///
     /// # Examples
@@ -5347,7 +5347,7 @@ pub trait LuaGameScriptMethods {
     /// ```
     fn get_filtered_equipment_prototypes(
         filters: Vec<EquipmentPrototypeFilter>,
-    ) -> HashMap<String, LuaEquipmentPrototype>;
+    ) -> HashMap<String, MaybeCycle<LuaEquipmentPrototype>>;
     /// Returns a dictionary of all LuaFluidPrototypes that fit the given filters. The prototypes are indexed by `name`.
     ///
     /// # Examples
@@ -5358,7 +5358,7 @@ pub trait LuaGameScriptMethods {
     /// ```
     fn get_filtered_fluid_prototypes(
         filters: Vec<FluidPrototypeFilter>,
-    ) -> HashMap<String, LuaFluidPrototype>;
+    ) -> HashMap<String, MaybeCycle<LuaFluidPrototype>>;
     /// Returns a dictionary of all LuaItemPrototypes that fit the given filters. The prototypes are indexed by `name`.
     ///
     /// # Examples
@@ -5369,7 +5369,7 @@ pub trait LuaGameScriptMethods {
     /// ```
     fn get_filtered_item_prototypes(
         filters: Vec<ItemPrototypeFilter>,
-    ) -> HashMap<String, LuaItemPrototype>;
+    ) -> HashMap<String, MaybeCycle<LuaItemPrototype>>;
     /// Returns a dictionary of all LuaModSettingPrototypes that fit the given filters. The prototypes are indexed by `name`.
     ///
     /// # Examples
@@ -5380,7 +5380,7 @@ pub trait LuaGameScriptMethods {
     /// ```
     fn get_filtered_mod_setting_prototypes(
         filters: Vec<ModSettingPrototypeFilter>,
-    ) -> HashMap<String, LuaModSettingPrototype>;
+    ) -> HashMap<String, MaybeCycle<LuaModSettingPrototype>>;
     /// Returns a dictionary of all LuaRecipePrototypes that fit the given filters. The prototypes are indexed by `name`.
     ///
     /// # Examples
@@ -5391,7 +5391,7 @@ pub trait LuaGameScriptMethods {
     /// ```
     fn get_filtered_recipe_prototypes(
         filters: Vec<RecipePrototypeFilter>,
-    ) -> HashMap<String, LuaRecipePrototype>;
+    ) -> HashMap<String, MaybeCycle<LuaRecipePrototype>>;
     /// Returns a dictionary of all LuaTechnologyPrototypes that fit the given filters. The prototypes are indexed by `name`.
     ///
     /// # Examples
@@ -5402,7 +5402,7 @@ pub trait LuaGameScriptMethods {
     /// ```
     fn get_filtered_technology_prototypes(
         filters: Vec<TechnologyPrototypeFilter>,
-    ) -> HashMap<String, LuaTechnologyPrototype>;
+    ) -> HashMap<String, MaybeCycle<LuaTechnologyPrototype>>;
     /// Returns a dictionary of all LuaTilePrototypes that fit the given filters. The prototypes are indexed by `name`.
     ///
     /// # Examples
@@ -5413,7 +5413,7 @@ pub trait LuaGameScriptMethods {
     /// ```
     fn get_filtered_tile_prototypes(
         filters: Vec<TilePrototypeFilter>,
-    ) -> HashMap<String, LuaTilePrototype>;
+    ) -> HashMap<String, MaybeCycle<LuaTilePrototype>>;
     /// Gets the map exchange string for the map generation settings that were used to create this map.
     fn get_map_exchange_string() -> String;
     /// Gets the given player or returns `nil` if no player is found.
@@ -5784,7 +5784,7 @@ pub struct LuaGui {
     /// The center part of the GUI. It is a flow element.
     pub center: MaybeCycle<LuaGuiElement>,
     /// The children GUI elements mapped by name <> element.
-    pub children: HashMap<String, LuaGuiElement>,
+    pub children: HashMap<String, MaybeCycle<LuaGuiElement>>,
     /// The flow used in the objectives window. It is a flow element. The objectives window is only visible when the flow is not empty or the objective text is set.
     pub goal: MaybeCycle<LuaGuiElement>,
     /// The left part of the GUI. It is a flow element inside a scroll pane element.
@@ -6655,7 +6655,7 @@ pub struct LuaItemPrototype {
     pub alt_entity_filter_mode: Option<String>,
     /// The alt entity filters used by this selection tool indexed by entity name.
     /// Can only be used if this is SelectionTool
-    pub alt_entity_filters: Option<HashMap<String, LuaEntityPrototype>>,
+    pub alt_entity_filters: Option<HashMap<String, MaybeCycle<LuaEntityPrototype>>>,
     /// The alt entity type filters used by this selection tool indexed by entity type.
     /// Can only be used if this is SelectionTool
     ///
@@ -6668,7 +6668,7 @@ pub struct LuaItemPrototype {
     pub alt_reverse_alt_entity_filter_mode: Option<String>,
     /// The alt reverse entity filters used by this selection tool indexed by entity name.
     /// Can only be used if this is SelectionTool
-    pub alt_reverse_entity_filters: Option<HashMap<String, LuaEntityPrototype>>,
+    pub alt_reverse_entity_filters: Option<HashMap<String, MaybeCycle<LuaEntityPrototype>>>,
     /// The alt reverse entity type filters used by this selection tool indexed by entity type.
     /// Can only be used if this is SelectionTool
     ///
@@ -6689,7 +6689,7 @@ pub struct LuaItemPrototype {
     pub alt_reverse_tile_filter_mode: Option<String>,
     /// The alt reverse tile filters used by this selection tool indexed by tile name.
     /// Can only be used if this is SelectionTool
-    pub alt_reverse_tile_filters: Option<HashMap<String, LuaTilePrototype>>,
+    pub alt_reverse_tile_filters: Option<HashMap<String, MaybeCycle<LuaTilePrototype>>>,
     /// The color used when doing alt selection with this selection tool prototype.
     /// Can only be used if this is SelectionTool
     pub alt_selection_border_color: Option<Color>,
@@ -6703,7 +6703,7 @@ pub struct LuaItemPrototype {
     pub alt_tile_filter_mode: Option<String>,
     /// The alt tile filters used by this selection tool indexed by tile name.
     /// Can only be used if this is SelectionTool
-    pub alt_tile_filters: Option<HashMap<String, LuaTilePrototype>>,
+    pub alt_tile_filters: Option<HashMap<String, MaybeCycle<LuaTilePrototype>>>,
     /// If tiles area always included when doing selection with this selection tool prototype.
     /// Can only be used if this is SelectionTool
     pub always_include_tiles: Option<bool>,
@@ -6745,7 +6745,7 @@ pub struct LuaItemPrototype {
     pub entity_filter_slots: Option<u32>,
     /// The entity filters used by this selection tool indexed by entity name.
     /// Can only be used if this is SelectionTool
-    pub entity_filters: Option<HashMap<String, LuaEntityPrototype>>,
+    pub entity_filters: Option<HashMap<String, MaybeCycle<LuaEntityPrototype>>>,
     /// The entity type filters used by this selection tool indexed by entity type.
     /// Can only be used if this is SelectionTool
     ///
@@ -6789,11 +6789,11 @@ pub struct LuaItemPrototype {
     /// Can only be used if this is ArmorPrototype
     pub inventory_size_bonus: Option<u32>,
     /// Can only be used if this is ItemWithInventory
-    pub item_filters: Option<HashMap<String, LuaItemPrototype>>,
+    pub item_filters: Option<HashMap<String, MaybeCycle<LuaItemPrototype>>>,
     /// Can only be used if this is ItemWithInventory
-    pub item_group_filters: Option<HashMap<String, LuaGroup>>,
+    pub item_group_filters: Option<HashMap<String, MaybeCycle<LuaGroup>>>,
     /// Can only be used if this is ItemWithInventory
-    pub item_subgroup_filters: Option<HashMap<String, LuaGroup>>,
+    pub item_subgroup_filters: Option<HashMap<String, MaybeCycle<LuaGroup>>>,
     /// The limitation message key used when the player attempts to use this modules in some place it's not allowed.
     /// Can only be used if this is ModuleItem
     pub limitation_message_key: Option<String>,
@@ -6840,7 +6840,7 @@ pub struct LuaItemPrototype {
     pub reverse_alt_entity_filter_mode: Option<String>,
     /// The reverse entity filters used by this selection tool indexed by entity name.
     /// Can only be used if this is SelectionTool
-    pub reverse_entity_filters: Option<HashMap<String, LuaEntityPrototype>>,
+    pub reverse_entity_filters: Option<HashMap<String, MaybeCycle<LuaEntityPrototype>>>,
     /// The reverse entity type filters used by this selection tool indexed by entity type.
     /// Can only be used if this is SelectionTool
     ///
@@ -6861,7 +6861,7 @@ pub struct LuaItemPrototype {
     pub reverse_tile_filter_mode: Option<String>,
     /// The reverse tile filters used by this selection tool indexed by tile name.
     /// Can only be used if this is SelectionTool
-    pub reverse_tile_filters: Option<HashMap<String, LuaTilePrototype>>,
+    pub reverse_tile_filters: Option<HashMap<String, MaybeCycle<LuaTilePrototype>>>,
     /// The results of launching this item in a rocket.
     pub rocket_launch_products: Vec<Product>,
     /// The color used when doing normal selection with this selection tool prototype.
@@ -6895,7 +6895,7 @@ pub struct LuaItemPrototype {
     pub tile_filter_slots: Option<u32>,
     /// The tile filters used by this selection tool indexed by tile name.
     /// Can only be used if this is SelectionTool
-    pub tile_filters: Option<HashMap<String, LuaTilePrototype>>,
+    pub tile_filters: Option<HashMap<String, MaybeCycle<LuaTilePrototype>>>,
     /// Type of this prototype. E.g. `"gun"` or `"mining-tool"`.
     #[serde(rename = "type")]
     pub typ: String,
@@ -7188,7 +7188,7 @@ pub trait LuaItemStackMethods {
         include_station_names: bool,
         include_trains: bool,
         surface: SurfaceIdentification,
-    ) -> HashMap<u32, LuaEntity>;
+    ) -> HashMap<u32, MaybeCycle<LuaEntity>>;
     /// Creates the equipment grid for this item if it doesn't exist and this is an item-with-entity-data that supports equipment grids.
     fn create_grid() -> LuaEquipmentGrid;
     /// Deconstruct the given area with this deconstruction item.
@@ -8664,7 +8664,7 @@ pub struct LuaRailPath {
     /// The class name of this object. Available even when `valid` is false. For LuaStruct objects it may also be suffixed with a dotted path to a member of the struct.
     pub object_name: String,
     /// Array of the rails that this path travels over.
-    pub rails: HashMap<u32, LuaEntity>,
+    pub rails: HashMap<u32, MaybeCycle<LuaEntity>>,
     /// The total number of rails in this path.
     pub size: u32,
     /// The total path distance.
@@ -11607,7 +11607,7 @@ pub struct LuaTechnology {
     /// The string used to alphabetically sort these prototypes. It is a simple string that has no additional semantic meaning.
     pub order: String,
     /// Prerequisites of this technology. The result maps technology name to the [LuaTechnology](LuaTechnology) object.
-    pub prerequisites: HashMap<String, LuaTechnology>,
+    pub prerequisites: HashMap<String, MaybeCycle<LuaTechnology>>,
     /// The prototype of this technology.
     pub prototype: MaybeCycle<LuaTechnologyPrototype>,
     /// The number of research units required for this technology.
@@ -11669,7 +11669,7 @@ pub struct LuaTechnologyPrototype {
     /// The string used to alphabetically sort these prototypes. It is a simple string that has no additional semantic meaning.
     pub order: String,
     /// Prerequisites of this technology. The result maps technology name to the [LuaTechnologyPrototype](LuaTechnologyPrototype) object.
-    pub prerequisites: HashMap<String, LuaTechnologyPrototype>,
+    pub prerequisites: HashMap<String, MaybeCycle<LuaTechnologyPrototype>>,
     /// The number of research units required for this technology.
     ///
     /// # Notes
@@ -11783,7 +11783,7 @@ pub struct LuaTilePrototypeMineableProperties {
 /// Prototype of a tile.
 #[derive(Debug, Deserialize)]
 pub struct LuaTilePrototype {
-    pub allowed_neighbors: HashMap<String, LuaTilePrototype>,
+    pub allowed_neighbors: HashMap<String, MaybeCycle<LuaTilePrototype>>,
     pub automatic_neighbors: bool,
     /// Autoplace specification for this prototype, if any.
     pub autoplace_specification: Option<AutoplaceSpecification>,

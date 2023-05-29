@@ -1543,10 +1543,19 @@ impl ComplexType {
                     }
                 }
                 if is_map {
+                    let value = value.generate_definition(prefix, unions, true);
+                    let value = if value.starts_with("Lua")
+                        && !value.ends_with("Filter")
+                        && !value.ends_with("Union")
+                    {
+                        format!("MaybeCycle<{value}>")
+                    } else {
+                        value
+                    };
                     definition.push_str(&format!(
                         "HashMap<{}, {}>",
                         key.generate_definition(prefix, unions, true),
-                        value.generate_definition(prefix, unions, true)
+                        value
                     ));
                 }
                 if !is_nested {

@@ -609,7 +609,7 @@
 919.json: invalid type: integer `1`, expected string or map
 920.json: trailing comma at line 4 column 1
 921.json: trailing comma at line 4 column 1
-922.json: missing field `allow_decimal`
+922.json: missing field `center`
 923.json: invalid type: map, expected a sequence
 924.json: missing field `badge_font`
 925.json: invalid type: map, expected a sequence
@@ -623,752 +623,32 @@
 933.json: invalid type: map, expected a sequence
 934.json: missing field `badge_font`
 936.json: missing field `default_enable_all_autoplace_controls`
-1363.json: missing field `effects`
 1364.json: invalid type: map, expected a sequence
 1365.json: invalid type: map, expected a sequence
-1370.json: missing field `effects`
-1371.json: missing field `effects`
-1372.json: missing field `effects`
 1373.json: invalid type: map, expected a sequence
-1374.json: missing field `effects`
-1375.json: missing field `effects`
-1376.json: missing field `effects`
-1377.json: missing field `effects`
-1378.json: missing field `effects`
-1379.json: missing field `effects`
-1380.json: missing field `effects`
-1381.json: missing field `effects`
-1382.json: missing field `effects`
-1383.json: missing field `effects`
 1384.json: invalid type: map, expected a sequence
-1385.json: missing field `effects`
-1386.json: missing field `effects`
-1387.json: missing field `effects`
-1388.json: missing field `effects`
-1389.json: missing field `effects`
-1390.json: missing field `effects`
-1391.json: missing field `effects`
-1392.json: missing field `effects`
-1393.json: missing field `effects`
-1394.json: missing field `effects`
-1395.json: missing field `effects`
-1396.json: missing field `effects`
-1397.json: missing field `effects`
-1398.json: missing field `effects`
-1401.json: missing field `effects`
-1402.json: missing field `effects`
-1403.json: missing field `effects`
-1404.json: missing field `effects`
-1405.json: missing field `effects`
-1406.json: missing field `effects`
-1407.json: missing field `effects`
-1408.json: missing field `effects`
-1409.json: missing field `effects`
-1410.json: missing field `effects`
-1411.json: missing field `effects`
-1412.json: missing field `effects`
-1413.json: missing field `effects`
-1414.json: missing field `effects`
-1415.json: missing field `effects`
-1416.json: missing field `effects`
-1417.json: missing field `effects`
-1418.json: missing field `effects`
 1421.json: invalid type: map, expected a sequence
-1422.json: missing field `effects`
-1423.json: missing field `effects`
 1424.json: invalid type: map, expected a sequence
-1425.json: missing field `effects`
-1426.json: missing field `effects`
-1429.json: missing field `effects`
-1430.json: missing field `effects`
-1431.json: missing field `effects`
-1434.json: missing field `effects`
-1437.json: missing field `effects`
-1438.json: missing field `effects`
-1439.json: missing field `effects`
-1440.json: missing field `effects`
-1441.json: missing field `effects`
-1442.json: missing field `effects`
-1443.json: missing field `effects`
-1444.json: missing field `effects`
-1445.json: missing field `effects`
-1446.json: missing field `effects`
-1447.json: missing field `effects`
-1448.json: missing field `effects`
-1449.json: missing field `effects`
-1450.json: missing field `effects`
-1451.json: missing field `effects`
-1452.json: missing field `effects`
-1453.json: missing field `effects`
-1454.json: missing field `effects`
-1455.json: missing field `effects`
-1456.json: missing field `effects`
-1457.json: missing field `effects`
-1458.json: missing field `effects`
-1459.json: missing field `effects`
-1460.json: missing field `effects`
-1461.json: missing field `effects`
-1462.json: missing field `effects`
-1463.json: missing field `effects`
-1464.json: missing field `effects`
-1465.json: missing field `effects`
-1466.json: missing field `effects`
-1467.json: missing field `effects`
-1468.json: missing field `effects`
-1469.json: missing field `effects`
-1470.json: missing field `effects`
-1471.json: missing field `effects`
 1472.json: invalid type: map, expected a sequence
 1473.json: invalid type: map, expected a sequence
-1474.json: missing field `effects`
-1475.json: missing field `effects`
-1476.json: missing field `effects`
-1477.json: missing field `effects`
-1478.json: missing field `effects`
-1479.json: missing field `effects`
-1480.json: missing field `effects`
-1481.json: missing field `effects`
-1482.json: missing field `effects`
-1483.json: missing field `effects`
-1484.json: missing field `effects`
-1485.json: missing field `effects`
-1486.json: missing field `effects`
-1487.json: missing field `effects`
-1488.json: missing field `effects`
-1489.json: missing field `effects`
-1490.json: missing field `effects`
-1491.json: missing field `effects`
-1492.json: missing field `effects`
-1493.json: missing field `effects`
-1494.json: missing field `effects`
-1495.json: missing field `effects`
-1496.json: missing field `effects`
-1497.json: missing field `effects`
-1498.json: missing field `effects`
-1499.json: missing field `effects`
-1500.json: missing field `effects`
-1501.json: missing field `effects`
-1502.json: missing field `effects`
-1503.json: missing field `effects`
-1504.json: missing field `effects`
-1505.json: missing field `effects`
-1506.json: missing field `effects`
-1507.json: missing field `effects`
-1508.json: missing field `effects`
-1509.json: missing field `effects`
-1510.json: missing field `effects`
-1511.json: missing field `effects`
-1512.json: missing field `effects`
-1513.json: missing field `effects`
-1514.json: missing field `effects`
-1515.json: missing field `effects`
-1516.json: missing field `effects`
-1517.json: missing field `effects`
-1518.json: missing field `effects`
-1519.json: missing field `effects`
-1520.json: missing field `effects`
-1521.json: missing field `effects`
-1522.json: missing field `effects`
-1523.json: missing field `effects`
-1524.json: missing field `effects`
-1525.json: missing field `effects`
-1526.json: missing field `effects`
-1527.json: missing field `effects`
-1528.json: missing field `effects`
-1529.json: missing field `effects`
-1530.json: missing field `effects`
-1531.json: missing field `effects`
-1532.json: missing field `effects`
-1533.json: missing field `effects`
-1534.json: missing field `effects`
-1535.json: missing field `effects`
-1536.json: missing field `effects`
-1537.json: missing field `effects`
-1538.json: missing field `effects`
-1539.json: missing field `effects`
-1540.json: missing field `effects`
-1541.json: missing field `effects`
-1542.json: missing field `effects`
-1543.json: missing field `effects`
-1544.json: missing field `effects`
-1545.json: missing field `effects`
-1546.json: missing field `effects`
-1547.json: missing field `effects`
-1548.json: missing field `effects`
-1549.json: missing field `effects`
-1550.json: missing field `effects`
-1551.json: missing field `effects`
-1552.json: missing field `effects`
-1553.json: missing field `effects`
-1554.json: missing field `effects`
-1555.json: missing field `effects`
-1556.json: missing field `effects`
-1557.json: missing field `effects`
-1558.json: missing field `effects`
-1559.json: missing field `effects`
-1560.json: missing field `effects`
-1561.json: missing field `effects`
-1562.json: missing field `effects`
-1563.json: missing field `effects`
-1564.json: missing field `effects`
-1565.json: missing field `effects`
-1566.json: missing field `effects`
-1567.json: missing field `effects`
-1568.json: missing field `effects`
-1569.json: missing field `effects`
-1570.json: missing field `effects`
-1571.json: missing field `effects`
-1572.json: missing field `effects`
-1573.json: missing field `effects`
-1574.json: missing field `effects`
-1575.json: missing field `effects`
-1576.json: missing field `effects`
-1577.json: missing field `effects`
-1578.json: missing field `effects`
-1579.json: missing field `effects`
-1580.json: missing field `effects`
-1581.json: missing field `effects`
-1582.json: missing field `effects`
-1583.json: missing field `effects`
-1584.json: missing field `effects`
-1585.json: missing field `effects`
-1586.json: missing field `effects`
-1587.json: missing field `effects`
-1588.json: missing field `effects`
-1589.json: missing field `effects`
-1590.json: missing field `effects`
-1591.json: missing field `effects`
-1592.json: missing field `effects`
-1593.json: missing field `effects`
-1594.json: missing field `effects`
-1595.json: missing field `effects`
-1596.json: missing field `effects`
-1597.json: missing field `effects`
-1598.json: missing field `effects`
-1599.json: missing field `effects`
-1600.json: missing field `effects`
-1601.json: missing field `effects`
-1602.json: missing field `effects`
-1603.json: missing field `effects`
-1604.json: missing field `effects`
-1605.json: missing field `effects`
-1606.json: missing field `effects`
-1607.json: missing field `effects`
-1608.json: missing field `effects`
-1609.json: missing field `effects`
-1610.json: missing field `effects`
-1611.json: missing field `effects`
-1612.json: missing field `effects`
-1613.json: missing field `effects`
-1614.json: missing field `effects`
-1615.json: missing field `effects`
-1616.json: missing field `effects`
-1617.json: missing field `effects`
-1618.json: missing field `effects`
-1619.json: missing field `effects`
-1620.json: missing field `effects`
-1621.json: missing field `effects`
-1622.json: missing field `effects`
-1623.json: missing field `effects`
-1624.json: missing field `effects`
-1625.json: missing field `effects`
-1626.json: missing field `effects`
-1627.json: missing field `effects`
-1628.json: missing field `effects`
-1629.json: missing field `effects`
-1630.json: missing field `effects`
-1631.json: missing field `effects`
-1632.json: missing field `effects`
-1633.json: missing field `effects`
-1634.json: missing field `effects`
-1635.json: missing field `effects`
-1636.json: missing field `effects`
-1637.json: missing field `effects`
-1638.json: missing field `effects`
-1639.json: missing field `effects`
-1640.json: missing field `effects`
-1641.json: missing field `effects`
-1642.json: missing field `effects`
-1643.json: missing field `effects`
-1644.json: missing field `effects`
-1645.json: missing field `effects`
-1646.json: missing field `effects`
-1647.json: missing field `effects`
-1648.json: missing field `effects`
-1649.json: missing field `effects`
-1650.json: missing field `effects`
-1651.json: missing field `effects`
-1652.json: missing field `effects`
-1653.json: missing field `effects`
-1654.json: missing field `effects`
-1655.json: missing field `effects`
-1656.json: missing field `effects`
-1657.json: missing field `effects`
-1658.json: missing field `effects`
-1659.json: missing field `effects`
-1660.json: missing field `effects`
-1661.json: missing field `effects`
-1662.json: missing field `effects`
-1663.json: missing field `effects`
-1664.json: missing field `effects`
-1665.json: missing field `effects`
-1666.json: missing field `effects`
-1667.json: missing field `effects`
-1668.json: missing field `effects`
-1669.json: missing field `effects`
-1670.json: missing field `effects`
-1671.json: missing field `effects`
-1672.json: missing field `effects`
-1673.json: missing field `effects`
-1674.json: missing field `effects`
-1675.json: missing field `effects`
-1676.json: missing field `effects`
-1677.json: missing field `effects`
-1678.json: missing field `effects`
-1679.json: missing field `effects`
-1680.json: missing field `effects`
-1681.json: missing field `effects`
-1682.json: missing field `effects`
-1683.json: missing field `effects`
-1684.json: missing field `effects`
-1685.json: missing field `effects`
-1686.json: missing field `effects`
-1687.json: missing field `effects`
-1688.json: missing field `effects`
-1689.json: missing field `effects`
-1690.json: missing field `effects`
-1691.json: missing field `effects`
-1692.json: missing field `effects`
-1693.json: missing field `effects`
-1694.json: missing field `effects`
-1695.json: missing field `effects`
-1696.json: missing field `effects`
-1697.json: missing field `effects`
-1698.json: missing field `effects`
-1699.json: missing field `effects`
-1700.json: missing field `effects`
-1701.json: missing field `effects`
-1702.json: missing field `effects`
-1703.json: missing field `effects`
-1704.json: missing field `effects`
-1705.json: missing field `effects`
-1706.json: missing field `effects`
-1707.json: missing field `effects`
-1708.json: missing field `effects`
-1709.json: missing field `effects`
-1710.json: missing field `effects`
-1711.json: missing field `effects`
-1712.json: missing field `effects`
-1713.json: missing field `effects`
-1714.json: missing field `effects`
-1715.json: missing field `effects`
-1716.json: missing field `effects`
-1717.json: missing field `effects`
-1718.json: missing field `effects`
-1719.json: missing field `effects`
-1720.json: missing field `effects`
-1721.json: missing field `effects`
-1722.json: missing field `effects`
-1723.json: missing field `effects`
-1724.json: missing field `effects`
-1725.json: missing field `effects`
-1726.json: missing field `effects`
-1727.json: missing field `effects`
-1728.json: missing field `effects`
-1729.json: missing field `effects`
-1730.json: missing field `effects`
-1731.json: missing field `effects`
-1732.json: missing field `effects`
-1733.json: missing field `effects`
-1734.json: missing field `effects`
-1735.json: missing field `effects`
-1736.json: missing field `effects`
-1737.json: missing field `effects`
-1738.json: missing field `effects`
-1739.json: missing field `effects`
-1740.json: missing field `effects`
-1741.json: missing field `effects`
-1742.json: missing field `effects`
-1743.json: missing field `effects`
-1744.json: missing field `effects`
 1745.json: invalid type: map, expected a sequence
 1746.json: unknown variant `LuaEntityBuildFlowStatistics`, expected one of `LuaAISettings`, `LuaAccumulatorControlBehavior`, `LuaAchievementPrototype`, `LuaAmmoCategoryPrototype`, `LuaArithmeticCombinatorControlBehavior`, `LuaAutoplaceControlPrototype`, `LuaBootstrap`, `LuaBurner`, `LuaBurnerPrototype`, `LuaChunkIterator`, `LuaCircuitNetwork`, `LuaCombinatorControlBehavior`, `LuaCommandProcessor`, `LuaConstantCombinatorControlBehavior`, `LuaContainerControlBehavior`, `LuaControl`, `LuaControlBehavior`, `LuaCustomChartTag`, `LuaCustomInputPrototype`, `LuaCustomTable`, `LuaDamagePrototype`, `LuaDeciderCombinatorControlBehavior`, `LuaDecorativePrototype`, `LuaElectricEnergySourcePrototype`, `LuaEntity`, `LuaEntityPrototype`, `LuaEquipment`, `LuaEquipmentCategoryPrototype`, `LuaEquipmentGrid`, `LuaEquipmentGridPrototype`, `LuaEquipmentPrototype`, `LuaFlowStatistics`, `LuaFluidBox`, `LuaFluidBoxPrototype`, `LuaFluidEnergySourcePrototype`, `LuaFluidPrototype`, `LuaFontPrototype`, `LuaForce`, `LuaFuelCategoryPrototype`, `LuaGameScript`, `LuaGenericOnOffControlBehavior`, `LuaGroup`, `LuaGui`, `LuaGuiElement`, `LuaHeatBufferPrototype`, `LuaHeatEnergySourcePrototype`, `LuaInserterControlBehavior`, `LuaInventory`, `LuaItemPrototype`, `LuaItemStack`, `LuaLampControlBehavior`, `LuaLazyLoadedValue`, `LuaLogisticCell`, `LuaLogisticContainerControlBehavior`, `LuaLogisticNetwork`, `LuaLogisticPoint`, `LuaMiningDrillControlBehavior`, `LuaModSettingPrototype`, `LuaModuleCategoryPrototype`, `LuaNamedNoiseExpression`, `LuaNoiseLayerPrototype`, `LuaParticlePrototype`, `LuaPermissionGroup`, `LuaPermissionGroups`, `LuaPlayer`, `LuaProfiler`, `LuaProgrammableSpeakerControlBehavior`, `LuaRCON`, `LuaRailChainSignalControlBehavior`, `LuaRailPath`, `LuaRailSignalControlBehavior`, `LuaRandomGenerator`, `LuaRecipe`, `LuaRecipeCategoryPrototype`, `LuaRecipePrototype`, `LuaRemote`, `LuaRendering`, `LuaResourceCategoryPrototype`, `LuaRoboportControlBehavior`, `LuaSettings`, `LuaShortcutPrototype`, `LuaStorageTankControlBehavior`, `LuaStyle`, `LuaSurface`, `LuaTechnology`, `LuaTechnologyPrototype`, `LuaTile`, `LuaTilePrototype`, `LuaTrain`, `LuaTrainStopControlBehavior`, `LuaTransportBeltControlBehavior`, `LuaTransportLine`, `LuaTrivialSmokePrototype`, `LuaUnitGroup`, `LuaVirtualSignalPrototype`, `LuaVoidEnergySourcePrototype`, `LuaWallControlBehavior`
 1747.json: unknown variant `LuaFluidProductionFlowStatistics`, expected one of `LuaAISettings`, `LuaAccumulatorControlBehavior`, `LuaAchievementPrototype`, `LuaAmmoCategoryPrototype`, `LuaArithmeticCombinatorControlBehavior`, `LuaAutoplaceControlPrototype`, `LuaBootstrap`, `LuaBurner`, `LuaBurnerPrototype`, `LuaChunkIterator`, `LuaCircuitNetwork`, `LuaCombinatorControlBehavior`, `LuaCommandProcessor`, `LuaConstantCombinatorControlBehavior`, `LuaContainerControlBehavior`, `LuaControl`, `LuaControlBehavior`, `LuaCustomChartTag`, `LuaCustomInputPrototype`, `LuaCustomTable`, `LuaDamagePrototype`, `LuaDeciderCombinatorControlBehavior`, `LuaDecorativePrototype`, `LuaElectricEnergySourcePrototype`, `LuaEntity`, `LuaEntityPrototype`, `LuaEquipment`, `LuaEquipmentCategoryPrototype`, `LuaEquipmentGrid`, `LuaEquipmentGridPrototype`, `LuaEquipmentPrototype`, `LuaFlowStatistics`, `LuaFluidBox`, `LuaFluidBoxPrototype`, `LuaFluidEnergySourcePrototype`, `LuaFluidPrototype`, `LuaFontPrototype`, `LuaForce`, `LuaFuelCategoryPrototype`, `LuaGameScript`, `LuaGenericOnOffControlBehavior`, `LuaGroup`, `LuaGui`, `LuaGuiElement`, `LuaHeatBufferPrototype`, `LuaHeatEnergySourcePrototype`, `LuaInserterControlBehavior`, `LuaInventory`, `LuaItemPrototype`, `LuaItemStack`, `LuaLampControlBehavior`, `LuaLazyLoadedValue`, `LuaLogisticCell`, `LuaLogisticContainerControlBehavior`, `LuaLogisticNetwork`, `LuaLogisticPoint`, `LuaMiningDrillControlBehavior`, `LuaModSettingPrototype`, `LuaModuleCategoryPrototype`, `LuaNamedNoiseExpression`, `LuaNoiseLayerPrototype`, `LuaParticlePrototype`, `LuaPermissionGroup`, `LuaPermissionGroups`, `LuaPlayer`, `LuaProfiler`, `LuaProgrammableSpeakerControlBehavior`, `LuaRCON`, `LuaRailChainSignalControlBehavior`, `LuaRailPath`, `LuaRailSignalControlBehavior`, `LuaRandomGenerator`, `LuaRecipe`, `LuaRecipeCategoryPrototype`, `LuaRecipePrototype`, `LuaRemote`, `LuaRendering`, `LuaResourceCategoryPrototype`, `LuaRoboportControlBehavior`, `LuaSettings`, `LuaShortcutPrototype`, `LuaStorageTankControlBehavior`, `LuaStyle`, `LuaSurface`, `LuaTechnology`, `LuaTechnologyPrototype`, `LuaTile`, `LuaTilePrototype`, `LuaTrain`, `LuaTrainStopControlBehavior`, `LuaTransportBeltControlBehavior`, `LuaTransportLine`, `LuaTrivialSmokePrototype`, `LuaUnitGroup`, `LuaVirtualSignalPrototype`, `LuaVoidEnergySourcePrototype`, `LuaWallControlBehavior`
 1748.json: unknown variant `LuaItemProductionFlowStatistics`, expected one of `LuaAISettings`, `LuaAccumulatorControlBehavior`, `LuaAchievementPrototype`, `LuaAmmoCategoryPrototype`, `LuaArithmeticCombinatorControlBehavior`, `LuaAutoplaceControlPrototype`, `LuaBootstrap`, `LuaBurner`, `LuaBurnerPrototype`, `LuaChunkIterator`, `LuaCircuitNetwork`, `LuaCombinatorControlBehavior`, `LuaCommandProcessor`, `LuaConstantCombinatorControlBehavior`, `LuaContainerControlBehavior`, `LuaControl`, `LuaControlBehavior`, `LuaCustomChartTag`, `LuaCustomInputPrototype`, `LuaCustomTable`, `LuaDamagePrototype`, `LuaDeciderCombinatorControlBehavior`, `LuaDecorativePrototype`, `LuaElectricEnergySourcePrototype`, `LuaEntity`, `LuaEntityPrototype`, `LuaEquipment`, `LuaEquipmentCategoryPrototype`, `LuaEquipmentGrid`, `LuaEquipmentGridPrototype`, `LuaEquipmentPrototype`, `LuaFlowStatistics`, `LuaFluidBox`, `LuaFluidBoxPrototype`, `LuaFluidEnergySourcePrototype`, `LuaFluidPrototype`, `LuaFontPrototype`, `LuaForce`, `LuaFuelCategoryPrototype`, `LuaGameScript`, `LuaGenericOnOffControlBehavior`, `LuaGroup`, `LuaGui`, `LuaGuiElement`, `LuaHeatBufferPrototype`, `LuaHeatEnergySourcePrototype`, `LuaInserterControlBehavior`, `LuaInventory`, `LuaItemPrototype`, `LuaItemStack`, `LuaLampControlBehavior`, `LuaLazyLoadedValue`, `LuaLogisticCell`, `LuaLogisticContainerControlBehavior`, `LuaLogisticNetwork`, `LuaLogisticPoint`, `LuaMiningDrillControlBehavior`, `LuaModSettingPrototype`, `LuaModuleCategoryPrototype`, `LuaNamedNoiseExpression`, `LuaNoiseLayerPrototype`, `LuaParticlePrototype`, `LuaPermissionGroup`, `LuaPermissionGroups`, `LuaPlayer`, `LuaProfiler`, `LuaProgrammableSpeakerControlBehavior`, `LuaRCON`, `LuaRailChainSignalControlBehavior`, `LuaRailPath`, `LuaRailSignalControlBehavior`, `LuaRandomGenerator`, `LuaRecipe`, `LuaRecipeCategoryPrototype`, `LuaRecipePrototype`, `LuaRemote`, `LuaRendering`, `LuaResourceCategoryPrototype`, `LuaRoboportControlBehavior`, `LuaSettings`, `LuaShortcutPrototype`, `LuaStorageTankControlBehavior`, `LuaStyle`, `LuaSurface`, `LuaTechnology`, `LuaTechnologyPrototype`, `LuaTile`, `LuaTilePrototype`, `LuaTrain`, `LuaTrainStopControlBehavior`, `LuaTransportBeltControlBehavior`, `LuaTransportLine`, `LuaTrivialSmokePrototype`, `LuaUnitGroup`, `LuaVirtualSignalPrototype`, `LuaVoidEnergySourcePrototype`, `LuaWallControlBehavior`
 1749.json: unknown variant `LuaKillCountFlowStatistics`, expected one of `LuaAISettings`, `LuaAccumulatorControlBehavior`, `LuaAchievementPrototype`, `LuaAmmoCategoryPrototype`, `LuaArithmeticCombinatorControlBehavior`, `LuaAutoplaceControlPrototype`, `LuaBootstrap`, `LuaBurner`, `LuaBurnerPrototype`, `LuaChunkIterator`, `LuaCircuitNetwork`, `LuaCombinatorControlBehavior`, `LuaCommandProcessor`, `LuaConstantCombinatorControlBehavior`, `LuaContainerControlBehavior`, `LuaControl`, `LuaControlBehavior`, `LuaCustomChartTag`, `LuaCustomInputPrototype`, `LuaCustomTable`, `LuaDamagePrototype`, `LuaDeciderCombinatorControlBehavior`, `LuaDecorativePrototype`, `LuaElectricEnergySourcePrototype`, `LuaEntity`, `LuaEntityPrototype`, `LuaEquipment`, `LuaEquipmentCategoryPrototype`, `LuaEquipmentGrid`, `LuaEquipmentGridPrototype`, `LuaEquipmentPrototype`, `LuaFlowStatistics`, `LuaFluidBox`, `LuaFluidBoxPrototype`, `LuaFluidEnergySourcePrototype`, `LuaFluidPrototype`, `LuaFontPrototype`, `LuaForce`, `LuaFuelCategoryPrototype`, `LuaGameScript`, `LuaGenericOnOffControlBehavior`, `LuaGroup`, `LuaGui`, `LuaGuiElement`, `LuaHeatBufferPrototype`, `LuaHeatEnergySourcePrototype`, `LuaInserterControlBehavior`, `LuaInventory`, `LuaItemPrototype`, `LuaItemStack`, `LuaLampControlBehavior`, `LuaLazyLoadedValue`, `LuaLogisticCell`, `LuaLogisticContainerControlBehavior`, `LuaLogisticNetwork`, `LuaLogisticPoint`, `LuaMiningDrillControlBehavior`, `LuaModSettingPrototype`, `LuaModuleCategoryPrototype`, `LuaNamedNoiseExpression`, `LuaNoiseLayerPrototype`, `LuaParticlePrototype`, `LuaPermissionGroup`, `LuaPermissionGroups`, `LuaPlayer`, `LuaProfiler`, `LuaProgrammableSpeakerControlBehavior`, `LuaRCON`, `LuaRailChainSignalControlBehavior`, `LuaRailPath`, `LuaRailSignalControlBehavior`, `LuaRandomGenerator`, `LuaRecipe`, `LuaRecipeCategoryPrototype`, `LuaRecipePrototype`, `LuaRemote`, `LuaRendering`, `LuaResourceCategoryPrototype`, `LuaRoboportControlBehavior`, `LuaSettings`, `LuaShortcutPrototype`, `LuaStorageTankControlBehavior`, `LuaStyle`, `LuaSurface`, `LuaTechnology`, `LuaTechnologyPrototype`, `LuaTile`, `LuaTilePrototype`, `LuaTrain`, `LuaTrainStopControlBehavior`, `LuaTransportBeltControlBehavior`, `LuaTransportLine`, `LuaTrivialSmokePrototype`, `LuaUnitGroup`, `LuaVirtualSignalPrototype`, `LuaVoidEnergySourcePrototype`, `LuaWallControlBehavior`
-1963.json: missing field `effects`
 1964.json: invalid type: map, expected a sequence
-1967.json: missing field `effects`
-1968.json: missing field `effects`
 1969.json: invalid type: map, expected a sequence
-1970.json: missing field `effects`
-1971.json: missing field `effects`
-1972.json: missing field `effects`
-1973.json: missing field `effects`
-1974.json: missing field `effects`
-1975.json: missing field `effects`
-1976.json: missing field `effects`
-1977.json: missing field `effects`
-1978.json: missing field `effects`
-1979.json: missing field `effects`
-1980.json: missing field `effects`
-1981.json: missing field `effects`
-1982.json: missing field `effects`
-1984.json: missing field `effects`
-1985.json: missing field `effects`
-1986.json: missing field `effects`
-1987.json: missing field `effects`
-1988.json: missing field `effects`
-1989.json: missing field `effects`
-1990.json: missing field `effects`
 1992.json: invalid type: map, expected a sequence
-1993.json: missing field `effects`
-1994.json: missing field `effects`
-1996.json: missing field `effects`
-1997.json: missing field `effects`
-1998.json: missing field `effects`
-2001.json: missing field `effects`
-2002.json: missing field `effects`
-2003.json: missing field `effects`
-2004.json: missing field `effects`
-2005.json: missing field `effects`
-2006.json: missing field `effects`
-2007.json: missing field `effects`
-2008.json: missing field `effects`
-2009.json: missing field `effects`
-2010.json: missing field `effects`
-2011.json: missing field `effects`
-2012.json: missing field `effects`
-2013.json: missing field `effects`
-2014.json: missing field `effects`
-2015.json: missing field `effects`
-2016.json: missing field `effects`
-2017.json: missing field `effects`
-2018.json: missing field `effects`
 2019.json: invalid type: map, expected a sequence
-2020.json: missing field `effects`
-2021.json: missing field `effects`
-2022.json: missing field `effects`
-2023.json: missing field `effects`
-2024.json: missing field `effects`
-2025.json: missing field `effects`
-2026.json: missing field `effects`
-2027.json: missing field `effects`
-2028.json: missing field `effects`
-2029.json: missing field `effects`
-2030.json: missing field `effects`
-2031.json: missing field `effects`
-2032.json: missing field `effects`
-2033.json: missing field `effects`
-2034.json: missing field `effects`
-2035.json: missing field `effects`
-2036.json: missing field `effects`
-2037.json: missing field `effects`
-2038.json: missing field `effects`
-2039.json: missing field `effects`
-2040.json: missing field `effects`
-2041.json: missing field `effects`
-2042.json: missing field `effects`
-2043.json: missing field `effects`
-2044.json: missing field `effects`
-2045.json: missing field `effects`
-2046.json: missing field `effects`
-2047.json: missing field `effects`
-2048.json: missing field `effects`
-2049.json: missing field `effects`
-2050.json: missing field `effects`
-2051.json: missing field `effects`
-2052.json: missing field `effects`
-2053.json: missing field `effects`
-2054.json: missing field `effects`
-2055.json: missing field `effects`
-2056.json: missing field `effects`
-2057.json: missing field `effects`
-2058.json: missing field `effects`
-2059.json: missing field `effects`
-2060.json: missing field `effects`
-2061.json: missing field `effects`
-2062.json: missing field `effects`
-2063.json: missing field `effects`
-2064.json: missing field `effects`
-2065.json: missing field `effects`
-2066.json: missing field `effects`
-2067.json: missing field `effects`
-2068.json: missing field `effects`
-2069.json: missing field `effects`
-2070.json: missing field `effects`
-2071.json: missing field `effects`
-2072.json: missing field `effects`
-2073.json: missing field `effects`
-2074.json: missing field `effects`
-2075.json: missing field `effects`
-2076.json: missing field `effects`
-2077.json: missing field `effects`
-2078.json: missing field `effects`
-2079.json: missing field `effects`
-2080.json: missing field `effects`
-2081.json: missing field `effects`
-2082.json: missing field `effects`
-2083.json: missing field `effects`
-2084.json: missing field `effects`
-2085.json: missing field `effects`
-2086.json: missing field `effects`
-2087.json: missing field `effects`
-2088.json: missing field `effects`
-2089.json: missing field `effects`
-2090.json: missing field `effects`
-2091.json: missing field `effects`
-2092.json: missing field `effects`
-2093.json: missing field `effects`
-2094.json: missing field `effects`
-2095.json: missing field `effects`
-2096.json: missing field `effects`
-2097.json: missing field `effects`
-2098.json: missing field `effects`
-2099.json: missing field `effects`
-2100.json: missing field `effects`
-2101.json: missing field `effects`
-2102.json: missing field `effects`
-2103.json: missing field `effects`
-2104.json: missing field `effects`
-2105.json: missing field `effects`
-2106.json: missing field `effects`
-2107.json: missing field `effects`
-2108.json: missing field `effects`
-2109.json: missing field `effects`
-2110.json: missing field `effects`
-2111.json: missing field `effects`
-2112.json: missing field `effects`
-2113.json: missing field `effects`
-2114.json: missing field `effects`
-2115.json: missing field `effects`
-2116.json: missing field `effects`
-2117.json: missing field `effects`
-2118.json: missing field `effects`
-2119.json: missing field `effects`
-2120.json: missing field `effects`
-2121.json: missing field `effects`
-2122.json: missing field `effects`
-2123.json: missing field `effects`
-2124.json: missing field `effects`
-2125.json: missing field `effects`
-2126.json: missing field `effects`
-2127.json: missing field `effects`
-2128.json: missing field `effects`
-2129.json: missing field `effects`
-2130.json: missing field `effects`
-2131.json: missing field `effects`
-2132.json: missing field `effects`
-2133.json: missing field `effects`
-2134.json: missing field `effects`
-2135.json: missing field `effects`
-2136.json: missing field `effects`
-2137.json: missing field `effects`
-2138.json: missing field `effects`
-2139.json: missing field `effects`
-2140.json: missing field `effects`
-2141.json: missing field `effects`
-2142.json: missing field `effects`
-2143.json: missing field `effects`
-2144.json: missing field `effects`
-2145.json: missing field `effects`
-2146.json: missing field `effects`
-2147.json: missing field `effects`
-2148.json: missing field `effects`
-2149.json: missing field `effects`
-2150.json: missing field `effects`
-2151.json: missing field `effects`
-2152.json: missing field `effects`
-2153.json: missing field `effects`
 2154.json: invalid type: map, expected a sequence
 2155.json: unknown variant `LuaEntityBuildFlowStatistics`, expected one of `LuaAISettings`, `LuaAccumulatorControlBehavior`, `LuaAchievementPrototype`, `LuaAmmoCategoryPrototype`, `LuaArithmeticCombinatorControlBehavior`, `LuaAutoplaceControlPrototype`, `LuaBootstrap`, `LuaBurner`, `LuaBurnerPrototype`, `LuaChunkIterator`, `LuaCircuitNetwork`, `LuaCombinatorControlBehavior`, `LuaCommandProcessor`, `LuaConstantCombinatorControlBehavior`, `LuaContainerControlBehavior`, `LuaControl`, `LuaControlBehavior`, `LuaCustomChartTag`, `LuaCustomInputPrototype`, `LuaCustomTable`, `LuaDamagePrototype`, `LuaDeciderCombinatorControlBehavior`, `LuaDecorativePrototype`, `LuaElectricEnergySourcePrototype`, `LuaEntity`, `LuaEntityPrototype`, `LuaEquipment`, `LuaEquipmentCategoryPrototype`, `LuaEquipmentGrid`, `LuaEquipmentGridPrototype`, `LuaEquipmentPrototype`, `LuaFlowStatistics`, `LuaFluidBox`, `LuaFluidBoxPrototype`, `LuaFluidEnergySourcePrototype`, `LuaFluidPrototype`, `LuaFontPrototype`, `LuaForce`, `LuaFuelCategoryPrototype`, `LuaGameScript`, `LuaGenericOnOffControlBehavior`, `LuaGroup`, `LuaGui`, `LuaGuiElement`, `LuaHeatBufferPrototype`, `LuaHeatEnergySourcePrototype`, `LuaInserterControlBehavior`, `LuaInventory`, `LuaItemPrototype`, `LuaItemStack`, `LuaLampControlBehavior`, `LuaLazyLoadedValue`, `LuaLogisticCell`, `LuaLogisticContainerControlBehavior`, `LuaLogisticNetwork`, `LuaLogisticPoint`, `LuaMiningDrillControlBehavior`, `LuaModSettingPrototype`, `LuaModuleCategoryPrototype`, `LuaNamedNoiseExpression`, `LuaNoiseLayerPrototype`, `LuaParticlePrototype`, `LuaPermissionGroup`, `LuaPermissionGroups`, `LuaPlayer`, `LuaProfiler`, `LuaProgrammableSpeakerControlBehavior`, `LuaRCON`, `LuaRailChainSignalControlBehavior`, `LuaRailPath`, `LuaRailSignalControlBehavior`, `LuaRandomGenerator`, `LuaRecipe`, `LuaRecipeCategoryPrototype`, `LuaRecipePrototype`, `LuaRemote`, `LuaRendering`, `LuaResourceCategoryPrototype`, `LuaRoboportControlBehavior`, `LuaSettings`, `LuaShortcutPrototype`, `LuaStorageTankControlBehavior`, `LuaStyle`, `LuaSurface`, `LuaTechnology`, `LuaTechnologyPrototype`, `LuaTile`, `LuaTilePrototype`, `LuaTrain`, `LuaTrainStopControlBehavior`, `LuaTransportBeltControlBehavior`, `LuaTransportLine`, `LuaTrivialSmokePrototype`, `LuaUnitGroup`, `LuaVirtualSignalPrototype`, `LuaVoidEnergySourcePrototype`, `LuaWallControlBehavior`
 2156.json: unknown variant `LuaFluidProductionFlowStatistics`, expected one of `LuaAISettings`, `LuaAccumulatorControlBehavior`, `LuaAchievementPrototype`, `LuaAmmoCategoryPrototype`, `LuaArithmeticCombinatorControlBehavior`, `LuaAutoplaceControlPrototype`, `LuaBootstrap`, `LuaBurner`, `LuaBurnerPrototype`, `LuaChunkIterator`, `LuaCircuitNetwork`, `LuaCombinatorControlBehavior`, `LuaCommandProcessor`, `LuaConstantCombinatorControlBehavior`, `LuaContainerControlBehavior`, `LuaControl`, `LuaControlBehavior`, `LuaCustomChartTag`, `LuaCustomInputPrototype`, `LuaCustomTable`, `LuaDamagePrototype`, `LuaDeciderCombinatorControlBehavior`, `LuaDecorativePrototype`, `LuaElectricEnergySourcePrototype`, `LuaEntity`, `LuaEntityPrototype`, `LuaEquipment`, `LuaEquipmentCategoryPrototype`, `LuaEquipmentGrid`, `LuaEquipmentGridPrototype`, `LuaEquipmentPrototype`, `LuaFlowStatistics`, `LuaFluidBox`, `LuaFluidBoxPrototype`, `LuaFluidEnergySourcePrototype`, `LuaFluidPrototype`, `LuaFontPrototype`, `LuaForce`, `LuaFuelCategoryPrototype`, `LuaGameScript`, `LuaGenericOnOffControlBehavior`, `LuaGroup`, `LuaGui`, `LuaGuiElement`, `LuaHeatBufferPrototype`, `LuaHeatEnergySourcePrototype`, `LuaInserterControlBehavior`, `LuaInventory`, `LuaItemPrototype`, `LuaItemStack`, `LuaLampControlBehavior`, `LuaLazyLoadedValue`, `LuaLogisticCell`, `LuaLogisticContainerControlBehavior`, `LuaLogisticNetwork`, `LuaLogisticPoint`, `LuaMiningDrillControlBehavior`, `LuaModSettingPrototype`, `LuaModuleCategoryPrototype`, `LuaNamedNoiseExpression`, `LuaNoiseLayerPrototype`, `LuaParticlePrototype`, `LuaPermissionGroup`, `LuaPermissionGroups`, `LuaPlayer`, `LuaProfiler`, `LuaProgrammableSpeakerControlBehavior`, `LuaRCON`, `LuaRailChainSignalControlBehavior`, `LuaRailPath`, `LuaRailSignalControlBehavior`, `LuaRandomGenerator`, `LuaRecipe`, `LuaRecipeCategoryPrototype`, `LuaRecipePrototype`, `LuaRemote`, `LuaRendering`, `LuaResourceCategoryPrototype`, `LuaRoboportControlBehavior`, `LuaSettings`, `LuaShortcutPrototype`, `LuaStorageTankControlBehavior`, `LuaStyle`, `LuaSurface`, `LuaTechnology`, `LuaTechnologyPrototype`, `LuaTile`, `LuaTilePrototype`, `LuaTrain`, `LuaTrainStopControlBehavior`, `LuaTransportBeltControlBehavior`, `LuaTransportLine`, `LuaTrivialSmokePrototype`, `LuaUnitGroup`, `LuaVirtualSignalPrototype`, `LuaVoidEnergySourcePrototype`, `LuaWallControlBehavior`
 2157.json: unknown variant `LuaItemProductionFlowStatistics`, expected one of `LuaAISettings`, `LuaAccumulatorControlBehavior`, `LuaAchievementPrototype`, `LuaAmmoCategoryPrototype`, `LuaArithmeticCombinatorControlBehavior`, `LuaAutoplaceControlPrototype`, `LuaBootstrap`, `LuaBurner`, `LuaBurnerPrototype`, `LuaChunkIterator`, `LuaCircuitNetwork`, `LuaCombinatorControlBehavior`, `LuaCommandProcessor`, `LuaConstantCombinatorControlBehavior`, `LuaContainerControlBehavior`, `LuaControl`, `LuaControlBehavior`, `LuaCustomChartTag`, `LuaCustomInputPrototype`, `LuaCustomTable`, `LuaDamagePrototype`, `LuaDeciderCombinatorControlBehavior`, `LuaDecorativePrototype`, `LuaElectricEnergySourcePrototype`, `LuaEntity`, `LuaEntityPrototype`, `LuaEquipment`, `LuaEquipmentCategoryPrototype`, `LuaEquipmentGrid`, `LuaEquipmentGridPrototype`, `LuaEquipmentPrototype`, `LuaFlowStatistics`, `LuaFluidBox`, `LuaFluidBoxPrototype`, `LuaFluidEnergySourcePrototype`, `LuaFluidPrototype`, `LuaFontPrototype`, `LuaForce`, `LuaFuelCategoryPrototype`, `LuaGameScript`, `LuaGenericOnOffControlBehavior`, `LuaGroup`, `LuaGui`, `LuaGuiElement`, `LuaHeatBufferPrototype`, `LuaHeatEnergySourcePrototype`, `LuaInserterControlBehavior`, `LuaInventory`, `LuaItemPrototype`, `LuaItemStack`, `LuaLampControlBehavior`, `LuaLazyLoadedValue`, `LuaLogisticCell`, `LuaLogisticContainerControlBehavior`, `LuaLogisticNetwork`, `LuaLogisticPoint`, `LuaMiningDrillControlBehavior`, `LuaModSettingPrototype`, `LuaModuleCategoryPrototype`, `LuaNamedNoiseExpression`, `LuaNoiseLayerPrototype`, `LuaParticlePrototype`, `LuaPermissionGroup`, `LuaPermissionGroups`, `LuaPlayer`, `LuaProfiler`, `LuaProgrammableSpeakerControlBehavior`, `LuaRCON`, `LuaRailChainSignalControlBehavior`, `LuaRailPath`, `LuaRailSignalControlBehavior`, `LuaRandomGenerator`, `LuaRecipe`, `LuaRecipeCategoryPrototype`, `LuaRecipePrototype`, `LuaRemote`, `LuaRendering`, `LuaResourceCategoryPrototype`, `LuaRoboportControlBehavior`, `LuaSettings`, `LuaShortcutPrototype`, `LuaStorageTankControlBehavior`, `LuaStyle`, `LuaSurface`, `LuaTechnology`, `LuaTechnologyPrototype`, `LuaTile`, `LuaTilePrototype`, `LuaTrain`, `LuaTrainStopControlBehavior`, `LuaTransportBeltControlBehavior`, `LuaTransportLine`, `LuaTrivialSmokePrototype`, `LuaUnitGroup`, `LuaVirtualSignalPrototype`, `LuaVoidEnergySourcePrototype`, `LuaWallControlBehavior`
 2158.json: unknown variant `LuaKillCountFlowStatistics`, expected one of `LuaAISettings`, `LuaAccumulatorControlBehavior`, `LuaAchievementPrototype`, `LuaAmmoCategoryPrototype`, `LuaArithmeticCombinatorControlBehavior`, `LuaAutoplaceControlPrototype`, `LuaBootstrap`, `LuaBurner`, `LuaBurnerPrototype`, `LuaChunkIterator`, `LuaCircuitNetwork`, `LuaCombinatorControlBehavior`, `LuaCommandProcessor`, `LuaConstantCombinatorControlBehavior`, `LuaContainerControlBehavior`, `LuaControl`, `LuaControlBehavior`, `LuaCustomChartTag`, `LuaCustomInputPrototype`, `LuaCustomTable`, `LuaDamagePrototype`, `LuaDeciderCombinatorControlBehavior`, `LuaDecorativePrototype`, `LuaElectricEnergySourcePrototype`, `LuaEntity`, `LuaEntityPrototype`, `LuaEquipment`, `LuaEquipmentCategoryPrototype`, `LuaEquipmentGrid`, `LuaEquipmentGridPrototype`, `LuaEquipmentPrototype`, `LuaFlowStatistics`, `LuaFluidBox`, `LuaFluidBoxPrototype`, `LuaFluidEnergySourcePrototype`, `LuaFluidPrototype`, `LuaFontPrototype`, `LuaForce`, `LuaFuelCategoryPrototype`, `LuaGameScript`, `LuaGenericOnOffControlBehavior`, `LuaGroup`, `LuaGui`, `LuaGuiElement`, `LuaHeatBufferPrototype`, `LuaHeatEnergySourcePrototype`, `LuaInserterControlBehavior`, `LuaInventory`, `LuaItemPrototype`, `LuaItemStack`, `LuaLampControlBehavior`, `LuaLazyLoadedValue`, `LuaLogisticCell`, `LuaLogisticContainerControlBehavior`, `LuaLogisticNetwork`, `LuaLogisticPoint`, `LuaMiningDrillControlBehavior`, `LuaModSettingPrototype`, `LuaModuleCategoryPrototype`, `LuaNamedNoiseExpression`, `LuaNoiseLayerPrototype`, `LuaParticlePrototype`, `LuaPermissionGroup`, `LuaPermissionGroups`, `LuaPlayer`, `LuaProfiler`, `LuaProgrammableSpeakerControlBehavior`, `LuaRCON`, `LuaRailChainSignalControlBehavior`, `LuaRailPath`, `LuaRailSignalControlBehavior`, `LuaRandomGenerator`, `LuaRecipe`, `LuaRecipeCategoryPrototype`, `LuaRecipePrototype`, `LuaRemote`, `LuaRendering`, `LuaResourceCategoryPrototype`, `LuaRoboportControlBehavior`, `LuaSettings`, `LuaShortcutPrototype`, `LuaStorageTankControlBehavior`, `LuaStyle`, `LuaSurface`, `LuaTechnology`, `LuaTechnologyPrototype`, `LuaTile`, `LuaTilePrototype`, `LuaTrain`, `LuaTrainStopControlBehavior`, `LuaTransportBeltControlBehavior`, `LuaTransportLine`, `LuaTrivialSmokePrototype`, `LuaUnitGroup`, `LuaVirtualSignalPrototype`, `LuaVoidEnergySourcePrototype`, `LuaWallControlBehavior`
-2372.json: missing field `effects`
 2373.json: invalid type: map, expected a sequence
-2376.json: missing field `effects`
-2377.json: missing field `effects`
 2378.json: invalid type: map, expected a sequence
-2379.json: missing field `effects`
-2380.json: missing field `effects`
-2381.json: missing field `effects`
-2382.json: missing field `effects`
-2383.json: missing field `effects`
-2384.json: missing field `effects`
-2385.json: missing field `effects`
-2386.json: missing field `effects`
-2387.json: missing field `effects`
-2388.json: missing field `effects`
-2389.json: missing field `effects`
-2390.json: missing field `effects`
-2391.json: missing field `effects`
-2393.json: missing field `effects`
-2394.json: missing field `effects`
-2395.json: missing field `effects`
-2396.json: missing field `effects`
-2397.json: missing field `effects`
-2398.json: missing field `effects`
-2399.json: missing field `effects`
 2401.json: invalid type: map, expected a sequence
-2402.json: missing field `effects`
-2403.json: missing field `effects`
-2405.json: missing field `effects`
-2406.json: missing field `effects`
-2407.json: missing field `effects`
-2410.json: missing field `effects`
-2411.json: missing field `effects`
-2412.json: missing field `effects`
-2413.json: missing field `effects`
-2414.json: missing field `effects`
-2415.json: missing field `effects`
-2416.json: missing field `effects`
-2417.json: missing field `effects`
-2418.json: missing field `effects`
-2419.json: missing field `effects`
-2420.json: missing field `effects`
-2421.json: missing field `effects`
-2422.json: missing field `effects`
-2423.json: missing field `effects`
-2424.json: missing field `effects`
-2425.json: missing field `effects`
-2426.json: missing field `effects`
-2427.json: missing field `effects`
 2428.json: invalid type: map, expected a sequence
-2429.json: missing field `effects`
-2430.json: missing field `effects`
-2431.json: missing field `effects`
-2432.json: missing field `effects`
-2433.json: missing field `effects`
-2434.json: missing field `effects`
-2435.json: missing field `effects`
-2436.json: missing field `effects`
-2437.json: missing field `effects`
-2438.json: missing field `effects`
-2439.json: missing field `effects`
-2440.json: missing field `effects`
-2441.json: missing field `effects`
-2442.json: missing field `effects`
-2443.json: missing field `effects`
-2444.json: missing field `effects`
-2445.json: missing field `effects`
-2446.json: missing field `effects`
-2447.json: missing field `effects`
-2448.json: missing field `effects`
-2449.json: missing field `effects`
-2450.json: missing field `effects`
-2451.json: missing field `effects`
-2452.json: missing field `effects`
-2453.json: missing field `effects`
-2454.json: missing field `effects`
-2455.json: missing field `effects`
-2456.json: missing field `effects`
-2457.json: missing field `effects`
-2458.json: missing field `effects`
-2459.json: missing field `effects`
-2460.json: missing field `effects`
-2461.json: missing field `effects`
-2462.json: missing field `effects`
-2463.json: missing field `effects`
-2464.json: missing field `effects`
-2465.json: missing field `effects`
-2466.json: missing field `effects`
-2467.json: missing field `effects`
-2468.json: missing field `effects`
-2469.json: missing field `effects`
-2470.json: missing field `effects`
-2471.json: missing field `effects`
-2472.json: missing field `effects`
-2473.json: missing field `effects`
-2474.json: missing field `effects`
-2475.json: missing field `effects`
-2476.json: missing field `effects`
-2477.json: missing field `effects`
-2478.json: missing field `effects`
-2479.json: missing field `effects`
-2480.json: missing field `effects`
-2481.json: missing field `effects`
-2482.json: missing field `effects`
-2483.json: missing field `effects`
-2484.json: missing field `effects`
-2485.json: missing field `effects`
-2486.json: missing field `effects`
-2487.json: missing field `effects`
-2488.json: missing field `effects`
-2489.json: missing field `effects`
-2490.json: missing field `effects`
-2491.json: missing field `effects`
-2492.json: missing field `effects`
-2493.json: missing field `effects`
-2494.json: missing field `effects`
-2495.json: missing field `effects`
-2496.json: missing field `effects`
-2497.json: missing field `effects`
-2498.json: missing field `effects`
-2499.json: missing field `effects`
-2500.json: missing field `effects`
-2501.json: missing field `effects`
-2502.json: missing field `effects`
-2503.json: missing field `effects`
-2504.json: missing field `effects`
-2505.json: missing field `effects`
-2506.json: missing field `effects`
-2507.json: missing field `effects`
-2508.json: missing field `effects`
-2509.json: missing field `effects`
-2510.json: missing field `effects`
-2511.json: missing field `effects`
-2512.json: missing field `effects`
-2513.json: missing field `effects`
-2514.json: missing field `effects`
-2515.json: missing field `effects`
-2516.json: missing field `effects`
-2517.json: missing field `effects`
-2518.json: missing field `effects`
-2519.json: missing field `effects`
-2520.json: missing field `effects`
-2521.json: missing field `effects`
-2522.json: missing field `effects`
-2523.json: missing field `effects`
-2524.json: missing field `effects`
-2525.json: missing field `effects`
-2526.json: missing field `effects`
-2527.json: missing field `effects`
-2528.json: missing field `effects`
-2529.json: missing field `effects`
-2530.json: missing field `effects`
-2531.json: missing field `effects`
-2532.json: missing field `effects`
-2533.json: missing field `effects`
-2534.json: missing field `effects`
-2535.json: missing field `effects`
-2536.json: missing field `effects`
-2537.json: missing field `effects`
-2538.json: missing field `effects`
-2539.json: missing field `effects`
-2540.json: missing field `effects`
-2541.json: missing field `effects`
-2542.json: missing field `effects`
-2543.json: missing field `effects`
-2544.json: missing field `effects`
-2545.json: missing field `effects`
-2546.json: missing field `effects`
-2547.json: missing field `effects`
-2548.json: missing field `effects`
-2549.json: missing field `effects`
-2550.json: missing field `effects`
-2551.json: missing field `effects`
-2552.json: missing field `effects`
-2553.json: missing field `effects`
-2554.json: missing field `effects`
-2555.json: missing field `effects`
-2556.json: missing field `effects`
-2557.json: missing field `effects`
-2558.json: missing field `effects`
-2559.json: missing field `effects`
-2560.json: missing field `effects`
-2561.json: missing field `effects`
-2562.json: missing field `effects`
 2571.json: invalid type: map, expected a sequence
 2572.json: invalid type: map, expected a sequence
 2573.json: invalid type: map, expected a sequence
@@ -1428,58 +708,58 @@
 2627.json: invalid type: map, expected a sequence
 2628.json: invalid type: map, expected a sequence
 2629.json: invalid type: map, expected a sequence
-2630.json: missing field `allowed_neighbors`
-2631.json: missing field `allowed_neighbors`
-2632.json: missing field `allowed_neighbors`
-2633.json: missing field `allowed_neighbors`
-2634.json: missing field `allowed_neighbors`
-2635.json: missing field `allowed_neighbors`
-2636.json: missing field `allowed_neighbors`
-2637.json: missing field `allowed_neighbors`
-2638.json: missing field `allowed_neighbors`
-2639.json: missing field `allowed_neighbors`
-2640.json: missing field `allowed_neighbors`
-2641.json: missing field `allowed_neighbors`
-2642.json: missing field `allowed_neighbors`
-2643.json: missing field `allowed_neighbors`
-2644.json: missing field `allowed_neighbors`
-2645.json: missing field `allowed_neighbors`
-2646.json: missing field `allowed_neighbors`
-2647.json: missing field `allowed_neighbors`
-2648.json: missing field `allowed_neighbors`
-2649.json: missing field `allowed_neighbors`
-2650.json: missing field `allowed_neighbors`
-2651.json: missing field `allowed_neighbors`
-2652.json: missing field `allowed_neighbors`
-2653.json: missing field `allowed_neighbors`
-2654.json: missing field `allowed_neighbors`
-2655.json: missing field `allowed_neighbors`
-2656.json: missing field `allowed_neighbors`
-2657.json: missing field `allowed_neighbors`
-2658.json: missing field `allowed_neighbors`
-2659.json: missing field `allowed_neighbors`
-2660.json: missing field `allowed_neighbors`
-2661.json: missing field `allowed_neighbors`
-2662.json: missing field `allowed_neighbors`
-2663.json: missing field `allowed_neighbors`
-2664.json: missing field `allowed_neighbors`
-2665.json: missing field `allowed_neighbors`
-2666.json: missing field `allowed_neighbors`
-2667.json: missing field `allowed_neighbors`
-2668.json: missing field `allowed_neighbors`
-2669.json: missing field `allowed_neighbors`
-2670.json: missing field `allowed_neighbors`
-2671.json: missing field `allowed_neighbors`
-2672.json: missing field `allowed_neighbors`
-2673.json: missing field `allowed_neighbors`
-2674.json: missing field `allowed_neighbors`
-2675.json: missing field `allowed_neighbors`
-2676.json: missing field `allowed_neighbors`
-2677.json: missing field `allowed_neighbors`
-2678.json: missing field `allowed_neighbors`
-2679.json: missing field `allowed_neighbors`
-2680.json: missing field `allowed_neighbors`
-2681.json: missing field `allowed_neighbors`
+2630.json: invalid type: map, expected a sequence
+2631.json: invalid type: map, expected a sequence
+2632.json: invalid type: map, expected a sequence
+2633.json: invalid type: map, expected a sequence
+2634.json: invalid type: map, expected a sequence
+2635.json: invalid type: map, expected a sequence
+2636.json: invalid type: map, expected a sequence
+2637.json: invalid type: map, expected a sequence
+2638.json: invalid type: map, expected a sequence
+2639.json: invalid type: map, expected a sequence
+2640.json: invalid type: map, expected a sequence
+2641.json: invalid type: map, expected a sequence
+2642.json: invalid type: map, expected a sequence
+2643.json: invalid type: map, expected a sequence
+2644.json: invalid type: map, expected a sequence
+2645.json: invalid type: map, expected a sequence
+2646.json: invalid type: map, expected a sequence
+2647.json: invalid type: map, expected a sequence
+2648.json: invalid type: map, expected a sequence
+2649.json: invalid type: map, expected a sequence
+2650.json: invalid type: map, expected a sequence
+2651.json: invalid type: map, expected a sequence
+2652.json: invalid type: map, expected a sequence
+2653.json: invalid type: map, expected a sequence
+2654.json: invalid type: map, expected a sequence
+2655.json: invalid type: map, expected a sequence
+2656.json: invalid type: map, expected a sequence
+2657.json: invalid type: map, expected a sequence
+2658.json: invalid type: map, expected a sequence
+2659.json: invalid type: map, expected a sequence
+2660.json: invalid type: map, expected a sequence
+2661.json: invalid type: map, expected a sequence
+2662.json: invalid type: map, expected a sequence
+2663.json: invalid type: map, expected a sequence
+2664.json: invalid type: map, expected a sequence
+2665.json: invalid type: map, expected a sequence
+2666.json: invalid type: map, expected a sequence
+2667.json: invalid type: map, expected a sequence
+2668.json: invalid type: map, expected a sequence
+2669.json: invalid type: map, expected a sequence
+2670.json: invalid type: map, expected a sequence
+2671.json: invalid type: map, expected a sequence
+2672.json: invalid type: map, expected a sequence
+2673.json: invalid type: map, expected a sequence
+2674.json: invalid type: map, expected a sequence
+2675.json: invalid type: map, expected a sequence
+2676.json: invalid type: map, expected a sequence
+2677.json: invalid type: map, expected a sequence
+2678.json: invalid type: map, expected a sequence
+2679.json: invalid type: map, expected a sequence
+2680.json: invalid type: map, expected a sequence
+2681.json: invalid type: map, expected a sequence
 2682.json: invalid type: map, expected a sequence
 2683.json: invalid type: map, expected a sequence
 2684.json: invalid type: map, expected a sequence
