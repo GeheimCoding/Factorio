@@ -139,12 +139,12 @@
 309.json: invalid type: map, expected a sequence
 311.json: invalid type: map, expected a sequence
 313.json: invalid type: map, expected a sequence
-315.json: invalid type: map, expected a sequence
+315.json: missing field `affects_target`
 316.json: invalid type: map, expected a sequence
 317.json: invalid type: map, expected a sequence
 318.json: invalid type: map, expected a sequence
-319.json: invalid type: map, expected a sequence
-321.json: invalid type: map, expected a sequence
+319.json: missing field `source_effects`
+321.json: missing field `source_effects`
 323.json: invalid type: map, expected a sequence
 324.json: invalid type: map, expected a sequence
 326.json: invalid type: map, expected a sequence
@@ -160,55 +160,55 @@
 342.json: invalid type: map, expected a sequence
 343.json: invalid type: map, expected a sequence
 353.json: invalid type: map, expected a sequence
-354.json: invalid type: map, expected a sequence
-355.json: invalid type: map, expected a sequence
-356.json: invalid type: map, expected a sequence
-359.json: invalid type: map, expected a sequence
-360.json: invalid type: map, expected a sequence
-361.json: invalid type: map, expected a sequence
-362.json: invalid type: map, expected a sequence
-363.json: invalid type: map, expected a sequence
-364.json: invalid type: map, expected a sequence
-365.json: invalid type: map, expected a sequence
-366.json: invalid type: map, expected a sequence
-367.json: invalid type: map, expected a sequence
-368.json: invalid type: map, expected a sequence
-369.json: invalid type: map, expected a sequence
+354.json: missing field `source_effects`
+355.json: missing field `source_effects`
+356.json: missing field `source_effects`
+359.json: missing field `source_effects`
+360.json: missing field `source_effects`
+361.json: missing field `source_effects`
+362.json: missing field `source_effects`
+363.json: missing field `source_effects`
+364.json: missing field `source_effects`
+365.json: missing field `source_effects`
+366.json: missing field `source_effects`
+367.json: missing field `source_effects`
+368.json: missing field `source_effects`
+369.json: missing field `source_effects`
 370.json: invalid type: map, expected a sequence
 371.json: invalid type: map, expected a sequence
-372.json: invalid type: map, expected a sequence
+372.json: missing field `source_effects`
 373.json: invalid type: map, expected a sequence
 397.json: invalid type: map, expected a sequence
-398.json: invalid type: map, expected a sequence
-399.json: invalid type: map, expected a sequence
+398.json: invalid type: string "nan", expected f64
+399.json: invalid type: string "nan", expected f64
 400.json: invalid type: map, expected a sequence
-401.json: invalid type: map, expected a sequence
+401.json: invalid type: string "nan", expected f64
 402.json: invalid type: map, expected a sequence
-403.json: invalid type: map, expected a sequence
+403.json: invalid type: string "nan", expected f64
 404.json: invalid type: map, expected a sequence
-405.json: invalid type: map, expected a sequence
+405.json: invalid type: string "nan", expected f64
 406.json: invalid type: map, expected a sequence
-407.json: invalid type: map, expected a sequence
+407.json: invalid type: string "nan", expected f64
 408.json: invalid type: map, expected a sequence
-409.json: invalid type: map, expected a sequence
+409.json: invalid type: string "nan", expected f64
 410.json: invalid type: map, expected a sequence
-411.json: invalid type: map, expected a sequence
-412.json: invalid type: map, expected a sequence
+411.json: invalid type: string "nan", expected f64
+412.json: invalid type: string "nan", expected f64
 413.json: invalid type: map, expected a sequence
-414.json: invalid type: map, expected a sequence
+414.json: invalid type: string "nan", expected f64
 415.json: invalid type: map, expected a sequence
-416.json: invalid type: map, expected a sequence
-417.json: invalid type: map, expected a sequence
-418.json: invalid type: map, expected a sequence
-419.json: invalid type: map, expected a sequence
+416.json: invalid type: string "nan", expected f64
+417.json: invalid type: string "nan", expected f64
+418.json: invalid type: string "nan", expected f64
+419.json: invalid type: string "nan", expected f64
 420.json: invalid type: map, expected a sequence
-421.json: invalid type: map, expected a sequence
-422.json: invalid type: map, expected a sequence
-423.json: invalid type: map, expected a sequence
-424.json: invalid type: map, expected a sequence
-425.json: invalid type: map, expected a sequence
-426.json: invalid type: map, expected a sequence
-427.json: invalid type: map, expected a sequence
+421.json: invalid type: string "nan", expected f64
+422.json: invalid type: string "nan", expected f64
+423.json: invalid type: string "nan", expected f64
+424.json: invalid type: string "nan", expected f64
+425.json: invalid type: string "nan", expected f64
+426.json: invalid type: string "nan", expected f64
+427.json: invalid type: string "nan", expected f64
 428.json: invalid type: map, expected a sequence
 429.json: invalid type: map, expected a sequence
 430.json: invalid type: map, expected a sequence
@@ -333,139 +333,139 @@
 549.json: invalid type: map, expected a sequence
 550.json: invalid type: map, expected a sequence
 551.json: invalid type: map, expected a sequence
-552.json: invalid type: map, expected a sequence
-578.json: invalid type: map, expected a sequence
-579.json: invalid type: map, expected a sequence
-580.json: invalid type: map, expected a sequence
-581.json: invalid type: map, expected a sequence
-582.json: invalid type: map, expected a sequence
-583.json: invalid type: map, expected a sequence
-584.json: invalid type: map, expected a sequence
-585.json: invalid type: map, expected a sequence
-586.json: invalid type: map, expected a sequence
-587.json: invalid type: map, expected a sequence
-588.json: invalid type: map, expected a sequence
-589.json: invalid type: map, expected a sequence
-590.json: invalid type: map, expected a sequence
-591.json: invalid type: map, expected a sequence
-592.json: invalid type: map, expected a sequence
-593.json: invalid type: map, expected a sequence
-594.json: invalid type: map, expected a sequence
-595.json: invalid type: map, expected a sequence
-596.json: invalid type: map, expected a sequence
-597.json: invalid type: map, expected a sequence
-598.json: invalid type: map, expected a sequence
-599.json: invalid type: map, expected a sequence
-600.json: invalid type: map, expected a sequence
-601.json: invalid type: map, expected a sequence
-602.json: invalid type: map, expected a sequence
-603.json: invalid type: map, expected a sequence
-604.json: invalid type: map, expected a sequence
-605.json: invalid type: map, expected a sequence
-606.json: invalid type: map, expected a sequence
-607.json: invalid type: map, expected a sequence
-608.json: invalid type: map, expected a sequence
-609.json: invalid type: map, expected a sequence
-610.json: invalid type: map, expected a sequence
-611.json: invalid type: map, expected a sequence
-612.json: invalid type: map, expected a sequence
-613.json: invalid type: map, expected a sequence
-614.json: invalid type: map, expected a sequence
-615.json: invalid type: map, expected a sequence
-616.json: invalid type: map, expected a sequence
-617.json: invalid type: map, expected a sequence
-618.json: invalid type: map, expected a sequence
-619.json: invalid type: map, expected a sequence
-620.json: invalid type: map, expected a sequence
-621.json: invalid type: map, expected a sequence
-622.json: invalid type: map, expected a sequence
-623.json: invalid type: map, expected a sequence
-624.json: invalid type: map, expected a sequence
-625.json: invalid type: map, expected a sequence
-626.json: invalid type: map, expected a sequence
-627.json: invalid type: map, expected a sequence
-628.json: invalid type: map, expected a sequence
-629.json: invalid type: map, expected a sequence
-630.json: invalid type: map, expected a sequence
-631.json: invalid type: map, expected a sequence
-632.json: invalid type: map, expected a sequence
-633.json: invalid type: map, expected a sequence
-634.json: invalid type: map, expected a sequence
-635.json: invalid type: map, expected a sequence
-636.json: invalid type: map, expected a sequence
-637.json: invalid type: map, expected a sequence
-638.json: invalid type: map, expected a sequence
-639.json: invalid type: map, expected a sequence
-640.json: invalid type: map, expected a sequence
-641.json: invalid type: map, expected a sequence
-642.json: invalid type: map, expected a sequence
-643.json: invalid type: map, expected a sequence
-644.json: invalid type: map, expected a sequence
-645.json: invalid type: map, expected a sequence
-646.json: invalid type: map, expected a sequence
-647.json: invalid type: map, expected a sequence
-648.json: invalid type: map, expected a sequence
-649.json: invalid type: map, expected a sequence
-650.json: invalid type: map, expected a sequence
-651.json: invalid type: map, expected a sequence
+552.json: missing field `source_effects`
+578.json: missing field `source_effects`
+579.json: missing field `source_effects`
+580.json: missing field `source_effects`
+581.json: missing field `source_effects`
+582.json: missing field `source_effects`
+583.json: missing field `source_effects`
+584.json: missing field `source_effects`
+585.json: missing field `source_effects`
+586.json: missing field `source_effects`
+587.json: missing field `source_effects`
+588.json: missing field `source_effects`
+589.json: missing field `source_effects`
+590.json: missing field `source_effects`
+591.json: missing field `source_effects`
+592.json: missing field `source_effects`
+593.json: missing field `source_effects`
+594.json: missing field `source_effects`
+595.json: missing field `source_effects`
+596.json: missing field `source_effects`
+597.json: missing field `source_effects`
+598.json: missing field `source_effects`
+599.json: missing field `source_effects`
+600.json: missing field `source_effects`
+601.json: missing field `source_effects`
+602.json: missing field `source_effects`
+603.json: missing field `source_effects`
+604.json: missing field `source_effects`
+605.json: missing field `source_effects`
+606.json: missing field `source_effects`
+607.json: missing field `source_effects`
+608.json: missing field `source_effects`
+609.json: missing field `source_effects`
+610.json: missing field `source_effects`
+611.json: missing field `source_effects`
+612.json: missing field `source_effects`
+613.json: missing field `source_effects`
+614.json: missing field `source_effects`
+615.json: missing field `source_effects`
+616.json: missing field `source_effects`
+617.json: missing field `source_effects`
+618.json: missing field `source_effects`
+619.json: missing field `source_effects`
+620.json: missing field `source_effects`
+621.json: missing field `source_effects`
+622.json: missing field `source_effects`
+623.json: missing field `source_effects`
+624.json: missing field `source_effects`
+625.json: missing field `source_effects`
+626.json: missing field `source_effects`
+627.json: missing field `source_effects`
+628.json: missing field `source_effects`
+629.json: missing field `source_effects`
+630.json: missing field `source_effects`
+631.json: missing field `source_effects`
+632.json: missing field `source_effects`
+633.json: missing field `source_effects`
+634.json: missing field `source_effects`
+635.json: missing field `source_effects`
+636.json: missing field `source_effects`
+637.json: missing field `source_effects`
+638.json: missing field `source_effects`
+639.json: missing field `source_effects`
+640.json: missing field `source_effects`
+641.json: missing field `source_effects`
+642.json: missing field `source_effects`
+643.json: missing field `source_effects`
+644.json: missing field `source_effects`
+645.json: missing field `source_effects`
+646.json: missing field `source_effects`
+647.json: missing field `source_effects`
+648.json: missing field `source_effects`
+649.json: missing field `source_effects`
+650.json: missing field `source_effects`
+651.json: missing field `source_effects`
 652.json: invalid type: map, expected a sequence
-653.json: invalid type: map, expected a sequence
-654.json: invalid type: map, expected a sequence
-655.json: invalid type: map, expected a sequence
-656.json: invalid type: map, expected a sequence
-657.json: invalid type: map, expected a sequence
-658.json: invalid type: map, expected a sequence
-659.json: invalid type: map, expected a sequence
-660.json: invalid type: map, expected a sequence
-661.json: invalid type: map, expected a sequence
-662.json: invalid type: map, expected a sequence
-663.json: invalid type: map, expected a sequence
-664.json: invalid type: map, expected a sequence
+653.json: missing field `source_effects`
+654.json: missing field `source_effects`
+655.json: missing field `source_effects`
+656.json: missing field `source_effects`
+657.json: missing field `source_effects`
+658.json: missing field `source_effects`
+659.json: missing field `source_effects`
+660.json: missing field `source_effects`
+661.json: missing field `source_effects`
+662.json: missing field `source_effects`
+663.json: missing field `source_effects`
+664.json: missing field `source_effects`
 665.json: invalid type: map, expected a sequence
 666.json: invalid type: map, expected a sequence
-667.json: invalid type: map, expected a sequence
-668.json: invalid type: map, expected a sequence
-669.json: invalid type: map, expected a sequence
-670.json: invalid type: map, expected a sequence
-671.json: invalid type: map, expected a sequence
+667.json: missing field `source_effects`
+668.json: missing field `source_effects`
+669.json: missing field `source_effects`
+670.json: missing field `source_effects`
+671.json: missing field `source_effects`
 672.json: invalid type: map, expected a sequence
-673.json: invalid type: map, expected a sequence
-674.json: invalid type: map, expected a sequence
-675.json: invalid type: map, expected a sequence
-676.json: invalid type: map, expected a sequence
-677.json: invalid type: map, expected a sequence
-678.json: invalid type: map, expected a sequence
+673.json: missing field `source_effects`
+674.json: missing field `source_effects`
+675.json: missing field `source_effects`
+676.json: missing field `source_effects`
+677.json: missing field `source_effects`
+678.json: missing field `source_effects`
 679.json: invalid type: map, expected a sequence
 680.json: invalid type: map, expected a sequence
 681.json: invalid type: map, expected a sequence
 682.json: invalid type: map, expected a sequence
 683.json: invalid type: map, expected a sequence
 684.json: invalid type: map, expected a sequence
-685.json: invalid type: map, expected a sequence
+685.json: missing field `source_effects`
 686.json: invalid type: map, expected a sequence
-687.json: invalid type: map, expected a sequence
-688.json: invalid type: map, expected a sequence
-689.json: invalid type: map, expected a sequence
-690.json: invalid type: map, expected a sequence
-691.json: invalid type: map, expected a sequence
+687.json: missing field `source_effects`
+688.json: missing field `source_effects`
+689.json: missing field `source_effects`
+690.json: missing field `source_effects`
+691.json: missing field `source_effects`
 692.json: invalid type: map, expected a sequence
-693.json: invalid type: map, expected a sequence
-694.json: invalid type: map, expected a sequence
-695.json: invalid type: map, expected a sequence
-696.json: invalid type: map, expected a sequence
+693.json: missing field `source_effects`
+694.json: missing field `source_effects`
+695.json: missing field `source_effects`
+696.json: missing field `source_effects`
 697.json: invalid type: map, expected a sequence
 698.json: invalid type: map, expected a sequence
-699.json: invalid type: map, expected a sequence
-700.json: invalid type: map, expected a sequence
-701.json: invalid type: map, expected a sequence
-702.json: invalid type: map, expected a sequence
-703.json: invalid type: map, expected a sequence
-704.json: invalid type: map, expected a sequence
-705.json: invalid type: map, expected a sequence
-706.json: invalid type: map, expected a sequence
-707.json: invalid type: map, expected a sequence
-708.json: invalid type: map, expected a sequence
-709.json: invalid type: map, expected a sequence
+699.json: missing field `source_effects`
+700.json: missing field `source_effects`
+701.json: missing field `source_effects`
+702.json: missing field `source_effects`
+703.json: missing field `source_effects`
+704.json: missing field `source_effects`
+705.json: missing field `source_effects`
+706.json: missing field `flags`
+707.json: missing field `flags`
+708.json: missing field `flags`
+709.json: missing field `flags`
 710.json: invalid type: map, expected a sequence
 711.json: invalid type: map, expected a sequence
 712.json: invalid type: map, expected a sequence
@@ -487,26 +487,26 @@
 728.json: invalid type: map, expected a sequence
 729.json: invalid type: map, expected a sequence
 730.json: invalid type: map, expected a sequence
-731.json: invalid type: map, expected a sequence
-732.json: invalid type: map, expected a sequence
-733.json: invalid type: map, expected a sequence
-734.json: invalid type: map, expected a sequence
-735.json: invalid type: map, expected a sequence
-736.json: invalid type: map, expected a sequence
-737.json: invalid type: map, expected a sequence
-738.json: invalid type: map, expected a sequence
-739.json: invalid type: map, expected a sequence
-740.json: invalid type: map, expected a sequence
-741.json: invalid type: map, expected a sequence
+731.json: missing field `affects_target`
+732.json: missing field `source_effects`
+733.json: missing field `source_effects`
+734.json: missing field `source_effects`
+735.json: missing field `source_effects`
+736.json: missing field `source_effects`
+737.json: missing field `source_effects`
+738.json: missing field `flags`
+739.json: missing field `affects_target`
+740.json: missing field `source_effects`
+741.json: missing field `source_effects`
 742.json: invalid type: map, expected a sequence
-743.json: invalid type: map, expected a sequence
-744.json: invalid type: map, expected a sequence
+743.json: missing field `source_effects`
+744.json: missing field `source_effects`
 745.json: invalid type: map, expected a sequence
 746.json: invalid type: map, expected a sequence
 747.json: invalid type: map, expected a sequence
-748.json: invalid type: map, expected a sequence
+748.json: missing field `source_effects`
 749.json: invalid type: map, expected a sequence
-750.json: invalid type: map, expected a sequence
+750.json: missing field `source_effects`
 751.json: invalid type: map, expected a sequence
 752.json: invalid type: map, expected a sequence
 753.json: invalid type: map, expected a sequence
@@ -520,17 +520,17 @@
 761.json: invalid type: map, expected a sequence
 762.json: invalid type: map, expected a sequence
 763.json: invalid type: map, expected a sequence
-764.json: invalid type: map, expected a sequence
-765.json: invalid type: map, expected a sequence
-766.json: invalid type: map, expected a sequence
+764.json: missing field `source_effects`
+765.json: missing field `source_effects`
+766.json: missing field `source_effects`
 767.json: invalid type: map, expected a sequence
-768.json: invalid type: map, expected a sequence
-769.json: invalid type: map, expected a sequence
+768.json: missing field `source_effects`
+769.json: missing field `source_effects`
 770.json: invalid type: map, expected a sequence
 771.json: invalid type: map, expected a sequence
-772.json: invalid type: map, expected a sequence
-773.json: invalid type: map, expected a sequence
-774.json: invalid type: map, expected a sequence
+772.json: missing field `source_effects`
+773.json: missing field `affects_target`
+774.json: missing field `source_effects`
 775.json: invalid type: map, expected a sequence
 776.json: invalid type: map, expected a sequence
 777.json: invalid type: map, expected a sequence
@@ -538,29 +538,29 @@
 779.json: invalid type: map, expected a sequence
 780.json: invalid type: map, expected a sequence
 781.json: invalid type: map, expected a sequence
-782.json: invalid type: map, expected a sequence
+782.json: missing field `source_effects`
 783.json: invalid type: map, expected a sequence
-784.json: invalid type: map, expected a sequence
-785.json: invalid type: map, expected a sequence
-786.json: invalid type: map, expected a sequence
+784.json: missing field `source_effects`
+785.json: missing field `source_effects`
+786.json: missing field `flags`
 787.json: invalid type: map, expected a sequence
 788.json: invalid type: map, expected a sequence
-789.json: invalid type: map, expected a sequence
-790.json: invalid type: map, expected a sequence
-791.json: invalid type: map, expected a sequence
+789.json: missing field `source_effects`
+790.json: missing field `source_effects`
+791.json: missing field `flags`
 792.json: invalid type: map, expected a sequence
 794.json: invalid type: map, expected a sequence
-795.json: invalid type: map, expected a sequence
-796.json: invalid type: map, expected a sequence
-797.json: invalid type: map, expected a sequence
-798.json: invalid type: map, expected a sequence
+795.json: missing field `flags`
+796.json: missing field `source_effects`
+797.json: missing field `source_effects`
+798.json: missing field `affects_target`
 799.json: invalid type: map, expected a sequence
-800.json: invalid type: map, expected a sequence
+800.json: missing field `source_effects`
 801.json: invalid type: map, expected a sequence
 802.json: invalid type: map, expected a sequence
-803.json: invalid type: map, expected a sequence
-804.json: invalid type: map, expected a sequence
-805.json: invalid type: map, expected a sequence
+803.json: missing field `source_effects`
+804.json: missing field `source_effects`
+805.json: missing field `flags`
 806.json: invalid type: map, expected a sequence
 807.json: invalid type: map, expected a sequence
 808.json: invalid type: map, expected a sequence
@@ -572,13 +572,13 @@
 814.json: invalid type: map, expected a sequence
 815.json: invalid type: map, expected a sequence
 816.json: invalid type: map, expected a sequence
-817.json: invalid type: map, expected a sequence
+817.json: missing field `source_effects`
 818.json: invalid type: map, expected a sequence
 819.json: invalid type: map, expected a sequence
 820.json: invalid type: map, expected a sequence
 821.json: invalid type: map, expected a sequence
 822.json: invalid type: map, expected a sequence
-823.json: invalid type: map, expected a sequence
+823.json: missing field `source_effects`
 824.json: invalid type: map, expected a sequence
 825.json: invalid type: map, expected a sequence
 826.json: invalid type: map, expected a sequence
@@ -588,20 +588,7 @@
 830.json: invalid type: map, expected a sequence
 831.json: invalid type: map, expected a sequence
 833.json: invalid type: map, expected a sequence
-840.json: invalid type: map, expected a sequence
-843.json: invalid type: map, expected a sequence
-846.json: invalid type: map, expected a sequence
-849.json: invalid type: map, expected a sequence
-852.json: invalid type: map, expected a sequence
-855.json: invalid type: map, expected a sequence
-858.json: invalid type: map, expected a sequence
-861.json: invalid type: map, expected a sequence
-864.json: invalid type: map, expected a sequence
-867.json: invalid type: map, expected a sequence
-870.json: invalid type: map, expected a sequence
-873.json: invalid type: map, expected a sequence
-876.json: invalid type: map, expected a sequence
-914.json: invalid type: map, expected a sequence
+914.json: invalid type: sequence, expected a map
 915.json: unknown variant `LuaEntityBuildFlowStatistics`, expected one of `LuaAISettings`, `LuaAccumulatorControlBehavior`, `LuaAchievementPrototype`, `LuaAmmoCategoryPrototype`, `LuaArithmeticCombinatorControlBehavior`, `LuaAutoplaceControlPrototype`, `LuaBootstrap`, `LuaBurner`, `LuaBurnerPrototype`, `LuaChunkIterator`, `LuaCircuitNetwork`, `LuaCombinatorControlBehavior`, `LuaCommandProcessor`, `LuaConstantCombinatorControlBehavior`, `LuaContainerControlBehavior`, `LuaControl`, `LuaControlBehavior`, `LuaCustomChartTag`, `LuaCustomInputPrototype`, `LuaCustomTable`, `LuaDamagePrototype`, `LuaDeciderCombinatorControlBehavior`, `LuaDecorativePrototype`, `LuaElectricEnergySourcePrototype`, `LuaEntity`, `LuaEntityPrototype`, `LuaEquipment`, `LuaEquipmentCategoryPrototype`, `LuaEquipmentGrid`, `LuaEquipmentGridPrototype`, `LuaEquipmentPrototype`, `LuaFlowStatistics`, `LuaFluidBox`, `LuaFluidBoxPrototype`, `LuaFluidEnergySourcePrototype`, `LuaFluidPrototype`, `LuaFontPrototype`, `LuaForce`, `LuaFuelCategoryPrototype`, `LuaGameScript`, `LuaGenericOnOffControlBehavior`, `LuaGroup`, `LuaGui`, `LuaGuiElement`, `LuaHeatBufferPrototype`, `LuaHeatEnergySourcePrototype`, `LuaInserterControlBehavior`, `LuaInventory`, `LuaItemPrototype`, `LuaItemStack`, `LuaLampControlBehavior`, `LuaLazyLoadedValue`, `LuaLogisticCell`, `LuaLogisticContainerControlBehavior`, `LuaLogisticNetwork`, `LuaLogisticPoint`, `LuaMiningDrillControlBehavior`, `LuaModSettingPrototype`, `LuaModuleCategoryPrototype`, `LuaNamedNoiseExpression`, `LuaNoiseLayerPrototype`, `LuaParticlePrototype`, `LuaPermissionGroup`, `LuaPermissionGroups`, `LuaPlayer`, `LuaProfiler`, `LuaProgrammableSpeakerControlBehavior`, `LuaRCON`, `LuaRailChainSignalControlBehavior`, `LuaRailPath`, `LuaRailSignalControlBehavior`, `LuaRandomGenerator`, `LuaRecipe`, `LuaRecipeCategoryPrototype`, `LuaRecipePrototype`, `LuaRemote`, `LuaRendering`, `LuaResourceCategoryPrototype`, `LuaRoboportControlBehavior`, `LuaSettings`, `LuaShortcutPrototype`, `LuaStorageTankControlBehavior`, `LuaStyle`, `LuaSurface`, `LuaTechnology`, `LuaTechnologyPrototype`, `LuaTile`, `LuaTilePrototype`, `LuaTrain`, `LuaTrainStopControlBehavior`, `LuaTransportBeltControlBehavior`, `LuaTransportLine`, `LuaTrivialSmokePrototype`, `LuaUnitGroup`, `LuaVirtualSignalPrototype`, `LuaVoidEnergySourcePrototype`, `LuaWallControlBehavior`
 916.json: unknown variant `LuaFluidProductionFlowStatistics`, expected one of `LuaAISettings`, `LuaAccumulatorControlBehavior`, `LuaAchievementPrototype`, `LuaAmmoCategoryPrototype`, `LuaArithmeticCombinatorControlBehavior`, `LuaAutoplaceControlPrototype`, `LuaBootstrap`, `LuaBurner`, `LuaBurnerPrototype`, `LuaChunkIterator`, `LuaCircuitNetwork`, `LuaCombinatorControlBehavior`, `LuaCommandProcessor`, `LuaConstantCombinatorControlBehavior`, `LuaContainerControlBehavior`, `LuaControl`, `LuaControlBehavior`, `LuaCustomChartTag`, `LuaCustomInputPrototype`, `LuaCustomTable`, `LuaDamagePrototype`, `LuaDeciderCombinatorControlBehavior`, `LuaDecorativePrototype`, `LuaElectricEnergySourcePrototype`, `LuaEntity`, `LuaEntityPrototype`, `LuaEquipment`, `LuaEquipmentCategoryPrototype`, `LuaEquipmentGrid`, `LuaEquipmentGridPrototype`, `LuaEquipmentPrototype`, `LuaFlowStatistics`, `LuaFluidBox`, `LuaFluidBoxPrototype`, `LuaFluidEnergySourcePrototype`, `LuaFluidPrototype`, `LuaFontPrototype`, `LuaForce`, `LuaFuelCategoryPrototype`, `LuaGameScript`, `LuaGenericOnOffControlBehavior`, `LuaGroup`, `LuaGui`, `LuaGuiElement`, `LuaHeatBufferPrototype`, `LuaHeatEnergySourcePrototype`, `LuaInserterControlBehavior`, `LuaInventory`, `LuaItemPrototype`, `LuaItemStack`, `LuaLampControlBehavior`, `LuaLazyLoadedValue`, `LuaLogisticCell`, `LuaLogisticContainerControlBehavior`, `LuaLogisticNetwork`, `LuaLogisticPoint`, `LuaMiningDrillControlBehavior`, `LuaModSettingPrototype`, `LuaModuleCategoryPrototype`, `LuaNamedNoiseExpression`, `LuaNoiseLayerPrototype`, `LuaParticlePrototype`, `LuaPermissionGroup`, `LuaPermissionGroups`, `LuaPlayer`, `LuaProfiler`, `LuaProgrammableSpeakerControlBehavior`, `LuaRCON`, `LuaRailChainSignalControlBehavior`, `LuaRailPath`, `LuaRailSignalControlBehavior`, `LuaRandomGenerator`, `LuaRecipe`, `LuaRecipeCategoryPrototype`, `LuaRecipePrototype`, `LuaRemote`, `LuaRendering`, `LuaResourceCategoryPrototype`, `LuaRoboportControlBehavior`, `LuaSettings`, `LuaShortcutPrototype`, `LuaStorageTankControlBehavior`, `LuaStyle`, `LuaSurface`, `LuaTechnology`, `LuaTechnologyPrototype`, `LuaTile`, `LuaTilePrototype`, `LuaTrain`, `LuaTrainStopControlBehavior`, `LuaTransportBeltControlBehavior`, `LuaTransportLine`, `LuaTrivialSmokePrototype`, `LuaUnitGroup`, `LuaVirtualSignalPrototype`, `LuaVoidEnergySourcePrototype`, `LuaWallControlBehavior`
 917.json: unknown variant `LuaItemProductionFlowStatistics`, expected one of `LuaAISettings`, `LuaAccumulatorControlBehavior`, `LuaAchievementPrototype`, `LuaAmmoCategoryPrototype`, `LuaArithmeticCombinatorControlBehavior`, `LuaAutoplaceControlPrototype`, `LuaBootstrap`, `LuaBurner`, `LuaBurnerPrototype`, `LuaChunkIterator`, `LuaCircuitNetwork`, `LuaCombinatorControlBehavior`, `LuaCommandProcessor`, `LuaConstantCombinatorControlBehavior`, `LuaContainerControlBehavior`, `LuaControl`, `LuaControlBehavior`, `LuaCustomChartTag`, `LuaCustomInputPrototype`, `LuaCustomTable`, `LuaDamagePrototype`, `LuaDeciderCombinatorControlBehavior`, `LuaDecorativePrototype`, `LuaElectricEnergySourcePrototype`, `LuaEntity`, `LuaEntityPrototype`, `LuaEquipment`, `LuaEquipmentCategoryPrototype`, `LuaEquipmentGrid`, `LuaEquipmentGridPrototype`, `LuaEquipmentPrototype`, `LuaFlowStatistics`, `LuaFluidBox`, `LuaFluidBoxPrototype`, `LuaFluidEnergySourcePrototype`, `LuaFluidPrototype`, `LuaFontPrototype`, `LuaForce`, `LuaFuelCategoryPrototype`, `LuaGameScript`, `LuaGenericOnOffControlBehavior`, `LuaGroup`, `LuaGui`, `LuaGuiElement`, `LuaHeatBufferPrototype`, `LuaHeatEnergySourcePrototype`, `LuaInserterControlBehavior`, `LuaInventory`, `LuaItemPrototype`, `LuaItemStack`, `LuaLampControlBehavior`, `LuaLazyLoadedValue`, `LuaLogisticCell`, `LuaLogisticContainerControlBehavior`, `LuaLogisticNetwork`, `LuaLogisticPoint`, `LuaMiningDrillControlBehavior`, `LuaModSettingPrototype`, `LuaModuleCategoryPrototype`, `LuaNamedNoiseExpression`, `LuaNoiseLayerPrototype`, `LuaParticlePrototype`, `LuaPermissionGroup`, `LuaPermissionGroups`, `LuaPlayer`, `LuaProfiler`, `LuaProgrammableSpeakerControlBehavior`, `LuaRCON`, `LuaRailChainSignalControlBehavior`, `LuaRailPath`, `LuaRailSignalControlBehavior`, `LuaRandomGenerator`, `LuaRecipe`, `LuaRecipeCategoryPrototype`, `LuaRecipePrototype`, `LuaRemote`, `LuaRendering`, `LuaResourceCategoryPrototype`, `LuaRoboportControlBehavior`, `LuaSettings`, `LuaShortcutPrototype`, `LuaStorageTankControlBehavior`, `LuaStyle`, `LuaSurface`, `LuaTechnology`, `LuaTechnologyPrototype`, `LuaTile`, `LuaTilePrototype`, `LuaTrain`, `LuaTrainStopControlBehavior`, `LuaTransportBeltControlBehavior`, `LuaTransportLine`, `LuaTrivialSmokePrototype`, `LuaUnitGroup`, `LuaVirtualSignalPrototype`, `LuaVoidEnergySourcePrototype`, `LuaWallControlBehavior`
@@ -610,103 +597,65 @@
 920.json: trailing comma at line 4 column 1
 921.json: trailing comma at line 4 column 1
 922.json: missing field `center`
-923.json: invalid type: map, expected a sequence
+923.json: invalid type: sequence, expected a map
 924.json: missing field `badge_font`
-925.json: invalid type: map, expected a sequence
+925.json: invalid type: sequence, expected a map
 926.json: missing field `badge_font`
-927.json: invalid type: map, expected a sequence
+927.json: invalid type: sequence, expected a map
 928.json: missing field `badge_font`
-929.json: invalid type: map, expected a sequence
+929.json: invalid type: sequence, expected a map
 930.json: missing field `badge_font`
-931.json: invalid type: map, expected a sequence
+931.json: invalid type: sequence, expected a map
 932.json: missing field `badge_font`
-933.json: invalid type: map, expected a sequence
+933.json: invalid type: sequence, expected a map
 934.json: missing field `badge_font`
-936.json: missing field `default_enable_all_autoplace_controls`
-1364.json: invalid type: map, expected a sequence
-1365.json: invalid type: map, expected a sequence
-1373.json: invalid type: map, expected a sequence
-1384.json: invalid type: map, expected a sequence
-1421.json: invalid type: map, expected a sequence
-1424.json: invalid type: map, expected a sequence
-1472.json: invalid type: map, expected a sequence
-1473.json: invalid type: map, expected a sequence
-1745.json: invalid type: map, expected a sequence
+936.json: invalid type: sequence, expected a map
+1361.json: invalid type: sequence, expected a map
+1362.json: invalid type: sequence, expected a map
+1366.json: invalid type: sequence, expected a map
+1367.json: invalid type: sequence, expected a map
+1368.json: invalid type: sequence, expected a map
+1369.json: invalid type: sequence, expected a map
+1399.json: invalid type: sequence, expected a map
+1400.json: invalid type: sequence, expected a map
+1419.json: invalid type: sequence, expected a map
+1420.json: invalid type: sequence, expected a map
+1427.json: invalid type: sequence, expected a map
+1428.json: invalid type: sequence, expected a map
+1432.json: invalid type: sequence, expected a map
+1433.json: invalid type: sequence, expected a map
+1435.json: invalid type: sequence, expected a map
+1436.json: invalid type: sequence, expected a map
+1745.json: invalid type: sequence, expected a map
 1746.json: unknown variant `LuaEntityBuildFlowStatistics`, expected one of `LuaAISettings`, `LuaAccumulatorControlBehavior`, `LuaAchievementPrototype`, `LuaAmmoCategoryPrototype`, `LuaArithmeticCombinatorControlBehavior`, `LuaAutoplaceControlPrototype`, `LuaBootstrap`, `LuaBurner`, `LuaBurnerPrototype`, `LuaChunkIterator`, `LuaCircuitNetwork`, `LuaCombinatorControlBehavior`, `LuaCommandProcessor`, `LuaConstantCombinatorControlBehavior`, `LuaContainerControlBehavior`, `LuaControl`, `LuaControlBehavior`, `LuaCustomChartTag`, `LuaCustomInputPrototype`, `LuaCustomTable`, `LuaDamagePrototype`, `LuaDeciderCombinatorControlBehavior`, `LuaDecorativePrototype`, `LuaElectricEnergySourcePrototype`, `LuaEntity`, `LuaEntityPrototype`, `LuaEquipment`, `LuaEquipmentCategoryPrototype`, `LuaEquipmentGrid`, `LuaEquipmentGridPrototype`, `LuaEquipmentPrototype`, `LuaFlowStatistics`, `LuaFluidBox`, `LuaFluidBoxPrototype`, `LuaFluidEnergySourcePrototype`, `LuaFluidPrototype`, `LuaFontPrototype`, `LuaForce`, `LuaFuelCategoryPrototype`, `LuaGameScript`, `LuaGenericOnOffControlBehavior`, `LuaGroup`, `LuaGui`, `LuaGuiElement`, `LuaHeatBufferPrototype`, `LuaHeatEnergySourcePrototype`, `LuaInserterControlBehavior`, `LuaInventory`, `LuaItemPrototype`, `LuaItemStack`, `LuaLampControlBehavior`, `LuaLazyLoadedValue`, `LuaLogisticCell`, `LuaLogisticContainerControlBehavior`, `LuaLogisticNetwork`, `LuaLogisticPoint`, `LuaMiningDrillControlBehavior`, `LuaModSettingPrototype`, `LuaModuleCategoryPrototype`, `LuaNamedNoiseExpression`, `LuaNoiseLayerPrototype`, `LuaParticlePrototype`, `LuaPermissionGroup`, `LuaPermissionGroups`, `LuaPlayer`, `LuaProfiler`, `LuaProgrammableSpeakerControlBehavior`, `LuaRCON`, `LuaRailChainSignalControlBehavior`, `LuaRailPath`, `LuaRailSignalControlBehavior`, `LuaRandomGenerator`, `LuaRecipe`, `LuaRecipeCategoryPrototype`, `LuaRecipePrototype`, `LuaRemote`, `LuaRendering`, `LuaResourceCategoryPrototype`, `LuaRoboportControlBehavior`, `LuaSettings`, `LuaShortcutPrototype`, `LuaStorageTankControlBehavior`, `LuaStyle`, `LuaSurface`, `LuaTechnology`, `LuaTechnologyPrototype`, `LuaTile`, `LuaTilePrototype`, `LuaTrain`, `LuaTrainStopControlBehavior`, `LuaTransportBeltControlBehavior`, `LuaTransportLine`, `LuaTrivialSmokePrototype`, `LuaUnitGroup`, `LuaVirtualSignalPrototype`, `LuaVoidEnergySourcePrototype`, `LuaWallControlBehavior`
 1747.json: unknown variant `LuaFluidProductionFlowStatistics`, expected one of `LuaAISettings`, `LuaAccumulatorControlBehavior`, `LuaAchievementPrototype`, `LuaAmmoCategoryPrototype`, `LuaArithmeticCombinatorControlBehavior`, `LuaAutoplaceControlPrototype`, `LuaBootstrap`, `LuaBurner`, `LuaBurnerPrototype`, `LuaChunkIterator`, `LuaCircuitNetwork`, `LuaCombinatorControlBehavior`, `LuaCommandProcessor`, `LuaConstantCombinatorControlBehavior`, `LuaContainerControlBehavior`, `LuaControl`, `LuaControlBehavior`, `LuaCustomChartTag`, `LuaCustomInputPrototype`, `LuaCustomTable`, `LuaDamagePrototype`, `LuaDeciderCombinatorControlBehavior`, `LuaDecorativePrototype`, `LuaElectricEnergySourcePrototype`, `LuaEntity`, `LuaEntityPrototype`, `LuaEquipment`, `LuaEquipmentCategoryPrototype`, `LuaEquipmentGrid`, `LuaEquipmentGridPrototype`, `LuaEquipmentPrototype`, `LuaFlowStatistics`, `LuaFluidBox`, `LuaFluidBoxPrototype`, `LuaFluidEnergySourcePrototype`, `LuaFluidPrototype`, `LuaFontPrototype`, `LuaForce`, `LuaFuelCategoryPrototype`, `LuaGameScript`, `LuaGenericOnOffControlBehavior`, `LuaGroup`, `LuaGui`, `LuaGuiElement`, `LuaHeatBufferPrototype`, `LuaHeatEnergySourcePrototype`, `LuaInserterControlBehavior`, `LuaInventory`, `LuaItemPrototype`, `LuaItemStack`, `LuaLampControlBehavior`, `LuaLazyLoadedValue`, `LuaLogisticCell`, `LuaLogisticContainerControlBehavior`, `LuaLogisticNetwork`, `LuaLogisticPoint`, `LuaMiningDrillControlBehavior`, `LuaModSettingPrototype`, `LuaModuleCategoryPrototype`, `LuaNamedNoiseExpression`, `LuaNoiseLayerPrototype`, `LuaParticlePrototype`, `LuaPermissionGroup`, `LuaPermissionGroups`, `LuaPlayer`, `LuaProfiler`, `LuaProgrammableSpeakerControlBehavior`, `LuaRCON`, `LuaRailChainSignalControlBehavior`, `LuaRailPath`, `LuaRailSignalControlBehavior`, `LuaRandomGenerator`, `LuaRecipe`, `LuaRecipeCategoryPrototype`, `LuaRecipePrototype`, `LuaRemote`, `LuaRendering`, `LuaResourceCategoryPrototype`, `LuaRoboportControlBehavior`, `LuaSettings`, `LuaShortcutPrototype`, `LuaStorageTankControlBehavior`, `LuaStyle`, `LuaSurface`, `LuaTechnology`, `LuaTechnologyPrototype`, `LuaTile`, `LuaTilePrototype`, `LuaTrain`, `LuaTrainStopControlBehavior`, `LuaTransportBeltControlBehavior`, `LuaTransportLine`, `LuaTrivialSmokePrototype`, `LuaUnitGroup`, `LuaVirtualSignalPrototype`, `LuaVoidEnergySourcePrototype`, `LuaWallControlBehavior`
 1748.json: unknown variant `LuaItemProductionFlowStatistics`, expected one of `LuaAISettings`, `LuaAccumulatorControlBehavior`, `LuaAchievementPrototype`, `LuaAmmoCategoryPrototype`, `LuaArithmeticCombinatorControlBehavior`, `LuaAutoplaceControlPrototype`, `LuaBootstrap`, `LuaBurner`, `LuaBurnerPrototype`, `LuaChunkIterator`, `LuaCircuitNetwork`, `LuaCombinatorControlBehavior`, `LuaCommandProcessor`, `LuaConstantCombinatorControlBehavior`, `LuaContainerControlBehavior`, `LuaControl`, `LuaControlBehavior`, `LuaCustomChartTag`, `LuaCustomInputPrototype`, `LuaCustomTable`, `LuaDamagePrototype`, `LuaDeciderCombinatorControlBehavior`, `LuaDecorativePrototype`, `LuaElectricEnergySourcePrototype`, `LuaEntity`, `LuaEntityPrototype`, `LuaEquipment`, `LuaEquipmentCategoryPrototype`, `LuaEquipmentGrid`, `LuaEquipmentGridPrototype`, `LuaEquipmentPrototype`, `LuaFlowStatistics`, `LuaFluidBox`, `LuaFluidBoxPrototype`, `LuaFluidEnergySourcePrototype`, `LuaFluidPrototype`, `LuaFontPrototype`, `LuaForce`, `LuaFuelCategoryPrototype`, `LuaGameScript`, `LuaGenericOnOffControlBehavior`, `LuaGroup`, `LuaGui`, `LuaGuiElement`, `LuaHeatBufferPrototype`, `LuaHeatEnergySourcePrototype`, `LuaInserterControlBehavior`, `LuaInventory`, `LuaItemPrototype`, `LuaItemStack`, `LuaLampControlBehavior`, `LuaLazyLoadedValue`, `LuaLogisticCell`, `LuaLogisticContainerControlBehavior`, `LuaLogisticNetwork`, `LuaLogisticPoint`, `LuaMiningDrillControlBehavior`, `LuaModSettingPrototype`, `LuaModuleCategoryPrototype`, `LuaNamedNoiseExpression`, `LuaNoiseLayerPrototype`, `LuaParticlePrototype`, `LuaPermissionGroup`, `LuaPermissionGroups`, `LuaPlayer`, `LuaProfiler`, `LuaProgrammableSpeakerControlBehavior`, `LuaRCON`, `LuaRailChainSignalControlBehavior`, `LuaRailPath`, `LuaRailSignalControlBehavior`, `LuaRandomGenerator`, `LuaRecipe`, `LuaRecipeCategoryPrototype`, `LuaRecipePrototype`, `LuaRemote`, `LuaRendering`, `LuaResourceCategoryPrototype`, `LuaRoboportControlBehavior`, `LuaSettings`, `LuaShortcutPrototype`, `LuaStorageTankControlBehavior`, `LuaStyle`, `LuaSurface`, `LuaTechnology`, `LuaTechnologyPrototype`, `LuaTile`, `LuaTilePrototype`, `LuaTrain`, `LuaTrainStopControlBehavior`, `LuaTransportBeltControlBehavior`, `LuaTransportLine`, `LuaTrivialSmokePrototype`, `LuaUnitGroup`, `LuaVirtualSignalPrototype`, `LuaVoidEnergySourcePrototype`, `LuaWallControlBehavior`
 1749.json: unknown variant `LuaKillCountFlowStatistics`, expected one of `LuaAISettings`, `LuaAccumulatorControlBehavior`, `LuaAchievementPrototype`, `LuaAmmoCategoryPrototype`, `LuaArithmeticCombinatorControlBehavior`, `LuaAutoplaceControlPrototype`, `LuaBootstrap`, `LuaBurner`, `LuaBurnerPrototype`, `LuaChunkIterator`, `LuaCircuitNetwork`, `LuaCombinatorControlBehavior`, `LuaCommandProcessor`, `LuaConstantCombinatorControlBehavior`, `LuaContainerControlBehavior`, `LuaControl`, `LuaControlBehavior`, `LuaCustomChartTag`, `LuaCustomInputPrototype`, `LuaCustomTable`, `LuaDamagePrototype`, `LuaDeciderCombinatorControlBehavior`, `LuaDecorativePrototype`, `LuaElectricEnergySourcePrototype`, `LuaEntity`, `LuaEntityPrototype`, `LuaEquipment`, `LuaEquipmentCategoryPrototype`, `LuaEquipmentGrid`, `LuaEquipmentGridPrototype`, `LuaEquipmentPrototype`, `LuaFlowStatistics`, `LuaFluidBox`, `LuaFluidBoxPrototype`, `LuaFluidEnergySourcePrototype`, `LuaFluidPrototype`, `LuaFontPrototype`, `LuaForce`, `LuaFuelCategoryPrototype`, `LuaGameScript`, `LuaGenericOnOffControlBehavior`, `LuaGroup`, `LuaGui`, `LuaGuiElement`, `LuaHeatBufferPrototype`, `LuaHeatEnergySourcePrototype`, `LuaInserterControlBehavior`, `LuaInventory`, `LuaItemPrototype`, `LuaItemStack`, `LuaLampControlBehavior`, `LuaLazyLoadedValue`, `LuaLogisticCell`, `LuaLogisticContainerControlBehavior`, `LuaLogisticNetwork`, `LuaLogisticPoint`, `LuaMiningDrillControlBehavior`, `LuaModSettingPrototype`, `LuaModuleCategoryPrototype`, `LuaNamedNoiseExpression`, `LuaNoiseLayerPrototype`, `LuaParticlePrototype`, `LuaPermissionGroup`, `LuaPermissionGroups`, `LuaPlayer`, `LuaProfiler`, `LuaProgrammableSpeakerControlBehavior`, `LuaRCON`, `LuaRailChainSignalControlBehavior`, `LuaRailPath`, `LuaRailSignalControlBehavior`, `LuaRandomGenerator`, `LuaRecipe`, `LuaRecipeCategoryPrototype`, `LuaRecipePrototype`, `LuaRemote`, `LuaRendering`, `LuaResourceCategoryPrototype`, `LuaRoboportControlBehavior`, `LuaSettings`, `LuaShortcutPrototype`, `LuaStorageTankControlBehavior`, `LuaStyle`, `LuaSurface`, `LuaTechnology`, `LuaTechnologyPrototype`, `LuaTile`, `LuaTilePrototype`, `LuaTrain`, `LuaTrainStopControlBehavior`, `LuaTransportBeltControlBehavior`, `LuaTransportLine`, `LuaTrivialSmokePrototype`, `LuaUnitGroup`, `LuaVirtualSignalPrototype`, `LuaVoidEnergySourcePrototype`, `LuaWallControlBehavior`
-1964.json: invalid type: map, expected a sequence
-1969.json: invalid type: map, expected a sequence
-1992.json: invalid type: map, expected a sequence
-2019.json: invalid type: map, expected a sequence
-2154.json: invalid type: map, expected a sequence
+1962.json: invalid type: sequence, expected a map
+1965.json: invalid type: sequence, expected a map
+1966.json: invalid type: sequence, expected a map
+1983.json: invalid type: sequence, expected a map
+1991.json: invalid type: sequence, expected a map
+1995.json: invalid type: sequence, expected a map
+1999.json: invalid type: sequence, expected a map
+2000.json: invalid type: sequence, expected a map
+2154.json: invalid type: sequence, expected a map
 2155.json: unknown variant `LuaEntityBuildFlowStatistics`, expected one of `LuaAISettings`, `LuaAccumulatorControlBehavior`, `LuaAchievementPrototype`, `LuaAmmoCategoryPrototype`, `LuaArithmeticCombinatorControlBehavior`, `LuaAutoplaceControlPrototype`, `LuaBootstrap`, `LuaBurner`, `LuaBurnerPrototype`, `LuaChunkIterator`, `LuaCircuitNetwork`, `LuaCombinatorControlBehavior`, `LuaCommandProcessor`, `LuaConstantCombinatorControlBehavior`, `LuaContainerControlBehavior`, `LuaControl`, `LuaControlBehavior`, `LuaCustomChartTag`, `LuaCustomInputPrototype`, `LuaCustomTable`, `LuaDamagePrototype`, `LuaDeciderCombinatorControlBehavior`, `LuaDecorativePrototype`, `LuaElectricEnergySourcePrototype`, `LuaEntity`, `LuaEntityPrototype`, `LuaEquipment`, `LuaEquipmentCategoryPrototype`, `LuaEquipmentGrid`, `LuaEquipmentGridPrototype`, `LuaEquipmentPrototype`, `LuaFlowStatistics`, `LuaFluidBox`, `LuaFluidBoxPrototype`, `LuaFluidEnergySourcePrototype`, `LuaFluidPrototype`, `LuaFontPrototype`, `LuaForce`, `LuaFuelCategoryPrototype`, `LuaGameScript`, `LuaGenericOnOffControlBehavior`, `LuaGroup`, `LuaGui`, `LuaGuiElement`, `LuaHeatBufferPrototype`, `LuaHeatEnergySourcePrototype`, `LuaInserterControlBehavior`, `LuaInventory`, `LuaItemPrototype`, `LuaItemStack`, `LuaLampControlBehavior`, `LuaLazyLoadedValue`, `LuaLogisticCell`, `LuaLogisticContainerControlBehavior`, `LuaLogisticNetwork`, `LuaLogisticPoint`, `LuaMiningDrillControlBehavior`, `LuaModSettingPrototype`, `LuaModuleCategoryPrototype`, `LuaNamedNoiseExpression`, `LuaNoiseLayerPrototype`, `LuaParticlePrototype`, `LuaPermissionGroup`, `LuaPermissionGroups`, `LuaPlayer`, `LuaProfiler`, `LuaProgrammableSpeakerControlBehavior`, `LuaRCON`, `LuaRailChainSignalControlBehavior`, `LuaRailPath`, `LuaRailSignalControlBehavior`, `LuaRandomGenerator`, `LuaRecipe`, `LuaRecipeCategoryPrototype`, `LuaRecipePrototype`, `LuaRemote`, `LuaRendering`, `LuaResourceCategoryPrototype`, `LuaRoboportControlBehavior`, `LuaSettings`, `LuaShortcutPrototype`, `LuaStorageTankControlBehavior`, `LuaStyle`, `LuaSurface`, `LuaTechnology`, `LuaTechnologyPrototype`, `LuaTile`, `LuaTilePrototype`, `LuaTrain`, `LuaTrainStopControlBehavior`, `LuaTransportBeltControlBehavior`, `LuaTransportLine`, `LuaTrivialSmokePrototype`, `LuaUnitGroup`, `LuaVirtualSignalPrototype`, `LuaVoidEnergySourcePrototype`, `LuaWallControlBehavior`
 2156.json: unknown variant `LuaFluidProductionFlowStatistics`, expected one of `LuaAISettings`, `LuaAccumulatorControlBehavior`, `LuaAchievementPrototype`, `LuaAmmoCategoryPrototype`, `LuaArithmeticCombinatorControlBehavior`, `LuaAutoplaceControlPrototype`, `LuaBootstrap`, `LuaBurner`, `LuaBurnerPrototype`, `LuaChunkIterator`, `LuaCircuitNetwork`, `LuaCombinatorControlBehavior`, `LuaCommandProcessor`, `LuaConstantCombinatorControlBehavior`, `LuaContainerControlBehavior`, `LuaControl`, `LuaControlBehavior`, `LuaCustomChartTag`, `LuaCustomInputPrototype`, `LuaCustomTable`, `LuaDamagePrototype`, `LuaDeciderCombinatorControlBehavior`, `LuaDecorativePrototype`, `LuaElectricEnergySourcePrototype`, `LuaEntity`, `LuaEntityPrototype`, `LuaEquipment`, `LuaEquipmentCategoryPrototype`, `LuaEquipmentGrid`, `LuaEquipmentGridPrototype`, `LuaEquipmentPrototype`, `LuaFlowStatistics`, `LuaFluidBox`, `LuaFluidBoxPrototype`, `LuaFluidEnergySourcePrototype`, `LuaFluidPrototype`, `LuaFontPrototype`, `LuaForce`, `LuaFuelCategoryPrototype`, `LuaGameScript`, `LuaGenericOnOffControlBehavior`, `LuaGroup`, `LuaGui`, `LuaGuiElement`, `LuaHeatBufferPrototype`, `LuaHeatEnergySourcePrototype`, `LuaInserterControlBehavior`, `LuaInventory`, `LuaItemPrototype`, `LuaItemStack`, `LuaLampControlBehavior`, `LuaLazyLoadedValue`, `LuaLogisticCell`, `LuaLogisticContainerControlBehavior`, `LuaLogisticNetwork`, `LuaLogisticPoint`, `LuaMiningDrillControlBehavior`, `LuaModSettingPrototype`, `LuaModuleCategoryPrototype`, `LuaNamedNoiseExpression`, `LuaNoiseLayerPrototype`, `LuaParticlePrototype`, `LuaPermissionGroup`, `LuaPermissionGroups`, `LuaPlayer`, `LuaProfiler`, `LuaProgrammableSpeakerControlBehavior`, `LuaRCON`, `LuaRailChainSignalControlBehavior`, `LuaRailPath`, `LuaRailSignalControlBehavior`, `LuaRandomGenerator`, `LuaRecipe`, `LuaRecipeCategoryPrototype`, `LuaRecipePrototype`, `LuaRemote`, `LuaRendering`, `LuaResourceCategoryPrototype`, `LuaRoboportControlBehavior`, `LuaSettings`, `LuaShortcutPrototype`, `LuaStorageTankControlBehavior`, `LuaStyle`, `LuaSurface`, `LuaTechnology`, `LuaTechnologyPrototype`, `LuaTile`, `LuaTilePrototype`, `LuaTrain`, `LuaTrainStopControlBehavior`, `LuaTransportBeltControlBehavior`, `LuaTransportLine`, `LuaTrivialSmokePrototype`, `LuaUnitGroup`, `LuaVirtualSignalPrototype`, `LuaVoidEnergySourcePrototype`, `LuaWallControlBehavior`
 2157.json: unknown variant `LuaItemProductionFlowStatistics`, expected one of `LuaAISettings`, `LuaAccumulatorControlBehavior`, `LuaAchievementPrototype`, `LuaAmmoCategoryPrototype`, `LuaArithmeticCombinatorControlBehavior`, `LuaAutoplaceControlPrototype`, `LuaBootstrap`, `LuaBurner`, `LuaBurnerPrototype`, `LuaChunkIterator`, `LuaCircuitNetwork`, `LuaCombinatorControlBehavior`, `LuaCommandProcessor`, `LuaConstantCombinatorControlBehavior`, `LuaContainerControlBehavior`, `LuaControl`, `LuaControlBehavior`, `LuaCustomChartTag`, `LuaCustomInputPrototype`, `LuaCustomTable`, `LuaDamagePrototype`, `LuaDeciderCombinatorControlBehavior`, `LuaDecorativePrototype`, `LuaElectricEnergySourcePrototype`, `LuaEntity`, `LuaEntityPrototype`, `LuaEquipment`, `LuaEquipmentCategoryPrototype`, `LuaEquipmentGrid`, `LuaEquipmentGridPrototype`, `LuaEquipmentPrototype`, `LuaFlowStatistics`, `LuaFluidBox`, `LuaFluidBoxPrototype`, `LuaFluidEnergySourcePrototype`, `LuaFluidPrototype`, `LuaFontPrototype`, `LuaForce`, `LuaFuelCategoryPrototype`, `LuaGameScript`, `LuaGenericOnOffControlBehavior`, `LuaGroup`, `LuaGui`, `LuaGuiElement`, `LuaHeatBufferPrototype`, `LuaHeatEnergySourcePrototype`, `LuaInserterControlBehavior`, `LuaInventory`, `LuaItemPrototype`, `LuaItemStack`, `LuaLampControlBehavior`, `LuaLazyLoadedValue`, `LuaLogisticCell`, `LuaLogisticContainerControlBehavior`, `LuaLogisticNetwork`, `LuaLogisticPoint`, `LuaMiningDrillControlBehavior`, `LuaModSettingPrototype`, `LuaModuleCategoryPrototype`, `LuaNamedNoiseExpression`, `LuaNoiseLayerPrototype`, `LuaParticlePrototype`, `LuaPermissionGroup`, `LuaPermissionGroups`, `LuaPlayer`, `LuaProfiler`, `LuaProgrammableSpeakerControlBehavior`, `LuaRCON`, `LuaRailChainSignalControlBehavior`, `LuaRailPath`, `LuaRailSignalControlBehavior`, `LuaRandomGenerator`, `LuaRecipe`, `LuaRecipeCategoryPrototype`, `LuaRecipePrototype`, `LuaRemote`, `LuaRendering`, `LuaResourceCategoryPrototype`, `LuaRoboportControlBehavior`, `LuaSettings`, `LuaShortcutPrototype`, `LuaStorageTankControlBehavior`, `LuaStyle`, `LuaSurface`, `LuaTechnology`, `LuaTechnologyPrototype`, `LuaTile`, `LuaTilePrototype`, `LuaTrain`, `LuaTrainStopControlBehavior`, `LuaTransportBeltControlBehavior`, `LuaTransportLine`, `LuaTrivialSmokePrototype`, `LuaUnitGroup`, `LuaVirtualSignalPrototype`, `LuaVoidEnergySourcePrototype`, `LuaWallControlBehavior`
 2158.json: unknown variant `LuaKillCountFlowStatistics`, expected one of `LuaAISettings`, `LuaAccumulatorControlBehavior`, `LuaAchievementPrototype`, `LuaAmmoCategoryPrototype`, `LuaArithmeticCombinatorControlBehavior`, `LuaAutoplaceControlPrototype`, `LuaBootstrap`, `LuaBurner`, `LuaBurnerPrototype`, `LuaChunkIterator`, `LuaCircuitNetwork`, `LuaCombinatorControlBehavior`, `LuaCommandProcessor`, `LuaConstantCombinatorControlBehavior`, `LuaContainerControlBehavior`, `LuaControl`, `LuaControlBehavior`, `LuaCustomChartTag`, `LuaCustomInputPrototype`, `LuaCustomTable`, `LuaDamagePrototype`, `LuaDeciderCombinatorControlBehavior`, `LuaDecorativePrototype`, `LuaElectricEnergySourcePrototype`, `LuaEntity`, `LuaEntityPrototype`, `LuaEquipment`, `LuaEquipmentCategoryPrototype`, `LuaEquipmentGrid`, `LuaEquipmentGridPrototype`, `LuaEquipmentPrototype`, `LuaFlowStatistics`, `LuaFluidBox`, `LuaFluidBoxPrototype`, `LuaFluidEnergySourcePrototype`, `LuaFluidPrototype`, `LuaFontPrototype`, `LuaForce`, `LuaFuelCategoryPrototype`, `LuaGameScript`, `LuaGenericOnOffControlBehavior`, `LuaGroup`, `LuaGui`, `LuaGuiElement`, `LuaHeatBufferPrototype`, `LuaHeatEnergySourcePrototype`, `LuaInserterControlBehavior`, `LuaInventory`, `LuaItemPrototype`, `LuaItemStack`, `LuaLampControlBehavior`, `LuaLazyLoadedValue`, `LuaLogisticCell`, `LuaLogisticContainerControlBehavior`, `LuaLogisticNetwork`, `LuaLogisticPoint`, `LuaMiningDrillControlBehavior`, `LuaModSettingPrototype`, `LuaModuleCategoryPrototype`, `LuaNamedNoiseExpression`, `LuaNoiseLayerPrototype`, `LuaParticlePrototype`, `LuaPermissionGroup`, `LuaPermissionGroups`, `LuaPlayer`, `LuaProfiler`, `LuaProgrammableSpeakerControlBehavior`, `LuaRCON`, `LuaRailChainSignalControlBehavior`, `LuaRailPath`, `LuaRailSignalControlBehavior`, `LuaRandomGenerator`, `LuaRecipe`, `LuaRecipeCategoryPrototype`, `LuaRecipePrototype`, `LuaRemote`, `LuaRendering`, `LuaResourceCategoryPrototype`, `LuaRoboportControlBehavior`, `LuaSettings`, `LuaShortcutPrototype`, `LuaStorageTankControlBehavior`, `LuaStyle`, `LuaSurface`, `LuaTechnology`, `LuaTechnologyPrototype`, `LuaTile`, `LuaTilePrototype`, `LuaTrain`, `LuaTrainStopControlBehavior`, `LuaTransportBeltControlBehavior`, `LuaTransportLine`, `LuaTrivialSmokePrototype`, `LuaUnitGroup`, `LuaVirtualSignalPrototype`, `LuaVoidEnergySourcePrototype`, `LuaWallControlBehavior`
-2373.json: invalid type: map, expected a sequence
-2378.json: invalid type: map, expected a sequence
-2401.json: invalid type: map, expected a sequence
-2428.json: invalid type: map, expected a sequence
-2571.json: invalid type: map, expected a sequence
-2572.json: invalid type: map, expected a sequence
-2573.json: invalid type: map, expected a sequence
-2574.json: invalid type: map, expected a sequence
-2575.json: invalid type: map, expected a sequence
-2576.json: invalid type: map, expected a sequence
-2577.json: invalid type: map, expected a sequence
-2578.json: invalid type: map, expected a sequence
-2579.json: invalid type: map, expected a sequence
-2580.json: invalid type: map, expected a sequence
-2581.json: invalid type: map, expected a sequence
-2582.json: invalid type: map, expected a sequence
-2583.json: invalid type: map, expected a sequence
+2371.json: invalid type: sequence, expected a map
+2374.json: invalid type: sequence, expected a map
+2375.json: invalid type: sequence, expected a map
+2392.json: invalid type: sequence, expected a map
+2400.json: invalid type: sequence, expected a map
+2404.json: invalid type: sequence, expected a map
+2408.json: invalid type: sequence, expected a map
+2409.json: invalid type: sequence, expected a map
 2584.json: invalid type: map, expected a sequence
 2585.json: invalid type: map, expected a sequence
 2586.json: invalid type: map, expected a sequence
-2587.json: invalid type: map, expected a sequence
-2588.json: invalid type: map, expected a sequence
-2589.json: invalid type: map, expected a sequence
-2590.json: invalid type: map, expected a sequence
-2591.json: invalid type: map, expected a sequence
-2592.json: invalid type: map, expected a sequence
-2593.json: invalid type: map, expected a sequence
-2594.json: invalid type: map, expected a sequence
-2595.json: invalid type: map, expected a sequence
-2596.json: invalid type: map, expected a sequence
-2597.json: invalid type: map, expected a sequence
-2598.json: invalid type: map, expected a sequence
-2599.json: invalid type: map, expected a sequence
-2600.json: invalid type: map, expected a sequence
-2601.json: invalid type: map, expected a sequence
-2602.json: invalid type: map, expected a sequence
-2603.json: invalid type: map, expected a sequence
-2604.json: invalid type: map, expected a sequence
-2605.json: invalid type: map, expected a sequence
-2606.json: invalid type: map, expected a sequence
-2607.json: invalid type: map, expected a sequence
-2608.json: invalid type: map, expected a sequence
-2609.json: invalid type: map, expected a sequence
-2610.json: invalid type: map, expected a sequence
-2611.json: invalid type: map, expected a sequence
 2612.json: invalid type: map, expected a sequence
-2613.json: invalid type: map, expected a sequence
-2614.json: invalid type: map, expected a sequence
-2615.json: invalid type: map, expected a sequence
-2616.json: invalid type: map, expected a sequence
-2617.json: invalid type: map, expected a sequence
-2618.json: invalid type: map, expected a sequence
-2619.json: invalid type: map, expected a sequence
-2620.json: invalid type: map, expected a sequence
-2621.json: invalid type: map, expected a sequence
-2622.json: invalid type: map, expected a sequence
-2623.json: invalid type: map, expected a sequence
-2624.json: invalid type: map, expected a sequence
-2625.json: invalid type: map, expected a sequence
-2626.json: invalid type: map, expected a sequence
-2627.json: invalid type: map, expected a sequence
-2628.json: invalid type: map, expected a sequence
 2629.json: invalid type: map, expected a sequence
 2630.json: invalid type: map, expected a sequence
 2631.json: invalid type: map, expected a sequence
@@ -754,7 +703,7 @@
 2673.json: invalid type: map, expected a sequence
 2674.json: invalid type: map, expected a sequence
 2675.json: invalid type: map, expected a sequence
-2676.json: invalid type: map, expected a sequence
+2676.json: data did not match any variant of untagged enum MaybeCycle
 2677.json: invalid type: map, expected a sequence
 2678.json: invalid type: map, expected a sequence
 2679.json: invalid type: map, expected a sequence
@@ -767,132 +716,13 @@
 2686.json: invalid type: map, expected a sequence
 2687.json: invalid type: map, expected a sequence
 2688.json: invalid type: map, expected a sequence
-2689.json: invalid type: map, expected a sequence
 2690.json: invalid type: map, expected a sequence
 2691.json: invalid type: map, expected a sequence
-2692.json: invalid type: map, expected a sequence
-2693.json: invalid type: map, expected a sequence
-2694.json: invalid type: map, expected a sequence
-2695.json: invalid type: map, expected a sequence
-2696.json: invalid type: map, expected a sequence
-2697.json: invalid type: map, expected a sequence
-2698.json: invalid type: map, expected a sequence
-2699.json: invalid type: map, expected a sequence
-2700.json: invalid type: map, expected a sequence
-2701.json: invalid type: map, expected a sequence
-2702.json: invalid type: map, expected a sequence
-2703.json: invalid type: map, expected a sequence
-2704.json: invalid type: map, expected a sequence
-2705.json: invalid type: map, expected a sequence
-2706.json: invalid type: map, expected a sequence
-2707.json: invalid type: map, expected a sequence
-2708.json: invalid type: map, expected a sequence
-2709.json: invalid type: map, expected a sequence
-2710.json: invalid type: map, expected a sequence
-2711.json: invalid type: map, expected a sequence
-2712.json: invalid type: map, expected a sequence
-2713.json: invalid type: map, expected a sequence
-2714.json: invalid type: map, expected a sequence
-2715.json: invalid type: map, expected a sequence
-2716.json: invalid type: map, expected a sequence
-2717.json: invalid type: map, expected a sequence
-2718.json: invalid type: map, expected a sequence
-2719.json: invalid type: map, expected a sequence
-2720.json: invalid type: map, expected a sequence
-2721.json: invalid type: map, expected a sequence
-2722.json: invalid type: map, expected a sequence
-2723.json: invalid type: map, expected a sequence
-2724.json: invalid type: map, expected a sequence
-2726.json: invalid type: map, expected a sequence
-2727.json: invalid type: map, expected a sequence
-2728.json: invalid type: map, expected a sequence
-2729.json: invalid type: map, expected a sequence
-2730.json: invalid type: map, expected a sequence
-2731.json: invalid type: map, expected a sequence
-2732.json: invalid type: map, expected a sequence
-2733.json: invalid type: map, expected a sequence
-2734.json: invalid type: map, expected a sequence
-2735.json: invalid type: map, expected a sequence
-2736.json: invalid type: map, expected a sequence
-2737.json: invalid type: map, expected a sequence
-2738.json: invalid type: map, expected a sequence
-2739.json: invalid type: map, expected a sequence
-2740.json: invalid type: map, expected a sequence
-2741.json: invalid type: map, expected a sequence
-2742.json: invalid type: map, expected a sequence
-2743.json: invalid type: map, expected a sequence
-2744.json: invalid type: map, expected a sequence
-2745.json: invalid type: map, expected a sequence
-2746.json: invalid type: map, expected a sequence
-2747.json: invalid type: map, expected a sequence
-2748.json: invalid type: map, expected a sequence
-2749.json: invalid type: map, expected a sequence
-2750.json: invalid type: map, expected a sequence
-2751.json: invalid type: map, expected a sequence
-2752.json: invalid type: map, expected a sequence
-2753.json: invalid type: map, expected a sequence
-2754.json: invalid type: map, expected a sequence
-2755.json: invalid type: map, expected a sequence
-2756.json: invalid type: map, expected a sequence
-2757.json: invalid type: map, expected a sequence
-2758.json: invalid type: map, expected a sequence
-2759.json: invalid type: map, expected a sequence
-2760.json: invalid type: map, expected a sequence
 2761.json: invalid type: map, expected a sequence
-2762.json: invalid type: map, expected a sequence
-2763.json: invalid type: map, expected a sequence
-2764.json: invalid type: map, expected a sequence
-2765.json: invalid type: map, expected a sequence
-2766.json: invalid type: map, expected a sequence
-2767.json: invalid type: map, expected a sequence
-2768.json: invalid type: map, expected a sequence
-2769.json: invalid type: map, expected a sequence
-2770.json: invalid type: map, expected a sequence
-2771.json: invalid type: map, expected a sequence
-2772.json: invalid type: map, expected a sequence
 2774.json: invalid type: map, expected a sequence
-2775.json: invalid type: map, expected a sequence
-2776.json: invalid type: map, expected a sequence
-2777.json: invalid type: map, expected a sequence
-2778.json: invalid type: map, expected a sequence
-2779.json: invalid type: map, expected a sequence
-2780.json: invalid type: map, expected a sequence
-2781.json: invalid type: map, expected a sequence
-2782.json: invalid type: map, expected a sequence
-2783.json: invalid type: map, expected a sequence
-2784.json: invalid type: map, expected a sequence
-2785.json: invalid type: map, expected a sequence
-2786.json: invalid type: map, expected a sequence
-2787.json: invalid type: map, expected a sequence
-2788.json: invalid type: map, expected a sequence
-2789.json: invalid type: map, expected a sequence
-2790.json: invalid type: map, expected a sequence
-2791.json: invalid type: map, expected a sequence
-2792.json: invalid type: map, expected a sequence
-2793.json: invalid type: map, expected a sequence
-2794.json: invalid type: map, expected a sequence
-2795.json: invalid type: map, expected a sequence
-2796.json: invalid type: map, expected a sequence
-2797.json: invalid type: map, expected a sequence
-2798.json: invalid type: map, expected a sequence
-2799.json: invalid type: map, expected a sequence
-2800.json: invalid type: map, expected a sequence
-2801.json: invalid type: map, expected a sequence
-2802.json: invalid type: map, expected a sequence
-2803.json: invalid type: map, expected a sequence
-2804.json: invalid type: map, expected a sequence
 2805.json: invalid type: map, expected a sequence
 2806.json: invalid type: map, expected a sequence
 2807.json: invalid type: map, expected a sequence
-2808.json: invalid type: map, expected a sequence
-2809.json: invalid type: map, expected a sequence
-2810.json: invalid type: map, expected a sequence
-2811.json: invalid type: map, expected a sequence
-2812.json: invalid type: map, expected a sequence
-2813.json: invalid type: map, expected a sequence
-2814.json: invalid type: map, expected a sequence
-2815.json: invalid type: map, expected a sequence
-2816.json: invalid type: map, expected a sequence
 2817.json: invalid type: map, expected a sequence
 2818.json: invalid type: map, expected a sequence
 2819.json: invalid type: map, expected a sequence

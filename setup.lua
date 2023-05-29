@@ -303,7 +303,10 @@ function to_json_internal(obj, depth, map, cycles_only)
         if class or obj.object_name == 'LuaGameScript' then
             table.insert(json, '"serde_tag":"' .. obj.object_name .. '",\n')
         end
-        if depth == 1 then
+        local values = get_values(obj)
+        is_array = values[1] ~= nil or table_size(values) == 0
+
+        if depth == 1 and not is_array then
             local typ = 'concept'
              if class or obj.object_name == 'LuaGameScript' then
                 typ = 'class'
@@ -312,8 +315,6 @@ function to_json_internal(obj, depth, map, cycles_only)
              end
              table.insert(json, '"serde_type":"' .. typ .. '",\n')
         end
-        local values = get_values(obj)
-        is_array = values[1] ~= nil
         for k,v in pairs(values) do
             if is_allowed_to_access_attribute(obj, values, k) then
                 local internal = to_json_internal(obj[k], depth + 1, map)
