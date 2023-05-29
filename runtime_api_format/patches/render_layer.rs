@@ -53,7 +53,7 @@ pub enum RenderLayerVariants {
 #[serde(untagged)]
 pub enum RenderLayer {
     Value(u8),
-    String(RenderLayerVariants),
+    Variant(RenderLayerVariants),
 }
 
 // ========= MANUAL PATCH =========

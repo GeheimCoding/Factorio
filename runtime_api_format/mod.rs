@@ -11,6 +11,7 @@ use std::{
 use serde::Deserialize;
 
 const UNTAGGED: &str = "#[serde(untagged)]\n";
+const RENAME_ALL_KEBAB_CASE: &str = "#[serde(rename_all = \"kebab-case\")]\n";
 const DERIVE: &str = "#[derive(Debug, Deserialize)]\n";
 const DERIVE_WITH_HASH: &str = "#[derive(Debug, Deserialize, Eq, PartialEq, Hash)]\n";
 const RENAME_WITH_TAG: &str =
@@ -748,6 +749,10 @@ impl GenerateDefinition for Concept {
         } else if self.name == "RenderLayer" {
             type_definition = fs::read_to_string("runtime_api_format/patches/render_layer.rs")
                 .unwrap_or_default();
+        } else if self.name == "CollisionMaskLayer" {
+            type_definition =
+                fs::read_to_string("runtime_api_format/patches/collision_mask_layer.rs")
+                    .unwrap_or_default();
         }
         let position = type_definition.rfind("pub struct");
         let position = if let Some(position) = position {
@@ -1327,7 +1332,16 @@ impl ComplexType {
                 if self.is_table_or_tuple() {
                     return options[0].generate_definition(&prefix, unions, true);
                 }
+                if prefix == "CollisionMaskWithFlagsUnion" {
+                    union_definition = fs::read_to_string(
+                        "runtime_api_format/patches/collision_mask_with_flags_union.rs",
+                    )
+                    .unwrap_or_default();
+                    unions.push(union_definition);
+                    return prefix;
+                }
                 // TODO: use lazy_static HashSet
+                let mut derives = true;
                 if prefix == "LuaBootstrapMethodsOnConfigurationChangedHandlerUnion"
                     || prefix == "LuaBootstrapMethodsOnEventHandlerUnion"
                     || prefix == "LuaBootstrapMethodsOnInitHandlerUnion"
@@ -1335,6 +1349,7 @@ impl ComplexType {
                     || prefix == "LuaBootstrapMethodsOnNthTickHandlerUnion"
                 {
                     // we don't want any derives here
+                    derives = false;
                 } else if prefix == "CollisionMaskWithFlagsUnion"
                     || prefix == "CollisionMaskLayer"
                     || prefix == "EntityPrototypeFlagsUnion"
@@ -1346,10 +1361,27 @@ impl ComplexType {
                     || prefix == "LuaGameScriptSurfacesUnion"
                 {
                     union_definition.push_str(DERIVE_WITH_HASH);
-                    union_definition.push_str(UNTAGGED);
                 } else {
                     union_definition.push_str(DERIVE);
-                    union_definition.push_str(UNTAGGED);
+                }
+                if derives {
+                    // TODO: detect this with code?
+                    if prefix == "ItemPrototypeFlagsUnion"
+                        || prefix == "CollisionMaskLayer"
+                        || prefix == "EntityPrototypeFlagsUnion"
+                        || prefix == "Alignment"
+                        || prefix == "CliffOrientation"
+                        || prefix == "ComparatorString"
+                        || prefix == "CursorBoxRenderType"
+                        || prefix == "ForceCondition"
+                        || prefix == "MouseButtonFlagsUnion"
+                        || prefix == "SelectionModeFlagsUnion"
+                        || prefix == "SoundType"
+                    {
+                        union_definition.push_str(RENAME_ALL_KEBAB_CASE);
+                    } else {
+                        union_definition.push_str(UNTAGGED);
+                    }
                 }
                 union_definition.push_str(&format!("pub enum {} {{\n", prefix));
                 let array_count = options
@@ -1365,8 +1397,12 @@ impl ComplexType {
                     }
                     if option.is_owned_type() {
                         if !type_name.is_empty() {
-                            union_definition
-                                .push_str(&format!("    {},\n", type_name.to_pascal_case()));
+                            let type_name = type_name.to_pascal_case();
+                            if type_name == "BuildingDirection8Way" {
+                                union_definition
+                                    .push_str("#[serde(rename = \"building-direction-8-way\")]\n");
+                            }
+                            union_definition.push_str(&format!("    {type_name},\n"));
                         }
                     } else {
                         let typ = if type_name == "array" {

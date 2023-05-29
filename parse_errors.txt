@@ -1,24 +1,13 @@
 0.json: invalid type: sequence, expected a map
-63.json: data did not match any variant of untagged enum ItemPrototypeFlagsUnion
-73.json: data did not match any variant of untagged enum ItemPrototypeFlagsUnion
-75.json: data did not match any variant of untagged enum ItemPrototypeFlagsUnion
-77.json: data did not match any variant of untagged enum ItemPrototypeFlagsUnion
 89.json: invalid type: string "nan", expected f64
-90.json: data did not match any variant of untagged enum CollisionMaskLayer
-91.json: data did not match any variant of untagged enum CollisionMaskLayer
 92.json: invalid type: string "nan", expected f64
-93.json: data did not match any variant of untagged enum CollisionMaskLayer
-94.json: data did not match any variant of untagged enum CollisionMaskLayer
 95.json: invalid type: string "nan", expected f64
 96.json: invalid type: string "nan", expected f64
 97.json: invalid type: string "nan", expected f64
 98.json: invalid type: string "nan", expected f64
 99.json: invalid type: string "nan", expected f64
-100.json: data did not match any variant of untagged enum CollisionMaskLayer
-101.json: data did not match any variant of untagged enum CollisionMaskLayer
 102.json: invalid type: string "nan", expected f64
 103.json: invalid type: string "nan", expected f64
-104.json: data did not match any variant of untagged enum CollisionMaskLayer
 105.json: invalid type: string "nan", expected f64
 106.json: invalid type: string "nan", expected f64
 107.json: invalid type: string "nan", expected f64
@@ -26,140 +15,15 @@
 109.json: invalid type: string "nan", expected f64
 110.json: invalid type: string "nan", expected f64
 111.json: invalid type: string "nan", expected f64
-112.json: data did not match any variant of untagged enum CollisionMaskLayer
-113.json: data did not match any variant of untagged enum CollisionMaskLayer
-114.json: data did not match any variant of untagged enum CollisionMaskLayer
 115.json: invalid type: string "nan", expected f64
-116.json: data did not match any variant of untagged enum CollisionMaskLayer
-117.json: data did not match any variant of untagged enum CollisionMaskLayer
-118.json: data did not match any variant of untagged enum CollisionMaskLayer
-119.json: data did not match any variant of untagged enum CollisionMaskLayer
-120.json: data did not match any variant of untagged enum CollisionMaskLayer
-121.json: data did not match any variant of untagged enum CollisionMaskLayer
-122.json: data did not match any variant of untagged enum CollisionMaskLayer
-123.json: data did not match any variant of untagged enum CollisionMaskLayer
-124.json: data did not match any variant of untagged enum CollisionMaskLayer
-125.json: data did not match any variant of untagged enum CollisionMaskLayer
-126.json: data did not match any variant of untagged enum CollisionMaskLayer
-127.json: data did not match any variant of untagged enum CollisionMaskLayer
-128.json: data did not match any variant of untagged enum CollisionMaskLayer
-129.json: data did not match any variant of untagged enum CollisionMaskLayer
-130.json: data did not match any variant of untagged enum CollisionMaskLayer
-131.json: data did not match any variant of untagged enum CollisionMaskLayer
-132.json: data did not match any variant of untagged enum CollisionMaskLayer
-143.json: data did not match any variant of untagged enum CollisionMaskLayer
-144.json: data did not match any variant of untagged enum CollisionMaskLayer
-145.json: data did not match any variant of untagged enum CollisionMaskLayer
-147.json: data did not match any variant of untagged enum CollisionMaskLayer
-148.json: data did not match any variant of untagged enum CollisionMaskLayer
-149.json: data did not match any variant of untagged enum CollisionMaskLayer
-150.json: data did not match any variant of untagged enum CollisionMaskLayer
-151.json: data did not match any variant of untagged enum CollisionMaskLayer
-152.json: data did not match any variant of untagged enum CollisionMaskLayer
-153.json: data did not match any variant of untagged enum CollisionMaskLayer
-154.json: data did not match any variant of untagged enum CollisionMaskLayer
-155.json: data did not match any variant of untagged enum CollisionMaskLayer
-156.json: data did not match any variant of untagged enum CollisionMaskLayer
-158.json: data did not match any variant of untagged enum CollisionMaskLayer
-160.json: data did not match any variant of untagged enum CollisionMaskLayer
-162.json: data did not match any variant of untagged enum CollisionMaskLayer
-164.json: data did not match any variant of untagged enum CollisionMaskLayer
-166.json: data did not match any variant of untagged enum CollisionMaskLayer
-168.json: data did not match any variant of untagged enum CollisionMaskLayer
-170.json: data did not match any variant of untagged enum CollisionMaskLayer
-172.json: data did not match any variant of untagged enum CollisionMaskLayer
-174.json: data did not match any variant of untagged enum CollisionMaskLayer
-176.json: data did not match any variant of untagged enum CollisionMaskLayer
-177.json: data did not match any variant of untagged enum CollisionMaskLayer
-178.json: data did not match any variant of untagged enum CollisionMaskLayer
-179.json: data did not match any variant of untagged enum CollisionMaskLayer
-180.json: data did not match any variant of untagged enum CollisionMaskLayer
-182.json: data did not match any variant of untagged enum CollisionMaskLayer
-184.json: data did not match any variant of untagged enum CollisionMaskLayer
-187.json: data did not match any variant of untagged enum CollisionMaskLayer
-188.json: data did not match any variant of untagged enum CollisionMaskLayer
-189.json: data did not match any variant of untagged enum CollisionMaskLayer
-190.json: data did not match any variant of untagged enum CollisionMaskLayer
-191.json: data did not match any variant of untagged enum CollisionMaskLayer
-192.json: data did not match any variant of untagged enum CollisionMaskLayer
-194.json: data did not match any variant of untagged enum CollisionMaskLayer
-195.json: data did not match any variant of untagged enum CollisionMaskLayer
-196.json: data did not match any variant of untagged enum CollisionMaskLayer
-197.json: data did not match any variant of untagged enum ItemPrototypeFlagsUnion
-206.json: data did not match any variant of untagged enum CollisionMaskLayer
-208.json: data did not match any variant of untagged enum ItemPrototypeFlagsUnion
-209.json: data did not match any variant of untagged enum CollisionMaskLayer
-211.json: data did not match any variant of untagged enum ItemPrototypeFlagsUnion
-212.json: data did not match any variant of untagged enum ItemPrototypeFlagsUnion
-213.json: data did not match any variant of untagged enum ItemPrototypeFlagsUnion
-214.json: data did not match any variant of untagged enum CollisionMaskWithFlagsUnion
-216.json: data did not match any variant of untagged enum ItemPrototypeFlagsUnion
-217.json: data did not match any variant of untagged enum ItemPrototypeFlagsUnion
-218.json: data did not match any variant of untagged enum ItemPrototypeFlagsUnion
-219.json: data did not match any variant of untagged enum ItemPrototypeFlagsUnion
-221.json: data did not match any variant of untagged enum EntityPrototypeFlagsUnion
-222.json: data did not match any variant of untagged enum EntityPrototypeFlagsUnion
-223.json: data did not match any variant of untagged enum CollisionMaskLayer
-224.json: data did not match any variant of untagged enum CollisionMaskLayer
-225.json: data did not match any variant of untagged enum CollisionMaskLayer
-226.json: data did not match any variant of untagged enum CollisionMaskLayer
-227.json: data did not match any variant of untagged enum CollisionMaskLayer
-228.json: data did not match any variant of untagged enum CollisionMaskLayer
-230.json: data did not match any variant of untagged enum CollisionMaskLayer
-232.json: data did not match any variant of untagged enum CollisionMaskLayer
-234.json: data did not match any variant of untagged enum CollisionMaskLayer
-236.json: data did not match any variant of untagged enum CollisionMaskLayer
-237.json: data did not match any variant of untagged enum CollisionMaskLayer
-238.json: data did not match any variant of untagged enum CollisionMaskLayer
-240.json: data did not match any variant of untagged enum CollisionMaskLayer
-248.json: data did not match any variant of untagged enum CollisionMaskLayer
-251.json: data did not match any variant of untagged enum CollisionMaskLayer
-253.json: data did not match any variant of untagged enum CollisionMaskLayer
-255.json: data did not match any variant of untagged enum CollisionMaskLayer
 257.json: invalid type: integer `0`, expected string or map
-258.json: data did not match any variant of untagged enum CollisionMaskLayer
 259.json: invalid type: integer `0`, expected string or map
-260.json: data did not match any variant of untagged enum CollisionMaskLayer
 263.json: invalid type: integer `4`, expected string or map
 264.json: invalid type: integer `4`, expected string or map
-265.json: data did not match any variant of untagged enum CollisionMaskLayer
-268.json: data did not match any variant of untagged enum CollisionMaskLayer
-270.json: data did not match any variant of untagged enum CollisionMaskLayer
-273.json: data did not match any variant of untagged enum CollisionMaskLayer
-275.json: data did not match any variant of untagged enum CollisionMaskLayer
-278.json: data did not match any variant of untagged enum CollisionMaskLayer
-280.json: data did not match any variant of untagged enum CollisionMaskLayer
-282.json: data did not match any variant of untagged enum CollisionMaskLayer
-284.json: data did not match any variant of untagged enum CollisionMaskLayer
-286.json: data did not match any variant of untagged enum CollisionMaskLayer
-290.json: data did not match any variant of untagged enum CollisionMaskLayer
-294.json: data did not match any variant of untagged enum CollisionMaskLayer
-301.json: data did not match any variant of untagged enum CollisionMaskLayer
-307.json: data did not match any variant of untagged enum CollisionMaskLayer
-309.json: data did not match any variant of untagged enum CollisionMaskLayer
-311.json: data did not match any variant of untagged enum CollisionMaskLayer
-313.json: data did not match any variant of untagged enum CollisionMaskLayer
 315.json: missing field `affects_target`
-316.json: data did not match any variant of untagged enum CollisionMaskLayer
-317.json: data did not match any variant of untagged enum CollisionMaskLayer
-318.json: data did not match any variant of untagged enum CollisionMaskLayer
 319.json: missing field `source_effects`
 321.json: missing field `source_effects`
-323.json: data did not match any variant of untagged enum CollisionMaskLayer
-324.json: data did not match any variant of untagged enum CollisionMaskLayer
-326.json: data did not match any variant of untagged enum CollisionMaskLayer
-329.json: data did not match any variant of untagged enum CollisionMaskLayer
-330.json: data did not match any variant of untagged enum CollisionMaskLayer
-332.json: data did not match any variant of untagged enum CollisionMaskLayer
-333.json: data did not match any variant of untagged enum CollisionMaskLayer
 334.json: invalid type: integer `0`, expected string or map
-335.json: data did not match any variant of untagged enum CollisionMaskLayer
-336.json: data did not match any variant of untagged enum CollisionMaskLayer
-337.json: data did not match any variant of untagged enum CollisionMaskLayer
-339.json: data did not match any variant of untagged enum CollisionMaskLayer
-342.json: data did not match any variant of untagged enum CollisionMaskLayer
-343.json: data did not match any variant of untagged enum CollisionMaskLayer
-353.json: data did not match any variant of untagged enum EntityPrototypeFlagsUnion
 354.json: missing field `source_effects`
 355.json: missing field `source_effects`
 356.json: missing field `source_effects`
@@ -174,34 +38,21 @@
 367.json: missing field `source_effects`
 368.json: missing field `source_effects`
 369.json: missing field `source_effects`
-370.json: data did not match any variant of untagged enum CollisionMaskLayer
-371.json: data did not match any variant of untagged enum CollisionMaskLayer
 372.json: missing field `source_effects`
-373.json: data did not match any variant of untagged enum CollisionMaskLayer
-397.json: data did not match any variant of untagged enum CollisionMaskLayer
 398.json: invalid type: string "nan", expected f64
 399.json: invalid type: string "nan", expected f64
-400.json: data did not match any variant of untagged enum EntityPrototypeFlagsUnion
 401.json: invalid type: string "nan", expected f64
-402.json: data did not match any variant of untagged enum EntityPrototypeFlagsUnion
 403.json: invalid type: string "nan", expected f64
-404.json: data did not match any variant of untagged enum EntityPrototypeFlagsUnion
 405.json: invalid type: string "nan", expected f64
-406.json: data did not match any variant of untagged enum EntityPrototypeFlagsUnion
 407.json: invalid type: string "nan", expected f64
-408.json: data did not match any variant of untagged enum EntityPrototypeFlagsUnion
 409.json: invalid type: string "nan", expected f64
-410.json: data did not match any variant of untagged enum EntityPrototypeFlagsUnion
 411.json: invalid type: string "nan", expected f64
 412.json: invalid type: string "nan", expected f64
-413.json: data did not match any variant of untagged enum EntityPrototypeFlagsUnion
 414.json: invalid type: string "nan", expected f64
-415.json: data did not match any variant of untagged enum EntityPrototypeFlagsUnion
 416.json: invalid type: string "nan", expected f64
 417.json: invalid type: string "nan", expected f64
 418.json: invalid type: string "nan", expected f64
 419.json: invalid type: string "nan", expected f64
-420.json: data did not match any variant of untagged enum EntityPrototypeFlagsUnion
 421.json: invalid type: string "nan", expected f64
 422.json: invalid type: string "nan", expected f64
 423.json: invalid type: string "nan", expected f64
@@ -209,130 +60,6 @@
 425.json: invalid type: string "nan", expected f64
 426.json: invalid type: string "nan", expected f64
 427.json: invalid type: string "nan", expected f64
-428.json: data did not match any variant of untagged enum CollisionMaskLayer
-429.json: data did not match any variant of untagged enum CollisionMaskLayer
-430.json: data did not match any variant of untagged enum CollisionMaskLayer
-431.json: data did not match any variant of untagged enum EntityPrototypeFlagsUnion
-432.json: data did not match any variant of untagged enum EntityPrototypeFlagsUnion
-433.json: data did not match any variant of untagged enum EntityPrototypeFlagsUnion
-434.json: data did not match any variant of untagged enum EntityPrototypeFlagsUnion
-435.json: data did not match any variant of untagged enum EntityPrototypeFlagsUnion
-436.json: data did not match any variant of untagged enum EntityPrototypeFlagsUnion
-437.json: data did not match any variant of untagged enum EntityPrototypeFlagsUnion
-438.json: data did not match any variant of untagged enum EntityPrototypeFlagsUnion
-439.json: data did not match any variant of untagged enum EntityPrototypeFlagsUnion
-440.json: data did not match any variant of untagged enum EntityPrototypeFlagsUnion
-441.json: data did not match any variant of untagged enum EntityPrototypeFlagsUnion
-442.json: data did not match any variant of untagged enum EntityPrototypeFlagsUnion
-443.json: data did not match any variant of untagged enum EntityPrototypeFlagsUnion
-444.json: data did not match any variant of untagged enum EntityPrototypeFlagsUnion
-445.json: data did not match any variant of untagged enum EntityPrototypeFlagsUnion
-446.json: data did not match any variant of untagged enum EntityPrototypeFlagsUnion
-447.json: data did not match any variant of untagged enum EntityPrototypeFlagsUnion
-448.json: data did not match any variant of untagged enum EntityPrototypeFlagsUnion
-449.json: data did not match any variant of untagged enum EntityPrototypeFlagsUnion
-450.json: data did not match any variant of untagged enum EntityPrototypeFlagsUnion
-451.json: data did not match any variant of untagged enum EntityPrototypeFlagsUnion
-452.json: data did not match any variant of untagged enum EntityPrototypeFlagsUnion
-453.json: data did not match any variant of untagged enum EntityPrototypeFlagsUnion
-454.json: data did not match any variant of untagged enum EntityPrototypeFlagsUnion
-455.json: data did not match any variant of untagged enum EntityPrototypeFlagsUnion
-456.json: data did not match any variant of untagged enum EntityPrototypeFlagsUnion
-457.json: data did not match any variant of untagged enum EntityPrototypeFlagsUnion
-458.json: data did not match any variant of untagged enum EntityPrototypeFlagsUnion
-459.json: data did not match any variant of untagged enum EntityPrototypeFlagsUnion
-460.json: data did not match any variant of untagged enum EntityPrototypeFlagsUnion
-461.json: data did not match any variant of untagged enum EntityPrototypeFlagsUnion
-462.json: data did not match any variant of untagged enum EntityPrototypeFlagsUnion
-463.json: data did not match any variant of untagged enum EntityPrototypeFlagsUnion
-464.json: data did not match any variant of untagged enum EntityPrototypeFlagsUnion
-465.json: data did not match any variant of untagged enum EntityPrototypeFlagsUnion
-466.json: data did not match any variant of untagged enum EntityPrototypeFlagsUnion
-467.json: data did not match any variant of untagged enum EntityPrototypeFlagsUnion
-468.json: data did not match any variant of untagged enum EntityPrototypeFlagsUnion
-469.json: data did not match any variant of untagged enum EntityPrototypeFlagsUnion
-470.json: data did not match any variant of untagged enum EntityPrototypeFlagsUnion
-471.json: data did not match any variant of untagged enum EntityPrototypeFlagsUnion
-472.json: data did not match any variant of untagged enum EntityPrototypeFlagsUnion
-473.json: data did not match any variant of untagged enum EntityPrototypeFlagsUnion
-474.json: data did not match any variant of untagged enum EntityPrototypeFlagsUnion
-475.json: data did not match any variant of untagged enum EntityPrototypeFlagsUnion
-476.json: data did not match any variant of untagged enum EntityPrototypeFlagsUnion
-477.json: data did not match any variant of untagged enum EntityPrototypeFlagsUnion
-478.json: data did not match any variant of untagged enum EntityPrototypeFlagsUnion
-479.json: data did not match any variant of untagged enum EntityPrototypeFlagsUnion
-480.json: data did not match any variant of untagged enum EntityPrototypeFlagsUnion
-481.json: data did not match any variant of untagged enum EntityPrototypeFlagsUnion
-482.json: data did not match any variant of untagged enum EntityPrototypeFlagsUnion
-483.json: data did not match any variant of untagged enum EntityPrototypeFlagsUnion
-484.json: data did not match any variant of untagged enum EntityPrototypeFlagsUnion
-485.json: data did not match any variant of untagged enum EntityPrototypeFlagsUnion
-486.json: data did not match any variant of untagged enum EntityPrototypeFlagsUnion
-487.json: data did not match any variant of untagged enum EntityPrototypeFlagsUnion
-488.json: data did not match any variant of untagged enum EntityPrototypeFlagsUnion
-489.json: data did not match any variant of untagged enum EntityPrototypeFlagsUnion
-490.json: data did not match any variant of untagged enum EntityPrototypeFlagsUnion
-491.json: data did not match any variant of untagged enum EntityPrototypeFlagsUnion
-492.json: data did not match any variant of untagged enum EntityPrototypeFlagsUnion
-493.json: data did not match any variant of untagged enum EntityPrototypeFlagsUnion
-494.json: data did not match any variant of untagged enum EntityPrototypeFlagsUnion
-495.json: data did not match any variant of untagged enum EntityPrototypeFlagsUnion
-496.json: data did not match any variant of untagged enum EntityPrototypeFlagsUnion
-497.json: data did not match any variant of untagged enum EntityPrototypeFlagsUnion
-498.json: data did not match any variant of untagged enum EntityPrototypeFlagsUnion
-499.json: data did not match any variant of untagged enum EntityPrototypeFlagsUnion
-500.json: data did not match any variant of untagged enum EntityPrototypeFlagsUnion
-501.json: data did not match any variant of untagged enum EntityPrototypeFlagsUnion
-502.json: data did not match any variant of untagged enum EntityPrototypeFlagsUnion
-503.json: data did not match any variant of untagged enum EntityPrototypeFlagsUnion
-504.json: data did not match any variant of untagged enum EntityPrototypeFlagsUnion
-505.json: data did not match any variant of untagged enum EntityPrototypeFlagsUnion
-506.json: data did not match any variant of untagged enum EntityPrototypeFlagsUnion
-507.json: data did not match any variant of untagged enum EntityPrototypeFlagsUnion
-508.json: data did not match any variant of untagged enum EntityPrototypeFlagsUnion
-509.json: data did not match any variant of untagged enum EntityPrototypeFlagsUnion
-510.json: data did not match any variant of untagged enum EntityPrototypeFlagsUnion
-511.json: data did not match any variant of untagged enum EntityPrototypeFlagsUnion
-512.json: data did not match any variant of untagged enum EntityPrototypeFlagsUnion
-513.json: data did not match any variant of untagged enum EntityPrototypeFlagsUnion
-514.json: data did not match any variant of untagged enum EntityPrototypeFlagsUnion
-515.json: data did not match any variant of untagged enum EntityPrototypeFlagsUnion
-516.json: data did not match any variant of untagged enum EntityPrototypeFlagsUnion
-517.json: data did not match any variant of untagged enum EntityPrototypeFlagsUnion
-518.json: data did not match any variant of untagged enum EntityPrototypeFlagsUnion
-519.json: data did not match any variant of untagged enum EntityPrototypeFlagsUnion
-520.json: data did not match any variant of untagged enum EntityPrototypeFlagsUnion
-521.json: data did not match any variant of untagged enum EntityPrototypeFlagsUnion
-522.json: data did not match any variant of untagged enum EntityPrototypeFlagsUnion
-523.json: data did not match any variant of untagged enum EntityPrototypeFlagsUnion
-524.json: data did not match any variant of untagged enum EntityPrototypeFlagsUnion
-525.json: data did not match any variant of untagged enum EntityPrototypeFlagsUnion
-526.json: data did not match any variant of untagged enum EntityPrototypeFlagsUnion
-527.json: data did not match any variant of untagged enum EntityPrototypeFlagsUnion
-528.json: data did not match any variant of untagged enum EntityPrototypeFlagsUnion
-529.json: data did not match any variant of untagged enum EntityPrototypeFlagsUnion
-530.json: data did not match any variant of untagged enum EntityPrototypeFlagsUnion
-531.json: data did not match any variant of untagged enum CollisionMaskLayer
-532.json: data did not match any variant of untagged enum CollisionMaskLayer
-533.json: data did not match any variant of untagged enum CollisionMaskLayer
-534.json: data did not match any variant of untagged enum CollisionMaskLayer
-535.json: data did not match any variant of untagged enum CollisionMaskLayer
-536.json: data did not match any variant of untagged enum CollisionMaskLayer
-537.json: data did not match any variant of untagged enum CollisionMaskLayer
-538.json: data did not match any variant of untagged enum CollisionMaskLayer
-539.json: data did not match any variant of untagged enum EntityPrototypeFlagsUnion
-540.json: data did not match any variant of untagged enum EntityPrototypeFlagsUnion
-541.json: data did not match any variant of untagged enum EntityPrototypeFlagsUnion
-542.json: data did not match any variant of untagged enum EntityPrototypeFlagsUnion
-543.json: data did not match any variant of untagged enum EntityPrototypeFlagsUnion
-544.json: data did not match any variant of untagged enum EntityPrototypeFlagsUnion
-545.json: data did not match any variant of untagged enum EntityPrototypeFlagsUnion
-546.json: data did not match any variant of untagged enum EntityPrototypeFlagsUnion
-547.json: data did not match any variant of untagged enum CollisionMaskLayer
-548.json: data did not match any variant of untagged enum CollisionMaskLayer
-549.json: data did not match any variant of untagged enum CollisionMaskLayer
-550.json: data did not match any variant of untagged enum CollisionMaskLayer
-551.json: data did not match any variant of untagged enum CollisionMaskLayer
 552.json: missing field `source_effects`
 578.json: missing field `source_effects`
 579.json: missing field `source_effects`
@@ -408,7 +135,6 @@
 649.json: missing field `source_effects`
 650.json: missing field `source_effects`
 651.json: missing field `source_effects`
-652.json: data did not match any variant of untagged enum EntityPrototypeFlagsUnion
 653.json: missing field `source_effects`
 654.json: missing field `source_effects`
 655.json: missing field `source_effects`
@@ -421,40 +147,27 @@
 662.json: missing field `source_effects`
 663.json: missing field `source_effects`
 664.json: missing field `source_effects`
-665.json: data did not match any variant of untagged enum EntityPrototypeFlagsUnion
-666.json: data did not match any variant of untagged enum EntityPrototypeFlagsUnion
 667.json: missing field `source_effects`
 668.json: missing field `source_effects`
 669.json: missing field `source_effects`
 670.json: missing field `source_effects`
 671.json: missing field `source_effects`
-672.json: data did not match any variant of untagged enum EntityPrototypeFlagsUnion
 673.json: missing field `source_effects`
 674.json: missing field `source_effects`
 675.json: missing field `source_effects`
 676.json: missing field `source_effects`
 677.json: missing field `source_effects`
 678.json: missing field `source_effects`
-679.json: data did not match any variant of untagged enum EntityPrototypeFlagsUnion
-680.json: data did not match any variant of untagged enum EntityPrototypeFlagsUnion
-681.json: data did not match any variant of untagged enum EntityPrototypeFlagsUnion
-682.json: data did not match any variant of untagged enum EntityPrototypeFlagsUnion
-683.json: data did not match any variant of untagged enum EntityPrototypeFlagsUnion
-684.json: data did not match any variant of untagged enum EntityPrototypeFlagsUnion
 685.json: missing field `source_effects`
-686.json: data did not match any variant of untagged enum EntityPrototypeFlagsUnion
 687.json: missing field `source_effects`
 688.json: missing field `source_effects`
 689.json: missing field `source_effects`
 690.json: missing field `source_effects`
 691.json: missing field `source_effects`
-692.json: data did not match any variant of untagged enum EntityPrototypeFlagsUnion
 693.json: missing field `source_effects`
 694.json: missing field `source_effects`
 695.json: missing field `source_effects`
 696.json: missing field `source_effects`
-697.json: data did not match any variant of untagged enum EntityPrototypeFlagsUnion
-698.json: data did not match any variant of untagged enum EntityPrototypeFlagsUnion
 699.json: missing field `source_effects`
 700.json: missing field `source_effects`
 701.json: missing field `source_effects`
@@ -466,27 +179,6 @@
 707.json: missing field `flags`
 708.json: missing field `flags`
 709.json: missing field `flags`
-710.json: data did not match any variant of untagged enum EntityPrototypeFlagsUnion
-711.json: data did not match any variant of untagged enum EntityPrototypeFlagsUnion
-712.json: data did not match any variant of untagged enum EntityPrototypeFlagsUnion
-713.json: data did not match any variant of untagged enum EntityPrototypeFlagsUnion
-714.json: data did not match any variant of untagged enum EntityPrototypeFlagsUnion
-715.json: data did not match any variant of untagged enum EntityPrototypeFlagsUnion
-716.json: data did not match any variant of untagged enum EntityPrototypeFlagsUnion
-717.json: data did not match any variant of untagged enum EntityPrototypeFlagsUnion
-718.json: data did not match any variant of untagged enum EntityPrototypeFlagsUnion
-719.json: data did not match any variant of untagged enum EntityPrototypeFlagsUnion
-720.json: data did not match any variant of untagged enum EntityPrototypeFlagsUnion
-721.json: data did not match any variant of untagged enum EntityPrototypeFlagsUnion
-722.json: data did not match any variant of untagged enum EntityPrototypeFlagsUnion
-723.json: data did not match any variant of untagged enum EntityPrototypeFlagsUnion
-724.json: data did not match any variant of untagged enum EntityPrototypeFlagsUnion
-725.json: data did not match any variant of untagged enum EntityPrototypeFlagsUnion
-726.json: data did not match any variant of untagged enum EntityPrototypeFlagsUnion
-727.json: data did not match any variant of untagged enum EntityPrototypeFlagsUnion
-728.json: data did not match any variant of untagged enum EntityPrototypeFlagsUnion
-729.json: data did not match any variant of untagged enum EntityPrototypeFlagsUnion
-730.json: data did not match any variant of untagged enum EntityPrototypeFlagsUnion
 731.json: missing field `affects_target`
 732.json: missing field `source_effects`
 733.json: missing field `source_effects`
@@ -498,96 +190,37 @@
 739.json: missing field `affects_target`
 740.json: missing field `source_effects`
 741.json: missing field `source_effects`
-742.json: data did not match any variant of untagged enum EntityPrototypeFlagsUnion
 743.json: missing field `source_effects`
 744.json: missing field `source_effects`
-745.json: data did not match any variant of untagged enum EntityPrototypeFlagsUnion
-746.json: data did not match any variant of untagged enum CollisionMaskLayer
-747.json: data did not match any variant of untagged enum CollisionMaskLayer
 748.json: missing field `source_effects`
-749.json: data did not match any variant of untagged enum EntityPrototypeFlagsUnion
 750.json: missing field `source_effects`
-751.json: data did not match any variant of untagged enum CollisionMaskLayer
-752.json: data did not match any variant of untagged enum CollisionMaskLayer
-753.json: data did not match any variant of untagged enum CollisionMaskLayer
-754.json: data did not match any variant of untagged enum CollisionMaskLayer
-755.json: data did not match any variant of untagged enum CollisionMaskLayer
-756.json: data did not match any variant of untagged enum CollisionMaskLayer
-757.json: data did not match any variant of untagged enum CollisionMaskLayer
-758.json: data did not match any variant of untagged enum CollisionMaskLayer
-759.json: data did not match any variant of untagged enum CollisionMaskLayer
-760.json: data did not match any variant of untagged enum CollisionMaskLayer
-761.json: data did not match any variant of untagged enum CollisionMaskLayer
-762.json: data did not match any variant of untagged enum CollisionMaskLayer
-763.json: data did not match any variant of untagged enum CollisionMaskLayer
 764.json: missing field `source_effects`
 765.json: missing field `source_effects`
 766.json: missing field `source_effects`
-767.json: data did not match any variant of untagged enum EntityPrototypeFlagsUnion
 768.json: missing field `source_effects`
 769.json: missing field `source_effects`
-770.json: data did not match any variant of untagged enum CollisionMaskLayer
-771.json: data did not match any variant of untagged enum EntityPrototypeFlagsUnion
+770.json: missing field `flags`
 772.json: missing field `source_effects`
 773.json: missing field `affects_target`
 774.json: missing field `source_effects`
-775.json: data did not match any variant of untagged enum CollisionMaskLayer
-776.json: data did not match any variant of untagged enum CollisionMaskLayer
-777.json: data did not match any variant of untagged enum CollisionMaskLayer
-778.json: data did not match any variant of untagged enum EntityPrototypeFlagsUnion
-779.json: data did not match any variant of untagged enum EntityPrototypeFlagsUnion
-780.json: data did not match any variant of untagged enum EntityPrototypeFlagsUnion
-781.json: data did not match any variant of untagged enum EntityPrototypeFlagsUnion
 782.json: missing field `source_effects`
-783.json: data did not match any variant of untagged enum EntityPrototypeFlagsUnion
 784.json: missing field `source_effects`
 785.json: missing field `source_effects`
 786.json: missing field `flags`
-787.json: data did not match any variant of untagged enum CollisionMaskLayer
-788.json: data did not match any variant of untagged enum EntityPrototypeFlagsUnion
 789.json: missing field `source_effects`
 790.json: missing field `source_effects`
 791.json: missing field `flags`
-792.json: data did not match any variant of untagged enum CollisionMaskLayer
-794.json: data did not match any variant of untagged enum EntityPrototypeFlagsUnion
 795.json: missing field `flags`
 796.json: missing field `source_effects`
 797.json: missing field `source_effects`
 798.json: missing field `affects_target`
-799.json: data did not match any variant of untagged enum EntityPrototypeFlagsUnion
 800.json: missing field `source_effects`
-801.json: data did not match any variant of untagged enum CollisionMaskWithFlagsUnion
-802.json: data did not match any variant of untagged enum CollisionMaskWithFlagsUnion
 803.json: missing field `source_effects`
 804.json: missing field `source_effects`
 805.json: missing field `flags`
-806.json: data did not match any variant of untagged enum EntityPrototypeFlagsUnion
-807.json: data did not match any variant of untagged enum CollisionMaskLayer
-808.json: data did not match any variant of untagged enum CollisionMaskLayer
-809.json: data did not match any variant of untagged enum CollisionMaskLayer
-810.json: data did not match any variant of untagged enum CollisionMaskLayer
-811.json: data did not match any variant of untagged enum CollisionMaskLayer
-812.json: data did not match any variant of untagged enum CollisionMaskLayer
-813.json: data did not match any variant of untagged enum CollisionMaskLayer
-814.json: data did not match any variant of untagged enum CollisionMaskLayer
-815.json: data did not match any variant of untagged enum CollisionMaskWithFlagsUnion
-816.json: data did not match any variant of untagged enum EntityPrototypeFlagsUnion
+815.json: missing field `flags`
 817.json: missing field `source_effects`
-818.json: data did not match any variant of untagged enum CollisionMaskLayer
-819.json: data did not match any variant of untagged enum EntityPrototypeFlagsUnion
-820.json: data did not match any variant of untagged enum EntityPrototypeFlagsUnion
-821.json: data did not match any variant of untagged enum EntityPrototypeFlagsUnion
-822.json: data did not match any variant of untagged enum EntityPrototypeFlagsUnion
 823.json: missing field `source_effects`
-824.json: data did not match any variant of untagged enum CollisionMaskLayer
-825.json: data did not match any variant of untagged enum CollisionMaskLayer
-826.json: data did not match any variant of untagged enum CollisionMaskLayer
-827.json: data did not match any variant of untagged enum CollisionMaskLayer
-828.json: data did not match any variant of untagged enum CollisionMaskLayer
-829.json: data did not match any variant of untagged enum CollisionMaskLayer
-830.json: data did not match any variant of untagged enum CollisionMaskLayer
-831.json: data did not match any variant of untagged enum CollisionMaskLayer
-833.json: data did not match any variant of untagged enum CollisionMaskLayer
 914.json: invalid type: sequence, expected a map
 915.json: unknown variant `LuaEntityBuildFlowStatistics`, expected one of `LuaAISettings`, `LuaAccumulatorControlBehavior`, `LuaAchievementPrototype`, `LuaAmmoCategoryPrototype`, `LuaArithmeticCombinatorControlBehavior`, `LuaAutoplaceControlPrototype`, `LuaBootstrap`, `LuaBurner`, `LuaBurnerPrototype`, `LuaChunkIterator`, `LuaCircuitNetwork`, `LuaCombinatorControlBehavior`, `LuaCommandProcessor`, `LuaConstantCombinatorControlBehavior`, `LuaContainerControlBehavior`, `LuaControl`, `LuaControlBehavior`, `LuaCustomChartTag`, `LuaCustomInputPrototype`, `LuaCustomTable`, `LuaDamagePrototype`, `LuaDeciderCombinatorControlBehavior`, `LuaDecorativePrototype`, `LuaElectricEnergySourcePrototype`, `LuaEntity`, `LuaEntityPrototype`, `LuaEquipment`, `LuaEquipmentCategoryPrototype`, `LuaEquipmentGrid`, `LuaEquipmentGridPrototype`, `LuaEquipmentPrototype`, `LuaFlowStatistics`, `LuaFluidBox`, `LuaFluidBoxPrototype`, `LuaFluidEnergySourcePrototype`, `LuaFluidPrototype`, `LuaFontPrototype`, `LuaForce`, `LuaFuelCategoryPrototype`, `LuaGameScript`, `LuaGenericOnOffControlBehavior`, `LuaGroup`, `LuaGui`, `LuaGuiElement`, `LuaHeatBufferPrototype`, `LuaHeatEnergySourcePrototype`, `LuaInserterControlBehavior`, `LuaInventory`, `LuaItemPrototype`, `LuaItemStack`, `LuaLampControlBehavior`, `LuaLazyLoadedValue`, `LuaLogisticCell`, `LuaLogisticContainerControlBehavior`, `LuaLogisticNetwork`, `LuaLogisticPoint`, `LuaMiningDrillControlBehavior`, `LuaModSettingPrototype`, `LuaModuleCategoryPrototype`, `LuaNamedNoiseExpression`, `LuaNoiseLayerPrototype`, `LuaParticlePrototype`, `LuaPermissionGroup`, `LuaPermissionGroups`, `LuaPlayer`, `LuaProfiler`, `LuaProgrammableSpeakerControlBehavior`, `LuaRCON`, `LuaRailChainSignalControlBehavior`, `LuaRailPath`, `LuaRailSignalControlBehavior`, `LuaRandomGenerator`, `LuaRecipe`, `LuaRecipeCategoryPrototype`, `LuaRecipePrototype`, `LuaRemote`, `LuaRendering`, `LuaResourceCategoryPrototype`, `LuaRoboportControlBehavior`, `LuaSettings`, `LuaShortcutPrototype`, `LuaStorageTankControlBehavior`, `LuaStyle`, `LuaSurface`, `LuaTechnology`, `LuaTechnologyPrototype`, `LuaTile`, `LuaTilePrototype`, `LuaTrain`, `LuaTrainStopControlBehavior`, `LuaTransportBeltControlBehavior`, `LuaTransportLine`, `LuaTrivialSmokePrototype`, `LuaUnitGroup`, `LuaVirtualSignalPrototype`, `LuaVoidEnergySourcePrototype`, `LuaWallControlBehavior`
 916.json: unknown variant `LuaFluidProductionFlowStatistics`, expected one of `LuaAISettings`, `LuaAccumulatorControlBehavior`, `LuaAchievementPrototype`, `LuaAmmoCategoryPrototype`, `LuaArithmeticCombinatorControlBehavior`, `LuaAutoplaceControlPrototype`, `LuaBootstrap`, `LuaBurner`, `LuaBurnerPrototype`, `LuaChunkIterator`, `LuaCircuitNetwork`, `LuaCombinatorControlBehavior`, `LuaCommandProcessor`, `LuaConstantCombinatorControlBehavior`, `LuaContainerControlBehavior`, `LuaControl`, `LuaControlBehavior`, `LuaCustomChartTag`, `LuaCustomInputPrototype`, `LuaCustomTable`, `LuaDamagePrototype`, `LuaDeciderCombinatorControlBehavior`, `LuaDecorativePrototype`, `LuaElectricEnergySourcePrototype`, `LuaEntity`, `LuaEntityPrototype`, `LuaEquipment`, `LuaEquipmentCategoryPrototype`, `LuaEquipmentGrid`, `LuaEquipmentGridPrototype`, `LuaEquipmentPrototype`, `LuaFlowStatistics`, `LuaFluidBox`, `LuaFluidBoxPrototype`, `LuaFluidEnergySourcePrototype`, `LuaFluidPrototype`, `LuaFontPrototype`, `LuaForce`, `LuaFuelCategoryPrototype`, `LuaGameScript`, `LuaGenericOnOffControlBehavior`, `LuaGroup`, `LuaGui`, `LuaGuiElement`, `LuaHeatBufferPrototype`, `LuaHeatEnergySourcePrototype`, `LuaInserterControlBehavior`, `LuaInventory`, `LuaItemPrototype`, `LuaItemStack`, `LuaLampControlBehavior`, `LuaLazyLoadedValue`, `LuaLogisticCell`, `LuaLogisticContainerControlBehavior`, `LuaLogisticNetwork`, `LuaLogisticPoint`, `LuaMiningDrillControlBehavior`, `LuaModSettingPrototype`, `LuaModuleCategoryPrototype`, `LuaNamedNoiseExpression`, `LuaNoiseLayerPrototype`, `LuaParticlePrototype`, `LuaPermissionGroup`, `LuaPermissionGroups`, `LuaPlayer`, `LuaProfiler`, `LuaProgrammableSpeakerControlBehavior`, `LuaRCON`, `LuaRailChainSignalControlBehavior`, `LuaRailPath`, `LuaRailSignalControlBehavior`, `LuaRandomGenerator`, `LuaRecipe`, `LuaRecipeCategoryPrototype`, `LuaRecipePrototype`, `LuaRemote`, `LuaRendering`, `LuaResourceCategoryPrototype`, `LuaRoboportControlBehavior`, `LuaSettings`, `LuaShortcutPrototype`, `LuaStorageTankControlBehavior`, `LuaStyle`, `LuaSurface`, `LuaTechnology`, `LuaTechnologyPrototype`, `LuaTile`, `LuaTilePrototype`, `LuaTrain`, `LuaTrainStopControlBehavior`, `LuaTransportBeltControlBehavior`, `LuaTransportLine`, `LuaTrivialSmokePrototype`, `LuaUnitGroup`, `LuaVirtualSignalPrototype`, `LuaVoidEnergySourcePrototype`, `LuaWallControlBehavior`
@@ -628,90 +261,49 @@
 2156.json: unknown variant `LuaFluidProductionFlowStatistics`, expected one of `LuaAISettings`, `LuaAccumulatorControlBehavior`, `LuaAchievementPrototype`, `LuaAmmoCategoryPrototype`, `LuaArithmeticCombinatorControlBehavior`, `LuaAutoplaceControlPrototype`, `LuaBootstrap`, `LuaBurner`, `LuaBurnerPrototype`, `LuaChunkIterator`, `LuaCircuitNetwork`, `LuaCombinatorControlBehavior`, `LuaCommandProcessor`, `LuaConstantCombinatorControlBehavior`, `LuaContainerControlBehavior`, `LuaControl`, `LuaControlBehavior`, `LuaCustomChartTag`, `LuaCustomInputPrototype`, `LuaCustomTable`, `LuaDamagePrototype`, `LuaDeciderCombinatorControlBehavior`, `LuaDecorativePrototype`, `LuaElectricEnergySourcePrototype`, `LuaEntity`, `LuaEntityPrototype`, `LuaEquipment`, `LuaEquipmentCategoryPrototype`, `LuaEquipmentGrid`, `LuaEquipmentGridPrototype`, `LuaEquipmentPrototype`, `LuaFlowStatistics`, `LuaFluidBox`, `LuaFluidBoxPrototype`, `LuaFluidEnergySourcePrototype`, `LuaFluidPrototype`, `LuaFontPrototype`, `LuaForce`, `LuaFuelCategoryPrototype`, `LuaGameScript`, `LuaGenericOnOffControlBehavior`, `LuaGroup`, `LuaGui`, `LuaGuiElement`, `LuaHeatBufferPrototype`, `LuaHeatEnergySourcePrototype`, `LuaInserterControlBehavior`, `LuaInventory`, `LuaItemPrototype`, `LuaItemStack`, `LuaLampControlBehavior`, `LuaLazyLoadedValue`, `LuaLogisticCell`, `LuaLogisticContainerControlBehavior`, `LuaLogisticNetwork`, `LuaLogisticPoint`, `LuaMiningDrillControlBehavior`, `LuaModSettingPrototype`, `LuaModuleCategoryPrototype`, `LuaNamedNoiseExpression`, `LuaNoiseLayerPrototype`, `LuaParticlePrototype`, `LuaPermissionGroup`, `LuaPermissionGroups`, `LuaPlayer`, `LuaProfiler`, `LuaProgrammableSpeakerControlBehavior`, `LuaRCON`, `LuaRailChainSignalControlBehavior`, `LuaRailPath`, `LuaRailSignalControlBehavior`, `LuaRandomGenerator`, `LuaRecipe`, `LuaRecipeCategoryPrototype`, `LuaRecipePrototype`, `LuaRemote`, `LuaRendering`, `LuaResourceCategoryPrototype`, `LuaRoboportControlBehavior`, `LuaSettings`, `LuaShortcutPrototype`, `LuaStorageTankControlBehavior`, `LuaStyle`, `LuaSurface`, `LuaTechnology`, `LuaTechnologyPrototype`, `LuaTile`, `LuaTilePrototype`, `LuaTrain`, `LuaTrainStopControlBehavior`, `LuaTransportBeltControlBehavior`, `LuaTransportLine`, `LuaTrivialSmokePrototype`, `LuaUnitGroup`, `LuaVirtualSignalPrototype`, `LuaVoidEnergySourcePrototype`, `LuaWallControlBehavior`
 2157.json: unknown variant `LuaItemProductionFlowStatistics`, expected one of `LuaAISettings`, `LuaAccumulatorControlBehavior`, `LuaAchievementPrototype`, `LuaAmmoCategoryPrototype`, `LuaArithmeticCombinatorControlBehavior`, `LuaAutoplaceControlPrototype`, `LuaBootstrap`, `LuaBurner`, `LuaBurnerPrototype`, `LuaChunkIterator`, `LuaCircuitNetwork`, `LuaCombinatorControlBehavior`, `LuaCommandProcessor`, `LuaConstantCombinatorControlBehavior`, `LuaContainerControlBehavior`, `LuaControl`, `LuaControlBehavior`, `LuaCustomChartTag`, `LuaCustomInputPrototype`, `LuaCustomTable`, `LuaDamagePrototype`, `LuaDeciderCombinatorControlBehavior`, `LuaDecorativePrototype`, `LuaElectricEnergySourcePrototype`, `LuaEntity`, `LuaEntityPrototype`, `LuaEquipment`, `LuaEquipmentCategoryPrototype`, `LuaEquipmentGrid`, `LuaEquipmentGridPrototype`, `LuaEquipmentPrototype`, `LuaFlowStatistics`, `LuaFluidBox`, `LuaFluidBoxPrototype`, `LuaFluidEnergySourcePrototype`, `LuaFluidPrototype`, `LuaFontPrototype`, `LuaForce`, `LuaFuelCategoryPrototype`, `LuaGameScript`, `LuaGenericOnOffControlBehavior`, `LuaGroup`, `LuaGui`, `LuaGuiElement`, `LuaHeatBufferPrototype`, `LuaHeatEnergySourcePrototype`, `LuaInserterControlBehavior`, `LuaInventory`, `LuaItemPrototype`, `LuaItemStack`, `LuaLampControlBehavior`, `LuaLazyLoadedValue`, `LuaLogisticCell`, `LuaLogisticContainerControlBehavior`, `LuaLogisticNetwork`, `LuaLogisticPoint`, `LuaMiningDrillControlBehavior`, `LuaModSettingPrototype`, `LuaModuleCategoryPrototype`, `LuaNamedNoiseExpression`, `LuaNoiseLayerPrototype`, `LuaParticlePrototype`, `LuaPermissionGroup`, `LuaPermissionGroups`, `LuaPlayer`, `LuaProfiler`, `LuaProgrammableSpeakerControlBehavior`, `LuaRCON`, `LuaRailChainSignalControlBehavior`, `LuaRailPath`, `LuaRailSignalControlBehavior`, `LuaRandomGenerator`, `LuaRecipe`, `LuaRecipeCategoryPrototype`, `LuaRecipePrototype`, `LuaRemote`, `LuaRendering`, `LuaResourceCategoryPrototype`, `LuaRoboportControlBehavior`, `LuaSettings`, `LuaShortcutPrototype`, `LuaStorageTankControlBehavior`, `LuaStyle`, `LuaSurface`, `LuaTechnology`, `LuaTechnologyPrototype`, `LuaTile`, `LuaTilePrototype`, `LuaTrain`, `LuaTrainStopControlBehavior`, `LuaTransportBeltControlBehavior`, `LuaTransportLine`, `LuaTrivialSmokePrototype`, `LuaUnitGroup`, `LuaVirtualSignalPrototype`, `LuaVoidEnergySourcePrototype`, `LuaWallControlBehavior`
 2158.json: unknown variant `LuaKillCountFlowStatistics`, expected one of `LuaAISettings`, `LuaAccumulatorControlBehavior`, `LuaAchievementPrototype`, `LuaAmmoCategoryPrototype`, `LuaArithmeticCombinatorControlBehavior`, `LuaAutoplaceControlPrototype`, `LuaBootstrap`, `LuaBurner`, `LuaBurnerPrototype`, `LuaChunkIterator`, `LuaCircuitNetwork`, `LuaCombinatorControlBehavior`, `LuaCommandProcessor`, `LuaConstantCombinatorControlBehavior`, `LuaContainerControlBehavior`, `LuaControl`, `LuaControlBehavior`, `LuaCustomChartTag`, `LuaCustomInputPrototype`, `LuaCustomTable`, `LuaDamagePrototype`, `LuaDeciderCombinatorControlBehavior`, `LuaDecorativePrototype`, `LuaElectricEnergySourcePrototype`, `LuaEntity`, `LuaEntityPrototype`, `LuaEquipment`, `LuaEquipmentCategoryPrototype`, `LuaEquipmentGrid`, `LuaEquipmentGridPrototype`, `LuaEquipmentPrototype`, `LuaFlowStatistics`, `LuaFluidBox`, `LuaFluidBoxPrototype`, `LuaFluidEnergySourcePrototype`, `LuaFluidPrototype`, `LuaFontPrototype`, `LuaForce`, `LuaFuelCategoryPrototype`, `LuaGameScript`, `LuaGenericOnOffControlBehavior`, `LuaGroup`, `LuaGui`, `LuaGuiElement`, `LuaHeatBufferPrototype`, `LuaHeatEnergySourcePrototype`, `LuaInserterControlBehavior`, `LuaInventory`, `LuaItemPrototype`, `LuaItemStack`, `LuaLampControlBehavior`, `LuaLazyLoadedValue`, `LuaLogisticCell`, `LuaLogisticContainerControlBehavior`, `LuaLogisticNetwork`, `LuaLogisticPoint`, `LuaMiningDrillControlBehavior`, `LuaModSettingPrototype`, `LuaModuleCategoryPrototype`, `LuaNamedNoiseExpression`, `LuaNoiseLayerPrototype`, `LuaParticlePrototype`, `LuaPermissionGroup`, `LuaPermissionGroups`, `LuaPlayer`, `LuaProfiler`, `LuaProgrammableSpeakerControlBehavior`, `LuaRCON`, `LuaRailChainSignalControlBehavior`, `LuaRailPath`, `LuaRailSignalControlBehavior`, `LuaRandomGenerator`, `LuaRecipe`, `LuaRecipeCategoryPrototype`, `LuaRecipePrototype`, `LuaRemote`, `LuaRendering`, `LuaResourceCategoryPrototype`, `LuaRoboportControlBehavior`, `LuaSettings`, `LuaShortcutPrototype`, `LuaStorageTankControlBehavior`, `LuaStyle`, `LuaSurface`, `LuaTechnology`, `LuaTechnologyPrototype`, `LuaTile`, `LuaTilePrototype`, `LuaTrain`, `LuaTrainStopControlBehavior`, `LuaTransportBeltControlBehavior`, `LuaTransportLine`, `LuaTrivialSmokePrototype`, `LuaUnitGroup`, `LuaVirtualSignalPrototype`, `LuaVoidEnergySourcePrototype`, `LuaWallControlBehavior`
-2584.json: data did not match any variant of untagged enum ItemPrototypeFlagsUnion
-2585.json: data did not match any variant of untagged enum ItemPrototypeFlagsUnion
-2586.json: data did not match any variant of untagged enum ItemPrototypeFlagsUnion
-2612.json: data did not match any variant of untagged enum ItemPrototypeFlagsUnion
-2629.json: data did not match any variant of untagged enum CollisionMaskLayer
-2630.json: data did not match any variant of untagged enum CollisionMaskLayer
-2631.json: data did not match any variant of untagged enum CollisionMaskLayer
-2632.json: data did not match any variant of untagged enum CollisionMaskLayer
-2633.json: data did not match any variant of untagged enum CollisionMaskLayer
-2634.json: data did not match any variant of untagged enum CollisionMaskLayer
-2635.json: data did not match any variant of untagged enum CollisionMaskLayer
-2636.json: data did not match any variant of untagged enum CollisionMaskLayer
-2637.json: data did not match any variant of untagged enum CollisionMaskLayer
-2638.json: data did not match any variant of untagged enum CollisionMaskLayer
-2639.json: data did not match any variant of untagged enum CollisionMaskLayer
-2640.json: data did not match any variant of untagged enum CollisionMaskLayer
-2641.json: data did not match any variant of untagged enum CollisionMaskLayer
-2642.json: data did not match any variant of untagged enum CollisionMaskLayer
-2643.json: data did not match any variant of untagged enum CollisionMaskLayer
-2644.json: data did not match any variant of untagged enum CollisionMaskLayer
-2645.json: data did not match any variant of untagged enum CollisionMaskLayer
-2646.json: data did not match any variant of untagged enum CollisionMaskLayer
-2647.json: data did not match any variant of untagged enum CollisionMaskLayer
-2648.json: data did not match any variant of untagged enum CollisionMaskLayer
-2649.json: data did not match any variant of untagged enum CollisionMaskLayer
-2650.json: data did not match any variant of untagged enum CollisionMaskLayer
-2651.json: data did not match any variant of untagged enum CollisionMaskLayer
-2652.json: data did not match any variant of untagged enum CollisionMaskLayer
-2653.json: data did not match any variant of untagged enum CollisionMaskLayer
-2654.json: data did not match any variant of untagged enum CollisionMaskLayer
-2655.json: data did not match any variant of untagged enum CollisionMaskLayer
-2656.json: data did not match any variant of untagged enum CollisionMaskLayer
-2657.json: data did not match any variant of untagged enum CollisionMaskLayer
-2658.json: data did not match any variant of untagged enum CollisionMaskLayer
-2659.json: data did not match any variant of untagged enum CollisionMaskLayer
-2660.json: data did not match any variant of untagged enum CollisionMaskLayer
-2661.json: data did not match any variant of untagged enum CollisionMaskLayer
-2662.json: data did not match any variant of untagged enum CollisionMaskLayer
-2663.json: data did not match any variant of untagged enum CollisionMaskLayer
-2664.json: data did not match any variant of untagged enum CollisionMaskLayer
-2665.json: data did not match any variant of untagged enum CollisionMaskLayer
-2666.json: data did not match any variant of untagged enum CollisionMaskLayer
-2667.json: data did not match any variant of untagged enum CollisionMaskLayer
-2668.json: data did not match any variant of untagged enum CollisionMaskLayer
-2669.json: data did not match any variant of untagged enum CollisionMaskLayer
-2670.json: data did not match any variant of untagged enum CollisionMaskLayer
-2671.json: data did not match any variant of untagged enum CollisionMaskLayer
-2672.json: data did not match any variant of untagged enum CollisionMaskLayer
-2673.json: data did not match any variant of untagged enum CollisionMaskLayer
-2674.json: data did not match any variant of untagged enum CollisionMaskLayer
-2675.json: data did not match any variant of untagged enum CollisionMaskLayer
+2637.json: data did not match any variant of untagged enum MaybeCycle
+2638.json: data did not match any variant of untagged enum MaybeCycle
+2639.json: data did not match any variant of untagged enum MaybeCycle
+2640.json: data did not match any variant of untagged enum MaybeCycle
+2641.json: data did not match any variant of untagged enum MaybeCycle
+2642.json: data did not match any variant of untagged enum MaybeCycle
+2643.json: data did not match any variant of untagged enum MaybeCycle
+2644.json: data did not match any variant of untagged enum MaybeCycle
+2645.json: data did not match any variant of untagged enum MaybeCycle
+2646.json: data did not match any variant of untagged enum MaybeCycle
+2647.json: data did not match any variant of untagged enum MaybeCycle
+2648.json: data did not match any variant of untagged enum MaybeCycle
+2649.json: data did not match any variant of untagged enum MaybeCycle
+2650.json: data did not match any variant of untagged enum MaybeCycle
+2651.json: data did not match any variant of untagged enum MaybeCycle
+2652.json: data did not match any variant of untagged enum MaybeCycle
+2653.json: data did not match any variant of untagged enum MaybeCycle
+2654.json: data did not match any variant of untagged enum MaybeCycle
+2655.json: data did not match any variant of untagged enum MaybeCycle
+2656.json: data did not match any variant of untagged enum MaybeCycle
+2657.json: data did not match any variant of untagged enum MaybeCycle
+2658.json: data did not match any variant of untagged enum MaybeCycle
+2659.json: data did not match any variant of untagged enum MaybeCycle
+2660.json: data did not match any variant of untagged enum MaybeCycle
+2661.json: data did not match any variant of untagged enum MaybeCycle
+2662.json: data did not match any variant of untagged enum MaybeCycle
+2663.json: data did not match any variant of untagged enum MaybeCycle
+2664.json: data did not match any variant of untagged enum MaybeCycle
+2665.json: data did not match any variant of untagged enum MaybeCycle
+2666.json: data did not match any variant of untagged enum MaybeCycle
+2667.json: data did not match any variant of untagged enum MaybeCycle
+2668.json: data did not match any variant of untagged enum MaybeCycle
+2669.json: data did not match any variant of untagged enum MaybeCycle
+2670.json: data did not match any variant of untagged enum MaybeCycle
+2671.json: data did not match any variant of untagged enum MaybeCycle
+2672.json: data did not match any variant of untagged enum MaybeCycle
+2673.json: data did not match any variant of untagged enum MaybeCycle
+2674.json: data did not match any variant of untagged enum MaybeCycle
+2675.json: data did not match any variant of untagged enum MaybeCycle
 2676.json: invalid type: sequence, expected a map
-2677.json: data did not match any variant of untagged enum CollisionMaskLayer
-2678.json: data did not match any variant of untagged enum CollisionMaskLayer
-2679.json: data did not match any variant of untagged enum CollisionMaskLayer
-2680.json: data did not match any variant of untagged enum CollisionMaskLayer
-2681.json: data did not match any variant of untagged enum CollisionMaskLayer
-2682.json: data did not match any variant of untagged enum CollisionMaskLayer
-2683.json: data did not match any variant of untagged enum CollisionMaskLayer
-2684.json: data did not match any variant of untagged enum CollisionMaskLayer
-2685.json: data did not match any variant of untagged enum CollisionMaskLayer
-2686.json: data did not match any variant of untagged enum CollisionMaskLayer
-2687.json: data did not match any variant of untagged enum ItemPrototypeFlagsUnion
-2688.json: data did not match any variant of untagged enum ItemPrototypeFlagsUnion
-2690.json: data did not match any variant of untagged enum ItemPrototypeFlagsUnion
-2691.json: data did not match any variant of untagged enum ItemPrototypeFlagsUnion
-2761.json: data did not match any variant of untagged enum ItemPrototypeFlagsUnion
-2774.json: data did not match any variant of untagged enum ItemPrototypeFlagsUnion
-2805.json: data did not match any variant of untagged enum ItemPrototypeFlagsUnion
-2806.json: data did not match any variant of untagged enum ItemPrototypeFlagsUnion
-2807.json: data did not match any variant of untagged enum ItemPrototypeFlagsUnion
-2817.json: data did not match any variant of untagged enum ItemPrototypeFlagsUnion
-2818.json: data did not match any variant of untagged enum ItemPrototypeFlagsUnion
-2819.json: data did not match any variant of untagged enum ItemPrototypeFlagsUnion
-2820.json: data did not match any variant of untagged enum ItemPrototypeFlagsUnion
-2821.json: data did not match any variant of untagged enum ItemPrototypeFlagsUnion
-2822.json: data did not match any variant of untagged enum ItemPrototypeFlagsUnion
-2823.json: data did not match any variant of untagged enum ItemPrototypeFlagsUnion
-2824.json: data did not match any variant of untagged enum ItemPrototypeFlagsUnion
-2825.json: data did not match any variant of untagged enum ItemPrototypeFlagsUnion
-2826.json: data did not match any variant of untagged enum ItemPrototypeFlagsUnion
-2827.json: data did not match any variant of untagged enum ItemPrototypeFlagsUnion
-2828.json: data did not match any variant of untagged enum ItemPrototypeFlagsUnion
-2829.json: data did not match any variant of untagged enum ItemPrototypeFlagsUnion
-2830.json: data did not match any variant of untagged enum ItemPrototypeFlagsUnion
-2831.json: data did not match any variant of untagged enum ItemPrototypeFlagsUnion
+2677.json: data did not match any variant of untagged enum MaybeCycle
+2678.json: data did not match any variant of untagged enum MaybeCycle
+2679.json: data did not match any variant of untagged enum MaybeCycle
+2680.json: data did not match any variant of untagged enum MaybeCycle
+2681.json: data did not match any variant of untagged enum MaybeCycle
 3608.json: unknown variant `LuaPollutionFlowStatistics`, expected one of `LuaAISettings`, `LuaAccumulatorControlBehavior`, `LuaAchievementPrototype`, `LuaAmmoCategoryPrototype`, `LuaArithmeticCombinatorControlBehavior`, `LuaAutoplaceControlPrototype`, `LuaBootstrap`, `LuaBurner`, `LuaBurnerPrototype`, `LuaChunkIterator`, `LuaCircuitNetwork`, `LuaCombinatorControlBehavior`, `LuaCommandProcessor`, `LuaConstantCombinatorControlBehavior`, `LuaContainerControlBehavior`, `LuaControl`, `LuaControlBehavior`, `LuaCustomChartTag`, `LuaCustomInputPrototype`, `LuaCustomTable`, `LuaDamagePrototype`, `LuaDeciderCombinatorControlBehavior`, `LuaDecorativePrototype`, `LuaElectricEnergySourcePrototype`, `LuaEntity`, `LuaEntityPrototype`, `LuaEquipment`, `LuaEquipmentCategoryPrototype`, `LuaEquipmentGrid`, `LuaEquipmentGridPrototype`, `LuaEquipmentPrototype`, `LuaFlowStatistics`, `LuaFluidBox`, `LuaFluidBoxPrototype`, `LuaFluidEnergySourcePrototype`, `LuaFluidPrototype`, `LuaFontPrototype`, `LuaForce`, `LuaFuelCategoryPrototype`, `LuaGameScript`, `LuaGenericOnOffControlBehavior`, `LuaGroup`, `LuaGui`, `LuaGuiElement`, `LuaHeatBufferPrototype`, `LuaHeatEnergySourcePrototype`, `LuaInserterControlBehavior`, `LuaInventory`, `LuaItemPrototype`, `LuaItemStack`, `LuaLampControlBehavior`, `LuaLazyLoadedValue`, `LuaLogisticCell`, `LuaLogisticContainerControlBehavior`, `LuaLogisticNetwork`, `LuaLogisticPoint`, `LuaMiningDrillControlBehavior`, `LuaModSettingPrototype`, `LuaModuleCategoryPrototype`, `LuaNamedNoiseExpression`, `LuaNoiseLayerPrototype`, `LuaParticlePrototype`, `LuaPermissionGroup`, `LuaPermissionGroups`, `LuaPlayer`, `LuaProfiler`, `LuaProgrammableSpeakerControlBehavior`, `LuaRCON`, `LuaRailChainSignalControlBehavior`, `LuaRailPath`, `LuaRailSignalControlBehavior`, `LuaRandomGenerator`, `LuaRecipe`, `LuaRecipeCategoryPrototype`, `LuaRecipePrototype`, `LuaRemote`, `LuaRendering`, `LuaResourceCategoryPrototype`, `LuaRoboportControlBehavior`, `LuaSettings`, `LuaShortcutPrototype`, `LuaStorageTankControlBehavior`, `LuaStyle`, `LuaSurface`, `LuaTechnology`, `LuaTechnologyPrototype`, `LuaTile`, `LuaTilePrototype`, `LuaTrain`, `LuaTrainStopControlBehavior`, `LuaTransportBeltControlBehavior`, `LuaTransportLine`, `LuaTrivialSmokePrototype`, `LuaUnitGroup`, `LuaVirtualSignalPrototype`, `LuaVoidEnergySourcePrototype`, `LuaWallControlBehavior`

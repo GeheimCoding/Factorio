@@ -62,7 +62,7 @@ pub struct Alert {
 
 /// A [string](string) that specifies where a GUI element should be.
 #[derive(Debug, Deserialize)]
-#[serde(untagged)]
+#[serde(rename_all = "kebab-case")]
 pub enum Alignment {
     TopLeft,
     MiddleLeft,
@@ -490,7 +490,7 @@ pub struct CircularProjectileCreationSpecification {
 }
 
 #[derive(Debug, Deserialize)]
-#[serde(untagged)]
+#[serde(rename_all = "kebab-case")]
 pub enum CliffOrientation {
     WestToEast,
     NorthToSouth,
@@ -532,9 +532,12 @@ pub type CollisionMask = HashMap<CollisionMaskLayer, bool>;
 /// A [string](string) specifying a collision mask layer.
 ///
 /// In addition to the listed layers, there is `"layer-13"` through `"layer-55"`. These layers are currently unused by the game but may change. If a mod is going to use one of the unused layers it's recommended to start at the higher layers because the base game will take from the lower ones.
+// ================================
+// ========= MANUAL PATCH =========
+
 #[derive(Debug, Deserialize, Eq, PartialEq, Hash)]
-#[serde(untagged)]
-pub enum CollisionMaskLayer {
+#[serde(rename_all = "kebab-case")]
+pub enum CollisionMaskLayerVariants {
     GroundTile,
     WaterTile,
     ResourceLayer,
@@ -552,8 +555,22 @@ pub enum CollisionMaskLayer {
 
 #[derive(Debug, Deserialize, Eq, PartialEq, Hash)]
 #[serde(untagged)]
-pub enum CollisionMaskWithFlagsUnion {
-    CollisionMaskLayer(CollisionMaskLayer),
+pub enum CollisionMaskLayer {
+    Variant(CollisionMaskLayerVariants),
+    String(String),
+}
+
+// TODO: find a solution with serde?
+
+// ========= MANUAL PATCH =========
+// ================================
+
+// ================================
+// ========= MANUAL PATCH =========
+
+#[derive(Debug, Deserialize, Eq, PartialEq, Hash)]
+#[serde(rename_all = "kebab-case")]
+pub enum CollisionMaskFlags {
     /// Any two entities that both have this option enabled on their prototype and have an identical collision mask layers list will not collide. Other collision mask options are not included in the identical layer list check. This does mean that two different prototypes with the same collision mask layers and this option enabled will not collide.
     NotCollidingWithItself,
     /// Uses the prototypes position rather than its collision box when doing collision checks with tile prototypes. Allows the prototype to overlap colliding tiles up until its center point. This is only respected for character movement and cars driven by players.
@@ -561,6 +578,18 @@ pub enum CollisionMaskWithFlagsUnion {
     /// Any prototype with this collision option will only be checked for collision with other prototype's collision masks if they are a tile.
     CollidingWithTilesOnly,
 }
+
+#[derive(Debug, Deserialize, Eq, PartialEq, Hash)]
+#[serde(untagged)]
+pub enum CollisionMaskWithFlagsUnion {
+    CollisionMaskLayer(CollisionMaskLayer),
+    CollisionMaskFlags(CollisionMaskFlags),
+}
+
+// TODO: find a solution with serde?
+
+// ========= MANUAL PATCH =========
+// ================================
 
 /// A [CollisionMask](CollisionMask) which also includes any flags this mask has.
 pub type CollisionMaskWithFlags = HashMap<CollisionMaskWithFlagsUnion, bool>;
@@ -710,7 +739,7 @@ pub struct Command {
 ///
 /// * While the API accepts both versions for `"less/greater than or equal to"` and `"not equal"`, it'll always return `"≥"`, `"≤"` or `"≠"` respectively when reading them back.
 #[derive(Debug, Deserialize)]
-#[serde(untagged)]
+#[serde(rename_all = "kebab-case")]
 pub enum ComparatorString {
     /// "equal to"
     EqualTo,
@@ -766,7 +795,7 @@ pub struct CraftingQueueItem {
 }
 
 #[derive(Debug, Deserialize)]
-#[serde(untagged)]
+#[serde(rename_all = "kebab-case")]
 pub enum CursorBoxRenderType {
     /// Yellow box.
     Entity,
@@ -1070,7 +1099,7 @@ pub struct EntityPrototypeFilter {
 }
 
 #[derive(Debug, Deserialize, Eq, PartialEq, Hash)]
-#[serde(untagged)]
+#[serde(rename_all = "kebab-case")]
 pub enum EntityPrototypeFlagsUnion {
     /// Prevents the entity from being rotated before or after placement.
     NotRotatable,
@@ -1085,6 +1114,7 @@ pub enum EntityPrototypeFlagsUnion {
     /// Makes it possible to blueprint, deconstruct, and repair the entity (which can be turned off again using the specific flags). Makes it possible for the biter AI to target the entity as a distraction. Enables dust to automatically be created when building the entity. If the entity does not have a `map_color` set, this flag makes the entity appear on the map with the default color specified by the UtilityConstants.
     PlayerCreation,
     /// Uses 45 degree angle increments when selecting direction.
+    #[serde(rename = "building-direction-8-way")]
     BuildingDirection8Way,
     /// Used to automatically detect the proper direction of the entity if possible. Used by the pump, train stop, and train signal by default.
     FilterDirections,
@@ -1387,7 +1417,7 @@ pub struct FluidPrototypeFilter {
 }
 
 #[derive(Debug, Deserialize)]
-#[serde(untagged)]
+#[serde(rename_all = "kebab-case")]
 pub enum ForceCondition {
     /// All forces pass.
     All,
@@ -1750,7 +1780,7 @@ pub struct ItemPrototypeFilter {
 }
 
 #[derive(Debug, Deserialize, Eq, PartialEq, Hash)]
-#[serde(untagged)]
+#[serde(rename_all = "kebab-case")]
 pub enum ItemPrototypeFlagsUnion {
     /// Determines whether the logistics areas of roboports should be drawn when holding this item. Used by the deconstruction planner by default.
     DrawLogisticOverlay,
@@ -3273,7 +3303,7 @@ pub struct ModuleEffects {
 }
 
 #[derive(Debug, Deserialize, Eq, PartialEq, Hash)]
-#[serde(untagged)]
+#[serde(rename_all = "kebab-case")]
 pub enum MouseButtonFlagsUnion {
     Left,
     Right,
@@ -3752,7 +3782,7 @@ pub enum RenderLayerVariants {
 #[serde(untagged)]
 pub enum RenderLayer {
     Value(u8),
-    String(RenderLayerVariants),
+    Variant(RenderLayerVariants),
 }
 
 // ========= MANUAL PATCH =========
@@ -3823,7 +3853,7 @@ pub struct SelectedPrototypeData {
 }
 
 #[derive(Debug, Deserialize, Eq, PartialEq, Hash)]
-#[serde(untagged)]
+#[serde(rename_all = "kebab-case")]
 pub enum SelectionModeFlagsUnion {
     /// Selects entities and tiles as if selecting them for a blueprint.
     Blueprint,
@@ -3984,7 +4014,7 @@ pub type SoundPath = String;
 
 /// Defines which slider in the game's sound settings affects the volume of this sound. Furthermore, some sound types are mixed differently than others, e.g. zoom level effects are applied.
 #[derive(Debug, Deserialize)]
-#[serde(untagged)]
+#[serde(rename_all = "kebab-case")]
 pub enum SoundType {
     GameEffect,
     GuiEffect,
