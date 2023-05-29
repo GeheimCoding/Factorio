@@ -1,24 +1,24 @@
 0.json: invalid type: sequence, expected a map
-63.json: invalid type: map, expected a sequence
-73.json: invalid type: map, expected a sequence
-75.json: invalid type: map, expected a sequence
-77.json: invalid type: map, expected a sequence
+63.json: data did not match any variant of untagged enum ItemPrototypeFlagsUnion
+73.json: data did not match any variant of untagged enum ItemPrototypeFlagsUnion
+75.json: data did not match any variant of untagged enum ItemPrototypeFlagsUnion
+77.json: data did not match any variant of untagged enum ItemPrototypeFlagsUnion
 89.json: invalid type: string "nan", expected f64
-90.json: invalid type: map, expected a sequence
-91.json: invalid type: map, expected a sequence
+90.json: data did not match any variant of untagged enum CollisionMaskLayer
+91.json: data did not match any variant of untagged enum CollisionMaskLayer
 92.json: invalid type: string "nan", expected f64
-93.json: invalid type: map, expected a sequence
-94.json: invalid type: map, expected a sequence
+93.json: data did not match any variant of untagged enum CollisionMaskLayer
+94.json: data did not match any variant of untagged enum CollisionMaskLayer
 95.json: invalid type: string "nan", expected f64
 96.json: invalid type: string "nan", expected f64
 97.json: invalid type: string "nan", expected f64
 98.json: invalid type: string "nan", expected f64
 99.json: invalid type: string "nan", expected f64
-100.json: invalid type: map, expected a sequence
-101.json: invalid type: map, expected a sequence
+100.json: data did not match any variant of untagged enum CollisionMaskLayer
+101.json: data did not match any variant of untagged enum CollisionMaskLayer
 102.json: invalid type: string "nan", expected f64
 103.json: invalid type: string "nan", expected f64
-104.json: invalid type: map, expected a sequence
+104.json: data did not match any variant of untagged enum CollisionMaskLayer
 105.json: invalid type: string "nan", expected f64
 106.json: invalid type: string "nan", expected f64
 107.json: invalid type: string "nan", expected f64
@@ -26,140 +26,140 @@
 109.json: invalid type: string "nan", expected f64
 110.json: invalid type: string "nan", expected f64
 111.json: invalid type: string "nan", expected f64
-112.json: invalid type: map, expected a sequence
-113.json: invalid type: map, expected a sequence
-114.json: invalid type: map, expected a sequence
+112.json: data did not match any variant of untagged enum CollisionMaskLayer
+113.json: data did not match any variant of untagged enum CollisionMaskLayer
+114.json: data did not match any variant of untagged enum CollisionMaskLayer
 115.json: invalid type: string "nan", expected f64
-116.json: invalid type: map, expected a sequence
-117.json: invalid type: map, expected a sequence
-118.json: invalid type: map, expected a sequence
-119.json: invalid type: map, expected a sequence
-120.json: invalid type: map, expected a sequence
-121.json: invalid type: map, expected a sequence
-122.json: invalid type: map, expected a sequence
-123.json: invalid type: map, expected a sequence
-124.json: invalid type: map, expected a sequence
-125.json: invalid type: map, expected a sequence
-126.json: invalid type: map, expected a sequence
-127.json: invalid type: map, expected a sequence
-128.json: invalid type: map, expected a sequence
-129.json: invalid type: map, expected a sequence
-130.json: invalid type: map, expected a sequence
-131.json: invalid type: map, expected a sequence
-132.json: invalid type: map, expected a sequence
-143.json: invalid type: map, expected a sequence
-144.json: invalid type: map, expected a sequence
-145.json: invalid type: map, expected a sequence
-147.json: invalid type: map, expected a sequence
-148.json: invalid type: map, expected a sequence
-149.json: invalid type: map, expected a sequence
-150.json: invalid type: map, expected a sequence
-151.json: invalid type: map, expected a sequence
-152.json: invalid type: map, expected a sequence
-153.json: invalid type: map, expected a sequence
-154.json: invalid type: map, expected a sequence
-155.json: invalid type: map, expected a sequence
-156.json: invalid type: map, expected a sequence
-158.json: invalid type: map, expected a sequence
-160.json: invalid type: map, expected a sequence
-162.json: invalid type: map, expected a sequence
-164.json: invalid type: map, expected a sequence
-166.json: invalid type: map, expected a sequence
-168.json: invalid type: map, expected a sequence
-170.json: invalid type: map, expected a sequence
-172.json: invalid type: map, expected a sequence
-174.json: invalid type: map, expected a sequence
-176.json: invalid type: map, expected a sequence
-177.json: invalid type: map, expected a sequence
-178.json: invalid type: map, expected a sequence
-179.json: invalid type: map, expected a sequence
-180.json: invalid type: map, expected a sequence
-182.json: invalid type: map, expected a sequence
-184.json: invalid type: map, expected a sequence
-187.json: invalid type: map, expected a sequence
-188.json: invalid type: map, expected a sequence
-189.json: invalid type: map, expected a sequence
-190.json: invalid type: map, expected a sequence
-191.json: invalid type: map, expected a sequence
-192.json: invalid type: map, expected a sequence
-194.json: invalid type: map, expected a sequence
-195.json: invalid type: map, expected a sequence
-196.json: invalid type: map, expected a sequence
-197.json: invalid type: map, expected a sequence
-206.json: invalid type: map, expected a sequence
-208.json: invalid type: map, expected a sequence
-209.json: invalid type: map, expected a sequence
-211.json: invalid type: map, expected a sequence
-212.json: invalid type: map, expected a sequence
-213.json: invalid type: map, expected a sequence
-214.json: invalid type: map, expected a sequence
-216.json: invalid type: map, expected a sequence
-217.json: invalid type: map, expected a sequence
-218.json: invalid type: map, expected a sequence
-219.json: invalid type: map, expected a sequence
-221.json: invalid type: map, expected a sequence
-222.json: invalid type: map, expected a sequence
-223.json: invalid type: map, expected a sequence
-224.json: invalid type: map, expected a sequence
-225.json: invalid type: map, expected a sequence
-226.json: invalid type: map, expected a sequence
-227.json: invalid type: map, expected a sequence
-228.json: invalid type: map, expected a sequence
-230.json: invalid type: map, expected a sequence
-232.json: invalid type: map, expected a sequence
-234.json: invalid type: map, expected a sequence
-236.json: invalid type: map, expected a sequence
-237.json: invalid type: map, expected a sequence
-238.json: invalid type: map, expected a sequence
-240.json: invalid type: map, expected a sequence
-248.json: invalid type: map, expected a sequence
-251.json: invalid type: map, expected a sequence
-253.json: invalid type: map, expected a sequence
-255.json: invalid type: map, expected a sequence
+116.json: data did not match any variant of untagged enum CollisionMaskLayer
+117.json: data did not match any variant of untagged enum CollisionMaskLayer
+118.json: data did not match any variant of untagged enum CollisionMaskLayer
+119.json: data did not match any variant of untagged enum CollisionMaskLayer
+120.json: data did not match any variant of untagged enum CollisionMaskLayer
+121.json: data did not match any variant of untagged enum CollisionMaskLayer
+122.json: data did not match any variant of untagged enum CollisionMaskLayer
+123.json: data did not match any variant of untagged enum CollisionMaskLayer
+124.json: data did not match any variant of untagged enum CollisionMaskLayer
+125.json: data did not match any variant of untagged enum CollisionMaskLayer
+126.json: data did not match any variant of untagged enum CollisionMaskLayer
+127.json: data did not match any variant of untagged enum CollisionMaskLayer
+128.json: data did not match any variant of untagged enum CollisionMaskLayer
+129.json: data did not match any variant of untagged enum CollisionMaskLayer
+130.json: data did not match any variant of untagged enum CollisionMaskLayer
+131.json: data did not match any variant of untagged enum CollisionMaskLayer
+132.json: data did not match any variant of untagged enum CollisionMaskLayer
+143.json: data did not match any variant of untagged enum CollisionMaskLayer
+144.json: data did not match any variant of untagged enum CollisionMaskLayer
+145.json: data did not match any variant of untagged enum CollisionMaskLayer
+147.json: data did not match any variant of untagged enum CollisionMaskLayer
+148.json: data did not match any variant of untagged enum CollisionMaskLayer
+149.json: data did not match any variant of untagged enum CollisionMaskLayer
+150.json: data did not match any variant of untagged enum CollisionMaskLayer
+151.json: data did not match any variant of untagged enum CollisionMaskLayer
+152.json: data did not match any variant of untagged enum CollisionMaskLayer
+153.json: data did not match any variant of untagged enum CollisionMaskLayer
+154.json: data did not match any variant of untagged enum CollisionMaskLayer
+155.json: data did not match any variant of untagged enum CollisionMaskLayer
+156.json: data did not match any variant of untagged enum CollisionMaskLayer
+158.json: data did not match any variant of untagged enum CollisionMaskLayer
+160.json: data did not match any variant of untagged enum CollisionMaskLayer
+162.json: data did not match any variant of untagged enum CollisionMaskLayer
+164.json: data did not match any variant of untagged enum CollisionMaskLayer
+166.json: data did not match any variant of untagged enum CollisionMaskLayer
+168.json: data did not match any variant of untagged enum CollisionMaskLayer
+170.json: data did not match any variant of untagged enum CollisionMaskLayer
+172.json: data did not match any variant of untagged enum CollisionMaskLayer
+174.json: data did not match any variant of untagged enum CollisionMaskLayer
+176.json: data did not match any variant of untagged enum CollisionMaskLayer
+177.json: data did not match any variant of untagged enum CollisionMaskLayer
+178.json: data did not match any variant of untagged enum CollisionMaskLayer
+179.json: data did not match any variant of untagged enum CollisionMaskLayer
+180.json: data did not match any variant of untagged enum CollisionMaskLayer
+182.json: data did not match any variant of untagged enum CollisionMaskLayer
+184.json: data did not match any variant of untagged enum CollisionMaskLayer
+187.json: data did not match any variant of untagged enum CollisionMaskLayer
+188.json: data did not match any variant of untagged enum CollisionMaskLayer
+189.json: data did not match any variant of untagged enum CollisionMaskLayer
+190.json: data did not match any variant of untagged enum CollisionMaskLayer
+191.json: data did not match any variant of untagged enum CollisionMaskLayer
+192.json: data did not match any variant of untagged enum CollisionMaskLayer
+194.json: data did not match any variant of untagged enum CollisionMaskLayer
+195.json: data did not match any variant of untagged enum CollisionMaskLayer
+196.json: data did not match any variant of untagged enum CollisionMaskLayer
+197.json: data did not match any variant of untagged enum ItemPrototypeFlagsUnion
+206.json: data did not match any variant of untagged enum CollisionMaskLayer
+208.json: data did not match any variant of untagged enum ItemPrototypeFlagsUnion
+209.json: data did not match any variant of untagged enum CollisionMaskLayer
+211.json: data did not match any variant of untagged enum ItemPrototypeFlagsUnion
+212.json: data did not match any variant of untagged enum ItemPrototypeFlagsUnion
+213.json: data did not match any variant of untagged enum ItemPrototypeFlagsUnion
+214.json: invalid type: sequence, expected a map
+216.json: data did not match any variant of untagged enum ItemPrototypeFlagsUnion
+217.json: data did not match any variant of untagged enum ItemPrototypeFlagsUnion
+218.json: data did not match any variant of untagged enum ItemPrototypeFlagsUnion
+219.json: data did not match any variant of untagged enum ItemPrototypeFlagsUnion
+221.json: invalid type: sequence, expected a map
+222.json: invalid type: sequence, expected a map
+223.json: data did not match any variant of untagged enum CollisionMaskLayer
+224.json: data did not match any variant of untagged enum CollisionMaskLayer
+225.json: data did not match any variant of untagged enum CollisionMaskLayer
+226.json: data did not match any variant of untagged enum CollisionMaskLayer
+227.json: data did not match any variant of untagged enum CollisionMaskLayer
+228.json: data did not match any variant of untagged enum CollisionMaskLayer
+230.json: data did not match any variant of untagged enum CollisionMaskLayer
+232.json: data did not match any variant of untagged enum CollisionMaskLayer
+234.json: data did not match any variant of untagged enum CollisionMaskLayer
+236.json: data did not match any variant of untagged enum CollisionMaskLayer
+237.json: data did not match any variant of untagged enum CollisionMaskLayer
+238.json: data did not match any variant of untagged enum CollisionMaskLayer
+240.json: data did not match any variant of untagged enum CollisionMaskLayer
+248.json: data did not match any variant of untagged enum CollisionMaskLayer
+251.json: data did not match any variant of untagged enum CollisionMaskLayer
+253.json: data did not match any variant of untagged enum CollisionMaskLayer
+255.json: data did not match any variant of untagged enum CollisionMaskLayer
 257.json: invalid type: integer `0`, expected string or map
-258.json: invalid type: map, expected a sequence
+258.json: data did not match any variant of untagged enum CollisionMaskLayer
 259.json: invalid type: integer `0`, expected string or map
-260.json: invalid type: map, expected a sequence
+260.json: data did not match any variant of untagged enum CollisionMaskLayer
 263.json: invalid type: integer `4`, expected string or map
 264.json: invalid type: integer `4`, expected string or map
-265.json: invalid type: map, expected a sequence
-268.json: invalid type: map, expected a sequence
-270.json: invalid type: map, expected a sequence
-273.json: invalid type: map, expected a sequence
-275.json: invalid type: map, expected a sequence
-278.json: invalid type: map, expected a sequence
-280.json: invalid type: map, expected a sequence
-282.json: invalid type: map, expected a sequence
-284.json: invalid type: map, expected a sequence
-286.json: invalid type: map, expected a sequence
-290.json: invalid type: map, expected a sequence
-294.json: invalid type: map, expected a sequence
-301.json: invalid type: map, expected a sequence
-307.json: invalid type: map, expected a sequence
-309.json: invalid type: map, expected a sequence
-311.json: invalid type: map, expected a sequence
-313.json: invalid type: map, expected a sequence
+265.json: data did not match any variant of untagged enum CollisionMaskLayer
+268.json: data did not match any variant of untagged enum CollisionMaskLayer
+270.json: data did not match any variant of untagged enum CollisionMaskLayer
+273.json: data did not match any variant of untagged enum CollisionMaskLayer
+275.json: data did not match any variant of untagged enum CollisionMaskLayer
+278.json: data did not match any variant of untagged enum CollisionMaskLayer
+280.json: data did not match any variant of untagged enum CollisionMaskLayer
+282.json: data did not match any variant of untagged enum CollisionMaskLayer
+284.json: data did not match any variant of untagged enum CollisionMaskLayer
+286.json: data did not match any variant of untagged enum CollisionMaskLayer
+290.json: data did not match any variant of untagged enum CollisionMaskLayer
+294.json: data did not match any variant of untagged enum CollisionMaskLayer
+301.json: data did not match any variant of untagged enum CollisionMaskLayer
+307.json: data did not match any variant of untagged enum CollisionMaskLayer
+309.json: data did not match any variant of untagged enum CollisionMaskLayer
+311.json: data did not match any variant of untagged enum CollisionMaskLayer
+313.json: data did not match any variant of untagged enum CollisionMaskLayer
 315.json: missing field `affects_target`
-316.json: invalid type: map, expected a sequence
-317.json: invalid type: map, expected a sequence
-318.json: invalid type: map, expected a sequence
+316.json: data did not match any variant of untagged enum CollisionMaskLayer
+317.json: data did not match any variant of untagged enum CollisionMaskLayer
+318.json: data did not match any variant of untagged enum CollisionMaskLayer
 319.json: missing field `source_effects`
 321.json: missing field `source_effects`
-323.json: invalid type: map, expected a sequence
-324.json: invalid type: map, expected a sequence
-326.json: invalid type: map, expected a sequence
-329.json: invalid type: map, expected a sequence
-330.json: invalid type: map, expected a sequence
-332.json: invalid type: map, expected a sequence
-333.json: invalid type: map, expected a sequence
+323.json: data did not match any variant of untagged enum CollisionMaskLayer
+324.json: data did not match any variant of untagged enum CollisionMaskLayer
+326.json: data did not match any variant of untagged enum CollisionMaskLayer
+329.json: data did not match any variant of untagged enum CollisionMaskLayer
+330.json: data did not match any variant of untagged enum CollisionMaskLayer
+332.json: data did not match any variant of untagged enum CollisionMaskLayer
+333.json: data did not match any variant of untagged enum CollisionMaskLayer
 334.json: invalid type: integer `0`, expected string or map
-335.json: invalid type: map, expected a sequence
-336.json: invalid type: map, expected a sequence
-337.json: invalid type: map, expected a sequence
-339.json: invalid type: map, expected a sequence
-342.json: invalid type: map, expected a sequence
-343.json: invalid type: map, expected a sequence
-353.json: invalid type: map, expected a sequence
+335.json: data did not match any variant of untagged enum CollisionMaskLayer
+336.json: data did not match any variant of untagged enum CollisionMaskLayer
+337.json: data did not match any variant of untagged enum CollisionMaskLayer
+339.json: data did not match any variant of untagged enum CollisionMaskLayer
+342.json: data did not match any variant of untagged enum CollisionMaskLayer
+343.json: data did not match any variant of untagged enum CollisionMaskLayer
+353.json: data did not match any variant of untagged enum EntityPrototypeFlagsUnion
 354.json: missing field `source_effects`
 355.json: missing field `source_effects`
 356.json: missing field `source_effects`
@@ -174,34 +174,34 @@
 367.json: missing field `source_effects`
 368.json: missing field `source_effects`
 369.json: missing field `source_effects`
-370.json: invalid type: map, expected a sequence
-371.json: invalid type: map, expected a sequence
+370.json: data did not match any variant of untagged enum CollisionMaskLayer
+371.json: data did not match any variant of untagged enum CollisionMaskLayer
 372.json: missing field `source_effects`
-373.json: invalid type: map, expected a sequence
-397.json: invalid type: map, expected a sequence
+373.json: data did not match any variant of untagged enum CollisionMaskLayer
+397.json: data did not match any variant of untagged enum CollisionMaskLayer
 398.json: invalid type: string "nan", expected f64
 399.json: invalid type: string "nan", expected f64
-400.json: invalid type: map, expected a sequence
+400.json: invalid type: sequence, expected a map
 401.json: invalid type: string "nan", expected f64
-402.json: invalid type: map, expected a sequence
+402.json: invalid type: sequence, expected a map
 403.json: invalid type: string "nan", expected f64
-404.json: invalid type: map, expected a sequence
+404.json: invalid type: sequence, expected a map
 405.json: invalid type: string "nan", expected f64
-406.json: invalid type: map, expected a sequence
+406.json: invalid type: sequence, expected a map
 407.json: invalid type: string "nan", expected f64
-408.json: invalid type: map, expected a sequence
+408.json: invalid type: sequence, expected a map
 409.json: invalid type: string "nan", expected f64
-410.json: invalid type: map, expected a sequence
+410.json: invalid type: sequence, expected a map
 411.json: invalid type: string "nan", expected f64
 412.json: invalid type: string "nan", expected f64
-413.json: invalid type: map, expected a sequence
+413.json: invalid type: sequence, expected a map
 414.json: invalid type: string "nan", expected f64
-415.json: invalid type: map, expected a sequence
+415.json: invalid type: sequence, expected a map
 416.json: invalid type: string "nan", expected f64
 417.json: invalid type: string "nan", expected f64
 418.json: invalid type: string "nan", expected f64
 419.json: invalid type: string "nan", expected f64
-420.json: invalid type: map, expected a sequence
+420.json: invalid type: sequence, expected a map
 421.json: invalid type: string "nan", expected f64
 422.json: invalid type: string "nan", expected f64
 423.json: invalid type: string "nan", expected f64
@@ -209,284 +209,284 @@
 425.json: invalid type: string "nan", expected f64
 426.json: invalid type: string "nan", expected f64
 427.json: invalid type: string "nan", expected f64
-428.json: invalid type: map, expected a sequence
-429.json: invalid type: map, expected a sequence
-430.json: invalid type: map, expected a sequence
-431.json: invalid type: map, expected a sequence
-432.json: invalid type: map, expected a sequence
-433.json: invalid type: map, expected a sequence
-434.json: invalid type: map, expected a sequence
-435.json: invalid type: map, expected a sequence
-436.json: invalid type: map, expected a sequence
-437.json: invalid type: map, expected a sequence
-438.json: invalid type: map, expected a sequence
-439.json: invalid type: map, expected a sequence
-440.json: invalid type: map, expected a sequence
-441.json: invalid type: map, expected a sequence
-442.json: invalid type: map, expected a sequence
-443.json: invalid type: map, expected a sequence
-444.json: invalid type: map, expected a sequence
-445.json: invalid type: map, expected a sequence
-446.json: invalid type: map, expected a sequence
-447.json: invalid type: map, expected a sequence
-448.json: invalid type: map, expected a sequence
-449.json: invalid type: map, expected a sequence
-450.json: invalid type: map, expected a sequence
-451.json: invalid type: map, expected a sequence
-452.json: invalid type: map, expected a sequence
-453.json: invalid type: map, expected a sequence
-454.json: invalid type: map, expected a sequence
-455.json: invalid type: map, expected a sequence
-456.json: invalid type: map, expected a sequence
-457.json: invalid type: map, expected a sequence
-458.json: invalid type: map, expected a sequence
-459.json: invalid type: map, expected a sequence
-460.json: invalid type: map, expected a sequence
-461.json: invalid type: map, expected a sequence
-462.json: invalid type: map, expected a sequence
-463.json: invalid type: map, expected a sequence
-464.json: invalid type: map, expected a sequence
-465.json: invalid type: map, expected a sequence
-466.json: invalid type: map, expected a sequence
-467.json: invalid type: map, expected a sequence
-468.json: invalid type: map, expected a sequence
-469.json: invalid type: map, expected a sequence
-470.json: invalid type: map, expected a sequence
-471.json: invalid type: map, expected a sequence
-472.json: invalid type: map, expected a sequence
-473.json: invalid type: map, expected a sequence
-474.json: invalid type: map, expected a sequence
-475.json: invalid type: map, expected a sequence
-476.json: invalid type: map, expected a sequence
-477.json: invalid type: map, expected a sequence
-478.json: invalid type: map, expected a sequence
-479.json: invalid type: map, expected a sequence
-480.json: invalid type: map, expected a sequence
-481.json: invalid type: map, expected a sequence
-482.json: invalid type: map, expected a sequence
-483.json: invalid type: map, expected a sequence
-484.json: invalid type: map, expected a sequence
-485.json: invalid type: map, expected a sequence
-486.json: invalid type: map, expected a sequence
-487.json: invalid type: map, expected a sequence
-488.json: invalid type: map, expected a sequence
-489.json: invalid type: map, expected a sequence
-490.json: invalid type: map, expected a sequence
-491.json: invalid type: map, expected a sequence
-492.json: invalid type: map, expected a sequence
-493.json: invalid type: map, expected a sequence
-494.json: invalid type: map, expected a sequence
-495.json: invalid type: map, expected a sequence
-496.json: invalid type: map, expected a sequence
-497.json: invalid type: map, expected a sequence
-498.json: invalid type: map, expected a sequence
-499.json: invalid type: map, expected a sequence
-500.json: invalid type: map, expected a sequence
-501.json: invalid type: map, expected a sequence
-502.json: invalid type: map, expected a sequence
-503.json: invalid type: map, expected a sequence
-504.json: invalid type: map, expected a sequence
-505.json: invalid type: map, expected a sequence
-506.json: invalid type: map, expected a sequence
-507.json: invalid type: map, expected a sequence
-508.json: invalid type: map, expected a sequence
-509.json: invalid type: map, expected a sequence
-510.json: invalid type: map, expected a sequence
-511.json: invalid type: map, expected a sequence
-512.json: invalid type: map, expected a sequence
-513.json: invalid type: map, expected a sequence
-514.json: invalid type: map, expected a sequence
-515.json: invalid type: map, expected a sequence
-516.json: invalid type: map, expected a sequence
-517.json: invalid type: map, expected a sequence
-518.json: invalid type: map, expected a sequence
-519.json: invalid type: map, expected a sequence
-520.json: invalid type: map, expected a sequence
-521.json: invalid type: map, expected a sequence
-522.json: invalid type: map, expected a sequence
-523.json: invalid type: map, expected a sequence
-524.json: invalid type: map, expected a sequence
-525.json: invalid type: map, expected a sequence
-526.json: invalid type: map, expected a sequence
-527.json: invalid type: map, expected a sequence
-528.json: invalid type: map, expected a sequence
-529.json: invalid type: map, expected a sequence
-530.json: invalid type: map, expected a sequence
-531.json: invalid type: map, expected a sequence
-532.json: invalid type: map, expected a sequence
-533.json: invalid type: map, expected a sequence
-534.json: invalid type: map, expected a sequence
-535.json: invalid type: map, expected a sequence
-536.json: invalid type: map, expected a sequence
-537.json: invalid type: map, expected a sequence
-538.json: invalid type: map, expected a sequence
-539.json: invalid type: map, expected a sequence
-540.json: invalid type: map, expected a sequence
-541.json: invalid type: map, expected a sequence
-542.json: invalid type: map, expected a sequence
-543.json: invalid type: map, expected a sequence
-544.json: invalid type: map, expected a sequence
-545.json: invalid type: map, expected a sequence
-546.json: invalid type: map, expected a sequence
-547.json: invalid type: map, expected a sequence
-548.json: invalid type: map, expected a sequence
-549.json: invalid type: map, expected a sequence
-550.json: invalid type: map, expected a sequence
-551.json: invalid type: map, expected a sequence
-552.json: missing field `source_effects`
-578.json: missing field `source_effects`
-579.json: missing field `source_effects`
-580.json: missing field `source_effects`
-581.json: missing field `source_effects`
-582.json: missing field `source_effects`
-583.json: missing field `source_effects`
-584.json: missing field `source_effects`
-585.json: missing field `source_effects`
-586.json: missing field `source_effects`
-587.json: missing field `source_effects`
-588.json: missing field `source_effects`
-589.json: missing field `source_effects`
-590.json: missing field `source_effects`
-591.json: missing field `source_effects`
-592.json: missing field `source_effects`
-593.json: missing field `source_effects`
-594.json: missing field `source_effects`
-595.json: missing field `source_effects`
-596.json: missing field `source_effects`
-597.json: missing field `source_effects`
-598.json: missing field `source_effects`
-599.json: missing field `source_effects`
-600.json: missing field `source_effects`
-601.json: missing field `source_effects`
-602.json: missing field `source_effects`
-603.json: missing field `source_effects`
-604.json: missing field `source_effects`
-605.json: missing field `source_effects`
-606.json: missing field `source_effects`
-607.json: missing field `source_effects`
-608.json: missing field `source_effects`
-609.json: missing field `source_effects`
-610.json: missing field `source_effects`
-611.json: missing field `source_effects`
-612.json: missing field `source_effects`
-613.json: missing field `source_effects`
-614.json: missing field `source_effects`
-615.json: missing field `source_effects`
-616.json: missing field `source_effects`
-617.json: missing field `source_effects`
-618.json: missing field `source_effects`
-619.json: missing field `source_effects`
-620.json: missing field `source_effects`
-621.json: missing field `source_effects`
-622.json: missing field `source_effects`
-623.json: missing field `source_effects`
-624.json: missing field `source_effects`
-625.json: missing field `source_effects`
-626.json: missing field `source_effects`
-627.json: missing field `source_effects`
-628.json: missing field `source_effects`
-629.json: missing field `source_effects`
-630.json: missing field `source_effects`
-631.json: missing field `source_effects`
-632.json: missing field `source_effects`
-633.json: missing field `source_effects`
-634.json: missing field `source_effects`
-635.json: missing field `source_effects`
-636.json: missing field `source_effects`
-637.json: missing field `source_effects`
-638.json: missing field `source_effects`
-639.json: missing field `source_effects`
-640.json: missing field `source_effects`
-641.json: missing field `source_effects`
-642.json: missing field `source_effects`
-643.json: missing field `source_effects`
-644.json: missing field `source_effects`
-645.json: missing field `source_effects`
-646.json: missing field `source_effects`
-647.json: missing field `source_effects`
-648.json: missing field `source_effects`
-649.json: missing field `source_effects`
-650.json: missing field `source_effects`
-651.json: missing field `source_effects`
-652.json: invalid type: map, expected a sequence
-653.json: missing field `source_effects`
-654.json: missing field `source_effects`
-655.json: missing field `source_effects`
-656.json: missing field `source_effects`
-657.json: missing field `source_effects`
-658.json: missing field `source_effects`
-659.json: missing field `source_effects`
-660.json: missing field `source_effects`
-661.json: missing field `source_effects`
-662.json: missing field `source_effects`
-663.json: missing field `source_effects`
-664.json: missing field `source_effects`
-665.json: invalid type: map, expected a sequence
-666.json: invalid type: map, expected a sequence
-667.json: missing field `source_effects`
-668.json: missing field `source_effects`
-669.json: missing field `source_effects`
-670.json: missing field `source_effects`
-671.json: missing field `source_effects`
-672.json: invalid type: map, expected a sequence
-673.json: missing field `source_effects`
-674.json: missing field `source_effects`
-675.json: missing field `source_effects`
-676.json: missing field `source_effects`
-677.json: missing field `source_effects`
-678.json: missing field `source_effects`
-679.json: invalid type: map, expected a sequence
-680.json: invalid type: map, expected a sequence
-681.json: invalid type: map, expected a sequence
-682.json: invalid type: map, expected a sequence
-683.json: invalid type: map, expected a sequence
-684.json: invalid type: map, expected a sequence
-685.json: missing field `source_effects`
-686.json: invalid type: map, expected a sequence
-687.json: missing field `source_effects`
-688.json: missing field `source_effects`
-689.json: missing field `source_effects`
-690.json: missing field `source_effects`
-691.json: missing field `source_effects`
-692.json: invalid type: map, expected a sequence
-693.json: missing field `source_effects`
-694.json: missing field `source_effects`
-695.json: missing field `source_effects`
-696.json: missing field `source_effects`
-697.json: invalid type: map, expected a sequence
-698.json: invalid type: map, expected a sequence
-699.json: missing field `source_effects`
-700.json: missing field `source_effects`
-701.json: missing field `source_effects`
-702.json: missing field `source_effects`
-703.json: missing field `source_effects`
-704.json: missing field `source_effects`
-705.json: missing field `source_effects`
-706.json: missing field `flags`
-707.json: missing field `flags`
-708.json: missing field `flags`
-709.json: missing field `flags`
-710.json: invalid type: map, expected a sequence
-711.json: invalid type: map, expected a sequence
-712.json: invalid type: map, expected a sequence
-713.json: invalid type: map, expected a sequence
-714.json: invalid type: map, expected a sequence
-715.json: invalid type: map, expected a sequence
-716.json: invalid type: map, expected a sequence
-717.json: invalid type: map, expected a sequence
-718.json: invalid type: map, expected a sequence
-719.json: invalid type: map, expected a sequence
-720.json: invalid type: map, expected a sequence
-721.json: invalid type: map, expected a sequence
-722.json: invalid type: map, expected a sequence
-723.json: invalid type: map, expected a sequence
-724.json: invalid type: map, expected a sequence
-725.json: invalid type: map, expected a sequence
-726.json: invalid type: map, expected a sequence
-727.json: invalid type: map, expected a sequence
-728.json: invalid type: map, expected a sequence
-729.json: invalid type: map, expected a sequence
-730.json: invalid type: map, expected a sequence
+428.json: data did not match any variant of untagged enum CollisionMaskLayer
+429.json: data did not match any variant of untagged enum CollisionMaskLayer
+430.json: data did not match any variant of untagged enum CollisionMaskLayer
+431.json: invalid type: sequence, expected a map
+432.json: invalid type: sequence, expected a map
+433.json: invalid type: sequence, expected a map
+434.json: invalid type: sequence, expected a map
+435.json: invalid type: sequence, expected a map
+436.json: invalid type: sequence, expected a map
+437.json: invalid type: sequence, expected a map
+438.json: invalid type: sequence, expected a map
+439.json: invalid type: sequence, expected a map
+440.json: invalid type: sequence, expected a map
+441.json: invalid type: sequence, expected a map
+442.json: invalid type: sequence, expected a map
+443.json: invalid type: sequence, expected a map
+444.json: invalid type: sequence, expected a map
+445.json: invalid type: sequence, expected a map
+446.json: invalid type: sequence, expected a map
+447.json: invalid type: sequence, expected a map
+448.json: invalid type: sequence, expected a map
+449.json: invalid type: sequence, expected a map
+450.json: invalid type: sequence, expected a map
+451.json: invalid type: sequence, expected a map
+452.json: invalid type: sequence, expected a map
+453.json: invalid type: sequence, expected a map
+454.json: invalid type: sequence, expected a map
+455.json: invalid type: sequence, expected a map
+456.json: invalid type: sequence, expected a map
+457.json: invalid type: sequence, expected a map
+458.json: invalid type: sequence, expected a map
+459.json: invalid type: sequence, expected a map
+460.json: invalid type: sequence, expected a map
+461.json: invalid type: sequence, expected a map
+462.json: invalid type: sequence, expected a map
+463.json: invalid type: sequence, expected a map
+464.json: invalid type: sequence, expected a map
+465.json: invalid type: sequence, expected a map
+466.json: invalid type: sequence, expected a map
+467.json: invalid type: sequence, expected a map
+468.json: invalid type: sequence, expected a map
+469.json: invalid type: sequence, expected a map
+470.json: invalid type: sequence, expected a map
+471.json: invalid type: sequence, expected a map
+472.json: invalid type: sequence, expected a map
+473.json: invalid type: sequence, expected a map
+474.json: invalid type: sequence, expected a map
+475.json: invalid type: sequence, expected a map
+476.json: invalid type: sequence, expected a map
+477.json: invalid type: sequence, expected a map
+478.json: invalid type: sequence, expected a map
+479.json: invalid type: sequence, expected a map
+480.json: invalid type: sequence, expected a map
+481.json: invalid type: sequence, expected a map
+482.json: invalid type: sequence, expected a map
+483.json: invalid type: sequence, expected a map
+484.json: invalid type: sequence, expected a map
+485.json: invalid type: sequence, expected a map
+486.json: invalid type: sequence, expected a map
+487.json: invalid type: sequence, expected a map
+488.json: invalid type: sequence, expected a map
+489.json: invalid type: sequence, expected a map
+490.json: invalid type: sequence, expected a map
+491.json: invalid type: sequence, expected a map
+492.json: invalid type: sequence, expected a map
+493.json: invalid type: sequence, expected a map
+494.json: invalid type: sequence, expected a map
+495.json: invalid type: sequence, expected a map
+496.json: invalid type: sequence, expected a map
+497.json: invalid type: sequence, expected a map
+498.json: invalid type: sequence, expected a map
+499.json: invalid type: sequence, expected a map
+500.json: invalid type: sequence, expected a map
+501.json: invalid type: sequence, expected a map
+502.json: invalid type: sequence, expected a map
+503.json: invalid type: sequence, expected a map
+504.json: invalid type: sequence, expected a map
+505.json: invalid type: sequence, expected a map
+506.json: invalid type: sequence, expected a map
+507.json: invalid type: sequence, expected a map
+508.json: invalid type: sequence, expected a map
+509.json: invalid type: sequence, expected a map
+510.json: invalid type: sequence, expected a map
+511.json: invalid type: sequence, expected a map
+512.json: invalid type: sequence, expected a map
+513.json: invalid type: sequence, expected a map
+514.json: invalid type: sequence, expected a map
+515.json: invalid type: sequence, expected a map
+516.json: invalid type: sequence, expected a map
+517.json: invalid type: sequence, expected a map
+518.json: invalid type: sequence, expected a map
+519.json: invalid type: sequence, expected a map
+520.json: invalid type: sequence, expected a map
+521.json: invalid type: sequence, expected a map
+522.json: invalid type: sequence, expected a map
+523.json: invalid type: sequence, expected a map
+524.json: invalid type: sequence, expected a map
+525.json: invalid type: sequence, expected a map
+526.json: invalid type: sequence, expected a map
+527.json: invalid type: sequence, expected a map
+528.json: invalid type: sequence, expected a map
+529.json: invalid type: sequence, expected a map
+530.json: invalid type: sequence, expected a map
+531.json: data did not match any variant of untagged enum CollisionMaskLayer
+532.json: data did not match any variant of untagged enum CollisionMaskLayer
+533.json: data did not match any variant of untagged enum CollisionMaskLayer
+534.json: data did not match any variant of untagged enum CollisionMaskLayer
+535.json: data did not match any variant of untagged enum CollisionMaskLayer
+536.json: data did not match any variant of untagged enum CollisionMaskLayer
+537.json: data did not match any variant of untagged enum CollisionMaskLayer
+538.json: data did not match any variant of untagged enum CollisionMaskLayer
+539.json: invalid type: sequence, expected a map
+540.json: invalid type: sequence, expected a map
+541.json: invalid type: sequence, expected a map
+542.json: invalid type: sequence, expected a map
+543.json: invalid type: sequence, expected a map
+544.json: invalid type: sequence, expected a map
+545.json: invalid type: sequence, expected a map
+546.json: invalid type: sequence, expected a map
+547.json: data did not match any variant of untagged enum CollisionMaskLayer
+548.json: data did not match any variant of untagged enum CollisionMaskLayer
+549.json: data did not match any variant of untagged enum CollisionMaskLayer
+550.json: data did not match any variant of untagged enum CollisionMaskLayer
+551.json: data did not match any variant of untagged enum CollisionMaskLayer
+552.json: invalid type: sequence, expected a map
+578.json: invalid type: sequence, expected a map
+579.json: invalid type: sequence, expected a map
+580.json: invalid type: sequence, expected a map
+581.json: invalid type: sequence, expected a map
+582.json: invalid type: sequence, expected a map
+583.json: invalid type: sequence, expected a map
+584.json: invalid type: sequence, expected a map
+585.json: invalid type: sequence, expected a map
+586.json: invalid type: sequence, expected a map
+587.json: invalid type: sequence, expected a map
+588.json: invalid type: sequence, expected a map
+589.json: invalid type: sequence, expected a map
+590.json: invalid type: sequence, expected a map
+591.json: invalid type: sequence, expected a map
+592.json: invalid type: sequence, expected a map
+593.json: invalid type: sequence, expected a map
+594.json: invalid type: sequence, expected a map
+595.json: invalid type: sequence, expected a map
+596.json: invalid type: sequence, expected a map
+597.json: invalid type: sequence, expected a map
+598.json: invalid type: sequence, expected a map
+599.json: invalid type: sequence, expected a map
+600.json: invalid type: sequence, expected a map
+601.json: invalid type: sequence, expected a map
+602.json: invalid type: sequence, expected a map
+603.json: invalid type: sequence, expected a map
+604.json: invalid type: sequence, expected a map
+605.json: invalid type: sequence, expected a map
+606.json: invalid type: sequence, expected a map
+607.json: invalid type: sequence, expected a map
+608.json: invalid type: sequence, expected a map
+609.json: invalid type: sequence, expected a map
+610.json: invalid type: sequence, expected a map
+611.json: invalid type: sequence, expected a map
+612.json: invalid type: sequence, expected a map
+613.json: invalid type: sequence, expected a map
+614.json: invalid type: sequence, expected a map
+615.json: invalid type: sequence, expected a map
+616.json: invalid type: sequence, expected a map
+617.json: invalid type: sequence, expected a map
+618.json: invalid type: sequence, expected a map
+619.json: invalid type: sequence, expected a map
+620.json: invalid type: sequence, expected a map
+621.json: invalid type: sequence, expected a map
+622.json: invalid type: sequence, expected a map
+623.json: invalid type: sequence, expected a map
+624.json: invalid type: sequence, expected a map
+625.json: invalid type: sequence, expected a map
+626.json: invalid type: sequence, expected a map
+627.json: invalid type: sequence, expected a map
+628.json: invalid type: sequence, expected a map
+629.json: invalid type: sequence, expected a map
+630.json: invalid type: sequence, expected a map
+631.json: invalid type: sequence, expected a map
+632.json: invalid type: sequence, expected a map
+633.json: invalid type: sequence, expected a map
+634.json: invalid type: sequence, expected a map
+635.json: invalid type: sequence, expected a map
+636.json: invalid type: sequence, expected a map
+637.json: invalid type: sequence, expected a map
+638.json: invalid type: sequence, expected a map
+639.json: invalid type: sequence, expected a map
+640.json: invalid type: sequence, expected a map
+641.json: invalid type: sequence, expected a map
+642.json: invalid type: sequence, expected a map
+643.json: invalid type: sequence, expected a map
+644.json: invalid type: sequence, expected a map
+645.json: invalid type: sequence, expected a map
+646.json: invalid type: sequence, expected a map
+647.json: invalid type: sequence, expected a map
+648.json: invalid type: sequence, expected a map
+649.json: invalid type: sequence, expected a map
+650.json: invalid type: sequence, expected a map
+651.json: invalid type: sequence, expected a map
+652.json: invalid type: sequence, expected a map
+653.json: invalid type: sequence, expected a map
+654.json: invalid type: sequence, expected a map
+655.json: invalid type: sequence, expected a map
+656.json: invalid type: sequence, expected a map
+657.json: invalid type: sequence, expected a map
+658.json: invalid type: sequence, expected a map
+659.json: invalid type: sequence, expected a map
+660.json: invalid type: sequence, expected a map
+661.json: invalid type: sequence, expected a map
+662.json: invalid type: sequence, expected a map
+663.json: invalid type: sequence, expected a map
+664.json: invalid type: sequence, expected a map
+665.json: invalid type: sequence, expected a map
+666.json: invalid type: sequence, expected a map
+667.json: invalid type: sequence, expected a map
+668.json: invalid type: sequence, expected a map
+669.json: invalid type: sequence, expected a map
+670.json: invalid type: sequence, expected a map
+671.json: invalid type: sequence, expected a map
+672.json: invalid type: sequence, expected a map
+673.json: invalid type: sequence, expected a map
+674.json: invalid type: sequence, expected a map
+675.json: invalid type: sequence, expected a map
+676.json: invalid type: sequence, expected a map
+677.json: invalid type: sequence, expected a map
+678.json: invalid type: sequence, expected a map
+679.json: invalid type: sequence, expected a map
+680.json: invalid type: sequence, expected a map
+681.json: invalid type: sequence, expected a map
+682.json: invalid type: sequence, expected a map
+683.json: invalid type: sequence, expected a map
+684.json: invalid type: sequence, expected a map
+685.json: invalid type: sequence, expected a map
+686.json: invalid type: sequence, expected a map
+687.json: invalid type: sequence, expected a map
+688.json: invalid type: sequence, expected a map
+689.json: invalid type: sequence, expected a map
+690.json: invalid type: sequence, expected a map
+691.json: invalid type: sequence, expected a map
+692.json: invalid type: sequence, expected a map
+693.json: invalid type: sequence, expected a map
+694.json: invalid type: sequence, expected a map
+695.json: invalid type: sequence, expected a map
+696.json: invalid type: sequence, expected a map
+697.json: invalid type: sequence, expected a map
+698.json: invalid type: sequence, expected a map
+699.json: invalid type: sequence, expected a map
+700.json: invalid type: sequence, expected a map
+701.json: invalid type: sequence, expected a map
+702.json: invalid type: sequence, expected a map
+703.json: invalid type: sequence, expected a map
+704.json: invalid type: sequence, expected a map
+705.json: invalid type: sequence, expected a map
+706.json: invalid type: sequence, expected a map
+707.json: invalid type: sequence, expected a map
+708.json: invalid type: sequence, expected a map
+709.json: invalid type: sequence, expected a map
+710.json: invalid type: sequence, expected a map
+711.json: invalid type: sequence, expected a map
+712.json: invalid type: sequence, expected a map
+713.json: invalid type: sequence, expected a map
+714.json: invalid type: sequence, expected a map
+715.json: invalid type: sequence, expected a map
+716.json: invalid type: sequence, expected a map
+717.json: invalid type: sequence, expected a map
+718.json: invalid type: sequence, expected a map
+719.json: invalid type: sequence, expected a map
+720.json: invalid type: sequence, expected a map
+721.json: invalid type: sequence, expected a map
+722.json: invalid type: sequence, expected a map
+723.json: invalid type: sequence, expected a map
+724.json: invalid type: sequence, expected a map
+725.json: invalid type: sequence, expected a map
+726.json: invalid type: sequence, expected a map
+727.json: invalid type: sequence, expected a map
+728.json: invalid type: sequence, expected a map
+729.json: invalid type: sequence, expected a map
+730.json: invalid type: sequence, expected a map
 731.json: missing field `affects_target`
 732.json: missing field `source_effects`
 733.json: missing field `source_effects`
@@ -494,100 +494,100 @@
 735.json: missing field `source_effects`
 736.json: missing field `source_effects`
 737.json: missing field `source_effects`
-738.json: missing field `flags`
+738.json: invalid type: sequence, expected a map
 739.json: missing field `affects_target`
 740.json: missing field `source_effects`
 741.json: missing field `source_effects`
-742.json: invalid type: map, expected a sequence
+742.json: invalid type: sequence, expected a map
 743.json: missing field `source_effects`
 744.json: missing field `source_effects`
-745.json: invalid type: map, expected a sequence
-746.json: invalid type: map, expected a sequence
-747.json: invalid type: map, expected a sequence
+745.json: invalid type: sequence, expected a map
+746.json: data did not match any variant of untagged enum CollisionMaskLayer
+747.json: data did not match any variant of untagged enum CollisionMaskLayer
 748.json: missing field `source_effects`
-749.json: invalid type: map, expected a sequence
+749.json: invalid type: sequence, expected a map
 750.json: missing field `source_effects`
-751.json: invalid type: map, expected a sequence
-752.json: invalid type: map, expected a sequence
-753.json: invalid type: map, expected a sequence
-754.json: invalid type: map, expected a sequence
-755.json: invalid type: map, expected a sequence
-756.json: invalid type: map, expected a sequence
-757.json: invalid type: map, expected a sequence
-758.json: invalid type: map, expected a sequence
-759.json: invalid type: map, expected a sequence
-760.json: invalid type: map, expected a sequence
-761.json: invalid type: map, expected a sequence
-762.json: invalid type: map, expected a sequence
-763.json: invalid type: map, expected a sequence
+751.json: data did not match any variant of untagged enum CollisionMaskLayer
+752.json: data did not match any variant of untagged enum CollisionMaskLayer
+753.json: data did not match any variant of untagged enum CollisionMaskLayer
+754.json: data did not match any variant of untagged enum CollisionMaskLayer
+755.json: data did not match any variant of untagged enum CollisionMaskLayer
+756.json: data did not match any variant of untagged enum CollisionMaskLayer
+757.json: data did not match any variant of untagged enum CollisionMaskLayer
+758.json: data did not match any variant of untagged enum CollisionMaskLayer
+759.json: data did not match any variant of untagged enum CollisionMaskLayer
+760.json: data did not match any variant of untagged enum CollisionMaskLayer
+761.json: data did not match any variant of untagged enum CollisionMaskLayer
+762.json: data did not match any variant of untagged enum CollisionMaskLayer
+763.json: data did not match any variant of untagged enum CollisionMaskLayer
 764.json: missing field `source_effects`
 765.json: missing field `source_effects`
 766.json: missing field `source_effects`
-767.json: invalid type: map, expected a sequence
+767.json: invalid type: sequence, expected a map
 768.json: missing field `source_effects`
 769.json: missing field `source_effects`
-770.json: invalid type: map, expected a sequence
-771.json: invalid type: map, expected a sequence
+770.json: data did not match any variant of untagged enum CollisionMaskLayer
+771.json: invalid type: sequence, expected a map
 772.json: missing field `source_effects`
 773.json: missing field `affects_target`
 774.json: missing field `source_effects`
-775.json: invalid type: map, expected a sequence
-776.json: invalid type: map, expected a sequence
-777.json: invalid type: map, expected a sequence
-778.json: invalid type: map, expected a sequence
-779.json: invalid type: map, expected a sequence
-780.json: invalid type: map, expected a sequence
-781.json: invalid type: map, expected a sequence
+775.json: data did not match any variant of untagged enum CollisionMaskLayer
+776.json: data did not match any variant of untagged enum CollisionMaskLayer
+777.json: data did not match any variant of untagged enum CollisionMaskLayer
+778.json: invalid type: sequence, expected a map
+779.json: invalid type: sequence, expected a map
+780.json: invalid type: sequence, expected a map
+781.json: invalid type: sequence, expected a map
 782.json: missing field `source_effects`
-783.json: invalid type: map, expected a sequence
+783.json: invalid type: sequence, expected a map
 784.json: missing field `source_effects`
 785.json: missing field `source_effects`
-786.json: missing field `flags`
-787.json: invalid type: map, expected a sequence
-788.json: invalid type: map, expected a sequence
+786.json: invalid type: sequence, expected a map
+787.json: data did not match any variant of untagged enum CollisionMaskLayer
+788.json: invalid type: sequence, expected a map
 789.json: missing field `source_effects`
 790.json: missing field `source_effects`
-791.json: missing field `flags`
-792.json: invalid type: map, expected a sequence
-794.json: invalid type: map, expected a sequence
-795.json: missing field `flags`
+791.json: invalid type: sequence, expected a map
+792.json: data did not match any variant of untagged enum CollisionMaskLayer
+794.json: invalid type: sequence, expected a map
+795.json: invalid type: sequence, expected a map
 796.json: missing field `source_effects`
 797.json: missing field `source_effects`
 798.json: missing field `affects_target`
-799.json: invalid type: map, expected a sequence
+799.json: invalid type: sequence, expected a map
 800.json: missing field `source_effects`
-801.json: invalid type: map, expected a sequence
-802.json: invalid type: map, expected a sequence
+801.json: invalid type: sequence, expected a map
+802.json: invalid type: sequence, expected a map
 803.json: missing field `source_effects`
 804.json: missing field `source_effects`
-805.json: missing field `flags`
-806.json: invalid type: map, expected a sequence
-807.json: invalid type: map, expected a sequence
-808.json: invalid type: map, expected a sequence
-809.json: invalid type: map, expected a sequence
-810.json: invalid type: map, expected a sequence
-811.json: invalid type: map, expected a sequence
-812.json: invalid type: map, expected a sequence
-813.json: invalid type: map, expected a sequence
-814.json: invalid type: map, expected a sequence
-815.json: invalid type: map, expected a sequence
-816.json: invalid type: map, expected a sequence
+805.json: invalid type: sequence, expected a map
+806.json: invalid type: sequence, expected a map
+807.json: data did not match any variant of untagged enum CollisionMaskLayer
+808.json: data did not match any variant of untagged enum CollisionMaskLayer
+809.json: data did not match any variant of untagged enum CollisionMaskLayer
+810.json: data did not match any variant of untagged enum CollisionMaskLayer
+811.json: data did not match any variant of untagged enum CollisionMaskLayer
+812.json: data did not match any variant of untagged enum CollisionMaskLayer
+813.json: data did not match any variant of untagged enum CollisionMaskLayer
+814.json: data did not match any variant of untagged enum CollisionMaskLayer
+815.json: invalid type: sequence, expected a map
+816.json: invalid type: sequence, expected a map
 817.json: missing field `source_effects`
-818.json: invalid type: map, expected a sequence
-819.json: invalid type: map, expected a sequence
-820.json: invalid type: map, expected a sequence
-821.json: invalid type: map, expected a sequence
-822.json: invalid type: map, expected a sequence
+818.json: data did not match any variant of untagged enum CollisionMaskLayer
+819.json: invalid type: sequence, expected a map
+820.json: invalid type: sequence, expected a map
+821.json: invalid type: sequence, expected a map
+822.json: invalid type: sequence, expected a map
 823.json: missing field `source_effects`
-824.json: invalid type: map, expected a sequence
-825.json: invalid type: map, expected a sequence
-826.json: invalid type: map, expected a sequence
-827.json: invalid type: map, expected a sequence
-828.json: invalid type: map, expected a sequence
-829.json: invalid type: map, expected a sequence
-830.json: invalid type: map, expected a sequence
-831.json: invalid type: map, expected a sequence
-833.json: invalid type: map, expected a sequence
+824.json: data did not match any variant of untagged enum CollisionMaskLayer
+825.json: data did not match any variant of untagged enum CollisionMaskLayer
+826.json: data did not match any variant of untagged enum CollisionMaskLayer
+827.json: data did not match any variant of untagged enum CollisionMaskLayer
+828.json: data did not match any variant of untagged enum CollisionMaskLayer
+829.json: data did not match any variant of untagged enum CollisionMaskLayer
+830.json: data did not match any variant of untagged enum CollisionMaskLayer
+831.json: data did not match any variant of untagged enum CollisionMaskLayer
+833.json: data did not match any variant of untagged enum CollisionMaskLayer
 914.json: invalid type: sequence, expected a map
 915.json: unknown variant `LuaEntityBuildFlowStatistics`, expected one of `LuaAISettings`, `LuaAccumulatorControlBehavior`, `LuaAchievementPrototype`, `LuaAmmoCategoryPrototype`, `LuaArithmeticCombinatorControlBehavior`, `LuaAutoplaceControlPrototype`, `LuaBootstrap`, `LuaBurner`, `LuaBurnerPrototype`, `LuaChunkIterator`, `LuaCircuitNetwork`, `LuaCombinatorControlBehavior`, `LuaCommandProcessor`, `LuaConstantCombinatorControlBehavior`, `LuaContainerControlBehavior`, `LuaControl`, `LuaControlBehavior`, `LuaCustomChartTag`, `LuaCustomInputPrototype`, `LuaCustomTable`, `LuaDamagePrototype`, `LuaDeciderCombinatorControlBehavior`, `LuaDecorativePrototype`, `LuaElectricEnergySourcePrototype`, `LuaEntity`, `LuaEntityPrototype`, `LuaEquipment`, `LuaEquipmentCategoryPrototype`, `LuaEquipmentGrid`, `LuaEquipmentGridPrototype`, `LuaEquipmentPrototype`, `LuaFlowStatistics`, `LuaFluidBox`, `LuaFluidBoxPrototype`, `LuaFluidEnergySourcePrototype`, `LuaFluidPrototype`, `LuaFontPrototype`, `LuaForce`, `LuaFuelCategoryPrototype`, `LuaGameScript`, `LuaGenericOnOffControlBehavior`, `LuaGroup`, `LuaGui`, `LuaGuiElement`, `LuaHeatBufferPrototype`, `LuaHeatEnergySourcePrototype`, `LuaInserterControlBehavior`, `LuaInventory`, `LuaItemPrototype`, `LuaItemStack`, `LuaLampControlBehavior`, `LuaLazyLoadedValue`, `LuaLogisticCell`, `LuaLogisticContainerControlBehavior`, `LuaLogisticNetwork`, `LuaLogisticPoint`, `LuaMiningDrillControlBehavior`, `LuaModSettingPrototype`, `LuaModuleCategoryPrototype`, `LuaNamedNoiseExpression`, `LuaNoiseLayerPrototype`, `LuaParticlePrototype`, `LuaPermissionGroup`, `LuaPermissionGroups`, `LuaPlayer`, `LuaProfiler`, `LuaProgrammableSpeakerControlBehavior`, `LuaRCON`, `LuaRailChainSignalControlBehavior`, `LuaRailPath`, `LuaRailSignalControlBehavior`, `LuaRandomGenerator`, `LuaRecipe`, `LuaRecipeCategoryPrototype`, `LuaRecipePrototype`, `LuaRemote`, `LuaRendering`, `LuaResourceCategoryPrototype`, `LuaRoboportControlBehavior`, `LuaSettings`, `LuaShortcutPrototype`, `LuaStorageTankControlBehavior`, `LuaStyle`, `LuaSurface`, `LuaTechnology`, `LuaTechnologyPrototype`, `LuaTile`, `LuaTilePrototype`, `LuaTrain`, `LuaTrainStopControlBehavior`, `LuaTransportBeltControlBehavior`, `LuaTransportLine`, `LuaTrivialSmokePrototype`, `LuaUnitGroup`, `LuaVirtualSignalPrototype`, `LuaVoidEnergySourcePrototype`, `LuaWallControlBehavior`
 916.json: unknown variant `LuaFluidProductionFlowStatistics`, expected one of `LuaAISettings`, `LuaAccumulatorControlBehavior`, `LuaAchievementPrototype`, `LuaAmmoCategoryPrototype`, `LuaArithmeticCombinatorControlBehavior`, `LuaAutoplaceControlPrototype`, `LuaBootstrap`, `LuaBurner`, `LuaBurnerPrototype`, `LuaChunkIterator`, `LuaCircuitNetwork`, `LuaCombinatorControlBehavior`, `LuaCommandProcessor`, `LuaConstantCombinatorControlBehavior`, `LuaContainerControlBehavior`, `LuaControl`, `LuaControlBehavior`, `LuaCustomChartTag`, `LuaCustomInputPrototype`, `LuaCustomTable`, `LuaDamagePrototype`, `LuaDeciderCombinatorControlBehavior`, `LuaDecorativePrototype`, `LuaElectricEnergySourcePrototype`, `LuaEntity`, `LuaEntityPrototype`, `LuaEquipment`, `LuaEquipmentCategoryPrototype`, `LuaEquipmentGrid`, `LuaEquipmentGridPrototype`, `LuaEquipmentPrototype`, `LuaFlowStatistics`, `LuaFluidBox`, `LuaFluidBoxPrototype`, `LuaFluidEnergySourcePrototype`, `LuaFluidPrototype`, `LuaFontPrototype`, `LuaForce`, `LuaFuelCategoryPrototype`, `LuaGameScript`, `LuaGenericOnOffControlBehavior`, `LuaGroup`, `LuaGui`, `LuaGuiElement`, `LuaHeatBufferPrototype`, `LuaHeatEnergySourcePrototype`, `LuaInserterControlBehavior`, `LuaInventory`, `LuaItemPrototype`, `LuaItemStack`, `LuaLampControlBehavior`, `LuaLazyLoadedValue`, `LuaLogisticCell`, `LuaLogisticContainerControlBehavior`, `LuaLogisticNetwork`, `LuaLogisticPoint`, `LuaMiningDrillControlBehavior`, `LuaModSettingPrototype`, `LuaModuleCategoryPrototype`, `LuaNamedNoiseExpression`, `LuaNoiseLayerPrototype`, `LuaParticlePrototype`, `LuaPermissionGroup`, `LuaPermissionGroups`, `LuaPlayer`, `LuaProfiler`, `LuaProgrammableSpeakerControlBehavior`, `LuaRCON`, `LuaRailChainSignalControlBehavior`, `LuaRailPath`, `LuaRailSignalControlBehavior`, `LuaRandomGenerator`, `LuaRecipe`, `LuaRecipeCategoryPrototype`, `LuaRecipePrototype`, `LuaRemote`, `LuaRendering`, `LuaResourceCategoryPrototype`, `LuaRoboportControlBehavior`, `LuaSettings`, `LuaShortcutPrototype`, `LuaStorageTankControlBehavior`, `LuaStyle`, `LuaSurface`, `LuaTechnology`, `LuaTechnologyPrototype`, `LuaTile`, `LuaTilePrototype`, `LuaTrain`, `LuaTrainStopControlBehavior`, `LuaTransportBeltControlBehavior`, `LuaTransportLine`, `LuaTrivialSmokePrototype`, `LuaUnitGroup`, `LuaVirtualSignalPrototype`, `LuaVoidEnergySourcePrototype`, `LuaWallControlBehavior`
@@ -652,90 +652,90 @@
 2404.json: invalid type: sequence, expected a map
 2408.json: invalid type: sequence, expected a map
 2409.json: invalid type: sequence, expected a map
-2584.json: invalid type: map, expected a sequence
-2585.json: invalid type: map, expected a sequence
-2586.json: invalid type: map, expected a sequence
-2612.json: invalid type: map, expected a sequence
-2629.json: invalid type: map, expected a sequence
-2630.json: invalid type: map, expected a sequence
-2631.json: invalid type: map, expected a sequence
-2632.json: invalid type: map, expected a sequence
-2633.json: invalid type: map, expected a sequence
-2634.json: invalid type: map, expected a sequence
-2635.json: invalid type: map, expected a sequence
-2636.json: invalid type: map, expected a sequence
-2637.json: invalid type: map, expected a sequence
-2638.json: invalid type: map, expected a sequence
-2639.json: invalid type: map, expected a sequence
-2640.json: invalid type: map, expected a sequence
-2641.json: invalid type: map, expected a sequence
-2642.json: invalid type: map, expected a sequence
-2643.json: invalid type: map, expected a sequence
-2644.json: invalid type: map, expected a sequence
-2645.json: invalid type: map, expected a sequence
-2646.json: invalid type: map, expected a sequence
-2647.json: invalid type: map, expected a sequence
-2648.json: invalid type: map, expected a sequence
-2649.json: invalid type: map, expected a sequence
-2650.json: invalid type: map, expected a sequence
-2651.json: invalid type: map, expected a sequence
-2652.json: invalid type: map, expected a sequence
-2653.json: invalid type: map, expected a sequence
-2654.json: invalid type: map, expected a sequence
-2655.json: invalid type: map, expected a sequence
-2656.json: invalid type: map, expected a sequence
-2657.json: invalid type: map, expected a sequence
-2658.json: invalid type: map, expected a sequence
-2659.json: invalid type: map, expected a sequence
-2660.json: invalid type: map, expected a sequence
-2661.json: invalid type: map, expected a sequence
-2662.json: invalid type: map, expected a sequence
-2663.json: invalid type: map, expected a sequence
-2664.json: invalid type: map, expected a sequence
-2665.json: invalid type: map, expected a sequence
-2666.json: invalid type: map, expected a sequence
-2667.json: invalid type: map, expected a sequence
-2668.json: invalid type: map, expected a sequence
-2669.json: invalid type: map, expected a sequence
-2670.json: invalid type: map, expected a sequence
-2671.json: invalid type: map, expected a sequence
-2672.json: invalid type: map, expected a sequence
-2673.json: invalid type: map, expected a sequence
-2674.json: invalid type: map, expected a sequence
-2675.json: invalid type: map, expected a sequence
-2676.json: data did not match any variant of untagged enum MaybeCycle
-2677.json: invalid type: map, expected a sequence
-2678.json: invalid type: map, expected a sequence
-2679.json: invalid type: map, expected a sequence
-2680.json: invalid type: map, expected a sequence
-2681.json: invalid type: map, expected a sequence
-2682.json: invalid type: map, expected a sequence
-2683.json: invalid type: map, expected a sequence
-2684.json: invalid type: map, expected a sequence
-2685.json: invalid type: map, expected a sequence
-2686.json: invalid type: map, expected a sequence
-2687.json: invalid type: map, expected a sequence
-2688.json: invalid type: map, expected a sequence
-2690.json: invalid type: map, expected a sequence
-2691.json: invalid type: map, expected a sequence
-2761.json: invalid type: map, expected a sequence
-2774.json: invalid type: map, expected a sequence
-2805.json: invalid type: map, expected a sequence
-2806.json: invalid type: map, expected a sequence
-2807.json: invalid type: map, expected a sequence
-2817.json: invalid type: map, expected a sequence
-2818.json: invalid type: map, expected a sequence
-2819.json: invalid type: map, expected a sequence
-2820.json: invalid type: map, expected a sequence
-2821.json: invalid type: map, expected a sequence
-2822.json: invalid type: map, expected a sequence
-2823.json: invalid type: map, expected a sequence
-2824.json: invalid type: map, expected a sequence
-2825.json: invalid type: map, expected a sequence
-2826.json: invalid type: map, expected a sequence
-2827.json: invalid type: map, expected a sequence
-2828.json: invalid type: map, expected a sequence
-2829.json: invalid type: map, expected a sequence
-2830.json: invalid type: map, expected a sequence
-2831.json: invalid type: map, expected a sequence
+2584.json: data did not match any variant of untagged enum ItemPrototypeFlagsUnion
+2585.json: data did not match any variant of untagged enum ItemPrototypeFlagsUnion
+2586.json: data did not match any variant of untagged enum ItemPrototypeFlagsUnion
+2612.json: data did not match any variant of untagged enum ItemPrototypeFlagsUnion
+2629.json: data did not match any variant of untagged enum CollisionMaskLayer
+2630.json: data did not match any variant of untagged enum CollisionMaskLayer
+2631.json: data did not match any variant of untagged enum CollisionMaskLayer
+2632.json: data did not match any variant of untagged enum CollisionMaskLayer
+2633.json: data did not match any variant of untagged enum CollisionMaskLayer
+2634.json: data did not match any variant of untagged enum CollisionMaskLayer
+2635.json: data did not match any variant of untagged enum CollisionMaskLayer
+2636.json: data did not match any variant of untagged enum CollisionMaskLayer
+2637.json: data did not match any variant of untagged enum CollisionMaskLayer
+2638.json: data did not match any variant of untagged enum CollisionMaskLayer
+2639.json: data did not match any variant of untagged enum CollisionMaskLayer
+2640.json: data did not match any variant of untagged enum CollisionMaskLayer
+2641.json: data did not match any variant of untagged enum CollisionMaskLayer
+2642.json: data did not match any variant of untagged enum CollisionMaskLayer
+2643.json: data did not match any variant of untagged enum CollisionMaskLayer
+2644.json: data did not match any variant of untagged enum CollisionMaskLayer
+2645.json: data did not match any variant of untagged enum CollisionMaskLayer
+2646.json: data did not match any variant of untagged enum CollisionMaskLayer
+2647.json: data did not match any variant of untagged enum CollisionMaskLayer
+2648.json: data did not match any variant of untagged enum CollisionMaskLayer
+2649.json: data did not match any variant of untagged enum CollisionMaskLayer
+2650.json: data did not match any variant of untagged enum CollisionMaskLayer
+2651.json: data did not match any variant of untagged enum CollisionMaskLayer
+2652.json: data did not match any variant of untagged enum CollisionMaskLayer
+2653.json: data did not match any variant of untagged enum CollisionMaskLayer
+2654.json: data did not match any variant of untagged enum CollisionMaskLayer
+2655.json: data did not match any variant of untagged enum CollisionMaskLayer
+2656.json: data did not match any variant of untagged enum CollisionMaskLayer
+2657.json: data did not match any variant of untagged enum CollisionMaskLayer
+2658.json: data did not match any variant of untagged enum CollisionMaskLayer
+2659.json: data did not match any variant of untagged enum CollisionMaskLayer
+2660.json: data did not match any variant of untagged enum CollisionMaskLayer
+2661.json: data did not match any variant of untagged enum CollisionMaskLayer
+2662.json: data did not match any variant of untagged enum CollisionMaskLayer
+2663.json: data did not match any variant of untagged enum CollisionMaskLayer
+2664.json: data did not match any variant of untagged enum CollisionMaskLayer
+2665.json: data did not match any variant of untagged enum CollisionMaskLayer
+2666.json: data did not match any variant of untagged enum CollisionMaskLayer
+2667.json: data did not match any variant of untagged enum CollisionMaskLayer
+2668.json: data did not match any variant of untagged enum CollisionMaskLayer
+2669.json: data did not match any variant of untagged enum CollisionMaskLayer
+2670.json: data did not match any variant of untagged enum CollisionMaskLayer
+2671.json: data did not match any variant of untagged enum CollisionMaskLayer
+2672.json: data did not match any variant of untagged enum CollisionMaskLayer
+2673.json: data did not match any variant of untagged enum CollisionMaskLayer
+2674.json: data did not match any variant of untagged enum CollisionMaskLayer
+2675.json: data did not match any variant of untagged enum CollisionMaskLayer
+2676.json: invalid type: sequence, expected a map
+2677.json: data did not match any variant of untagged enum CollisionMaskLayer
+2678.json: data did not match any variant of untagged enum CollisionMaskLayer
+2679.json: data did not match any variant of untagged enum CollisionMaskLayer
+2680.json: data did not match any variant of untagged enum CollisionMaskLayer
+2681.json: data did not match any variant of untagged enum CollisionMaskLayer
+2682.json: data did not match any variant of untagged enum CollisionMaskLayer
+2683.json: data did not match any variant of untagged enum CollisionMaskLayer
+2684.json: data did not match any variant of untagged enum CollisionMaskLayer
+2685.json: data did not match any variant of untagged enum CollisionMaskLayer
+2686.json: data did not match any variant of untagged enum CollisionMaskLayer
+2687.json: data did not match any variant of untagged enum ItemPrototypeFlagsUnion
+2688.json: data did not match any variant of untagged enum ItemPrototypeFlagsUnion
+2690.json: data did not match any variant of untagged enum ItemPrototypeFlagsUnion
+2691.json: data did not match any variant of untagged enum ItemPrototypeFlagsUnion
+2761.json: data did not match any variant of untagged enum ItemPrototypeFlagsUnion
+2774.json: data did not match any variant of untagged enum ItemPrototypeFlagsUnion
+2805.json: data did not match any variant of untagged enum ItemPrototypeFlagsUnion
+2806.json: data did not match any variant of untagged enum ItemPrototypeFlagsUnion
+2807.json: data did not match any variant of untagged enum ItemPrototypeFlagsUnion
+2817.json: data did not match any variant of untagged enum ItemPrototypeFlagsUnion
+2818.json: data did not match any variant of untagged enum ItemPrototypeFlagsUnion
+2819.json: data did not match any variant of untagged enum ItemPrototypeFlagsUnion
+2820.json: data did not match any variant of untagged enum ItemPrototypeFlagsUnion
+2821.json: data did not match any variant of untagged enum ItemPrototypeFlagsUnion
+2822.json: data did not match any variant of untagged enum ItemPrototypeFlagsUnion
+2823.json: data did not match any variant of untagged enum ItemPrototypeFlagsUnion
+2824.json: data did not match any variant of untagged enum ItemPrototypeFlagsUnion
+2825.json: data did not match any variant of untagged enum ItemPrototypeFlagsUnion
+2826.json: data did not match any variant of untagged enum ItemPrototypeFlagsUnion
+2827.json: data did not match any variant of untagged enum ItemPrototypeFlagsUnion
+2828.json: data did not match any variant of untagged enum ItemPrototypeFlagsUnion
+2829.json: data did not match any variant of untagged enum ItemPrototypeFlagsUnion
+2830.json: data did not match any variant of untagged enum ItemPrototypeFlagsUnion
+2831.json: data did not match any variant of untagged enum ItemPrototypeFlagsUnion
 3608.json: unknown variant `LuaPollutionFlowStatistics`, expected one of `LuaAISettings`, `LuaAccumulatorControlBehavior`, `LuaAchievementPrototype`, `LuaAmmoCategoryPrototype`, `LuaArithmeticCombinatorControlBehavior`, `LuaAutoplaceControlPrototype`, `LuaBootstrap`, `LuaBurner`, `LuaBurnerPrototype`, `LuaChunkIterator`, `LuaCircuitNetwork`, `LuaCombinatorControlBehavior`, `LuaCommandProcessor`, `LuaConstantCombinatorControlBehavior`, `LuaContainerControlBehavior`, `LuaControl`, `LuaControlBehavior`, `LuaCustomChartTag`, `LuaCustomInputPrototype`, `LuaCustomTable`, `LuaDamagePrototype`, `LuaDeciderCombinatorControlBehavior`, `LuaDecorativePrototype`, `LuaElectricEnergySourcePrototype`, `LuaEntity`, `LuaEntityPrototype`, `LuaEquipment`, `LuaEquipmentCategoryPrototype`, `LuaEquipmentGrid`, `LuaEquipmentGridPrototype`, `LuaEquipmentPrototype`, `LuaFlowStatistics`, `LuaFluidBox`, `LuaFluidBoxPrototype`, `LuaFluidEnergySourcePrototype`, `LuaFluidPrototype`, `LuaFontPrototype`, `LuaForce`, `LuaFuelCategoryPrototype`, `LuaGameScript`, `LuaGenericOnOffControlBehavior`, `LuaGroup`, `LuaGui`, `LuaGuiElement`, `LuaHeatBufferPrototype`, `LuaHeatEnergySourcePrototype`, `LuaInserterControlBehavior`, `LuaInventory`, `LuaItemPrototype`, `LuaItemStack`, `LuaLampControlBehavior`, `LuaLazyLoadedValue`, `LuaLogisticCell`, `LuaLogisticContainerControlBehavior`, `LuaLogisticNetwork`, `LuaLogisticPoint`, `LuaMiningDrillControlBehavior`, `LuaModSettingPrototype`, `LuaModuleCategoryPrototype`, `LuaNamedNoiseExpression`, `LuaNoiseLayerPrototype`, `LuaParticlePrototype`, `LuaPermissionGroup`, `LuaPermissionGroups`, `LuaPlayer`, `LuaProfiler`, `LuaProgrammableSpeakerControlBehavior`, `LuaRCON`, `LuaRailChainSignalControlBehavior`, `LuaRailPath`, `LuaRailSignalControlBehavior`, `LuaRandomGenerator`, `LuaRecipe`, `LuaRecipeCategoryPrototype`, `LuaRecipePrototype`, `LuaRemote`, `LuaRendering`, `LuaResourceCategoryPrototype`, `LuaRoboportControlBehavior`, `LuaSettings`, `LuaShortcutPrototype`, `LuaStorageTankControlBehavior`, `LuaStyle`, `LuaSurface`, `LuaTechnology`, `LuaTechnologyPrototype`, `LuaTile`, `LuaTilePrototype`, `LuaTrain`, `LuaTrainStopControlBehavior`, `LuaTransportBeltControlBehavior`, `LuaTransportLine`, `LuaTrivialSmokePrototype`, `LuaUnitGroup`, `LuaVirtualSignalPrototype`, `LuaVoidEnergySourcePrototype`, `LuaWallControlBehavior`

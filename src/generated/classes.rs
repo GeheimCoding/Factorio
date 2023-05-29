@@ -8920,7 +8920,7 @@ pub struct LuaRemote {
     /// game.player.print(tostring(remote.interfaces["human interactor"]["hello"]))        -- prints true
     /// game.player.print(tostring(remote.interfaces["human interactor"]["nonexistent"]))  -- prints nil
     /// ```
-    pub interfaces: HashMap<String, HashSet<String>>,
+    pub interfaces: HashMap<String, HashMap<String, bool>>,
     /// This object's name.
     pub object_name: String,
 }

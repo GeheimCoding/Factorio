@@ -100,7 +100,7 @@ fn test_sample(sample_path: PathBuf) -> io::Result<Option<String>> {
     }
 }
 
-// TODO: patch RenderLayer
+// TODO: fix empty dictionaries
 // TODO: make all jsons parse successfully
 // TODO: add #[serde(deny_unknown_fields)]
 // TODO: check more serde attributes like #[serde(default)] or content for Table/Tuple?

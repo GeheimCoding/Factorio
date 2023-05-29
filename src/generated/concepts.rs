@@ -527,7 +527,7 @@ pub struct CliffPlacementSettings {
 }
 
 /// A set of flags. Active flags are in the dictionary as `true`, while inactive flags aren't present at all.
-pub type CollisionMask = HashSet<CollisionMaskLayer>;
+pub type CollisionMask = HashMap<CollisionMaskLayer, bool>;
 
 /// A [string](string) specifying a collision mask layer.
 ///
@@ -563,7 +563,7 @@ pub enum CollisionMaskWithFlagsUnion {
 }
 
 /// A [CollisionMask](CollisionMask) which also includes any flags this mask has.
-pub type CollisionMaskWithFlags = HashSet<CollisionMaskWithFlagsUnion>;
+pub type CollisionMaskWithFlags = HashMap<CollisionMaskWithFlagsUnion, bool>;
 
 #[derive(Debug, Deserialize)]
 /// Red, green, blue and alpha values, all in range [0, 1] or all in range [0, 255] if any value is > 1. All values here are optional. Color channels default to `0`, the alpha channel defaults to `1`.
@@ -1128,7 +1128,7 @@ pub enum EntityPrototypeFlagsUnion {
 /// A set of flags. Active flags are in the dictionary as `true`, while inactive flags aren't present at all.
 ///
 /// By default, none of these flags are set.
-pub type EntityPrototypeFlags = HashSet<EntityPrototypeFlagsUnion>;
+pub type EntityPrototypeFlags = HashMap<EntityPrototypeFlagsUnion, bool>;
 
 /// An entity prototype may be specified in one of three ways.
 #[derive(Debug, Deserialize)]
@@ -1779,7 +1779,7 @@ pub enum ItemPrototypeFlagsUnion {
 /// A set of flags. Active flags are in the dictionary as `true`, while inactive flags aren't present at all.
 ///
 /// By default, none of these flags are set.
-pub type ItemPrototypeFlags = HashSet<ItemPrototypeFlagsUnion>;
+pub type ItemPrototypeFlags = HashMap<ItemPrototypeFlagsUnion, bool>;
 
 /// An item prototype may be specified in one of three ways.
 #[derive(Debug, Deserialize)]
@@ -3289,7 +3289,7 @@ pub enum MouseButtonFlagsUnion {
 /// A set of flags. Active flags are in the dictionary as `true`, while inactive flags aren't present at all.
 ///
 /// To write to this, use an array[[string](string)] of the mouse buttons that should be possible to use with on button. The flag `"left-and-right"` can also be set, which will set `"left"` and `"right"` to `true`.
-pub type MouseButtonFlags = HashSet<MouseButtonFlagsUnion>;
+pub type MouseButtonFlags = HashMap<MouseButtonFlagsUnion, bool>;
 
 #[derive(Debug, Deserialize)]
 /// A fragment of a functional program used to generate coherent noise, probably for purposes related to terrain generation. These can only be meaningfully written/modified during the data load phase. More detailed information is found on the [wiki](https://wiki.factorio.com/Types/NoiseExpression).
@@ -3876,7 +3876,7 @@ pub enum SelectionModeFlagsUnion {
 }
 
 /// A set of flags on a selection tool that define how entities and tiles are selected. Active flags are in the dictionary as `true`, while inactive flags aren't present at all.
-pub type SelectionModeFlags = HashSet<SelectionModeFlagsUnion>;
+pub type SelectionModeFlags = HashMap<SelectionModeFlagsUnion, bool>;
 
 #[derive(Debug, Deserialize)]
 /// An actual signal transmitted by the network.

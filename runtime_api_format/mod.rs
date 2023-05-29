@@ -1529,21 +1529,30 @@ impl ComplexType {
                 if !is_nested {
                     definition.push_str(&format!("pub type {prefix} = "));
                 }
-                let mut is_map = true;
-                if let Type::ComplexType(ComplexType::Literal {
-                    value,
-                    description: _,
-                }) = value.as_ref()
-                {
-                    // description is always None
-                    if value.get_type_name() == "True" {
-                        definition.push_str(&format!(
-                            "HashSet<{}>",
-                            key.generate_definition(prefix, unions, true)
-                        ));
-                        is_map = false;
-                    }
-                }
+                let is_map = true;
+                // TODO: enable me and change lua serializer instead?
+                // if let Type::ComplexType(ComplexType::Literal {
+                //     value,
+                //     description: _,
+                // }) = value.as_ref()
+                // {
+                //     // description is always None
+                //     if value.get_type_name() == "True" {
+                //         definition.push_str(&format!(
+                //             "HashSet<{}>",
+                //             key.generate_definition(prefix, unions, true)
+                //         ));
+                //         is_map = false;
+                //     }
+                // } else if let Type::String(value) = value.as_ref() {
+                //     if value == "boolean" {
+                //         definition.push_str(&format!(
+                //             "HashSet<{}>",
+                //             key.generate_definition(prefix, unions, true)
+                //         ));
+                //         is_map = false;
+                //     }
+                // }
                 if is_map {
                     let value = value.generate_definition(prefix, unions, true);
                     let value = if value.starts_with("Lua")
@@ -1551,6 +1560,8 @@ impl ComplexType {
                         && !value.ends_with("Union")
                     {
                         format!("MaybeCycle<{value}>")
+                    } else if value == "True" {
+                        "bool".to_owned()
                     } else {
                         value
                     };
