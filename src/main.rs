@@ -115,6 +115,7 @@ fn test_sample(sample_path: PathBuf) -> io::Result<Option<String>> {
 // TODO: fix compile times (only include needed types?)
 // TODO: split map_settings and other tables in separate files
 // TODO: check for more "cycles"
+// TODO: combine all FlowStatistics
 // TODO: better naming, e.g. cache instead of lookup
 // TODO: use global lookup table for objects and unique_ids
 // TODO: make subclass specific attributes optional?

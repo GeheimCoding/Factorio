@@ -113,6 +113,11 @@ pub enum Class {
     LuaVirtualSignalPrototype(LuaVirtualSignalPrototype),
     LuaVoidEnergySourcePrototype(LuaVoidEnergySourcePrototype),
     LuaWallControlBehavior(LuaWallControlBehavior),
+    LuaEntityBuildFlowStatistics(LuaEntityBuildFlowStatistics),
+    LuaFluidProductionFlowStatistics(LuaFluidProductionFlowStatistics),
+    LuaItemProductionFlowStatistics(LuaItemProductionFlowStatistics),
+    LuaKillCountFlowStatistics(LuaKillCountFlowStatistics),
+    LuaPollutionFlowStatistics(LuaPollutionFlowStatistics),
 }
 
 #[derive(Debug, Deserialize)]

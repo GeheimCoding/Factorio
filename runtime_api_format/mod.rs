@@ -2,6 +2,7 @@
 
 use std::{
     collections::HashSet,
+    fmt::format,
     fs,
     io::{Error, ErrorKind},
     path::{Path, PathBuf},
@@ -262,6 +263,14 @@ impl RuntimeApiFormat {
             let name = &class.name;
             definition.push_str(&format!("    {name}({name}),\n"));
         }
+        definition.push_str(&format!(
+            "{}{}{}{}{}",
+            "    LuaEntityBuildFlowStatistics(LuaEntityBuildFlowStatistics),\n",
+            "    LuaFluidProductionFlowStatistics(LuaFluidProductionFlowStatistics),\n",
+            "    LuaItemProductionFlowStatistics(LuaItemProductionFlowStatistics),\n",
+            "    LuaKillCountFlowStatistics(LuaKillCountFlowStatistics),\n",
+            "    LuaPollutionFlowStatistics(LuaPollutionFlowStatistics),\n"
+        ));
         definition.push_str(&format!("}}\n\n{DERIVE}{RENAME_WITH_TAG}"));
         definition.push_str("pub enum Concept {\n");
         for concept in &self.concepts {
@@ -285,6 +294,7 @@ impl RuntimeApiFormat {
         definition_types: &Vec<T>,
         imports: Vec<Import>,
         mod_content: &mut String,
+        patch_files: Vec<String>,
     ) -> std::io::Result<()> {
         let file_stem = file_path
             .file_stem()
@@ -317,6 +327,11 @@ impl RuntimeApiFormat {
         }
         for definition_type in definition_types {
             definition.push_str(&format!("{}\n", definition_type.generate_definition()));
+        }
+        for patch_file in patch_files {
+            let patch = fs::read_to_string(format!("runtime_api_format/patches/{patch_file}"))
+                .unwrap_or_default();
+            definition.push_str(&format!("{patch}\n"));
         }
         definition.pop();
         fs::write(file_path, definition)?;
@@ -351,6 +366,13 @@ impl RuntimeApiFormat {
             &self.classes,
             imports,
             mod_content,
+            vec![
+                "lua_entity_build_flow_statistics.rs".to_owned(),
+                "lua_fluid_production_flow_statistics.rs".to_owned(),
+                "lua_item_production_flow_statistics.rs".to_owned(),
+                "lua_kill_count_flow_statistics.rs".to_owned(),
+                "lua_pollution_flow_statistics.rs".to_owned(),
+            ],
         )
     }
 
@@ -371,6 +393,7 @@ impl RuntimeApiFormat {
             &self.events,
             imports,
             mod_content,
+            Vec::new(),
         )
     }
 
@@ -391,6 +414,7 @@ impl RuntimeApiFormat {
             &self.concepts,
             imports,
             mod_content,
+            Vec::new(),
         )
     }
 
@@ -401,6 +425,7 @@ impl RuntimeApiFormat {
             &self.defines,
             imports,
             mod_content,
+            Vec::new(),
         )
     }
 }
