@@ -313,6 +313,10 @@ function to_json_internal(obj, depth, map, cycles_only)
         end
         table.insert(json, '"cycle_id":' .. id)
     else
+        local values = get_values(obj)
+        local is_empty = table_size(values) == 0
+        is_array = values[1] ~= nil or is_empty
+
         if class then
             if cycles_only then
                 table.insert(json, '"class_id":' .. id .. ',\n')
@@ -322,11 +326,13 @@ function to_json_internal(obj, depth, map, cycles_only)
             end
         end
         if class or obj.object_name == 'LuaGameScript' then
-            table.insert(json, '"serde_tag":"' .. obj.object_name .. '",\n')
+            local tag = obj.object_name
+            if tag == 'LuaItemStack' and not obj.valid_for_read then
+                tag = 'LuaItemStackInvalidForRead'
+            end
+            table.insert(json, '"serde_tag":"' .. tag .. '"')
+            table.insert(json, ',\n')
         end
-        local values = get_values(obj)
-        local is_empty = table_size(values) == 0
-        is_array = values[1] ~= nil or is_empty
 
         if depth == 1 and not is_empty then
             local typ = 'concept'
@@ -335,9 +341,11 @@ function to_json_internal(obj, depth, map, cycles_only)
              elseif type(obj.name) == 'number' then
                 typ = 'event'
              end
-             table.insert(json, '"serde_type":"' .. typ .. '",\n')
+             table.insert(json, '"serde_type":"' .. typ .. '"')
+             table.insert(json, ',\n')
         end
         for k,v in pairs(values) do
+            print(k)
             if is_allowed_to_access_attribute(obj, values, k) then
                 local internal = to_json_internal(obj[k], depth + 1, map)
                 if internal ~= 'nil' then

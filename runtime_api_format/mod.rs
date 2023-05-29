@@ -375,6 +375,7 @@ impl RuntimeApiFormat {
                 "lua_item_production_flow_statistics.rs".to_owned(),
                 "lua_kill_count_flow_statistics.rs".to_owned(),
                 "lua_pollution_flow_statistics.rs".to_owned(),
+                "maybe_lua_item_stack.rs".to_owned(),
             ],
         )
     }
@@ -550,6 +551,11 @@ impl GenerateDefinition for Class {
                     || rust_name == "vertically_stretchable")
             {
                 typ = format!("Option<{typ}>");
+            } else if self.name == "LuaPlayer"
+                && (rust_name == "blueprint_to_setup" || rust_name == "cursor_stack")
+            {
+                // TODO: find solution for base class members
+                typ = "MaybeCycle<MaybeLuaItemStack>".to_owned();
             }
 
             let mut attribute_description = String::new();

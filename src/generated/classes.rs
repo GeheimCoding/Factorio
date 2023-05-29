@@ -7990,7 +7990,7 @@ pub struct LuaPlayer {
     /// If the main inventory will be auto sorted.
     pub auto_sort_main_inventory: bool,
     /// The item stack containing a blueprint to be setup.
-    pub blueprint_to_setup: MaybeCycle<LuaItemStack>,
+    pub blueprint_to_setup: MaybeCycle<MaybeLuaItemStack>,
     /// The character attached to this player, if any. Returns `nil` when the player is disconnected (see [LuaPlayer::connected](LuaPlayer::connected)).
     pub character: Option<MaybeCycle<LuaEntity>>,
     /// The color used when this player talks in game.
@@ -12327,6 +12327,24 @@ pub struct LuaPollutionFlowStatistics {
     pub object_name: String,
     pub valid: bool,
 }
+
+// ========= MANUAL PATCH =========
+// ================================
+
+// ================================
+// ========= MANUAL PATCH =========
+
+#[derive(Debug, Deserialize)]
+#[serde(untagged)]
+pub enum MaybeLuaItemStack {
+    LuaItemStack(LuaItemStack),
+    LuaItemStackInvalidForRead(LuaItemStackInvalidForRead),
+}
+
+#[derive(Debug, Deserialize)]
+pub struct LuaItemStackInvalidForRead;
+
+// TODO: maybe solve differently with default values?
 
 // ========= MANUAL PATCH =========
 // ================================
