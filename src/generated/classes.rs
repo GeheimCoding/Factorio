@@ -7851,7 +7851,7 @@ pub trait LuaNoiseLayerPrototypeMethods {
 /// Prototype of an optimized particle.
 #[derive(Debug, Deserialize)]
 pub struct LuaParticlePrototype {
-    pub ended_in_water_trigger_effect: Vec<TriggerEffectItem>,
+    pub ended_in_water_trigger_effect: Option<Vec<TriggerEffectItem>>,
     pub life_time: u32,
     pub localised_description: LocalisedString,
     pub localised_name: LocalisedString,
@@ -7864,7 +7864,7 @@ pub struct LuaParticlePrototype {
     pub object_name: String,
     /// The string used to alphabetically sort these prototypes. It is a simple string that has no additional semantic meaning.
     pub order: String,
-    pub regular_trigger_effect: Vec<TriggerEffectItem>,
+    pub regular_trigger_effect: Option<Vec<TriggerEffectItem>>,
     pub regular_trigger_effect_frequency: u32,
     pub render_layer: RenderLayer,
     pub render_layer_when_on_ground: RenderLayer,
