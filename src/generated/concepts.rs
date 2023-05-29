@@ -5,7 +5,7 @@ use serde::Deserialize;
 
 use super::classes::*;
 use super::defines::*;
-use super::MaybeCycle;
+use super::*;
 
 #[derive(Debug, Deserialize)]
 #[serde(untagged)]
@@ -87,11 +87,11 @@ pub struct AmmoType {
     pub category: String,
     /// When `true`, the gun will be able to shoot even when the target is out of range. Only applies when `target_type` is `position`. The gun will fire at the maximum range in the direction of the target position. Defaults to `false`.
     pub clamp_position: Option<bool>,
-    pub consumption_modifier: Option<f64>,
-    pub cooldown_modifier: Option<f64>,
+    pub consumption_modifier: Option<Double>,
+    pub cooldown_modifier: Option<Double>,
     /// Energy consumption of a single shot, if applicable. Defaults to `0`.
-    pub energy_consumption: Option<f64>,
-    pub range_modifier: Option<f64>,
+    pub energy_consumption: Option<Double>,
+    pub range_modifier: Option<Double>,
     /// One of `"entity"` (fires at an entity), `"position"` (fires directly at a position), or `"direction"` (fires in a direction).
     pub target_type: String,
 }
@@ -136,7 +136,7 @@ pub struct ArithmeticCombinatorParameters {
 #[derive(Debug, Deserialize)]
 pub struct AttackParameterFluid {
     /// Multiplier applied to the damage of an attack.
-    pub damage_modifier: f64,
+    pub damage_modifier: Double,
     /// Name of the [LuaFluidPrototype](LuaFluidPrototype).
     #[serde(rename = "type")]
     pub typ: String,
@@ -145,17 +145,17 @@ pub struct AttackParameterFluid {
 #[derive(Debug, Deserialize)]
 pub struct AttackParametersAttributesProjectile {
     pub projectile_center: Vector,
-    pub projectile_creation_distance: f32,
+    pub projectile_creation_distance: Float,
     pub projectile_creation_parameters: Option<Vec<CircularProjectileCreationSpecification>>,
-    pub projectile_orientation_offset: f32,
+    pub projectile_orientation_offset: Float,
     pub shell_particle: Option<CircularParticleCreationSpecification>,
 }
 
 #[derive(Debug, Deserialize)]
 pub struct AttackParametersAttributesStream {
-    pub fluid_consumption: f32,
+    pub fluid_consumption: Float,
     pub fluids: Option<Vec<AttackParameterFluid>>,
-    pub gun_barrel_length: f32,
+    pub gun_barrel_length: Float,
     pub gun_center_shift: HashMap<String, Vector>,
     pub projectile_creation_parameters: Option<Vec<CircularProjectileCreationSpecification>>,
 }
@@ -171,30 +171,30 @@ pub struct AttackParameters {
     /// List of the names of compatible [LuaAmmoCategoryPrototypes](LuaAmmoCategoryPrototype).
     pub ammo_categories: Option<Vec<String>>,
     /// Multiplier applied to the ammo consumption of an attack.
-    pub ammo_consumption_modifier: f32,
+    pub ammo_consumption_modifier: Float,
     pub ammo_type: Option<AmmoType>,
     /// Minimum amount of ticks between shots. If this is less than `1`, multiple shots can be performed per tick.
-    pub cooldown: f32,
+    pub cooldown: Float,
     /// Multiplier applied to the damage of an attack.
-    pub damage_modifier: f32,
+    pub damage_modifier: Float,
     /// When searching for the nearest enemy to attack, `fire_penalty` is added to the enemy's distance if they are on fire.
-    pub fire_penalty: f32,
+    pub fire_penalty: Float,
     /// When searching for an enemy to attack, a higher `health_penalty` will discourage targeting enemies with high health. A negative penalty will do the opposite.
-    pub health_penalty: f32,
+    pub health_penalty: Float,
     /// If less than `range`, the entity will choose a random distance between `range` and `min_attack_distance` and attack from that distance. Used for spitters.
-    pub min_attack_distance: f32,
+    pub min_attack_distance: Float,
     /// Minimum range of attack. Used with flamethrower turrets to prevent self-immolation.
-    pub min_range: f32,
-    pub movement_slow_down_cooldown: f32,
-    pub movement_slow_down_factor: f64,
+    pub min_range: Float,
+    pub movement_slow_down_cooldown: Float,
+    pub movement_slow_down_factor: Double,
     /// Maximum range of attack.
-    pub range: f32,
+    pub range: Float,
     /// Defines how the range is determined. Either `'center-to-center'` or `'bounding-box-to-bounding-box'`.
     pub range_mode: String,
     /// When searching for an enemy to attack, a higher `rotate_penalty` will discourage targeting enemies that would take longer to turn to face.
-    pub rotate_penalty: f32,
+    pub rotate_penalty: Float,
     /// The arc that the entity can attack in as a fraction of a circle. A value of `1` means the full 360 degrees.
-    pub turn_range: f32,
+    pub turn_range: Float,
     /// The type of AttackParameter. One of `'projectile'`, `'stream'` or `'beam'`.
     #[serde(rename = "type")]
     pub typ: String,
@@ -226,63 +226,63 @@ pub struct AutoplaceSettings {
 pub struct AutoplaceSpecification {
     /// Control prototype name.
     pub control: Option<String>,
-    pub coverage: Option<f64>,
+    pub coverage: Option<Double>,
     pub default_enabled: Option<bool>,
     pub force: Option<String>,
-    pub max_probability: Option<f64>,
+    pub max_probability: Option<Double>,
     pub order: Option<String>,
     pub peaks: Option<Vec<AutoplaceSpecificationPeak>>,
     pub placement_density: Option<u32>,
     pub probability_expression: Option<NoiseExpression>,
-    pub random_probability_penalty: Option<f64>,
-    pub richness_base: Option<f64>,
+    pub random_probability_penalty: Option<Double>,
+    pub richness_base: Option<Double>,
     pub richness_expression: Option<NoiseExpression>,
-    pub richness_multiplier: Option<f64>,
-    pub richness_multiplier_distance_bonus: Option<f64>,
-    pub sharpness: Option<f64>,
+    pub richness_multiplier: Option<Double>,
+    pub richness_multiplier_distance_bonus: Option<Double>,
+    pub sharpness: Option<Double>,
     pub starting_area_size: Option<u32>,
     pub tile_restriction: Option<Vec<AutoplaceSpecificationRestriction>>,
 }
 
 #[derive(Debug, Deserialize)]
 pub struct AutoplaceSpecificationPeak {
-    pub aux_max_range: Option<f64>,
-    pub aux_optimal: Option<f64>,
-    pub aux_range: Option<f64>,
-    pub aux_top_property_limit: Option<f64>,
-    pub distance_max_range: Option<f64>,
-    pub distance_optimal: Option<f64>,
-    pub distance_range: Option<f64>,
-    pub distance_top_property_limit: Option<f64>,
-    pub elevation_max_range: Option<f64>,
-    pub elevation_optimal: Option<f64>,
-    pub elevation_range: Option<f64>,
-    pub elevation_top_property_limit: Option<f64>,
-    pub influence: Option<f64>,
-    pub max_influence: Option<f64>,
-    pub min_influence: Option<f64>,
+    pub aux_max_range: Option<Double>,
+    pub aux_optimal: Option<Double>,
+    pub aux_range: Option<Double>,
+    pub aux_top_property_limit: Option<Double>,
+    pub distance_max_range: Option<Double>,
+    pub distance_optimal: Option<Double>,
+    pub distance_range: Option<Double>,
+    pub distance_top_property_limit: Option<Double>,
+    pub elevation_max_range: Option<Double>,
+    pub elevation_optimal: Option<Double>,
+    pub elevation_range: Option<Double>,
+    pub elevation_top_property_limit: Option<Double>,
+    pub influence: Option<Double>,
+    pub max_influence: Option<Double>,
+    pub min_influence: Option<Double>,
     #[serde(rename = "noisePersistence")]
-    pub noise_persistence: Option<f64>,
+    pub noise_persistence: Option<Double>,
     /// Prototype name of the noise layer.
     pub noise_layer: Option<String>,
-    pub noise_octaves_difference: Option<f64>,
-    pub richness_influence: Option<f64>,
-    pub starting_area_weight_max_range: Option<f64>,
-    pub starting_area_weight_optimal: Option<f64>,
-    pub starting_area_weight_range: Option<f64>,
-    pub starting_area_weight_top_property_limit: Option<f64>,
-    pub temperature_max_range: Option<f64>,
-    pub temperature_optimal: Option<f64>,
-    pub temperature_range: Option<f64>,
-    pub temperature_top_property_limit: Option<f64>,
-    pub tier_from_start_max_range: Option<f64>,
-    pub tier_from_start_optimal: Option<f64>,
-    pub tier_from_start_range: Option<f64>,
-    pub tier_from_start_top_property_limit: Option<f64>,
-    pub water_max_range: Option<f64>,
-    pub water_optimal: Option<f64>,
-    pub water_range: Option<f64>,
-    pub water_top_property_limit: Option<f64>,
+    pub noise_octaves_difference: Option<Double>,
+    pub richness_influence: Option<Double>,
+    pub starting_area_weight_max_range: Option<Double>,
+    pub starting_area_weight_optimal: Option<Double>,
+    pub starting_area_weight_range: Option<Double>,
+    pub starting_area_weight_top_property_limit: Option<Double>,
+    pub temperature_max_range: Option<Double>,
+    pub temperature_optimal: Option<Double>,
+    pub temperature_range: Option<Double>,
+    pub temperature_top_property_limit: Option<Double>,
+    pub tier_from_start_max_range: Option<Double>,
+    pub tier_from_start_optimal: Option<Double>,
+    pub tier_from_start_range: Option<Double>,
+    pub tier_from_start_top_property_limit: Option<Double>,
+    pub water_max_range: Option<Double>,
+    pub water_optimal: Option<Double>,
+    pub water_range: Option<Double>,
+    pub water_top_property_limit: Option<Double>,
 }
 
 #[derive(Debug, Deserialize)]
@@ -366,7 +366,7 @@ pub struct CapsuleActionAttributesArtilleryRemote {
 #[derive(Debug, Deserialize)]
 pub struct CapsuleActionAttributesDestroyCliffs {
     pub attack_parameters: AttackParameters,
-    pub radius: f32,
+    pub radius: Float,
     pub timeout: u32,
 }
 
@@ -464,21 +464,21 @@ pub struct CircuitConnectionDefinition {
 pub struct CircularParticleCreationSpecification {
     /// This vector is a table with `x` and `y` keys instead of an array.
     pub center: Vector,
-    pub creation_distance: f64,
-    pub creation_distance_orientation: f64,
-    pub direction: f32,
-    pub direction_deviation: f32,
-    pub height: f32,
-    pub height_deviation: f32,
+    pub creation_distance: Double,
+    pub creation_distance_orientation: Double,
+    pub direction: Float,
+    pub direction_deviation: Float,
+    pub height: Float,
+    pub height_deviation: Float,
     /// Name of the [LuaEntityPrototype](LuaEntityPrototype)
     pub name: String,
-    pub speed: f32,
-    pub speed_deviation: f32,
-    pub starting_frame_speed: f32,
-    pub starting_frame_speed_deviation: f32,
+    pub speed: Float,
+    pub speed_deviation: Float,
+    pub starting_frame_speed: Float,
+    pub starting_frame_speed_deviation: Float,
     pub use_source_position: bool,
-    pub vertical_speed: f32,
-    pub vertical_speed_deviation: f32,
+    pub vertical_speed: Float,
+    pub vertical_speed_deviation: Float,
 }
 
 #[derive(Debug, Deserialize)]
@@ -517,9 +517,9 @@ pub enum CliffOrientation {
 #[derive(Debug, Deserialize)]
 pub struct CliffPlacementSettings {
     /// Elevation at which the first row of cliffs is placed. The default is `10`, and this cannot be set from the map generation GUI.
-    pub cliff_elevation_0: f32,
+    pub cliff_elevation_0: Float,
     /// Elevation difference between successive rows of cliffs. This is inversely proportional to 'frequency' in the map generation GUI. Specifically, when set from the GUI the value is `40 / frequency`.
-    pub cliff_elevation_interval: f32,
+    pub cliff_elevation_interval: Float,
     /// Name of the cliff prototype.
     pub name: String,
     /// Corresponds to 'continuity' in the GUI. This value is not used directly, but is used by the 'cliffiness' noise expression, which in combination with elevation and the two cliff elevation properties drives cliff placement (cliffs are placed when elevation crosses the elevation contours defined by `cliff_elevation_0` and `cliff_elevation_interval` when 'cliffiness' is greater than `0.5`). The default 'cliffiness' expression interprets this value such that larger values result in longer unbroken walls of cliffs, and smaller values (between `0` and `1`) result in larger gaps in cliff walls.
@@ -608,19 +608,19 @@ pub type CollisionMaskWithFlags = HashMap<CollisionMaskWithFlagsUnion, bool>;
 /// red1_short = {0.5, 0, 0, 0.5}            -- Same color as red1 in short-hand notation
 /// ```
 pub struct Color {
-    pub a: Option<f32>,
-    pub b: Option<f32>,
-    pub g: Option<f32>,
-    pub r: Option<f32>,
+    pub a: Option<Float>,
+    pub b: Option<Float>,
+    pub g: Option<Float>,
+    pub r: Option<Float>,
 }
 
 #[derive(Debug, Deserialize)]
 /// Same as [Color](Color), but red, green, blue and alpha values can be any floating point number, without any special handling of the range [1, 255].
 pub struct ColorModifier {
-    pub a: Option<f32>,
-    pub b: Option<f32>,
-    pub g: Option<f32>,
-    pub r: Option<f32>,
+    pub a: Option<Float>,
+    pub b: Option<Float>,
+    pub g: Option<Float>,
+    pub r: Option<Float>,
 }
 
 #[derive(Debug, Deserialize)]
@@ -637,7 +637,7 @@ pub struct CommandAttributesDefinesCommandAttackArea {
     /// Defaults to `defines.distraction.by_enemy`.
     pub distraction: Option<Distraction>,
     /// Radius of the attack area.
-    pub radius: f64,
+    pub radius: Double,
 }
 
 #[derive(Debug, Deserialize)]
@@ -677,7 +677,7 @@ pub struct CommandAttributesDefinesCommandGoToLocation {
     /// Flags that affect pathfinder behavior.
     pub pathfind_flags: Option<PathfinderFlags>,
     /// How close the pathfinder needs to get to its destination (in tiles). Defaults to `3`.
-    pub radius: Option<f64>,
+    pub radius: Option<Double>,
 }
 
 #[derive(Debug, Deserialize)]
@@ -703,7 +703,7 @@ pub struct CommandAttributesDefinesCommandWander {
     /// Defaults to `defines.distraction.by_enemy`.
     pub distraction: Option<Distraction>,
     /// Defaults to 10. Does not apply when `wander_in_group` is `true`.
-    pub radius: Option<f64>,
+    pub radius: Option<Double>,
     /// Ticks to wander before successfully completing the command. Default is max uint, which means wander forever.
     pub ticks_to_wait: Option<u32>,
     /// When commanding a group, defines how the group will wander. When `true`, the units in the group will wander around inside the group's radius, just like gathering biters. When `false`, the units will wander as a group, ie they will all walk together in the same random direction. Default is true for groups. Passing true for a single unit is an error.
@@ -845,7 +845,7 @@ pub struct CutsceneWaypoint {
     /// How many ticks it will take to reach this waypoint from the previous one.
     pub transition_time: u32,
     /// Zoom level to be set when the waypoint is reached. When not specified, the previous waypoint's zoom is used.
-    pub zoom: Option<f64>,
+    pub zoom: Option<Double>,
 }
 
 #[derive(Debug, Deserialize)]
@@ -919,7 +919,7 @@ pub struct DifficultySettings {
     pub research_queue_setting: String,
     pub technology_difficulty: DifficultySettingsTechnologyDifficulty,
     /// A value in range [0.001, 1000].
-    pub technology_price_multiplier: f64,
+    pub technology_price_multiplier: Double,
 }
 
 #[derive(Debug, Deserialize)]
@@ -941,13 +941,13 @@ pub struct DragTarget {
 /// These values represent a percentual increase in evolution. This means a value of `0.1` would increase evolution by 10%.
 pub struct EnemyEvolutionMapSettings {
     /// The amount evolution progresses for every destroyed spawner. Defaults to `0.002`.
-    pub destroy_factor: f64,
+    pub destroy_factor: Double,
     /// Whether enemy evolution is enabled at all.
     pub enabled: bool,
     /// The amount evolution progresses for every unit of pollution. Defaults to `0.0000009`.
-    pub pollution_factor: f64,
+    pub pollution_factor: Double,
     /// The amount evolution naturally progresses by every second. Defaults to `0.000004`.
-    pub time_factor: f64,
+    pub time_factor: Double,
 }
 
 #[derive(Debug, Deserialize)]
@@ -972,7 +972,7 @@ pub struct EnemyEvolutionMapSettings {
 /// ```
 pub struct EnemyExpansionMapSettings {
     /// Defaults to `0.1`.
-    pub building_coefficient: f64,
+    pub building_coefficient: Double,
     /// Whether enemy expansion is enabled at all.
     pub enabled: bool,
     /// Defaults to `2`.
@@ -980,7 +980,7 @@ pub struct EnemyExpansionMapSettings {
     /// Defaults to `2`.
     pub friendly_base_influence_radius: u32,
     /// A chunk has to have at most this high of a percentage of unbuildable tiles for it to be considered a candidate to avoid chunks full of water as candidates. Defaults to `0.9`, or 90%.
-    pub max_colliding_tiles_coefficient: f64,
+    pub max_colliding_tiles_coefficient: Double,
     /// The maximum time between expansions in ticks. The actual cooldown is adjusted to the current evolution levels. Defaults to `60*3,600=216,000` ticks.
     pub max_expansion_cooldown: u32,
     /// Distance in chunks from the furthest base around to prevent expansions from reaching too far into the player's territory. Defaults to `7`.
@@ -988,11 +988,11 @@ pub struct EnemyExpansionMapSettings {
     /// The minimum time between expansions in ticks. The actual cooldown is adjusted to the current evolution levels. Defaults to `4*3,600=14,400` ticks.
     pub min_expansion_cooldown: u32,
     /// Defaults to `0.4`.
-    pub neighbouring_base_chunk_coefficient: f64,
+    pub neighbouring_base_chunk_coefficient: Double,
     /// Defaults to `0.5`.
-    pub neighbouring_chunk_coefficient: f64,
+    pub neighbouring_chunk_coefficient: Double,
     /// Defaults to `2.0`.
-    pub other_base_coefficient: f64,
+    pub other_base_coefficient: Double,
     /// The maximum size of a biter group that goes to build a new base. This is multiplied by the evolution factor. Defaults to `20`.
     pub settler_group_max_size: u32,
     /// The minimum size of a biter group that goes to build a new base. This is multiplied by the evolution factor. Defaults to `5`.
@@ -1024,7 +1024,7 @@ pub enum EntityPrototypeFilterAttributesTypeUnion {
 pub struct EntityPrototypeFilterAttributesBuildBaseEvolutionRequirement {
     pub comparison: ComparatorString,
     /// The value to compare against.
-    pub value: f64,
+    pub value: Double,
 }
 
 #[derive(Debug, Deserialize)]
@@ -1044,7 +1044,7 @@ pub struct EntityPrototypeFilterAttributesCraftingCategory {
 pub struct EntityPrototypeFilterAttributesEmissions {
     pub comparison: ComparatorString,
     /// The value to compare against.
-    pub value: f64,
+    pub value: Double,
 }
 
 #[derive(Debug, Deserialize)]
@@ -1277,11 +1277,11 @@ pub type EventFilter = Vec<EventFilterUnion>;
 #[derive(Debug, Deserialize)]
 pub struct Fluid {
     /// Amount of the fluid.
-    pub amount: f64,
+    pub amount: Double,
     /// Fluid prototype name of the fluid.
     pub name: String,
     /// The temperature. When reading from [LuaFluidBox](LuaFluidBox), this field will always be present. It is not necessary to specify it when writing, however. When not specified, the fluid will be set to the fluid's default temperature as specified in the fluid's prototype.
-    pub temperature: Option<f64>,
+    pub temperature: Option<Double>,
 }
 
 #[derive(Debug, Deserialize)]
@@ -1299,9 +1299,9 @@ pub struct FluidBoxConnection {
 #[derive(Debug, Deserialize)]
 pub struct FluidBoxFilter {
     /// The maximum temperature allowed into the fluidbox.
-    pub maximum_temperature: f64,
+    pub maximum_temperature: Double,
     /// The minimum temperature allowed into the fluidbox.
-    pub minimum_temperature: f64,
+    pub minimum_temperature: Double,
     /// Fluid prototype name of the filtered fluid.
     pub name: String,
 }
@@ -1311,9 +1311,9 @@ pub struct FluidBoxFilterSpec {
     /// Force the filter to be set, regardless of current fluid content.
     pub force: Option<bool>,
     /// The maximum temperature allowed into the fluidbox.
-    pub maximum_temperature: Option<f64>,
+    pub maximum_temperature: Option<Double>,
     /// The minimum temperature allowed into the fluidbox.
-    pub minimum_temperature: Option<f64>,
+    pub minimum_temperature: Option<Double>,
     /// Fluid prototype name of the filtered fluid.
     pub name: String,
 }
@@ -1341,42 +1341,42 @@ pub enum FluidPrototypeFilterAttributesNameUnion {
 pub struct FluidPrototypeFilterAttributesDefaultTemperature {
     pub comparison: ComparatorString,
     /// The value to compare against.
-    pub value: f64,
+    pub value: Double,
 }
 
 #[derive(Debug, Deserialize)]
 pub struct FluidPrototypeFilterAttributesEmissionsMultiplier {
     pub comparison: ComparatorString,
     /// The value to compare against.
-    pub value: f64,
+    pub value: Double,
 }
 
 #[derive(Debug, Deserialize)]
 pub struct FluidPrototypeFilterAttributesFuelValue {
     pub comparison: ComparatorString,
     /// The value to compare against.
-    pub value: f64,
+    pub value: Double,
 }
 
 #[derive(Debug, Deserialize)]
 pub struct FluidPrototypeFilterAttributesGasTemperature {
     pub comparison: ComparatorString,
     /// The value to compare against.
-    pub value: f64,
+    pub value: Double,
 }
 
 #[derive(Debug, Deserialize)]
 pub struct FluidPrototypeFilterAttributesHeatCapacity {
     pub comparison: ComparatorString,
     /// The value to compare against.
-    pub value: f64,
+    pub value: Double,
 }
 
 #[derive(Debug, Deserialize)]
 pub struct FluidPrototypeFilterAttributesMaxTemperature {
     pub comparison: ComparatorString,
     /// The value to compare against.
-    pub value: f64,
+    pub value: Double,
 }
 
 #[derive(Debug, Deserialize)]
@@ -1550,7 +1550,7 @@ pub struct HeatSetting {
     /// `"at-least"`, `"at-most"`, `"exactly"`, `"add"`, or `"remove"`. Defaults to `"at-least"`.
     pub mode: Option<String>,
     /// The target temperature. Defaults to the minimum temperature of the heat buffer.
-    pub temperature: Option<f64>,
+    pub temperature: Option<Double>,
 }
 
 #[derive(Debug, Deserialize)]
@@ -1574,24 +1574,24 @@ pub struct InfinityPipeFilter {
     /// Name of the fluid.
     pub name: String,
     /// The fill percentage the pipe (e.g. 0.5 for 50%). Can't be negative.
-    pub percentage: Option<f64>,
+    pub percentage: Option<Double>,
     /// The temperature of the fluid. Defaults to the default/minimum temperature of the fluid.
-    pub temperature: Option<f64>,
+    pub temperature: Option<Double>,
 }
 
 #[derive(Debug, Deserialize)]
 #[serde(untagged)]
 pub enum IngredientCatalystAmountUnion {
     Uint(u32),
-    Double(f64),
+    Double(Double),
 }
 
 #[derive(Debug, Deserialize)]
 pub struct IngredientAttributesFluid {
     /// The maximum fluid temperature allowed.
-    pub maximum_temperature: Option<f64>,
+    pub maximum_temperature: Option<Double>,
     /// The minimum fluid temperature required.
-    pub minimum_temperature: Option<f64>,
+    pub minimum_temperature: Option<Double>,
 }
 
 #[derive(Debug, Deserialize)]
@@ -1602,7 +1602,7 @@ pub enum IngredientAttributes {
 #[derive(Debug, Deserialize)]
 pub struct Ingredient {
     /// Amount of the item or fluid.
-    pub amount: f64,
+    pub amount: Double,
     /// How much of this ingredient is a catalyst.
     pub catalyst_amount: Option<IngredientCatalystAmountUnion>,
     /// Prototype name of the required item or fluid.
@@ -1665,7 +1665,7 @@ pub struct ItemPrototypeFilterAttributesFlag {
 pub struct ItemPrototypeFilterAttributesFuelAccelerationMultiplier {
     pub comparison: ComparatorString,
     /// The value to compare against.
-    pub value: f64,
+    pub value: Double,
 }
 
 #[derive(Debug, Deserialize)]
@@ -1678,21 +1678,21 @@ pub struct ItemPrototypeFilterAttributesFuelCategory {
 pub struct ItemPrototypeFilterAttributesFuelEmissionsMultiplier {
     pub comparison: ComparatorString,
     /// The value to compare against.
-    pub value: f64,
+    pub value: Double,
 }
 
 #[derive(Debug, Deserialize)]
 pub struct ItemPrototypeFilterAttributesFuelTopSpeedMultiplier {
     pub comparison: ComparatorString,
     /// The value to compare against.
-    pub value: f64,
+    pub value: Double,
 }
 
 #[derive(Debug, Deserialize)]
 pub struct ItemPrototypeFilterAttributesFuelValue {
     pub comparison: ComparatorString,
     /// The value to compare against.
-    pub value: f64,
+    pub value: Double,
 }
 
 #[derive(Debug, Deserialize)]
@@ -1826,13 +1826,13 @@ pub enum ItemPrototypeIdentification {
 #[derive(Debug, Deserialize)]
 pub struct ItemStackDefinition {
     /// Amount of ammo in the ammo items in the stack.
-    pub ammo: Option<f64>,
+    pub ammo: Option<Double>,
     /// Number of items the stack holds. If not specified, defaults to `1`.
     pub count: Option<u32>,
     /// Durability of the tool items in the stack.
-    pub durability: Option<f64>,
+    pub durability: Option<Double>,
     /// Health of the items in the stack. Defaults to `1.0`.
-    pub health: Option<f32>,
+    pub health: Option<Float>,
     /// Prototype name of the item the stack holds.
     pub name: String,
     /// Tags of the items with tags in the stack.
@@ -1927,13 +1927,13 @@ pub struct LogisticParameters {
 #[derive(Debug, Deserialize)]
 pub struct Loot {
     /// Maximum amount of loot to drop.
-    pub count_max: f64,
+    pub count_max: Double,
     /// Minimum amount of loot to drop.
-    pub count_min: f64,
+    pub count_min: Double,
     /// Item prototype name of the result.
     pub item: String,
     /// Probability that any loot at all will drop, as a number in range [0, 1].
-    pub probability: f64,
+    pub probability: Double,
 }
 
 #[derive(Debug, Deserialize)]
@@ -1994,14 +1994,14 @@ pub struct LuaEntityDamagedEventFilterAttributesDamageType {
 pub struct LuaEntityDamagedEventFilterAttributesFinalDamageAmount {
     pub comparison: ComparatorString,
     /// The value to compare against.
-    pub value: f32,
+    pub value: Float,
 }
 
 #[derive(Debug, Deserialize)]
 pub struct LuaEntityDamagedEventFilterAttributesFinalHealth {
     pub comparison: ComparatorString,
     /// The value to compare against.
-    pub value: f32,
+    pub value: Float,
 }
 
 #[derive(Debug, Deserialize)]
@@ -2027,7 +2027,7 @@ pub struct LuaEntityDamagedEventFilterAttributesName {
 pub struct LuaEntityDamagedEventFilterAttributesOriginalDamageAmount {
     pub comparison: ComparatorString,
     /// The value to compare against.
-    pub value: f32,
+    pub value: Float,
 }
 
 #[derive(Debug, Deserialize)]
@@ -3098,7 +3098,7 @@ pub struct MapGenSettings {
 #[serde(untagged)]
 pub enum MapGenSize {
     /// Specifying a map gen dimension.
-    Float(f32),
+    Float(Float),
     /// equivalent to `0`.
     None,
     /// equivalent to `1/2`.
@@ -3219,7 +3219,7 @@ pub struct ModChangeData {
 #[serde(untagged)]
 pub enum ModSettingValueUnion {
     Int(i32),
-    Double(f64),
+    Double(Double),
     Boolean(bool),
     String(String),
     Color(Color),
@@ -3282,7 +3282,7 @@ pub struct ModSettingPrototypeFilter {
 #[derive(Debug, Deserialize)]
 pub struct ModuleEffectValue {
     /// The percentual increase of the attribute. A value of `0.6` means a 60% increase.
-    pub bonus: f32,
+    pub bonus: Float,
 }
 
 #[derive(Debug, Deserialize)]
@@ -3355,33 +3355,33 @@ pub struct OldTileAndPosition {
 #[derive(Debug, Deserialize)]
 pub struct PathFinderMapSettings {
     /// When looking for a path from cache, make sure it doesn't end too far from the requested end in relative terms. This is typically more lenient than the start ratio since the end target could be moving. Defaults to `0.15`.
-    pub cache_accept_path_end_distance_ratio: f64,
+    pub cache_accept_path_end_distance_ratio: Double,
     /// When looking for a path from cache, make sure it doesn't start too far from the requested start in relative terms. Defaults to `0.2`.
-    pub cache_accept_path_start_distance_ratio: f64,
+    pub cache_accept_path_start_distance_ratio: Double,
     /// When looking for a connection to a cached path, search at most for this number of steps times the original estimate. Defaults to `100`.
     pub cache_max_connect_to_cache_steps_multiplier: u32,
     /// When assigning a rating to the best path, this multiplier times end distances is considered. This value is typically higher than the start multiplier as this results in better end path quality. Defaults to `20`.
-    pub cache_path_end_distance_rating_multiplier: f64,
+    pub cache_path_end_distance_rating_multiplier: Double,
     /// When assigning a rating to the best path, this multiplier times start distances is considered. Defaults to `10`.
-    pub cache_path_start_distance_rating_multiplier: f64,
+    pub cache_path_start_distance_rating_multiplier: Double,
     /// The maximum direct distance in tiles before a request is no longer considered short. Defaults to `100`.
     pub direct_distance_to_consider_short_request: u32,
     /// A penalty that is applied for another unit that is too close and either not moving or has a different goal. Defaults to `30`.
-    pub enemy_with_different_destination_collision_penalty: f64,
+    pub enemy_with_different_destination_collision_penalty: Double,
     /// The collision penalty for collisions in the extended bounding box but outside the entity's actual bounding box. Defaults to `3`.
-    pub extended_collision_penalty: f64,
+    pub extended_collision_penalty: Double,
     /// The pathfinder performs a step of the backward search every `fwd2bwd_ratio`'th step. The minimum allowed value is `2`, which means symmetric search. The default value is `5`.
     pub fwd2bwd_ratio: u32,
     /// The general collision penalty with other units. Defaults to `10`.
-    pub general_entity_collision_penalty: f64,
+    pub general_entity_collision_penalty: Double,
     /// The collision penalty for positions that require the destruction of an entity to get to. Defaults to `3`.
-    pub general_entity_subsequent_collision_penalty: f64,
+    pub general_entity_subsequent_collision_penalty: Double,
     /// When looking at which node to check next, their heuristic value is multiplied by this ratio. The higher it is, the more the search is directed straight at the goal. Defaults to `2`.
-    pub goal_pressure_ratio: f64,
+    pub goal_pressure_ratio: Double,
     /// The distance in tiles after which other moving units are not considered for pathfinding. Defaults to `5`.
-    pub ignore_moving_enemy_collision_distance: f64,
+    pub ignore_moving_enemy_collision_distance: Double,
     /// The minimal distance to the goal in tiles required to be searched in the long path cache. Defaults to `30`.
-    pub long_cache_min_cacheable_distance: f64,
+    pub long_cache_min_cacheable_distance: Double,
     /// Number of elements in the long cache. Defaults to `25`.
     pub long_cache_size: u32,
     /// The amount of path finder requests accepted per tick regardless of the requested path's length. Defaults to `10`.
@@ -3389,35 +3389,35 @@ pub struct PathFinderMapSettings {
     /// When the `max_clients_to_accept_any_new_request` amount is exhausted, only path finder requests with a short estimate will be accepted until this amount (per tick) is reached. Defaults to `100`.
     pub max_clients_to_accept_short_new_request: u32,
     /// The maximum number of nodes that are expanded per tick. Defaults to `1,000`.
-    pub max_steps_worked_per_tick: f64,
+    pub max_steps_worked_per_tick: Double,
     /// The maximum amount of work each pathfinding job is allowed to do per tick. Defaults to `8,000`.
     pub max_work_done_per_tick: u32,
     /// The minimum amount of steps that are guaranteed to be performed for every request. Defaults to `2000`.
     pub min_steps_to_check_path_find_termination: u32,
     /// Same principle as `cache_accept_path_end_distance_ratio`, but used for negative cache queries. Defaults to `0.3`.
-    pub negative_cache_accept_path_end_distance_ratio: f64,
+    pub negative_cache_accept_path_end_distance_ratio: Double,
     /// Same principle as `cache_accept_path_start_distance_ratio`, but used for negative cache queries. Defaults to `0.3`.
-    pub negative_cache_accept_path_start_distance_ratio: f64,
+    pub negative_cache_accept_path_start_distance_ratio: Double,
     /// The delay in ticks between decrementing the score of all paths in the negative cache by one. Defaults to `20`.
     pub negative_path_cache_delay_interval: u32,
     /// The thresholds of waiting clients after each of which the per-tick work limit will be increased by the corresponding value in `overload_multipliers`. This is to avoid clients having to wait too long. Must have the same number of elements as `overload_multipliers`. Defaults to `{0, 100, 500}`.
     pub overload_levels: Vec<u32>,
     /// The multipliers to the amount of per-tick work applied after the corresponding thresholds in `overload_levels` have been reached. Must have the same number of elements as `overload_multipliers`. Defaults to `{2, 3, 4}`.
-    pub overload_multipliers: Vec<f64>,
+    pub overload_multipliers: Vec<Double>,
     /// The minimal number of nodes required to be searched in the short path cache. Defaults to `50`.
     pub short_cache_min_algo_steps_to_cache: u32,
     /// The minimal distance to the goal in tiles required to be searched in the short path cache. Defaults to `10`.
-    pub short_cache_min_cacheable_distance: f64,
+    pub short_cache_min_cacheable_distance: Double,
     /// Number of elements in the short cache. Defaults to `5`.
     pub short_cache_size: u32,
     /// The maximum amount of nodes a short request will traverse before being rescheduled as a long request. Defaults to `1000`.
     pub short_request_max_steps: u32,
     /// The amount of steps that are allocated to short requests each tick, as a percentage of all available steps. Defaults to `0.5`, or 50%.
-    pub short_request_ratio: f64,
+    pub short_request_ratio: Double,
     /// A penalty that is applied for another unit that is on the way to the goal. This is mainly relevant for situations where a group of units has arrived at the target they are supposed to attack, making units further back circle around to reach the target. Defaults to `30`.
-    pub stale_enemy_with_same_destination_collision_penalty: f64,
+    pub stale_enemy_with_same_destination_collision_penalty: Double,
     /// If the actual amount of steps is higher than the initial estimate by this factor, pathfinding is terminated. Defaults to `2000.0`.
-    pub start_to_goal_cost_multiplier_to_terminate_path_find: f64,
+    pub start_to_goal_cost_multiplier_to_terminate_path_find: Double,
     /// Whether to cache paths at all. Defaults to `true`.
     pub use_path_cache: bool,
 }
@@ -3470,56 +3470,56 @@ pub enum PlayerIdentification {
 /// These values are for the time frame of one second (60 ticks).
 pub struct PollutionMapSettings {
     /// The amount of pollution eaten by a chunk's tiles as a percentage of 1. Defaults to `1`.
-    pub ageing: f64,
+    pub ageing: Double,
     /// The amount that is diffused to a neighboring chunk (possibly repeated for other directions as well). Defaults to `0.02`.
-    pub diffusion_ratio: f64,
+    pub diffusion_ratio: Double,
     /// Whether pollution is enabled at all.
     pub enabled: bool,
     /// Defaults to `1`.
-    pub enemy_attack_pollution_consumption_modifier: f64,
+    pub enemy_attack_pollution_consumption_modifier: Double,
     /// Any amount of pollution larger than this value is visualized as this value instead. Defaults to `150`.
-    pub expected_max_per_chunk: f64,
+    pub expected_max_per_chunk: Double,
     /// Defaults to `20`.
-    pub max_pollution_to_restore_trees: f64,
+    pub max_pollution_to_restore_trees: Double,
     /// Defaults to `60`.
-    pub min_pollution_to_damage_trees: f64,
+    pub min_pollution_to_damage_trees: Double,
     /// The amount of PUs that need to be in a chunk for it to start diffusing. Defaults to `15`.
-    pub min_to_diffuse: f64,
+    pub min_to_diffuse: Double,
     /// Any amount of pollution smaller than this value (but bigger than zero) is visualized as this value instead. Defaults to `50`.
-    pub min_to_show_per_chunk: f64,
+    pub min_to_show_per_chunk: Double,
     /// Defaults to `50`.
-    pub pollution_per_tree_damage: f64,
+    pub pollution_per_tree_damage: Double,
     /// Defaults to `10`.
-    pub pollution_restored_per_tree_damage: f64,
+    pub pollution_restored_per_tree_damage: Double,
     /// Defaults to `150`.
-    pub pollution_with_max_forest_damage: f64,
+    pub pollution_with_max_forest_damage: Double,
 }
 
 #[derive(Debug, Deserialize)]
 #[serde(untagged)]
 pub enum ProductAmountMaxUnion {
     Uint(u32),
-    Double(f64),
+    Double(Double),
 }
 
 #[derive(Debug, Deserialize)]
 #[serde(untagged)]
 pub enum ProductAmountMinUnion {
     Uint(u32),
-    Double(f64),
+    Double(Double),
 }
 
 #[derive(Debug, Deserialize)]
 #[serde(untagged)]
 pub enum ProductCatalystAmountUnion {
     Uint(u32),
-    Double(f64),
+    Double(Double),
 }
 
 #[derive(Debug, Deserialize)]
 pub struct ProductAttributesFluid {
     /// The fluid temperature of this product.
-    pub temperature: Option<f64>,
+    pub temperature: Option<Double>,
 }
 
 #[derive(Debug, Deserialize)]
@@ -3546,7 +3546,7 @@ pub enum ProductAttributes {
 /// ```
 pub struct Product {
     /// Amount of the item or fluid to give. If not specified, `amount_min`, `amount_max` and `probability` must all be specified.
-    pub amount: Option<f64>,
+    pub amount: Option<Double>,
     /// Maximum amount of the item or fluid to give. Has no effect when `amount` is specified.
     pub amount_max: Option<ProductAmountMaxUnion>,
     /// Minimal amount of the item or fluid to give. Has no effect when `amount` is specified.
@@ -3556,7 +3556,7 @@ pub struct Product {
     /// Prototype name of the result.
     pub name: String,
     /// A value in range [0, 1]. Item or fluid is only given with this probability; otherwise no product is produced.
-    pub probability: Option<f64>,
+    pub probability: Option<Double>,
     /// `"item"` or `"fluid"`.
     #[serde(rename = "type")]
     pub typ: String,
@@ -3589,7 +3589,7 @@ pub struct ProgrammableSpeakerInstrument {
 pub struct ProgrammableSpeakerParameters {
     pub allow_polyphony: bool,
     pub playback_globally: bool,
-    pub playback_volume: f64,
+    pub playback_volume: Double,
 }
 
 #[derive(Debug, Deserialize)]
@@ -3633,7 +3633,7 @@ pub struct PrototypeHistory {
 /// The smooth orientation. It is a [float](float) in the range `[0, 1)` that covers a full circle, starting at the top and going clockwise. This means a value of `0` indicates "north", a value of `0.5` indicates "south".
 ///
 /// For example then, a value of `0.625` would indicate "south-west", and a value of `0.875` would indicate "north-west".
-pub type RealOrientation = f32;
+pub type RealOrientation = Float;
 
 #[derive(Debug, Deserialize)]
 pub struct RecipePrototypeFilterAttributesCategory {
@@ -3645,14 +3645,14 @@ pub struct RecipePrototypeFilterAttributesCategory {
 pub struct RecipePrototypeFilterAttributesEmissionsMultiplier {
     pub comparison: ComparatorString,
     /// The value to compare against.
-    pub value: f64,
+    pub value: Double,
 }
 
 #[derive(Debug, Deserialize)]
 pub struct RecipePrototypeFilterAttributesEnergy {
     pub comparison: ComparatorString,
     /// The value to compare against.
-    pub value: f64,
+    pub value: Double,
 }
 
 #[derive(Debug, Deserialize)]
@@ -3791,9 +3791,9 @@ pub enum RenderLayer {
 #[derive(Debug, Deserialize)]
 pub struct Resistance {
     /// Absolute damage decrease
-    pub decrease: f32,
+    pub decrease: Float,
     /// Percentual damage decrease
-    pub percent: f32,
+    pub percent: Float,
 }
 
 #[derive(Debug, Deserialize)]
@@ -3966,22 +3966,22 @@ pub enum SimpleItemStack {
 pub struct SmokeSource {
     pub deviation: Option<MapPosition>,
     pub east_position: Option<Vector>,
-    pub frequency: f64,
-    pub height: f32,
-    pub height_deviation: f32,
+    pub frequency: Double,
+    pub height: Float,
+    pub height_deviation: Float,
     pub name: String,
     pub north_position: Option<Vector>,
-    pub offset: f64,
+    pub offset: Double,
     pub position: Option<Vector>,
     pub slow_down_factor: u8,
     pub south_position: Option<Vector>,
     pub starting_frame: u16,
-    pub starting_frame_deviation: f64,
+    pub starting_frame_deviation: Double,
     pub starting_frame_speed: u16,
-    pub starting_frame_speed_deviation: f64,
-    pub starting_vertical_speed: f32,
-    pub starting_vertical_speed_deviation: f32,
-    pub vertical_speed_slowdown: f32,
+    pub starting_frame_speed_deviation: Double,
+    pub starting_vertical_speed: Float,
+    pub starting_vertical_speed_deviation: Float,
+    pub vertical_speed_slowdown: Float,
     pub west_position: Option<Vector>,
 }
 
@@ -4028,9 +4028,9 @@ pub enum SoundType {
 #[derive(Debug, Deserialize)]
 pub struct SpawnPointDefinition {
     /// Evolution factor for which this weight applies.
-    pub evolution_factor: f64,
+    pub evolution_factor: Double,
     /// Probability of spawning this unit at this evolution factor.
-    pub weight: f64,
+    pub weight: Double,
 }
 
 /// It can be either the name of a [sprite prototype](https://wiki.factorio.com/Prototype/Sprite) defined in the data stage, or a path in form "type/name".
@@ -4057,9 +4057,9 @@ pub struct SteeringMapSetting {
     /// Used to make steering look better for aesthetic purposes.
     pub force_unit_fuzzy_goto_behavior: bool,
     /// Does not include the radius of the unit.
-    pub radius: f64,
-    pub separation_factor: f64,
-    pub separation_force: f64,
+    pub radius: Double,
+    pub separation_factor: Double,
+    pub separation_force: Double,
 }
 
 #[derive(Debug, Deserialize)]
@@ -4112,7 +4112,7 @@ pub enum TechnologyIdentification {
 #[derive(Debug, Deserialize)]
 pub struct TechnologyModifierAttributesOtherTypes {
     /// Modification value. This value will be added to the variable it modifies.
-    pub modifier: f64,
+    pub modifier: Double,
 }
 
 #[derive(Debug, Deserialize)]
@@ -4120,7 +4120,7 @@ pub struct TechnologyModifierAttributesAmmoDamage {
     /// Prototype name of the ammunition category that is affected
     pub ammo_category: String,
     /// Modification value. This will be added to the current ammo damage modifier upon researching.
-    pub modifier: f64,
+    pub modifier: Double,
 }
 
 #[derive(Debug, Deserialize)]
@@ -4136,7 +4136,7 @@ pub struct TechnologyModifierAttributesGunSpeed {
     /// Prototype name of the ammunition category that is affected
     pub ammo_category: String,
     /// Modification value. This will be added to the current gun speed modifier upon researching.
-    pub modifier: f64,
+    pub modifier: Double,
 }
 
 #[derive(Debug, Deserialize)]
@@ -4148,7 +4148,7 @@ pub struct TechnologyModifierAttributesNothing {
 #[derive(Debug, Deserialize)]
 pub struct TechnologyModifierAttributesTurretAttack {
     /// Modification value. This will be added to the current turret damage modifier upon researching.
-    pub modifier: f64,
+    pub modifier: Double,
     /// Turret prototype name this modifier will affect.
     pub turret_id: String,
 }
@@ -4268,28 +4268,28 @@ pub struct TilePrototypeFilterAttributesCollisionMask {
 pub struct TilePrototypeFilterAttributesDecorativeRemovalProbability {
     pub comparison: ComparatorString,
     /// The value to compare against.
-    pub value: f32,
+    pub value: Float,
 }
 
 #[derive(Debug, Deserialize)]
 pub struct TilePrototypeFilterAttributesEmissions {
     pub comparison: ComparatorString,
     /// The value to compare against.
-    pub value: f64,
+    pub value: Double,
 }
 
 #[derive(Debug, Deserialize)]
 pub struct TilePrototypeFilterAttributesVehicleFrictionModifier {
     pub comparison: ComparatorString,
     /// The value to compare against.
-    pub value: f64,
+    pub value: Double,
 }
 
 #[derive(Debug, Deserialize)]
 pub struct TilePrototypeFilterAttributesWalkingSpeedModifier {
     pub comparison: ComparatorString,
     /// The value to compare against.
-    pub value: f64,
+    pub value: Double,
 }
 
 #[derive(Debug, Deserialize)]
@@ -4380,25 +4380,25 @@ pub struct UnitGroupMapSettings {
     /// The maximum amount of time in ticks a group will spend gathering before setting off. The actual time is a random time between the minimum and maximum times. Defaults to `10*3,600=36,000` ticks.
     pub max_group_gathering_time: u32,
     /// When a member of a group falls back more than this factor times the group radius, the group will slow down to its `max_group_slowdown_factor` speed to let them catch up. Defaults to `3`.
-    pub max_group_member_fallback_factor: f64,
+    pub max_group_member_fallback_factor: Double,
     /// The maximum group radius in tiles. The actual radius is adjusted based on the number of members. Defaults to `30.0`.
-    pub max_group_radius: f64,
+    pub max_group_radius: Double,
     /// The minimum speed as a percentage of its maximum speed that a group will slow down to so members that fell behind can catch up. Defaults to `0.3`, or 30%.
-    pub max_group_slowdown_factor: f64,
+    pub max_group_slowdown_factor: Double,
     /// The minimum speed a percentage of its regular speed that a group member can slow down to when ahead of the group. Defaults to `0.6`, or 60%.
-    pub max_member_slowdown_when_ahead: f64,
+    pub max_member_slowdown_when_ahead: Double,
     /// The maximum speed a percentage of its regular speed that a group member can speed up to when catching up with the group. Defaults to `1.4`, or 140%.
-    pub max_member_speedup_when_behind: f64,
+    pub max_member_speedup_when_behind: Double,
     /// The maximum number of members for an attack unit group. This only affects automatically created unit groups, manual groups created through the API are unaffected. Defaults to `200`.
     pub max_unit_group_size: u32,
     /// After gathering has finished, the group is allowed to wait this long in ticks for delayed members. New members are not accepted anymore however. Defaults to `2*3,600=7,200` ticks.
     pub max_wait_time_for_late_members: u32,
     /// When a member of a group falls back more than this factor times the group radius, it will be dropped from the group. Defaults to `10`.
-    pub member_disown_distance: f64,
+    pub member_disown_distance: Double,
     /// The minimum amount of time in ticks a group will spend gathering before setting off. The actual time is a random time between the minimum and maximum times. Defaults to `3,600` ticks.
     pub min_group_gathering_time: u32,
     /// The minimum group radius in tiles. The actual radius is adjusted based on the number of members. Defaults to `5.0`.
-    pub min_group_radius: f64,
+    pub min_group_radius: Double,
     pub tick_tolerance_when_member_arrives: u32,
 }
 
@@ -4428,8 +4428,8 @@ pub struct UpgradeFilter {
 /// right = {1.0, 0.0}
 /// ```
 pub struct Vector {
-    pub x: f32,
-    pub y: f32,
+    pub x: Float,
+    pub y: Float,
 }
 
 #[derive(Debug, Deserialize)]

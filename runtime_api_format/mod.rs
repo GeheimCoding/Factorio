@@ -2,7 +2,6 @@
 
 use std::{
     collections::HashSet,
-    fmt::format,
     fs,
     io::{Error, ErrorKind},
     path::{Path, PathBuf},
@@ -204,7 +203,7 @@ enum Import {
     Classes,
     Concepts,
     Defines,
-    MaybeCycle,
+    Super,
     Deserialize,
     DeserializeRepr,
     LineBreak,
@@ -240,10 +239,14 @@ impl RuntimeApiFormat {
             fs::remove_file(&mod_path)?;
         }
         mod_content.push_str("use serde::Deserialize;\n\n");
-        mod_content.push_str(DERIVE);
-        mod_content.push_str(UNTAGGED);
         mod_content.push_str(
-            "pub enum MaybeCycle<T> {\n    Cycle { cycle_id: u32 },\n    Value(Box<T>),\n}",
+            &fs::read_to_string(format!("runtime_api_format/patches/maybe_cycle.rs"))
+                .unwrap_or_default(),
+        );
+        mod_content.push('\n');
+        mod_content.push_str(
+            &fs::read_to_string(format!("runtime_api_format/patches/floating_point.rs"))
+                .unwrap_or_default(),
         );
         fs::write(mod_path, mod_content)?;
 
@@ -319,7 +322,7 @@ impl RuntimeApiFormat {
                 Import::Classes => "use super::classes::*;\n",
                 Import::Concepts => "use super::concepts::*;\n",
                 Import::Defines => "use super::defines::*;\n",
-                Import::MaybeCycle => "use super::MaybeCycle;\n",
+                Import::Super => "use super::*;\n",
                 Import::Deserialize => "use serde::Deserialize;\n",
                 Import::DeserializeRepr => "use serde_repr::Deserialize_repr;\n",
                 Import::LineBreak => "\n",
@@ -358,7 +361,7 @@ impl RuntimeApiFormat {
             Import::LineBreak,
             Import::Concepts,
             Import::Defines,
-            Import::MaybeCycle,
+            Import::Super,
             Import::LineBreak,
         ];
         self.generate_definition(
@@ -385,7 +388,7 @@ impl RuntimeApiFormat {
             Import::Classes,
             Import::Concepts,
             Import::Defines,
-            Import::MaybeCycle,
+            Import::Super,
             Import::LineBreak,
         ];
         self.generate_definition(
@@ -406,7 +409,7 @@ impl RuntimeApiFormat {
             Import::LineBreak,
             Import::Classes,
             Import::Defines,
-            Import::MaybeCycle,
+            Import::Super,
             Import::LineBreak,
         ];
         self.generate_definition(
@@ -896,8 +899,8 @@ impl Type {
 
     fn lua_type_to_rust_type(type_name: &str) -> String {
         match type_name {
-            "float" => "f32".to_owned(),
-            "double" => "f64".to_owned(),
+            "float" => "Float".to_owned(),
+            "double" => "Double".to_owned(),
             "int" => "i32".to_owned(),
             "int8" => "i8".to_owned(),
             "uint" => "u32".to_owned(),

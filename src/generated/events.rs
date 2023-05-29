@@ -5,7 +5,7 @@ use serde::Deserialize;
 use super::classes::*;
 use super::concepts::*;
 use super::defines::*;
-use super::MaybeCycle;
+use super::*;
 
 /// Called when a [CustomInput](https://wiki.factorio.com/Prototype/CustomInput) is activated.
 #[derive(Debug, Deserialize)]
@@ -352,15 +352,15 @@ pub struct OnEntityDamaged {
     pub damage_type: MaybeCycle<LuaDamagePrototype>,
     pub entity: MaybeCycle<LuaEntity>,
     /// The damage amount after resistances.
-    pub final_damage_amount: f32,
+    pub final_damage_amount: Float,
     /// The health of the entity after the damage was applied.
-    pub final_health: f32,
+    pub final_health: Float,
     /// The force that did the attacking if any.
     pub force: Option<MaybeCycle<LuaForce>>,
     /// Identifier of the event
     pub name: Events,
     /// The damage amount before resistances.
-    pub original_damage_amount: f32,
+    pub original_damage_amount: Float,
     /// Tick the event was generated.
     pub tick: u32,
 }
@@ -1283,7 +1283,7 @@ pub struct OnPlayerDisplayScaleChanged {
     /// Identifier of the event
     pub name: Events,
     /// The old display scale
-    pub old_scale: f64,
+    pub old_scale: Double,
     /// The player
     pub player_index: u32,
     /// Tick the event was generated.
@@ -1339,7 +1339,7 @@ pub struct OnPlayerFastTransferred {
 #[derive(Debug, Deserialize)]
 pub struct OnPlayerFlushedFluid {
     /// Amount of fluid that was removed
-    pub amount: f64,
+    pub amount: Double,
     /// Entity from which flush was performed
     pub entity: MaybeCycle<LuaEntity>,
     /// Name of a fluid that was flushed

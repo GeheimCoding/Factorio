@@ -5,7 +5,7 @@ use serde::Deserialize;
 
 use super::concepts::*;
 use super::defines::*;
-use super::MaybeCycle;
+use super::*;
 
 /// Collection of settings for overriding default ai behavior.
 #[derive(Debug, Deserialize)]
@@ -513,9 +513,9 @@ pub struct LuaBurner {
     /// * The value in the dictionary is meaningless and exists just to allow for easy lookup.
     pub fuel_categories: HashMap<String, bool>,
     /// The current heat (energy) stored in this burner.
-    pub heat: f64,
+    pub heat: Double,
     /// The maximum heat (maximum energy) that this burner can store.
-    pub heat_capacity: f64,
+    pub heat_capacity: Double,
     /// The fuel inventory.
     pub inventory: MaybeCycle<LuaInventory>,
     /// The class name of this object. Available even when `valid` is false. For LuaStruct objects it may also be suffixed with a dotted path to a member of the struct.
@@ -527,7 +527,7 @@ pub struct LuaBurner {
     /// # Notes
     ///
     /// * Writing to this will silently do nothing if there's no [LuaBurner::currently_burning](LuaBurner::currently_burning) set.
-    pub remaining_burning_fuel: f64,
+    pub remaining_burning_fuel: Double,
     /// Is this object valid? This Lua object holds a reference to an object within the game engine. It is possible that the game-engine object is removed whilst a mod still holds the corresponding Lua object. If that happens, the object becomes invalid, i.e. this attribute will be `false`. Mods are advised to check for object validity if any change to the game state might have occurred between the creation of the Lua object and its access.
     pub valid: bool,
 }
@@ -540,23 +540,23 @@ pub trait LuaBurnerMethods {
 
 #[derive(Debug, Deserialize)]
 pub struct LuaBurnerPrototypeLightFlicker {
-    pub border_fix_speed: f32,
+    pub border_fix_speed: Float,
     pub color: Color,
-    pub derivation_change_deviation: f32,
-    pub derivation_change_frequency: f32,
-    pub light_intensity_to_size_coefficient: f32,
-    pub maximum_intensity: f32,
-    pub minimum_intensity: f32,
-    pub minimum_light_size: f32,
+    pub derivation_change_deviation: Float,
+    pub derivation_change_frequency: Float,
+    pub light_intensity_to_size_coefficient: Float,
+    pub maximum_intensity: Float,
+    pub minimum_intensity: Float,
+    pub minimum_light_size: Float,
 }
 
 /// Prototype of a burner energy source.
 #[derive(Debug, Deserialize)]
 pub struct LuaBurnerPrototype {
     pub burnt_inventory_size: u32,
-    pub effectivity: f64,
+    pub effectivity: Double,
     /// The emissions of this energy source in `pollution/Joule`. Multiplying it by energy consumption in `Watt` gives `pollution/second`.
-    pub emissions: f64,
+    pub emissions: Double,
     /// # Notes
     ///
     /// * The value in the dictionary is meaningless and exists just to allow for easy lookup.
@@ -820,11 +820,11 @@ pub struct LuaControl {
     /// # Notes
     ///
     /// * When called on a [LuaPlayer](LuaPlayer), it must be associated with a character (see [LuaPlayer::character](LuaPlayer::character)).
-    pub character_crafting_speed_modifier: f64,
+    pub character_crafting_speed_modifier: Double,
     /// # Notes
     ///
     /// * When called on a [LuaPlayer](LuaPlayer), it must be associated with a character (see [LuaPlayer::character](LuaPlayer::character)).
-    pub character_health_bonus: f32,
+    pub character_health_bonus: Float,
     /// # Notes
     ///
     /// * When called on a [LuaPlayer](LuaPlayer), it must be associated with a character (see [LuaPlayer::character](LuaPlayer::character)).
@@ -846,11 +846,11 @@ pub struct LuaControl {
     /// * When called on a [LuaPlayer](LuaPlayer), it must be associated with a character (see [LuaPlayer::character](LuaPlayer::character)).
     pub character_maximum_following_robot_count_bonus: u32,
     /// The current mining progress between 0 and 1 of this character, or 0 if they aren't mining.
-    pub character_mining_progress: f64,
+    pub character_mining_progress: Double,
     /// # Notes
     ///
     /// * When called on a [LuaPlayer](LuaPlayer), it must be associated with a character (see [LuaPlayer::character](LuaPlayer::character)).
-    pub character_mining_speed_modifier: f64,
+    pub character_mining_speed_modifier: Double,
     /// If personal logistic requests are enabled for this character or players character.
     pub character_personal_logistic_requests_enabled: bool,
     /// # Notes
@@ -862,13 +862,13 @@ pub struct LuaControl {
     /// * When called on a [LuaPlayer](LuaPlayer), it must be associated with a character (see [LuaPlayer::character](LuaPlayer::character)).
     pub character_resource_reach_distance_bonus: u32,
     /// The current movement speed of this character, including effects from exoskeletons, tiles, stickers and shooting.
-    pub character_running_speed: f64,
+    pub character_running_speed: Double,
     /// Modifies the running speed of this character by the given value as a percentage. Setting the running modifier to `0.5` makes the character run 50% faster. The minimum value of `-1` reduces the movement speed by 100%, resulting in a speed of `0`.
     ///
     /// # Notes
     ///
     /// * When called on a [LuaPlayer](LuaPlayer), it must be associated with a character (see [LuaPlayer::character](LuaPlayer::character)).
-    pub character_running_speed_modifier: f64,
+    pub character_running_speed_modifier: Double,
     /// # Notes
     ///
     /// * When called on a [LuaPlayer](LuaPlayer), it must be associated with a character (see [LuaPlayer::character](LuaPlayer::character)).
@@ -878,7 +878,7 @@ pub struct LuaControl {
     /// The current crafting queue items.
     pub crafting_queue: Vec<CraftingQueueItem>,
     /// The crafting queue progress in the range `[0-1]`. `0` when no recipe is being crafted.
-    pub crafting_queue_progress: f64,
+    pub crafting_queue_progress: Double,
     /// Size of the crafting queue.
     pub crafting_queue_size: u32,
     /// The ghost prototype in the player's cursor. When read, it will be a [LuaItemPrototype](LuaItemPrototype).
@@ -913,9 +913,9 @@ pub struct LuaControl {
     /// Whether this character entity is in combat.
     pub in_combat: bool,
     /// The item pickup distance of this character or max double when not a character or player connected to a character.
-    pub item_pickup_distance: f64,
+    pub item_pickup_distance: Double,
     /// The loot pickup distance of this character or max double when not a character or player connected to a character.
-    pub loot_pickup_distance: f64,
+    pub loot_pickup_distance: Double,
     /// Current mining state.
     ///
     /// # Notes
@@ -940,7 +940,7 @@ pub struct LuaControl {
     /// Current repair state.
     pub repair_state: MaybeCycle<LuaControlRepairState>,
     /// The resource reach distance of this character or max double when not a character or player connected to a character.
-    pub resource_reach_distance: f64,
+    pub resource_reach_distance: Double,
     /// Current riding state of this car, or of the car this player is riding in.
     pub riding_state: RidingState,
     /// The currently selected entity. Assigning an entity will select it if is selectable, otherwise the selection is cleared.
@@ -1439,14 +1439,14 @@ pub trait LuaDecorativePrototypeMethods {
 /// Prototype of an electric energy source.
 #[derive(Debug, Deserialize)]
 pub struct LuaElectricEnergySourcePrototype {
-    pub buffer_capacity: f64,
-    pub drain: f64,
+    pub buffer_capacity: Double,
+    pub drain: Double,
     /// The emissions of this energy source in `pollution/Joule`. Multiplying it by energy consumption in `Watt` gives `pollution/second`.
-    pub emissions: f64,
-    pub input_flow_limit: f64,
+    pub emissions: Double,
+    pub input_flow_limit: Double,
     /// The class name of this object. Available even when `valid` is false. For LuaStruct objects it may also be suffixed with a dotted path to a member of the struct.
     pub object_name: String,
-    pub output_flow_limit: f64,
+    pub output_flow_limit: Double,
     pub render_no_network_icon: bool,
     pub render_no_power_icon: bool,
     pub usage_priority: String,
@@ -1567,10 +1567,10 @@ pub struct LuaEntity {
     /// Can only be used if this is TransportBeltToGround
     pub belt_to_ground_type: String,
     /// The bonus mining progress for this mining drill. Read yields a number in range [0, mining_target.prototype.mineable_properties.mining_time]. `nil` if this isn't a mining drill.
-    pub bonus_mining_progress: Option<f64>,
+    pub bonus_mining_progress: Option<Double>,
     /// The current productivity bonus progress, as a number in range [0, 1].
     /// Can only be used if this is CraftingMachine
-    pub bonus_progress: f64,
+    pub bonus_progress: Double,
     /// [LuaEntityPrototype::collision_box](LuaEntityPrototype::collision_box) around entity's given position and respecting the current entity orientation.
     pub bounding_box: BoundingBox,
     /// The burner energy source for this entity, if any.
@@ -1615,10 +1615,10 @@ pub struct LuaEntity {
     /// Can only be used if this is TrainStop
     pub connected_rail_direction: RailDirection,
     /// The consumption bonus of this entity.
-    pub consumption_bonus: f64,
+    pub consumption_bonus: Double,
     /// Multiplies the energy consumption.
     /// Can only be used if this is Car
-    pub consumption_modifier: f32,
+    pub consumption_modifier: Float,
     /// Whether this corpse will ever fade away.
     ///
     /// # Notes
@@ -1633,13 +1633,13 @@ pub struct LuaEntity {
     pub corpse_immune_to_entity_placement: bool,
     /// The current crafting progress, as a number in range [0, 1].
     /// Can only be used if this is CraftingMachine
-    pub crafting_progress: f32,
+    pub crafting_progress: Float,
     /// The current crafting speed, including speed bonuses from modules and beacons.
     /// Can only be used if this is CraftingMachine
-    pub crafting_speed: f64,
+    pub crafting_speed: Double,
     /// The damage dealt by this turret, artillery turret, or artillery wagon.
     /// Can only be used if this is Turret
-    pub damage_dealt: f64,
+    pub damage_dealt: Double,
     /// If set to `false`, this entity can't be damaged and won't be attacked automatically. It can however still be mined.
     ///
     /// # Notes
@@ -1664,10 +1664,10 @@ pub struct LuaEntity {
     pub drop_target: Option<MaybeCycle<LuaEntity>>,
     /// The current speed of this unit in tiles per tick, taking into account any walking speed modifier given by the tile the unit is standing on. `nil` if this is not a unit.
     /// Can only be used if this is Unit
-    pub effective_speed: Option<f32>,
+    pub effective_speed: Option<Float>,
     /// Multiplies the acceleration the vehicle can create for one unit of energy. Defaults to `1`.
     /// Can only be used if this is Car
-    pub effectivity_modifier: f32,
+    pub effectivity_modifier: Float,
     /// The effects being applied to this entity, if any. For beacons, this is the effect the beacon is broadcasting.
     pub effects: Option<ModuleEffects>,
     /// The buffer size for the electric energy source. `nil` if the entity doesn't have an electric energy source.
@@ -1675,20 +1675,20 @@ pub struct LuaEntity {
     /// # Notes
     ///
     /// * Write access is limited to the ElectricEnergyInterface type
-    pub electric_buffer_size: Option<f64>,
+    pub electric_buffer_size: Option<Double>,
     /// The electric drain for the electric energy source. `nil` if the entity doesn't have an electric energy source.
-    pub electric_drain: Option<f64>,
+    pub electric_drain: Option<Double>,
     /// The emissions for the electric energy source. `nil` if the entity doesn't have an electric energy source.
-    pub electric_emissions: Option<f64>,
+    pub electric_emissions: Option<Double>,
     /// The input flow limit for the electric energy source. `nil` if the entity doesn't have an electric energy source.
-    pub electric_input_flow_limit: Option<f64>,
+    pub electric_input_flow_limit: Option<Double>,
     /// Returns the id of the electric network that this entity is connected to, if any.
     pub electric_network_id: Option<u32>,
     /// The electric network statistics for this electric pole.
     /// Can only be used if this is ElectricPole
     pub electric_network_statistics: MaybeCycle<LuaFlowStatistics>,
     /// The output flow limit for the electric energy source. `nil` if the entity doesn't have an electric energy source.
-    pub electric_output_flow_limit: Option<f64>,
+    pub electric_output_flow_limit: Option<Double>,
     /// Whether equipment grid logistics are enabled while this vehicle is moving.
     /// Can only be used if this is Vehicle
     pub enable_logistics_while_moving: bool,
@@ -1700,10 +1700,10 @@ pub struct LuaEntity {
     /// game.player.print("Machine energy: " .. game.player.selected.energy .. "J")
     /// game.player.selected.energy = 3000
     /// ```
-    pub energy: f64,
+    pub energy: Double,
     /// How much energy this generator generated in the last tick.
     /// Can only be used if this is Generator
-    pub energy_generated_last_tick: f64,
+    pub energy_generated_last_tick: Double,
     /// The label on this spider-vehicle entity, if any. `nil` if this is not a spider-vehicle.
     pub entity_label: Option<String>,
     /// The number of filter slots this inserter, loader, or logistic storage container has. 0 if not one of those entities.
@@ -1725,7 +1725,7 @@ pub struct LuaEntity {
     /// ```text
     /// game.player.vehicle.friction_modifier = 0.5
     /// ```
-    pub friction_modifier: f32,
+    pub friction_modifier: Float,
     /// Can only be used if this is Ghost
     pub ghost_localised_description: LocalisedString,
     /// Localised name of the entity or tile contained in this ghost.
@@ -1752,7 +1752,7 @@ pub struct LuaEntity {
     /// # Notes
     ///
     /// * To get the maximum possible health of this entity, see [LuaEntityPrototype::max_health](LuaEntityPrototype::max_health) on its prototype.
-    pub health: Option<f32>,
+    pub health: Option<Float>,
     /// The item stack currently held in an inserter's hand.
     /// Can only be used if this is Inserter
     pub held_stack: MaybeCycle<LuaItemStack>,
@@ -1845,7 +1845,7 @@ pub struct LuaEntity {
     /// * Entities that are not minable naturally (like smoke, character, enemy units etc) can't be set to minable.
     pub minable: bool,
     /// The mining progress for this mining drill. Is a number in range [0, mining_target.prototype.mineable_properties.mining_time]. `nil` if this isn't a mining drill.
-    pub mining_progress: Option<f64>,
+    pub mining_progress: Option<Double>,
     /// The mining target, if any.
     /// Can only be used if this is MiningDrill
     pub mining_target: Option<MaybeCycle<LuaEntity>>,
@@ -1856,7 +1856,7 @@ pub struct LuaEntity {
     pub name: String,
     /// The current total neighbour bonus of this reactor.
     /// Can only be used if this is Reactor
-    pub neighbour_bonus: f64,
+    pub neighbour_bonus: Double,
     /// A list of neighbours for certain types of entities. Applies to electric poles, power switches, underground belts, walls, gates, reactors, cliffs, and pipe-connectable entities.
     ///
     /// - When called on an electric pole, this is a dictionary of all connections, indexed by the strings `"copper"`, `"red"`, and `"green"`.
@@ -1887,15 +1887,15 @@ pub struct LuaEntity {
     /// Can only be used if this is Character
     pub player: Option<MaybeCycle<LuaPlayer>>,
     /// The pollution bonus of this entity.
-    pub pollution_bonus: f64,
+    pub pollution_bonus: Double,
     /// The power production specific to the ElectricEnergyInterface entity type.
     /// Can only be used if this is ElectricEnergyInterface
-    pub power_production: f64,
+    pub power_production: Double,
     /// The state of this power switch.
     pub power_switch_state: bool,
     /// The power usage specific to the ElectricEnergyInterface entity type.
     /// Can only be used if this is ElectricEnergyInterface
-    pub power_usage: f64,
+    pub power_usage: Double,
     /// The previous recipe this furnace was using, if any.
     /// Can only be used if this is Furnace
     pub previous_recipe: Option<MaybeCycle<LuaRecipe>>,
@@ -1904,7 +1904,7 @@ pub struct LuaEntity {
     /// # Notes
     ///
     /// * This includes force based bonuses as well as beacon/module bonuses.
-    pub productivity_bonus: f64,
+    pub productivity_bonus: Double,
     /// The number of products this machine finished crafting in its lifetime.
     /// Can only be used if this is CraftingMachine
     pub products_finished: u32,
@@ -1917,7 +1917,7 @@ pub struct LuaEntity {
     pub pump_rail_target: Option<MaybeCycle<LuaEntity>>,
     /// The current radar scan progress, as a number in range [0, 1].
     /// Can only be used if this is Radar
-    pub radar_scan_progress: f32,
+    pub radar_scan_progress: Float,
     /// When locked; the recipe in this assembling machine can't be changed by the player.
     /// Can only be used if this is AssemblingMachine
     pub recipe_locked: bool,
@@ -1978,13 +1978,13 @@ pub struct LuaEntity {
     /// The current speed if this is a car, rolling stock, projectile or spidertron, or the maximum speed if this is a unit. The speed is in tiles per tick. `nil` if this is not a car, rolling stock, unit, projectile or spidertron.
     ///
     /// Only the speed of units, cars, and projectiles are writable.
-    pub speed: Option<f32>,
+    pub speed: Option<Float>,
     /// The speed bonus of this entity.
     ///
     /// # Notes
     ///
     /// * This includes force based bonuses as well as beacon/module bonuses.
-    pub speed_bonus: f64,
+    pub speed_bonus: Double,
     /// The filter for this splitter, if any is set.
     /// Can only be used if this is Splitter
     pub splitter_filter: Option<MaybeCycle<LuaItemPrototype>>,
@@ -2009,7 +2009,7 @@ pub struct LuaEntity {
     /// The tags associated with this entity ghost. `nil` if this is not an entity ghost.
     pub tags: Option<Tags>,
     /// The temperature of this entity's heat energy source. `nil` if this entity does not use a heat energy source.
-    pub temperature: Option<f64>,
+    pub temperature: Option<Double>,
     /// The text of this flying-text entity.
     /// Can only be used if this is FlyingText
     pub text: LocalisedString,
@@ -2327,7 +2327,7 @@ pub trait LuaEntityMethods {
     /// # Returns
     ///
     /// * the total damage actually applied after resistances.
-    fn damage(damage: f32, dealer: LuaEntity, force: ForceIdentification, typ: String) -> f32;
+    fn damage(damage: Float, dealer: LuaEntity, force: ForceIdentification, typ: String) -> Float;
     /// Depletes and destroys this resource entity.
     fn deplete();
     /// Destroys the entity.
@@ -2447,7 +2447,7 @@ pub trait LuaEntityMethods {
     /// # Returns
     ///
     /// * `nil` if this entity does not have health.
-    fn get_damage_to_be_taken() -> Option<f32>;
+    fn get_damage_to_be_taken() -> Option<Float>;
     /// Gets the driver of this vehicle if any.
     ///
     /// # Returns
@@ -2477,7 +2477,7 @@ pub trait LuaEntityMethods {
     /// # Returns
     ///
     /// * The amounts, indexed by fluid names.
-    fn get_fluid_contents() -> HashMap<String, f64>;
+    fn get_fluid_contents() -> HashMap<String, Double>;
     /// Get the amount of all or some fluid in this entity.
     ///
     /// # Notes
@@ -2487,7 +2487,7 @@ pub trait LuaEntityMethods {
     /// # Arguments
     ///
     /// * `fluid` - Prototype name of the fluid to count. If not specified, count all fluids.
-    fn get_fluid_count(fluid: String) -> f64;
+    fn get_fluid_count(fluid: String) -> Double;
     /// The fuel inventory for this entity or `nil` if this entity doesn't have a fuel inventory.
     fn get_fuel_inventory() -> Option<LuaInventory>;
     /// The health ratio of this entity between 1 and 0 (for full health and no health respectively).
@@ -2495,7 +2495,7 @@ pub trait LuaEntityMethods {
     /// # Returns
     ///
     /// * `nil` if this entity doesn't have health.
-    fn get_health_ratio() -> Option<f32>;
+    fn get_health_ratio() -> Option<Float>;
     /// Gets the heat setting for this heat interface.
     fn get_heat_setting() -> HeatSetting;
     /// Returns all signals guarding entrance to a rail block this rail belongs to.
@@ -2574,7 +2574,7 @@ pub trait LuaEntityMethods {
     /// * `nil` if the vehicle contains no passenger. To check if there's a driver see [LuaEntity::get_driver](LuaEntity::get_driver).
     fn get_passenger() -> Option<LuaEntityMethodsGetPassengerUnion>;
     /// The radius of this entity.
-    fn get_radius() -> f64;
+    fn get_radius() -> Double;
     /// Get the rail at the end of the rail segment this rail is in.
     ///
     /// # Notes
@@ -2606,7 +2606,7 @@ pub trait LuaEntityMethods {
     /// # Notes
     ///
     /// * A rail segment is a continuous section of rail with no branches, signals, nor train stops.
-    fn get_rail_segment_length() -> f64;
+    fn get_rail_segment_length() -> Double;
     /// Get a rail from each rail segment that overlaps with this rail's rail segment.
     ///
     /// # Notes
@@ -2704,7 +2704,7 @@ pub trait LuaEntityMethods {
     /// # Returns
     ///
     /// * Amount of fluid actually inserted.
-    fn insert_fluid(fluid: Fluid) -> f64;
+    fn insert_fluid(fluid: Fluid) -> Double;
     /// # Returns
     ///
     /// * `true` if this gate is currently closed.
@@ -2819,12 +2819,12 @@ pub trait LuaEntityMethods {
     ///
     /// * Amount of fluid actually removed.
     fn remove_fluid(
-        amount: f64,
-        maximum_temperature: f64,
-        minimum_temperature: f64,
+        amount: Double,
+        maximum_temperature: Double,
+        minimum_temperature: Double,
         name: String,
-        temperature: f64,
-    ) -> f64;
+        temperature: Double,
+    ) -> Double;
     /// Remove an offer from a market.
     ///
     /// # Notes
@@ -3019,51 +3019,51 @@ pub trait LuaEntityMethods {
 
 #[derive(Debug, Deserialize)]
 pub struct LuaEntityPrototypeCreatedSmoke {
-    pub initial_height: f32,
-    pub max_radius: Option<f32>,
+    pub initial_height: Float,
+    pub max_radius: Option<Float>,
     pub offset_deviation: BoundingBox,
     pub offsets: Vec<Vector>,
     pub smoke_name: String,
     pub speed: Vector,
-    pub speed_from_center: f32,
-    pub speed_from_center_deviation: f32,
-    pub speed_multiplier: f32,
-    pub speed_multiplier_deviation: f32,
-    pub starting_frame: f32,
-    pub starting_frame_deviation: f32,
-    pub starting_frame_speed: f32,
-    pub starting_frame_speed_deviation: f32,
+    pub speed_from_center: Float,
+    pub speed_from_center_deviation: Float,
+    pub speed_multiplier: Float,
+    pub speed_multiplier_deviation: Float,
+    pub starting_frame: Float,
+    pub starting_frame_deviation: Float,
+    pub starting_frame_speed: Float,
+    pub starting_frame_speed_deviation: Float,
 }
 
 #[derive(Debug, Deserialize)]
 pub struct LuaEntityPrototypeLogisticParameters {
-    pub charge_approach_distance: f32,
-    pub charging_distance: f32,
-    pub charging_energy: f64,
+    pub charge_approach_distance: Float,
+    pub charging_distance: Float,
+    pub charging_energy: Double,
     pub charging_station_count: u32,
     pub charging_station_shift: Vector,
-    pub charging_threshold_distance: f32,
-    pub construction_radius: f32,
-    pub logistic_radius: f32,
-    pub logistics_connection_distance: f32,
+    pub charging_threshold_distance: Float,
+    pub construction_radius: Float,
+    pub logistic_radius: Float,
+    pub logistics_connection_distance: Float,
     pub robot_limit: u32,
-    pub robot_vertical_acceleration: f32,
+    pub robot_vertical_acceleration: Float,
     pub robots_shrink_when_entering_and_exiting: bool,
-    pub spawn_and_station_height: f32,
-    pub spawn_and_station_shadow_height_offset: f32,
+    pub spawn_and_station_height: Float,
+    pub spawn_and_station_shadow_height_offset: Float,
     pub stationing_offset: Vector,
 }
 
 #[derive(Debug, Deserialize)]
 pub struct LuaEntityPrototypeMineableProperties {
     /// The required fluid amount if any.
-    pub fluid_amount: Option<f64>,
+    pub fluid_amount: Option<Double>,
     /// Is this entity mineable at all?
     pub minable: bool,
     /// Prototype name of the particle produced when mining this entity. Will only be present if this entity produces any particle during mining.
     pub mining_particle: Option<String>,
     /// Energy required to mine an entity.
-    pub mining_time: f64,
+    pub mining_time: Double,
     /// The mining trigger if any.
     pub mining_trigger: Option<Vec<TriggerItem>>,
     /// Products obtained by mining this entity.
@@ -3074,8 +3074,8 @@ pub struct LuaEntityPrototypeMineableProperties {
 
 #[derive(Debug, Deserialize)]
 pub struct LuaEntityPrototypeSpawnCooldown {
-    pub max: f64,
-    pub min: f64,
+    pub max: Double,
+    pub min: Double,
 }
 
 /// Prototype of an entity.
@@ -3083,7 +3083,7 @@ pub struct LuaEntityPrototypeSpawnCooldown {
 pub struct LuaEntityPrototype {
     /// The active energy usage of this rocket silo or combinator prototype.
     /// Can only be used if this is RocketSilo or Combinator
-    pub active_energy_usage: Option<f64>,
+    pub active_energy_usage: Option<Double>,
     /// Entities this entity can be pasted onto in addition to the normal allowed ones.
     pub additional_pastable_entities: Vec<MaybeCycle<LuaEntityPrototype>>,
     /// The bounding box that specifies which tiles adjacent to the offshore pump should be checked.
@@ -3100,9 +3100,9 @@ pub struct LuaEntityPrototype {
     pub affected_by_tiles: Option<bool>,
     /// The air resistance of this rolling stock prototype.
     /// Can only be used if this is RollingStock
-    pub air_resistance: Option<f64>,
+    pub air_resistance: Option<Double>,
     /// The alert icon scale of this entity prototype.
-    pub alert_icon_scale: f32,
+    pub alert_icon_scale: Float,
     /// The alert icon shift of this entity prototype.
     pub alert_icon_shift: Vector,
     /// Whether this turret raises an alert when attacking
@@ -3138,7 +3138,7 @@ pub struct LuaEntityPrototype {
     pub ammo_category: Option<String>,
     /// The animation speed coefficient of this belt connectable prototype.
     /// Can only be used if this is BeltConnectable
-    pub animation_speed_coefficient: Option<f64>,
+    pub animation_speed_coefficient: Option<Double>,
     /// The attack parameters for this entity, if any.
     pub attack_parameters: Option<AttackParameters>,
     /// The attack result of this entity, if any.
@@ -3153,19 +3153,19 @@ pub struct LuaEntityPrototype {
     pub autoplace_specification: Option<AutoplaceSpecification>,
     /// The base productivity of this crafting machine, lab, or mining drill.
     /// Can only be used if this is CraftingMachine or Lab or MiningDrill
-    pub base_productivity: Option<f64>,
+    pub base_productivity: Option<Double>,
     /// Can only be used if this is Loader
-    pub belt_distance: Option<f64>,
+    pub belt_distance: Option<Double>,
     /// Can only be used if this is Loader
-    pub belt_length: Option<f64>,
+    pub belt_length: Option<Double>,
     /// The speed of this transport belt.
     /// Can only be used if this is TransportBeltConnectable
-    pub belt_speed: Option<f64>,
+    pub belt_speed: Option<Double>,
     /// The braking force of this vehicle prototype.
     /// Can only be used if this is Vehicle
-    pub braking_force: Option<f64>,
+    pub braking_force: Option<Double>,
     /// The evolution requirement to build this entity as a base when expanding enemy bases.
-    pub build_base_evolution_requirement: f64,
+    pub build_base_evolution_requirement: Double,
     /// Can only be used if this is Character
     pub build_distance: Option<u32>,
     /// The log2 of grid size of the building
@@ -3176,7 +3176,7 @@ pub struct LuaEntityPrototype {
     /// Can only be used if this is Generator
     pub burns_fluid: Option<bool>,
     /// Can only be used if this is Spawner
-    pub call_for_help_radius: Option<f64>,
+    pub call_for_help_radius: Option<Double>,
     /// Whether this unit prototype can open gates.
     /// Can only be used if this is Unit
     pub can_open_gates: Option<bool>,
@@ -3185,12 +3185,12 @@ pub struct LuaEntityPrototype {
     pub center_collision_mask: Option<CollisionMask>,
     /// The chain shooting cooldown modifier of this spider vehicle prototype.
     /// Can only be used if this is SpiderVehicle
-    pub chain_shooting_cooldown_modifier: Option<f64>,
+    pub chain_shooting_cooldown_modifier: Option<Double>,
     /// Can only be used if this is Character
     pub character_corpse: Option<MaybeCycle<LuaEntityPrototype>>,
     /// The chunk exploration radius of this spider vehicle prototype.
     /// Can only be used if this is SpiderVehicle
-    pub chunk_exploration_radius: Option<f64>,
+    pub chunk_exploration_radius: Option<Double>,
     /// The item prototype name used to destroy this cliff.
     /// Can only be used if this is Cliff
     pub cliff_explosive_prototype: Option<String>,
@@ -3209,12 +3209,12 @@ pub struct LuaEntityPrototype {
     pub color: Option<Color>,
     /// The construction radius for this roboport prototype.
     /// Can only be used if this is Roboport
-    pub construction_radius: Option<f64>,
+    pub construction_radius: Option<Double>,
     /// The energy consumption of this car prototype.
     /// Can only be used if this is Car
-    pub consumption: Option<f64>,
+    pub consumption: Option<Double>,
     /// Can only be used if this is Loader
-    pub container_distance: Option<f64>,
+    pub container_distance: Option<Double>,
     /// Corpses used when this entity is destroyed. It is a dictionary indexed by the corpse's prototype name.
     /// Can only be used if this is EntityWithHealth
     pub corpses: Option<HashMap<String, MaybeCycle<LuaEntityPrototype>>>,
@@ -3230,7 +3230,7 @@ pub struct LuaEntityPrototype {
     pub crafting_categories: Option<HashMap<String, bool>>,
     /// The crafting speed..
     /// Can only be used if this is CraftingMachine
-    pub crafting_speed: Option<f64>,
+    pub crafting_speed: Option<Double>,
     /// If this prototype will attempt to create a ghost of itself on death.
     ///
     /// # Notes
@@ -3245,10 +3245,10 @@ pub struct LuaEntityPrototype {
     pub damage_hit_tint: Option<Color>,
     /// Value between 0 and 1 darkness where all lamps of this lamp prototype are off.
     /// Can only be used if this is Lamp
-    pub darkness_for_all_lamps_off: Option<f32>,
+    pub darkness_for_all_lamps_off: Option<Float>,
     /// Value between 0 and 1 darkness where all lamps of this lamp prototype are on.
     /// Can only be used if this is Lamp
-    pub darkness_for_all_lamps_on: Option<f32>,
+    pub darkness_for_all_lamps_on: Option<Float>,
     /// The hardcoded default collision mask (with flags) for this entity prototype type.
     pub default_collision_mask_with_flags: CollisionMaskWithFlags,
     /// Whether this generator prototype destroys non-fuel fluids.
@@ -3259,10 +3259,10 @@ pub struct LuaEntityPrototype {
     pub distraction_cooldown: Option<u32>,
     /// The distribution effectivity for this beacon prototype.
     /// Can only be used if this is Beacon
-    pub distribution_effectivity: Option<f64>,
+    pub distribution_effectivity: Option<Double>,
     /// The door opening speed for this rocket silo prototype.
     /// Can only be used if this is RocketSilo
-    pub door_opening_speed: Option<f64>,
+    pub door_opening_speed: Option<Double>,
     /// Whether this logistics or construction robot renders its cargo when flying.
     /// Can only be used if this is RobotWithLogisticsInterface
     pub draw_cargo: Option<bool>,
@@ -3272,38 +3272,38 @@ pub struct LuaEntityPrototype {
     pub drop_item_distance: Option<u32>,
     /// The dying time of this corpse prototype.
     /// Can only be used if this is Corpse
-    pub dying_speed: Option<f32>,
+    pub dying_speed: Option<Float>,
     /// The effectivity of this car prototype, generator prototype.
     /// Can only be used if this is Car or Generator
-    pub effectivity: Option<f64>,
+    pub effectivity: Option<Double>,
     /// The electric energy source prototype this entity uses, if any.
     pub electric_energy_source_prototype: Option<MaybeCycle<LuaElectricEnergySourcePrototype>>,
     /// Amount of pollution emissions per second this entity will create.
-    pub emissions_per_second: f64,
+    pub emissions_per_second: Double,
     /// The enemy map color used when charting this entity.
     pub enemy_map_color: Color,
     /// The energy used per hitpoint taken for this vehicle during collisions.
     /// Can only be used if this is Vehicle
-    pub energy_per_hit_point: Option<f64>,
+    pub energy_per_hit_point: Option<Double>,
     /// The energy consumed per tile moved for this flying robot.
     /// Can only be used if this is FlyingRobot
-    pub energy_per_move: Option<f64>,
+    pub energy_per_move: Option<Double>,
     /// The energy consumed per tick for this flying robot.
     /// Can only be used if this is FlyingRobot
-    pub energy_per_tick: Option<f64>,
+    pub energy_per_tick: Option<Double>,
     /// The direct energy usage of this entity, if any.
-    pub energy_usage: Option<f64>,
+    pub energy_usage: Option<Double>,
     /// The engine starting speed for this rocket silo rocket prototype.
     /// Can only be used if this is RocketSiloRocket
-    pub engine_starting_speed: Option<f64>,
+    pub engine_starting_speed: Option<Double>,
     /// Can only be used if this is Character
-    pub enter_vehicle_distance: Option<f64>,
+    pub enter_vehicle_distance: Option<Double>,
     /// Whether this explosion has a beam.
     /// Can only be used if this is Explosion
-    pub explosion_beam: Option<f64>,
+    pub explosion_beam: Option<Double>,
     /// Whether this explosion rotates.
     /// Can only be used if this is Explosion
-    pub explosion_rotate: Option<f64>,
+    pub explosion_rotate: Option<Double>,
     /// The group of mutually fast-replaceable entities, if any.
     pub fast_replaceable_group: Option<String>,
     /// The filter count of this inserter, loader, or logistic chest. For logistic containers, `nil` means no limit.
@@ -3325,23 +3325,23 @@ pub struct LuaEntityPrototype {
     /// # Notes
     ///
     /// * Crafting machines will report 0 due to their fluid capacity being whatever a given recipe needs.
-    pub fluid_capacity: f64,
+    pub fluid_capacity: Double,
     /// The fluid energy source prototype this entity uses, if any.
     pub fluid_energy_source_prototype: Option<MaybeCycle<LuaFluidEnergySourcePrototype>>,
     /// The fluid usage of this generator prototype.
     /// Can only be used if this is Generator
-    pub fluid_usage_per_tick: Option<f64>,
+    pub fluid_usage_per_tick: Option<Double>,
     /// The fluidbox prototypes for this entity.
     pub fluidbox_prototypes: Vec<MaybeCycle<LuaFluidBoxPrototype>>,
     /// The flying acceleration for this rocket silo rocket prototype.
     /// Can only be used if this is RocketSiloRocket
-    pub flying_acceleration: Option<f64>,
+    pub flying_acceleration: Option<Double>,
     /// The flying speed for this rocket silo rocket prototype.
     /// Can only be used if this is RocketSiloRocket
-    pub flying_speed: Option<f64>,
+    pub flying_speed: Option<Double>,
     /// The friction of this vehicle prototype.
     /// Can only be used if this is Vehicle
-    pub friction_force: Option<f64>,
+    pub friction_force: Option<Double>,
     /// The friendly map color used when charting this entity.
     pub friendly_map_color: Color,
     /// The equipment grid prototype for this entity, if any.
@@ -3354,17 +3354,17 @@ pub struct LuaEntityPrototype {
     /// Can only be used if this is Unit or Car or Character
     pub has_belt_immunity: Option<bool>,
     /// Amount this entity can heal per tick, if any.
-    pub healing_per_tick: Option<f32>,
+    pub healing_per_tick: Option<Float>,
     /// The heat buffer prototype this entity uses, if any.
     pub heat_buffer_prototype: Option<MaybeCycle<LuaHeatBufferPrototype>>,
     /// The heat energy source prototype this entity uses, if any.
     pub heat_energy_source_prototype: Option<MaybeCycle<LuaHeatEnergySourcePrototype>>,
     /// The height of this spider vehicle prototype.
     /// Can only be used if this is SpiderVehicle
-    pub height: Option<f64>,
+    pub height: Option<Double>,
     /// The idle energy usage of this rocket silo prototype.
     /// Can only be used if this is RocketSilo
-    pub idle_energy_usage: Option<f64>,
+    pub idle_energy_usage: Option<Double>,
     /// A vector of the gun prototypes of this car, spider vehicle, artillery wagon, or turret.
     /// Can only be used if this is Car or SpiderVehicle or ArtilleryTurret or ArtilleryWagon
     pub indexed_guns: Option<Vec<MaybeCycle<LuaItemPrototype>>>,
@@ -3385,16 +3385,16 @@ pub struct LuaEntityPrototype {
     pub inserter_drop_position: Option<Vector>,
     /// The extension speed of this inserter.
     /// Can only be used if this is Inserter
-    pub inserter_extension_speed: Option<f64>,
+    pub inserter_extension_speed: Option<Double>,
     /// The pickup position for this inserter.
     /// Can only be used if this is Inserter
     pub inserter_pickup_position: Option<Vector>,
     /// The rotation speed of this inserter.
     /// Can only be used if this is Inserter
-    pub inserter_rotation_speed: Option<f64>,
+    pub inserter_rotation_speed: Option<Double>,
     /// The built-in stack size bonus of this inserter prototype.
     /// Can only be used if this is Inserter
-    pub inserter_stack_size_bonus: Option<f64>,
+    pub inserter_stack_size_bonus: Option<Double>,
     /// The instruments for this programmable speaker.
     /// Can only be used if this is ProgrammableSpeaker
     pub instruments: Option<Vec<ProgrammableSpeakerInstrument>>,
@@ -3449,7 +3449,7 @@ pub struct LuaEntityPrototype {
     /// Can only be used if this is EntityWithOwner
     pub is_military_target: Option<bool>,
     /// Can only be used if this is Character
-    pub item_pickup_distance: Option<f64>,
+    pub item_pickup_distance: Option<Double>,
     /// The item slot count of this constant combinator prototype.
     /// Can only be used if this is ConstantCombinator
     pub item_slot_count: Option<u32>,
@@ -3460,13 +3460,13 @@ pub struct LuaEntityPrototype {
     pub lab_inputs: Option<Vec<String>>,
     /// The lamp energy usage of this rocket silo prototype.
     /// Can only be used if this is RocketSilo
-    pub lamp_energy_usage: Option<f64>,
+    pub lamp_energy_usage: Option<Double>,
     /// The rocket launch delay for this rocket silo prototype.
     /// Can only be used if this is RocketSilo
     pub launch_wait_time: Option<u8>,
     /// The light blinking speed for this rocket silo prototype.
     /// Can only be used if this is RocketSilo
-    pub light_blinking_speed: Option<f64>,
+    pub light_blinking_speed: Option<Double>,
     pub localised_description: LocalisedString,
     pub localised_name: LocalisedString,
     /// The logistic mode of this logistic container. One of `"requester"`, `"active-provider"`, `"passive-provider"`, `"buffer"`, `"storage"`, `"none"`.
@@ -3481,28 +3481,28 @@ pub struct LuaEntityPrototype {
     pub logistic_parameters: Option<MaybeCycle<LuaEntityPrototypeLogisticParameters>>,
     /// The logistic radius for this roboport prototype.
     /// Can only be used if this is Roboport
-    pub logistic_radius: Option<f64>,
+    pub logistic_radius: Option<Double>,
     /// Loot that will be dropped when this entity is killed, if any.
     /// Can only be used if this is EntityWithHealth
     pub loot: Option<Vec<Loot>>,
     /// Can only be used if this is Character
-    pub loot_pickup_distance: Option<f64>,
+    pub loot_pickup_distance: Option<Double>,
     /// The manual range modifier for this artillery turret or wagon prototype.
     ///
     /// subclass(ArtilleryWagon, ArtilleryTurret)
-    pub manual_range_modifier: Option<f64>,
+    pub manual_range_modifier: Option<Double>,
     /// The map color used when charting this entity if a friendly or enemy color isn't defined, if any.
     pub map_color: Option<Color>,
     /// The bounding box used for map generator collision checking.
     pub map_generator_bounding_box: BoundingBox,
     /// The maximum circuit wire distance for this entity. 0 if the entity doesn't support circuit wires.
-    pub max_circuit_wire_distance: f64,
+    pub max_circuit_wire_distance: Double,
     /// Count of enemies this spawner can sustain.
     /// Can only be used if this is Spawner
-    pub max_count_of_owned_units: Option<f64>,
+    pub max_count_of_owned_units: Option<Double>,
     /// The maximum darkness at which this unit spawner can spawn entities.
     /// Can only be used if this is Spawner
-    pub max_darkness_to_spawn: Option<f32>,
+    pub max_darkness_to_spawn: Option<Float>,
     /// The radius of the area constantly revealed by this radar, in chunks.
     /// Can only be used if this is Radar
     pub max_distance_of_nearby_sector_revealed: Option<u32>,
@@ -3511,16 +3511,16 @@ pub struct LuaEntityPrototype {
     pub max_distance_of_sector_revealed: Option<u32>,
     /// The max energy for this flying robot.
     /// Can only be used if this is FlyingRobot
-    pub max_energy: Option<f64>,
+    pub max_energy: Option<Double>,
     /// The theoretical maximum energy production for this this entity.
-    pub max_energy_production: f64,
+    pub max_energy_production: Double,
     /// The theoretical maximum energy usage for this entity.
-    pub max_energy_usage: f64,
+    pub max_energy_usage: Double,
     /// How many friendly units are required within the spawning_radius of this spawner for it to stop producing more units.
     /// Can only be used if this is Spawner
-    pub max_friends_around_to_spawn: Option<f64>,
+    pub max_friends_around_to_spawn: Option<Double>,
     /// Max health of this entity. Will be `0` if this is not an entity with health.
-    pub max_health: f32,
+    pub max_health: Float,
     /// The max payload size of this logistics or construction robot.
     /// Can only be used if this is RobotWithLogisticsInterface
     pub max_payload_size: Option<u32>,
@@ -3529,35 +3529,35 @@ pub struct LuaEntityPrototype {
     pub max_polyphony: Option<u32>,
     /// The default maximum power output of this generator prototype.
     /// Can only be used if this is BurnerGenerator or Generator
-    pub max_power_output: Option<f64>,
+    pub max_power_output: Option<Double>,
     /// The maximum pursue distance of this unit prototype.
     /// Can only be used if this is Unit
-    pub max_pursue_distance: Option<f64>,
+    pub max_pursue_distance: Option<Double>,
     /// The max speed of this projectile or flying robot prototype.
     /// Can only be used if this is Projectile or FlyingRobot
-    pub max_speed: Option<f64>,
+    pub max_speed: Option<Double>,
     /// The maximum energy for this flying robot above which it won't try to recharge when stationing.
     /// Can only be used if this is FlyingRobot
-    pub max_to_charge: Option<f32>,
+    pub max_to_charge: Option<Float>,
     /// The max underground distance for underground belts and underground pipes.
     /// Can only be used if this is UndergroundBelt or PipeToGround
     pub max_underground_distance: Option<u8>,
     /// The maximum wire distance for this entity. 0 if the entity doesn't support wires.
-    pub max_wire_distance: f64,
+    pub max_wire_distance: Double,
     /// Can only be used if this is Character
-    pub maximum_corner_sliding_distance: Option<f64>,
+    pub maximum_corner_sliding_distance: Option<Double>,
     /// The maximum fluid temperature of this generator prototype.
     /// Can only be used if this is Generator
-    pub maximum_temperature: Option<f64>,
+    pub maximum_temperature: Option<Double>,
     /// The minimum darkness at which this unit spawner can spawn entities.
     /// Can only be used if this is Spawner
-    pub min_darkness_to_spawn: Option<f32>,
+    pub min_darkness_to_spawn: Option<Float>,
     /// The minimum pursue time of this unit prototype.
     /// Can only be used if this is Unit
     pub min_pursue_time: Option<u32>,
     /// The minimum energy for this flying robot before it tries to recharge.
     /// Can only be used if this is FlyingRobot
-    pub min_to_charge: Option<f32>,
+    pub min_to_charge: Option<Float>,
     /// Whether this entity is minable and what can be obtained by mining it.
     pub mineable_properties: MaybeCycle<LuaEntityPrototypeMineableProperties>,
     /// Minimum amount of this resource.
@@ -3565,10 +3565,10 @@ pub struct LuaEntityPrototype {
     pub minimum_resource_amount: Option<u32>,
     /// The mining radius of this mining drill prototype.
     /// Can only be used if this is MiningDrill
-    pub mining_drill_radius: Option<f64>,
+    pub mining_drill_radius: Option<Double>,
     /// The mining speed of this mining drill/character prototype.
     /// Can only be used if this is MiningDrill or Character
-    pub mining_speed: Option<f64>,
+    pub mining_speed: Option<Double>,
     /// The module inventory size. `nil` if this entity doesn't support modules.
     pub module_inventory_size: Option<u32>,
     /// Whether this unit prototype can move while shooting.
@@ -3577,7 +3577,7 @@ pub struct LuaEntityPrototype {
     /// Name of this prototype.
     pub name: String,
     /// Can only be used if this is Reactor
-    pub neighbour_bonus: Option<f64>,
+    pub neighbour_bonus: Option<Double>,
     /// The next upgrade for this entity, if any.
     pub next_upgrade: Option<MaybeCycle<LuaEntityPrototype>>,
     /// The normal amount for this resource.
@@ -3589,21 +3589,21 @@ pub struct LuaEntityPrototype {
     pub order: String,
     /// The amount of pollution that has to be absorbed by the unit's spawner before the unit will leave the spawner and attack the source of the pollution.
     /// Can only be used if this is Unit
-    pub pollution_to_join_attack: Option<f32>,
+    pub pollution_to_join_attack: Option<Float>,
     /// True if this entity prototype should be included during tile collision checks with [LuaTilePrototype::check_collision_with_entities](LuaTilePrototype::check_collision_with_entities) enabled.
     pub protected_from_tile_building: bool,
     /// The pumping speed of this offshore or normal pump.
     /// Can only be used if this is OffshorePump or Pump
-    pub pumping_speed: Option<f64>,
+    pub pumping_speed: Option<Double>,
     /// The radar range of this unit prototype.
     /// Can only be used if this is Unit
     pub radar_range: Option<u32>,
     /// The radius of this entity prototype.
-    pub radius: f64,
+    pub radius: Double,
     /// Can only be used if this is Character
     pub reach_distance: Option<u32>,
     /// Can only be used if this is Character
-    pub reach_resource_distance: Option<f64>,
+    pub reach_resource_distance: Option<Double>,
     /// Can only be used if this is TransportBelt
     pub related_underground_belt: Option<MaybeCycle<LuaEntityPrototype>>,
     /// The remains left behind when this entity is mined.
@@ -3614,7 +3614,7 @@ pub struct LuaEntityPrototype {
     pub repair_speed_modifier: Option<u32>,
     /// The base researching speed of this lab prototype.
     /// Can only be used if this is Lab
-    pub researching_speed: Option<f64>,
+    pub researching_speed: Option<Double>,
     /// List of resistances towards each damage type. It is a dictionary indexed by damage type names (see `data/base/prototypes/damage-type.lua`).
     /// Can only be used if this is EntityWithHealth
     pub resistances: Option<HashMap<String, Resistance>>,
@@ -3639,7 +3639,7 @@ pub struct LuaEntityPrototype {
     pub result_units: Option<Vec<UnitSpawnDefinition>>,
     /// The rising speed for this rocket silo rocket prototype.
     /// Can only be used if this is RocketSiloRocket
-    pub rising_speed: Option<f64>,
+    pub rising_speed: Option<Double>,
     /// The rocket entity prototype associated with this rocket silo prototype.
     /// Can only be used if this is RocketSilo
     pub rocket_entity_prototype: Option<MaybeCycle<LuaEntityPrototype>>,
@@ -3651,10 +3651,10 @@ pub struct LuaEntityPrototype {
     pub rocket_rising_delay: Option<u8>,
     /// The rotation speed of this car prototype.
     /// Can only be used if this is Car
-    pub rotation_speed: Option<f64>,
+    pub rotation_speed: Option<Double>,
     /// The current movement speed of this character, including effects from exoskeletons, tiles, stickers and shooting.
     /// Can only be used if this is Character
-    pub running_speed: Option<f64>,
+    pub running_speed: Option<Double>,
     /// Whether this generator prototype scales fluid usage.
     /// Can only be used if this is Generator
     pub scale_fluid_usage: Option<bool>,
@@ -3667,25 +3667,25 @@ pub struct LuaEntityPrototype {
     /// The selection priority of this entity - a value between 0 and 255
     pub selection_priority: u32,
     /// The cursor size used when shooting at this entity.
-    pub shooting_cursor_size: f64,
+    pub shooting_cursor_size: Double,
     /// The spawning cooldown for this enemy spawner prototype.
     /// Can only be used if this is Spawner
     pub spawn_cooldown: Option<MaybeCycle<LuaEntityPrototypeSpawnCooldown>>,
     /// How far from the spawner can the units be spawned.
     /// Can only be used if this is Spawner
-    pub spawning_radius: Option<f64>,
+    pub spawning_radius: Option<Double>,
     /// What spaces should be between the spawned units.
     /// Can only be used if this is Spawner
-    pub spawning_spacing: Option<f64>,
+    pub spawning_spacing: Option<Double>,
     /// The spawning time modifier of this unit prototype.
     /// Can only be used if this is Unit
-    pub spawning_time_modifier: Option<f64>,
+    pub spawning_time_modifier: Option<Double>,
     /// The default speed of this flying robot, rolling stock or unit. For rolling stocks, this is their `max_speed`.
     /// Can only be used if this is FlyingRobot or RollingStock or Unit
-    pub speed: Option<f64>,
+    pub speed: Option<Double>,
     /// The speed multiplier when this flying robot is out of energy.
     /// Can only be used if this is FlyingRobot
-    pub speed_multiplier_when_out_of_energy: Option<f32>,
+    pub speed_multiplier_when_out_of_energy: Option<Float>,
     /// Whether this inserter is a stack-type.
     /// Can only be used if this is Inserter
     pub stack: Option<bool>,
@@ -3695,7 +3695,7 @@ pub struct LuaEntityPrototype {
     pub subgroup: MaybeCycle<LuaGroup>,
     /// The supply area of this electric pole or beacon prototype.
     /// Can only be used if this is ElectricPole or Beacon
-    pub supply_area_distance: Option<f64>,
+    pub supply_area_distance: Option<Double>,
     /// Whether this entity prototype could possibly ever be rotated.
     pub supports_direction: bool,
     /// If this car prototype uses tank controls to drive.
@@ -3703,10 +3703,10 @@ pub struct LuaEntityPrototype {
     pub tank_driving: Option<bool>,
     /// The target temperature of this boiler prototype.
     /// Can only be used if this is Boiler
-    pub target_temperature: Option<f64>,
+    pub target_temperature: Option<Double>,
     /// The terrain friction modifier for this vehicle.
     /// Can only be used if this is Vehicle
-    pub terrain_friction_modifier: Option<f32>,
+    pub terrain_friction_modifier: Option<Float>,
     /// Can only be used if this is Character
     pub ticks_to_keep_aiming_direction: Option<u32>,
     /// Can only be used if this is Character
@@ -3724,10 +3724,10 @@ pub struct LuaEntityPrototype {
     pub timeout: Option<u32>,
     /// The torso bob speed of this spider vehicle prototype.
     /// Can only be used if this is SpiderVehicle
-    pub torso_bob_speed: Option<f64>,
+    pub torso_bob_speed: Option<Double>,
     /// The torso rotation speed of this spider vehicle prototype.
     /// Can only be used if this is SpiderVehicle
-    pub torso_rotation_speed: Option<f64>,
+    pub torso_rotation_speed: Option<Double>,
     /// If it is a tree, return the number of colors it supports.
     /// Can only be used if this is Tree
     pub tree_color_count: Option<u8>,
@@ -3739,7 +3739,7 @@ pub struct LuaEntityPrototype {
     pub turret_range: Option<u32>,
     /// The turret rotation speed of this car prototype.
     /// Can only be used if this is Car
-    pub turret_rotation_speed: Option<f64>,
+    pub turret_rotation_speed: Option<Double>,
     /// Type of this prototype.
     #[serde(rename = "type")]
     pub typ: String,
@@ -3750,12 +3750,12 @@ pub struct LuaEntityPrototype {
     pub valid: bool,
     /// The vision distance of this unit prototype.
     /// Can only be used if this is Unit
-    pub vision_distance: Option<f64>,
+    pub vision_distance: Option<Double>,
     /// The void energy source prototype this entity uses, if any.
     pub void_energy_source_prototype: Option<MaybeCycle<LuaVoidEnergySourcePrototype>>,
     /// The weight of this vehicle prototype.
     /// Can only be used if this is Vehicle
-    pub weight: Option<f64>,
+    pub weight: Option<Double>,
 }
 
 /// Prototype of an entity.
@@ -3790,17 +3790,17 @@ pub struct LuaEquipment {
     /// The burner energy source for this equipment, if any.
     pub burner: Option<MaybeCycle<LuaBurner>>,
     /// Current available energy.
-    pub energy: f64,
+    pub energy: Double,
     /// Energy generated per tick.
-    pub generator_power: f64,
+    pub generator_power: Double,
     /// Maximum amount of energy that can be stored in this equipment.
-    pub max_energy: f64,
+    pub max_energy: Double,
     /// Maximum shield value.
-    pub max_shield: f64,
+    pub max_shield: Double,
     /// Maximum solar power generated.
-    pub max_solar_power: f64,
+    pub max_solar_power: Double,
     /// Movement speed bonus.
-    pub movement_bonus: f64,
+    pub movement_bonus: Double,
     /// Name of this equipment.
     pub name: String,
     /// The class name of this object. Available even when `valid` is false. For LuaStruct objects it may also be suffixed with a dotted path to a member of the struct.
@@ -3815,7 +3815,7 @@ pub struct LuaEquipment {
     /// # Notes
     ///
     /// * Can't be set higher than [LuaEquipment::max_shield](LuaEquipment::max_shield).
-    pub shield: f64,
+    pub shield: Double,
     /// Type of this equipment.
     #[serde(rename = "type")]
     pub typ: String,
@@ -3856,26 +3856,26 @@ pub trait LuaEquipmentCategoryPrototypeMethods {
 #[derive(Debug, Deserialize)]
 pub struct LuaEquipmentGrid {
     /// The total energy stored in all batteries in the equipment grid.
-    pub available_in_batteries: f64,
+    pub available_in_batteries: Double,
     /// Total energy storage capacity of all batteries in the equipment grid.
-    pub battery_capacity: f64,
+    pub battery_capacity: Double,
     /// All the equipment in this grid.
     pub equipment: Vec<MaybeCycle<LuaEquipment>>,
     /// Total energy per tick generated by the equipment inside this grid.
-    pub generator_energy: f64,
+    pub generator_energy: Double,
     /// Height of the equipment grid.
     pub height: u32,
     /// Whether this grid's equipment movement bonus is active.
     pub inhibit_movement_bonus: bool,
     /// The maximum amount of shields this equipment grid has.
-    pub max_shield: f32,
+    pub max_shield: Float,
     /// Maximum energy per tick that can be created by any solar panels in the equipment grid. Actual generated energy varies depending on the daylight levels.
-    pub max_solar_energy: f64,
+    pub max_solar_energy: Double,
     /// The class name of this object. Available even when `valid` is false. For LuaStruct objects it may also be suffixed with a dotted path to a member of the struct.
     pub object_name: String,
     pub prototype: MaybeCycle<LuaEquipmentGridPrototype>,
     /// The amount of shields this equipment grid has.
-    pub shield: f32,
+    pub shield: Float,
     /// Unique identifier of this equipment grid.
     pub unique_id: u32,
     /// Is this object valid? This Lua object holds a reference to an object within the game engine. It is possible that the game-engine object is removed whilst a mod still holds the corresponding Lua object. If that happens, the object becomes invalid, i.e. this attribute will be `false`. Mods are advised to check for object validity if any change to the game state might have occurred between the creation of the Lua object and its access.
@@ -4017,20 +4017,20 @@ pub trait LuaEquipmentGridPrototypeMethods {
 
 #[derive(Debug, Deserialize)]
 pub struct LuaEquipmentPrototypeLogisticParameters {
-    pub charge_approach_distance: f32,
-    pub charging_distance: f32,
-    pub charging_energy: f64,
+    pub charge_approach_distance: Float,
+    pub charging_distance: Float,
+    pub charging_energy: Double,
     pub charging_station_count: u32,
     pub charging_station_shift: Vector,
-    pub charging_threshold_distance: f32,
-    pub construction_radius: f32,
-    pub logistic_radius: f32,
-    pub logistics_connection_distance: f32,
+    pub charging_threshold_distance: Float,
+    pub construction_radius: Float,
+    pub logistic_radius: Float,
+    pub logistics_connection_distance: Float,
     pub robot_limit: u32,
-    pub robot_vertical_acceleration: f32,
+    pub robot_vertical_acceleration: Float,
     pub robots_shrink_when_entering_and_exiting: bool,
-    pub spawn_and_station_height: f32,
-    pub spawn_and_station_shadow_height_offset: f32,
+    pub spawn_and_station_height: Float,
+    pub spawn_and_station_shadow_height_offset: Float,
     pub stationing_offset: Vector,
 }
 
@@ -4056,11 +4056,11 @@ pub struct LuaEquipmentPrototype {
     pub burner_prototype: Option<MaybeCycle<LuaBurnerPrototype>>,
     /// The electric energy source prototype this equipment uses, if any.
     pub electric_energy_source_prototype: Option<MaybeCycle<LuaElectricEnergySourcePrototype>>,
-    pub energy_consumption: f64,
+    pub energy_consumption: Double,
     /// The energy per shield point restored. 0 for non-shield equipment.
-    pub energy_per_shield: f64,
+    pub energy_per_shield: Double,
     /// The max power generated by this equipment.
-    pub energy_production: f64,
+    pub energy_production: Double,
     /// The energy source prototype for the equipment.
     pub energy_source: MaybeCycle<LuaElectricEnergySourcePrototype>,
     /// Category names for this equipment. These [categories](LuaEquipmentGridPrototype::equipment_categories) will be used to determine whether this equipment is allowed in a particular equipment grid.
@@ -4075,7 +4075,7 @@ pub struct LuaEquipmentPrototype {
     /// * Both the `charging_station_shift` and `stationing_offset` vectors are tables with `x` and `y` keys instead of an array.
     pub logistic_parameters: Option<MaybeCycle<LuaEquipmentPrototypeLogisticParameters>>,
     /// Can only be used if this is MovementBonusEquipment
-    pub movement_bonus: Option<f32>,
+    pub movement_bonus: Option<Float>,
     /// Name of this prototype.
     pub name: String,
     /// The class name of this object. Available even when `valid` is false. For LuaStruct objects it may also be suffixed with a dotted path to a member of the struct.
@@ -4085,7 +4085,7 @@ pub struct LuaEquipmentPrototype {
     /// Shape of this equipment prototype.
     pub shape: MaybeCycle<LuaEquipmentPrototypeShape>,
     /// The shield value of this equipment. 0 for non-shield equipment.
-    pub shield: f32,
+    pub shield: Float,
     /// The result item when taking this equipment out of an equipment grid, if any.
     pub take_result: Option<MaybeCycle<LuaItemPrototype>>,
     /// Type of this equipment prototype.
@@ -4105,14 +4105,14 @@ pub trait LuaEquipmentPrototypeMethods {
 #[serde(untagged)]
 pub enum LuaFlowStatisticsInputCountsUnion {
     Uint64(u64),
-    Double(f64),
+    Double(Double),
 }
 
 #[derive(Debug, Deserialize)]
 #[serde(untagged)]
 pub enum LuaFlowStatisticsOutputCountsUnion {
     Uint64(u64),
-    Double(f64),
+    Double(Double),
 }
 
 /// Encapsulates statistic data for different parts of the game. In the context of flow statistics, `input` and `output` describe on which side of the associated GUI the values are shown. Input values are shown on the left side, output values on the right side.
@@ -4139,28 +4139,28 @@ pub struct LuaFlowStatistics {
 #[serde(untagged)]
 pub enum LuaFlowStatisticsMethodsGetInputCountUnion {
     Uint64(u64),
-    Double(f64),
+    Double(Double),
 }
 
 #[derive(Debug, Deserialize)]
 #[serde(untagged)]
 pub enum LuaFlowStatisticsMethodsGetOutputCountUnion {
     Uint64(u64),
-    Double(f64),
+    Double(Double),
 }
 
 #[derive(Debug, Deserialize)]
 #[serde(untagged)]
 pub enum LuaFlowStatisticsMethodsSetInputCountCountUnion {
     Uint64(u64),
-    Double(f64),
+    Double(Double),
 }
 
 #[derive(Debug, Deserialize)]
 #[serde(untagged)]
 pub enum LuaFlowStatisticsMethodsSetOutputCountCountUnion {
     Uint64(u64),
-    Double(f64),
+    Double(Double),
 }
 
 /// Encapsulates statistic data for different parts of the game. In the context of flow statistics, `input` and `output` describe on which side of the associated GUI the values are shown. Input values are shown on the left side, output values on the right side.
@@ -4191,7 +4191,7 @@ pub trait LuaFlowStatisticsMethods {
         name: String,
         precision_index: FlowPrecisionIndex,
         sample_index: u16,
-    ) -> f64;
+    ) -> Double;
     /// Gets the total input count for a given prototype.
     ///
     /// # Arguments
@@ -4212,7 +4212,7 @@ pub trait LuaFlowStatisticsMethods {
     ///
     /// * `count` - The count: positive or negative determines if the value goes in the input or output statistics.
     /// * `name` - The prototype name.
-    fn on_flow(count: f32, name: String);
+    fn on_flow(count: Float, name: String);
     /// Sets the total input count for a given prototype.
     ///
     /// # Arguments
@@ -4278,9 +4278,9 @@ pub trait LuaFluidBoxMethods {
     /// # Returns
     ///
     /// * The removed fluid.
-    fn flush(fluid: FluidIdentification, index: u32) -> HashMap<String, f32>;
+    fn flush(fluid: FluidIdentification, index: u32) -> HashMap<String, Float>;
     /// The capacity of the given fluidbox index.
-    fn get_capacity(index: u32) -> f64;
+    fn get_capacity(index: u32) -> Double;
     /// The fluidboxes to which the fluidbox at the given index is connected.
     fn get_connections(index: u32) -> Vec<MaybeCycle<LuaFluidBox>>;
     /// Get a fluid box filter
@@ -4298,7 +4298,7 @@ pub trait LuaFluidBoxMethods {
     /// # Notes
     ///
     /// * Fluid wagons do not track it and will return 0.
-    fn get_flow(index: u32) -> f64;
+    fn get_flow(index: u32) -> Double;
     /// Gets unique fluid system identifier of selected fluid box. May return nil for fluid wagon, fluid turret's internal buffer or a fluidbox which does not belong to a fluid system
     fn get_fluid_system_id(index: u32) -> u32;
     /// Returns the fluid the fluidbox is locked onto
@@ -4331,19 +4331,19 @@ pub trait LuaFluidBoxMethods {
 /// A prototype of a fluidbox owned by some [LuaEntityPrototype](LuaEntityPrototype).
 #[derive(Debug, Deserialize)]
 pub struct LuaFluidBoxPrototype {
-    pub base_area: f64,
-    pub base_level: f64,
+    pub base_area: Double,
+    pub base_level: Double,
     /// The entity that this belongs to.
     pub entity: MaybeCycle<LuaEntityPrototype>,
     /// The filter, if any is set.
     pub filter: Option<MaybeCycle<LuaFluidPrototype>>,
-    pub height: f64,
+    pub height: Double,
     /// The index of this fluidbox prototype in the owning entity.
     pub index: u32,
     /// The maximum temperature, if any is set.
-    pub maximum_temperature: Option<f64>,
+    pub maximum_temperature: Option<Double>,
     /// The minimum temperature, if any is set.
-    pub minimum_temperature: Option<f64>,
+    pub minimum_temperature: Option<Double>,
     /// The class name of this object. Available even when `valid` is false. For LuaStruct objects it may also be suffixed with a dotted path to a member of the struct.
     pub object_name: String,
     /// The pipe connection points.
@@ -4356,7 +4356,7 @@ pub struct LuaFluidBoxPrototype {
     pub secondary_draw_orders: Vec<i32>,
     /// Is this object valid? This Lua object holds a reference to an object within the game engine. It is possible that the game-engine object is removed whilst a mod still holds the corresponding Lua object. If that happens, the object becomes invalid, i.e. this attribute will be `false`. Mods are advised to check for object validity if any change to the game state might have occurred between the creation of the Lua object and its access.
     pub valid: bool,
-    pub volume: f64,
+    pub volume: Double,
 }
 
 /// A prototype of a fluidbox owned by some [LuaEntityPrototype](LuaEntityPrototype).
@@ -4370,13 +4370,13 @@ pub trait LuaFluidBoxPrototypeMethods {
 pub struct LuaFluidEnergySourcePrototype {
     pub burns_fluid: bool,
     pub destroy_non_fuel_fluid: bool,
-    pub effectivity: f64,
+    pub effectivity: Double,
     /// The emissions of this energy source in `pollution/Joule`. Multiplying it by energy consumption in `Watt` gives `pollution/second`.
-    pub emissions: f64,
+    pub emissions: Double,
     /// The fluid box for this energy source.
     pub fluid_box: MaybeCycle<LuaFluidBoxPrototype>,
-    pub fluid_usage_per_tick: f64,
-    pub maximum_temperature: f64,
+    pub fluid_usage_per_tick: Double,
+    pub maximum_temperature: Double,
     /// The class name of this object. Available even when `valid` is false. For LuaStruct objects it may also be suffixed with a dotted path to a member of the struct.
     pub object_name: String,
     pub render_no_network_icon: bool,
@@ -4399,24 +4399,24 @@ pub trait LuaFluidEnergySourcePrototypeMethods {
 pub struct LuaFluidPrototype {
     pub base_color: Color,
     /// Default temperature of this fluid.
-    pub default_temperature: f64,
+    pub default_temperature: Double,
     /// A multiplier on the amount of emissions produced when this fluid is burnt in a generator. A value above `1.0` increases emissions and vice versa. The multiplier can't be negative.
-    pub emissions_multiplier: f64,
+    pub emissions_multiplier: Double,
     pub flow_color: Color,
     /// The amount of energy in Joules one unit of this fluid will produce when burnt in a generator. A value of `0` means this fluid can't be used for energy generation. The value can't be negative.
-    pub fuel_value: f64,
+    pub fuel_value: Double,
     /// The temperature above which this fluid will be shown as gaseous inside tanks and pipes.
-    pub gas_temperature: f64,
+    pub gas_temperature: Double,
     /// Group of this prototype.
     pub group: MaybeCycle<LuaGroup>,
     /// The amount of energy in Joules required to heat one unit of this fluid by 1°C.
-    pub heat_capacity: f64,
+    pub heat_capacity: Double,
     /// Whether this fluid is hidden from the fluid and signal selectors.
     pub hidden: bool,
     pub localised_description: LocalisedString,
     pub localised_name: LocalisedString,
     /// Maximum temperature this fluid can reach.
-    pub max_temperature: f64,
+    pub max_temperature: Double,
     /// Name of this prototype.
     pub name: String,
     /// The class name of this object. Available even when `valid` is false. For LuaStruct objects it may also be suffixed with a dotted path to a member of the struct.
@@ -4448,7 +4448,7 @@ pub struct LuaFontPrototype {
     /// The class name of this object. Available even when `valid` is false. For LuaStruct objects it may also be suffixed with a dotted path to a member of the struct.
     pub object_name: String,
     pub size: i32,
-    pub spacing: f32,
+    pub spacing: Float,
     /// Is this object valid? This Lua object holds a reference to an object within the game engine. It is possible that the game-engine object is removed whilst a mod still holds the corresponding Lua object. If that happens, the object becomes invalid, i.e. this attribute will be `false`. Mods are advised to check for object validity if any change to the game state might have occurred between the creation of the Lua object and its access.
     pub valid: bool,
 }
@@ -4469,22 +4469,22 @@ pub struct LuaForce {
     /// * Setting this to `false` does not turn off biters' AI. They will still move around and attack players who come close.
     /// * It is necessary for a force to be AI controllable in order to be able to create unit groups or build bases from scripts.
     pub ai_controllable: bool,
-    pub artillery_range_modifier: f64,
+    pub artillery_range_modifier: Double,
     pub character_build_distance_bonus: u32,
-    pub character_health_bonus: f64,
+    pub character_health_bonus: Double,
     /// the number of additional inventory slots the character main inventory has.
     pub character_inventory_slots_bonus: u32,
     pub character_item_drop_distance_bonus: u32,
-    pub character_item_pickup_distance_bonus: f64,
+    pub character_item_pickup_distance_bonus: Double,
     /// `true` if character requester logistics is enabled.
     pub character_logistic_requests: bool,
-    pub character_loot_pickup_distance_bonus: f64,
+    pub character_loot_pickup_distance_bonus: Double,
     pub character_reach_distance_bonus: u32,
-    pub character_resource_reach_distance_bonus: f64,
+    pub character_resource_reach_distance_bonus: Double,
     /// Modifies the running speed of all characters in this force by the given value as a percentage. Setting the running modifier to `0.5` makes the character run 50% faster. The minimum value of `-1` reduces the movement speed by 100%, resulting in a speed of `0`.
-    pub character_running_speed_modifier: f64,
+    pub character_running_speed_modifier: Double,
     /// Number of character trash slots.
-    pub character_trash_slot_count: f64,
+    pub character_trash_slot_count: Double,
     /// Effective color of this force.
     pub color: Color,
     /// The connected players belonging to this force.
@@ -4504,14 +4504,14 @@ pub struct LuaForce {
     /// The entity build statistics for this force (built and mined)
     pub entity_build_count_statistics: MaybeCycle<LuaFlowStatistics>,
     /// Evolution factor of this force.
-    pub evolution_factor: f64,
-    pub evolution_factor_by_killing_spawners: f64,
-    pub evolution_factor_by_pollution: f64,
-    pub evolution_factor_by_time: f64,
+    pub evolution_factor: Double,
+    pub evolution_factor_by_killing_spawners: Double,
+    pub evolution_factor_by_pollution: Double,
+    pub evolution_factor_by_time: Double,
     /// The fluid production statistics for this force.
     pub fluid_production_statistics: MaybeCycle<LuaFlowStatistics>,
     /// Additional lifetime for following robots.
-    pub following_robots_lifetime_modifier: f64,
+    pub following_robots_lifetime_modifier: Double,
     /// If friendly fire is enabled for this force.
     pub friendly_fire: bool,
     /// The time, in ticks, before a placed ghost disappears.
@@ -4519,15 +4519,15 @@ pub struct LuaForce {
     /// This force's index in [LuaGameScript::forces](LuaGameScript::forces) (unique ID). It is assigned when a force is created, and remains so until it is [merged](on_forces_merged) (ie. deleted). Indexes of merged forces can be reused.
     pub index: u32,
     /// The inserter stack size bonus for non stack inserters
-    pub inserter_stack_size_bonus: f64,
+    pub inserter_stack_size_bonus: Double,
     /// The item production statistics for this force.
     pub item_production_statistics: MaybeCycle<LuaFlowStatistics>,
     /// All of the items that have been launched in rockets. The attribute is a dictionary mapping the item prototype names to the launched amounts.
     pub items_launched: HashMap<String, u32>,
     /// The kill counter statistics for this force.
     pub kill_count_statistics: MaybeCycle<LuaFlowStatistics>,
-    pub laboratory_productivity_bonus: f64,
-    pub laboratory_speed_modifier: f64,
+    pub laboratory_productivity_bonus: Double,
+    pub laboratory_speed_modifier: Double,
     /// List of logistic networks, grouped by surface.
     pub logistic_networks: HashMap<String, Vec<MaybeCycle<LuaLogisticNetwork>>>,
     /// Multiplier of the manual crafting speed. Default value is `0`. The actual crafting speed will be multiplied by `1 + manual_crafting_speed_modifier`.
@@ -4538,7 +4538,7 @@ pub struct LuaForce {
     /// ```text
     /// game.player.force.manual_crafting_speed_modifier = 1
     /// ```
-    pub manual_crafting_speed_modifier: f64,
+    pub manual_crafting_speed_modifier: Double,
     /// Multiplier of the manual mining speed. Default value is `0`. The actual mining speed will be multiplied by `1 + manual_mining_speed_modifier`.
     ///
     /// # Examples
@@ -4547,12 +4547,12 @@ pub struct LuaForce {
     /// ```text
     /// game.player.force.manual_mining_speed_modifier = 1
     /// ```
-    pub manual_mining_speed_modifier: f64,
+    pub manual_mining_speed_modifier: Double,
     pub max_failed_attempts_per_tick_per_construction_queue: u32,
     pub max_successful_attempts_per_tick_per_construction_queue: u32,
     /// Maximum number of follower robots.
     pub maximum_following_robot_count: u32,
-    pub mining_drill_productivity_bonus: f64,
+    pub mining_drill_productivity_bonus: Double,
     /// Name of the force.
     ///
     /// # Examples
@@ -4580,7 +4580,7 @@ pub struct LuaForce {
     /// Whether research is enabled for this force, see [LuaForce::enable_research](LuaForce::enable_research) and [LuaForce::disable_research](LuaForce::disable_research)
     pub research_enabled: bool,
     /// Progress of current research, as a number in range [0, 1].
-    pub research_progress: f64,
+    pub research_progress: Double,
     /// The research queue of this force. The first technology in the array is the currently active one. Reading this attribute gives an array of [LuaTechnology](LuaTechnology).
     ///
     /// To write to this, the entire table must be written. Providing an empty table or `nil` will empty the research queue and cancel the current research. Writing to this when the research queue is disabled will simply set the last research in the table as the current research.
@@ -4606,12 +4606,12 @@ pub struct LuaForce {
     /// game.player.force.technologies["steel-processing"].researched = true
     /// ```
     pub technologies: HashMap<String, MaybeCycle<LuaTechnology>>,
-    pub train_braking_force_bonus: f64,
+    pub train_braking_force_bonus: Double,
     /// Is this object valid? This Lua object holds a reference to an object within the game engine. It is possible that the game-engine object is removed whilst a mod still holds the corresponding Lua object. If that happens, the object becomes invalid, i.e. this attribute will be `false`. Mods are advised to check for object validity if any change to the game state might have occurred between the creation of the Lua object and its access.
     pub valid: bool,
-    pub worker_robots_battery_modifier: f64,
-    pub worker_robots_speed_modifier: f64,
-    pub worker_robots_storage_bonus: f64,
+    pub worker_robots_battery_modifier: Double,
+    pub worker_robots_speed_modifier: Double,
+    pub worker_robots_storage_bonus: Double,
     /// Ability to create new blueprints using empty blueprint item when using zoom-to-world.
     pub zoom_to_world_blueprint_enabled: bool,
     /// Ability to use deconstruction planner when using zoom-to-world.
@@ -4728,7 +4728,7 @@ pub trait LuaForceMethods {
     /// # Arguments
     ///
     /// * `ammo` - Ammo category
-    fn get_ammo_damage_modifier(ammo: String) -> f64;
+    fn get_ammo_damage_modifier(ammo: String) -> Double;
     /// Is `other` force in this force's cease fire list?
     fn get_cease_fire(other: ForceIdentification) -> bool;
     /// Count entities of given type.
@@ -4750,7 +4750,7 @@ pub trait LuaForceMethods {
     /// # Arguments
     ///
     /// * `ammo` - Ammo category
-    fn get_gun_speed_modifier(ammo: String) -> f64;
+    fn get_gun_speed_modifier(ammo: String) -> Double;
     /// Gets if the given recipe is explicitly disabled from being hand crafted.
     fn get_hand_crafting_disabled_for_recipe(
         recipe: LuaForceMethodsGetHandCraftingDisabledForRecipeRecipeUnion,
@@ -4779,7 +4779,7 @@ pub trait LuaForceMethods {
     /// # Returns
     ///
     /// * The progress as a percent.
-    fn get_saved_technology_progress(technology: TechnologyIdentification) -> Option<f64>;
+    fn get_saved_technology_progress(technology: TechnologyIdentification) -> Option<Double>;
     fn get_spawn_position(surface: SurfaceIdentification) -> MapPosition;
     /// Gets train stops matching the given filters.
     ///
@@ -4798,7 +4798,7 @@ pub trait LuaForceMethods {
     /// # Arguments
     ///
     /// * `turret` - Turret prototype name
-    fn get_turret_attack_modifier(turret: String) -> f64;
+    fn get_turret_attack_modifier(turret: String) -> Double;
     /// All methods and properties that this object supports.
     fn help() -> String;
     /// Has a chunk been charted?
@@ -4829,7 +4829,7 @@ pub trait LuaForceMethods {
         override_sound_type: SoundType,
         path: SoundPath,
         position: MapPosition,
-        volume_modifier: f64,
+        volume_modifier: Double,
     );
     /// Print text to the chat console of all players on this force.
     ///
@@ -4858,7 +4858,7 @@ pub trait LuaForceMethods {
     /// # Arguments
     ///
     /// * `ammo` - Ammo category
-    fn set_ammo_damage_modifier(ammo: String, modifier: f64);
+    fn set_ammo_damage_modifier(ammo: String, modifier: Double);
     /// Add `other` force to this force's cease fire list. Forces on the cease fire list won't be targeted for attack.
     fn set_cease_fire(cease_fire: bool, other: ForceIdentification);
     /// Add `other` force to this force's friends list. Friends have unrestricted access to buildings and turrets won't fire at them.
@@ -4866,7 +4866,7 @@ pub trait LuaForceMethods {
     /// # Arguments
     ///
     /// * `ammo` - Ammo category
-    fn set_gun_speed_modifier(ammo: String, modifier: f64);
+    fn set_gun_speed_modifier(ammo: String, modifier: Double);
     /// Sets if the given recipe can be hand-crafted. This is used to explicitly disable hand crafting a recipe - it won't allow hand-crafting otherwise not hand-craftable recipes.
     fn set_hand_crafting_disabled_for_recipe(
         hand_crafting_disabled: bool,
@@ -4885,7 +4885,7 @@ pub trait LuaForceMethods {
     ///
     /// * `progress` - Progress as a percent. Set to `nil` to remove the saved progress.
     /// * `technology` - The technology
-    fn set_saved_technology_progress(progress: f64, technology: TechnologyIdentification);
+    fn set_saved_technology_progress(progress: Double, technology: TechnologyIdentification);
     /// # Arguments
     ///
     /// * `position` - The new position on the given surface.
@@ -4894,7 +4894,7 @@ pub trait LuaForceMethods {
     /// # Arguments
     ///
     /// * `turret` - Turret prototype name
-    fn set_turret_attack_modifier(modifier: f64, turret: String);
+    fn set_turret_attack_modifier(modifier: Double, turret: String);
     /// # Arguments
     ///
     /// * `position` - The chunk position to unchart.
@@ -5039,13 +5039,13 @@ pub struct LuaGameScript {
     ///
     /// * This does not contain difficulty settings, use [LuaGameScript::difficulty_settings](LuaGameScript::difficulty_settings) instead.
     pub map_settings: MapSettings,
-    pub max_beacon_supply_area_distance: f64,
-    pub max_electric_pole_connection_distance: f64,
-    pub max_electric_pole_supply_area_distance: f32,
+    pub max_beacon_supply_area_distance: Double,
+    pub max_electric_pole_connection_distance: Double,
+    pub max_electric_pole_supply_area_distance: Float,
     pub max_force_distraction_chunk_distance: u32,
-    pub max_force_distraction_distance: f64,
-    pub max_gate_activation_distance: f64,
-    pub max_inserter_reach_distance: f64,
+    pub max_force_distraction_distance: Double,
+    pub max_gate_activation_distance: Double,
+    pub max_inserter_reach_distance: Double,
     pub max_pipe_to_ground_distance: u8,
     pub max_underground_belt_distance: u8,
     /// A dictionary containing every LuaModSettingPrototype indexed by `name`.
@@ -5084,7 +5084,7 @@ pub struct LuaGameScript {
     /// # Notes
     ///
     /// * Minimum value is 0.01.
-    pub speed: f32,
+    pub speed: Float,
     /// The styles that [LuaGuiElement](LuaGuiElement) can use, indexed by `name`.
     pub styles: HashMap<String, String>,
     /// Get a table of all the surfaces that currently exist. This sparse table allows you to find surfaces by indexing it with either their `name` or `index`. Iterating this table with `pairs()` will only iterate the array part of the table. Iterating with `ipairs()` will not work at all.
@@ -5290,7 +5290,7 @@ pub trait LuaGameScriptMethods {
     ///
     /// * `expression` - The expression to evaluate.
     /// * `variables` - Variables to be substituted.
-    fn evaluate_expression(expression: String, variables: HashMap<String, f64>) -> f64;
+    fn evaluate_expression(expression: String, variables: HashMap<String, Double>) -> Double;
     /// Force a CRC check. Tells all peers to calculate their current CRC, which are then compared to each other. If a mismatch is detected, the game desyncs and some peers are forced to reconnect.
     fn force_crc();
     /// Gets the number of entities that are active (updated each tick).
@@ -5523,7 +5523,7 @@ pub trait LuaGameScriptMethods {
         override_sound_type: SoundType,
         path: SoundPath,
         position: MapPosition,
-        volume_modifier: f64,
+        volume_modifier: Double,
     );
     /// Print text to the chat console all players.
     ///
@@ -5649,7 +5649,7 @@ pub trait LuaGameScriptMethods {
         allow_in_replay: bool,
         anti_alias: bool,
         by_player: PlayerIdentification,
-        daytime: f64,
+        daytime: Double,
         force_render: bool,
         path: String,
         player: PlayerIdentification,
@@ -5661,7 +5661,7 @@ pub trait LuaGameScriptMethods {
         show_gui: bool,
         surface: SurfaceIdentification,
         water_tick: u32,
-        zoom: f64,
+        zoom: Double,
     );
     /// Take a screenshot of the technology screen and save it to the `script-output` folder, located in the game's [user data directory](https://wiki.factorio.com/User_data_directory). The name of the image file can be specified via the `path` parameter.
     ///
@@ -6040,7 +6040,7 @@ pub struct LuaGuiElement {
     pub name: String,
     /// The number to be shown in the bottom right corner of this sprite-button. Set this to `nil` to show nothing.
     /// Can only be used if this is sprite-button
-    pub number: f64,
+    pub number: Double,
     /// Whether this textfield is limited to only numberic characters.
     /// Can only be used if this is textfield
     pub numeric: bool,
@@ -6081,7 +6081,7 @@ pub struct LuaGuiElement {
     pub show_percent_for_small_numbers: bool,
     /// The value of this slider element.
     /// Can only be used if this is slider
-    pub slider_value: f64,
+    pub slider_value: Double,
     /// The sprite to display on this sprite-button or sprite in the default state.
     /// Can only be used if this is sprite-button or sprite
     pub sprite: SpritePath,
@@ -6116,7 +6116,7 @@ pub struct LuaGuiElement {
     pub valid: bool,
     /// How much this progress bar is filled. It is a value in the range [0, 1].
     /// Can only be used if this is progressbar
-    pub value: f64,
+    pub value: Double,
     /// Whether the content of this table should be vertically centered. Overrides [LuaStyle::column_alignments](LuaStyle::column_alignments). Defaults to `true`.
     /// Can only be used if this is table
     pub vertical_centering: bool,
@@ -6130,7 +6130,7 @@ pub struct LuaGuiElement {
     pub word_wrap: bool,
     /// The zoom this camera or minimap is using. This value must be positive.
     /// Can only be used if this is camera or minimap
-    pub zoom: f64,
+    pub zoom: Double,
 }
 
 /// An element of a custom GUI. This type is used to represent any kind of a GUI element - labels, buttons and frames are all instances of this type. Just like [LuaEntity](LuaEntity), different kinds of elements support different attributes; attempting to access an attribute on an element that doesn't support it (for instance, trying to access the `column_count` of a `textfield`) will result in a runtime error.
@@ -6268,11 +6268,11 @@ pub trait LuaGuiElementMethods {
     /// Returns whether this slider only allows discrete values.
     fn get_slider_discrete_values() -> bool;
     /// Gets this sliders maximum value.
-    fn get_slider_maximum() -> f64;
+    fn get_slider_maximum() -> Double;
     /// Gets this sliders minimum value.
-    fn get_slider_minimum() -> f64;
+    fn get_slider_minimum() -> Double;
     /// Gets the minimum distance this slider can move.
-    fn get_slider_value_step() -> f64;
+    fn get_slider_value_step() -> Double;
     /// All methods and properties that this object supports.
     fn help() -> String;
     /// Removes the item at the given index from this dropdown or listbox.
@@ -6350,13 +6350,13 @@ pub trait LuaGuiElementMethods {
     /// # Notes
     ///
     /// * The minimum can't be >= the maximum.
-    fn set_slider_minimum_maximum(maximum: f64, minimum: f64);
+    fn set_slider_minimum_maximum(maximum: Double, minimum: Double);
     /// Sets the minimum distance this slider can move.
     ///
     /// # Notes
     ///
     /// * The minimum distance can't be > (max - min).
-    fn set_slider_value_step(value: f64);
+    fn set_slider_value_step(value: Double);
     /// Swaps the children at the given indices in this element.
     ///
     /// # Arguments
@@ -6370,15 +6370,15 @@ pub trait LuaGuiElementMethods {
 #[derive(Debug, Deserialize)]
 pub struct LuaHeatBufferPrototype {
     pub connections: Vec<HeatConnection>,
-    pub default_temperature: f64,
-    pub max_temperature: f64,
-    pub max_transfer: f64,
-    pub min_temperature_gradient: f64,
-    pub min_working_temperature: f64,
-    pub minimum_glow_temperature: f64,
+    pub default_temperature: Double,
+    pub max_temperature: Double,
+    pub max_transfer: Double,
+    pub min_temperature_gradient: Double,
+    pub min_working_temperature: Double,
+    pub minimum_glow_temperature: Double,
     /// The class name of this object. Available even when `valid` is false. For LuaStruct objects it may also be suffixed with a dotted path to a member of the struct.
     pub object_name: String,
-    pub specific_heat: f64,
+    pub specific_heat: Double,
     /// Is this object valid? This Lua object holds a reference to an object within the game engine. It is possible that the game-engine object is removed whilst a mod still holds the corresponding Lua object. If that happens, the object becomes invalid, i.e. this attribute will be `false`. Mods are advised to check for object validity if any change to the game state might have occurred between the creation of the Lua object and its access.
     pub valid: bool,
 }
@@ -6393,20 +6393,20 @@ pub trait LuaHeatBufferPrototypeMethods {
 #[derive(Debug, Deserialize)]
 pub struct LuaHeatEnergySourcePrototype {
     pub connections: Vec<HeatConnection>,
-    pub default_temperature: f64,
+    pub default_temperature: Double,
     /// The emissions of this energy source in `pollution/Joule`. Multiplying it by energy consumption in `Watt` gives `pollution/second`.
-    pub emissions: f64,
+    pub emissions: Double,
     pub heat_buffer_prototype: MaybeCycle<LuaHeatBufferPrototype>,
-    pub max_temperature: f64,
-    pub max_transfer: f64,
-    pub min_temperature_gradient: f64,
-    pub min_working_temperature: f64,
-    pub minimum_glow_temperature: f64,
+    pub max_temperature: Double,
+    pub max_transfer: Double,
+    pub min_temperature_gradient: Double,
+    pub min_working_temperature: Double,
+    pub minimum_glow_temperature: Double,
     /// The class name of this object. Available even when `valid` is false. For LuaStruct objects it may also be suffixed with a dotted path to a member of the struct.
     pub object_name: String,
     pub render_no_network_icon: bool,
     pub render_no_power_icon: bool,
-    pub specific_heat: f64,
+    pub specific_heat: Double,
     /// Is this object valid? This Lua object holds a reference to an object within the game engine. It is possible that the game-engine object is removed whilst a mod still holds the corresponding Lua object. If that happens, the object becomes invalid, i.e. this attribute will be `false`. Mods are advised to check for object validity if any change to the game state might have occurred between the creation of the Lua object and its access.
     pub valid: bool,
 }
@@ -6733,7 +6733,7 @@ pub struct LuaItemPrototype {
     pub draw_label_for_cursor_render: Option<bool>,
     /// The durability of this tool item.
     /// Can only be used if this is ToolItem
-    pub durability: Option<f64>,
+    pub durability: Option<Double>,
     /// The durability message key used when displaying the durability of this tool.
     /// Can only be used if this is ToolItem
     pub durability_description_key: Option<String>,
@@ -6765,15 +6765,15 @@ pub struct LuaItemPrototype {
     /// The flags for this item prototype.
     pub flags: Option<ItemPrototypeFlags>,
     /// The acceleration multiplier when this item is used as fuel in a vehicle.
-    pub fuel_acceleration_multiplier: f64,
+    pub fuel_acceleration_multiplier: Double,
     /// The fuel category of this item prototype, if any.
     pub fuel_category: Option<String>,
     /// The emissions multiplier if this is used as fuel.
-    pub fuel_emissions_multiplier: f64,
+    pub fuel_emissions_multiplier: Double,
     /// The fuel top speed multiplier when this item is used as fuel in a vehicle.
-    pub fuel_top_speed_multiplier: f64,
+    pub fuel_top_speed_multiplier: Double,
     /// Fuel value when burned.
-    pub fuel_value: f32,
+    pub fuel_value: Float,
     /// The group this prototype belongs to.
     pub group: MaybeCycle<LuaGroup>,
     /// If this tool item has infinite durability.
@@ -6807,7 +6807,7 @@ pub struct LuaItemPrototype {
     pub localised_name: LocalisedString,
     /// Size of full magazine.
     /// Can only be used if this is AmmoItem
-    pub magazine_size: Option<f32>,
+    pub magazine_size: Option<Float>,
     /// How many filters an upgrade item has.
     /// Can only be used if this is UpgradeItem
     pub mapper_count: Option<u32>,
@@ -6828,7 +6828,7 @@ pub struct LuaItemPrototype {
     pub place_result: Option<MaybeCycle<LuaEntityPrototype>>,
     /// Amount of extra time (in ticks) it takes to reload the weapon after depleting the magazine.
     /// Can only be used if this is AmmoItem
-    pub reload_time: Option<f32>,
+    pub reload_time: Option<Float>,
     /// The repair result of this repair tool prototype.
     /// Can only be used if this is RepairTool
     pub repair_result: Option<Vec<TriggerItem>>,
@@ -6874,7 +6874,7 @@ pub struct LuaItemPrototype {
     pub selection_mode_flags: Option<SelectionModeFlags>,
     /// The repairing speed if this is a repairing tool.
     /// Can only be used if this is RepairTool
-    pub speed: Option<f32>,
+    pub speed: Option<Float>,
     /// Maximum stack size of the item specified by this prototype.
     pub stack_size: u32,
     /// Is this item allowed to stack at all?
@@ -6967,7 +6967,7 @@ pub struct LuaItemStack {
     pub default_icons: Vec<BlueprintSignalIcon>,
     /// Durability of the contained item. Automatically capped at the item's maximum durability.
     /// Can only be used if this is Tool
-    pub durability: Option<f64>,
+    pub durability: Option<Double>,
     /// If this is an item with entity data, get the stored entity color.
     /// Can only be used if this is ItemWithEntityData
     pub entity_color: Option<Color>,
@@ -6988,7 +6988,7 @@ pub struct LuaItemStack {
     /// The equipment grid of this item, if any.
     pub grid: Option<MaybeCycle<LuaEquipmentGrid>>,
     /// How much health the item has, as a number in range [0, 1].
-    pub health: f32,
+    pub health: Float,
     /// If this is an armor item.
     pub is_armor: bool,
     /// If this is a blueprint item.
@@ -7096,13 +7096,13 @@ pub trait LuaItemStackMethods {
     /// # Arguments
     ///
     /// * `amount` - Amount of ammo to add.
-    fn add_ammo(amount: f32);
+    fn add_ammo(amount: Float);
     /// Add durability to this tool item.
     ///
     /// # Arguments
     ///
     /// * `amount` - Amount of durability to add.
-    fn add_durability(amount: f64);
+    fn add_durability(amount: Double);
     /// # Notes
     ///
     /// * Built entities can be come invalid between the building of the blueprint and the function returning if by_player or raise_built is used and one of those events invalidates the entity.
@@ -7212,13 +7212,13 @@ pub trait LuaItemStackMethods {
     /// # Arguments
     ///
     /// * `amount` - Amount of ammo to remove.
-    fn drain_ammo(amount: f32);
+    fn drain_ammo(amount: Float);
     /// Remove durability from this tool item.
     ///
     /// # Arguments
     ///
     /// * `amount` - Amount of durability to remove.
-    fn drain_durability(amount: f64);
+    fn drain_durability(amount: Double);
     /// Export a supported item (blueprint, blueprint-book, deconstruction-planner, upgrade-planner, item-with-tags) to a string.
     ///
     /// # Returns
@@ -7420,19 +7420,19 @@ pub trait LuaLazyLoadedValueMethods {
 #[derive(Debug, Deserialize)]
 pub struct LuaLogisticCell {
     /// Radius at which the robots hover when waiting to be charged.
-    pub charge_approach_distance: f32,
+    pub charge_approach_distance: Float,
     /// Number of robots currently charging.
     pub charging_robot_count: u32,
     /// Robots currently being charged.
     pub charging_robots: Vec<MaybeCycle<LuaEntity>>,
     /// Construction radius of this cell.
-    pub construction_radius: f32,
+    pub construction_radius: Float,
     /// The network that owns this cell, if any.
     pub logistic_network: Option<MaybeCycle<LuaLogisticNetwork>>,
     /// Logistic radius of this cell.
-    pub logistic_radius: f32,
+    pub logistic_radius: Float,
     /// Logistic connection distance of this cell.
-    pub logistics_connection_distance: f32,
+    pub logistics_connection_distance: Float,
     /// `true` if this is a mobile cell. In vanilla, only the logistic cell created by a character's personal roboport is mobile.
     pub mobile: bool,
     /// Neighbouring cells.
@@ -7716,14 +7716,14 @@ pub trait LuaMiningDrillControlBehaviorMethods {
 pub enum LuaModSettingPrototypeAllowedValuesUnion {
     ArrayString(Vec<String>),
     ArrayI32(Vec<i32>),
-    ArrayF64(Vec<f64>),
+    ArrayDouble(Vec<Double>),
 }
 
 #[derive(Debug, Deserialize)]
 #[serde(untagged)]
 pub enum LuaModSettingPrototypeDefaultValueUnion {
     Boolean(bool),
-    Double(f64),
+    Double(Double),
     Int(i32),
     String(String),
 }
@@ -7731,14 +7731,14 @@ pub enum LuaModSettingPrototypeDefaultValueUnion {
 #[derive(Debug, Deserialize)]
 #[serde(untagged)]
 pub enum LuaModSettingPrototypeMaximumValueUnion {
-    Double(f64),
+    Double(Double),
     Int(i32),
 }
 
 #[derive(Debug, Deserialize)]
 #[serde(untagged)]
 pub enum LuaModSettingPrototypeMinimumValueUnion {
-    Double(f64),
+    Double(Double),
     Int(i32),
 }
 
@@ -7855,9 +7855,9 @@ pub struct LuaParticlePrototype {
     pub life_time: u32,
     pub localised_description: LocalisedString,
     pub localised_name: LocalisedString,
-    pub mining_particle_frame_speed: f32,
-    pub movement_modifier: f32,
-    pub movement_modifier_when_on_ground: f32,
+    pub mining_particle_frame_speed: Float,
+    pub movement_modifier: Float,
+    pub movement_modifier_when_on_ground: Float,
     /// Name of this prototype.
     pub name: String,
     /// The class name of this object. Available even when `valid` is false. For LuaStruct objects it may also be suffixed with a dotted path to a member of the struct.
@@ -8015,7 +8015,7 @@ pub struct LuaPlayer {
     /// # Notes
     ///
     /// * During [on_player_created](on_player_created), this attribute will always return a scale of `1`. To get the actual scale, listen to the [on_player_display_scale_changed](on_player_display_scale_changed) event raised shortly afterwards.
-    pub display_scale: f64,
+    pub display_scale: Double,
     /// The wire drag target for this player, if any.
     pub drag_target: Option<DragTarget>,
     /// The source entity used during entity settings copy-paste, if any.
@@ -8083,7 +8083,7 @@ pub struct LuaPlayer {
     /// Is this object valid? This Lua object holds a reference to an object within the game engine. It is possible that the game-engine object is removed whilst a mod still holds the corresponding Lua object. If that happens, the object becomes invalid, i.e. this attribute will be `false`. Mods are advised to check for object validity if any change to the game state might have occurred between the creation of the Lua object and its access.
     pub valid: bool,
     /// The player's zoom-level.
-    pub zoom: f64,
+    pub zoom: Double,
 }
 
 #[derive(Debug, Deserialize)]
@@ -8261,7 +8261,7 @@ pub trait LuaPlayerMethods {
         color: Color,
         create_at_cursor: bool,
         position: MapPosition,
-        speed: f64,
+        speed: Double,
         text: LocalisedString,
         time_to_live: u32,
     );
@@ -8381,7 +8381,7 @@ pub trait LuaPlayerMethods {
     /// # Arguments
     ///
     /// * `entity` - The entity to follow. If not given the current entity being followed will be cleared.
-    fn open_map(entity: LuaEntity, position: MapPosition, scale: f64);
+    fn open_map(entity: LuaEntity, position: MapPosition, scale: Double);
     /// Invokes the "smart pipette" action on the player as if the user pressed it.
     ///
     /// # Returns
@@ -8400,7 +8400,7 @@ pub trait LuaPlayerMethods {
         override_sound_type: SoundType,
         path: SoundPath,
         position: MapPosition,
-        volume_modifier: f64,
+        volume_modifier: Double,
     );
     /// Print text to the chat console.
     ///
@@ -8473,10 +8473,10 @@ pub trait LuaPlayerMethods {
     /// * `waypoints` - List of waypoints for the cutscene controller. This parameter is mandatory when `type` is [defines.controllers.cutscene](defines.controllers.cutscene).
     fn set_controller(
         character: LuaEntity,
-        chart_mode_cutoff: f64,
+        chart_mode_cutoff: Double,
         final_transition_time: u32,
         start_position: MapPosition,
-        start_zoom: f64,
+        start_zoom: Double,
         typ: Controllers,
         waypoints: CutsceneWaypoint,
     );
@@ -8555,7 +8555,7 @@ pub trait LuaPlayerMethods {
     /// # Arguments
     ///
     /// * `entity` - The entity to follow. If not given the current entity being followed will be cleared.
-    fn zoom_to_world(entity: LuaEntity, position: MapPosition, scale: f64);
+    fn zoom_to_world(entity: LuaEntity, position: MapPosition, scale: Double);
 }
 
 /// An object used to measure script performance.
@@ -8592,7 +8592,7 @@ pub trait LuaProfilerMethods {
     /// # Arguments
     ///
     /// * `number` - The number to divide by. Must be > 0.
-    fn divide(number: f64);
+    fn divide(number: Double);
     /// All methods and properties that this object supports.
     fn help() -> String;
     /// Resets the clock, also restarting it.
@@ -8668,9 +8668,9 @@ pub struct LuaRailPath {
     /// The total number of rails in this path.
     pub size: u32,
     /// The total path distance.
-    pub total_distance: f64,
+    pub total_distance: Double,
     /// The total distance travelled.
-    pub travelled_distance: f64,
+    pub travelled_distance: Double,
     /// Is this object valid? This Lua object holds a reference to an object within the game engine. It is possible that the game-engine object is removed whilst a mod still holds the corresponding Lua object. If that happens, the object becomes invalid, i.e. this attribute will be `false`. Mods are advised to check for object validity if any change to the game state might have occurred between the creation of the Lua object and its access.
     pub valid: bool,
 }
@@ -8743,7 +8743,7 @@ pub struct LuaRecipe {
     /// Can the recipe be used?
     pub enabled: bool,
     /// Energy required to execute this recipe. This directly affects the crafting time: Recipe's energy is exactly its crafting time in seconds, when crafted in an assembling machine with crafting speed exactly equal to one.
-    pub energy: f64,
+    pub energy: Double,
     /// The force that owns this recipe.
     pub force: MaybeCycle<LuaForce>,
     /// Group of this recipe.
@@ -8834,11 +8834,11 @@ pub struct LuaRecipePrototype {
     /// Category of the recipe.
     pub category: String,
     /// The emissions multiplier for this recipe.
-    pub emissions_multiplier: f64,
+    pub emissions_multiplier: Double,
     /// If this recipe prototype is enabled by default (enabled at the beginning of a game).
     pub enabled: bool,
     /// Energy required to execute this recipe. This directly affects the crafting time: Recipe's energy is exactly its crafting time in seconds, when crafted in an assembling machine with crafting speed exactly equal to one.
-    pub energy: f64,
+    pub energy: Double,
     /// Group of this recipe.
     pub group: MaybeCycle<LuaGroup>,
     /// Is the recipe hidden? Hidden recipe don't show up in the crafting menu.
@@ -9157,8 +9157,8 @@ pub trait LuaRenderingMethods {
     /// * Id of the render object
     fn draw_animation(
         animation: String,
-        animation_offset: f64,
-        animation_speed: f64,
+        animation_offset: Double,
+        animation_speed: Double,
         forces: Vec<ForceIdentification>,
         only_in_alt_mode: bool,
         orientation: RealOrientation,
@@ -9174,8 +9174,8 @@ pub trait LuaRenderingMethods {
         tint: Color,
         use_target_orientation: bool,
         visible: bool,
-        x_scale: f64,
-        y_scale: f64,
+        x_scale: Double,
+        y_scale: Double,
     ) -> u64;
     /// Create an arc.
     ///
@@ -9197,15 +9197,15 @@ pub trait LuaRenderingMethods {
     ///
     /// * Id of the render object
     fn draw_arc(
-        angle: f32,
+        angle: Float,
         color: Color,
         draw_on_ground: bool,
         forces: Vec<ForceIdentification>,
-        max_radius: f64,
-        min_radius: f64,
+        max_radius: Double,
+        min_radius: Double,
         only_in_alt_mode: bool,
         players: Vec<PlayerIdentification>,
-        start_angle: f32,
+        start_angle: Float,
         surface: SurfaceIdentification,
         target: LuaRenderingMethodsDrawArcTargetUnion,
         target_offset: Vector,
@@ -9237,13 +9237,13 @@ pub trait LuaRenderingMethods {
         forces: Vec<ForceIdentification>,
         only_in_alt_mode: bool,
         players: Vec<PlayerIdentification>,
-        radius: f64,
+        radius: Double,
         surface: SurfaceIdentification,
         target: LuaRenderingMethodsDrawCircleTargetUnion,
         target_offset: Vector,
         time_to_live: u32,
         visible: bool,
-        width: f32,
+        width: Float,
     ) -> u64;
     /// Create a light.
     ///
@@ -9273,13 +9273,13 @@ pub trait LuaRenderingMethods {
     fn draw_light(
         color: Color,
         forces: Vec<ForceIdentification>,
-        intensity: f32,
-        minimum_darkness: f32,
+        intensity: Float,
+        minimum_darkness: Float,
         only_in_alt_mode: bool,
         orientation: RealOrientation,
         oriented: bool,
         players: Vec<PlayerIdentification>,
-        scale: f32,
+        scale: Float,
         sprite: SpritePath,
         surface: SurfaceIdentification,
         target: LuaRenderingMethodsDrawLightTargetUnion,
@@ -9319,12 +9319,12 @@ pub trait LuaRenderingMethods {
     /// * Id of the render object
     fn draw_line(
         color: Color,
-        dash_length: f64,
+        dash_length: Double,
         draw_on_ground: bool,
         forces: Vec<ForceIdentification>,
         from: LuaRenderingMethodsDrawLineFromUnion,
         from_offset: Vector,
-        gap_length: f64,
+        gap_length: Double,
         only_in_alt_mode: bool,
         players: Vec<PlayerIdentification>,
         surface: SurfaceIdentification,
@@ -9332,7 +9332,7 @@ pub trait LuaRenderingMethods {
         to: LuaRenderingMethodsDrawLineToUnion,
         to_offset: Vector,
         visible: bool,
-        width: f32,
+        width: Float,
     ) -> u64;
     /// Create a triangle mesh defined by a triangle strip.
     ///
@@ -9403,7 +9403,7 @@ pub trait LuaRenderingMethods {
         surface: SurfaceIdentification,
         time_to_live: u32,
         visible: bool,
-        width: f32,
+        width: Float,
     ) -> u64;
     /// Create a sprite.
     ///
@@ -9455,8 +9455,8 @@ pub trait LuaRenderingMethods {
         tint: Color,
         use_target_orientation: bool,
         visible: bool,
-        x_scale: f64,
-        y_scale: f64,
+        x_scale: Double,
+        y_scale: Double,
     ) -> u64;
     /// Create a text.
     ///
@@ -9493,7 +9493,7 @@ pub trait LuaRenderingMethods {
         only_in_alt_mode: bool,
         orientation: RealOrientation,
         players: Vec<PlayerIdentification>,
-        scale: f64,
+        scale: Double,
         scale_with_zoom: bool,
         surface: SurfaceIdentification,
         target: LuaRenderingMethodsDrawTextTargetUnion,
@@ -9521,7 +9521,7 @@ pub trait LuaRenderingMethods {
     /// # Returns
     ///
     /// * Angle in radian. `nil` if the object is not a arc.
-    fn get_angle(id: u64) -> Option<f32>;
+    fn get_angle(id: u64) -> Option<Float>;
     /// Get the animation prototype name of the animation with this id.
     ///
     /// # Returns
@@ -9533,13 +9533,13 @@ pub trait LuaRenderingMethods {
     /// # Returns
     ///
     /// * Animation offset in frames. `nil` if the object is not an animation.
-    fn get_animation_offset(id: u64) -> Option<f64>;
+    fn get_animation_offset(id: u64) -> Option<Double>;
     /// Get the animation speed of the animation with this id.
     ///
     /// # Returns
     ///
     /// * Animation speed in frames per tick. `nil` if the object is not an animation.
-    fn get_animation_speed(id: u64) -> Option<f64>;
+    fn get_animation_speed(id: u64) -> Option<Double>;
     /// Get the color or tint of the object with this id.
     ///
     /// # Returns
@@ -9551,7 +9551,7 @@ pub trait LuaRenderingMethods {
     /// # Returns
     ///
     /// * `nil` if the object is not a line.
-    fn get_dash_length(id: u64) -> Option<f64>;
+    fn get_dash_length(id: u64) -> Option<Double>;
     /// Get whether this is being drawn on the ground, under most entities and sprites.
     fn get_draw_on_ground(id: u64) -> bool;
     /// Get if the circle or rectangle with this id is filled.
@@ -9579,13 +9579,13 @@ pub trait LuaRenderingMethods {
     /// # Returns
     ///
     /// * `nil` if the object is not a line.
-    fn get_gap_length(id: u64) -> Option<f64>;
+    fn get_gap_length(id: u64) -> Option<Double>;
     /// Get the intensity of the light with this id.
     ///
     /// # Returns
     ///
     /// * `nil` if the object is not a light.
-    fn get_intensity(id: u64) -> Option<f32>;
+    fn get_intensity(id: u64) -> Option<Float>;
     /// Get where top left corner of the rectangle with this id is drawn.
     ///
     /// # Returns
@@ -9597,19 +9597,19 @@ pub trait LuaRenderingMethods {
     /// # Returns
     ///
     /// * `nil` if the object is not a arc.
-    fn get_max_radius(id: u64) -> Option<f64>;
+    fn get_max_radius(id: u64) -> Option<Double>;
     /// Get the radius of the inner edge of the arc with this id.
     ///
     /// # Returns
     ///
     /// * `nil` if the object is not a arc.
-    fn get_min_radius(id: u64) -> Option<f64>;
+    fn get_min_radius(id: u64) -> Option<Double>;
     /// Get the minimum darkness at which the light with this id is rendered.
     ///
     /// # Returns
     ///
     /// * `nil` if the object is not a light.
-    fn get_minimum_darkness(id: u64) -> Option<f32>;
+    fn get_minimum_darkness(id: u64) -> Option<Float>;
     /// Get whether this is only rendered in alt-mode.
     fn get_only_in_alt_mode(id: u64) -> bool;
     /// Get the orientation of the object with this id.
@@ -9651,7 +9651,7 @@ pub trait LuaRenderingMethods {
     /// # Returns
     ///
     /// * `nil` if the object is not a circle.
-    fn get_radius(id: u64) -> Option<f64>;
+    fn get_radius(id: u64) -> Option<Double>;
     /// Get the render layer of the sprite or animation with this id.
     ///
     /// # Returns
@@ -9669,7 +9669,7 @@ pub trait LuaRenderingMethods {
     /// # Returns
     ///
     /// * `nil` if the object is not a text or light.
-    fn get_scale(id: u64) -> Option<f64>;
+    fn get_scale(id: u64) -> Option<Double>;
     /// Get if the text with this id scales with player zoom.
     ///
     /// # Returns
@@ -9687,7 +9687,7 @@ pub trait LuaRenderingMethods {
     /// # Returns
     ///
     /// * Angle in radian. `nil` if the object is not a arc.
-    fn get_start_angle(id: u64) -> Option<f32>;
+    fn get_start_angle(id: u64) -> Option<Float>;
     /// The surface the object with this id is rendered on.
     fn get_surface(id: u64) -> LuaSurface;
     /// Get where the object with this id is drawn.
@@ -9747,19 +9747,19 @@ pub trait LuaRenderingMethods {
     /// # Returns
     ///
     /// * `nil` if the object does not support width.
-    fn get_width(id: u64) -> Option<f32>;
+    fn get_width(id: u64) -> Option<Float>;
     /// Get the horizontal scale of the sprite or animation with this id.
     ///
     /// # Returns
     ///
     /// * `nil` if the object is not a sprite or animation.
-    fn get_x_scale(id: u64) -> Option<f64>;
+    fn get_x_scale(id: u64) -> Option<Double>;
     /// Get the vertical scale of the sprite or animation with this id.
     ///
     /// # Returns
     ///
     /// * `nil` if the object is not a sprite or animation.
-    fn get_y_scale(id: u64) -> Option<f64>;
+    fn get_y_scale(id: u64) -> Option<Double>;
     /// Does a font with this name exist?
     fn is_font_valid(font_name: String) -> bool;
     /// Does a valid object with this id exist?
@@ -9775,7 +9775,7 @@ pub trait LuaRenderingMethods {
     /// # Arguments
     ///
     /// * `angle` - angle in radian
-    fn set_angle(angle: f32, id: u64);
+    fn set_angle(angle: Float, id: u64);
     /// Set the animation prototype name of the animation with this id. Does nothing if this object is not an animation.
     fn set_animation(animation: String, id: u64);
     /// Set the animation offset of the animation with this id. Does nothing if this object is not an animation.
@@ -9783,13 +9783,13 @@ pub trait LuaRenderingMethods {
     /// # Arguments
     ///
     /// * `animation_offset` - Animation offset in frames.
-    fn set_animation_offset(animation_offset: f64, id: u64);
+    fn set_animation_offset(animation_offset: Double, id: u64);
     /// Set the animation speed of the animation with this id. Does nothing if this object is not an animation.
     ///
     /// # Arguments
     ///
     /// * `animation_speed` - Animation speed in frames per tick.
-    fn set_animation_speed(animation_speed: f64, id: u64);
+    fn set_animation_speed(animation_speed: Double, id: u64);
     /// Set the color or tint of the object with this id. Does nothing if this object does not support color.
     fn set_color(color: Color, id: u64);
     /// Set the corners of the rectangle with this id. Does nothing if this object is not a rectangle.
@@ -9801,9 +9801,9 @@ pub trait LuaRenderingMethods {
         right_bottom_offset: Vector,
     );
     /// Set the dash length of the line with this id. Does nothing if this object is not a line.
-    fn set_dash_length(dash_length: f64, id: u64);
+    fn set_dash_length(dash_length: Double, id: u64);
     /// Set the length of the dashes and the length of the gaps in the line with this id. Does nothing if this object is not a line.
-    fn set_dashes(dash_length: f64, gap_length: f64, id: u64);
+    fn set_dashes(dash_length: Double, gap_length: Double, id: u64);
     /// Set whether this is being drawn on the ground, under most entities and sprites.
     fn set_draw_on_ground(draw_on_ground: bool, id: u64);
     /// Set if the circle or rectangle with this id is filled. Does nothing if this object is not a circle or rectangle.
@@ -9819,9 +9819,9 @@ pub trait LuaRenderingMethods {
     /// Set from where the line with this id is drawn. Does nothing if the object is not a line.
     fn set_from(from: LuaRenderingMethodsSetFromFromUnion, from_offset: Vector, id: u64);
     /// Set the length of the gaps in the line with this id. Does nothing if this object is not a line.
-    fn set_gap_length(gap_length: f64, id: u64);
+    fn set_gap_length(gap_length: Double, id: u64);
     /// Set the intensity of the light with this id. Does nothing if this object is not a light.
-    fn set_intensity(id: u64, intensity: f32);
+    fn set_intensity(id: u64, intensity: Float);
     /// Set where top left corner of the rectangle with this id is drawn. Does nothing if this object is not a rectangle.
     fn set_left_top(
         id: u64,
@@ -9829,11 +9829,11 @@ pub trait LuaRenderingMethods {
         left_top_offset: Vector,
     );
     /// Set the radius of the outer edge of the arc with this id. Does nothing if this object is not a arc.
-    fn set_max_radius(id: u64, max_radius: f64);
+    fn set_max_radius(id: u64, max_radius: Double);
     /// Set the radius of the inner edge of the arc with this id. Does nothing if this object is not a arc.
-    fn set_min_radius(id: u64, min_radius: f64);
+    fn set_min_radius(id: u64, min_radius: Double);
     /// Set the minimum darkness at which the light with this id is rendered. Does nothing if this object is not a light.
-    fn set_minimum_darkness(id: u64, minimum_darkness: f32);
+    fn set_minimum_darkness(id: u64, minimum_darkness: Float);
     /// Set whether this is only rendered in alt-mode.
     fn set_only_in_alt_mode(id: u64, only_in_alt_mode: bool);
     /// Set the orientation of the object with this id. Does nothing if this object is not a text, polygon, sprite, light or animation.
@@ -9863,7 +9863,7 @@ pub trait LuaRenderingMethods {
     /// * `players` - Providing an empty array will set the object to be visible to all players.
     fn set_players(id: u64, players: Vec<PlayerIdentification>);
     /// Set the radius of the circle with this id. Does nothing if this object is not a circle.
-    fn set_radius(id: u64, radius: f64);
+    fn set_radius(id: u64, radius: Double);
     /// Set the render layer of the sprite or animation with this id. Does nothing if this object is not a sprite or animation.
     fn set_render_layer(id: u64, render_layer: RenderLayer);
     /// Set where top bottom right of the rectangle with this id is drawn. Does nothing if this object is not a rectangle.
@@ -9873,7 +9873,7 @@ pub trait LuaRenderingMethods {
         right_bottom_offset: Vector,
     );
     /// Set the scale of the text or light with this id. Does nothing if this object is not a text or light.
-    fn set_scale(id: u64, scale: f64);
+    fn set_scale(id: u64, scale: Double);
     /// Set if the text with this id scales with player zoom, resulting in it always being the same size on screen, and the size compared to the game world changes. Does nothing if this object is not a text.
     fn set_scale_with_zoom(id: u64, scale_with_zoom: bool);
     /// Set the sprite of the sprite or light with this id. Does nothing if this object is not a sprite or light.
@@ -9883,7 +9883,7 @@ pub trait LuaRenderingMethods {
     /// # Arguments
     ///
     /// * `start_angle` - angle in radian
-    fn set_start_angle(id: u64, start_angle: f32);
+    fn set_start_angle(id: u64, start_angle: Float);
     /// Set where the object with this id is drawn. Does nothing if this object does not support target.
     ///
     /// # Notes
@@ -9911,11 +9911,11 @@ pub trait LuaRenderingMethods {
     /// Set whether this is rendered to anyone at all.
     fn set_visible(id: u64, visible: bool);
     /// Set the width of the object with this id. Does nothing if this object does not support width. Value is in pixels (32 per tile).
-    fn set_width(id: u64, width: f32);
+    fn set_width(id: u64, width: Float);
     /// Set the horizontal scale of the sprite or animation with this id. Does nothing if this object is not a sprite or animation.
-    fn set_x_scale(id: u64, x_scale: f64);
+    fn set_x_scale(id: u64, x_scale: Double);
     /// Set the vertical scale of the sprite or animation with this id. Does nothing if this object is not a sprite or animation.
-    fn set_y_scale(id: u64, y_scale: f64);
+    fn set_y_scale(id: u64, y_scale: Double);
 }
 
 /// Prototype of a resource category.
@@ -10247,15 +10247,15 @@ pub struct LuaSurface {
     /// ```
     pub brightness_visual_weights: ColorModifier,
     /// Amount of darkness at the current time, as a number in range [0, 1].
-    pub darkness: f32,
+    pub darkness: Float,
     /// The daytime when dawn starts.
-    pub dawn: f64,
+    pub dawn: Double,
     /// Current time of day, as a number in range [0, 1).
-    pub daytime: f64,
+    pub daytime: Double,
     /// The daytime when dusk starts.
-    pub dusk: f64,
+    pub dusk: Double,
     /// The daytime when evening starts.
-    pub evening: f64,
+    pub evening: Double,
     /// True if daytime is currently frozen.
     pub freeze_daytime: bool,
     /// When set to true, new chunks will be generated with lab tiles, instead of using the surface's map generation settings.
@@ -10265,9 +10265,9 @@ pub struct LuaSurface {
     /// The generation settings for this surface. These can be modified after surface generation, but note that this will not retroactively update the surface. To manually regenerate it, [LuaSurface::regenerate_entity](LuaSurface::regenerate_entity), [LuaSurface::regenerate_decorative](LuaSurface::regenerate_decorative), and [LuaSurface::delete_chunk](LuaSurface::delete_chunk) can be used.
     pub map_gen_settings: MapGenSettings,
     /// The minimal brightness during the night. Defaults to `0.15`. This has an effect on both rendering and game mechanics such as biter spawns and solar power.
-    pub min_brightness: f64,
+    pub min_brightness: Double,
     /// The daytime when morning starts.
-    pub morning: f64,
+    pub morning: Double,
     /// The name of this surface. Names are unique among surfaces.
     ///
     /// # Notes
@@ -10289,7 +10289,7 @@ pub struct LuaSurface {
     /// # Notes
     ///
     /// * Solar equipment is still limited to its maximum power output.
-    pub solar_power_multiplier: f64,
+    pub solar_power_multiplier: Double,
     /// The number of ticks per day for this surface.
     pub ticks_per_day: u32,
     /// Is this object valid? This Lua object holds a reference to an object within the game engine. It is possible that the game-engine object is removed whilst a mod still holds the corresponding Lua object. If that happens, the object becomes invalid, i.e. this attribute will be `false`. Mods are advised to check for object validity if any change to the game state might have occurred between the creation of the Lua object and its access.
@@ -10297,9 +10297,9 @@ pub struct LuaSurface {
     /// Current wind direction.
     pub wind_orientation: RealOrientation,
     /// Change in wind orientation per tick.
-    pub wind_orientation_change: f64,
+    pub wind_orientation_change: Double,
     /// Current wind speed in tiles per tick.
-    pub wind_speed: f64,
+    pub wind_speed: Double,
 }
 
 #[derive(Debug, Deserialize)]
@@ -10629,7 +10629,7 @@ pub trait LuaSurfaceMethods {
     fn calculate_tile_properties(
         positions: Vec<MapPosition>,
         property_names: Vec<String>,
-    ) -> HashMap<String, Vec<f64>>;
+    ) -> HashMap<String, Vec<Double>>;
     /// If there exists an entity at the given location that can be fast-replaced with the given entity parameters.
     ///
     /// # Arguments
@@ -10801,7 +10801,7 @@ pub trait LuaSurfaceMethods {
         limit: u32,
         name: LuaSurfaceMethodsCountEntitiesFilteredNameUnion,
         position: MapPosition,
-        radius: f64,
+        radius: Double,
         to_be_deconstructed: bool,
         to_be_upgraded: bool,
         typ: LuaSurfaceMethodsCountEntitiesFilteredTypUnion,
@@ -10827,7 +10827,7 @@ pub trait LuaSurfaceMethods {
         limit: u32,
         name: LuaSurfaceMethodsCountTilesFilteredNameUnion,
         position: MapPosition,
-        radius: f64,
+        radius: Double,
         to_be_deconstructed: bool,
     ) -> u32;
     /// Adds the given decoratives to the surface.
@@ -10918,12 +10918,12 @@ pub trait LuaSurfaceMethods {
     /// * `name` - The particle name.
     /// * `position` - Where to create the particle.
     fn create_particle(
-        frame_speed: f32,
-        height: f32,
+        frame_speed: Float,
+        height: Float,
         movement: Vector,
         name: String,
         position: MapPosition,
-        vertical_speed: f32,
+        vertical_speed: Float,
     );
     /// # Arguments
     ///
@@ -11053,7 +11053,7 @@ pub trait LuaSurfaceMethods {
     fn find_enemy_units(
         center: MapPosition,
         force: LuaSurfaceMethodsFindEnemyUnitsForceUnion,
-        radius: f64,
+        radius: Double,
     ) -> Vec<MaybeCycle<LuaEntity>>;
     /// Find entities in a given area.
     ///
@@ -11103,7 +11103,7 @@ pub trait LuaSurfaceMethods {
         limit: u32,
         name: LuaSurfaceMethodsFindEntitiesFilteredNameUnion,
         position: MapPosition,
-        radius: f64,
+        radius: Double,
         to_be_deconstructed: bool,
         to_be_upgraded: bool,
         typ: LuaSurfaceMethodsFindEntitiesFilteredTypUnion,
@@ -11160,7 +11160,7 @@ pub trait LuaSurfaceMethods {
     /// * The nearest enemy military target or `nil` if no enemy could be found within the given area.
     fn find_nearest_enemy(
         force: ForceIdentification,
-        max_distance: f64,
+        max_distance: Double,
         position: MapPosition,
     ) -> Option<LuaEntity>;
     /// Find the enemy entity-with-owner closest to the given position.
@@ -11176,7 +11176,7 @@ pub trait LuaSurfaceMethods {
     /// * The nearest enemy entity-with-owner or `nil` if no enemy could be found within the given area.
     fn find_nearest_enemy_entity_with_owner(
         force: ForceIdentification,
-        max_distance: f64,
+        max_distance: Double,
         position: MapPosition,
     ) -> LuaEntity;
     /// Find a non-colliding position within a given radius.
@@ -11200,8 +11200,8 @@ pub trait LuaSurfaceMethods {
         center: MapPosition,
         force_to_tile_center: bool,
         name: String,
-        precision: f64,
-        radius: f64,
+        precision: Double,
+        radius: Double,
     ) -> Option<MapPosition>;
     /// Find a non-colliding position within a given rectangle.
     ///
@@ -11218,7 +11218,7 @@ pub trait LuaSurfaceMethods {
     fn find_non_colliding_position_in_box(
         force_to_tile_center: bool,
         name: String,
-        precision: f64,
+        precision: Double,
         search_space: BoundingBox,
     ) -> Option<MapPosition>;
     /// Find all tiles of the given name in the given area.
@@ -11244,7 +11244,7 @@ pub trait LuaSurfaceMethods {
         limit: u32,
         name: LuaSurfaceMethodsFindTilesFilteredNameUnion,
         position: MapPosition,
-        radius: f64,
+        radius: Double,
         to_be_deconstructed: bool,
     ) -> Vec<MaybeCycle<LuaTile>>;
     /// Find units (entities with type "unit") of a given force and force condition within a given area.
@@ -11335,7 +11335,7 @@ pub trait LuaSurfaceMethods {
     /// * ```text
     /// game.surfaces[1].get_pollution({1,2})
     /// ```
-    fn get_pollution(position: MapPosition) -> f64;
+    fn get_pollution(position: MapPosition) -> Double;
     /// Gets a random generated chunk position or 0,0 if no chunks have been generated on this surface.
     fn get_random_chunk() -> ChunkPosition;
     /// Gets the resource amount of all resources on this surface
@@ -11359,7 +11359,7 @@ pub trait LuaSurfaceMethods {
     /// Gets the script positions that match the given name or if no name is given all positions are returned.
     fn get_script_positions(name: String) -> Vec<ScriptPosition>;
     /// Gets the starting area radius of this surface.
-    fn get_starting_area_radius() -> f64;
+    fn get_starting_area_radius() -> Double;
     /// Get the tile at a given position. An alternative call signature for this method is passing it a single [TilePosition](TilePosition).
     ///
     /// # Notes
@@ -11367,7 +11367,7 @@ pub trait LuaSurfaceMethods {
     /// * Non-integer values will result in them being rounded down.
     fn get_tile(x: i32, y: i32) -> LuaTile;
     /// Gets the total amount of pollution on the surface by iterating over all of the chunks containing pollution.
-    fn get_total_pollution() -> f64;
+    fn get_total_pollution() -> Double;
     /// Gets train stops matching the given filters.
     ///
     /// # Arguments
@@ -11402,7 +11402,7 @@ pub trait LuaSurfaceMethods {
         override_sound_type: SoundType,
         path: SoundPath,
         position: MapPosition,
-        volume_modifier: f64,
+        volume_modifier: Double,
     );
     /// Spawn pollution at the given position.
     ///
@@ -11410,7 +11410,7 @@ pub trait LuaSurfaceMethods {
     ///
     /// * `amount` - How much pollution to add.
     /// * `source` - Where to spawn the pollution.
-    fn pollute(amount: f64, source: MapPosition);
+    fn pollute(amount: Double, source: MapPosition);
     /// Print text to the chat console of all players on this surface.
     ///
     /// # Notes
@@ -11486,7 +11486,7 @@ pub trait LuaSurfaceMethods {
         goal: MapPosition,
         path_resolution_modifier: i32,
         pathfind_flags: PathfinderFlags,
-        radius: f64,
+        radius: Double,
         start: MapPosition,
     ) -> u32;
     /// Request that the game's map generator generate chunks at the given position for the given radius on this surface.
@@ -11619,7 +11619,7 @@ pub struct LuaTechnology {
     /// The count formula, if this research has any. See the [wiki](https://wiki.factorio.com/Prototype/Technology#Technology_data) for details.
     pub research_unit_count_formula: Option<String>,
     /// Amount of energy required to finish a unit of research.
-    pub research_unit_energy: f64,
+    pub research_unit_energy: Double,
     /// The types of ingredients that labs will require to research this technology.
     pub research_unit_ingredients: Vec<Ingredient>,
     /// Has this technology been researched? Switching from `false` to `true` will trigger the technology advancement perks; switching from `true` to `false` will reverse them.
@@ -11679,7 +11679,7 @@ pub struct LuaTechnologyPrototype {
     /// The count formula, if this research has any. See the [wiki](https://wiki.factorio.com/Prototype/Technology#Technology_data) for details.
     pub research_unit_count_formula: Option<String>,
     /// Amount of energy required to finish a unit of research.
-    pub research_unit_energy: f64,
+    pub research_unit_energy: Double,
     /// The types of ingredients that labs will require to research this technology.
     pub research_unit_ingredients: Vec<Ingredient>,
     /// If the is technology prototype is an upgrade to some other technology.
@@ -11775,7 +11775,7 @@ pub struct LuaTilePrototypeMineableProperties {
     /// Prototype name of the particle produced when mining this tile. Will only be present if this tile produces any particle during mining.
     pub mining_particle: Option<String>,
     /// Energy required to mine a tile.
-    pub mining_time: f64,
+    pub mining_time: Double,
     /// Products obtained by mining this tile.
     pub products: Option<Vec<Product>>,
 }
@@ -11795,9 +11795,9 @@ pub struct LuaTilePrototype {
     pub collision_mask: CollisionMask,
     pub collision_mask_with_flags: CollisionMaskWithFlags,
     /// The probability that decorative entities will be removed from on top of this tile when this tile is generated.
-    pub decorative_removal_probability: f32,
+    pub decorative_removal_probability: Float,
     /// Amount of pollution emissions per second this tile will absorb.
-    pub emissions_per_second: f64,
+    pub emissions_per_second: Double,
     /// Items that when placed will produce this tile, if any. Construction bots will choose the first item in the list to build this tile.
     pub items_to_place_this: Option<Vec<ItemStackDefinition>>,
     pub layer: u32,
@@ -11817,8 +11817,8 @@ pub struct LuaTilePrototype {
     pub order: String,
     /// Is this object valid? This Lua object holds a reference to an object within the game engine. It is possible that the game-engine object is removed whilst a mod still holds the corresponding Lua object. If that happens, the object becomes invalid, i.e. this attribute will be `false`. Mods are advised to check for object validity if any change to the game state might have occurred between the creation of the Lua object and its access.
     pub valid: bool,
-    pub vehicle_friction_modifier: f32,
-    pub walking_speed_modifier: f32,
+    pub vehicle_friction_modifier: Float,
+    pub walking_speed_modifier: Float,
 }
 
 /// Prototype of a tile.
@@ -11859,9 +11859,9 @@ pub struct LuaTrain {
     /// When `true`, the train is explicitly controlled by the player or script. When `false`, the train moves autonomously according to its schedule.
     pub manual_mode: bool,
     /// Current max speed when moving backwards, depends on locomotive prototype and fuel.
-    pub max_backward_speed: f64,
+    pub max_backward_speed: Double,
     /// Current max speed when moving forward, depends on locomotive prototype and fuel.
-    pub max_forward_speed: f64,
+    pub max_forward_speed: Double,
     /// The class name of this object. Available even when `valid` is false. For LuaStruct objects it may also be suffixed with a dotted path to a member of the struct.
     pub object_name: String,
     /// The player passengers on the train
@@ -11893,7 +11893,7 @@ pub struct LuaTrain {
     /// # Notes
     ///
     /// * Changing the speed of the train is potentially an unsafe operation because train uses the speed for its internal calculations of break distances, etc.
-    pub speed: f64,
+    pub speed: Double,
     /// This train's current state.
     pub state: TrainState,
     /// The train stop this train is stopped at, if any.
@@ -11901,7 +11901,7 @@ pub struct LuaTrain {
     /// Is this object valid? This Lua object holds a reference to an object within the game engine. It is possible that the game-engine object is removed whilst a mod still holds the corresponding Lua object. If that happens, the object becomes invalid, i.e. this attribute will be `false`. Mods are advised to check for object validity if any change to the game state might have occurred between the creation of the Lua object and its access.
     pub valid: bool,
     /// The weight of this train.
-    pub weight: f64,
+    pub weight: Double,
 }
 
 /// A train. Trains are a sequence of connected rolling stocks -- locomotives and wagons.
@@ -11921,13 +11921,13 @@ pub trait LuaTrainMethods {
     /// # Returns
     ///
     /// * The counts, indexed by fluid names.
-    fn get_fluid_contents() -> HashMap<String, f64>;
+    fn get_fluid_contents() -> HashMap<String, Double>;
     /// Get the amount of a particular fluid stored in the train.
     ///
     /// # Arguments
     ///
     /// * `fluid` - Fluid name to count. If not given, counts all fluids.
-    fn get_fluid_count(fluid: String) -> f64;
+    fn get_fluid_count(fluid: String) -> Double;
     /// Get the amount of a particular item stored in the train.
     ///
     /// # Arguments
@@ -11947,7 +11947,7 @@ pub trait LuaTrainMethods {
     /// # Returns
     ///
     /// * The amount inserted.
-    fn insert_fluid(fluid: Fluid) -> f64;
+    fn insert_fluid(fluid: Fluid) -> Double;
     /// Checks if the path is invalid and tries to re-path if it isn't.
     ///
     /// # Arguments
@@ -11963,7 +11963,7 @@ pub trait LuaTrainMethods {
     /// # Returns
     ///
     /// * The amount of fluid actually removed.
-    fn remove_fluid(fluid: Fluid) -> f64;
+    fn remove_fluid(fluid: Fluid) -> Double;
     /// Remove some items from the train.
     ///
     /// # Arguments
@@ -12054,7 +12054,7 @@ pub trait LuaTransportLineMethods {
     /// # Arguments
     ///
     /// * `position` - Where to insert an item.
-    fn can_insert_at(position: f32) -> bool;
+    fn can_insert_at(position: Float) -> bool;
     /// Can an item be inserted at the back of this line?
     fn can_insert_at_back() -> bool;
     /// Remove all items from this transport line.
@@ -12083,7 +12083,7 @@ pub trait LuaTransportLineMethods {
     /// # Returns
     ///
     /// * Were the items inserted successfully?
-    fn insert_at(items: ItemStackIdentification, position: f32) -> bool;
+    fn insert_at(items: ItemStackIdentification, position: Float) -> bool;
     /// Insert items at the back of this line.
     ///
     /// # Returns
@@ -12115,14 +12115,14 @@ pub struct LuaTrivialSmokePrototype {
     pub color: Color,
     pub cyclic: bool,
     pub duration: u32,
-    pub end_scale: f64,
+    pub end_scale: Double,
     pub fade_away_duration: u32,
     pub fade_in_duration: u32,
     pub glow_animation: bool,
     pub glow_fade_away_duration: u32,
     pub localised_description: LocalisedString,
     pub localised_name: LocalisedString,
-    pub movement_slow_down_factor: f64,
+    pub movement_slow_down_factor: Double,
     /// Name of this prototype.
     pub name: String,
     /// The class name of this object. Available even when `valid` is false. For LuaStruct objects it may also be suffixed with a dotted path to a member of the struct.
@@ -12132,7 +12132,7 @@ pub struct LuaTrivialSmokePrototype {
     pub render_layer: RenderLayer,
     pub show_when_smoke_off: bool,
     pub spread_duration: u32,
-    pub start_scale: f64,
+    pub start_scale: Double,
     /// Is this object valid? This Lua object holds a reference to an object within the game engine. It is possible that the game-engine object is removed whilst a mod still holds the corresponding Lua object. If that happens, the object becomes invalid, i.e. this attribute will be `false`. Mods are advised to check for object validity if any change to the game state might have occurred between the creation of the Lua object and its access.
     pub valid: bool,
 }
@@ -12220,7 +12220,7 @@ pub trait LuaVirtualSignalPrototypeMethods {
 #[derive(Debug, Deserialize)]
 pub struct LuaVoidEnergySourcePrototype {
     /// The emissions of this energy source in `pollution/Joule`. Multiplying it by energy consumption in `Watt` gives `pollution/second`.
-    pub emissions: f64,
+    pub emissions: Double,
     /// The class name of this object. Available even when `valid` is false. For LuaStruct objects it may also be suffixed with a dotted path to a member of the struct.
     pub object_name: String,
     pub render_no_network_icon: bool,
