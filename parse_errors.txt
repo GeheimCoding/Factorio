@@ -1630,48 +1630,48 @@
 2829.json: invalid type: map, expected a sequence
 2830.json: invalid type: map, expected a sequence
 2831.json: invalid type: map, expected a sequence
-2927.json: invalid type: map, expected a boolean
-2928.json: invalid type: map, expected a boolean
-2929.json: invalid type: map, expected a boolean
-2930.json: invalid type: map, expected a boolean
-2931.json: invalid type: map, expected a boolean
-2932.json: invalid type: map, expected a boolean
-2933.json: invalid type: map, expected a boolean
-2934.json: invalid type: map, expected a boolean
-2935.json: invalid type: map, expected a boolean
-2936.json: invalid type: map, expected a boolean
-2937.json: invalid type: map, expected a boolean
-2938.json: invalid type: map, expected a boolean
-2939.json: invalid type: map, expected a boolean
-2940.json: invalid type: map, expected a boolean
-2941.json: invalid type: map, expected a boolean
-2942.json: invalid type: map, expected a boolean
-2943.json: invalid type: map, expected a boolean
-2944.json: invalid type: map, expected a boolean
-2945.json: invalid type: map, expected a boolean
-2946.json: invalid type: map, expected a boolean
-2947.json: invalid type: map, expected a boolean
-2948.json: invalid type: map, expected a boolean
-2949.json: invalid type: map, expected a boolean
-2950.json: invalid type: map, expected a boolean
-2951.json: invalid type: map, expected a boolean
-2952.json: invalid type: map, expected a boolean
-2953.json: invalid type: map, expected a boolean
-2954.json: invalid type: map, expected a boolean
-2955.json: invalid type: map, expected a boolean
-2956.json: invalid type: map, expected a boolean
-2957.json: invalid type: map, expected a boolean
-2958.json: invalid type: map, expected a boolean
-2959.json: invalid type: map, expected a boolean
-2960.json: invalid type: map, expected a boolean
-2961.json: invalid type: map, expected a boolean
-2962.json: invalid type: map, expected a boolean
+2927.json: data did not match any variant of untagged enum RenderLayer
+2928.json: data did not match any variant of untagged enum RenderLayer
+2929.json: data did not match any variant of untagged enum RenderLayer
+2930.json: data did not match any variant of untagged enum RenderLayer
+2931.json: data did not match any variant of untagged enum RenderLayer
+2932.json: data did not match any variant of untagged enum RenderLayer
+2933.json: data did not match any variant of untagged enum RenderLayer
+2934.json: data did not match any variant of untagged enum RenderLayer
+2935.json: data did not match any variant of untagged enum RenderLayer
+2936.json: data did not match any variant of untagged enum RenderLayer
+2937.json: data did not match any variant of untagged enum RenderLayer
+2938.json: data did not match any variant of untagged enum RenderLayer
+2939.json: data did not match any variant of untagged enum RenderLayer
+2940.json: data did not match any variant of untagged enum RenderLayer
+2941.json: data did not match any variant of untagged enum RenderLayer
+2942.json: data did not match any variant of untagged enum RenderLayer
+2943.json: data did not match any variant of untagged enum RenderLayer
+2944.json: data did not match any variant of untagged enum RenderLayer
+2945.json: data did not match any variant of untagged enum RenderLayer
+2946.json: data did not match any variant of untagged enum RenderLayer
+2947.json: data did not match any variant of untagged enum RenderLayer
+2948.json: data did not match any variant of untagged enum RenderLayer
+2949.json: data did not match any variant of untagged enum RenderLayer
+2950.json: data did not match any variant of untagged enum RenderLayer
+2951.json: data did not match any variant of untagged enum RenderLayer
+2952.json: data did not match any variant of untagged enum RenderLayer
+2953.json: data did not match any variant of untagged enum RenderLayer
+2954.json: data did not match any variant of untagged enum RenderLayer
+2955.json: data did not match any variant of untagged enum RenderLayer
+2956.json: data did not match any variant of untagged enum RenderLayer
+2957.json: data did not match any variant of untagged enum RenderLayer
+2958.json: data did not match any variant of untagged enum RenderLayer
+2959.json: data did not match any variant of untagged enum RenderLayer
+2960.json: data did not match any variant of untagged enum RenderLayer
+2961.json: data did not match any variant of untagged enum RenderLayer
+2962.json: data did not match any variant of untagged enum RenderLayer
 2963.json: data did not match any variant of untagged enum RenderLayer
 2964.json: data did not match any variant of untagged enum RenderLayer
 2965.json: data did not match any variant of untagged enum RenderLayer
-2966.json: invalid type: map, expected a boolean
-2967.json: invalid type: map, expected a boolean
-2968.json: invalid type: map, expected a boolean
+2966.json: data did not match any variant of untagged enum RenderLayer
+2967.json: data did not match any variant of untagged enum RenderLayer
+2968.json: data did not match any variant of untagged enum RenderLayer
 2969.json: data did not match any variant of untagged enum RenderLayer
 2970.json: data did not match any variant of untagged enum RenderLayer
 2971.json: data did not match any variant of untagged enum RenderLayer
@@ -1684,250 +1684,250 @@
 2978.json: data did not match any variant of untagged enum RenderLayer
 2979.json: data did not match any variant of untagged enum RenderLayer
 2980.json: data did not match any variant of untagged enum RenderLayer
-2981.json: invalid type: map, expected a boolean
+2981.json: data did not match any variant of untagged enum RenderLayer
 2982.json: data did not match any variant of untagged enum RenderLayer
 2983.json: data did not match any variant of untagged enum RenderLayer
-2984.json: invalid type: map, expected a boolean
-2985.json: invalid type: map, expected a boolean
-2986.json: invalid type: map, expected a boolean
-2987.json: invalid type: map, expected a boolean
-2988.json: invalid type: map, expected a boolean
-2989.json: invalid type: map, expected a boolean
-2990.json: invalid type: map, expected a boolean
-2991.json: invalid type: map, expected a boolean
-2992.json: invalid type: map, expected a boolean
-2993.json: invalid type: map, expected a boolean
-2994.json: invalid type: map, expected a boolean
-2995.json: invalid type: map, expected a boolean
-2996.json: invalid type: map, expected a boolean
-2997.json: invalid type: map, expected a boolean
-2998.json: invalid type: map, expected a boolean
-2999.json: invalid type: map, expected a boolean
-3000.json: invalid type: map, expected a boolean
-3001.json: invalid type: map, expected a boolean
-3002.json: invalid type: map, expected a boolean
-3003.json: invalid type: map, expected a boolean
-3004.json: invalid type: map, expected a boolean
+2984.json: data did not match any variant of untagged enum RenderLayer
+2985.json: data did not match any variant of untagged enum RenderLayer
+2986.json: data did not match any variant of untagged enum RenderLayer
+2987.json: data did not match any variant of untagged enum RenderLayer
+2988.json: data did not match any variant of untagged enum RenderLayer
+2989.json: data did not match any variant of untagged enum RenderLayer
+2990.json: data did not match any variant of untagged enum RenderLayer
+2991.json: data did not match any variant of untagged enum RenderLayer
+2992.json: data did not match any variant of untagged enum RenderLayer
+2993.json: data did not match any variant of untagged enum RenderLayer
+2994.json: data did not match any variant of untagged enum RenderLayer
+2995.json: data did not match any variant of untagged enum RenderLayer
+2996.json: data did not match any variant of untagged enum RenderLayer
+2997.json: data did not match any variant of untagged enum RenderLayer
+2998.json: data did not match any variant of untagged enum RenderLayer
+2999.json: data did not match any variant of untagged enum RenderLayer
+3000.json: data did not match any variant of untagged enum RenderLayer
+3001.json: data did not match any variant of untagged enum RenderLayer
+3002.json: data did not match any variant of untagged enum RenderLayer
+3003.json: data did not match any variant of untagged enum RenderLayer
+3004.json: data did not match any variant of untagged enum RenderLayer
 3005.json: data did not match any variant of untagged enum RenderLayer
-3006.json: invalid type: map, expected a boolean
-3007.json: invalid type: map, expected a boolean
-3008.json: invalid type: map, expected a boolean
-3009.json: invalid type: map, expected a boolean
-3010.json: invalid type: map, expected a boolean
-3011.json: invalid type: map, expected a boolean
-3012.json: invalid type: map, expected a boolean
-3013.json: invalid type: map, expected a boolean
-3014.json: invalid type: map, expected a boolean
-3015.json: invalid type: map, expected a boolean
-3016.json: invalid type: map, expected a boolean
-3017.json: invalid type: map, expected a boolean
-3018.json: invalid type: map, expected a boolean
-3019.json: invalid type: map, expected a boolean
-3020.json: invalid type: map, expected a boolean
-3021.json: invalid type: map, expected a boolean
-3022.json: invalid type: map, expected a boolean
-3023.json: invalid type: map, expected a boolean
-3024.json: invalid type: map, expected a boolean
-3025.json: invalid type: map, expected a boolean
-3026.json: invalid type: map, expected a boolean
-3027.json: invalid type: map, expected a boolean
-3028.json: invalid type: map, expected a boolean
-3029.json: invalid type: map, expected a boolean
-3030.json: invalid type: map, expected a boolean
-3031.json: invalid type: map, expected a boolean
-3032.json: invalid type: map, expected a boolean
-3033.json: invalid type: map, expected a boolean
-3034.json: invalid type: map, expected a boolean
-3035.json: invalid type: map, expected a boolean
-3036.json: invalid type: map, expected a boolean
-3037.json: invalid type: map, expected a boolean
-3038.json: invalid type: map, expected a boolean
-3039.json: invalid type: map, expected a boolean
-3040.json: invalid type: map, expected a boolean
-3041.json: invalid type: map, expected a boolean
-3042.json: invalid type: map, expected a boolean
-3043.json: invalid type: map, expected a boolean
-3044.json: invalid type: map, expected a boolean
+3006.json: data did not match any variant of untagged enum RenderLayer
+3007.json: data did not match any variant of untagged enum RenderLayer
+3008.json: data did not match any variant of untagged enum RenderLayer
+3009.json: data did not match any variant of untagged enum RenderLayer
+3010.json: data did not match any variant of untagged enum RenderLayer
+3011.json: data did not match any variant of untagged enum RenderLayer
+3012.json: data did not match any variant of untagged enum RenderLayer
+3013.json: data did not match any variant of untagged enum RenderLayer
+3014.json: data did not match any variant of untagged enum RenderLayer
+3015.json: data did not match any variant of untagged enum RenderLayer
+3016.json: data did not match any variant of untagged enum RenderLayer
+3017.json: data did not match any variant of untagged enum RenderLayer
+3018.json: data did not match any variant of untagged enum RenderLayer
+3019.json: data did not match any variant of untagged enum RenderLayer
+3020.json: data did not match any variant of untagged enum RenderLayer
+3021.json: data did not match any variant of untagged enum RenderLayer
+3022.json: data did not match any variant of untagged enum RenderLayer
+3023.json: data did not match any variant of untagged enum RenderLayer
+3024.json: data did not match any variant of untagged enum RenderLayer
+3025.json: data did not match any variant of untagged enum RenderLayer
+3026.json: data did not match any variant of untagged enum RenderLayer
+3027.json: data did not match any variant of untagged enum RenderLayer
+3028.json: data did not match any variant of untagged enum RenderLayer
+3029.json: data did not match any variant of untagged enum RenderLayer
+3030.json: data did not match any variant of untagged enum RenderLayer
+3031.json: data did not match any variant of untagged enum RenderLayer
+3032.json: data did not match any variant of untagged enum RenderLayer
+3033.json: data did not match any variant of untagged enum RenderLayer
+3034.json: data did not match any variant of untagged enum RenderLayer
+3035.json: data did not match any variant of untagged enum RenderLayer
+3036.json: data did not match any variant of untagged enum RenderLayer
+3037.json: data did not match any variant of untagged enum RenderLayer
+3038.json: data did not match any variant of untagged enum RenderLayer
+3039.json: data did not match any variant of untagged enum RenderLayer
+3040.json: data did not match any variant of untagged enum RenderLayer
+3041.json: data did not match any variant of untagged enum RenderLayer
+3042.json: data did not match any variant of untagged enum RenderLayer
+3043.json: data did not match any variant of untagged enum RenderLayer
+3044.json: data did not match any variant of untagged enum RenderLayer
 3045.json: data did not match any variant of untagged enum RenderLayer
 3046.json: data did not match any variant of untagged enum RenderLayer
 3047.json: data did not match any variant of untagged enum RenderLayer
 3048.json: data did not match any variant of untagged enum RenderLayer
-3049.json: invalid type: map, expected a boolean
-3050.json: invalid type: map, expected a boolean
-3051.json: invalid type: map, expected a boolean
-3052.json: invalid type: map, expected a boolean
-3053.json: invalid type: map, expected a boolean
-3054.json: invalid type: map, expected a boolean
+3049.json: data did not match any variant of untagged enum RenderLayer
+3050.json: data did not match any variant of untagged enum RenderLayer
+3051.json: data did not match any variant of untagged enum RenderLayer
+3052.json: data did not match any variant of untagged enum RenderLayer
+3053.json: data did not match any variant of untagged enum RenderLayer
+3054.json: data did not match any variant of untagged enum RenderLayer
 3055.json: data did not match any variant of untagged enum RenderLayer
 3056.json: data did not match any variant of untagged enum RenderLayer
 3057.json: data did not match any variant of untagged enum RenderLayer
 3058.json: data did not match any variant of untagged enum RenderLayer
-3059.json: invalid type: map, expected a boolean
-3060.json: invalid type: map, expected a boolean
-3061.json: invalid type: map, expected a boolean
-3062.json: invalid type: map, expected a boolean
+3059.json: data did not match any variant of untagged enum RenderLayer
+3060.json: data did not match any variant of untagged enum RenderLayer
+3061.json: data did not match any variant of untagged enum RenderLayer
+3062.json: data did not match any variant of untagged enum RenderLayer
 3063.json: data did not match any variant of untagged enum RenderLayer
 3064.json: data did not match any variant of untagged enum RenderLayer
 3065.json: data did not match any variant of untagged enum RenderLayer
 3066.json: data did not match any variant of untagged enum RenderLayer
 3067.json: data did not match any variant of untagged enum RenderLayer
 3068.json: data did not match any variant of untagged enum RenderLayer
-3069.json: invalid type: map, expected a boolean
-3070.json: invalid type: map, expected a boolean
-3071.json: invalid type: map, expected a boolean
-3072.json: invalid type: map, expected a boolean
+3069.json: data did not match any variant of untagged enum RenderLayer
+3070.json: data did not match any variant of untagged enum RenderLayer
+3071.json: data did not match any variant of untagged enum RenderLayer
+3072.json: data did not match any variant of untagged enum RenderLayer
 3073.json: data did not match any variant of untagged enum RenderLayer
 3074.json: data did not match any variant of untagged enum RenderLayer
 3075.json: data did not match any variant of untagged enum RenderLayer
-3076.json: invalid type: map, expected a boolean
+3076.json: data did not match any variant of untagged enum RenderLayer
 3077.json: data did not match any variant of untagged enum RenderLayer
 3078.json: data did not match any variant of untagged enum RenderLayer
-3079.json: invalid type: map, expected a boolean
-3080.json: invalid type: map, expected a boolean
-3081.json: invalid type: map, expected a boolean
-3082.json: invalid type: map, expected a boolean
+3079.json: data did not match any variant of untagged enum RenderLayer
+3080.json: data did not match any variant of untagged enum RenderLayer
+3081.json: data did not match any variant of untagged enum RenderLayer
+3082.json: data did not match any variant of untagged enum RenderLayer
 3083.json: data did not match any variant of untagged enum RenderLayer
 3084.json: data did not match any variant of untagged enum RenderLayer
-3085.json: invalid type: map, expected a boolean
-3086.json: invalid type: map, expected a boolean
-3087.json: invalid type: map, expected a boolean
+3085.json: data did not match any variant of untagged enum RenderLayer
+3086.json: data did not match any variant of untagged enum RenderLayer
+3087.json: data did not match any variant of untagged enum RenderLayer
 3088.json: data did not match any variant of untagged enum RenderLayer
-3089.json: invalid type: map, expected a boolean
-3090.json: invalid type: map, expected a boolean
-3091.json: invalid type: map, expected a boolean
-3092.json: invalid type: map, expected a boolean
+3089.json: data did not match any variant of untagged enum RenderLayer
+3090.json: data did not match any variant of untagged enum RenderLayer
+3091.json: data did not match any variant of untagged enum RenderLayer
+3092.json: data did not match any variant of untagged enum RenderLayer
 3093.json: data did not match any variant of untagged enum RenderLayer
 3094.json: data did not match any variant of untagged enum RenderLayer
-3095.json: invalid type: map, expected a boolean
-3096.json: invalid type: map, expected a boolean
-3097.json: invalid type: map, expected a boolean
+3095.json: data did not match any variant of untagged enum RenderLayer
+3096.json: data did not match any variant of untagged enum RenderLayer
+3097.json: data did not match any variant of untagged enum RenderLayer
 3098.json: data did not match any variant of untagged enum RenderLayer
 3099.json: data did not match any variant of untagged enum RenderLayer
-3100.json: invalid type: map, expected a boolean
-3101.json: invalid type: map, expected a boolean
-3102.json: invalid type: map, expected a boolean
-3103.json: invalid type: map, expected a boolean
+3100.json: data did not match any variant of untagged enum RenderLayer
+3101.json: data did not match any variant of untagged enum RenderLayer
+3102.json: data did not match any variant of untagged enum RenderLayer
+3103.json: data did not match any variant of untagged enum RenderLayer
 3104.json: data did not match any variant of untagged enum RenderLayer
 3105.json: data did not match any variant of untagged enum RenderLayer
-3106.json: invalid type: map, expected a boolean
-3107.json: invalid type: map, expected a boolean
-3108.json: invalid type: map, expected a boolean
+3106.json: data did not match any variant of untagged enum RenderLayer
+3107.json: data did not match any variant of untagged enum RenderLayer
+3108.json: data did not match any variant of untagged enum RenderLayer
 3109.json: data did not match any variant of untagged enum RenderLayer
-3110.json: invalid type: map, expected a boolean
-3111.json: invalid type: map, expected a boolean
-3112.json: invalid type: map, expected a boolean
-3113.json: invalid type: map, expected a boolean
+3110.json: data did not match any variant of untagged enum RenderLayer
+3111.json: data did not match any variant of untagged enum RenderLayer
+3112.json: data did not match any variant of untagged enum RenderLayer
+3113.json: data did not match any variant of untagged enum RenderLayer
 3114.json: data did not match any variant of untagged enum RenderLayer
 3115.json: data did not match any variant of untagged enum RenderLayer
-3116.json: invalid type: map, expected a boolean
-3117.json: invalid type: map, expected a boolean
-3118.json: invalid type: map, expected a boolean
+3116.json: data did not match any variant of untagged enum RenderLayer
+3117.json: data did not match any variant of untagged enum RenderLayer
+3118.json: data did not match any variant of untagged enum RenderLayer
 3119.json: data did not match any variant of untagged enum RenderLayer
-3120.json: invalid type: map, expected a boolean
-3121.json: invalid type: map, expected a boolean
-3122.json: invalid type: map, expected a boolean
-3123.json: invalid type: map, expected a boolean
+3120.json: data did not match any variant of untagged enum RenderLayer
+3121.json: data did not match any variant of untagged enum RenderLayer
+3122.json: data did not match any variant of untagged enum RenderLayer
+3123.json: data did not match any variant of untagged enum RenderLayer
 3124.json: data did not match any variant of untagged enum RenderLayer
 3125.json: data did not match any variant of untagged enum RenderLayer
-3126.json: invalid type: map, expected a boolean
-3127.json: invalid type: map, expected a boolean
-3128.json: invalid type: map, expected a boolean
-3129.json: invalid type: map, expected a boolean
-3130.json: invalid type: map, expected a boolean
-3131.json: invalid type: map, expected a boolean
+3126.json: data did not match any variant of untagged enum RenderLayer
+3127.json: data did not match any variant of untagged enum RenderLayer
+3128.json: data did not match any variant of untagged enum RenderLayer
+3129.json: data did not match any variant of untagged enum RenderLayer
+3130.json: data did not match any variant of untagged enum RenderLayer
+3131.json: data did not match any variant of untagged enum RenderLayer
 3132.json: data did not match any variant of untagged enum RenderLayer
-3133.json: invalid type: map, expected a boolean
-3134.json: invalid type: map, expected a boolean
-3135.json: invalid type: map, expected a boolean
-3136.json: invalid type: map, expected a boolean
+3133.json: data did not match any variant of untagged enum RenderLayer
+3134.json: data did not match any variant of untagged enum RenderLayer
+3135.json: data did not match any variant of untagged enum RenderLayer
+3136.json: data did not match any variant of untagged enum RenderLayer
 3137.json: data did not match any variant of untagged enum RenderLayer
 3138.json: data did not match any variant of untagged enum RenderLayer
-3139.json: invalid type: map, expected a boolean
-3140.json: invalid type: map, expected a boolean
-3141.json: invalid type: map, expected a boolean
-3142.json: invalid type: map, expected a boolean
-3143.json: invalid type: map, expected a boolean
-3144.json: invalid type: map, expected a boolean
-3145.json: invalid type: map, expected a boolean
-3146.json: invalid type: map, expected a boolean
-3147.json: invalid type: map, expected a boolean
-3148.json: invalid type: map, expected a boolean
-3149.json: invalid type: map, expected a boolean
-3150.json: invalid type: map, expected a boolean
-3151.json: invalid type: map, expected a boolean
-3152.json: invalid type: map, expected a boolean
-3153.json: invalid type: map, expected a boolean
-3154.json: invalid type: map, expected a boolean
-3155.json: invalid type: map, expected a boolean
-3156.json: invalid type: map, expected a boolean
-3157.json: invalid type: map, expected a boolean
-3158.json: invalid type: map, expected a boolean
-3159.json: invalid type: map, expected a boolean
-3160.json: invalid type: map, expected a boolean
-3161.json: invalid type: map, expected a boolean
-3162.json: invalid type: map, expected a boolean
-3163.json: invalid type: map, expected a boolean
-3164.json: invalid type: map, expected a boolean
-3165.json: invalid type: map, expected a boolean
-3166.json: invalid type: map, expected a boolean
-3167.json: invalid type: map, expected a boolean
-3168.json: invalid type: map, expected a boolean
-3169.json: invalid type: map, expected a boolean
-3170.json: invalid type: map, expected a boolean
-3171.json: invalid type: map, expected a boolean
-3172.json: invalid type: map, expected a boolean
-3173.json: invalid type: map, expected a boolean
-3174.json: invalid type: map, expected a boolean
-3175.json: invalid type: map, expected a boolean
-3176.json: invalid type: map, expected a boolean
-3177.json: invalid type: map, expected a boolean
-3178.json: invalid type: map, expected a boolean
-3179.json: invalid type: map, expected a boolean
-3180.json: invalid type: map, expected a boolean
-3181.json: invalid type: map, expected a boolean
-3182.json: invalid type: map, expected a boolean
-3183.json: invalid type: map, expected a boolean
-3184.json: invalid type: map, expected a boolean
-3185.json: invalid type: map, expected a boolean
-3186.json: invalid type: map, expected a boolean
-3187.json: invalid type: map, expected a boolean
+3139.json: data did not match any variant of untagged enum RenderLayer
+3140.json: data did not match any variant of untagged enum RenderLayer
+3141.json: data did not match any variant of untagged enum RenderLayer
+3142.json: data did not match any variant of untagged enum RenderLayer
+3143.json: data did not match any variant of untagged enum RenderLayer
+3144.json: data did not match any variant of untagged enum RenderLayer
+3145.json: data did not match any variant of untagged enum RenderLayer
+3146.json: data did not match any variant of untagged enum RenderLayer
+3147.json: data did not match any variant of untagged enum RenderLayer
+3148.json: data did not match any variant of untagged enum RenderLayer
+3149.json: data did not match any variant of untagged enum RenderLayer
+3150.json: data did not match any variant of untagged enum RenderLayer
+3151.json: data did not match any variant of untagged enum RenderLayer
+3152.json: data did not match any variant of untagged enum RenderLayer
+3153.json: data did not match any variant of untagged enum RenderLayer
+3154.json: data did not match any variant of untagged enum RenderLayer
+3155.json: data did not match any variant of untagged enum RenderLayer
+3156.json: data did not match any variant of untagged enum RenderLayer
+3157.json: data did not match any variant of untagged enum RenderLayer
+3158.json: data did not match any variant of untagged enum RenderLayer
+3159.json: data did not match any variant of untagged enum RenderLayer
+3160.json: data did not match any variant of untagged enum RenderLayer
+3161.json: data did not match any variant of untagged enum RenderLayer
+3162.json: data did not match any variant of untagged enum RenderLayer
+3163.json: data did not match any variant of untagged enum RenderLayer
+3164.json: data did not match any variant of untagged enum RenderLayer
+3165.json: data did not match any variant of untagged enum RenderLayer
+3166.json: data did not match any variant of untagged enum RenderLayer
+3167.json: data did not match any variant of untagged enum RenderLayer
+3168.json: data did not match any variant of untagged enum RenderLayer
+3169.json: data did not match any variant of untagged enum RenderLayer
+3170.json: data did not match any variant of untagged enum RenderLayer
+3171.json: data did not match any variant of untagged enum RenderLayer
+3172.json: data did not match any variant of untagged enum RenderLayer
+3173.json: data did not match any variant of untagged enum RenderLayer
+3174.json: data did not match any variant of untagged enum RenderLayer
+3175.json: data did not match any variant of untagged enum RenderLayer
+3176.json: data did not match any variant of untagged enum RenderLayer
+3177.json: data did not match any variant of untagged enum RenderLayer
+3178.json: data did not match any variant of untagged enum RenderLayer
+3179.json: data did not match any variant of untagged enum RenderLayer
+3180.json: data did not match any variant of untagged enum RenderLayer
+3181.json: data did not match any variant of untagged enum RenderLayer
+3182.json: data did not match any variant of untagged enum RenderLayer
+3183.json: data did not match any variant of untagged enum RenderLayer
+3184.json: data did not match any variant of untagged enum RenderLayer
+3185.json: data did not match any variant of untagged enum RenderLayer
+3186.json: data did not match any variant of untagged enum RenderLayer
+3187.json: data did not match any variant of untagged enum RenderLayer
 3188.json: data did not match any variant of untagged enum RenderLayer
-3189.json: invalid type: map, expected a boolean
+3189.json: data did not match any variant of untagged enum RenderLayer
 3190.json: data did not match any variant of untagged enum RenderLayer
-3191.json: invalid type: map, expected a boolean
-3192.json: invalid type: map, expected a boolean
-3193.json: invalid type: map, expected a boolean
-3194.json: invalid type: map, expected a boolean
-3195.json: invalid type: map, expected a boolean
-3196.json: invalid type: map, expected a boolean
+3191.json: data did not match any variant of untagged enum RenderLayer
+3192.json: data did not match any variant of untagged enum RenderLayer
+3193.json: data did not match any variant of untagged enum RenderLayer
+3194.json: data did not match any variant of untagged enum RenderLayer
+3195.json: data did not match any variant of untagged enum RenderLayer
+3196.json: data did not match any variant of untagged enum RenderLayer
 3197.json: data did not match any variant of untagged enum RenderLayer
-3198.json: invalid type: map, expected a boolean
-3199.json: invalid type: map, expected a boolean
-3200.json: invalid type: map, expected a boolean
-3201.json: invalid type: map, expected a boolean
+3198.json: data did not match any variant of untagged enum RenderLayer
+3199.json: data did not match any variant of untagged enum RenderLayer
+3200.json: data did not match any variant of untagged enum RenderLayer
+3201.json: data did not match any variant of untagged enum RenderLayer
 3202.json: data did not match any variant of untagged enum RenderLayer
 3203.json: data did not match any variant of untagged enum RenderLayer
 3204.json: data did not match any variant of untagged enum RenderLayer
-3205.json: invalid type: map, expected a boolean
-3206.json: invalid type: map, expected a boolean
-3207.json: invalid type: map, expected a boolean
-3208.json: invalid type: map, expected a boolean
+3205.json: data did not match any variant of untagged enum RenderLayer
+3206.json: data did not match any variant of untagged enum RenderLayer
+3207.json: data did not match any variant of untagged enum RenderLayer
+3208.json: data did not match any variant of untagged enum RenderLayer
 3209.json: data did not match any variant of untagged enum RenderLayer
 3210.json: data did not match any variant of untagged enum RenderLayer
 3211.json: data did not match any variant of untagged enum RenderLayer
-3212.json: invalid type: map, expected a boolean
-3213.json: invalid type: map, expected a boolean
-3214.json: invalid type: map, expected a boolean
-3215.json: invalid type: map, expected a boolean
+3212.json: data did not match any variant of untagged enum RenderLayer
+3213.json: data did not match any variant of untagged enum RenderLayer
+3214.json: data did not match any variant of untagged enum RenderLayer
+3215.json: data did not match any variant of untagged enum RenderLayer
 3216.json: data did not match any variant of untagged enum RenderLayer
 3217.json: data did not match any variant of untagged enum RenderLayer
 3218.json: data did not match any variant of untagged enum RenderLayer
 3219.json: data did not match any variant of untagged enum RenderLayer
 3220.json: data did not match any variant of untagged enum RenderLayer
-3221.json: invalid type: map, expected a boolean
-3222.json: invalid type: map, expected a boolean
-3223.json: invalid type: map, expected a boolean
-3224.json: invalid type: map, expected a boolean
+3221.json: data did not match any variant of untagged enum RenderLayer
+3222.json: data did not match any variant of untagged enum RenderLayer
+3223.json: data did not match any variant of untagged enum RenderLayer
+3224.json: data did not match any variant of untagged enum RenderLayer
 3225.json: data did not match any variant of untagged enum RenderLayer
 3226.json: data did not match any variant of untagged enum RenderLayer
 3227.json: data did not match any variant of untagged enum RenderLayer
@@ -1941,162 +1941,162 @@
 3235.json: data did not match any variant of untagged enum RenderLayer
 3236.json: data did not match any variant of untagged enum RenderLayer
 3237.json: data did not match any variant of untagged enum RenderLayer
-3238.json: invalid type: map, expected a boolean
+3238.json: data did not match any variant of untagged enum RenderLayer
 3239.json: data did not match any variant of untagged enum RenderLayer
 3240.json: data did not match any variant of untagged enum RenderLayer
 3241.json: data did not match any variant of untagged enum RenderLayer
-3242.json: invalid type: map, expected a boolean
+3242.json: data did not match any variant of untagged enum RenderLayer
 3243.json: data did not match any variant of untagged enum RenderLayer
-3244.json: invalid type: map, expected a boolean
+3244.json: data did not match any variant of untagged enum RenderLayer
 3245.json: data did not match any variant of untagged enum RenderLayer
 3246.json: data did not match any variant of untagged enum RenderLayer
 3247.json: data did not match any variant of untagged enum RenderLayer
 3248.json: data did not match any variant of untagged enum RenderLayer
-3249.json: invalid type: map, expected a boolean
-3250.json: invalid type: map, expected a boolean
-3251.json: invalid type: map, expected a boolean
-3252.json: invalid type: map, expected a boolean
-3253.json: invalid type: map, expected a boolean
-3254.json: invalid type: map, expected a boolean
-3255.json: invalid type: map, expected a boolean
-3256.json: invalid type: map, expected a boolean
-3257.json: invalid type: map, expected a boolean
-3258.json: invalid type: map, expected a boolean
-3259.json: invalid type: map, expected a boolean
-3260.json: invalid type: map, expected a boolean
-3261.json: invalid type: map, expected a boolean
-3262.json: invalid type: map, expected a boolean
-3263.json: invalid type: map, expected a boolean
-3264.json: invalid type: map, expected a boolean
-3265.json: invalid type: map, expected a boolean
-3266.json: invalid type: map, expected a boolean
-3267.json: invalid type: map, expected a boolean
-3268.json: invalid type: map, expected a boolean
-3269.json: invalid type: map, expected a boolean
-3270.json: invalid type: map, expected a boolean
-3271.json: invalid type: map, expected a boolean
-3272.json: invalid type: map, expected a boolean
-3273.json: invalid type: map, expected a boolean
-3274.json: invalid type: map, expected a boolean
-3275.json: invalid type: map, expected a boolean
-3276.json: invalid type: map, expected a boolean
-3277.json: invalid type: map, expected a boolean
-3278.json: invalid type: map, expected a boolean
-3279.json: invalid type: map, expected a boolean
-3280.json: invalid type: map, expected a boolean
-3281.json: invalid type: map, expected a boolean
-3282.json: invalid type: map, expected a boolean
-3283.json: invalid type: map, expected a boolean
-3284.json: invalid type: map, expected a boolean
-3285.json: invalid type: map, expected a boolean
-3286.json: invalid type: map, expected a boolean
-3287.json: invalid type: map, expected a boolean
-3288.json: invalid type: map, expected a boolean
-3289.json: invalid type: map, expected a boolean
-3290.json: invalid type: map, expected a boolean
-3291.json: invalid type: map, expected a boolean
-3292.json: invalid type: map, expected a boolean
-3293.json: invalid type: map, expected a boolean
-3294.json: invalid type: map, expected a boolean
-3295.json: invalid type: map, expected a boolean
+3249.json: data did not match any variant of untagged enum RenderLayer
+3250.json: data did not match any variant of untagged enum RenderLayer
+3251.json: data did not match any variant of untagged enum RenderLayer
+3252.json: data did not match any variant of untagged enum RenderLayer
+3253.json: data did not match any variant of untagged enum RenderLayer
+3254.json: data did not match any variant of untagged enum RenderLayer
+3255.json: data did not match any variant of untagged enum RenderLayer
+3256.json: data did not match any variant of untagged enum RenderLayer
+3257.json: data did not match any variant of untagged enum RenderLayer
+3258.json: data did not match any variant of untagged enum RenderLayer
+3259.json: data did not match any variant of untagged enum RenderLayer
+3260.json: data did not match any variant of untagged enum RenderLayer
+3261.json: data did not match any variant of untagged enum RenderLayer
+3262.json: data did not match any variant of untagged enum RenderLayer
+3263.json: data did not match any variant of untagged enum RenderLayer
+3264.json: data did not match any variant of untagged enum RenderLayer
+3265.json: data did not match any variant of untagged enum RenderLayer
+3266.json: data did not match any variant of untagged enum RenderLayer
+3267.json: data did not match any variant of untagged enum RenderLayer
+3268.json: data did not match any variant of untagged enum RenderLayer
+3269.json: data did not match any variant of untagged enum RenderLayer
+3270.json: data did not match any variant of untagged enum RenderLayer
+3271.json: data did not match any variant of untagged enum RenderLayer
+3272.json: data did not match any variant of untagged enum RenderLayer
+3273.json: data did not match any variant of untagged enum RenderLayer
+3274.json: data did not match any variant of untagged enum RenderLayer
+3275.json: data did not match any variant of untagged enum RenderLayer
+3276.json: data did not match any variant of untagged enum RenderLayer
+3277.json: data did not match any variant of untagged enum RenderLayer
+3278.json: data did not match any variant of untagged enum RenderLayer
+3279.json: data did not match any variant of untagged enum RenderLayer
+3280.json: data did not match any variant of untagged enum RenderLayer
+3281.json: data did not match any variant of untagged enum RenderLayer
+3282.json: data did not match any variant of untagged enum RenderLayer
+3283.json: data did not match any variant of untagged enum RenderLayer
+3284.json: data did not match any variant of untagged enum RenderLayer
+3285.json: data did not match any variant of untagged enum RenderLayer
+3286.json: data did not match any variant of untagged enum RenderLayer
+3287.json: data did not match any variant of untagged enum RenderLayer
+3288.json: data did not match any variant of untagged enum RenderLayer
+3289.json: data did not match any variant of untagged enum RenderLayer
+3290.json: data did not match any variant of untagged enum RenderLayer
+3291.json: data did not match any variant of untagged enum RenderLayer
+3292.json: data did not match any variant of untagged enum RenderLayer
+3293.json: data did not match any variant of untagged enum RenderLayer
+3294.json: data did not match any variant of untagged enum RenderLayer
+3295.json: data did not match any variant of untagged enum RenderLayer
 3296.json: data did not match any variant of untagged enum RenderLayer
-3297.json: invalid type: map, expected a boolean
+3297.json: data did not match any variant of untagged enum RenderLayer
 3298.json: data did not match any variant of untagged enum RenderLayer
-3299.json: invalid type: map, expected a boolean
-3300.json: invalid type: map, expected a boolean
-3301.json: invalid type: map, expected a boolean
-3302.json: invalid type: map, expected a boolean
+3299.json: data did not match any variant of untagged enum RenderLayer
+3300.json: data did not match any variant of untagged enum RenderLayer
+3301.json: data did not match any variant of untagged enum RenderLayer
+3302.json: data did not match any variant of untagged enum RenderLayer
 3303.json: data did not match any variant of untagged enum RenderLayer
 3304.json: data did not match any variant of untagged enum RenderLayer
-3305.json: invalid type: map, expected a boolean
-3306.json: invalid type: map, expected a boolean
-3307.json: invalid type: map, expected a boolean
+3305.json: data did not match any variant of untagged enum RenderLayer
+3306.json: data did not match any variant of untagged enum RenderLayer
+3307.json: data did not match any variant of untagged enum RenderLayer
 3308.json: data did not match any variant of untagged enum RenderLayer
-3309.json: invalid type: map, expected a boolean
+3309.json: data did not match any variant of untagged enum RenderLayer
 3310.json: data did not match any variant of untagged enum RenderLayer
-3311.json: invalid type: map, expected a boolean
-3312.json: invalid type: map, expected a boolean
-3313.json: invalid type: map, expected a boolean
-3314.json: invalid type: map, expected a boolean
-3315.json: invalid type: map, expected a boolean
-3316.json: invalid type: map, expected a boolean
-3317.json: invalid type: map, expected a boolean
-3318.json: invalid type: map, expected a boolean
-3319.json: invalid type: map, expected a boolean
-3320.json: invalid type: map, expected a boolean
-3321.json: invalid type: map, expected a boolean
-3322.json: invalid type: map, expected a boolean
-3323.json: invalid type: map, expected a boolean
-3324.json: invalid type: map, expected a boolean
-3325.json: invalid type: map, expected a boolean
-3326.json: invalid type: map, expected a boolean
-3327.json: invalid type: map, expected a boolean
-3328.json: invalid type: map, expected a boolean
-3329.json: invalid type: map, expected a boolean
-3330.json: invalid type: map, expected a boolean
+3311.json: data did not match any variant of untagged enum RenderLayer
+3312.json: data did not match any variant of untagged enum RenderLayer
+3313.json: data did not match any variant of untagged enum RenderLayer
+3314.json: data did not match any variant of untagged enum RenderLayer
+3315.json: data did not match any variant of untagged enum RenderLayer
+3316.json: data did not match any variant of untagged enum RenderLayer
+3317.json: data did not match any variant of untagged enum RenderLayer
+3318.json: data did not match any variant of untagged enum RenderLayer
+3319.json: data did not match any variant of untagged enum RenderLayer
+3320.json: data did not match any variant of untagged enum RenderLayer
+3321.json: data did not match any variant of untagged enum RenderLayer
+3322.json: data did not match any variant of untagged enum RenderLayer
+3323.json: data did not match any variant of untagged enum RenderLayer
+3324.json: data did not match any variant of untagged enum RenderLayer
+3325.json: data did not match any variant of untagged enum RenderLayer
+3326.json: data did not match any variant of untagged enum RenderLayer
+3327.json: data did not match any variant of untagged enum RenderLayer
+3328.json: data did not match any variant of untagged enum RenderLayer
+3329.json: data did not match any variant of untagged enum RenderLayer
+3330.json: data did not match any variant of untagged enum RenderLayer
 3331.json: data did not match any variant of untagged enum RenderLayer
-3332.json: invalid type: map, expected a boolean
+3332.json: data did not match any variant of untagged enum RenderLayer
 3333.json: data did not match any variant of untagged enum RenderLayer
-3334.json: invalid type: map, expected a boolean
-3335.json: invalid type: map, expected a boolean
-3336.json: invalid type: map, expected a boolean
-3337.json: invalid type: map, expected a boolean
+3334.json: data did not match any variant of untagged enum RenderLayer
+3335.json: data did not match any variant of untagged enum RenderLayer
+3336.json: data did not match any variant of untagged enum RenderLayer
+3337.json: data did not match any variant of untagged enum RenderLayer
 3338.json: data did not match any variant of untagged enum RenderLayer
 3339.json: data did not match any variant of untagged enum RenderLayer
-3340.json: invalid type: map, expected a boolean
-3341.json: invalid type: map, expected a boolean
-3342.json: invalid type: map, expected a boolean
-3343.json: invalid type: map, expected a boolean
-3344.json: invalid type: map, expected a boolean
-3345.json: invalid type: map, expected a boolean
-3346.json: invalid type: map, expected a boolean
-3347.json: invalid type: map, expected a boolean
-3348.json: invalid type: map, expected a boolean
-3349.json: invalid type: map, expected a boolean
-3350.json: invalid type: map, expected a boolean
-3351.json: invalid type: map, expected a boolean
-3352.json: invalid type: map, expected a boolean
-3353.json: invalid type: map, expected a boolean
-3354.json: invalid type: map, expected a boolean
+3340.json: data did not match any variant of untagged enum RenderLayer
+3341.json: data did not match any variant of untagged enum RenderLayer
+3342.json: data did not match any variant of untagged enum RenderLayer
+3343.json: data did not match any variant of untagged enum RenderLayer
+3344.json: data did not match any variant of untagged enum RenderLayer
+3345.json: data did not match any variant of untagged enum RenderLayer
+3346.json: data did not match any variant of untagged enum RenderLayer
+3347.json: data did not match any variant of untagged enum RenderLayer
+3348.json: data did not match any variant of untagged enum RenderLayer
+3349.json: data did not match any variant of untagged enum RenderLayer
+3350.json: data did not match any variant of untagged enum RenderLayer
+3351.json: data did not match any variant of untagged enum RenderLayer
+3352.json: data did not match any variant of untagged enum RenderLayer
+3353.json: data did not match any variant of untagged enum RenderLayer
+3354.json: data did not match any variant of untagged enum RenderLayer
 3355.json: data did not match any variant of untagged enum RenderLayer
-3356.json: invalid type: map, expected a boolean
-3357.json: invalid type: map, expected a boolean
-3358.json: invalid type: map, expected a boolean
-3359.json: invalid type: map, expected a boolean
-3360.json: invalid type: map, expected a boolean
-3361.json: invalid type: map, expected a boolean
-3362.json: invalid type: map, expected a boolean
-3363.json: invalid type: map, expected a boolean
+3356.json: data did not match any variant of untagged enum RenderLayer
+3357.json: data did not match any variant of untagged enum RenderLayer
+3358.json: data did not match any variant of untagged enum RenderLayer
+3359.json: data did not match any variant of untagged enum RenderLayer
+3360.json: data did not match any variant of untagged enum RenderLayer
+3361.json: data did not match any variant of untagged enum RenderLayer
+3362.json: data did not match any variant of untagged enum RenderLayer
+3363.json: data did not match any variant of untagged enum RenderLayer
 3364.json: data did not match any variant of untagged enum RenderLayer
-3365.json: invalid type: map, expected a boolean
-3366.json: invalid type: map, expected a boolean
-3367.json: invalid type: map, expected a boolean
-3368.json: invalid type: map, expected a boolean
-3369.json: invalid type: map, expected a boolean
-3370.json: invalid type: map, expected a boolean
-3371.json: invalid type: map, expected a boolean
-3372.json: invalid type: map, expected a boolean
-3373.json: invalid type: map, expected a boolean
-3374.json: invalid type: map, expected a boolean
-3375.json: invalid type: map, expected a boolean
-3376.json: invalid type: map, expected a boolean
-3377.json: invalid type: map, expected a boolean
-3378.json: invalid type: map, expected a boolean
-3379.json: invalid type: map, expected a boolean
-3380.json: invalid type: map, expected a boolean
-3381.json: invalid type: map, expected a boolean
-3382.json: invalid type: map, expected a boolean
-3383.json: invalid type: map, expected a boolean
-3384.json: invalid type: map, expected a boolean
-3385.json: invalid type: map, expected a boolean
-3386.json: invalid type: map, expected a boolean
-3387.json: invalid type: map, expected a boolean
-3388.json: invalid type: map, expected a boolean
-3389.json: invalid type: map, expected a boolean
-3390.json: invalid type: map, expected a boolean
-3391.json: invalid type: map, expected a boolean
-3392.json: invalid type: map, expected a boolean
-3393.json: invalid type: map, expected a boolean
+3365.json: data did not match any variant of untagged enum RenderLayer
+3366.json: data did not match any variant of untagged enum RenderLayer
+3367.json: data did not match any variant of untagged enum RenderLayer
+3368.json: data did not match any variant of untagged enum RenderLayer
+3369.json: data did not match any variant of untagged enum RenderLayer
+3370.json: data did not match any variant of untagged enum RenderLayer
+3371.json: data did not match any variant of untagged enum RenderLayer
+3372.json: data did not match any variant of untagged enum RenderLayer
+3373.json: data did not match any variant of untagged enum RenderLayer
+3374.json: data did not match any variant of untagged enum RenderLayer
+3375.json: data did not match any variant of untagged enum RenderLayer
+3376.json: data did not match any variant of untagged enum RenderLayer
+3377.json: data did not match any variant of untagged enum RenderLayer
+3378.json: data did not match any variant of untagged enum RenderLayer
+3379.json: data did not match any variant of untagged enum RenderLayer
+3380.json: data did not match any variant of untagged enum RenderLayer
+3381.json: data did not match any variant of untagged enum RenderLayer
+3382.json: data did not match any variant of untagged enum RenderLayer
+3383.json: data did not match any variant of untagged enum RenderLayer
+3384.json: data did not match any variant of untagged enum RenderLayer
+3385.json: data did not match any variant of untagged enum RenderLayer
+3386.json: data did not match any variant of untagged enum RenderLayer
+3387.json: data did not match any variant of untagged enum RenderLayer
+3388.json: data did not match any variant of untagged enum RenderLayer
+3389.json: data did not match any variant of untagged enum RenderLayer
+3390.json: data did not match any variant of untagged enum RenderLayer
+3391.json: data did not match any variant of untagged enum RenderLayer
+3392.json: data did not match any variant of untagged enum RenderLayer
+3393.json: data did not match any variant of untagged enum RenderLayer
 3394.json: data did not match any variant of untagged enum RenderLayer
 3395.json: data did not match any variant of untagged enum RenderLayer
 3396.json: data did not match any variant of untagged enum RenderLayer
@@ -2104,105 +2104,105 @@
 3398.json: data did not match any variant of untagged enum RenderLayer
 3399.json: data did not match any variant of untagged enum RenderLayer
 3400.json: data did not match any variant of untagged enum RenderLayer
-3401.json: invalid type: map, expected a boolean
+3401.json: data did not match any variant of untagged enum RenderLayer
 3402.json: data did not match any variant of untagged enum RenderLayer
-3403.json: invalid type: map, expected a boolean
-3404.json: invalid type: map, expected a boolean
-3405.json: invalid type: map, expected a boolean
-3406.json: invalid type: map, expected a boolean
+3403.json: data did not match any variant of untagged enum RenderLayer
+3404.json: data did not match any variant of untagged enum RenderLayer
+3405.json: data did not match any variant of untagged enum RenderLayer
+3406.json: data did not match any variant of untagged enum RenderLayer
 3407.json: data did not match any variant of untagged enum RenderLayer
 3408.json: data did not match any variant of untagged enum RenderLayer
 3409.json: data did not match any variant of untagged enum RenderLayer
 3410.json: data did not match any variant of untagged enum RenderLayer
-3411.json: invalid type: map, expected a boolean
+3411.json: data did not match any variant of untagged enum RenderLayer
 3412.json: data did not match any variant of untagged enum RenderLayer
-3413.json: invalid type: map, expected a boolean
-3414.json: invalid type: map, expected a boolean
-3415.json: invalid type: map, expected a boolean
-3416.json: invalid type: map, expected a boolean
+3413.json: data did not match any variant of untagged enum RenderLayer
+3414.json: data did not match any variant of untagged enum RenderLayer
+3415.json: data did not match any variant of untagged enum RenderLayer
+3416.json: data did not match any variant of untagged enum RenderLayer
 3417.json: data did not match any variant of untagged enum RenderLayer
 3418.json: data did not match any variant of untagged enum RenderLayer
 3419.json: data did not match any variant of untagged enum RenderLayer
 3420.json: data did not match any variant of untagged enum RenderLayer
 3421.json: data did not match any variant of untagged enum RenderLayer
 3422.json: data did not match any variant of untagged enum RenderLayer
-3423.json: invalid type: map, expected a boolean
-3424.json: invalid type: map, expected a boolean
-3425.json: invalid type: map, expected a boolean
-3426.json: invalid type: map, expected a boolean
+3423.json: data did not match any variant of untagged enum RenderLayer
+3424.json: data did not match any variant of untagged enum RenderLayer
+3425.json: data did not match any variant of untagged enum RenderLayer
+3426.json: data did not match any variant of untagged enum RenderLayer
 3427.json: data did not match any variant of untagged enum RenderLayer
 3428.json: data did not match any variant of untagged enum RenderLayer
 3429.json: data did not match any variant of untagged enum RenderLayer
 3430.json: data did not match any variant of untagged enum RenderLayer
 3431.json: data did not match any variant of untagged enum RenderLayer
 3432.json: data did not match any variant of untagged enum RenderLayer
-3433.json: invalid type: map, expected a boolean
-3434.json: invalid type: map, expected a boolean
-3435.json: invalid type: map, expected a boolean
-3436.json: invalid type: map, expected a boolean
+3433.json: data did not match any variant of untagged enum RenderLayer
+3434.json: data did not match any variant of untagged enum RenderLayer
+3435.json: data did not match any variant of untagged enum RenderLayer
+3436.json: data did not match any variant of untagged enum RenderLayer
 3437.json: data did not match any variant of untagged enum RenderLayer
 3438.json: data did not match any variant of untagged enum RenderLayer
 3439.json: data did not match any variant of untagged enum RenderLayer
-3440.json: invalid type: map, expected a boolean
+3440.json: data did not match any variant of untagged enum RenderLayer
 3441.json: data did not match any variant of untagged enum RenderLayer
-3442.json: invalid type: map, expected a boolean
-3443.json: invalid type: map, expected a boolean
-3444.json: invalid type: map, expected a boolean
-3445.json: invalid type: map, expected a boolean
-3446.json: invalid type: map, expected a boolean
-3447.json: invalid type: map, expected a boolean
-3448.json: invalid type: map, expected a boolean
-3449.json: invalid type: map, expected a boolean
-3450.json: invalid type: map, expected a boolean
-3451.json: invalid type: map, expected a boolean
-3452.json: invalid type: map, expected a boolean
-3453.json: invalid type: map, expected a boolean
-3454.json: invalid type: map, expected a boolean
-3455.json: invalid type: map, expected a boolean
-3456.json: invalid type: map, expected a boolean
-3457.json: invalid type: map, expected a boolean
-3458.json: invalid type: map, expected a boolean
-3459.json: invalid type: map, expected a boolean
-3460.json: invalid type: map, expected a boolean
-3461.json: invalid type: map, expected a boolean
-3462.json: invalid type: map, expected a boolean
-3463.json: invalid type: map, expected a boolean
-3464.json: invalid type: map, expected a boolean
-3465.json: invalid type: map, expected a boolean
-3466.json: invalid type: map, expected a boolean
-3467.json: invalid type: map, expected a boolean
-3468.json: invalid type: map, expected a boolean
-3469.json: invalid type: map, expected a boolean
-3470.json: invalid type: map, expected a boolean
-3471.json: invalid type: map, expected a boolean
-3472.json: invalid type: map, expected a boolean
-3473.json: invalid type: map, expected a boolean
+3442.json: data did not match any variant of untagged enum RenderLayer
+3443.json: data did not match any variant of untagged enum RenderLayer
+3444.json: data did not match any variant of untagged enum RenderLayer
+3445.json: data did not match any variant of untagged enum RenderLayer
+3446.json: data did not match any variant of untagged enum RenderLayer
+3447.json: data did not match any variant of untagged enum RenderLayer
+3448.json: data did not match any variant of untagged enum RenderLayer
+3449.json: data did not match any variant of untagged enum RenderLayer
+3450.json: data did not match any variant of untagged enum RenderLayer
+3451.json: data did not match any variant of untagged enum RenderLayer
+3452.json: data did not match any variant of untagged enum RenderLayer
+3453.json: data did not match any variant of untagged enum RenderLayer
+3454.json: data did not match any variant of untagged enum RenderLayer
+3455.json: data did not match any variant of untagged enum RenderLayer
+3456.json: data did not match any variant of untagged enum RenderLayer
+3457.json: data did not match any variant of untagged enum RenderLayer
+3458.json: data did not match any variant of untagged enum RenderLayer
+3459.json: data did not match any variant of untagged enum RenderLayer
+3460.json: data did not match any variant of untagged enum RenderLayer
+3461.json: data did not match any variant of untagged enum RenderLayer
+3462.json: data did not match any variant of untagged enum RenderLayer
+3463.json: data did not match any variant of untagged enum RenderLayer
+3464.json: data did not match any variant of untagged enum RenderLayer
+3465.json: data did not match any variant of untagged enum RenderLayer
+3466.json: data did not match any variant of untagged enum RenderLayer
+3467.json: data did not match any variant of untagged enum RenderLayer
+3468.json: data did not match any variant of untagged enum RenderLayer
+3469.json: data did not match any variant of untagged enum RenderLayer
+3470.json: data did not match any variant of untagged enum RenderLayer
+3471.json: data did not match any variant of untagged enum RenderLayer
+3472.json: data did not match any variant of untagged enum RenderLayer
+3473.json: data did not match any variant of untagged enum RenderLayer
 3474.json: data did not match any variant of untagged enum RenderLayer
 3475.json: data did not match any variant of untagged enum RenderLayer
 3476.json: data did not match any variant of untagged enum RenderLayer
 3477.json: data did not match any variant of untagged enum RenderLayer
-3478.json: invalid type: map, expected a boolean
-3479.json: invalid type: map, expected a boolean
-3480.json: invalid type: map, expected a boolean
-3481.json: invalid type: map, expected a boolean
+3478.json: data did not match any variant of untagged enum RenderLayer
+3479.json: data did not match any variant of untagged enum RenderLayer
+3480.json: data did not match any variant of untagged enum RenderLayer
+3481.json: data did not match any variant of untagged enum RenderLayer
 3482.json: data did not match any variant of untagged enum RenderLayer
 3483.json: data did not match any variant of untagged enum RenderLayer
 3484.json: data did not match any variant of untagged enum RenderLayer
 3485.json: data did not match any variant of untagged enum RenderLayer
 3486.json: data did not match any variant of untagged enum RenderLayer
-3487.json: invalid type: map, expected a boolean
-3488.json: invalid type: map, expected a boolean
-3489.json: invalid type: map, expected a boolean
-3490.json: invalid type: map, expected a boolean
+3487.json: data did not match any variant of untagged enum RenderLayer
+3488.json: data did not match any variant of untagged enum RenderLayer
+3489.json: data did not match any variant of untagged enum RenderLayer
+3490.json: data did not match any variant of untagged enum RenderLayer
 3491.json: data did not match any variant of untagged enum RenderLayer
 3492.json: data did not match any variant of untagged enum RenderLayer
 3493.json: data did not match any variant of untagged enum RenderLayer
 3494.json: data did not match any variant of untagged enum RenderLayer
 3495.json: data did not match any variant of untagged enum RenderLayer
 3496.json: data did not match any variant of untagged enum RenderLayer
-3497.json: invalid type: map, expected a boolean
-3498.json: invalid type: map, expected a boolean
-3499.json: invalid type: map, expected a boolean
+3497.json: data did not match any variant of untagged enum RenderLayer
+3498.json: data did not match any variant of untagged enum RenderLayer
+3499.json: data did not match any variant of untagged enum RenderLayer
 3500.json: data did not match any variant of untagged enum RenderLayer
 3501.json: data did not match any variant of untagged enum RenderLayer
 3502.json: data did not match any variant of untagged enum RenderLayer
@@ -2212,104 +2212,104 @@
 3506.json: data did not match any variant of untagged enum RenderLayer
 3507.json: data did not match any variant of untagged enum RenderLayer
 3508.json: data did not match any variant of untagged enum RenderLayer
-3509.json: invalid type: map, expected a boolean
+3509.json: data did not match any variant of untagged enum RenderLayer
 3510.json: data did not match any variant of untagged enum RenderLayer
 3511.json: data did not match any variant of untagged enum RenderLayer
-3512.json: invalid type: map, expected a boolean
-3513.json: invalid type: map, expected a boolean
-3514.json: invalid type: map, expected a boolean
-3515.json: invalid type: map, expected a boolean
-3516.json: invalid type: map, expected a boolean
-3517.json: invalid type: map, expected a boolean
-3518.json: invalid type: map, expected a boolean
-3519.json: invalid type: map, expected a boolean
-3520.json: invalid type: map, expected a boolean
-3521.json: invalid type: map, expected a boolean
+3512.json: data did not match any variant of untagged enum RenderLayer
+3513.json: data did not match any variant of untagged enum RenderLayer
+3514.json: data did not match any variant of untagged enum RenderLayer
+3515.json: data did not match any variant of untagged enum RenderLayer
+3516.json: data did not match any variant of untagged enum RenderLayer
+3517.json: data did not match any variant of untagged enum RenderLayer
+3518.json: data did not match any variant of untagged enum RenderLayer
+3519.json: data did not match any variant of untagged enum RenderLayer
+3520.json: data did not match any variant of untagged enum RenderLayer
+3521.json: data did not match any variant of untagged enum RenderLayer
 3522.json: data did not match any variant of untagged enum RenderLayer
 3523.json: data did not match any variant of untagged enum RenderLayer
-3524.json: invalid type: map, expected a boolean
-3525.json: invalid type: map, expected a boolean
-3526.json: invalid type: map, expected a boolean
-3527.json: invalid type: map, expected a boolean
-3528.json: invalid type: map, expected a boolean
-3529.json: invalid type: map, expected a boolean
-3530.json: invalid type: map, expected a boolean
-3531.json: invalid type: map, expected a boolean
-3532.json: invalid type: map, expected a boolean
-3533.json: invalid type: map, expected a boolean
-3534.json: invalid type: map, expected a boolean
-3535.json: invalid type: map, expected a boolean
-3536.json: invalid type: map, expected a boolean
-3537.json: invalid type: map, expected a boolean
-3538.json: invalid type: map, expected a boolean
-3539.json: invalid type: map, expected a boolean
-3540.json: invalid type: map, expected a boolean
-3541.json: invalid type: map, expected a boolean
-3542.json: invalid type: map, expected a boolean
-3543.json: invalid type: map, expected a boolean
-3544.json: invalid type: map, expected a boolean
-3545.json: invalid type: map, expected a boolean
-3546.json: invalid type: map, expected a boolean
-3547.json: invalid type: map, expected a boolean
-3548.json: invalid type: map, expected a boolean
-3549.json: invalid type: map, expected a boolean
-3550.json: invalid type: map, expected a boolean
-3551.json: invalid type: map, expected a boolean
-3552.json: invalid type: map, expected a boolean
-3553.json: invalid type: map, expected a boolean
-3554.json: invalid type: map, expected a boolean
-3555.json: invalid type: map, expected a boolean
-3556.json: invalid type: map, expected a boolean
-3557.json: invalid type: map, expected a boolean
-3558.json: invalid type: map, expected a boolean
-3559.json: invalid type: map, expected a boolean
-3560.json: invalid type: map, expected a boolean
-3561.json: invalid type: map, expected a boolean
-3562.json: invalid type: map, expected a boolean
-3563.json: invalid type: map, expected a boolean
-3564.json: invalid type: map, expected a boolean
-3565.json: invalid type: map, expected a boolean
-3566.json: invalid type: map, expected a boolean
-3567.json: invalid type: map, expected a boolean
-3568.json: invalid type: map, expected a boolean
-3569.json: invalid type: map, expected a boolean
-3570.json: invalid type: map, expected a boolean
-3571.json: invalid type: map, expected a boolean
-3572.json: invalid type: map, expected a boolean
-3573.json: invalid type: map, expected a boolean
-3574.json: invalid type: map, expected a boolean
-3575.json: invalid type: map, expected a boolean
-3576.json: invalid type: map, expected a boolean
-3577.json: invalid type: map, expected a boolean
-3578.json: invalid type: map, expected a boolean
-3579.json: invalid type: map, expected a boolean
-3580.json: invalid type: map, expected a boolean
-3581.json: invalid type: map, expected a boolean
-3582.json: invalid type: map, expected a boolean
-3583.json: invalid type: map, expected a boolean
-3584.json: invalid type: map, expected a boolean
-3585.json: invalid type: map, expected a boolean
-3586.json: invalid type: map, expected a boolean
-3587.json: invalid type: map, expected a boolean
-3588.json: invalid type: map, expected a boolean
-3589.json: invalid type: map, expected a boolean
-3590.json: invalid type: map, expected a boolean
-3591.json: invalid type: map, expected a boolean
+3524.json: data did not match any variant of untagged enum RenderLayer
+3525.json: data did not match any variant of untagged enum RenderLayer
+3526.json: data did not match any variant of untagged enum RenderLayer
+3527.json: data did not match any variant of untagged enum RenderLayer
+3528.json: data did not match any variant of untagged enum RenderLayer
+3529.json: data did not match any variant of untagged enum RenderLayer
+3530.json: data did not match any variant of untagged enum RenderLayer
+3531.json: data did not match any variant of untagged enum RenderLayer
+3532.json: data did not match any variant of untagged enum RenderLayer
+3533.json: data did not match any variant of untagged enum RenderLayer
+3534.json: data did not match any variant of untagged enum RenderLayer
+3535.json: data did not match any variant of untagged enum RenderLayer
+3536.json: data did not match any variant of untagged enum RenderLayer
+3537.json: data did not match any variant of untagged enum RenderLayer
+3538.json: data did not match any variant of untagged enum RenderLayer
+3539.json: data did not match any variant of untagged enum RenderLayer
+3540.json: data did not match any variant of untagged enum RenderLayer
+3541.json: data did not match any variant of untagged enum RenderLayer
+3542.json: data did not match any variant of untagged enum RenderLayer
+3543.json: data did not match any variant of untagged enum RenderLayer
+3544.json: data did not match any variant of untagged enum RenderLayer
+3545.json: data did not match any variant of untagged enum RenderLayer
+3546.json: data did not match any variant of untagged enum RenderLayer
+3547.json: data did not match any variant of untagged enum RenderLayer
+3548.json: data did not match any variant of untagged enum RenderLayer
+3549.json: data did not match any variant of untagged enum RenderLayer
+3550.json: data did not match any variant of untagged enum RenderLayer
+3551.json: data did not match any variant of untagged enum RenderLayer
+3552.json: data did not match any variant of untagged enum RenderLayer
+3553.json: data did not match any variant of untagged enum RenderLayer
+3554.json: data did not match any variant of untagged enum RenderLayer
+3555.json: data did not match any variant of untagged enum RenderLayer
+3556.json: data did not match any variant of untagged enum RenderLayer
+3557.json: data did not match any variant of untagged enum RenderLayer
+3558.json: data did not match any variant of untagged enum RenderLayer
+3559.json: data did not match any variant of untagged enum RenderLayer
+3560.json: data did not match any variant of untagged enum RenderLayer
+3561.json: data did not match any variant of untagged enum RenderLayer
+3562.json: data did not match any variant of untagged enum RenderLayer
+3563.json: data did not match any variant of untagged enum RenderLayer
+3564.json: data did not match any variant of untagged enum RenderLayer
+3565.json: data did not match any variant of untagged enum RenderLayer
+3566.json: data did not match any variant of untagged enum RenderLayer
+3567.json: data did not match any variant of untagged enum RenderLayer
+3568.json: data did not match any variant of untagged enum RenderLayer
+3569.json: data did not match any variant of untagged enum RenderLayer
+3570.json: data did not match any variant of untagged enum RenderLayer
+3571.json: data did not match any variant of untagged enum RenderLayer
+3572.json: data did not match any variant of untagged enum RenderLayer
+3573.json: data did not match any variant of untagged enum RenderLayer
+3574.json: data did not match any variant of untagged enum RenderLayer
+3575.json: data did not match any variant of untagged enum RenderLayer
+3576.json: data did not match any variant of untagged enum RenderLayer
+3577.json: data did not match any variant of untagged enum RenderLayer
+3578.json: data did not match any variant of untagged enum RenderLayer
+3579.json: data did not match any variant of untagged enum RenderLayer
+3580.json: data did not match any variant of untagged enum RenderLayer
+3581.json: data did not match any variant of untagged enum RenderLayer
+3582.json: data did not match any variant of untagged enum RenderLayer
+3583.json: data did not match any variant of untagged enum RenderLayer
+3584.json: data did not match any variant of untagged enum RenderLayer
+3585.json: data did not match any variant of untagged enum RenderLayer
+3586.json: data did not match any variant of untagged enum RenderLayer
+3587.json: data did not match any variant of untagged enum RenderLayer
+3588.json: data did not match any variant of untagged enum RenderLayer
+3589.json: data did not match any variant of untagged enum RenderLayer
+3590.json: data did not match any variant of untagged enum RenderLayer
+3591.json: data did not match any variant of untagged enum RenderLayer
 3592.json: data did not match any variant of untagged enum RenderLayer
 3593.json: data did not match any variant of untagged enum RenderLayer
 3594.json: data did not match any variant of untagged enum RenderLayer
-3595.json: invalid type: map, expected a boolean
-3596.json: invalid type: map, expected a boolean
-3597.json: invalid type: map, expected a boolean
+3595.json: data did not match any variant of untagged enum RenderLayer
+3596.json: data did not match any variant of untagged enum RenderLayer
+3597.json: data did not match any variant of untagged enum RenderLayer
 3598.json: data did not match any variant of untagged enum RenderLayer
 3599.json: data did not match any variant of untagged enum RenderLayer
 3600.json: data did not match any variant of untagged enum RenderLayer
-3601.json: invalid type: map, expected a boolean
-3602.json: invalid type: map, expected a boolean
-3603.json: invalid type: map, expected a boolean
-3604.json: invalid type: map, expected a boolean
-3605.json: invalid type: map, expected a boolean
-3606.json: invalid type: map, expected a boolean
+3601.json: data did not match any variant of untagged enum RenderLayer
+3602.json: data did not match any variant of untagged enum RenderLayer
+3603.json: data did not match any variant of untagged enum RenderLayer
+3604.json: data did not match any variant of untagged enum RenderLayer
+3605.json: data did not match any variant of untagged enum RenderLayer
+3606.json: data did not match any variant of untagged enum RenderLayer
 3608.json: unknown variant `LuaPollutionFlowStatistics`, expected one of `LuaAISettings`, `LuaAccumulatorControlBehavior`, `LuaAchievementPrototype`, `LuaAmmoCategoryPrototype`, `LuaArithmeticCombinatorControlBehavior`, `LuaAutoplaceControlPrototype`, `LuaBootstrap`, `LuaBurner`, `LuaBurnerPrototype`, `LuaChunkIterator`, `LuaCircuitNetwork`, `LuaCombinatorControlBehavior`, `LuaCommandProcessor`, `LuaConstantCombinatorControlBehavior`, `LuaContainerControlBehavior`, `LuaControl`, `LuaControlBehavior`, `LuaCustomChartTag`, `LuaCustomInputPrototype`, `LuaCustomTable`, `LuaDamagePrototype`, `LuaDeciderCombinatorControlBehavior`, `LuaDecorativePrototype`, `LuaElectricEnergySourcePrototype`, `LuaEntity`, `LuaEntityPrototype`, `LuaEquipment`, `LuaEquipmentCategoryPrototype`, `LuaEquipmentGrid`, `LuaEquipmentGridPrototype`, `LuaEquipmentPrototype`, `LuaFlowStatistics`, `LuaFluidBox`, `LuaFluidBoxPrototype`, `LuaFluidEnergySourcePrototype`, `LuaFluidPrototype`, `LuaFontPrototype`, `LuaForce`, `LuaFuelCategoryPrototype`, `LuaGameScript`, `LuaGenericOnOffControlBehavior`, `LuaGroup`, `LuaGui`, `LuaGuiElement`, `LuaHeatBufferPrototype`, `LuaHeatEnergySourcePrototype`, `LuaInserterControlBehavior`, `LuaInventory`, `LuaItemPrototype`, `LuaItemStack`, `LuaLampControlBehavior`, `LuaLazyLoadedValue`, `LuaLogisticCell`, `LuaLogisticContainerControlBehavior`, `LuaLogisticNetwork`, `LuaLogisticPoint`, `LuaMiningDrillControlBehavior`, `LuaModSettingPrototype`, `LuaModuleCategoryPrototype`, `LuaNamedNoiseExpression`, `LuaNoiseLayerPrototype`, `LuaParticlePrototype`, `LuaPermissionGroup`, `LuaPermissionGroups`, `LuaPlayer`, `LuaProfiler`, `LuaProgrammableSpeakerControlBehavior`, `LuaRCON`, `LuaRailChainSignalControlBehavior`, `LuaRailPath`, `LuaRailSignalControlBehavior`, `LuaRandomGenerator`, `LuaRecipe`, `LuaRecipeCategoryPrototype`, `LuaRecipePrototype`, `LuaRemote`, `LuaRendering`, `LuaResourceCategoryPrototype`, `LuaRoboportControlBehavior`, `LuaSettings`, `LuaShortcutPrototype`, `LuaStorageTankControlBehavior`, `LuaStyle`, `LuaSurface`, `LuaTechnology`, `LuaTechnologyPrototype`, `LuaTile`, `LuaTilePrototype`, `LuaTrain`, `LuaTrainStopControlBehavior`, `LuaTransportBeltControlBehavior`, `LuaTransportLine`, `LuaTrivialSmokePrototype`, `LuaUnitGroup`, `LuaVirtualSignalPrototype`, `LuaVoidEnergySourcePrototype`, `LuaWallControlBehavior`
 3632.json: data did not match any variant of untagged enum RenderLayer
 3633.json: data did not match any variant of untagged enum RenderLayer

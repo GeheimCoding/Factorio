@@ -486,12 +486,16 @@ impl GenerateDefinition for Class {
                 } else {
                     typ.to_owned()
                 };
-            let typ = if attribute.optional {
+            let mut typ = if attribute.optional {
                 format!("Option<{typ}>")
             } else {
                 typ
             };
             let (rust_name, needs_rename) = get_rust_name(name, self.order);
+            if rust_name == "ended_in_water_trigger_effect" || rust_name == "regular_trigger_effect"
+            {
+                typ = "Vec<TriggerEffectItem>".to_owned();
+            }
 
             let mut attribute_description = String::new();
             if !attribute.description.is_empty() {
