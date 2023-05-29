@@ -495,6 +495,8 @@ impl GenerateDefinition for Class {
             if rust_name == "ended_in_water_trigger_effect" || rust_name == "regular_trigger_effect"
             {
                 typ = "Option<Vec<TriggerEffectItem>>".to_owned();
+            } else if rust_name == "flags" && self.name == "LuaItemPrototype" {
+                typ = "Option<ItemPrototypeFlags>".to_owned();
             }
 
             let mut attribute_description = String::new();

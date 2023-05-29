@@ -6763,7 +6763,7 @@ pub struct LuaItemPrototype {
     /// Can only be used if this is ItemWithInventory
     pub filter_mode: Option<String>,
     /// The flags for this item prototype.
-    pub flags: ItemPrototypeFlags,
+    pub flags: Option<ItemPrototypeFlags>,
     /// The acceleration multiplier when this item is used as fuel in a vehicle.
     pub fuel_acceleration_multiplier: f64,
     /// The fuel category of this item prototype, if any.

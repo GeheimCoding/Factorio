@@ -803,7 +803,6 @@
 2722.json: invalid type: map, expected a sequence
 2723.json: invalid type: map, expected a sequence
 2724.json: invalid type: map, expected a sequence
-2725.json: missing field `flags`
 2726.json: invalid type: map, expected a sequence
 2727.json: invalid type: map, expected a sequence
 2728.json: invalid type: map, expected a sequence
@@ -851,7 +850,6 @@
 2770.json: invalid type: map, expected a sequence
 2771.json: invalid type: map, expected a sequence
 2772.json: invalid type: map, expected a sequence
-2773.json: missing field `flags`
 2774.json: invalid type: map, expected a sequence
 2775.json: invalid type: map, expected a sequence
 2776.json: invalid type: map, expected a sequence
