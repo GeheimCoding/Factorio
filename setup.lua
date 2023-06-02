@@ -229,6 +229,11 @@ function is_value_dictionary(obj, key)
     end
 end
 
+-- TODO: use object_name for lookup
+-- TODO: use additional attributes to speed up lookup
+    -- -> e.g. unit_number for LuaEntity with type "unit"
+    -- check which classes appear the most
+-- TODO: use separate counter for class_id
 function is_cycle(obj, map)
     for k,v in pairs(global.lookup.cycles) do
         if v.obj == obj then
@@ -304,6 +309,9 @@ function to_json_internal(obj, depth, map, cycles_only)
                 return string
             end
         end
+    end
+    if obj.valid == false then
+        return '{}'
     end
     if obj.object_name == 'LuaCustomTable' then
         local json = {'{'}
@@ -929,15 +937,26 @@ global.lookup.subclasses = {
     }
 }
 
---global.lookup.queue = {}
+global.lookup.queue = {}
 for k,v in pairs(defines.events) do
-    --if v ~= defines.events.on_tick and v ~= defines.events.on_console_command then
-    if v == defines.events.on_player_crafted_item then
+    if v ~= defines.events.on_tick
+        and v ~= defines.events.on_console_command
+        and v ~= defines.events.on_player_changed_position
+        and v ~= defines.events.on_chunk_charted then
+    --if v == defines.events.on_player_crafted_item then
         script.on_event(v, function(event)
             --global.last_entity = event.item_stack
-            --table.insert(global.lookup.queue, to_json(event))
+            table.insert(global.lookup.queue, to_json(event))
         end)
     end 
+end
+
+function pull_event_queue()
+    for k,v in pairs(global.lookup.queue) do
+        -- TODO: remove extra newlines
+        rcon.print(v .. '\n\n')
+    end
+    global.lookup.queue = {}
 end
 
 -- Note: all classes except LuaControl, LuaControlBehavior and LuaCombinatorControlBehavior have member object_name

@@ -1,19 +1,21 @@
 #![allow(unused)]
 #![deny(clippy::unwrap_used)]
 
-//mod generated;
+mod generated;
 mod remote_console;
 
-use std::{cmp::Ordering, collections::HashMap, fs, io, path::PathBuf};
+use std::{
+    cmp::Ordering, collections::HashMap, fs, io, path::PathBuf, thread::sleep, time::Duration,
+};
 
 use remote_console::RemoteConsole;
 
-//use crate::generated::*;
+use crate::generated::*;
 
 fn main() -> io::Result<()> {
-    remote_console()?;
+    //remote_console()?;
 
-    //test_samples()?;
+    test_samples("events")?;
 
     Ok(())
 }
@@ -26,22 +28,26 @@ fn remote_console() -> io::Result<()> {
     if !response.is_empty() {
         println!("{response}");
     } else {
-        // TODO: periodically fetch all events and store them
-        // TODO: ignore some? and prune global queue
-        // let response = console.send_command(
-        //     "
-        //     for k,v in pairs(global.lookup.queue) do
-        //         rcon.print(v .. '\\n\\n')
-        //     end
-        //     ",
-        // )?;
-        // let events: Vec<_> = response.split("\n\n\n").collect();
-        // for (i, event) in events.iter().enumerate() {
-        //     let filename = PathBuf::from(&format!("events/{i}.json"));
-        //     fs::write(filename, event)?;
-        // }
-        //let factorio_type: Result<FactorioType, _> = serde_json::from_str(&response);
-        //println!("{factorio_type:#?}");
+        let paths = fs::read_dir("events")?;
+        let mut index = paths.count();
+        loop {
+            if index >= 1000 {
+                break;
+            }
+            let response = console.send_command("pull_event_queue()")?;
+            // TODO: fix splitting (maybe "}\n"?)
+            let events: Vec<_> = response.split("\n\n\n").collect();
+            for event in events {
+                if !event.is_empty() {
+                    // TODO: only save events with errors while parsing
+                    //let factorio_type: Result<FactorioType, _> = serde_json::from_str(&event);
+                    let filename = PathBuf::from(&format!("events/{index}.json"));
+                    fs::write(filename, event)?;
+                    index += 1;
+                }
+            }
+            sleep(Duration::from_millis(500));
+        }
         //generate_samples(&mut console)?;
     }
 
@@ -74,47 +80,47 @@ fn class_to_json_file(console: &mut RemoteConsole, class_id: u32, class: &str) -
     fs::write(file_path, response)
 }
 
-// fn test_samples() -> io::Result<()> {
-//     let paths = fs::read_dir("samples")?;
-//     let mut errors = Vec::new();
-//     for path in paths {
-//         let error = test_sample(path?.path())?;
-//         if let Some(error) = error {
-//             errors.push(error);
-//         }
-//     }
-//     errors.sort_by(|a, b| {
-//         let diff = a.split(".json").next().unwrap().parse::<i32>().unwrap()
-//             - b.split(".json").next().unwrap().parse::<i32>().unwrap();
-//         if diff == 0 {
-//             Ordering::Equal
-//         } else if diff < 0 {
-//             Ordering::Less
-//         } else {
-//             Ordering::Greater
-//         }
-//     });
-//     for error in errors {
-//         println!("{error}");
-//     }
-//     Ok(())
-// }
+fn test_samples(directory: &str) -> io::Result<()> {
+    let paths = fs::read_dir(directory)?;
+    let mut errors = Vec::new();
+    for path in paths {
+        let error = test_sample(path?.path())?;
+        if let Some(error) = error {
+            errors.push(error);
+        }
+    }
+    errors.sort_by(|a, b| {
+        let diff = a.split(".json").next().unwrap().parse::<i32>().unwrap()
+            - b.split(".json").next().unwrap().parse::<i32>().unwrap();
+        if diff == 0 {
+            Ordering::Equal
+        } else if diff < 0 {
+            Ordering::Less
+        } else {
+            Ordering::Greater
+        }
+    });
+    for error in errors {
+        println!("{error}");
+    }
+    Ok(())
+}
 
-// fn test_sample(sample_path: PathBuf) -> io::Result<Option<String>> {
-//     let file_name = sample_path
-//         .file_name()
-//         .unwrap_or_default()
-//         .to_str()
-//         .unwrap_or("not_found")
-//         .to_owned();
-//     let sample_json = fs::read_to_string(sample_path)?;
-//     let factorio_type = serde_json::from_str::<FactorioType>(&sample_json);
-//     if let Err(e) = factorio_type {
-//         Ok(Some(format!("{file_name}: {e}")))
-//     } else {
-//         Ok(None)
-//     }
-// }
+fn test_sample(sample_path: PathBuf) -> io::Result<Option<String>> {
+    let file_name = sample_path
+        .file_name()
+        .unwrap_or_default()
+        .to_str()
+        .unwrap_or("not_found")
+        .to_owned();
+    let sample_json = fs::read_to_string(sample_path)?;
+    let factorio_type = serde_json::from_str::<FactorioType>(&sample_json);
+    if let Err(e) = factorio_type {
+        Ok(Some(format!("{file_name}: {e}")))
+    } else {
+        Ok(None)
+    }
+}
 
 // TODO: parse Events
 
