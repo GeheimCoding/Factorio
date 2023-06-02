@@ -240,8 +240,15 @@ function is_cycle(obj, map)
 end
 
 function is_allowed_to_access_attribute(obj, values, attribute)
-    if obj.object_name == 'LuaItemStack' and not obj.valid_for_read then
-        return false
+    --print(attribute)
+    if obj.object_name == 'LuaItemStack' then
+        if not obj.valid_for_read then
+            return false
+        elseif not obj.is_item_with_tags then
+            if attribute == 'custom_description' or attribute == 'entity_filters' or attribute == 'tile_filters' then
+                return false
+            end
+        end
     elseif obj.object_name == 'LuaGroup' then
         if obj.type == 'item-group' then
             return attribute ~= 'group'
@@ -350,6 +357,8 @@ function to_json_internal(obj, depth, map, cycles_only)
                 typ = 'class'
              elseif type(obj.name) == 'number' then
                 typ = 'event'
+                table.insert(json, '"serde_tag":"' .. global.lookup.events[obj.name] .. '"')
+                table.insert(json, ',\n')
              end
              table.insert(json, '"serde_type":"' .. typ .. '"')
              table.insert(json, ',\n')
@@ -391,12 +400,21 @@ end
 
 -- Prepare lookup table
 
-global.lookup = nil
+--global.lookup = nil
 if not global.lookup then
     global.lookup = {}
 end
 if not global.lookup.cycles then
     global.lookup.cycles = {}
+end
+if not global.lookup.queue then
+    global.lookup.queue = {}
+end
+if not global.lookup.events then
+    global.lookup.events = {}
+    for k,v in pairs(defines.events) do
+        global.lookup.events[v] = k
+    end
 end
 global.lookup.subclasses = {
     LuaEntity = {
@@ -910,6 +928,17 @@ global.lookup.subclasses = {
         font_color = "TODO!!!",
     }
 }
+
+--global.lookup.queue = {}
+for k,v in pairs(defines.events) do
+    --if v ~= defines.events.on_tick and v ~= defines.events.on_console_command then
+    if v == defines.events.on_player_crafted_item then
+        script.on_event(v, function(event)
+            --global.last_entity = event.item_stack
+            --table.insert(global.lookup.queue, to_json(event))
+        end)
+    end 
+end
 
 -- Note: all classes except LuaControl, LuaControlBehavior and LuaCombinatorControlBehavior have member object_name
 -- Note: game class is not serializable

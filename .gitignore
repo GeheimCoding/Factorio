@@ -16,3 +16,4 @@ Cargo.lock
 # Offline docs and samples
 /runtime_docs
 /samples
+/events
