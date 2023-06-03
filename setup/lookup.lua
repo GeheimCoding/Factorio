@@ -1,11 +1,11 @@
-global.lookup = {}
+--global.lookup = {}
 if not global.lookup then
     global.lookup = {}
 end
 if not global.lookup.cycles then
-    -- TODO: use one extra table for caching class_id with grouping
     global.lookup.cycle_count = 0
     global.lookup.cycles = {}
+    global.lookup.cache = {}
 end
 if not global.lookup.queue then
     global.lookup.queue = {}

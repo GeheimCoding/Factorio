@@ -76,14 +76,29 @@ function is_value_dictionary(obj, key)
     end
 end
 
--- TODO: use object_name for lookup
--- TODO: use additional attributes to speed up lookup
+function insert_into_cache(obj)
+    if not global.lookup.cache[obj.object_name] then
+        global.lookup.cache[obj.object_name] = {}
+    end
+    -- TODO: improve caching with subgroups
     -- -> e.g. unit_number for LuaEntity with type "unit"
--- TODO: use separate counter for class_id
+    table.insert(global.lookup.cache[obj.object_name], global.lookup.cycle_count)
+end
+
+function get_cached_table(obj)
+    -- TODO: improve caching with subgroups
+    return global.lookup.cache[obj.object_name]
+end
+
 function is_cycle(obj)
-    for k,v in pairs(global.lookup.cycles) do
-        if v.obj == obj then
-            return true, k
+    local cached_table = get_cached_table(obj)
+    if not cached_table then
+        return false, 0
+    end
+    for k,v in pairs(cached_table) do
+        local cached_obj = global.lookup.cycles[v].obj
+        if cached_obj == obj then
+            return true, v
         end
     end
     return false, 0
@@ -200,8 +215,10 @@ function to_json_internal(obj, depth, cycles_only)
             if cycles_only then
                 table.insert(json, '"class_id":' .. id .. ',\n')
             else
+                global.lookup.cycle_count = global.lookup.cycle_count + 1
+                insert_into_cache(obj)
                 table.insert(global.lookup.cycles, {obj = obj, json = ''})
-                table.insert(json, '"class_id":' .. #global.lookup.cycles .. ',\n')
+                table.insert(json, '"class_id":' .. global.lookup.cycle_count .. ',\n')
             end
         end
         if class or obj.object_name == 'LuaGameScript' then
