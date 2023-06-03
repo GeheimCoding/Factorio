@@ -953,8 +953,8 @@ end
 
 function pull_event_queue()
     for k,v in pairs(global.lookup.queue) do
-        -- TODO: remove extra newlines
-        rcon.print(v .. '\n\n')
+        rcon.print(v)
+        rcon.print('')
     end
     global.lookup.queue = {}
 end

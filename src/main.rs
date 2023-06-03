@@ -15,11 +15,11 @@ use crate::generated::*;
 fn main() -> io::Result<()> {
     //remote_console()?;
 
-    // let json = fs::read_to_string("events/92.json")?;
-    // let factorio_type: Result<FactorioType, _> = serde_json::from_str(&json);
-    // println!("{factorio_type:?}");
+    //let json = fs::read_to_string("stack.json")?;
+    //let factorio_type: Result<Class, _> = serde_json::from_str(&json);
+    //println!("{factorio_type:?}");
 
-    test_samples("events")?;
+    //test_samples("events")?;
 
     Ok(())
 }
@@ -39,15 +39,16 @@ fn remote_console() -> io::Result<()> {
                 break;
             }
             let response = console.send_command("pull_event_queue()")?;
-            // TODO: fix splitting (maybe "}\n"?)
-            let events: Vec<_> = response.split("\n\n\n").collect();
-            for event in events {
-                if !event.is_empty() {
-                    // TODO: only save events with errors while parsing
-                    //let factorio_type: Result<FactorioType, _> = serde_json::from_str(&event);
-                    let filename = PathBuf::from(&format!("events/{index}.json"));
-                    fs::write(filename, event)?;
-                    index += 1;
+            if !response.is_empty() {
+                let events: Vec<_> = response.split("\n\n").collect();
+                for event in events {
+                    let factorio_type: Result<FactorioType, _> = serde_json::from_str(&event);
+                    if let Err(e) = factorio_type {
+                        println!("{index}.json: {e}");
+                        let filename = PathBuf::from(&format!("events/{index}.json"));
+                        fs::write(filename, event)?;
+                        index += 1;
+                    }
                 }
             }
             sleep(Duration::from_millis(500));

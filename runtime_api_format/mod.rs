@@ -615,6 +615,12 @@ impl GenerateDefinition for Class {
                     || rust_name.starts_with("tree_"))
             {
                 typ = format!("Option<{typ}>");
+            } else if self.name == "LuaItemStack"
+                && (rust_name == "custom_description"
+                    || rust_name == "entity_filters"
+                    || rust_name == "tile_filters")
+            {
+                typ = format!("Option<{typ}>");
             }
 
             let mut attribute_description = String::new();

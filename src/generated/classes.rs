@@ -6961,7 +6961,7 @@ pub struct LuaItemStack {
     /// Number of items in this stack.
     pub count: u32,
     /// The custom description this item-with-tags. This is shown over the normal item description if this is set to a non-empty value.
-    pub custom_description: LocalisedString,
+    pub custom_description: Option<LocalisedString>,
     /// The default icons for a blueprint item.
     /// Can only be used if this is BlueprintItem
     pub default_icons: Option<Vec<BlueprintSignalIcon>>,
@@ -6978,7 +6978,7 @@ pub struct LuaItemStack {
     /// Can only be used if this is DeconstructionItem
     pub entity_filter_mode: Option<DeconstructionItemEntityFilterMode>,
     /// The entity filters for this deconstruction item. The attribute is a sparse array with the keys representing the index of the filter. All strings in this array must be entity prototype names that don't have the `"not-deconstructable"` flag set and are either a `cliff` or marked as `minable`.
-    pub entity_filters: Vec<String>,
+    pub entity_filters: Option<Vec<String>>,
     /// If this is an item with entity data, get the stored entity label.
     /// Can only be used if this is ItemWithEntityData
     pub entity_label: Option<String>,
@@ -7056,7 +7056,7 @@ pub struct LuaItemStack {
     /// Can only be used if this is DeconstructionItem
     pub tile_filter_mode: Option<DeconstructionItemTileFilterMode>,
     /// The tile filters for this deconstruction item. The attribute is a sparse array with the keys representing the index of the filter. All strings in this array must be tile prototype names.
-    pub tile_filters: Vec<String>,
+    pub tile_filters: Option<Vec<String>>,
     /// The tile selection mode for this deconstruction item.
     /// Can only be used if this is DeconstructionItem
     pub tile_selection_mode: Option<DeconstructionItemTileSelectionMode>,
