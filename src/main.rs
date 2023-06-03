@@ -15,9 +15,9 @@ use crate::generated::*;
 fn main() -> io::Result<()> {
     //remote_console()?;
 
-    //let json = fs::read_to_string("stack.json")?;
-    //let factorio_type: Result<Class, _> = serde_json::from_str(&json);
-    //println!("{factorio_type:?}");
+    // let json = fs::read_to_string("events/0.json")?;
+    // let factorio_type: Result<OnBuiltEntity, _> = serde_json::from_str(&json);
+    // println!("{factorio_type:?}");
 
     //test_samples("events")?;
 
@@ -32,6 +32,14 @@ fn remote_console() -> io::Result<()> {
     if !response.is_empty() {
         println!("{response}");
     } else {
+        let response = console.send_command(
+            "
+            rcon.print(global.lookup.cycles[6714].json)
+        ",
+        )?;
+        println!("{response}");
+        return Ok(());
+
         let paths = fs::read_dir("events")?;
         let mut index = paths.count();
         loop {
@@ -146,6 +154,7 @@ fn test_sample(sample_path: PathBuf) -> io::Result<Option<String>> {
 // TODO: better naming, e.g. cache instead of lookup
 // TODO: use global lookup table for objects and unique_ids
 // TODO: make subclass specific attributes optional?
+// TODO: fix crash in remote_console when server shuts down
 // TODO: fix/confirm subclasses type casing
 // TODO: fix doc position for concepts
 // TODO: implement TODOs

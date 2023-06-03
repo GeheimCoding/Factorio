@@ -114,7 +114,7 @@ pub struct OnBuiltEntity {
     /// Identifier of the event
     pub name: Events,
     pub player_index: u32,
-    pub stack: MaybeCycle<LuaItemStack>,
+    pub stack: MaybeCycle<MaybeLuaItemStack>,
     /// The tags associated with this entity if any.
     pub tags: Option<Tags>,
     /// Tick the event was generated.
@@ -641,7 +641,7 @@ pub struct OnGuiClosed {
     /// The script inventory that was open
     pub inventory: Option<MaybeCycle<LuaInventory>>,
     /// The item that was open
-    pub item: Option<MaybeCycle<LuaItemStack>>,
+    pub item: Option<MaybeCycle<MaybeLuaItemStack>>,
     /// Identifier of the event
     pub name: Events,
     /// The other player that was open
@@ -741,7 +741,7 @@ pub struct OnGuiOpened {
     /// The script inventory that was opened
     pub inventory: Option<MaybeCycle<LuaInventory>>,
     /// The item that was opened
-    pub item: Option<MaybeCycle<LuaItemStack>>,
+    pub item: Option<MaybeCycle<MaybeLuaItemStack>>,
     /// Identifier of the event
     pub name: Events,
     /// The other player that was opened
@@ -1058,7 +1058,7 @@ pub struct OnPlayerBuiltTile {
     pub name: Events,
     pub player_index: u32,
     /// The stack used to build the tiles (may be empty if all of the items where used to build the tiles).
-    pub stack: Option<MaybeCycle<LuaItemStack>>,
+    pub stack: Option<MaybeCycle<MaybeLuaItemStack>>,
     /// The surface the tile(s) were built on.
     pub surface_index: u32,
     /// Tick the event was generated.
@@ -1192,7 +1192,7 @@ pub struct OnPlayerConfiguredSpiderRemote {
 #[derive(Debug, Deserialize)]
 pub struct OnPlayerCraftedItem {
     /// The item that has been crafted.
-    pub item_stack: MaybeCycle<LuaItemStack>,
+    pub item_stack: MaybeCycle<MaybeLuaItemStack>,
     /// Identifier of the event
     pub name: Events,
     /// The player doing the crafting.
@@ -2053,7 +2053,7 @@ pub struct OnRobotBuiltEntity {
     /// The robot that did the building.
     pub robot: MaybeCycle<LuaEntity>,
     /// The item used to do the building.
-    pub stack: MaybeCycle<LuaItemStack>,
+    pub stack: MaybeCycle<MaybeLuaItemStack>,
     /// The tags associated with this entity if any.
     pub tags: Option<Tags>,
     /// Tick the event was generated.
@@ -2070,7 +2070,7 @@ pub struct OnRobotBuiltTile {
     /// The robot.
     pub robot: MaybeCycle<LuaEntity>,
     /// The stack used to build the tiles (may be empty if all of the items where used to build the tiles).
-    pub stack: MaybeCycle<LuaItemStack>,
+    pub stack: MaybeCycle<MaybeLuaItemStack>,
     /// The surface the tile(s) are build on.
     pub surface_index: u32,
     /// Tick the event was generated.

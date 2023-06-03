@@ -1116,7 +1116,11 @@ impl Parameter {
         let prefix = &format!("{}{}", prefix, name.to_pascal_case());
         let typ = Type::lua_type_to_rust_type(&self.typ.generate_definition(prefix, unions, true));
         let typ = if typ.starts_with("Lua") && !typ.ends_with("Filter") && !typ.ends_with("Union") {
-            format!("MaybeCycle<{typ}>")
+            if typ == "LuaItemStack" {
+                "MaybeCycle<MaybeLuaItemStack>".to_owned()
+            } else {
+                format!("MaybeCycle<{typ}>")
+            }
         } else {
             typ.to_owned()
         };
