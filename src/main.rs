@@ -27,37 +27,66 @@ fn main() -> io::Result<()> {
 // https://developer.valvesoftware.com/wiki/Source_RCON_Protocol
 fn remote_console() -> io::Result<()> {
     let mut console = RemoteConsole::new("10.243.166.195", 25575, "123")?;
-    let to_json = fs::read_to_string("setup.lua")?;
-    let response = console.send_command(&to_json)?;
+    let mut setup = fs::read_to_string("setup/setup.lua")?;
+    setup.push_str(&fs::read_to_string("setup/lookup.lua")?);
+    setup.push_str(&fs::read_to_string("setup/get_values.lua")?);
+    setup.push_str(&fs::read_to_string("setup/subclasses.lua")?);
+    let response = console.send_command(&setup)?;
     if !response.is_empty() {
         println!("{response}");
     } else {
-        return parse_objects(&mut console);
+        print_invalid_objects(&mut console);
 
-        let paths = fs::read_dir("events")?;
-        let mut index = paths.count();
-        loop {
-            if index >= 1000 {
-                break;
-            }
-            let response = console.send_command("pull_event_queue()")?;
-            if !response.is_empty() {
-                let events: Vec<_> = response.split("\n\n").collect();
-                for event in events {
-                    let factorio_type: Result<FactorioType, _> = serde_json::from_str(&event);
-                    if let Err(e) = factorio_type {
-                        println!("{index}.json: {e}");
-                        let filename = PathBuf::from(&format!("events/{index}.json"));
-                        fs::write(filename, event)?;
-                        index += 1;
-                    }
-                }
-            }
-            sleep(Duration::from_millis(500));
-        }
+        //return parse_objects(&mut console);
+        //listen_to_events(&mut console);
         //generate_samples(&mut console)?;
     }
 
+    Ok(())
+}
+
+fn print_invalid_objects(console: &mut RemoteConsole) -> io::Result<()> {
+    let response = console.send_command(
+        "
+        local invalid = {}
+        for k,v in pairs(global.lookup.cycles) do
+            if not v.obj.valid then
+                local name = v.obj.object_name
+                if not invalid[name] then
+                    invalid[name] = 0
+                end
+                invalid[name] = invalid[name] + 1
+            end
+        end
+        rcon.print(serpent.block(invalid))
+    ",
+    )?;
+    println!("{response}");
+    Ok(())
+}
+
+fn listen_to_events(console: &mut RemoteConsole) -> io::Result<()> {
+    let paths = fs::read_dir("events")?;
+    let mut index = paths.count();
+    loop {
+        if index >= 1000 {
+            break;
+        }
+        let response = console.send_command("pull_event_queue()")?;
+        if !response.is_empty() {
+            let events: Vec<_> = response.split("\n\n").collect();
+            for event in events {
+                let factorio_type: Result<FactorioType, _> = serde_json::from_str(&event);
+                if let Err(e) = factorio_type {
+                    println!("{index}.json: {e}");
+                    let filename = PathBuf::from(&format!("events/{index}.json"));
+                    fs::write(filename, event)?;
+                    index += 1;
+                }
+            }
+        }
+        sleep(Duration::from_millis(500));
+    }
     Ok(())
 }
 
@@ -155,8 +184,6 @@ fn test_sample(sample_path: PathBuf) -> io::Result<Option<String>> {
     }
 }
 
-// TODO: parse Events
-
 // TODO: add #[serde(deny_unknown_fields)]
 // TODO: check more serde attributes like #[serde(default)] or content for Table/Tuple?
 //      -> Option<ContainerType> could drop the option with default
@@ -164,6 +191,8 @@ fn test_sample(sample_path: PathBuf) -> io::Result<Option<String>> {
 // TODO: improve performance of lookup table with grouping (e.g. by object_name)?
 //      -> currently around 30 seconds in total with a fresh cache
 //      -> find subgroups per class type
+//      -> don't trust uniqueness, always have "array" at the end
+//      -> when to use subgroups instead of just looping?
 // TODO: improve compile times (only include needed types?)
 // TODO: split map_settings and other tables in separate files
 // TODO: check for more "cycles"
