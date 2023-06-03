@@ -1520,18 +1520,18 @@ pub struct LuaEntity {
     pub active: bool,
     /// The ai settings of this unit.
     /// Can only be used if this is Unit
-    pub ai_settings: MaybeCycle<LuaAISettings>,
+    pub ai_settings: Option<MaybeCycle<LuaAISettings>>,
     /// Can only be used if this is ProgrammableSpeaker
-    pub alert_parameters: ProgrammableSpeakerAlertParameters,
+    pub alert_parameters: Option<ProgrammableSpeakerAlertParameters>,
     /// Whether this character's personal roboports are allowed to dispatch robots.
     /// Can only be used if this is Character
-    pub allow_dispatching_robots: bool,
+    pub allow_dispatching_robots: Option<bool>,
     /// Count of resource units contained.
     /// Can only be used if this is ResourceEntity
-    pub amount: u32,
+    pub amount: Option<u32>,
     /// Whether this land mine is armed.
     /// Can only be used if this is LandMine
-    pub armed: bool,
+    pub armed: Option<bool>,
     /// The player this character is associated with, if any. Set to `nil` to clear.
     ///
     /// The player will be automatically disassociated when a controller is set on the character. Also, all characters associated to a player will be logged off when the player logs off in multiplayer.
@@ -1545,13 +1545,13 @@ pub struct LuaEntity {
     pub associated_player: Option<LuaEntityAssociatedPlayerUnion>,
     /// Whether this rocket silo automatically launches the rocket when cargo is inserted.
     /// Can only be used if this is RocketSilo
-    pub auto_launch: bool,
+    pub auto_launch: Option<bool>,
     /// Destination of this spidertron's autopilot, if any. Writing `nil` clears all destinations.
     /// Can only be used if this is SpiderVehicle
     pub autopilot_destination: Option<MapPosition>,
     /// The queued destination positions of spidertron's autopilot.
     /// Can only be used if this is SpiderVehicle
-    pub autopilot_destinations: Vec<MapPosition>,
+    pub autopilot_destinations: Option<Vec<MapPosition>>,
     /// The backer name assigned to this entity. Entities that support backer names are labs, locomotives, radars, roboports, and train stops. `nil` if this entity doesn't support backer names.
     ///
     /// # Notes
@@ -1562,41 +1562,41 @@ pub struct LuaEntity {
     pub beacons_count: Option<u32>,
     /// The belt connectable neighbours of this belt connectable entity. Only entities that input to or are outputs of this entity. Does not contain the other end of an underground belt, see [LuaEntity::neighbours](LuaEntity::neighbours) for that. This is a dictionary with `"inputs"`, `"outputs"` entries that are arrays of transport belt connectable entities, or empty tables if no entities.
     /// Can only be used if this is TransportBeltConnectable
-    pub belt_neighbours: HashMap<String, Vec<MaybeCycle<LuaEntity>>>,
+    pub belt_neighbours: Option<HashMap<String, Vec<MaybeCycle<LuaEntity>>>>,
     /// `"input"` or `"output"`, depending on whether this underground belt goes down or up.
     /// Can only be used if this is TransportBeltToGround
-    pub belt_to_ground_type: String,
+    pub belt_to_ground_type: Option<String>,
     /// The bonus mining progress for this mining drill. Read yields a number in range [0, mining_target.prototype.mineable_properties.mining_time]. `nil` if this isn't a mining drill.
     pub bonus_mining_progress: Option<Double>,
     /// The current productivity bonus progress, as a number in range [0, 1].
     /// Can only be used if this is CraftingMachine
-    pub bonus_progress: Double,
+    pub bonus_progress: Option<Double>,
     /// [LuaEntityPrototype::collision_box](LuaEntityPrototype::collision_box) around entity's given position and respecting the current entity orientation.
     pub bounding_box: BoundingBox,
     /// The burner energy source for this entity, if any.
     pub burner: Option<MaybeCycle<LuaBurner>>,
     /// The state of this chain signal.
     /// Can only be used if this is RailChainSignal
-    pub chain_signal_state: ChainSignalState,
+    pub chain_signal_state: Option<ChainSignalState>,
     /// The reason this character corpse character died. `""` if there is no reason.
     /// Can only be used if this is CharacterCorpse
-    pub character_corpse_death_cause: LocalisedString,
+    pub character_corpse_death_cause: Option<LocalisedString>,
     /// The player index associated with this character corpse.
     /// Can only be used if this is CharacterCorpse
     ///
     /// # Notes
     ///
     /// * The index is not guaranteed to be valid so it should always be checked first if a player with that index actually exists.
-    pub character_corpse_player_index: u32,
+    pub character_corpse_player_index: Option<u32>,
     /// The tick this character corpse died at.
     /// Can only be used if this is CharacterCorpse
-    pub character_corpse_tick_of_death: u32,
+    pub character_corpse_tick_of_death: Option<u32>,
     /// Entities that are directly connected to this entity via the circuit network. `nil` if this entity can't be connected to the circuit network.
     pub circuit_connected_entities: Option<MaybeCycle<LuaEntityCircuitConnectedEntities>>,
     /// The connection definition for entities that are directly connected to this entity via the circuit network. `nil` if this entity can't be connected to the circuit network.
     pub circuit_connection_definitions: Option<Vec<CircuitConnectionDefinition>>,
     /// The orientation of this cliff.
-    pub cliff_orientation: CliffOrientation,
+    pub cliff_orientation: Option<CliffOrientation>,
     /// The color of this character, rolling stock, train stop, car, spider-vehicle, flying text, corpse or simple-entity-with-owner. `nil` if this entity doesn't use custom colors.
     ///
     /// # Notes
@@ -1613,33 +1613,33 @@ pub struct LuaEntity {
     pub connected_rail: Option<MaybeCycle<LuaEntity>>,
     /// Rail direction to which this train stop is binding. This returns a value even when no rails are present.
     /// Can only be used if this is TrainStop
-    pub connected_rail_direction: RailDirection,
+    pub connected_rail_direction: Option<RailDirection>,
     /// The consumption bonus of this entity.
     pub consumption_bonus: Double,
     /// Multiplies the energy consumption.
     /// Can only be used if this is Car
-    pub consumption_modifier: Float,
+    pub consumption_modifier: Option<Float>,
     /// Whether this corpse will ever fade away.
     ///
     /// # Notes
     ///
     /// * Useable only on corpses.
-    pub corpse_expires: bool,
+    pub corpse_expires: Option<bool>,
     /// If true, corpse won't be destroyed when entities are placed over it. If false, whether corpse will be removed or not depends on value of CorpsePrototype::remove_on_entity_placement.
     ///
     /// # Notes
     ///
     /// * Useable only on corpses.
-    pub corpse_immune_to_entity_placement: bool,
+    pub corpse_immune_to_entity_placement: Option<bool>,
     /// The current crafting progress, as a number in range [0, 1].
     /// Can only be used if this is CraftingMachine
-    pub crafting_progress: Float,
+    pub crafting_progress: Option<Float>,
     /// The current crafting speed, including speed bonuses from modules and beacons.
     /// Can only be used if this is CraftingMachine
-    pub crafting_speed: Double,
+    pub crafting_speed: Option<Double>,
     /// The damage dealt by this turret, artillery turret, or artillery wagon.
     /// Can only be used if this is Turret
-    pub damage_dealt: Double,
+    pub damage_dealt: Option<Double>,
     /// If set to `false`, this entity can't be damaged and won't be attacked automatically. It can however still be mined.
     ///
     /// # Notes
@@ -1659,7 +1659,7 @@ pub struct LuaEntity {
     /// # Notes
     ///
     /// * Meaningful only for entities that put stuff somewhere, such as mining drills or inserters. Mining drills can't have their drop position changed; inserters must have `allow_custom_vectors` set to true on their prototype to allow changing the drop position.
-    pub drop_position: MapPosition,
+    pub drop_position: Option<MapPosition>,
     /// The entity this entity is putting its items to. If there are multiple possible entities at the drop-off point, writing to this attribute allows a mod to choose which one to drop off items to. The entity needs to collide with the tile box under the drop-off position. `nil` if there is no entity to put items to, or if this is not an entity that puts items somewhere.
     pub drop_target: Option<MaybeCycle<LuaEntity>>,
     /// The current speed of this unit in tiles per tick, taking into account any walking speed modifier given by the tile the unit is standing on. `nil` if this is not a unit.
@@ -1667,7 +1667,7 @@ pub struct LuaEntity {
     pub effective_speed: Option<Float>,
     /// Multiplies the acceleration the vehicle can create for one unit of energy. Defaults to `1`.
     /// Can only be used if this is Car
-    pub effectivity_modifier: Float,
+    pub effectivity_modifier: Option<Float>,
     /// The effects being applied to this entity, if any. For beacons, this is the effect the beacon is broadcasting.
     pub effects: Option<ModuleEffects>,
     /// The buffer size for the electric energy source. `nil` if the entity doesn't have an electric energy source.
@@ -1686,12 +1686,12 @@ pub struct LuaEntity {
     pub electric_network_id: Option<u32>,
     /// The electric network statistics for this electric pole.
     /// Can only be used if this is ElectricPole
-    pub electric_network_statistics: MaybeCycle<LuaFlowStatistics>,
+    pub electric_network_statistics: Option<MaybeCycle<LuaFlowStatistics>>,
     /// The output flow limit for the electric energy source. `nil` if the entity doesn't have an electric energy source.
     pub electric_output_flow_limit: Option<Double>,
     /// Whether equipment grid logistics are enabled while this vehicle is moving.
     /// Can only be used if this is Vehicle
-    pub enable_logistics_while_moving: bool,
+    pub enable_logistics_while_moving: Option<bool>,
     /// Energy stored in the entity (heat in furnace, energy stored in electrical devices etc.). always 0 for entities that don't have the concept of energy stored inside.
     ///
     /// # Examples
@@ -1703,7 +1703,7 @@ pub struct LuaEntity {
     pub energy: Double,
     /// How much energy this generator generated in the last tick.
     /// Can only be used if this is Generator
-    pub energy_generated_last_tick: Double,
+    pub energy_generated_last_tick: Option<Double>,
     /// The label on this spider-vehicle entity, if any. `nil` if this is not a spider-vehicle.
     pub entity_label: Option<String>,
     /// The number of filter slots this inserter, loader, or logistic storage container has. 0 if not one of those entities.
@@ -1725,21 +1725,21 @@ pub struct LuaEntity {
     /// ```text
     /// game.player.vehicle.friction_modifier = 0.5
     /// ```
-    pub friction_modifier: Float,
+    pub friction_modifier: Option<Float>,
     /// Can only be used if this is Ghost
-    pub ghost_localised_description: LocalisedString,
+    pub ghost_localised_description: Option<LocalisedString>,
     /// Localised name of the entity or tile contained in this ghost.
     /// Can only be used if this is Ghost
-    pub ghost_localised_name: LocalisedString,
+    pub ghost_localised_name: Option<LocalisedString>,
     /// Name of the entity or tile contained in this ghost
     /// Can only be used if this is Ghost
-    pub ghost_name: String,
+    pub ghost_name: Option<String>,
     /// The prototype of the entity or tile contained in this ghost.
     /// Can only be used if this is Ghost
-    pub ghost_prototype: LuaEntityGhostPrototypeUnion,
+    pub ghost_prototype: Option<LuaEntityGhostPrototypeUnion>,
     /// The prototype type of the entity or tile contained in this ghost.
     /// Can only be used if this is Ghost
-    pub ghost_type: String,
+    pub ghost_type: Option<String>,
     /// The [unit_number](LuaEntity::unit_number) of the entity contained in this ghost. It is the same as the unit number of the [EntityWithOwner](https://wiki.factorio.com/Prototype/EntityWithOwner) that was destroyed to create this ghost. If it was created by other means, or if the inner entity does not support unit numbers, this property is `nil`.
     /// Can only be used if this is EntityGhost
     pub ghost_unit_number: Option<u32>,
@@ -1755,19 +1755,19 @@ pub struct LuaEntity {
     pub health: Option<Float>,
     /// The item stack currently held in an inserter's hand.
     /// Can only be used if this is Inserter
-    pub held_stack: MaybeCycle<LuaItemStack>,
+    pub held_stack: Option<MaybeCycle<LuaItemStack>>,
     /// Current position of the inserter's "hand".
     /// Can only be used if this is Inserter
-    pub held_stack_position: MapPosition,
+    pub held_stack_position: Option<MapPosition>,
     /// The blink interval of this highlight box entity. 0 indicates no blink.
     /// Can only be used if this is HighlightBox
-    pub highlight_box_blink_interval: u32,
+    pub highlight_box_blink_interval: Option<u32>,
     /// The hightlight box type of this highlight box entity.
     /// Can only be used if this is HighlightBox
-    pub highlight_box_type: String,
+    pub highlight_box_type: Option<String>,
     /// The filters for this infinity container.
     /// Can only be used if this is InfinityContainer
-    pub infinity_container_filters: Vec<InfinityInventoryFilter>,
+    pub infinity_container_filters: Option<Vec<InfinityInventoryFilter>>,
     /// Count of initial resource units contained. `nil` if this is not an infinite resource.
     /// Can only be used if this is ResourceEntity
     ///
@@ -1783,13 +1783,13 @@ pub struct LuaEntity {
     /// # Notes
     ///
     /// * Set to 0 to reset.
-    pub inserter_stack_size_override: u32,
+    pub inserter_stack_size_override: Option<u32>,
     /// Returns the current target pickup count of the inserter.
     ///
     /// # Notes
     ///
     /// * This considers the circuit network, manual override and the inserter stack size limit based on technology.
-    pub inserter_target_pickup_count: u32,
+    pub inserter_target_pickup_count: Option<u32>,
     /// (deprecated by 1.1.51) If this entity is a MilitaryTarget. Returns same value as LuaEntity::is_military_target
     pub is_entity_with_force: bool,
     /// If this entity is EntityWithHealth
@@ -1799,17 +1799,17 @@ pub struct LuaEntity {
     /// Whether this entity is a MilitaryTarget. Can be written to if [LuaEntityPrototype::allow_run_time_change_of_is_military_target](LuaEntityPrototype::allow_run_time_change_of_is_military_target) returns `true`.
     pub is_military_target: bool,
     /// Items this ghost will request when revived or items this item request proxy is requesting. Result is a dictionary mapping each item prototype name to the required count.
-    pub item_requests: HashMap<String, u32>,
+    pub item_requests: Option<HashMap<String, u32>>,
     /// The number of units killed by this turret, artillery turret, or artillery wagon.
     /// Can only be used if this is Turret
-    pub kills: u32,
+    pub kills: Option<u32>,
     /// The last player that changed any setting on this entity. This includes building the entity, changing its color, or configuring its circuit network. `nil` if the last user is not part of the save anymore.
     ///
     /// Reading this property will return a [LuaPlayer](LuaPlayer), while [PlayerIdentification](PlayerIdentification) can be used when writing.
     /// Can only be used if this is EntityWithOwner
     pub last_user: Option<LuaEntityLastUserUnion>,
     /// The link ID this linked container is using.
-    pub link_id: u32,
+    pub link_id: Option<u32>,
     /// Neighbour to which this linked belt is connected to, if any.
     /// Can only be used if this is LinkedBelt
     ///
@@ -1825,20 +1825,20 @@ pub struct LuaEntity {
     ///
     /// * Can only be changed when linked belt is disconnected (has no neighbour set)
     /// * Can also be used on entity ghost if it contains linked-belt
-    pub linked_belt_type: String,
+    pub linked_belt_type: Option<String>,
     /// The container entity this loader is pointing at/pulling from depending on the [LuaEntity::loader_type](LuaEntity::loader_type), if any.
     /// Can only be used if this is Loader
     pub loader_container: Option<MaybeCycle<LuaEntity>>,
     /// `"input"` or `"output"`, depending on whether this loader puts to or gets from a container.
     /// Can only be used if this is Loader
-    pub loader_type: String,
+    pub loader_type: Option<String>,
     pub localised_description: LocalisedString,
     /// Localised name of the entity.
     pub localised_name: LocalisedString,
     /// The logistic cell this entity is a part of. Will be `nil` if this entity is not a part of any logistic cell.
-    pub logistic_cell: MaybeCycle<LuaLogisticCell>,
+    pub logistic_cell: Option<MaybeCycle<LuaLogisticCell>>,
     /// The logistic network this entity is a part of, or `nil` if this entity is not a part of any logistic network.
-    pub logistic_network: MaybeCycle<LuaLogisticNetwork>,
+    pub logistic_network: Option<MaybeCycle<LuaLogisticNetwork>>,
     /// # Notes
     ///
     /// * Not minable entities can still be destroyed.
@@ -1851,12 +1851,12 @@ pub struct LuaEntity {
     pub mining_target: Option<MaybeCycle<LuaEntity>>,
     /// Returns true if this unit is moving.
     /// Can only be used if this is Unit
-    pub moving: bool,
+    pub moving: Option<bool>,
     /// Name of the entity prototype. E.g. "inserter" or "filter-inserter".
     pub name: String,
     /// The current total neighbour bonus of this reactor.
     /// Can only be used if this is Reactor
-    pub neighbour_bonus: Double,
+    pub neighbour_bonus: Option<Double>,
     /// A list of neighbours for certain types of entities. Applies to electric poles, power switches, underground belts, walls, gates, reactors, cliffs, and pipe-connectable entities.
     ///
     /// - When called on an electric pole, this is a dictionary of all connections, indexed by the strings `"copper"`, `"red"`, and `"green"`.
@@ -1864,7 +1864,7 @@ pub struct LuaEntity {
     /// - When called on an underground transport belt, this is the other end of the underground belt connection, or `nil` if none.
     /// - When called on a wall-connectable entity or reactor, this is a dictionary of all connections indexed by the connection direction "north", "south", "east", and "west".
     /// - When called on a cliff entity, this is a dictionary of all connections indexed by the connection direction "north", "south", "east", and "west".
-    pub neighbours: LuaEntityNeighboursUnion,
+    pub neighbours: Option<LuaEntityNeighboursUnion>,
     /// The class name of this object. Available even when `valid` is false. For LuaStruct objects it may also be suffixed with a dotted path to a member of the struct.
     pub object_name: String,
     /// Player can't open gui of this entity and he can't quick insert/input stuff in to the entity when it is not operable.
@@ -1872,14 +1872,14 @@ pub struct LuaEntity {
     /// The smooth orientation of this entity.
     pub orientation: RealOrientation,
     /// Can only be used if this is ProgrammableSpeaker
-    pub parameters: ProgrammableSpeakerParameters,
+    pub parameters: Option<ProgrammableSpeakerParameters>,
     /// Where the inserter will pick up items from.
     /// Can only be used if this is Inserter
     ///
     /// # Notes
     ///
     /// * Inserters must have `allow_custom_vectors` set to true on their prototype to allow changing the pickup position.
-    pub pickup_position: MapPosition,
+    pub pickup_position: Option<MapPosition>,
     /// The entity this inserter will attempt to pick up items from. If there are multiple possible entities at the pick-up point, writing to this attribute allows a mod to choose which one to pick up items from. The entity needs to collide with the tile box under the pick-up position. `nil` if there is no entity to pull items from.
     /// Can only be used if this is Inserter
     pub pickup_target: Option<MaybeCycle<LuaEntity>>,
@@ -1890,12 +1890,12 @@ pub struct LuaEntity {
     pub pollution_bonus: Double,
     /// The power production specific to the ElectricEnergyInterface entity type.
     /// Can only be used if this is ElectricEnergyInterface
-    pub power_production: Double,
+    pub power_production: Option<Double>,
     /// The state of this power switch.
-    pub power_switch_state: bool,
+    pub power_switch_state: Option<bool>,
     /// The power usage specific to the ElectricEnergyInterface entity type.
     /// Can only be used if this is ElectricEnergyInterface
-    pub power_usage: Double,
+    pub power_usage: Option<Double>,
     /// The previous recipe this furnace was using, if any.
     /// Can only be used if this is Furnace
     pub previous_recipe: Option<MaybeCycle<LuaRecipe>>,
@@ -1907,7 +1907,7 @@ pub struct LuaEntity {
     pub productivity_bonus: Double,
     /// The number of products this machine finished crafting in its lifetime.
     /// Can only be used if this is CraftingMachine
-    pub products_finished: u32,
+    pub products_finished: Option<u32>,
     /// The entity prototype of this entity.
     pub prototype: MaybeCycle<LuaEntityPrototype>,
     /// The target entity for this item-request-proxy, if any.
@@ -1917,10 +1917,10 @@ pub struct LuaEntity {
     pub pump_rail_target: Option<MaybeCycle<LuaEntity>>,
     /// The current radar scan progress, as a number in range [0, 1].
     /// Can only be used if this is Radar
-    pub radar_scan_progress: Float,
+    pub radar_scan_progress: Option<Float>,
     /// When locked; the recipe in this assembling machine can't be changed by the player.
     /// Can only be used if this is AssemblingMachine
-    pub recipe_locked: bool,
+    pub recipe_locked: Option<bool>,
     /// The relative orientation of the vehicle turret, artillery turret, artillery wagon. `nil` if this entity isn't a vehicle with a vehicle turret or artillery turret/wagon.
     ///
     /// # Notes
@@ -1929,7 +1929,7 @@ pub struct LuaEntity {
     pub relative_turret_orientation: Option<RealOrientation>,
     /// Whether items not included in this infinity container filters should be removed from the container.
     /// Can only be used if this is InfinityContainer
-    pub remove_unfiltered_items: bool,
+    pub remove_unfiltered_items: Option<bool>,
     /// The player that this `simple-entity-with-owner`, `simple-entity-with-force`, `flying-text`, or `highlight-box` is visible to. `nil` when this entity is rendered for all players.
     ///
     /// Reading this property will return a [LuaPlayer](LuaPlayer), while [PlayerIdentification](PlayerIdentification) can be used when writing.
@@ -1945,14 +1945,14 @@ pub struct LuaEntity {
     /// # Notes
     ///
     /// * Useable only on entities that have requester slots.
-    pub request_from_buffers: bool,
+    pub request_from_buffers: Option<bool>,
     /// The index of the configured request with the highest index for this entity. This means 0 if no requests are set and e.g. 20 if the 20th request slot is configured.
     pub request_slot_count: u32,
     /// Number of rocket parts in the silo.
     /// Can only be used if this is RocketSilo
-    pub rocket_parts: u32,
+    pub rocket_parts: Option<u32>,
     /// The status of this rocket silo entity.
-    pub rocket_silo_status: RocketSiloStatus,
+    pub rocket_silo_status: Option<RocketSiloStatus>,
     /// When entity is not to be rotatable (inserter, transport belt etc), it can't be rotated by player using the R key.
     ///
     /// # Notes
@@ -1972,7 +1972,7 @@ pub struct LuaEntity {
     pub shooting_target: Option<MaybeCycle<LuaEntity>>,
     /// The state of this rail signal.
     /// Can only be used if this is RailSignal or RailChainSignal
-    pub signal_state: SignalState,
+    pub signal_state: Option<SignalState>,
     /// The spawner associated with this unit entity, if any.
     pub spawner: Option<MaybeCycle<LuaEntity>>,
     /// The current speed if this is a car, rolling stock, projectile or spidertron, or the maximum speed if this is a unit. The speed is in tiles per tick. `nil` if this is not a car, rolling stock, unit, projectile or spidertron.
@@ -1990,20 +1990,20 @@ pub struct LuaEntity {
     pub splitter_filter: Option<MaybeCycle<LuaItemPrototype>>,
     /// The input priority for this splitter. Either `"left"`, `"none"`, or `"right"`.
     /// Can only be used if this is Splitter
-    pub splitter_input_priority: String,
+    pub splitter_input_priority: Option<String>,
     /// The output priority for this splitter. Either `"left"`, `"none"`, or `"right"`.
     /// Can only be used if this is Splitter
-    pub splitter_output_priority: String,
+    pub splitter_output_priority: Option<String>,
     /// Can only be used if this is ItemEntity
-    pub stack: MaybeCycle<LuaItemStack>,
+    pub stack: Option<MaybeCycle<LuaItemStack>>,
     /// The status of this entity, if any.
     pub status: Option<EntityStatus>,
     /// The entity this sticker is sticked to.
-    pub sticked_to: MaybeCycle<LuaEntity>,
+    pub sticked_to: Option<MaybeCycle<LuaEntity>>,
     /// The sticker entities attached to this entity, if any.
     pub stickers: Option<Vec<MaybeCycle<LuaEntity>>>,
     /// The storage filter for this logistic storage container.
-    pub storage_filter: MaybeCycle<LuaItemPrototype>,
+    pub storage_filter: Option<MaybeCycle<LuaItemPrototype>>,
     /// Whether the entity has direction. When it is false for this entity, it will always return north direction when asked for.
     pub supports_direction: bool,
     /// The tags associated with this entity ghost. `nil` if this is not an entity ghost.
@@ -2012,13 +2012,13 @@ pub struct LuaEntity {
     pub temperature: Option<Double>,
     /// The text of this flying-text entity.
     /// Can only be used if this is FlyingText
-    pub text: LocalisedString,
+    pub text: Option<LocalisedString>,
     /// The last tick this character entity was attacked.
     /// Can only be used if this is Character
-    pub tick_of_last_attack: u32,
+    pub tick_of_last_attack: Option<u32>,
     /// The last tick this character entity was damaged.
     /// Can only be used if this is Character
-    pub tick_of_last_damage: u32,
+    pub tick_of_last_damage: Option<u32>,
     /// Specifies the tiling size of the entity, is used to decide, if the center should be in the center of the tile (odd tile size dimension) or on the tile border (even tile size dimension). Uses the current direction of the entity.
     pub tile_height: u32,
     /// Specifies the tiling size of the entity, is used to decide, if the center should be in the center of the tile (odd tile size dimension) or on the tile border (even tile size dimension). Uses the current direction of the entity.
@@ -2027,19 +2027,19 @@ pub struct LuaEntity {
     ///
     /// - for ghosts set to uint32 max (4,294,967,295) to never expire.
     /// - for ghosts Cannot be set higher than [LuaForce::ghost_time_to_live](LuaForce::ghost_time_to_live) of the entity's force.
-    pub time_to_live: u32,
+    pub time_to_live: Option<u32>,
     /// The ticks until the next trigger effect of this smoke-with-trigger.
     /// Can only be used if this is SmokeWithTrigger
-    pub time_to_next_effect: u32,
+    pub time_to_next_effect: Option<u32>,
     /// The timeout that's left on this landmine in ticks. It describes the time between the landmine being placed and it being armed.
     /// Can only be used if this is LandMine
-    pub timeout: u32,
+    pub timeout: Option<u32>,
     /// Will this entity be picked up automatically when the player walks over it?
     /// Can only be used if this is ItemEntity
-    pub to_be_looted: bool,
+    pub to_be_looted: Option<bool>,
     /// The torso orientation of this spider vehicle.
     /// Can only be used if this is SpiderVehicle
-    pub torso_orientation: RealOrientation,
+    pub torso_orientation: Option<RealOrientation>,
     /// The train this rolling stock belongs to, if any. `nil` if this is not a rolling stock.
     pub train: Option<MaybeCycle<LuaTrain>>,
     /// Amount of trains related to this particular train stop. Includes train stopped at this train stop (until it finds a path to next target) and trains having this train stop as goal or waypoint.
@@ -2049,29 +2049,29 @@ pub struct LuaEntity {
     ///
     /// * Train may be included multiple times when braking distance covers this train stop multiple times
     /// * Value may be read even when train stop has no control behavior
-    pub trains_count: u32,
+    pub trains_count: Option<u32>,
     /// The number of trains in this rail block for this rail entity.
     /// Can only be used if this is Rail
-    pub trains_in_block: u32,
+    pub trains_in_block: Option<u32>,
     /// Amount of trains above which no new trains will be sent to this train stop. Writing nil will disable the limit (will set a maximum possible value).
     /// Can only be used if this is TrainStop
     ///
     /// # Notes
     ///
     /// * When a train stop has a control behavior with wire connected and set_trains_limit enabled, this value will be overwritten by it
-    pub trains_limit: u32,
+    pub trains_limit: Option<u32>,
     /// Index of the tree color.
-    pub tree_color_index: u8,
+    pub tree_color_index: Option<u8>,
     /// Maximum index of the tree colors.
-    pub tree_color_index_max: u8,
+    pub tree_color_index_max: Option<u8>,
     /// Index of the tree gray stage
-    pub tree_gray_stage_index: u8,
+    pub tree_gray_stage_index: Option<u8>,
     /// Maximum index of the tree gray stages.
-    pub tree_gray_stage_index_max: u8,
+    pub tree_gray_stage_index_max: Option<u8>,
     /// Index of the tree stage.
-    pub tree_stage_index: u8,
+    pub tree_stage_index: Option<u8>,
     /// Maximum index of the tree stages.
-    pub tree_stage_index_max: u8,
+    pub tree_stage_index_max: Option<u8>,
     /// The entity prototype type of this entity.
     #[serde(rename = "type")]
     pub typ: String,
@@ -2083,12 +2083,12 @@ pub struct LuaEntity {
     /// Only entities inheriting from [EntityWithOwner](https://wiki.factorio.com/Prototype/EntityWithOwner), as well as [ItemRequestProxy](https://wiki.factorio.com/Prototype/ItemRequestProxy) and [EntityGhost](https://wiki.factorio.com/Prototype/EntityGhost) are assigned a unit number. Returns `nil` otherwise.
     pub unit_number: Option<u32>,
     /// The units associated with this spawner entity.
-    pub units: Vec<MaybeCycle<LuaEntity>>,
+    pub units: Option<Vec<MaybeCycle<LuaEntity>>>,
     /// Is this object valid? This Lua object holds a reference to an object within the game engine. It is possible that the game-engine object is removed whilst a mod still holds the corresponding Lua object. If that happens, the object becomes invalid, i.e. this attribute will be `false`. Mods are advised to check for object validity if any change to the game state might have occurred between the creation of the Lua object and its access.
     pub valid: bool,
     /// Read when this spidertron auto-targets enemies
     /// Can only be used if this is SpiderVehicle
-    pub vehicle_automatic_targeting_parameters: VehicleAutomaticTargetingParameters,
+    pub vehicle_automatic_targeting_parameters: Option<VehicleAutomaticTargetingParameters>,
 }
 
 #[derive(Debug, Deserialize)]
@@ -6936,13 +6936,13 @@ pub struct LuaItemStack {
     pub active_index: Option<u32>,
     /// Whether the label for this item can be manually changed. When false the label can only be changed through the API.
     /// Can only be used if this is ItemWithLabel
-    pub allow_manual_label_change: bool,
+    pub allow_manual_label_change: Option<bool>,
     /// Number of bullets left in the magazine.
     /// Can only be used if this is AmmoItem
-    pub ammo: u32,
+    pub ammo: Option<u32>,
     /// If absolute snapping is enabled on this blueprint item.
     /// Can only be used if this is BlueprintItem
-    pub blueprint_absolute_snapping: bool,
+    pub blueprint_absolute_snapping: Option<bool>,
     /// Icons of this blueprint item, blueprint book, deconstruction item or upgrade planner. An item that doesn't have icons returns `nil` on read and throws error on write.
     /// Can only be used if this is BlueprintItem
     pub blueprint_icons: Option<Vec<BlueprintSignalIcon>>,
@@ -6957,14 +6957,14 @@ pub struct LuaItemStack {
     pub connected_entity: Option<MaybeCycle<LuaEntity>>,
     /// Raw materials required to build this blueprint. Result is a dictionary mapping each item prototype name to the required count.
     /// Can only be used if this is BlueprintItem
-    pub cost_to_build: HashMap<String, u32>,
+    pub cost_to_build: Option<HashMap<String, u32>>,
     /// Number of items in this stack.
     pub count: u32,
     /// The custom description this item-with-tags. This is shown over the normal item description if this is set to a non-empty value.
     pub custom_description: LocalisedString,
     /// The default icons for a blueprint item.
     /// Can only be used if this is BlueprintItem
-    pub default_icons: Vec<BlueprintSignalIcon>,
+    pub default_icons: Option<Vec<BlueprintSignalIcon>>,
     /// Durability of the contained item. Automatically capped at the item's maximum durability.
     /// Can only be used if this is Tool
     pub durability: Option<Double>,
@@ -6973,10 +6973,10 @@ pub struct LuaItemStack {
     pub entity_color: Option<Color>,
     /// The number of entity filters this deconstruction item supports.
     /// Can only be used if this is DeconstructionItem
-    pub entity_filter_count: u32,
+    pub entity_filter_count: Option<u32>,
     /// The blacklist/whitelist entity filter mode for this deconstruction item.
     /// Can only be used if this is DeconstructionItem
-    pub entity_filter_mode: DeconstructionItemEntityFilterMode,
+    pub entity_filter_mode: Option<DeconstructionItemEntityFilterMode>,
     /// The entity filters for this deconstruction item. The attribute is a sparse array with the keys representing the index of the filter. All strings in this array must be entity prototype names that don't have the `"not-deconstructable"` flag set and are either a `cliff` or marked as `minable`.
     pub entity_filters: Vec<String>,
     /// If this is an item with entity data, get the stored entity label.
@@ -6984,7 +6984,7 @@ pub struct LuaItemStack {
     pub entity_label: Option<String>,
     /// If this item extends the inventory it resides in (provides its contents for counts, crafting, insertion). Only callable on items with inventories.
     /// Can only be used if this is ItemWithInventory
-    pub extends_inventory: bool,
+    pub extends_inventory: Option<bool>,
     /// The equipment grid of this item, if any.
     pub grid: Option<MaybeCycle<LuaEquipmentGrid>>,
     /// How much health the item has, as a number in range [0, 1].
@@ -7044,25 +7044,25 @@ pub struct LuaItemStack {
     pub object_name: String,
     /// The insertion mode priority this ItemWithInventory uses when items are inserted into an inventory it resides in. Only callable on items with inventories.
     /// Can only be used if this is ItemWithInventory
-    pub prioritize_insertion_mode: String,
+    pub prioritize_insertion_mode: Option<String>,
     /// Prototype of the item held in this stack.
     pub prototype: MaybeCycle<LuaItemPrototype>,
     /// Can only be used if this is ItemWithTags
-    pub tags: Tags,
+    pub tags: Option<Tags>,
     /// The number of tile filters this deconstruction item supports.
     /// Can only be used if this is DeconstructionItem
-    pub tile_filter_count: u32,
+    pub tile_filter_count: Option<u32>,
     /// The blacklist/whitelist tile filter mode for this deconstruction item.
     /// Can only be used if this is DeconstructionItem
-    pub tile_filter_mode: DeconstructionItemTileFilterMode,
+    pub tile_filter_mode: Option<DeconstructionItemTileFilterMode>,
     /// The tile filters for this deconstruction item. The attribute is a sparse array with the keys representing the index of the filter. All strings in this array must be tile prototype names.
     pub tile_filters: Vec<String>,
     /// The tile selection mode for this deconstruction item.
     /// Can only be used if this is DeconstructionItem
-    pub tile_selection_mode: DeconstructionItemTileSelectionMode,
+    pub tile_selection_mode: Option<DeconstructionItemTileSelectionMode>,
     /// If this deconstruction item is set to allow trees and rocks only.
     /// Can only be used if this is DeconstructionItem
-    pub trees_and_rocks_only: bool,
+    pub trees_and_rocks_only: Option<bool>,
     /// Type of the item prototype.
     #[serde(rename = "type")]
     pub typ: String,

@@ -593,6 +593,28 @@ impl GenerateDefinition for Class {
                     || rust_name == "visible")
             {
                 typ = format!("Option<{typ}>");
+            } else if self.name == "LuaEntity"
+                && (rust_name == "cliff_orientation"
+                    || rust_name == "corpse_expires"
+                    || rust_name == "corpse_immune_to_entity_placement"
+                    || rust_name == "drop_position"
+                    || rust_name == "inserter_stack_size_override"
+                    || rust_name == "inserter_target_pickup_count"
+                    || rust_name == "item_requests"
+                    || rust_name == "link_id"
+                    || rust_name == "logistic_cell"
+                    || rust_name == "logistic_network"
+                    || rust_name == "neighbours"
+                    || rust_name == "power_switch_state"
+                    || rust_name == "request_from_buffers"
+                    || rust_name == "rocket_silo_status"
+                    || rust_name == "sticked_to"
+                    || rust_name == "storage_filter"
+                    || rust_name == "time_to_live"
+                    || rust_name == "units"
+                    || rust_name.starts_with("tree_"))
+            {
+                typ = format!("Option<{typ}>");
             }
 
             let mut attribute_description = String::new();
@@ -612,6 +634,10 @@ impl GenerateDefinition for Class {
                 subclass_description.push_str(&subclasses.join(" or "));
                 subclass_description.push('\n');
                 attribute_description.push_str(&subclass_description);
+                // TODO: patch the spec instead?
+                if !typ.starts_with("Option<") {
+                    typ = format!("Option<{typ}>");
+                }
             }
             attribute_description.push_str(&generate_notes_and_examples(
                 attribute,

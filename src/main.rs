@@ -15,6 +15,10 @@ use crate::generated::*;
 fn main() -> io::Result<()> {
     //remote_console()?;
 
+    // let json = fs::read_to_string("events/92.json")?;
+    // let factorio_type: Result<FactorioType, _> = serde_json::from_str(&json);
+    // println!("{factorio_type:?}");
+
     test_samples("events")?;
 
     Ok(())
@@ -114,6 +118,9 @@ fn test_sample(sample_path: PathBuf) -> io::Result<Option<String>> {
         .unwrap_or("not_found")
         .to_owned();
     let sample_json = fs::read_to_string(sample_path)?;
+    if sample_json.is_empty() {
+        return Ok(None);
+    }
     let factorio_type = serde_json::from_str::<FactorioType>(&sample_json);
     if let Err(e) = factorio_type {
         Ok(Some(format!("{file_name}: {e}")))
