@@ -13,7 +13,7 @@ use remote_console::RemoteConsole;
 use crate::generated::*;
 
 fn main() -> io::Result<()> {
-    //remote_console()?;
+    remote_console()?;
 
     // let json = fs::read_to_string("events/0.json")?;
     // let factorio_type: Result<OnBuiltEntity, _> = serde_json::from_str(&json);
@@ -32,13 +32,7 @@ fn remote_console() -> io::Result<()> {
     if !response.is_empty() {
         println!("{response}");
     } else {
-        let response = console.send_command(
-            "
-            rcon.print(global.lookup.cycles[6714].json)
-        ",
-        )?;
-        println!("{response}");
-        return Ok(());
+        return parse_objects(&mut console);
 
         let paths = fs::read_dir("events")?;
         let mut index = paths.count();
@@ -64,6 +58,29 @@ fn remote_console() -> io::Result<()> {
         //generate_samples(&mut console)?;
     }
 
+    Ok(())
+}
+
+fn parse_objects(console: &mut RemoteConsole) -> io::Result<()> {
+    let response = console.send_command(
+        "
+        for k,v in pairs(global.lookup.cycles) do
+            rcon.print(v.obj.object_name)
+        end
+        --rcon.print(global.lookup.cycles[6714].json)
+    ",
+    )?;
+    let names: Vec<_> = response.split('\n').collect();
+    let mut counter: HashMap<&str, usize> = HashMap::new();
+    for name in names {
+        let entry = counter.entry(name).or_default();
+        *entry += 1;
+    }
+    let mut sorted: Vec<(&str, usize)> = counter.into_iter().collect();
+    sorted.sort_by(|lhs, rhs| rhs.1.cmp(&lhs.1));
+    for entry in sorted {
+        println!("{:4}: {}", entry.1, entry.0);
+    }
     Ok(())
 }
 
@@ -146,7 +163,7 @@ fn test_sample(sample_path: PathBuf) -> io::Result<Option<String>> {
 
 // TODO: improve performance of lookup table with grouping (e.g. by object_name)?
 //      -> currently around 30 seconds in total with a fresh cache
-//      -> check distribution of class types
+//      -> find subgroups per class type
 // TODO: improve compile times (only include needed types?)
 // TODO: split map_settings and other tables in separate files
 // TODO: check for more "cycles"

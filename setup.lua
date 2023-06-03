@@ -234,10 +234,9 @@ end
     -- -> e.g. unit_number for LuaEntity with type "unit"
     -- check which classes appear the most
 -- TODO: use separate counter for class_id
-function is_cycle(obj, map)
+function is_cycle(obj)
     for k,v in pairs(global.lookup.cycles) do
         if v.obj == obj then
-            map[v.obj.object_name .. ':' .. tostring(k)] = 0
             return true, k
         end
     end
@@ -290,14 +289,14 @@ function is_class(obj)
 end
 
 function to_json(obj)
-    return to_json_internal(obj, 1, {}, false)
+    return to_json_internal(obj, 1, false)
 end
 
 function to_json_cycles_only(obj)
-    return to_json_internal(obj, 1, {}, true)
+    return to_json_internal(obj, 1, true)
 end
 
-function to_json_internal(obj, depth, map, cycles_only)
+function to_json_internal(obj, depth, cycles_only)
     if type(obj) ~= 'table' then
         if type(obj) == 'string' then
             return '"' .. obj:gsub('"', '\\"') .. '"'
@@ -317,7 +316,7 @@ function to_json_internal(obj, depth, map, cycles_only)
         local json = {'{'}
         for k,v in pairs(obj) do
             table.insert(json, '"' .. tostring(k) .. '":')
-            table.insert(json, to_json_internal(v, depth + 1, map))
+            table.insert(json, to_json_internal(v, depth + 1))
             table.insert(json, ',\n')
         end
         local size = #json
@@ -331,7 +330,7 @@ function to_json_internal(obj, depth, map, cycles_only)
     local json = {'{'}
     local is_array = false
     local class = is_class(obj)
-    local cycle, id = is_cycle(obj, map)
+    local cycle, id = is_cycle(obj)
     if cycle and (not cycles_only or depth > 1) then
         if depth == 1 then
             return global.lookup.cycles[id].json
@@ -373,7 +372,7 @@ function to_json_internal(obj, depth, map, cycles_only)
         end
         for k,v in pairs(values) do
             if is_allowed_to_access_attribute(obj, values, k) then
-                local internal = to_json_internal(obj[k], depth + 1, map)
+                local internal = to_json_internal(obj[k], depth + 1)
                 if internal ~= 'nil' then
                     if not is_array then
                         table.insert(json, '"' .. k .. '":')
@@ -413,6 +412,7 @@ if not global.lookup then
     global.lookup = {}
 end
 if not global.lookup.cycles then
+    global.lookup.cycle_count = 0
     global.lookup.cycles = {}
 end
 if not global.lookup.queue then
@@ -945,7 +945,6 @@ for k,v in pairs(defines.events) do
         and v ~= defines.events.on_chunk_charted then
     --if v == defines.events.on_player_crafted_item then
         script.on_event(v, function(event)
-            --global.last_entity = event.item_stack
             table.insert(global.lookup.queue, to_json(event))
         end)
     end 
@@ -954,6 +953,7 @@ end
 function pull_event_queue()
     for k,v in pairs(global.lookup.queue) do
         rcon.print(v)
+        -- needed to later split mutliple events
         rcon.print('')
     end
     global.lookup.queue = {}
