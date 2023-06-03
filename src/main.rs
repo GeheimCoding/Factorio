@@ -35,13 +35,39 @@ fn remote_console() -> io::Result<()> {
     if !response.is_empty() {
         println!("{response}");
     } else {
-        print_invalid_objects(&mut console);
-
+        let response = console.send_command(
+            "
+            to_json(game)
+            rcon.print(global.lookup.cycle_count)
+        ",
+        )?;
+        println!("{response}");
+        //find_all_entities(&mut console);
         //return parse_objects(&mut console);
         //listen_to_events(&mut console);
         //generate_samples(&mut console)?;
     }
 
+    Ok(())
+}
+
+fn find_all_entities(console: &mut RemoteConsole) -> io::Result<()> {
+    let response = console.send_command(
+        "
+        local entities = {}
+        for k,v in pairs(game.surfaces['nauvis'].find_entities()) do
+            local type = v.type
+            if not entities[type] then
+                entities[type] = 0
+            end
+            entities[type] = entities[type] + 1
+            print(k)
+            to_json(v)
+        end
+        rcon.print(serpent.block(entities))
+    ",
+    )?;
+    println!("{response}");
     Ok(())
 }
 
@@ -194,7 +220,6 @@ fn test_sample(sample_path: PathBuf) -> io::Result<Option<String>> {
 //      -> don't trust uniqueness, always have "array" at the end
 //      -> when to use subgroups instead of just looping?
 // TODO: improve compile times (only include needed types?)
-// TODO: split map_settings and other tables in separate files
 // TODO: check for more "cycles"
 // TODO: combine all FlowStatistics
 // TODO: better naming, e.g. cache instead of lookup

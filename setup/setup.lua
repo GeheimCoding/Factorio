@@ -142,6 +142,15 @@ function to_json_cycles_only(obj)
     return to_json_internal(obj, 1, true)
 end
 
+function is_invalid(obj)
+    return obj.object_name
+    and obj.object_name ~= 'LuaGameScript'
+    and obj.object_name ~= 'LuaDifficultySettings'
+    and obj.object_name ~= 'LuaGameViewSettings'
+    and string.sub(obj.object_name, 1, 14) ~= 'LuaMapSettings'
+    and obj.valid == false
+end
+
 function to_json_internal(obj, depth, cycles_only)
     if type(obj) ~= 'table' then
         if type(obj) == 'string' then
@@ -154,9 +163,6 @@ function to_json_internal(obj, depth, cycles_only)
                 return string
             end
         end
-    end
-    if obj.valid == false then
-        return '{}'
     end
     if obj.object_name == 'LuaCustomTable' then
         local json = {'{'}
@@ -171,6 +177,9 @@ function to_json_internal(obj, depth, cycles_only)
         end
         table.insert(json, '}')
         return table.concat(json, '')
+    end
+    if is_invalid(obj) then
+        return '{}'
     end
 
     local json = {'{'}

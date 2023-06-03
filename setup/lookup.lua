@@ -1,3 +1,4 @@
+global.lookup = {}
 if not global.lookup then
     global.lookup = {}
 end
