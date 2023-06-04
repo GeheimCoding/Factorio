@@ -36,14 +36,14 @@ fn remote_console() -> io::Result<()> {
     if !response.is_empty() {
         println!("{response}");
     } else {
-        let response = console.send_command(
-            "
-            rcon.print(serpent.block(global.lookup.cache))
-        ",
-        )?;
-        println!("{response}");
+        // let response = console.send_command(
+        //     "
+        //     rcon.print(serpent.block(global.lookup.cache))
+        // ",
+        // )?;
+        // println!("{response}");
         //find_all_entities(&mut console);
-        //parse_objects(&mut console);
+        parse_objects(&mut console);
         //listen_to_events(&mut console);
         //generate_samples(&mut console)?;
     }
@@ -121,22 +121,52 @@ fn listen_to_events(console: &mut RemoteConsole) -> io::Result<()> {
 fn parse_objects(console: &mut RemoteConsole) -> io::Result<()> {
     let response = console.send_command(
         "
-        for k,v in pairs(global.lookup.objects) do
-            rcon.print(v.obj.object_name)
+        function get_cache_counts(cache)
+            if cache.key then
+                local max_count = 0
+                local count = 0
+                for k,v in pairs(cache) do
+                    if k ~= 'key' and k ~= 'cache' then
+                        local c, m = get_cache_counts(v)
+                        count = count + c
+                        if m > max_count then
+                            max_count = m
+                        end
+                    end
+                end
+                return count, max_count
+            else
+                local count = #cache.cache
+                return count, count
+            end
         end
-        --rcon.print(global.lookup.objects[6714].json)
+        for k,v in pairs(global.lookup.cache) do
+            local total_count, max_count = get_cache_counts(v)
+            rcon.print(total_count .. ',' .. k .. ',' .. max_count)
+        end
     ",
     )?;
-    let names: Vec<_> = response.split('\n').collect();
-    let mut counter: HashMap<&str, usize> = HashMap::new();
-    for name in names {
-        let entry = counter.entry(name).or_default();
-        *entry += 1;
-    }
-    let mut sorted: Vec<(&str, usize)> = counter.into_iter().collect();
-    sorted.sort_by(|lhs, rhs| rhs.1.cmp(&lhs.1));
-    for entry in sorted {
-        println!("{:4}: {}", entry.1, entry.0);
+    let mut objects: Vec<Vec<_>> = response
+        .split('\n')
+        .map(|o| o.split(',').collect())
+        .collect();
+    objects.sort_by(|lhs, rhs| {
+        if lhs[0] == rhs[0] {
+            lhs[1].cmp(rhs[1])
+        } else {
+            rhs[0]
+                .parse::<u32>()
+                .unwrap()
+                .cmp(&lhs[0].parse::<u32>().unwrap())
+        }
+    });
+    let total_width = objects.iter().map(|object| object[0].len()).max().unwrap();
+    let name_width = objects.iter().map(|object| object[1].len()).max().unwrap();
+    for object in objects {
+        println!(
+            "{:total_width$}: {:name_width$}  -> max #cache = {}",
+            object[0], object[1], object[2]
+        );
     }
     Ok(())
 }

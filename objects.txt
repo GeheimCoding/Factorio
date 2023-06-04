@@ -1,49 +1,49 @@
- 680: LuaParticlePrototype
- 636: LuaRecipe
- 576: LuaTechnology
- 528: LuaEntityPrototype
- 235: LuaItemPrototype
- 212: LuaRecipePrototype
- 192: LuaTechnologyPrototype
-  95: LuaGroup
-  60: LuaNoiseLayerPrototype
-  52: LuaTilePrototype
-  52: LuaVirtualSignalPrototype
-  46: LuaElectricEnergySourcePrototype
-  43: LuaDecorativePrototype
-  38: LuaAchievementPrototype
-  32: LuaNamedNoiseExpression
-  30: LuaFontPrototype
-  28: LuaFluidBoxPrototype
-  22: LuaTrivialSmokePrototype
-  14: LuaAmmoCategoryPrototype
-  13: LuaEquipmentPrototype
-  12: LuaShortcutPrototype
-  10: LuaBurnerPrototype
-   9: LuaFluidPrototype
-   9: LuaRecipeCategoryPrototype
-   8: LuaDamagePrototype
-   8: LuaAutoplaceControlPrototype
-   8: LuaCustomInputPrototype
-   6: LuaGuiElement
-   6: LuaStyle
-   5: LuaVoidEnergySourcePrototype
-   4: LuaEquipmentGridPrototype
-   4: LuaHeatBufferPrototype
-   3: LuaEntityBuildFlowStatistics
-   3: LuaKillCountFlowStatistics
-   3: LuaFluidProductionFlowStatistics
-   3: LuaModuleCategoryPrototype
-   3: LuaForce
-   3: LuaItemProductionFlowStatistics
-   2: LuaFuelCategoryPrototype
-   2: LuaItemStack
-   2: LuaResourceCategoryPrototype
-   1: LuaHeatEnergySourcePrototype
-   1: LuaPermissionGroup
-   1: LuaPollutionFlowStatistics
-   1: LuaSurface
-   1: LuaPermissionGroups
-   1: LuaEquipmentCategoryPrototype
-   1: LuaPlayer
-   1: LuaGui
+680: LuaParticlePrototype              -> max #cache = 680
+636: LuaRecipe                         -> max #cache = 3
+576: LuaTechnology                     -> max #cache = 3
+528: LuaEntityPrototype                -> max #cache = 158
+235: LuaItemPrototype                  -> max #cache = 4
+212: LuaRecipePrototype                -> max #cache = 2
+192: LuaTechnologyPrototype            -> max #cache = 11
+95 : LuaGroup                          -> max #cache = 10
+60 : LuaNoiseLayerPrototype            -> max #cache = 60
+52 : LuaTilePrototype                  -> max #cache = 1
+52 : LuaVirtualSignalPrototype         -> max #cache = 1
+46 : LuaElectricEnergySourcePrototype  -> max #cache = 23
+43 : LuaDecorativePrototype            -> max #cache = 7
+38 : LuaAchievementPrototype           -> max #cache = 1
+32 : LuaNamedNoiseExpression           -> max #cache = 1
+30 : LuaFontPrototype                  -> max #cache = 1
+28 : LuaFluidBoxPrototype              -> max #cache = 10
+22 : LuaTrivialSmokePrototype          -> max #cache = 22
+14 : LuaAmmoCategoryPrototype          -> max #cache = 14
+13 : LuaEquipmentPrototype             -> max #cache = 12
+12 : LuaShortcutPrototype              -> max #cache = 1
+10 : LuaBurnerPrototype                -> max #cache = 10
+9  : LuaFluidPrototype                 -> max #cache = 1
+9  : LuaRecipeCategoryPrototype        -> max #cache = 9
+8  : LuaAutoplaceControlPrototype      -> max #cache = 1
+8  : LuaCustomInputPrototype           -> max #cache = 8
+8  : LuaDamagePrototype                -> max #cache = 8
+6  : LuaGuiElement                     -> max #cache = 6
+6  : LuaStyle                          -> max #cache = 6
+5  : LuaVoidEnergySourcePrototype      -> max #cache = 5
+4  : LuaEquipmentGridPrototype         -> max #cache = 4
+4  : LuaHeatBufferPrototype            -> max #cache = 4
+3  : LuaEntityBuildFlowStatistics      -> max #cache = 3
+3  : LuaFluidProductionFlowStatistics  -> max #cache = 3
+3  : LuaForce                          -> max #cache = 3
+3  : LuaItemProductionFlowStatistics   -> max #cache = 3
+3  : LuaKillCountFlowStatistics        -> max #cache = 3
+3  : LuaModuleCategoryPrototype        -> max #cache = 3
+2  : LuaFuelCategoryPrototype          -> max #cache = 2
+2  : LuaItemStack                      -> max #cache = 2
+2  : LuaResourceCategoryPrototype      -> max #cache = 2
+1  : LuaEquipmentCategoryPrototype     -> max #cache = 1
+1  : LuaGui                            -> max #cache = 1
+1  : LuaHeatEnergySourcePrototype      -> max #cache = 1
+1  : LuaPermissionGroup                -> max #cache = 1
+1  : LuaPermissionGroups               -> max #cache = 1
+1  : LuaPlayer                         -> max #cache = 1
+1  : LuaPollutionFlowStatistics        -> max #cache = 1
+1  : LuaSurface                        -> max #cache = 1
