@@ -77,12 +77,13 @@ function is_value_dictionary(obj, key)
 end
 
 function insert_into_cache(obj)
+    global.lookup.class_id = global.lookup.class_id + 1
     if not global.lookup.cache[obj.object_name] then
         global.lookup.cache[obj.object_name] = {}
     end
     -- TODO: improve caching with subgroups
     -- -> e.g. unit_number for LuaEntity with type "unit"
-    table.insert(global.lookup.cache[obj.object_name], global.lookup.cycle_count)
+    table.insert(global.lookup.cache[obj.object_name], global.lookup.class_id)
 end
 
 function get_cached_table(obj)
@@ -96,7 +97,7 @@ function is_cycle(obj)
         return false, 0
     end
     for k,v in pairs(cached_table) do
-        local cached_obj = global.lookup.cycles[v].obj
+        local cached_obj = global.lookup.objects[v].obj
         if cached_obj == obj then
             return true, v
         end
@@ -203,7 +204,7 @@ function to_json_internal(obj, depth, cycles_only)
     local cycle, id = is_cycle(obj)
     if cycle and (not cycles_only or depth > 1) then
         if depth == 1 then
-            return global.lookup.cycles[id].json
+            return global.lookup.objects[id].json
         end
         table.insert(json, '"cycle_id":' .. id)
     else
@@ -215,10 +216,9 @@ function to_json_internal(obj, depth, cycles_only)
             if cycles_only then
                 table.insert(json, '"class_id":' .. id .. ',\n')
             else
-                global.lookup.cycle_count = global.lookup.cycle_count + 1
                 insert_into_cache(obj)
-                table.insert(global.lookup.cycles, {obj = obj, json = ''})
-                table.insert(json, '"class_id":' .. global.lookup.cycle_count .. ',\n')
+                table.insert(global.lookup.objects, {obj = obj, json = ''})
+                table.insert(json, '"class_id":' .. global.lookup.class_id .. ',\n')
             end
         end
         if class or obj.object_name == 'LuaGameScript' then
@@ -272,7 +272,7 @@ function to_json_internal(obj, depth, cycles_only)
     local obj_json = table.concat(json, '')
     if class and not cycle then
         local _, index = is_cycle(obj, {})
-        global.lookup.cycles[index].json = obj_json
+        global.lookup.objects[index].json = obj_json
     end
     return obj_json
 end

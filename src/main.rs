@@ -61,7 +61,9 @@ fn find_all_entities(console: &mut RemoteConsole) -> io::Result<()> {
                 entities[type] = 0
             end
             entities[type] = entities[type] + 1
-            print(k)
+            if k % 500 == 0 then
+                print(k)
+            end
             to_json(v)
         end
         rcon.print(serpent.block(entities))

@@ -1,3 +1,5 @@
+-- This lists all the subclasses which are allowed to access
+-- the attributes, which would otherwise throw an error.
 global.lookup.subclasses = {
     LuaEntity = {
         armed = "LandMine",
