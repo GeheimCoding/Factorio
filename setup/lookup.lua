@@ -13,6 +13,13 @@ if not global.lookup.cache then
     -- Each entry in the cache table has a key for potential sub caches
     -- and the actual cache itself for the current level
     global.lookup.cache = {}
+    -- The amount for the following is too low to bother with caching:
+    global.lookup.skip_cache = {
+        LuaVoidEnergySourcePrototype = 0,
+        LuaBurnerPrototype = 0,
+        LuaHeatEnergySourcePrototype = 0,
+        LuaHeatBufferPrototype = 0,
+    }
 end
 -- This is the message queue which gets pulled periodically.
 if not global.lookup.queue then

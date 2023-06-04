@@ -31,19 +31,19 @@ fn remote_console() -> io::Result<()> {
     setup.push_str(&fs::read_to_string("setup/lookup.lua")?);
     setup.push_str(&fs::read_to_string("setup/get_values.lua")?);
     setup.push_str(&fs::read_to_string("setup/subclasses.lua")?);
+    setup.push_str(&fs::read_to_string("setup/insert_into_cache.lua")?);
     let response = console.send_command(&setup)?;
     if !response.is_empty() {
         println!("{response}");
     } else {
         let response = console.send_command(
             "
-            to_json(game)
-            rcon.print(global.lookup.class_id)
+            rcon.print(serpent.block(global.lookup.cache))
         ",
         )?;
         println!("{response}");
         //find_all_entities(&mut console);
-        //return parse_objects(&mut console);
+        //parse_objects(&mut console);
         //listen_to_events(&mut console);
         //generate_samples(&mut console)?;
     }
@@ -77,7 +77,7 @@ fn print_invalid_objects(console: &mut RemoteConsole) -> io::Result<()> {
     let response = console.send_command(
         "
         local invalid = {}
-        for k,v in pairs(global.lookup.cycles) do
+        for k,v in pairs(global.lookup.objects) do
             if not v.obj.valid then
                 local name = v.obj.object_name
                 if not invalid[name] then
@@ -121,10 +121,10 @@ fn listen_to_events(console: &mut RemoteConsole) -> io::Result<()> {
 fn parse_objects(console: &mut RemoteConsole) -> io::Result<()> {
     let response = console.send_command(
         "
-        for k,v in pairs(global.lookup.cycles) do
+        for k,v in pairs(global.lookup.objects) do
             rcon.print(v.obj.object_name)
         end
-        --rcon.print(global.lookup.cycles[6714].json)
+        --rcon.print(global.lookup.objects[6714].json)
     ",
     )?;
     let names: Vec<_> = response.split('\n').collect();
@@ -143,7 +143,7 @@ fn parse_objects(console: &mut RemoteConsole) -> io::Result<()> {
 
 fn generate_samples(console: &mut RemoteConsole) -> io::Result<()> {
     let class_amount: u32 = console
-        .send_command("rcon.print(#global.lookup.cycles)")?
+        .send_command("rcon.print(#global.lookup.objects)")?
         .parse()
         .map_err(|e| io::Error::new(io::ErrorKind::Other, e))?;
 
@@ -154,7 +154,7 @@ fn generate_samples(console: &mut RemoteConsole) -> io::Result<()> {
         class_to_json_file(
             console,
             class_id,
-            &format!("global.lookup.cycles[{class_id}].obj"),
+            &format!("global.lookup.objects[{class_id}].obj"),
         )?;
     }
 
@@ -212,20 +212,18 @@ fn test_sample(sample_path: PathBuf) -> io::Result<Option<String>> {
     }
 }
 
+// TODO: study cache.txt
+// TODO: improve performance of lookup table
+//      -> fix some cache attributes (e.g. LuaDamagePrototype order is always "")
+//      -> make lookup table for first-level-attribute
+
 // TODO: add #[serde(deny_unknown_fields)]
 // TODO: check more serde attributes like #[serde(default)] or content for Table/Tuple?
 //      -> Option<ContainerType> could drop the option with default
 
-// TODO: improve performance of lookup table with grouping (e.g. by object_name)?
-//      -> currently around 30 seconds in total with a fresh cache
-//      -> find subgroups per class type
-//      -> don't trust uniqueness, always have "array" at the end
-//      -> when to use subgroups instead of just looping?
 // TODO: improve compile times (only include needed types?)
 // TODO: check for more "cycles"
 // TODO: combine all FlowStatistics
-// TODO: better naming, e.g. cache instead of lookup
-// TODO: use global lookup table for objects and unique_ids
 // TODO: make subclass specific attributes optional?
 // TODO: fix crash in remote_console when server shuts down
 // TODO: fix/confirm subclasses type casing

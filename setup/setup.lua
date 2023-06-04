@@ -76,17 +76,10 @@ function is_value_dictionary(obj, key)
     end
 end
 
-function insert_into_cache(obj)
-    global.lookup.class_id = global.lookup.class_id + 1
-    if not global.lookup.cache[obj.object_name] then
-        global.lookup.cache[obj.object_name] = {key = nil, cache = {}}
-    end
-    -- TODO: improve caching with subgroups
-    -- -> e.g. unit_number for LuaEntity with type "unit"
-    table.insert(global.lookup.cache[obj.object_name].cache, global.lookup.class_id)
-end
-
 function get_cached_table_internal(cache, obj)
+    if not cache then
+        return nil
+    end
     local key = cache.key
     if not key then
         return cache.cache
@@ -96,12 +89,7 @@ function get_cached_table_internal(cache, obj)
 end
 
 function get_cached_table(obj)
-    local cache = global.lookup.cache[obj.object_name]
-    if not cache then
-        return nil
-    else
-        return get_cached_table_internal(cache, obj)
-    end
+    return get_cached_table_internal(global.lookup.cache[obj.object_name], obj)
 end
 
 function is_cycle(obj)

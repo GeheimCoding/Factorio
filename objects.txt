@@ -1,11 +1,7 @@
-1286: LuaFluidBox
-1286: LuaEntity
- 931: LuaItemStack
  680: LuaParticlePrototype
  636: LuaRecipe
  576: LuaTechnology
  528: LuaEntityPrototype
- 352: LuaInventory
  235: LuaItemPrototype
  212: LuaRecipePrototype
  192: LuaTechnologyPrototype
@@ -16,7 +12,6 @@
   46: LuaElectricEnergySourcePrototype
   43: LuaDecorativePrototype
   38: LuaAchievementPrototype
-  34: LuaBurner
   32: LuaNamedNoiseExpression
   30: LuaFontPrototype
   28: LuaFluidBoxPrototype
@@ -27,28 +22,28 @@
   10: LuaBurnerPrototype
    9: LuaFluidPrototype
    9: LuaRecipeCategoryPrototype
-   8: LuaCustomInputPrototype
    8: LuaDamagePrototype
    8: LuaAutoplaceControlPrototype
+   8: LuaCustomInputPrototype
    6: LuaGuiElement
    6: LuaStyle
    5: LuaVoidEnergySourcePrototype
-   4: LuaHeatBufferPrototype
    4: LuaEquipmentGridPrototype
-   3: LuaForce
-   3: LuaModuleCategoryPrototype
-   3: LuaKillCountFlowStatistics
+   4: LuaHeatBufferPrototype
    3: LuaEntityBuildFlowStatistics
-   3: LuaItemProductionFlowStatistics
+   3: LuaKillCountFlowStatistics
    3: LuaFluidProductionFlowStatistics
-   2: LuaUnitGroup
-   2: LuaResourceCategoryPrototype
+   3: LuaModuleCategoryPrototype
+   3: LuaForce
+   3: LuaItemProductionFlowStatistics
    2: LuaFuelCategoryPrototype
-   1: LuaPermissionGroups
-   1: LuaGui
-   1: LuaEquipmentCategoryPrototype
-   1: LuaPlayer
-   1: LuaPollutionFlowStatistics
+   2: LuaItemStack
+   2: LuaResourceCategoryPrototype
    1: LuaHeatEnergySourcePrototype
    1: LuaPermissionGroup
+   1: LuaPollutionFlowStatistics
    1: LuaSurface
+   1: LuaPermissionGroups
+   1: LuaEquipmentCategoryPrototype
+   1: LuaPlayer
+   1: LuaGui
