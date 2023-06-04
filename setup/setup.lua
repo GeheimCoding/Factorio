@@ -79,16 +79,29 @@ end
 function insert_into_cache(obj)
     global.lookup.class_id = global.lookup.class_id + 1
     if not global.lookup.cache[obj.object_name] then
-        global.lookup.cache[obj.object_name] = {}
+        global.lookup.cache[obj.object_name] = {key = nil, cache = {}}
     end
     -- TODO: improve caching with subgroups
     -- -> e.g. unit_number for LuaEntity with type "unit"
-    table.insert(global.lookup.cache[obj.object_name], global.lookup.class_id)
+    table.insert(global.lookup.cache[obj.object_name].cache, global.lookup.class_id)
+end
+
+function get_cached_table_internal(cache, obj)
+    local key = cache.key
+    if not key then
+        return cache.cache
+    else
+        return get_cached_table_internal(cache[obj[key]], obj)
+    end
 end
 
 function get_cached_table(obj)
-    -- TODO: improve caching with subgroups
-    return global.lookup.cache[obj.object_name]
+    local cache = global.lookup.cache[obj.object_name]
+    if not cache then
+        return nil
+    else
+        return get_cached_table_internal(cache, obj)
+    end
 end
 
 function is_cycle(obj)

@@ -4,12 +4,14 @@
 if not global.lookup then
     global.lookup = {}
 end
--- The class_id is always increasing for each entry in the cache.
--- Each entry in the objects table has a reference to the object
--- and the initial json to quickly look it up again.
 if not global.lookup.cache then
+    -- The class_id is always increasing for each entry in the cache.
     global.lookup.class_id = 0
+    -- Each entry in the objects table has a reference to the object
+    -- and the initial json to quickly look it up again.
     global.lookup.objects = {}
+    -- Each entry in the cache table has a key for potential sub caches
+    -- and the actual cache itself for the current level
     global.lookup.cache = {}
 end
 -- This is the message queue which gets pulled periodically.

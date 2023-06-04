@@ -37,8 +37,8 @@ fn remote_console() -> io::Result<()> {
     } else {
         let response = console.send_command(
             "
-            --to_json(game)
-            rcon.print(global.lookup.cycle_count)
+            to_json(game)
+            rcon.print(global.lookup.class_id)
         ",
         )?;
         println!("{response}");
