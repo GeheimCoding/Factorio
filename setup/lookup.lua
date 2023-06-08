@@ -13,13 +13,6 @@ if not global.lookup.cache then
     -- Each entry in the cache table has a key for potential sub caches
     -- and the actual cache itself for the current level
     global.lookup.cache = {}
-    -- The amount for the following is too low to bother with caching:
-    global.lookup.skip_cache = {
-        LuaVoidEnergySourcePrototype = 0,
-        LuaBurnerPrototype = 0,
-        LuaHeatEnergySourcePrototype = 0,
-        LuaHeatBufferPrototype = 0,
-    }
 end
 -- This is the message queue which gets pulled periodically.
 if not global.lookup.queue then
@@ -32,3 +25,24 @@ if not global.lookup.events then
         global.lookup.events[v] = k
     end
 end
+-- Defines if and which attribute each object should be cached by
+global.lookup.first_attribute_cache = {
+    LuaFluidBoxPrototype = 'volume',
+    LuaElectricEnergySourcePrototype = 'buffer_capacity',
+    LuaGroup = 'name',
+    LuaRecipe = 'name',
+    LuaTechnology = 'name',
+    LuaFontPrototype = 'name',
+    LuaItemPrototype = 'name',
+    LuaTilePrototype = 'name',
+    LuaEntityPrototype = 'name',
+    LuaRecipePrototype = 'name',
+    LuaParticlePrototype = 'name',
+    LuaDecorativePrototype = 'name',
+    LuaNoiseLayerPrototype = 'name',
+    LuaTechnologyPrototype = 'name',
+    LuaAchievementPrototype = 'name',
+    LuaNamedNoiseExpression = 'name',
+    LuaTrivialSmokePrototype = 'name',
+    LuaVirtualSignalPrototype = 'name',
+}

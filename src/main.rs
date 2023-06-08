@@ -43,7 +43,7 @@ fn remote_console() -> io::Result<()> {
         // )?;
         // println!("{response}");
         //find_all_entities(&mut console);
-        parse_objects(&mut console);
+        //parse_objects(&mut console);
         //listen_to_events(&mut console);
         //generate_samples(&mut console)?;
     }
@@ -243,15 +243,17 @@ fn test_sample(sample_path: PathBuf) -> io::Result<Option<String>> {
 }
 
 // TODO: study cache.txt
+// TODO: improve compile times with workspaces!
+
 // TODO: improve performance of lookup table
 //      -> fix some cache attributes (e.g. LuaDamagePrototype order is always "")
 //      -> make lookup table for first-level-attribute
+//      -> use local tables to store functions? (they are not allowed in global)
 
 // TODO: add #[serde(deny_unknown_fields)]
 // TODO: check more serde attributes like #[serde(default)] or content for Table/Tuple?
 //      -> Option<ContainerType> could drop the option with default
 
-// TODO: improve compile times (only include needed types?)
 // TODO: check for more "cycles"
 // TODO: combine all FlowStatistics
 // TODO: make subclass specific attributes optional?

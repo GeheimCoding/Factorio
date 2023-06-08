@@ -1,4 +1,5 @@
 function needs_special_care(obj, attribute)
+    -- TODO: improve further with lookup table?
     if obj.object_name == 'LuaGuiElement' then
         return attribute == 'actual_size' or attribute == 'anchor'
     elseif obj.object_name == 'LuaPlayer' then
@@ -14,6 +15,7 @@ function get_values(obj)
         return obj
     end
 
+    -- TODO: improve further with single lookup table?
     if obj.object_name == 'LuaDifficultySettings' then
         return get_difficulty_settings_values()
     elseif obj.object_name == 'LuaMapSettings' then
@@ -47,6 +49,7 @@ function get_values(obj)
 end
 
 function is_value_dictionary(obj, key)
+    -- TODO: improve with lookup table?
     if obj.object_name == 'LuaEntityPrototype' then
         return key == 'collision_mask'
             or key == 'collision_mask_with_flags'
@@ -98,8 +101,7 @@ function is_cycle(obj)
         return false, 0
     end
     for k,v in pairs(cached_table) do
-        local cached_obj = global.lookup.objects[v].obj
-        if cached_obj == obj then
+        if global.lookup.objects[v].obj == obj then
             return true, v
         end
     end
@@ -108,6 +110,7 @@ end
 
 function is_allowed_to_access_attribute(obj, values, attribute)
     --print(attribute)
+    -- TODO: improve performance
     if obj.object_name == 'LuaItemStack' then
         if not obj.valid_for_read then
             return false
@@ -209,6 +212,7 @@ function to_json_internal(obj, depth, cycles_only)
         end
         table.insert(json, '"cycle_id":' .. id)
     else
+        -- TODO: cache values
         local values = get_values(obj)
         local is_empty = table_size(values) == 0
         is_array = values[1] ~= nil or is_empty
