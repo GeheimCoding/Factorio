@@ -1,5 +1,4 @@
 use std::collections::HashMap;
-use std::collections::HashSet;
 
 use serde::Deserialize;
 
@@ -176,6 +175,7 @@ pub struct LuaBootstrap {
     pub object_name: String,
 }
 
+#[allow(unused)]
 pub enum LuaBootstrapMethodsOnConfigurationChangedHandlerUnion {
     Function(fn(ConfigurationChangedData) -> ()),
     Nil,
@@ -189,21 +189,25 @@ pub enum LuaBootstrapMethodsOnEventEventUnion {
     String(String),
 }
 
+#[allow(unused)]
 pub enum LuaBootstrapMethodsOnEventHandlerUnion {
     Function(fn(EventData) -> ()),
     Nil,
 }
 
+#[allow(unused)]
 pub enum LuaBootstrapMethodsOnInitHandlerUnion {
     Function(fn() -> ()),
     Nil,
 }
 
+#[allow(unused)]
 pub enum LuaBootstrapMethodsOnLoadHandlerUnion {
     Function(fn() -> ()),
     Nil,
 }
 
+#[allow(unused)]
 pub enum LuaBootstrapMethodsOnNthTickHandlerUnion {
     Function(fn(NthTickEventData) -> ()),
     Nil,

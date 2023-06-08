@@ -9,6 +9,7 @@ use std::{
 mod runtime_api_format;
 use runtime_api_format::RuntimeApiFormat;
 
+// TODO: find a better way without always recompiling even if nothing changed
 fn main() -> io::Result<()> {
     let run_build_script = env::var("RUN_BUILD_SCRIPT")
         .map(|v| v == "1")

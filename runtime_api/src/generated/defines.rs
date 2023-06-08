@@ -930,7 +930,7 @@ pub enum MouseButtonType {
 }
 
 /// A dictionary mapping all top-level prototypes by name to a list of their associated subtypes. This list is organized as a lookup table, meaning it maps the sub-prototype names to `0`. As an example, `defines.prototypes['entity']` looks like this: `{furnace=0, inserter=0, container=0, ...}`.
-pub struct Prototypes;
+pub struct _Prototypes;
 
 #[derive(Debug, Deserialize_repr)]
 #[repr(u8)]

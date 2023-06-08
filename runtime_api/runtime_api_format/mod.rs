@@ -356,7 +356,7 @@ impl RuntimeApiFormat {
     fn generate_classes(&self, base_path: &Path, mod_content: &mut String) -> std::io::Result<()> {
         let imports = vec![
             Import::HashMap,
-            Import::HashSet,
+            //Import::HashSet,
             Import::LineBreak,
             Import::Deserialize,
             Import::LineBreak,
@@ -387,7 +387,7 @@ impl RuntimeApiFormat {
             Import::LineBreak,
             Import::Deserialize,
             Import::LineBreak,
-            Import::Classes,
+            //Import::Classes,
             Import::Concepts,
             Import::Defines,
             Import::Super,
@@ -405,11 +405,11 @@ impl RuntimeApiFormat {
     fn generate_concepts(&self, base_path: &Path, mod_content: &mut String) -> std::io::Result<()> {
         let imports = vec![
             Import::HashMap,
-            Import::HashSet,
+            //Import::HashSet,
             Import::LineBreak,
             Import::Deserialize,
             Import::LineBreak,
-            Import::Classes,
+            //Import::Classes,
             Import::Defines,
             Import::Super,
             Import::LineBreak,
@@ -810,7 +810,7 @@ impl Define {
         // or an empty struct
         } else {
             definition.push_str(&self.description.to_rust_doc());
-            definition.push_str(&format!("pub struct {};\n", name));
+            definition.push_str(&format!("pub struct _{};\n", name));
         }
         if !definition.ends_with('\n') {
             definition.push('\n');
@@ -1496,6 +1496,7 @@ impl ComplexType {
                     || prefix == "LuaBootstrapMethodsOnNthTickHandlerUnion"
                 {
                     // we don't want any derives here
+                    union_definition.push_str("#[allow(unused)]");
                     derives = false;
                 } else if prefix == "CollisionMaskWithFlagsUnion"
                     || prefix == "CollisionMaskLayer"

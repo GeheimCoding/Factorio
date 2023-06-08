@@ -28,8 +28,8 @@ impl RemoteConsole {
                 .ok_or(Error::new(ErrorKind::Other, "invalid socket address"))?,
             timeout,
         )?;
-        stream.set_read_timeout(Some(timeout));
-        stream.set_write_timeout(Some(timeout));
+        stream.set_read_timeout(Some(timeout))?;
+        stream.set_write_timeout(Some(timeout))?;
 
         let mut console = RemoteConsole {
             stream,
@@ -107,7 +107,7 @@ impl RemoteConsole {
         // however when the packet approaches MAX_PACKET_LENGTH_IN_BYTES
         // those will be pushed to the right and are no longer present
         let mut response = String::from_utf8(response)
-            .map_err(|e| Error::new(ErrorKind::Other, "invalid UTF-8"))?;
+            .map_err(|_| Error::new(ErrorKind::Other, "invalid UTF-8"))?;
         while let Some(last_char) = response.pop() {
             if last_char != '\0' && last_char != '\n' {
                 response.push(last_char);

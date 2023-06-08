@@ -1,25 +1,21 @@
 #![allow(unused)]
 #![deny(clippy::unwrap_used)]
 
-mod generated;
-mod remote_console;
-
 use std::{
     cmp::Ordering, collections::HashMap, fs, io, path::PathBuf, thread::sleep, time::Duration,
 };
 
 use remote_console::RemoteConsole;
-
-use crate::generated::*;
+use runtime_api::generated::FactorioType;
 
 fn main() -> io::Result<()> {
-    remote_console()?;
+    //remote_console()?;
 
     // let json = fs::read_to_string("events/0.json")?;
     // let factorio_type: Result<OnBuiltEntity, _> = serde_json::from_str(&json);
     // println!("{factorio_type:?}");
 
-    //test_samples("events")?;
+    test_samples("events")?;
 
     Ok(())
 }
