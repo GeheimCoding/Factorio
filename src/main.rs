@@ -42,7 +42,7 @@ fn remote_console() -> io::Result<()> {
         // ",
         // )?;
         // println!("{response}");
-        //find_all_entities(&mut console);
+        find_all_entities(&mut console);
         //parse_objects(&mut console);
         //listen_to_events(&mut console);
         //generate_samples(&mut console)?;
@@ -61,10 +61,13 @@ fn find_all_entities(console: &mut RemoteConsole) -> io::Result<()> {
                 entities[type] = 0
             end
             entities[type] = entities[type] + 1
+            to_json(v)
             if k % 500 == 0 then
                 print(k)
             end
-            to_json(v)
+            if k % 5000 == 0 then
+                break
+            end
         end
         rcon.print(serpent.block(entities))
     ",
