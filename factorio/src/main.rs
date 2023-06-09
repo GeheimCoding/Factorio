@@ -6,16 +6,16 @@ use std::{
 };
 
 use remote_console::RemoteConsole;
-use runtime_api::generated::FactorioType;
+use runtime_api::{parse_factorio_type, FactorioType};
 
 fn main() -> io::Result<()> {
-    //remote_console()?;
+    remote_console()?;
 
     // let json = fs::read_to_string("events/0.json")?;
     // let factorio_type: Result<OnBuiltEntity, _> = serde_json::from_str(&json);
     // println!("{factorio_type:?}");
 
-    test_samples("events")?;
+    //test_samples("events")?;
 
     Ok(())
 }
@@ -103,7 +103,7 @@ fn listen_to_events(console: &mut RemoteConsole) -> io::Result<()> {
         if !response.is_empty() {
             let events: Vec<_> = response.split("\n\n").collect();
             for event in events {
-                let factorio_type: Result<FactorioType, _> = serde_json::from_str(&event);
+                let factorio_type = parse_factorio_type(event);
                 if let Err(e) = factorio_type {
                     println!("{index}.json: {e}");
                     let filename = PathBuf::from(&format!("events/{index}.json"));
@@ -233,7 +233,7 @@ fn test_sample(sample_path: PathBuf) -> io::Result<Option<String>> {
     if sample_json.is_empty() {
         return Ok(None);
     }
-    let factorio_type = serde_json::from_str::<FactorioType>(&sample_json);
+    let factorio_type = parse_factorio_type(&sample_json);
     if let Err(e) = factorio_type {
         Ok(Some(format!("{file_name}: {e}")))
     } else {
@@ -241,13 +241,8 @@ fn test_sample(sample_path: PathBuf) -> io::Result<Option<String>> {
     }
 }
 
-// TODO: study cache.txt
-// TODO: improve compile times with workspaces!
-
-// TODO: improve performance of lookup table
-//      -> fix some cache attributes (e.g. LuaDamagePrototype order is always "")
-//      -> make lookup table for first-level-attribute
-//      -> use local tables to store functions? (they are not allowed in global)
+// TODO: add second level cache for LuaEntity
+// TODO: cache values per class
 
 // TODO: add #[serde(deny_unknown_fields)]
 // TODO: check more serde attributes like #[serde(default)] or content for Table/Tuple?
