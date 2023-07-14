@@ -90,7 +90,16 @@ function get_cached_table_internal(cache, obj)
     end
     local key = cache.key
     if not key then
-        return cache.cache
+        if obj.object_name == 'LuaEntity' and global.lookup.stationary_entity_types[obj.type] then
+            local position = obj.position.x .. '#' .. obj.position.y
+            if not cache[position] then
+                return nil
+            else
+                return cache[position].cache
+            end
+        else
+            return cache.cache
+        end
     else
         return get_cached_table_internal(cache[obj[key]], obj)
     end

@@ -32,13 +32,14 @@ fn remote_console() -> io::Result<()> {
     if !response.is_empty() {
         println!("{response}");
     } else {
-        // let response = console.send_command(
-        //     "
-        //     rcon.print(serpent.block(global.lookup.cache))
-        // ",
-        // )?;
-        // println!("{response}");
-        find_all_entities(&mut console);
+        let response = console.send_command(
+            "
+            local fish = game.surfaces['nauvis'].find_entities()[2]
+            rcon.print(fish.fluidbox)
+        ",
+        )?;
+        println!("{response}");
+        //find_all_entities(&mut console);
         //parse_objects(&mut console);
         //listen_to_events(&mut console);
         //generate_samples(&mut console)?;
@@ -241,7 +242,7 @@ fn test_sample(sample_path: PathBuf) -> io::Result<Option<String>> {
     }
 }
 
-// TODO: add second level cache for LuaEntity
+// TODO: improve fluidbox caching
 
 // TODO: add #[serde(deny_unknown_fields)]
 // TODO: check more serde attributes like #[serde(default)] or content for Table/Tuple?

@@ -4,7 +4,15 @@ function create_cache_if_not_exist(cache, obj, attribute)
     if not cache[key] then
         cache[key] = {key = nil, cache = {}}
     end
-    return cache[key].cache
+    if obj.object_name == 'LuaEntity' and global.lookup.stationary_entity_types[obj.type] then
+        local position = obj.position.x .. '#' .. obj.position.y
+        if not cache[key][position] then
+            cache[key][position] = {key = nil, cache = {}}
+        end
+        return cache[key][position].cache
+    else
+        return cache[key].cache
+    end
 end
 
 function insert_into_cache(obj)
