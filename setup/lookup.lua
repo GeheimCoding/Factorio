@@ -18,6 +18,10 @@ end
 if not global.lookup.queue then
     global.lookup.queue = {}
 end
+-- This is a cache for values per object
+if not global.lookup.values then
+    global.lookup.values = {}
+end
 -- This is a table for mapping the event number to the name.
 if not global.lookup.events then
     global.lookup.events = {}

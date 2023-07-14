@@ -14,6 +14,10 @@ function get_values(obj)
     if not obj.help then
         return obj
     end
+    local cached_values = global.lookup.values[obj.object_name]
+    if cached_values then
+        return cached_values
+    end
 
     -- TODO: improve further with single lookup table?
     if obj.object_name == 'LuaDifficultySettings' then
@@ -45,6 +49,7 @@ function get_values(obj)
             t[k] = 0
         end
     end
+    global.lookup.values[obj.object_name] = t
     return t
 end
 
