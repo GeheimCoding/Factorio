@@ -32,18 +32,18 @@ fn remote_console() -> io::Result<()> {
     if !response.is_empty() {
         println!("{response}");
     } else {
-        let response = console.send_command(
-            "
-            for k,v in pairs(global.lookup.cache.LuaFluidBox) do
-                if k ~= 'cache' and k ~= 'key' then
-                    rcon.print(k .. ' -> ' .. table_size(global.lookup.cache.LuaFluidBox[k]))
-                end
-            end
-        ",
-        )?;
-        println!("{response}");
-        //find_all_entities(&mut console);
-        //parse_objects(&mut console);
+        // let response = console.send_command(
+        //     "
+        //     for k,v in pairs(global.lookup.cache.LuaFluidBox) do
+        //         if k ~= 'cache' and k ~= 'key' then
+        //             rcon.print(k .. ' -> ' .. math.max(#v.cache, table_size(v) - 1))
+        //         end
+        //     end
+        // ",
+        // )?;
+        // println!("{response}");
+        find_all_entities(&mut console);
+        parse_objects(&mut console);
         //listen_to_events(&mut console);
         //generate_samples(&mut console)?;
     }
@@ -122,7 +122,6 @@ fn listen_to_events(console: &mut RemoteConsole) -> io::Result<()> {
 }
 
 fn parse_objects(console: &mut RemoteConsole) -> io::Result<()> {
-    // TODO: fix cache counts for stationary entities?
     let response = console.send_command(
         "
         function get_cache_counts(cache)
@@ -140,8 +139,18 @@ fn parse_objects(console: &mut RemoteConsole) -> io::Result<()> {
                 end
                 return count, max_count
             else
-                local count = #cache.cache
-                return count, count
+                local count = math.max(#cache.cache, table_size(cache) - 1)
+                if count == #cache.cache then
+                    return count, count
+                else
+                    local max_count = 0
+                    for k,v in pairs(cache) do
+                        if #v > max_count then
+                            max_count = #v
+                        end
+                    end
+                    return count, max_count
+                end
             end
         end
         for k,v in pairs(global.lookup.cache) do
