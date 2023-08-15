@@ -54,16 +54,14 @@ fn find_all_entities(console: &mut RemoteConsole) -> io::Result<()> {
         "
         local entities = {}
         for k,v in pairs(game.surfaces['nauvis'].find_entities()) do
-            if k > 19419 then
-                local type = v.type
-                if not entities[type] then
-                    entities[type] = 0
-                end
-                entities[type] = entities[type] + 1
-                to_json(v)
-                if k % 500 == 0 then
-                    print(k)
-                end
+            local type = v.type
+            if not entities[type] then
+                entities[type] = 0
+            end
+            entities[type] = entities[type] + 1
+            to_json(v)
+            if k % 500 == 0 then
+                print(k)
             end
         end
         rcon.print(serpent.block(entities))

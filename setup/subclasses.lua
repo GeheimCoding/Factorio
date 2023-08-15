@@ -377,6 +377,9 @@ global.lookup.subclasses = {
         direction = {"frame", "flow", "line"},
         selected_tab_index = "tabbed-pane",
         left_label_tooltip = "switch",
+        -- Added manually:
+        auto_toggle = {"button", "sprite-button"},
+        toggled = {"button", "sprite-button"},
     },
     LuaItemPrototype = {
         category = "ModuleItem",

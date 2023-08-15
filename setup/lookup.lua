@@ -1,4 +1,4 @@
-global.lookup = {}
+--global.lookup = {}
 
 -- This holds all the lookup tables and caches.
 if not global.lookup then

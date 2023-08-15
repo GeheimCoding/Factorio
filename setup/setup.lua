@@ -276,10 +276,6 @@ function to_json_internal(obj, depth, cycles_only)
         end
         for k,v in pairs(values) do
             if is_allowed_to_access_attribute(obj, values, k) then
-                -- TODO: fix Error: Expected button or sprite-button.
-                if obj.object_name then
-                    print(obj.object_name .. ' -> ' .. k)
-                end
                 local internal = to_json_internal(obj[k], depth + 1)
                 if internal ~= 'nil' then
                     if not is_array then
