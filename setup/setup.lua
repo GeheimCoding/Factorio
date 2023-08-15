@@ -101,7 +101,11 @@ function get_cached_table_internal(cache, obj)
             return cache.cache
         end
     else
-        return get_cached_table_internal(cache[obj[key]], obj)
+        if obj.object_name == 'LuaFluidBox' then
+            return get_cached_table_internal(cache[obj.owner[key]], obj.owner)
+        else
+            return get_cached_table_internal(cache[obj[key]], obj)
+        end
     end
 end
 
@@ -306,6 +310,8 @@ function pull_event_queue()
 end
 
 for k,v in pairs(defines.events) do
+    -- TODO: remove if processing events
+    break
     if v ~= defines.events.on_tick
         and v ~= defines.events.on_console_command
         and v ~= defines.events.on_player_changed_position

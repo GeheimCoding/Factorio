@@ -34,8 +34,11 @@ fn remote_console() -> io::Result<()> {
     } else {
         let response = console.send_command(
             "
-            local fish = game.surfaces['nauvis'].find_entities()[2]
-            rcon.print(fish.fluidbox)
+            for k,v in pairs(global.lookup.cache.LuaFluidBox) do
+                if k ~= 'cache' and k ~= 'key' then
+                    rcon.print(k .. ' -> ' .. table_size(global.lookup.cache.LuaFluidBox[k]))
+                end
+            end
         ",
         )?;
         println!("{response}");
@@ -119,6 +122,7 @@ fn listen_to_events(console: &mut RemoteConsole) -> io::Result<()> {
 }
 
 fn parse_objects(console: &mut RemoteConsole) -> io::Result<()> {
+    // TODO: fix cache counts for stationary entities?
     let response = console.send_command(
         "
         function get_cache_counts(cache)

@@ -73,6 +73,7 @@ global.lookup.stationary_entity_types = {
     ['infinity-pipe'] = 0,
     ['offshore-pump'] = 0,
     ['rail-remnants'] = 0,
+    ['simple-entity'] = 0,
     ['straight-rail'] = 0,
     ['pipe-to-ground'] = 0,
     ['transport-belt'] = 0,
@@ -89,6 +90,8 @@ global.lookup.stationary_entity_types = {
     ['constant-combinator'] = 0,
     ['programmable-speaker'] = 0,
     ['arithmetic-combinator'] = 0,
+    -- TODO: remove here and handle separately
+    fish = 0,
 }
 -- Defines if and which attribute each object should be cached by.
 global.lookup.first_attribute_cache = {
