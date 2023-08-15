@@ -1,19 +1,27 @@
 function create_cache_if_not_exist(cache, obj, attribute)
     local key = obj[attribute]
+    local object_name = obj.object_name
+
     cache.key = attribute
     if not cache[key] then
         cache[key] = {key = nil, cache = {}}
     end
-    -- TODO: handle units
-    if obj.object_name == 'LuaEntity' and global.lookup.stationary_entity_types[obj.type] then
-        local position = obj.position.x .. '#' .. obj.position.y
-        if not cache[key][position] then
-            cache[key][position] = {key = nil, cache = {}}
+    if object_name == 'LuaEntity' then
+        if global.lookup.stationary_entity_types[obj.type] then
+            local position = obj.position.x .. '#' .. obj.position.y
+            if not cache[key][position] then
+                cache[key][position] = {key = nil, cache = {}}
+            end
+            return cache[key][position].cache
+        elseif obj.type == 'unit' then
+            local unit_number = obj.unit_number
+            if not cache[key][unit_number] then
+                cache[key][unit_number] = {key = nil, cache = {}}
+            end
+            return cache[key][unit_number].cache
         end
-        return cache[key][position].cache
-    else
-        return cache[key].cache
     end
+    return cache[key].cache
 end
 
 function get_cache(obj)

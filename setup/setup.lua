@@ -89,19 +89,28 @@ function get_cached_table_internal(cache, obj)
         return nil
     end
     local key = cache.key
+    local object_name = obj.object_name
+
     if not key then
-        if obj.object_name == 'LuaEntity' and global.lookup.stationary_entity_types[obj.type] then
-            local position = obj.position.x .. '#' .. obj.position.y
-            if not cache[position] then
-                return nil
-            else
-                return cache[position].cache
+        if object_name == 'LuaEntity' then
+            if global.lookup.stationary_entity_types[obj.type] then
+                local position = obj.position.x .. '#' .. obj.position.y
+                if not cache[position] then
+                    return nil
+                else
+                    return cache[position].cache
+                end
+            elseif obj.type == 'unit' then
+                if not cache[obj.unit_number] then
+                    return nil
+                else
+                    return cache[obj.unit_number].cache
+                end
             end
-        else
-            return cache.cache
         end
+        return cache.cache
     else
-        if obj.object_name == 'LuaFluidBox' then
+        if object_name == 'LuaFluidBox' then
             return get_cached_table_internal(cache[obj.owner[key]], obj.owner)
         else
             return get_cached_table_internal(cache[obj[key]], obj)
@@ -267,6 +276,10 @@ function to_json_internal(obj, depth, cycles_only)
         end
         for k,v in pairs(values) do
             if is_allowed_to_access_attribute(obj, values, k) then
+                -- TODO: fix Error: Expected button or sprite-button.
+                if obj.object_name then
+                    print(obj.object_name .. ' -> ' .. k)
+                end
                 local internal = to_json_internal(obj[k], depth + 1)
                 if internal ~= 'nil' then
                     if not is_array then

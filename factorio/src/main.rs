@@ -34,10 +34,8 @@ fn remote_console() -> io::Result<()> {
     } else {
         // let response = console.send_command(
         //     "
-        //     for k,v in pairs(global.lookup.cache.LuaFluidBox) do
-        //         if k ~= 'cache' and k ~= 'key' then
-        //             rcon.print(k .. ' -> ' .. math.max(#v.cache, table_size(v) - 1))
-        //         end
+        //     for k,v in pairs(global.lookup.objects) do
+        //         get_cached_table(v.obj)
         //     end
         // ",
         // )?;
@@ -56,17 +54,16 @@ fn find_all_entities(console: &mut RemoteConsole) -> io::Result<()> {
         "
         local entities = {}
         for k,v in pairs(game.surfaces['nauvis'].find_entities()) do
-            local type = v.type
-            if not entities[type] then
-                entities[type] = 0
-            end
-            entities[type] = entities[type] + 1
-            to_json(v)
-            if k % 500 == 0 then
-                print(k)
-            end
-            if k % 5000 == 0 then
-                break
+            if k > 19419 then
+                local type = v.type
+                if not entities[type] then
+                    entities[type] = 0
+                end
+                entities[type] = entities[type] + 1
+                to_json(v)
+                if k % 500 == 0 then
+                    print(k)
+                end
             end
         end
         rcon.print(serpent.block(entities))
@@ -145,8 +142,8 @@ fn parse_objects(console: &mut RemoteConsole) -> io::Result<()> {
                 else
                     local max_count = 0
                     for k,v in pairs(cache) do
-                        if #v > max_count then
-                            max_count = #v
+                        if v.cache and #v.cache > max_count then
+                            max_count = #v.cache
                         end
                     end
                     return count, max_count
