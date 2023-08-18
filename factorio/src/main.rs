@@ -34,12 +34,11 @@ fn remote_console() -> io::Result<()> {
     } else {
         // let response = console.send_command(
         //     "
-        //     for k,v in pairs(global.lookup.objects) do
-        //         get_cached_table(v.obj)
-        //     end
+        //     rcon.print('hi')
         // ",
         // )?;
         // println!("{response}");
+        //find_all_tiles(&mut console);
         find_all_entities(&mut console);
         parse_objects(&mut console);
         //listen_to_events(&mut console);
@@ -65,6 +64,28 @@ fn find_all_entities(console: &mut RemoteConsole) -> io::Result<()> {
             end
         end
         rcon.print(serpent.block(entities))
+    ",
+    )?;
+    println!("{response}");
+    Ok(())
+}
+
+fn find_all_tiles(console: &mut RemoteConsole) -> io::Result<()> {
+    let response = console.send_command(
+        "
+        local surface = game.surfaces['nauvis']
+        local length = 0
+        for chunk in surface.get_chunks() do
+            length = length + 1
+        end
+        local processed = 0
+        for chunk in surface.get_chunks() do
+            processed = processed + 1
+            for _,tile in pairs(surface.find_tiles_filtered({area=chunk.area})) do
+                to_json(tile)
+            end
+            print(processed .. '/' .. length)
+        end
     ",
     )?;
     println!("{response}");
@@ -249,8 +270,9 @@ fn test_sample(sample_path: PathBuf) -> io::Result<Option<String>> {
         Ok(None)
     }
 }
-
-// TODO: improve fluidbox caching
+// TODO: load data in background
+// TODO: don't keep all the tiles in memory
+//      -> remove json, once it got pulled
 
 // TODO: add #[serde(deny_unknown_fields)]
 // TODO: check more serde attributes like #[serde(default)] or content for Table/Tuple?

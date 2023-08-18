@@ -1,3 +1,10 @@
+function create_potential_cache_by_attribute(cache, key, attribute)
+    if not cache[key][attribute] then
+        cache[key][attribute] = {key = nil, cache = {}}
+    end
+    return cache[key][attribute].cache
+end
+
 function create_cache_if_not_exist(cache, obj, attribute)
     local key = obj[attribute]
     local object_name = obj.object_name
@@ -7,18 +14,10 @@ function create_cache_if_not_exist(cache, obj, attribute)
         cache[key] = {key = nil, cache = {}}
     end
     if object_name == 'LuaEntity' then
-        if global.lookup.stationary_entity_types[obj.type] then
-            local position = obj.position.x .. '#' .. obj.position.y
-            if not cache[key][position] then
-                cache[key][position] = {key = nil, cache = {}}
-            end
-            return cache[key][position].cache
-        elseif obj.type == 'unit' then
-            local unit_number = obj.unit_number
-            if not cache[key][unit_number] then
-                cache[key][unit_number] = {key = nil, cache = {}}
-            end
-            return cache[key][unit_number].cache
+        if obj.type == 'unit' then
+            return create_potential_cache_by_attribute(cache, key, obj.unit_number)
+        elseif global.lookup.stationary_entity_types[obj.type] then
+            return create_potential_cache_by_attribute(cache, key, obj.position.x .. '#' .. obj.position.y)
         end
     end
     return cache[key].cache
@@ -30,6 +29,8 @@ function get_cache(obj)
 
     if object_name == 'LuaFluidBox' then
         return create_cache_if_not_exist(global.lookup.cache[object_name], obj.owner, 'type')
+    elseif object_name == 'LuaTile' then
+        return create_potential_cache_by_attribute(global.lookup.cache, 'LuaTile', obj.position.x .. '#' .. obj.position.y)
     elseif not attribute then
         return global.lookup.cache[object_name].cache
     else

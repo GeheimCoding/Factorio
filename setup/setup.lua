@@ -84,6 +84,14 @@ function is_value_dictionary(obj, key)
     end
 end
 
+function get_potential_cache_by_attribute(cache, attribute)
+    if not cache[attribute] then
+        return nil
+    else
+        return cache[attribute].cache
+    end
+end
+
 function get_cached_table_internal(cache, obj)
     if not cache then
         return nil
@@ -92,23 +100,13 @@ function get_cached_table_internal(cache, obj)
     local object_name = obj.object_name
 
     if not key then
-        if object_name == 'LuaEntity' then
-            if global.lookup.stationary_entity_types[obj.type] then
-                local position = obj.position.x .. '#' .. obj.position.y
-                if not cache[position] then
-                    return nil
-                else
-                    return cache[position].cache
-                end
-            elseif obj.type == 'unit' then
-                if not cache[obj.unit_number] then
-                    return nil
-                else
-                    return cache[obj.unit_number].cache
-                end
-            end
+        if object_name == 'LuaEntity' and obj.type == 'unit' then
+            return get_potential_cache_by_attribute(cache, obj.unit_number)
+        elseif object_name == 'LuaTile' or (object_name == 'LuaEntity' and global.lookup.stationary_entity_types[obj.type]) then
+            return get_potential_cache_by_attribute(cache, obj.position.x .. '#' .. obj.position.y)
+        else
+            return cache.cache
         end
-        return cache.cache
     else
         if object_name == 'LuaFluidBox' then
             return get_cached_table_internal(cache[obj.owner[key]], obj.owner)
@@ -239,7 +237,6 @@ function to_json_internal(obj, depth, cycles_only)
         end
         table.insert(json, '"cycle_id":' .. id)
     else
-        -- TODO: cache values
         local values = get_values(obj)
         local is_empty = table_size(values) == 0
         is_array = values[1] ~= nil or is_empty
