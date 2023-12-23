@@ -39,7 +39,7 @@ fn remote_console() -> io::Result<()> {
         // )?;
         // println!("{response}");
         //find_all_tiles(&mut console);
-        find_all_entities(&mut console);
+        //find_all_entities(&mut console);
         parse_objects(&mut console);
         //listen_to_events(&mut console);
         //generate_samples(&mut console)?;
@@ -272,7 +272,8 @@ fn test_sample(sample_path: PathBuf) -> io::Result<Option<String>> {
 }
 // TODO: load data in background
 // TODO: don't keep all the tiles in memory
-//      -> remove json, once it got pulled
+//      -> remove json, once it got pulled (not a big improvement)
+//      -> combine with only storing whole chunks
 
 // TODO: add #[serde(deny_unknown_fields)]
 // TODO: check more serde attributes like #[serde(default)] or content for Table/Tuple?
