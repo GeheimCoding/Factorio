@@ -13,7 +13,5 @@ Cargo.lock
 .DS_Store
 .vscode
 
-# Offline docs and samples
-/runtime_docs
-/samples
-/events
+# Offline docs
+/api/docs
