@@ -1,8 +1,8 @@
 #![allow(dead_code)]
 
-use std::io;
+use std::{fmt::Display, io, str::FromStr};
 
-use serde::Deserialize;
+use serde::{Deserialize, Deserializer};
 
 /// ## [Prototype JSON Format](https://lua-api.factorio.com/1.1.101/auxiliary/json-docs-prototype.html#prototype-json-format)
 ///
@@ -47,14 +47,186 @@ pub struct PrototypeApiFormat {
     /// The list of prototypes that can be created. Equivalent to the [prototypes](https://lua-api.factorio.com/1.1.101/prototypes.html) page.
     prototypes: Vec<Prototype>,
     /// The list of types (concepts) that the format uses. Equivalent to the [types](https://lua-api.factorio.com/1.1.101/types.html) page.
-    types: Vec<Type>,
+    types: Vec<Concept>,
 }
 
 #[derive(Debug, Deserialize)]
-struct Prototype {}
+struct Prototype {
+    /// The name of the prototype.
+    name: String,
+    /// The order of the prototype as shown in the HTML.
+    order: u16,
+    /// The text description of the prototype.
+    description: String,
+    /// A list of Markdown lists to provide additional information. Usually contained in a spoiler tag.
+    lists: Option<Vec<String>>,
+    /// A list of code-only examples about the prototype.
+    examples: Option<Vec<String>>,
+    /// A list of illustrative images shown next to the prototype.
+    images: Option<Vec<Image>>,
+    /// The name of the prototype's parent, if any.
+    parent: Option<String>,
+    /// Whether the prototype is abstract, and thus can't be created directly.
+    #[serde(rename = "abstract")]
+    abstract_: bool,
+    /// The type name of the prototype, like `"boiler"`. `null` for abstract prototypes.
+    typename: Option<String>,
+    /// instance_limit :: number (optional): The maximum number of instances of this prototype that can be created, if any.
+    #[serde(default)]
+    #[serde(deserialize_with = "deserialize_optional_number_from_string")]
+    instance_limit: Option<u8>,
+    ///  Whether the prototype is deprecated and shouldn't be used anymore.
+    deprecated: bool,
+    /// The list of properties that the prototype has. May be an empty array.
+    properties: Vec<Property>,
+    /// A special set of properties that the user can add an arbitrary number of. Specifies the type of the key and value of the custom property.
+    custom_properties: Option<CustomProperties>,
+}
 
 #[derive(Debug, Deserialize)]
-struct Type {}
+struct Concept {
+    /// The name of the type.
+    name: String,
+    /// The order of the type as shown in the HTML.
+    order: u16,
+    /// The text description of the type.
+    description: String,
+    /// A list of Markdown lists to provide additional information. Usually contained in a spoiler tag.
+    lists: Option<Vec<String>>,
+    /// A list of code-only examples about the type.
+    examples: Option<Vec<String>>,
+    ///  A list of illustrative images shown next to the type.
+    images: Option<Vec<Image>>,
+    /// The name of the type's parent, if any.
+    parent: Option<String>,
+    /// Whether the type is abstract, and thus can't be created directly.
+    #[serde(rename = "abstract")]
+    abstract_: bool,
+    /// Whether the type is inlined inside another property's description.
+    inline: bool,
+    /// The type of the type/concept (Yes, this naming is confusing). Either a proper [Type](https://lua-api.factorio.com/1.1.101/auxiliary/json-docs-prototype.html#Type), or the string `"builtin"`, indicating a fundamental type like `string` or `number`.
+    #[serde(rename = "type")]
+    type_: Type,
+    /// The list of properties that the type has, if its type includes a struct. `null` otherwise.
+    properties: Option<Vec<Property>>,
+}
+
+#[derive(Debug, Deserialize)]
+struct Property {
+    /// The name of the property.
+    name: String,
+    /// The order of the property as shown in the HTML.
+    order: u16,
+    /// The text description of the property.
+    description: String,
+    /// A list of Markdown lists to provide additional information. Usually contained in a spoiler tag.
+    lists: Option<Vec<String>>,
+    /// A list of code-only examples about the property.
+    examples: Option<Vec<String>>,
+    /// A list of illustrative images shown next to the property.
+    images: Option<Vec<Image>>,
+    /// An alternative name for the property. Either this or name can be used to refer to the property.
+    alt_name: Option<String>,
+    /// Whether the property overrides a property of the same name in one of its parents.
+    #[serde(rename = "override")]
+    override_: bool,
+    /// The type of the property.
+    #[serde(rename = "type")]
+    type_: Type,
+    /// Whether the property is optional and can be omitted. If so, it falls back to a default value.
+    optional: bool,
+    /// default :: union[string, Literal] (optional): The default value of the property. Either a textual description or a literal value.
+    default: Option<PropertyDefaultUnion>,
+}
+
+#[derive(Debug, Deserialize)]
+#[serde(untagged)]
+enum PropertyDefaultUnion {
+    String(String),
+    Literal(Literal),
+}
+
+#[derive(Debug, Deserialize)]
+#[serde(untagged)]
+enum Type {
+    Simple(String),
+    Complex(Box<ComplexType>),
+}
+
+#[derive(Debug, Deserialize)]
+#[serde(tag = "complex_type")]
+#[serde(rename_all = "camelCase")]
+enum ComplexType {
+    Array {
+        /// The type of the elements of the array.
+        value: Type,
+    },
+    Dictionary {
+        /// The type of the keys of the dictionary.
+        key: Type,
+        /// The type of the values of the dictionary.
+        value: Type,
+    },
+    Tuple {
+        /// The types of the members of this tuple in order.
+        values: Vec<Type>,
+    },
+    Union {
+        /// A list of all compatible types for this type.
+        options: Vec<Type>,
+        /// Whether the options of this union have a description or not.
+        full_format: bool,
+    },
+    Literal {
+        /// The value of the literal.
+        value: ComplexTypeLiteralValueUnion,
+        /// The text description of the literal, if any.
+        description: Option<String>,
+    },
+    Type {
+        /// The actual type. This format for types is used when they have descriptions attached to them.
+        value: Type,
+        /// The text description of the type.
+        description: String,
+    },
+    /// Special type with no additional members. The properties themselves are listed on the API member that uses this type.
+    Struct,
+}
+
+#[derive(Debug, Deserialize)]
+#[serde(untagged)]
+enum ComplexTypeLiteralValueUnion {
+    String(String),
+    Number(Number),
+}
+
+#[derive(Debug, Deserialize)]
+struct Image {}
+
+#[derive(Debug, Deserialize)]
+struct CustomProperties {}
+
+#[derive(Debug, Deserialize)]
+struct Literal {}
+
+#[derive(Debug, Deserialize)]
+struct Number {}
+
+fn deserialize_optional_number_from_string<'de, D, T>(
+    deserializer: D,
+) -> Result<Option<T>, D::Error>
+where
+    D: Deserializer<'de>,
+    T: FromStr + Deserialize<'de>,
+    <T as FromStr>::Err: Display,
+{
+    let option: Option<String> = Option::deserialize(deserializer)?;
+    option.map_or(Ok(None), |n| {
+        n.parse::<T>()
+            .map(|n| Some(n))
+            .map_err(serde::de::Error::custom)
+    })
+}
 
 impl PrototypeApiFormat {
     pub fn generate_prototype_api(&self) -> io::Result<()> {
