@@ -23,11 +23,11 @@ fn main() -> io::Result<()> {
 }
 
 fn generate_prototype_api() -> io::Result<()> {
-    let prototype_api_format = read_prototype_api_format("prototype/prototype-api.json")?;
+    let prototype_api_format = read_prototype_api_format("prototype/prototype-api-v1.1.101.json")?;
     prototype_api_format.generate_prototype_api()
 }
 
-// https://lua-api.factorio.com/latest/index-prototype.html
+// https://lua-api.factorio.com/1.1.101/index-prototype.html
 fn read_prototype_api_format(json_path: &str) -> io::Result<PrototypeApiFormat> {
     let file = File::open(json_path)?;
     let reader = BufReader::new(file);
