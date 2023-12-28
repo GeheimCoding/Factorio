@@ -1,8 +1,10 @@
 #![allow(dead_code)]
 
-use std::{fmt::Display, io, str::FromStr};
+use std::{fmt::Display, str::FromStr};
 
 use serde::{Deserialize, Deserializer};
+
+mod generator;
 
 /// ## [Prototype JSON Format](https://lua-api.factorio.com/1.1.101/auxiliary/json-docs-prototype.html#prototype-json-format)
 ///
@@ -237,10 +239,4 @@ where
         .parse::<T>()
         .map(|n| Some(n))
         .map_err(serde::de::Error::custom)
-}
-
-impl PrototypeApiFormat {
-    pub fn generate_prototype_api(&self) -> io::Result<()> {
-        Ok(())
-    }
 }
