@@ -143,7 +143,7 @@ struct Property {
 #[serde(untagged)]
 enum PropertyDefaultUnion {
     String(String),
-    Literal(Literal),
+    Literal(Type),
 }
 
 #[derive(Debug, Deserialize)]
@@ -197,7 +197,8 @@ enum ComplexType {
 #[serde(untagged)]
 enum ComplexTypeLiteralValueUnion {
     String(String),
-    Number(Number),
+    Number(f64),
+    Boolean(bool),
 }
 
 #[derive(Debug, Deserialize)]
@@ -206,26 +207,18 @@ struct Image {}
 #[derive(Debug, Deserialize)]
 struct CustomProperties {}
 
-#[derive(Debug, Deserialize)]
-struct Literal {}
-
-#[derive(Debug, Deserialize)]
-struct Number {}
-
 fn deserialize_optional_number_from_string<'de, D, T>(
     deserializer: D,
 ) -> Result<Option<T>, D::Error>
 where
     D: Deserializer<'de>,
-    T: FromStr + Deserialize<'de>,
+    T: FromStr,
     <T as FromStr>::Err: Display,
 {
-    let option: Option<String> = Option::deserialize(deserializer)?;
-    option.map_or(Ok(None), |n| {
-        n.parse::<T>()
-            .map(|n| Some(n))
-            .map_err(serde::de::Error::custom)
-    })
+    String::deserialize(deserializer)?
+        .parse::<T>()
+        .map(|n| Some(n))
+        .map_err(serde::de::Error::custom)
 }
 
 impl PrototypeApiFormat {
