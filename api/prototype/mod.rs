@@ -75,7 +75,7 @@ struct Prototype {
     #[serde(default)]
     #[serde(deserialize_with = "deserialize_optional_number_from_string")]
     instance_limit: Option<u8>,
-    ///  Whether the prototype is deprecated and shouldn't be used anymore.
+    /// Whether the prototype is deprecated and shouldn't be used anymore.
     deprecated: bool,
     /// The list of properties that the prototype has. May be an empty array.
     properties: Vec<Property>,
@@ -95,7 +95,7 @@ struct Concept {
     lists: Option<Vec<String>>,
     /// A list of code-only examples about the type.
     examples: Option<Vec<String>>,
-    ///  A list of illustrative images shown next to the type.
+    /// A list of illustrative images shown next to the type.
     images: Option<Vec<Image>>,
     /// The name of the type's parent, if any.
     parent: Option<String>,
@@ -202,10 +202,28 @@ enum ComplexTypeLiteralValueUnion {
 }
 
 #[derive(Debug, Deserialize)]
-struct Image {}
+struct Image {
+    /// The name of the image file to display. These files are placed into the `/static/images/` directory.
+    filename: String,
+    /// The explanatory text to show attached to the image.
+    caption: Option<String>,
+}
 
 #[derive(Debug, Deserialize)]
-struct CustomProperties {}
+struct CustomProperties {
+    /// The text description of the property.
+    description: String,
+    /// A list of Markdown lists to provide additional information. Usually contained in a spoiler tag.
+    lists: Option<Vec<String>>,
+    /// A list of code-only examples about the property.
+    examples: Option<Vec<String>>,
+    /// A list of illustrative images shown next to the property.
+    images: Option<Vec<Image>>,
+    /// The type of the key of the custom property.
+    key_type: Type,
+    /// The type of the value of the custom property.
+    value_type: Type,
+}
 
 fn deserialize_optional_number_from_string<'de, D, T>(
     deserializer: D,
