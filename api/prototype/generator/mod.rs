@@ -10,6 +10,7 @@ trait StringTransformation {
     fn to_pascal_case(&self) -> String;
     fn to_rust_field_name(&self) -> String;
     fn to_rust_type(&self) -> String;
+    fn to_optional_if(&self, optional: bool) -> String;
 }
 
 impl StringTransformation for String {
@@ -58,6 +59,14 @@ impl StringTransformation for String {
             _ => self.clone(),
         }
     }
+
+    fn to_optional_if(&self, optional: bool) -> String {
+        if optional {
+            format!("Option<{self}>")
+        } else {
+            self.clone()
+        }
+    }
 }
 
 impl PrototypeApiFormat {
@@ -88,7 +97,10 @@ impl Generate for Prototype {
         let mut result = String::new();
         result.push_str(&format!("pub struct {} {{\n", self.name));
         if let Some(parent) = &self.parent {
-            result.push_str(&format!("    parent_: {parent},\n"));
+            result.push_str(&format!("    parent_: {parent},"));
+            if !self.properties.is_empty() {
+                result.push('\n');
+            }
         }
         result.push_str(
             &self
@@ -111,6 +123,7 @@ impl Generate for Property {
             self.name.to_rust_field_name(),
             self.type_
                 .generate(format!("{prefix}{}", self.name.to_pascal_case()))
+                .to_optional_if(self.optional)
         )
     }
 }
@@ -119,13 +132,30 @@ impl Generate for Type {
     fn generate(&self, prefix: String) -> String {
         match self {
             Self::Simple(name) => name.to_rust_type(),
-            Self::Complex(complex_type) => complex_type.generate(prefix.clone()),
+            Self::Complex(complex_type) => complex_type.generate(prefix),
         }
     }
 }
 
 impl Generate for ComplexType {
     fn generate(&self, prefix: String) -> String {
-        prefix
+        match self {
+            Self::Array { value } => format!("Vec<{}>", value.generate(prefix)),
+            // TODO: derive hash for key?
+            Self::Dictionary { key, value } => format!(
+                "HashMap<{}, {}>",
+                key.generate(prefix.clone()),
+                value.generate(prefix)
+            ),
+            Self::Tuple { values } => format!(
+                "({})",
+                values
+                    .iter()
+                    .map(|t| t.generate(prefix.clone()))
+                    .collect::<Vec<_>>()
+                    .join(", ")
+            ),
+            _ => prefix,
+        }
     }
 }
