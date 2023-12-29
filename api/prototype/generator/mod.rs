@@ -1,6 +1,6 @@
 use std::{fs, io};
 
-use super::{Property, Prototype, PrototypeApiFormat, Type};
+use super::{ComplexType, Property, Prototype, PrototypeApiFormat, Type};
 
 trait Generate {
     fn generate(&self, prefix: String) -> String;
@@ -9,6 +9,7 @@ trait Generate {
 trait StringTransformation {
     fn to_pascal_case(&self) -> String;
     fn to_rust_field_name(&self) -> String;
+    fn to_rust_type(&self) -> String;
 }
 
 impl StringTransformation for String {
@@ -38,6 +39,22 @@ impl StringTransformation for String {
     fn to_rust_field_name(&self) -> String {
         match self.as_str() {
             "type" => "type_".to_owned(),
+            _ => self.clone(),
+        }
+    }
+
+    fn to_rust_type(&self) -> String {
+        match self.as_str() {
+            "int8" => "i8".to_owned(),
+            "int16" => "i16".to_owned(),
+            "int32" => "i32".to_owned(),
+            "float" => "f32".to_owned(),
+            "double" => "f64".to_owned(),
+            "string" => "String".to_owned(),
+            "uint8" => "u8".to_owned(),
+            "uint16" => "u16".to_owned(),
+            "uint32" => "u32".to_owned(),
+            "uint64" => "u64".to_owned(),
             _ => self.clone(),
         }
     }
@@ -99,6 +116,15 @@ impl Generate for Property {
 }
 
 impl Generate for Type {
+    fn generate(&self, prefix: String) -> String {
+        match self {
+            Self::Simple(name) => name.to_rust_type(),
+            Self::Complex(complex_type) => complex_type.generate(prefix.clone()),
+        }
+    }
+}
+
+impl Generate for ComplexType {
     fn generate(&self, prefix: String) -> String {
         prefix
     }
