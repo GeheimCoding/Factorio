@@ -3,7 +3,7 @@ use std::{fs, io};
 use super::{ComplexType, Property, Prototype, PrototypeApiFormat, Type};
 
 trait Generate {
-    fn generate(&self, prefix: String) -> String;
+    fn generate(&self, prefix: String, enum_variant: bool, unions: &mut Vec<String>) -> String;
 }
 
 trait StringTransformation {
@@ -40,7 +40,13 @@ impl StringTransformation for String {
     fn to_rust_field_name(&self) -> String {
         match self.as_str() {
             "type" => "type_".to_owned(),
-            _ => self.clone(),
+            _ => self
+                .replace('<', "")
+                .replace('>', "")
+                .replace(',', "")
+                .replace('(', "")
+                .replace(')', "")
+                .replace(' ', "_"),
         }
     }
 
@@ -71,18 +77,21 @@ impl StringTransformation for String {
 
 impl PrototypeApiFormat {
     pub fn generate_prototype_api(&self) -> io::Result<()> {
-        fs::write("src/generated/prototypes.rs", self.generate(String::new()))
+        fs::write(
+            "src/generated/prototypes.rs",
+            self.generate(String::new(), false, &mut vec![]),
+        )
     }
 }
 
 impl Generate for PrototypeApiFormat {
-    fn generate(&self, prefix: String) -> String {
+    fn generate(&self, prefix: String, enum_variant: bool, unions: &mut Vec<String>) -> String {
         let mut result = String::new();
         result.push_str(
             &self
                 .prototypes
                 .iter()
-                .map(|p| p.generate(prefix.clone()))
+                .map(|p| p.generate(prefix.clone(), enum_variant, unions))
                 .collect::<Vec<_>>()
                 .join("\n\n"),
         );
@@ -92,7 +101,7 @@ impl Generate for PrototypeApiFormat {
 }
 
 impl Generate for Prototype {
-    fn generate(&self, prefix: String) -> String {
+    fn generate(&self, prefix: String, enum_variant: bool, unions: &mut Vec<String>) -> String {
         // TODO: typename & custom_properties?
         let mut result = String::new();
         result.push_str(&format!("pub struct {} {{\n", self.name));
@@ -102,60 +111,133 @@ impl Generate for Prototype {
                 result.push('\n');
             }
         }
+        unions.clear();
         result.push_str(
             &self
                 .properties
                 .iter()
-                .map(|p| p.generate(format!("{prefix}{}", self.name.to_pascal_case())))
+                .map(|p| {
+                    p.generate(
+                        format!("{prefix}{}", self.name.to_pascal_case()),
+                        enum_variant,
+                        unions,
+                    )
+                })
                 .collect::<Vec<_>>()
                 .join("\n"),
         );
+        for union in unions {
+            result.insert_str(0, &format!("{union}\n\n"));
+        }
         result.push_str("\n}");
         result
     }
 }
 
 impl Generate for Property {
-    fn generate(&self, prefix: String) -> String {
+    fn generate(&self, prefix: String, enum_variant: bool, unions: &mut Vec<String>) -> String {
         // TODO: alt_name & override & default?
         format!(
             "    {}: {},",
             self.name.to_rust_field_name(),
             self.type_
-                .generate(format!("{prefix}{}", self.name.to_pascal_case()))
+                .generate(
+                    format!("{prefix}{}", self.name.to_pascal_case()),
+                    enum_variant,
+                    unions
+                )
                 .to_optional_if(self.optional)
         )
     }
 }
 
 impl Generate for Type {
-    fn generate(&self, prefix: String) -> String {
+    fn generate(&self, prefix: String, enum_variant: bool, unions: &mut Vec<String>) -> String {
         match self {
             Self::Simple(name) => name.to_rust_type(),
-            Self::Complex(complex_type) => complex_type.generate(prefix),
+            Self::Complex(complex_type) => complex_type.generate(prefix, enum_variant, unions),
         }
     }
 }
 
 impl Generate for ComplexType {
-    fn generate(&self, prefix: String) -> String {
+    fn generate(&self, prefix: String, enum_variant: bool, unions: &mut Vec<String>) -> String {
         match self {
-            Self::Array { value } => format!("Vec<{}>", value.generate(prefix)),
+            Self::Array { value } => {
+                format!("Vec<{}>", value.generate(prefix, enum_variant, unions))
+            }
             // TODO: derive hash for key?
             Self::Dictionary { key, value } => format!(
                 "HashMap<{}, {}>",
-                key.generate(prefix.clone()),
-                value.generate(prefix)
+                key.generate(prefix.clone(), enum_variant, unions),
+                value.generate(prefix, enum_variant, unions)
             ),
             Self::Tuple { values } => format!(
                 "({})",
                 values
                     .iter()
-                    .map(|t| t.generate(prefix.clone()))
+                    .map(|t| t.generate(prefix.clone(), enum_variant, unions))
                     .collect::<Vec<_>>()
                     .join(", ")
             ),
-            _ => prefix,
+            Self::Union {
+                options,
+                full_format: _,
+            } => {
+                let mut union = format!("pub enum {prefix} {{\n");
+                for option in options {
+                    let result = option.generate(prefix.clone(), true, unions);
+                    union.push_str(&format!(
+                        "    {}",
+                        result.to_rust_field_name().to_pascal_case()
+                    ));
+                    let has_value = if let Type::Complex(complex) = option {
+                        if let ComplexType::Literal {
+                            value: _,
+                            description: _,
+                        } = complex.as_ref()
+                        {
+                            false
+                        } else {
+                            true
+                        }
+                    } else {
+                        true
+                    };
+                    if has_value {
+                        union.push_str(&format!("({result})"));
+                    }
+                    union.push_str(",\n");
+                }
+                union.push('}');
+                unions.push(union);
+                prefix
+            }
+            Self::Literal {
+                value,
+                description: _,
+            } => match value {
+                super::ComplexTypeLiteralValueUnion::String(s) => {
+                    if enum_variant {
+                        s.to_pascal_case()
+                    } else {
+                        format!("{}_", s.to_pascal_case())
+                    }
+                }
+                super::ComplexTypeLiteralValueUnion::Number(_) => "f64".to_owned(),
+                super::ComplexTypeLiteralValueUnion::Boolean(b) => {
+                    if enum_variant {
+                        b.to_string()
+                    } else {
+                        "bool".to_owned()
+                    }
+                }
+            },
+            Self::Type {
+                value,
+                description: _,
+            } => value.generate(prefix, enum_variant, unions),
+            Self::Struct => "<TODO>".to_owned(),
         }
     }
 }
