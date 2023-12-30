@@ -76,9 +76,9 @@ impl StringTransformation for String {
 }
 
 impl PrototypeApiFormat {
-    pub fn generate_prototype_api(&self) -> io::Result<()> {
+    pub fn generate_prototype_api(&self, output_path: &str) -> io::Result<()> {
         fs::write(
-            "src/generated/prototypes.rs",
+            output_path,
             self.generate(String::new(), false, &mut vec![]),
         )
     }
@@ -221,7 +221,7 @@ impl Generate for ComplexType {
                     if enum_variant {
                         s.to_pascal_case()
                     } else {
-                        format!("{}_", s.to_pascal_case())
+                        "String".to_owned()
                     }
                 }
                 super::ComplexTypeLiteralValueUnion::Number(_) => "f64".to_owned(),

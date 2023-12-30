@@ -2,6 +2,7 @@ use std::{
     env,
     fs::File,
     io::{self, BufReader},
+    process::Command,
 };
 
 use prototype::PrototypeApiFormat;
@@ -16,15 +17,19 @@ fn main() -> io::Result<()> {
     println!("cargo:rerun-if-changed=generated");
 
     if run_build_script {
-        generate_prototype_api()
-    } else {
-        Ok(())
+        let output_path = "src/generated/prototypes.rs";
+        generate_prototype_api(output_path)?;
+        Command::new("rustfmt")
+            .arg(output_path)
+            .spawn()
+            .expect("failed to execute process");
     }
+    Ok(())
 }
 
-fn generate_prototype_api() -> io::Result<()> {
-    let prototype_api_format = read_prototype_api_format("prototype/prototype-api-v1.1.101.json")?;
-    prototype_api_format.generate_prototype_api()
+fn generate_prototype_api(output_path: &str) -> io::Result<()> {
+    read_prototype_api_format("prototype/prototype-api-v1.1.101.json")?
+        .generate_prototype_api(output_path)
 }
 
 // https://lua-api.factorio.com/1.1.101/index-prototype.html
