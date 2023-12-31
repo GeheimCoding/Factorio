@@ -11,6 +11,7 @@ trait StringTransformation {
     fn to_rust_field_name(&self) -> String;
     fn to_rust_type(&self) -> String;
     fn to_optional_if(&self, optional: bool) -> String;
+    fn to_doc_string(&self, indent: &str) -> String;
 }
 
 impl StringTransformation for String {
@@ -73,6 +74,42 @@ impl StringTransformation for String {
             self.clone()
         }
     }
+
+    fn to_doc_string(&self, indent: &str) -> String {
+        self.replace('\n', &format!("\n{indent}/// "))
+    }
+}
+
+fn generate_docs(
+    description: Option<&String>,
+    lists: Option<&Vec<String>>,
+    examples: Option<&Vec<String>>,
+    indent: bool,
+) -> String {
+    let mut result = String::new();
+    let indent = if indent { "    " } else { "" };
+    if let Some(description) = description {
+        if !description.is_empty() {
+            result.push_str(&format!(
+                "{indent}/// {}\n",
+                description.to_doc_string(indent)
+            ));
+        }
+    }
+    if let Some(lists) = lists {
+        for list in lists {
+            result.push_str(&format!("{indent}/// {}\n", list.to_doc_string(indent)));
+        }
+    }
+    if let Some(examples) = examples {
+        result.push_str(&format!(
+            "{indent}///\n{indent}/// Examples:\n{indent}///\n"
+        ));
+        for example in examples {
+            result.push_str(&format!("{indent}/// {}\n", example.to_doc_string(indent)));
+        }
+    }
+    result
 }
 
 impl PrototypeApiFormat {
@@ -103,7 +140,12 @@ impl Generate for PrototypeApiFormat {
 impl Generate for Prototype {
     fn generate(&self, prefix: String, enum_variant: bool, unions: &mut Vec<String>) -> String {
         // TODO: typename & custom_properties?
-        let mut result = String::new();
+        let mut result = String::from(generate_docs(
+            Some(&self.description),
+            self.lists.as_ref(),
+            self.examples.as_ref(),
+            false,
+        ));
         result.push_str(&format!("pub struct {} {{\n", self.name));
         if let Some(parent) = &self.parent {
             result.push_str(&format!("    parent_: {parent},"));
@@ -138,7 +180,13 @@ impl Generate for Property {
     fn generate(&self, prefix: String, enum_variant: bool, unions: &mut Vec<String>) -> String {
         // TODO: alt_name & override & default?
         format!(
-            "    {}: {},",
+            "{}    {}: {},",
+            generate_docs(
+                Some(&self.description),
+                self.lists.as_ref(),
+                self.examples.as_ref(),
+                true
+            ),
             self.name.to_rust_field_name(),
             self.type_
                 .generate(
