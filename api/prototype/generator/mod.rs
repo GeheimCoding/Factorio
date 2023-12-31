@@ -1,6 +1,6 @@
 use std::{fs, io};
 
-use super::{ComplexType, Property, Prototype, PrototypeApiFormat, Type};
+use super::{ComplexType, Concept, Property, Prototype, PrototypeApiFormat, Type};
 
 trait Generate {
     fn generate(&self, prefix: String, enum_variant: bool, unions: &mut Vec<String>) -> String;
@@ -112,28 +112,27 @@ fn generate_docs(
     result
 }
 
-impl PrototypeApiFormat {
-    pub fn generate_prototype_api(&self, output_path: &str) -> io::Result<()> {
-        fs::write(
-            output_path,
-            self.generate(String::new(), false, &mut vec![]),
-        )
-    }
+fn generate<G: Generate>(list: &[G]) -> String {
+    let mut result = String::new();
+    result.push_str(
+        &list
+            .iter()
+            .map(|p| p.generate(String::new(), false, &mut vec![]))
+            .collect::<Vec<_>>()
+            .join("\n\n"),
+    );
+    result.push('\n');
+    result
 }
 
-impl Generate for PrototypeApiFormat {
-    fn generate(&self, prefix: String, enum_variant: bool, unions: &mut Vec<String>) -> String {
-        let mut result = String::new();
-        result.push_str(
-            &self
-                .prototypes
-                .iter()
-                .map(|p| p.generate(prefix.clone(), enum_variant, unions))
-                .collect::<Vec<_>>()
-                .join("\n\n"),
-        );
-        result.push('\n');
-        result
+impl PrototypeApiFormat {
+    pub fn generate_prototype_api(
+        &self,
+        prototypes_path: &str,
+        types_path: &str,
+    ) -> io::Result<()> {
+        fs::write(prototypes_path, generate(&self.prototypes))?;
+        fs::write(types_path, generate(&self.types))
     }
 }
 
@@ -173,6 +172,12 @@ impl Generate for Prototype {
         }
         result.push_str("\n}");
         result
+    }
+}
+
+impl Generate for Concept {
+    fn generate(&self, prefix: String, enum_variant: bool, unions: &mut Vec<String>) -> String {
+        "TODO".to_owned()
     }
 }
 
