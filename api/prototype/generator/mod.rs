@@ -3,7 +3,13 @@ use std::{fs, io};
 use super::{ComplexType, Concept, Property, Prototype, PrototypeApiFormat, Type};
 
 trait Generate {
-    fn generate(&self, prefix: String, enum_variant: bool, unions: &mut Vec<String>) -> String;
+    fn generate(
+        &self,
+        prefix: String,
+        enum_variant: bool,
+        indent: usize,
+        unions: &mut Vec<String>,
+    ) -> String;
 }
 
 trait StringTransformation {
@@ -84,21 +90,21 @@ fn generate_docs(
     description: Option<&String>,
     lists: Option<&Vec<String>>,
     examples: Option<&Vec<String>>,
-    indent: bool,
+    indent: usize,
 ) -> String {
     let mut result = String::new();
-    let indent = if indent { "    " } else { "" };
+    let indent = "    ".repeat(indent);
     if let Some(description) = description {
         if !description.is_empty() {
             result.push_str(&format!(
                 "{indent}/// {}\n",
-                description.to_doc_string(indent)
+                description.to_doc_string(&indent)
             ));
         }
     }
     if let Some(lists) = lists {
         for list in lists {
-            result.push_str(&format!("{indent}/// {}\n", list.to_doc_string(indent)));
+            result.push_str(&format!("{indent}/// {}\n", list.to_doc_string(&indent)));
         }
     }
     if let Some(examples) = examples {
@@ -106,7 +112,7 @@ fn generate_docs(
             "{indent}///\n{indent}/// Examples:\n{indent}///\n"
         ));
         for example in examples {
-            result.push_str(&format!("{indent}/// {}\n", example.to_doc_string(indent)));
+            result.push_str(&format!("{indent}/// {}\n", example.to_doc_string(&indent)));
         }
     }
     result
@@ -117,7 +123,7 @@ fn generate<G: Generate>(list: &[G]) -> String {
     result.push_str(
         &list
             .iter()
-            .map(|p| p.generate(String::new(), false, &mut vec![]))
+            .map(|p| p.generate(String::new(), false, 0, &mut vec![]))
             .collect::<Vec<_>>()
             .join("\n\n"),
     );
@@ -137,7 +143,7 @@ fn generate_struct(name: &str, parent: Option<&String>, properties: &Vec<Propert
     result.push_str(
         &properties
             .iter()
-            .map(|p| p.generate(name.to_owned(), false, &mut unions))
+            .map(|p| p.generate(name.to_owned(), false, 1, &mut unions))
             .collect::<Vec<_>>()
             .join("\n"),
     );
@@ -148,36 +154,53 @@ fn generate_struct(name: &str, parent: Option<&String>, properties: &Vec<Propert
     result
 }
 
-fn generate_union(name: &str, options: &Vec<Type>, unions: &mut Vec<String>) -> String {
+fn generate_union(
+    name: &str,
+    options: &Vec<Type>,
+    unions: &mut Vec<String>,
+    properties: Option<&Vec<Property>>,
+) -> String {
     let mut union = format!("pub enum {name} {{\n");
     for option in options {
-        let result = option.generate(name.to_owned(), true, unions);
-        let has_value = if let Type::Complex(complex) = option {
+        let result = option.generate(name.to_owned(), true, 1, unions);
+        let (has_value, has_struct) = if let Type::Complex(complex) = option {
             match complex.as_ref() {
                 ComplexType::Literal {
                     value: _,
                     description,
                 } => {
-                    union.push_str(&generate_docs(description.as_ref(), None, None, true));
-                    false
+                    union.push_str(&generate_docs(description.as_ref(), None, None, 1));
+                    (false, false)
                 }
                 ComplexType::Type {
                     value: _,
                     description,
                 } => {
-                    union.push_str(&generate_docs(Some(description), None, None, true));
-                    false
+                    union.push_str(&generate_docs(Some(description), None, None, 1));
+                    (false, false)
                 }
-                _ => true,
+                ComplexType::Struct => (false, true),
+                _ => (true, false),
             }
         } else {
-            true
+            (true, false)
         };
         union.push_str(&format!(
             "    {}",
             result.to_rust_field_name().to_pascal_case()
         ));
-        if has_value {
+        if has_struct {
+            union.push_str(" {\n");
+            union.push_str(
+                &properties
+                    .expect("should have properties")
+                    .iter()
+                    .map(|p| p.generate(name.to_owned(), true, 2, unions))
+                    .collect::<Vec<_>>()
+                    .join("\n"),
+            );
+            union.push_str("\n    }");
+        } else if has_value {
             union.push_str(&format!("({result})"));
         }
         union.push_str(",\n");
@@ -199,7 +222,13 @@ impl PrototypeApiFormat {
 }
 
 impl Generate for Prototype {
-    fn generate(&self, _prefix: String, _enum_variant: bool, _unions: &mut Vec<String>) -> String {
+    fn generate(
+        &self,
+        _prefix: String,
+        _enum_variant: bool,
+        indent: usize,
+        _unions: &mut Vec<String>,
+    ) -> String {
         // TODO: typename & custom_properties?
         format!(
             "{}{}",
@@ -207,7 +236,7 @@ impl Generate for Prototype {
                 Some(&self.description),
                 self.lists.as_ref(),
                 self.examples.as_ref(),
-                false,
+                indent,
             ),
             generate_struct(&self.name, self.parent.as_ref(), &self.properties)
         )
@@ -215,15 +244,26 @@ impl Generate for Prototype {
 }
 
 impl Generate for Concept {
-    fn generate(&self, _prefix: String, _enum_variant: bool, unions: &mut Vec<String>) -> String {
+    fn generate(
+        &self,
+        _prefix: String,
+        _enum_variant: bool,
+        indent: usize,
+        unions: &mut Vec<String>,
+    ) -> String {
         let mut result = String::from(generate_docs(
             Some(&self.description),
             self.lists.as_ref(),
             self.examples.as_ref(),
-            false,
+            indent,
         ));
         let is_new_type = match &self.type_ {
-            Type::Simple(string) => string != "builtin",
+            Type::Simple(string) => {
+                if string == "builtin" {
+                    return String::new();
+                }
+                false
+            }
             Type::Complex(complex) => match complex.as_ref() {
                 ComplexType::Struct => {
                     result.push_str(&generate_struct(
@@ -239,8 +279,7 @@ impl Generate for Concept {
                     options,
                     full_format: _,
                 } => {
-                    // TODO: this might have a struct inside, generate it with properties
-                    generate_union(&self.name, options, unions);
+                    generate_union(&self.name, options, unions, self.properties.as_ref());
                     false
                 }
                 _ => true,
@@ -250,7 +289,8 @@ impl Generate for Concept {
             result.push_str(&format!(
                 "pub type {} = {};",
                 self.name,
-                self.type_.generate(self.name.clone(), false, unions)
+                self.type_
+                    .generate(self.name.clone(), false, indent, unions)
             ));
             if !unions.is_empty() {
                 result.push_str("\n\n");
@@ -263,21 +303,29 @@ impl Generate for Concept {
 }
 
 impl Generate for Property {
-    fn generate(&self, prefix: String, enum_variant: bool, unions: &mut Vec<String>) -> String {
+    fn generate(
+        &self,
+        prefix: String,
+        enum_variant: bool,
+        indent: usize,
+        unions: &mut Vec<String>,
+    ) -> String {
         // TODO: alt_name & override & default?
         format!(
-            "{}    {}: {},",
+            "{}{}{}: {},",
             generate_docs(
                 Some(&self.description),
                 self.lists.as_ref(),
                 self.examples.as_ref(),
-                true
+                indent
             ),
+            "    ".repeat(indent),
             self.name.to_rust_field_name(),
             self.type_
                 .generate(
                     format!("{prefix}{}", self.name.to_pascal_case()),
                     enum_variant,
+                    indent,
                     unions
                 )
                 .to_optional_if(self.optional)
@@ -286,38 +334,55 @@ impl Generate for Property {
 }
 
 impl Generate for Type {
-    fn generate(&self, prefix: String, enum_variant: bool, unions: &mut Vec<String>) -> String {
+    fn generate(
+        &self,
+        prefix: String,
+        enum_variant: bool,
+        indent: usize,
+        unions: &mut Vec<String>,
+    ) -> String {
         match self {
             Self::Simple(name) => name.to_rust_type(),
-            Self::Complex(complex_type) => complex_type.generate(prefix, enum_variant, unions),
+            Self::Complex(complex_type) => {
+                complex_type.generate(prefix, enum_variant, indent, unions)
+            }
         }
     }
 }
 
 impl Generate for ComplexType {
-    fn generate(&self, prefix: String, enum_variant: bool, unions: &mut Vec<String>) -> String {
+    fn generate(
+        &self,
+        prefix: String,
+        enum_variant: bool,
+        indent: usize,
+        unions: &mut Vec<String>,
+    ) -> String {
         match self {
             Self::Array { value } => {
-                format!("Vec<{}>", value.generate(prefix, enum_variant, unions))
+                format!(
+                    "Vec<{}>",
+                    value.generate(prefix, enum_variant, indent, unions)
+                )
             }
             // TODO: derive hash for key?
             Self::Dictionary { key, value } => format!(
                 "HashMap<{}, {}>",
-                key.generate(prefix.clone(), enum_variant, unions),
-                value.generate(prefix, enum_variant, unions)
+                key.generate(prefix.clone(), enum_variant, indent, unions),
+                value.generate(prefix, enum_variant, indent, unions)
             ),
             Self::Tuple { values } => format!(
                 "({})",
                 values
                     .iter()
-                    .map(|t| t.generate(prefix.clone(), enum_variant, unions))
+                    .map(|t| t.generate(prefix.clone(), enum_variant, indent, unions))
                     .collect::<Vec<_>>()
                     .join(", ")
             ),
             Self::Union {
                 options,
                 full_format: _,
-            } => generate_union(&prefix, options, unions),
+            } => generate_union(&prefix, options, unions, None),
             Self::Literal {
                 value,
                 description: _,
@@ -341,8 +406,8 @@ impl Generate for ComplexType {
             Self::Type {
                 value,
                 description: _,
-            } => value.generate(prefix, enum_variant, unions),
-            Self::Struct => format!("{prefix}Struct"),
+            } => value.generate(prefix, enum_variant, indent, unions),
+            Self::Struct => prefix,
         }
     }
 }
