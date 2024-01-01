@@ -124,6 +124,7 @@ fn generate<G: Generate>(list: &[G]) -> String {
         &list
             .iter()
             .map(|p| p.generate(String::new(), false, 0, &mut vec![]))
+            .filter(|s| !s.is_empty())
             .collect::<Vec<_>>()
             .join("\n\n"),
     );
@@ -262,7 +263,7 @@ impl Generate for Concept {
                 if string == "builtin" {
                     return String::new();
                 }
-                false
+                true
             }
             Type::Complex(complex) => match complex.as_ref() {
                 ComplexType::Struct => {
