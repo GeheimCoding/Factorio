@@ -27,7 +27,7 @@ impl StringTransformation for String {
                 .to_ascii_uppercase(),
         );
         while let Some(c) = chars.next() {
-            if c == '_' || c == '.' || c == '-' {
+            if c == '_' || c == '.' || c == '-' || c == ':' {
                 if let Some(next) = chars.next() {
                     pascal_case.push(next.to_ascii_uppercase());
                 }
@@ -125,6 +125,61 @@ fn generate<G: Generate>(list: &[G]) -> String {
     result
 }
 
+fn generate_struct(name: &str, parent: Option<&String>, properties: &Vec<Property>) -> String {
+    let mut unions = vec![];
+    let mut result = String::from(&format!("pub struct {} {{\n", name));
+    if let Some(parent) = parent {
+        result.push_str(&format!("    parent_: {parent},"));
+        if !properties.is_empty() {
+            result.push('\n');
+        }
+    }
+    result.push_str(
+        &properties
+            .iter()
+            .map(|p| p.generate(name.to_owned(), false, &mut unions))
+            .collect::<Vec<_>>()
+            .join("\n"),
+    );
+    for union in unions {
+        result.insert_str(0, &format!("{union}\n\n"));
+    }
+    result.push_str("\n}");
+    result
+}
+
+fn generate_union(name: &str, options: &Vec<Type>, unions: &mut Vec<String>) -> String {
+    let mut union = format!("pub enum {name} {{\n");
+    for option in options {
+        let result = option.generate(name.to_owned(), true, unions);
+        let has_value = if let Type::Complex(complex) = option {
+            if let ComplexType::Literal {
+                value: _,
+                description,
+            } = complex.as_ref()
+            {
+                union.push_str(&generate_docs(description.as_ref(), None, None, true));
+                false
+            } else {
+                true
+            }
+        } else {
+            true
+        };
+        union.push_str(&format!(
+            "    {}",
+            result.to_rust_field_name().to_pascal_case()
+        ));
+        if has_value {
+            union.push_str(&format!("({result})"));
+        }
+        union.push_str(",\n");
+    }
+    union.push('}');
+    unions.push(union);
+    name.to_owned()
+}
+
 impl PrototypeApiFormat {
     pub fn generate_prototype_api(
         &self,
@@ -137,47 +192,58 @@ impl PrototypeApiFormat {
 }
 
 impl Generate for Prototype {
-    fn generate(&self, prefix: String, enum_variant: bool, unions: &mut Vec<String>) -> String {
+    fn generate(&self, _prefix: String, _enum_variant: bool, _unions: &mut Vec<String>) -> String {
         // TODO: typename & custom_properties?
+        format!(
+            "{}{}",
+            generate_docs(
+                Some(&self.description),
+                self.lists.as_ref(),
+                self.examples.as_ref(),
+                false,
+            ),
+            generate_struct(&self.name, self.parent.as_ref(), &self.properties)
+        )
+    }
+}
+
+impl Generate for Concept {
+    fn generate(&self, prefix: String, enum_variant: bool, unions: &mut Vec<String>) -> String {
         let mut result = String::from(generate_docs(
             Some(&self.description),
             self.lists.as_ref(),
             self.examples.as_ref(),
             false,
         ));
-        result.push_str(&format!("pub struct {} {{\n", self.name));
-        if let Some(parent) = &self.parent {
-            result.push_str(&format!("    parent_: {parent},"));
-            if !self.properties.is_empty() {
-                result.push('\n');
-            }
-        }
-        unions.clear();
-        result.push_str(
-            &self
-                .properties
-                .iter()
-                .map(|p| {
-                    p.generate(
-                        format!("{prefix}{}", self.name.to_pascal_case()),
-                        enum_variant,
-                        unions,
-                    )
-                })
-                .collect::<Vec<_>>()
-                .join("\n"),
-        );
+        let is_new_type = match &self.type_ {
+            Type::Simple(string) => string != "builtin",
+            Type::Complex(complex) => match complex.as_ref() {
+                ComplexType::Struct => {
+                    result.push_str(&generate_struct(
+                        &self.name,
+                        self.parent.as_ref(),
+                        self.properties
+                            .as_ref()
+                            .expect("there should be at least one property"),
+                    ));
+                    false
+                }
+                ComplexType::Union {
+                    options,
+                    full_format: _,
+                } => {
+                    generate_union(&self.name, options, unions);
+                    false
+                }
+                _ => true,
+            },
+        };
+        if is_new_type {}
+
         for union in unions {
             result.insert_str(0, &format!("{union}\n\n"));
         }
-        result.push_str("\n}");
         result
-    }
-}
-
-impl Generate for Concept {
-    fn generate(&self, prefix: String, enum_variant: bool, unions: &mut Vec<String>) -> String {
-        "TODO".to_owned()
     }
 }
 
@@ -236,36 +302,7 @@ impl Generate for ComplexType {
             Self::Union {
                 options,
                 full_format: _,
-            } => {
-                let mut union = format!("pub enum {prefix} {{\n");
-                for option in options {
-                    let result = option.generate(prefix.clone(), true, unions);
-                    union.push_str(&format!(
-                        "    {}",
-                        result.to_rust_field_name().to_pascal_case()
-                    ));
-                    let has_value = if let Type::Complex(complex) = option {
-                        if let ComplexType::Literal {
-                            value: _,
-                            description: _,
-                        } = complex.as_ref()
-                        {
-                            false
-                        } else {
-                            true
-                        }
-                    } else {
-                        true
-                    };
-                    if has_value {
-                        union.push_str(&format!("({result})"));
-                    }
-                    union.push_str(",\n");
-                }
-                union.push('}');
-                unions.push(union);
-                prefix
-            }
+            } => generate_union(&prefix, options, unions),
             Self::Literal {
                 value,
                 description: _,
@@ -290,7 +327,7 @@ impl Generate for ComplexType {
                 value,
                 description: _,
             } => value.generate(prefix, enum_variant, unions),
-            Self::Struct => "<TODO>".to_owned(),
+            Self::Struct => prefix,
         }
     }
 }
