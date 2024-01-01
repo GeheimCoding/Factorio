@@ -153,15 +153,22 @@ fn generate_union(name: &str, options: &Vec<Type>, unions: &mut Vec<String>) -> 
     for option in options {
         let result = option.generate(name.to_owned(), true, unions);
         let has_value = if let Type::Complex(complex) = option {
-            if let ComplexType::Literal {
-                value: _,
-                description,
-            } = complex.as_ref()
-            {
-                union.push_str(&generate_docs(description.as_ref(), None, None, true));
-                false
-            } else {
-                true
+            match complex.as_ref() {
+                ComplexType::Literal {
+                    value: _,
+                    description,
+                } => {
+                    union.push_str(&generate_docs(description.as_ref(), None, None, true));
+                    false
+                }
+                ComplexType::Type {
+                    value: _,
+                    description,
+                } => {
+                    union.push_str(&generate_docs(Some(description), None, None, true));
+                    false
+                }
+                _ => true,
             }
         } else {
             true
@@ -208,7 +215,7 @@ impl Generate for Prototype {
 }
 
 impl Generate for Concept {
-    fn generate(&self, prefix: String, enum_variant: bool, unions: &mut Vec<String>) -> String {
+    fn generate(&self, _prefix: String, _enum_variant: bool, unions: &mut Vec<String>) -> String {
         let mut result = String::from(generate_docs(
             Some(&self.description),
             self.lists.as_ref(),
@@ -232,17 +239,25 @@ impl Generate for Concept {
                     options,
                     full_format: _,
                 } => {
+                    // TODO: this might have a struct inside, generate it with properties
                     generate_union(&self.name, options, unions);
                     false
                 }
                 _ => true,
             },
         };
-        if is_new_type {}
-
-        for union in unions {
-            result.insert_str(0, &format!("{union}\n\n"));
+        if is_new_type {
+            result.push_str(&format!(
+                "pub type {} = {};",
+                self.name,
+                self.type_.generate(self.name.clone(), false, unions)
+            ));
+            if !unions.is_empty() {
+                result.push_str("\n\n");
+            }
         }
+        result.push_str(&unions.join("\n\n"));
+
         result
     }
 }
@@ -327,7 +342,7 @@ impl Generate for ComplexType {
                 value,
                 description: _,
             } => value.generate(prefix, enum_variant, unions),
-            Self::Struct => prefix,
+            Self::Struct => format!("{prefix}Struct"),
         }
     }
 }
