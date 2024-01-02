@@ -6,8 +6,10 @@ use std::{
 };
 
 use prototype::PrototypeApiFormat;
+use runtime::RuntimeApiFormat;
 
 mod prototype;
+mod runtime;
 
 fn main() -> io::Result<()> {
     let run_build_script = env::var("RUN_BUILD_SCRIPT")
@@ -18,6 +20,7 @@ fn main() -> io::Result<()> {
 
     if run_build_script {
         generate_prototype_api()?;
+        generate_runtime_api()?;
     }
     Ok(())
 }
@@ -32,6 +35,10 @@ fn generate_prototype_api() -> io::Result<Child> {
     rustfmt(types_path)
 }
 
+fn generate_runtime_api() -> io::Result<()> {
+    read_runtime_api_format("runtime/runtime-api-v1.1.101.json")?.generate_runtime_api()
+}
+
 // https://lua-api.factorio.com/1.1.101/index-prototype.html
 fn read_prototype_api_format(json_path: &str) -> io::Result<PrototypeApiFormat> {
     let file = File::open(json_path)?;
@@ -39,6 +46,15 @@ fn read_prototype_api_format(json_path: &str) -> io::Result<PrototypeApiFormat> 
     let prototype_api_format = serde_json::from_reader(reader)?;
 
     Ok(prototype_api_format)
+}
+
+// https://lua-api.factorio.com/1.1.101/index-runtime.html
+fn read_runtime_api_format(json_path: &str) -> io::Result<RuntimeApiFormat> {
+    let file = File::open(json_path)?;
+    let reader = BufReader::new(file);
+    let runtime_api_format = serde_json::from_reader(reader)?;
+
+    Ok(runtime_api_format)
 }
 
 fn rustfmt(path: &str) -> io::Result<Child> {
