@@ -61,10 +61,45 @@ pub struct RuntimeApiFormat {
 }
 
 #[derive(Debug, Deserialize)]
-pub struct Class {}
+pub struct Class {
+    /// The name of the class.
+    name: String,
+    /// The order of the class as shown in the HTML.
+    order: u16,
+    /// The text description of the class.
+    description: String,
+    /// A list of strings containing additional information about the class.
+    notes: Option<Vec<String>>,
+    /// A list of strings containing example code and explanations.
+    examples: Option<Vec<String>>,
+    /// The methods that are part of the class.
+    methods: Vec<Method>,
+    /// The attributes that are part of the class.
+    attributes: Vec<Attribute>,
+    /// A list of operators on the class. They are called `call`, `index`, or `length` and have the format of either a [Method](https://lua-api.factorio.com/1.1.101/auxiliary/json-docs-runtime.html#Method) or an [Attribute](https://lua-api.factorio.com/1.1.101/auxiliary/json-docs-runtime.html#Attribute).
+    operators: Vec<Operator>,
+    /// Whether the class is never itself instantiated, only inherited from.
+    #[serde(rename = "abstract")]
+    abstract_: bool,
+    /// A list of the names of the classes that his class inherits from.
+    base_classes: Option<Vec<String>>,
+}
 
 #[derive(Debug, Deserialize)]
-pub struct Event {}
+pub struct Event {
+    /// The name of the event.
+    name: String,
+    /// The order of the event as shown in the HTML.
+    order: u16,
+    /// The text description of the event.
+    description: String,
+    /// A list of strings containing additional information about the event.
+    notes: Option<Vec<String>>,
+    /// A list of strings containing example code and explanations.
+    examples: Option<Vec<String>>,
+    /// The event-specific information that is provided.
+    data: Vec<Parameter>,
+}
 
 #[derive(Debug, Deserialize)]
 pub struct Define {}
@@ -80,6 +115,15 @@ pub struct GlobalObject {}
 
 #[derive(Debug, Deserialize)]
 pub struct Method {}
+
+#[derive(Debug, Deserialize)]
+pub struct Attribute {}
+
+#[derive(Debug, Deserialize)]
+pub struct Operator {}
+
+#[derive(Debug, Deserialize)]
+pub struct Parameter {}
 
 impl RuntimeApiFormat {
     pub fn generate_runtime_api(&self) -> io::Result<()> {
