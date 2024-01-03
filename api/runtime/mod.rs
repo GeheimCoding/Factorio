@@ -102,28 +102,176 @@ pub struct Event {
 }
 
 #[derive(Debug, Deserialize)]
-pub struct Define {}
+pub struct Define {
+    /// The name of the define.
+    name: String,
+    /// The order of the define as shown in the HTML.
+    order: u16,
+    /// The text description of the define.
+    description: String,
+    /// The members of the define.
+    values: Option<Vec<BasicMember>>,
+    /// A list of sub-defines.
+    subkeys: Option<Vec<Define>>,
+}
 
 #[derive(Debug, Deserialize)]
-pub struct BuiltinType {}
+pub struct BuiltinType {
+    /// The name of the built-in type.
+    name: String,
+    /// The order of the built-in type as shown in the HTML.
+    order: u16,
+    /// The text description of the built-in type.
+    description: String,
+}
 
 #[derive(Debug, Deserialize)]
-pub struct Concept {}
+pub struct Concept {
+    /// The name of the concept.
+    name: String,
+    /// The order of the concept as shown in the HTML.
+    order: u16,
+    /// The text description of the concept.
+    description: String,
+    /// A list of strings containing additional information about the concept.
+    notes: Option<Vec<String>>,
+    /// A list of strings containing example code and explanations.
+    examples: Option<Vec<String>>,
+    /// The type of the concept.
+    #[serde(rename = "type")]
+    type_: Type,
+}
 
 #[derive(Debug, Deserialize)]
-pub struct GlobalObject {}
+pub struct GlobalObject {
+    /// The global variable name of the object.
+    name: String,
+    /// The order of the global object as shown in the HTML.
+    order: u16,
+    /// The text description of the global object.
+    description: String,
+    /// The class name of the global object.
+    #[serde(rename = "type")]
+    type_: String,
+}
 
 #[derive(Debug, Deserialize)]
-pub struct Method {}
+pub struct BasicMember {
+    /// The name of the member.
+    name: String,
+    /// The order of the member as shown in the HTML.
+    order: u16,
+    /// The text description of the member.
+    description: String,
+}
 
 #[derive(Debug, Deserialize)]
-pub struct Attribute {}
+pub struct EventRaised {
+    /// The name of the event being raised.
+    name: String,
+    /// The order of the member as shown in the HTML.
+    order: u16,
+    /// The text description of the raised event.
+    description: String,
+    /// The timeframe during which the event is raised. One of "instantly", "current_tick", or "future_tick".
+    timeframe: String,
+    /// Whether the event is always raised, or only dependant on a certain condition.
+    optional: bool,
+}
+
+#[derive(Debug, Deserialize)]
+pub struct Type {}
+
+#[derive(Debug, Deserialize)]
+pub struct Parameter {
+    /// The name of the parameter.
+    name: String,
+    /// The order of the parameter as shown in the HTML.
+    order: u16,
+    /// The text description of the parameter.
+    description: String,
+    /// The type of the parameter.
+    #[serde(rename = "type")]
+    type_: Type,
+    /// Whether the type is optional or not.
+    optional: bool,
+}
+
+#[derive(Debug, Deserialize)]
+pub struct ParameterGroup {
+    /// The name of the parameter group.
+    name: String,
+    /// The order of the parameter group as shown in the HTML.
+    order: u16,
+    /// The text description of the parameter group.
+    description: String,
+    /// The parameters that the group adds.
+    parameters: Vec<Parameter>,
+}
+
+#[derive(Debug, Deserialize)]
+pub struct Method {
+    /// The name of the method.
+    name: String,
+    /// The order of the method as shown in the HTML.
+    order: u16,
+    /// The text description of the method.
+    description: String,
+    /// A list of strings containing additional information about the method.
+    notes: Option<Vec<String>>,
+    /// A list of strings containing example code and explanations.
+    examples: Option<Vec<String>>,
+    /// A list of events that this method might raise when called.
+    raises: Option<Vec<EventRaised>>,
+    /// A list of strings specifying the sub-type (of the class) that the method applies to.
+    subclasses: Option<Vec<String>>,
+    /// The parameters of the method. How to interpret them depends on the `takes_table` member.
+    parameters: Vec<Parameter>,
+    /// The optional parameters that depend on one of the main parameters. Only applies if `takes_table` is `true`.
+    variant_parameter_groups: Option<Vec<ParameterGroup>>,
+    /// The text description of the optional parameter groups.
+    variant_parameter_description: Option<String>,
+    /// The type of the variadic arguments of the method, if it accepts any.
+    variadic_type: Option<Type>,
+    /// The description of the variadic arguments of the method, if it accepts any.
+    variadic_description: Option<String>,
+    /// Whether the method takes a single table with named parameters or a sequence of unnamed parameters.
+    takes_table: bool,
+    /// If `takes_table` is `true`, whether that whole table is optional or not.
+    table_is_optional: Option<bool>,
+    /// The return values of this method, which can contain zero, one, or multiple values. Note that these have the same structure as parameters, but do not specify a name.
+    return_values: Vec<Parameter>,
+}
+
+#[derive(Debug, Deserialize)]
+pub struct Attribute {
+    /// The name of the attribute.
+    name: String,
+    /// The order of the attribute as shown in the HTML.
+    order: u16,
+    /// The text description of the attribute.
+    description: String,
+    /// A list of strings containing additional information about the attribute.
+    notes: Option<Vec<String>>,
+    /// A list of strings containing example code and explanations.
+    examples: Option<Vec<String>>,
+    /// A list of events that this attribute might raise when written to.
+    raises: Option<Vec<EventRaised>>,
+    /// A list of strings specifying the sub-type (of the class) that the attribute applies to.
+    subclasses: Option<Vec<String>>,
+    /// The type of the attribute.
+    #[serde(rename = "type")]
+    type_: Type,
+    /// Whether the attribute is optional or not.
+    optional: bool,
+    /// Whether the attribute can be read from.
+    read: bool,
+    /// Whether the attribute can be written to.
+    write: bool,
+}
 
 #[derive(Debug, Deserialize)]
 pub struct Operator {}
-
-#[derive(Debug, Deserialize)]
-pub struct Parameter {}
 
 impl RuntimeApiFormat {
     pub fn generate_runtime_api(&self) -> io::Result<()> {
