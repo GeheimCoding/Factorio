@@ -1,4 +1,4 @@
-#![allow(dead_code)]
+#![allow(unused)]
 use serde::Deserialize;
 
 use crate::generator::type_::Type;

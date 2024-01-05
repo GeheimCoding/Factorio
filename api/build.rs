@@ -1,6 +1,6 @@
 use std::{
     env,
-    fs::File,
+    fs::{self, File},
     io::{self, BufReader},
     process::{Child, Command},
 };
@@ -17,6 +17,7 @@ fn main() -> io::Result<()> {
     println!("cargo:rerun-if-changed=generated");
 
     if run_build_script {
+        fs::create_dir_all("src/generated")?;
         generate_prototype_api()?;
         generate_runtime_api()?;
     }
@@ -34,7 +35,17 @@ fn generate_prototype_api() -> io::Result<Child> {
 }
 
 fn generate_runtime_api() -> io::Result<()> {
-    read_runtime_api_format("json/runtime-api-v1.1.101.json")?.generate_runtime_api()
+    let classes_path = "src/generated/classes.rs";
+    let events_path = "src/generated/events.rs";
+    let concepts_path = "src/generated/concepts.rs";
+    let defines_path = "src/generated/defines.rs";
+
+    read_runtime_api_format("json/runtime-api-v1.1.101.json")?.generate_runtime_api(
+        classes_path,
+        events_path,
+        concepts_path,
+        defines_path,
+    )
 }
 
 // https://lua-api.factorio.com/1.1.101/index-prototype.html

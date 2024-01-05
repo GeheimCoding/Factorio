@@ -139,26 +139,19 @@ impl Generate for ComplexType {
                 )
             }
             // TODO: derive hash for key?
-            Self::Dictionary { key, value } => format!(
+            Self::Dictionary { key, value } | Self::LuaCustomTable { key, value } => format!(
                 "HashMap<{}, {}>",
                 key.generate(prefix.clone(), enum_variant, indent, unions),
                 value.generate(prefix, enum_variant, indent, unions)
             ),
-            Self::Tuple(tuple) => match tuple {
-                Tuple::Tuple { values } => format!(
-                    "({})",
-                    values
-                        .iter()
-                        .map(|t| t.generate(prefix.clone(), enum_variant, indent, unions))
-                        .collect::<Vec<_>>()
-                        .join(", ")
-                ),
-                Tuple::Table {
-                    parameters,
-                    variant_parameter_groups,
-                    variant_parameter_description,
-                } => todo!(),
-            },
+            Self::Tuple(Tuple::Tuple { values }) => format!(
+                "({})",
+                values
+                    .iter()
+                    .map(|t| t.generate(prefix.clone(), enum_variant, indent, unions))
+                    .collect::<Vec<_>>()
+                    .join(", ")
+            ),
             Self::Union {
                 options,
                 full_format,
@@ -184,7 +177,6 @@ impl Generate for ComplexType {
                 value.generate(prefix, enum_variant, indent, unions)
             }
             Self::Struct => prefix,
-            Self::LuaCustomTable { key, value } => todo!(),
             Self::Function { parameters } => todo!(),
             Self::LuaLazyLoadedValue { value } => todo!(),
             Self::LuaStruct { attributes } => todo!(),
@@ -192,7 +184,12 @@ impl Generate for ComplexType {
                 parameters,
                 variant_parameter_groups,
                 variant_parameter_description,
-            } => todo!(),
+            }
+            | Self::Tuple(Tuple::Table {
+                parameters,
+                variant_parameter_groups,
+                variant_parameter_description,
+            }) => todo!(),
         }
     }
 }

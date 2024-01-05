@@ -1,4 +1,4 @@
-#![allow(dead_code)]
+#![allow(unused)]
 use std::io;
 
 use serde::Deserialize;
@@ -65,7 +65,13 @@ pub struct RuntimeApiFormat {
 }
 
 impl RuntimeApiFormat {
-    pub fn generate_runtime_api(&self) -> io::Result<()> {
+    pub fn generate_runtime_api(
+        &self,
+        classes_path: &str,
+        events_path: &str,
+        concepts_path: &str,
+        defines_path: &str,
+    ) -> io::Result<()> {
         Ok(())
     }
 }

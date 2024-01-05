@@ -1,4 +1,4 @@
-#![allow(dead_code)]
+#![allow(unused)]
 use serde::Deserialize;
 
 use super::basic_member::BasicMember;
