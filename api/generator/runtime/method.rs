@@ -1,7 +1,7 @@
 #![allow(dead_code)]
 use serde::Deserialize;
 
-use crate::generator::prototype::type_::Type;
+use crate::generator::type_::Type;
 
 use super::{
     event::EventRaised,

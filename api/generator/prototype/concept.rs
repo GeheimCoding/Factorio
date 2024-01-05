@@ -1,13 +1,13 @@
 #![allow(unused)]
 use serde::Deserialize;
 
-use crate::generator::{generate_docs, generate_struct, generate_union, Generate};
-
-use super::{
-    image::Image,
-    property::Property,
+use crate::generator::{
+    generate_docs, generate_struct, generate_union,
     type_::{ComplexType, Type},
+    Generate,
 };
+
+use super::{image::Image, property::Property};
 
 #[derive(Debug, Deserialize)]
 pub struct Concept {

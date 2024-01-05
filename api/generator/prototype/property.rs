@@ -1,9 +1,9 @@
 #![allow(unused)]
 use serde::Deserialize;
 
-use crate::generator::{generate_docs, Generate, StringTransformation};
+use crate::generator::{generate_docs, type_::Type, Generate, StringTransformation};
 
-use super::{image::Image, type_::Type};
+use super::image::Image;
 
 #[derive(Debug, Deserialize)]
 pub struct Property {

@@ -1,10 +1,11 @@
-use self::prototype::{
-    property::Property,
+use self::{
+    prototype::property::Property,
     type_::{ComplexType, Type},
 };
 
 pub mod prototype;
 pub mod runtime;
+mod type_;
 
 trait Generate {
     fn generate(
