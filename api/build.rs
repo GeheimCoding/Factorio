@@ -5,7 +5,7 @@ use std::{
     process::{Child, Command},
 };
 
-use generator::{prototype::api_format::PrototypeApiFormat, runtime::RuntimeApiFormat};
+use generator::{prototype::api_format::PrototypeApiFormat, runtime::api_format::RuntimeApiFormat};
 
 mod generator;
 
