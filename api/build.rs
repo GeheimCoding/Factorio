@@ -5,11 +5,9 @@ use std::{
     process::{Child, Command},
 };
 
-use prototype::PrototypeApiFormat;
-use runtime::RuntimeApiFormat;
+use generator::{prototype::api_format::PrototypeApiFormat, runtime::RuntimeApiFormat};
 
-mod prototype;
-mod runtime;
+mod generator;
 
 fn main() -> io::Result<()> {
     let run_build_script = env::var("RUN_BUILD_SCRIPT")
@@ -29,14 +27,14 @@ fn generate_prototype_api() -> io::Result<Child> {
     let prototypes_path = "src/generated/prototypes.rs";
     let types_path = "src/generated/types.rs";
 
-    read_prototype_api_format("prototype/prototype-api-v1.1.101.json")?
+    read_prototype_api_format("json/prototype-api-v1.1.101.json")?
         .generate_prototype_api(prototypes_path, types_path)?;
     rustfmt(prototypes_path)?;
     rustfmt(types_path)
 }
 
 fn generate_runtime_api() -> io::Result<()> {
-    read_runtime_api_format("runtime/runtime-api-v1.1.101.json")?.generate_runtime_api()
+    read_runtime_api_format("json/runtime-api-v1.1.101.json")?.generate_runtime_api()
 }
 
 // https://lua-api.factorio.com/1.1.101/index-prototype.html
