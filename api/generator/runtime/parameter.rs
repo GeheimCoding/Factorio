@@ -25,7 +25,7 @@ pub struct ParameterGroup {
     /// The order of the parameter group as shown in the HTML.
     order: u16,
     /// The text description of the parameter group.
-    description: String,
+    description: Option<String>,
     /// The parameters that the group adds.
     parameters: Vec<Parameter>,
 }

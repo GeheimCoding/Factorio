@@ -3,6 +3,11 @@ use serde::Deserialize;
 
 use crate::generator::{generate_union, Generate, StringTransformation};
 
+use super::runtime::{
+    attribute::Attribute,
+    parameter::{Parameter, ParameterGroup},
+};
+
 #[derive(Debug, Deserialize)]
 #[serde(untagged)]
 pub enum Type {
@@ -12,7 +17,7 @@ pub enum Type {
 
 #[derive(Debug, Deserialize)]
 #[serde(tag = "complex_type")]
-#[serde(rename_all = "camelCase")]
+#[serde(rename_all = "snake_case")]
 pub enum ComplexType {
     Array {
         /// The type of the elements of the array.
@@ -24,10 +29,7 @@ pub enum ComplexType {
         /// The type of the values of the dictionary.
         value: Type,
     },
-    Tuple {
-        /// The types of the members of this tuple in order.
-        values: Vec<Type>,
-    },
+    Tuple(Tuple),
     Union {
         /// A list of all compatible types for this type.
         options: Vec<Type>,
@@ -48,6 +50,52 @@ pub enum ComplexType {
     },
     /// Special type with no additional members. The properties themselves are listed on the API member that uses this type.
     Struct,
+    #[serde(rename = "LuaCustomTable")]
+    LuaCustomTable {
+        /// The type of the keys of the LuaCustomTable.
+        key: Type,
+        /// The type of the values of the LuaCustomTable.
+        value: Type,
+    },
+    Function {
+        /// The types of the function arguments.
+        parameters: Vec<Type>,
+    },
+    #[serde(rename = "LuaLazyLoadedValue")]
+    LuaLazyLoadedValue {
+        /// The type of the LuaLazyLoadedValue.
+        value: Type,
+    },
+    #[serde(rename = "LuaStruct")]
+    LuaStruct {
+        /// A list of attributes with the same properties as class attributes.
+        attributes: Vec<Attribute>,
+    },
+    Table {
+        /// The parameters present in the table.
+        parameters: Vec<Parameter>,
+        /// The optional parameters that depend on one of the main parameters.
+        variant_parameter_groups: Option<Vec<ParameterGroup>>,
+        /// The text description of the optional parameter groups.
+        variant_parameter_description: Option<String>,
+    },
+}
+
+#[derive(Debug, Deserialize)]
+#[serde(untagged)]
+pub enum Tuple {
+    Tuple {
+        /// The types of the members of this tuple in order.
+        values: Vec<Type>,
+    },
+    Table {
+        /// The parameters present in the table.
+        parameters: Vec<Parameter>,
+        /// The optional parameters that depend on one of the main parameters.
+        variant_parameter_groups: Option<Vec<ParameterGroup>>,
+        /// The text description of the optional parameter groups.
+        variant_parameter_description: Option<String>,
+    },
 }
 
 #[derive(Debug, Deserialize)]
@@ -96,22 +144,26 @@ impl Generate for ComplexType {
                 key.generate(prefix.clone(), enum_variant, indent, unions),
                 value.generate(prefix, enum_variant, indent, unions)
             ),
-            Self::Tuple { values } => format!(
-                "({})",
-                values
-                    .iter()
-                    .map(|t| t.generate(prefix.clone(), enum_variant, indent, unions))
-                    .collect::<Vec<_>>()
-                    .join(", ")
-            ),
+            Self::Tuple(tuple) => match tuple {
+                Tuple::Tuple { values } => format!(
+                    "({})",
+                    values
+                        .iter()
+                        .map(|t| t.generate(prefix.clone(), enum_variant, indent, unions))
+                        .collect::<Vec<_>>()
+                        .join(", ")
+                ),
+                Tuple::Table {
+                    parameters,
+                    variant_parameter_groups,
+                    variant_parameter_description,
+                } => todo!(),
+            },
             Self::Union {
                 options,
-                full_format: _,
+                full_format,
             } => generate_union(&prefix, options, unions, None),
-            Self::Literal {
-                value,
-                description: _,
-            } => match value {
+            Self::Literal { value, description } => match value {
                 ComplexTypeLiteralValueUnion::String(s) => {
                     if enum_variant {
                         s.to_pascal_case()
@@ -128,11 +180,19 @@ impl Generate for ComplexType {
                     }
                 }
             },
-            Self::Type {
-                value,
-                description: _,
-            } => value.generate(prefix, enum_variant, indent, unions),
+            Self::Type { value, description } => {
+                value.generate(prefix, enum_variant, indent, unions)
+            }
             Self::Struct => prefix,
+            Self::LuaCustomTable { key, value } => todo!(),
+            Self::Function { parameters } => todo!(),
+            Self::LuaLazyLoadedValue { value } => todo!(),
+            Self::LuaStruct { attributes } => todo!(),
+            Self::Table {
+                parameters,
+                variant_parameter_groups,
+                variant_parameter_description,
+            } => todo!(),
         }
     }
 }
