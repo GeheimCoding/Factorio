@@ -34,7 +34,7 @@ fn generate_prototype_api() -> io::Result<Child> {
     rustfmt(types_path)
 }
 
-fn generate_runtime_api() -> io::Result<()> {
+fn generate_runtime_api() -> io::Result<Child> {
     let classes_path = "src/generated/classes.rs";
     let events_path = "src/generated/events.rs";
     let concepts_path = "src/generated/concepts.rs";
@@ -45,7 +45,8 @@ fn generate_runtime_api() -> io::Result<()> {
         events_path,
         concepts_path,
         defines_path,
-    )
+    )?;
+    rustfmt(defines_path)
 }
 
 // https://lua-api.factorio.com/1.1.101/index-prototype.html

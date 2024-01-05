@@ -1,7 +1,9 @@
 #![allow(unused)]
-use std::io;
+use std::{fs, io};
 
 use serde::Deserialize;
+
+use crate::generator::generate;
 
 use super::{
     builtin_type::BuiltinType, class::Class, concept::Concept, define::Define, event::Event,
@@ -72,6 +74,7 @@ impl RuntimeApiFormat {
         concepts_path: &str,
         defines_path: &str,
     ) -> io::Result<()> {
+        fs::write(defines_path, generate(&self.defines))?;
         Ok(())
     }
 }
