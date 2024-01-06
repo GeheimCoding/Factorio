@@ -59,7 +59,8 @@ impl StringTransformation for String {
                 .replace(',', "")
                 .replace('(', "")
                 .replace(')', "")
-                .replace(' ', "_"),
+                .replace(' ', "_")
+                .replace('-', "_"),
         }
     }
 
@@ -123,7 +124,10 @@ fn generate_docs(
         }
     }
     if let Some(notes) = notes {
-        result.push_str(&format!("{indent}///\n{indent}/// Notes:\n{indent}///\n"));
+        if !result.is_empty() {
+            result.push_str(&format!("{indent}///\n"));
+        }
+        result.push_str(&format!("{indent}/// Notes:\n{indent}///\n"));
         for note in notes {
             result.push_str(&format!("{indent}/// {}\n", note.to_doc_string(&indent)));
         }

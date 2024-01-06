@@ -181,7 +181,16 @@ impl Generate for ComplexType {
             Self::LuaLazyLoadedValue { value } => {
                 value.generate(prefix, enum_variant, indent, unions)
             }
-            Self::LuaStruct { attributes } => todo!(),
+            Self::LuaStruct { attributes } => {
+                format!(
+                    "pub struct {prefix} {{\n{}\n}}",
+                    attributes
+                        .iter()
+                        .map(|a| a.generate(prefix.clone(), enum_variant, indent + 1, unions))
+                        .collect::<Vec<_>>()
+                        .join("\n")
+                )
+            }
             Self::Table {
                 parameters,
                 variant_parameter_groups,
@@ -191,7 +200,16 @@ impl Generate for ComplexType {
                 parameters,
                 variant_parameter_groups,
                 variant_parameter_description,
-            }) => todo!(),
+            }) => {
+                format!(
+                    "pub struct {prefix} {{\n{}\n}}",
+                    parameters
+                        .iter()
+                        .map(|a| a.generate(prefix.clone(), enum_variant, indent + 1, unions))
+                        .collect::<Vec<_>>()
+                        .join("\n")
+                )
+            }
         }
     }
 }
