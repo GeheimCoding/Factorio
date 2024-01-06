@@ -75,6 +75,7 @@ impl StringTransformation for String {
             "uint16" => "u16".to_owned(),
             "uint32" | "uint" => "u32".to_owned(),
             "uint64" => "u64".to_owned(),
+            "boolean" => "bool".to_owned(),
             s => {
                 if s.starts_with("defines.") {
                     let parts = s.split("defines.").collect::<Vec<_>>();
@@ -193,12 +194,13 @@ fn generate_union(
                     union.push_str(&generate_docs(description.as_ref(), None, None, None, 1));
                     (false, false)
                 }
-                ComplexType::Type {
-                    value: _,
-                    description,
-                } => {
+                ComplexType::Type { value, description } => {
                     union.push_str(&generate_docs(Some(description), None, None, None, 1));
-                    (false, false)
+                    if let Type::Simple(_) = value {
+                        (true, false)
+                    } else {
+                        (false, false)
+                    }
                 }
                 ComplexType::Struct => (false, true),
                 _ => (true, false),

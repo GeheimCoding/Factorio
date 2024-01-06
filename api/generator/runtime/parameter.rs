@@ -44,7 +44,9 @@ impl Generate for Parameter {
         result.push_str(&format!(
             "    {}: {},",
             name.to_rust_field_name(),
-            self.type_.generate(prefix, enum_variant, indent, unions)
+            self.type_
+                .generate(prefix, enum_variant, indent, unions)
+                .to_optional_if(self.optional)
         ));
         result
     }

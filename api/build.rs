@@ -46,6 +46,8 @@ fn generate_runtime_api() -> io::Result<Child> {
         concepts_path,
         defines_path,
     )?;
+    rustfmt(events_path)?;
+    rustfmt(concepts_path)?;
     rustfmt(defines_path)
 }
 
