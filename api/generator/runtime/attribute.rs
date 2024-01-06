@@ -42,12 +42,24 @@ impl Generate for Attribute {
     ) -> String {
         let prefix = format!("{prefix}{}", self.name.to_pascal_case());
         let mut result = generate_docs(Some(&self.description), None, None, None, indent);
+        let type_ = self
+            .type_
+            .generate(prefix.clone(), enum_variant, indent, unions);
+        let type_ = if type_.starts_with("pub struct") {
+            let new_type = type_.split("pub struct ").collect::<Vec<_>>()[1]
+                .split_whitespace()
+                .next()
+                .unwrap()
+                .to_owned();
+            unions.push(type_);
+            new_type
+        } else {
+            type_
+        };
         result.push_str(&format!(
             "    {}: {},",
             self.name.to_rust_field_name(),
-            self.type_
-                .generate(prefix, enum_variant, indent, unions)
-                .to_optional_if(self.optional)
+            type_.to_optional_if(self.optional)
         ));
         result
     }

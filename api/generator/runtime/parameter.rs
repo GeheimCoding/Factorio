@@ -56,9 +56,6 @@ impl Generate for Parameter {
             .generate(prefix, enum_variant, indent, unions)
             .to_optional_if(self.optional);
         let name = name.to_rust_field_name();
-        if name == "_" {
-            println!("cargo:warning=ASDASD");
-        }
         let name = if name == "_" {
             type_.chars().next().unwrap().to_lowercase().to_string()
         } else {

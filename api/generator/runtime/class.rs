@@ -1,6 +1,8 @@
 #![allow(unused)]
 use serde::Deserialize;
 
+use crate::generator::{generate_docs, Generate};
+
 use super::{attribute::Attribute, method::Method, operator::Operator};
 
 #[derive(Debug, Deserialize)]
@@ -26,4 +28,64 @@ pub struct Class {
     abstract_: bool,
     /// A list of the names of the classes that his class inherits from.
     base_classes: Option<Vec<String>>,
+}
+
+impl Generate for Class {
+    fn generate(
+        &self,
+        prefix: String,
+        enum_variant: bool,
+        indent: usize,
+        unions: &mut Vec<String>,
+    ) -> String {
+        let mut result = generate_docs(
+            Some(&self.description),
+            None,
+            self.notes.as_ref(),
+            self.examples.as_ref(),
+            indent,
+        );
+        let mut unions = vec![];
+        result.push_str(&format!("pub struct {} {{\n", self.name));
+        if let Some(bases) = &self.base_classes {
+            for base in bases {
+                result.push_str(&format!("    parent_{}: {},\n", to_snake_case(base), base));
+            }
+        }
+        result.push_str(
+            &self
+                .attributes
+                .iter()
+                .map(|p| p.generate(self.name.clone(), enum_variant, indent + 1, &mut unions))
+                .collect::<Vec<_>>()
+                .join("\n"),
+        );
+        result.push_str("\n}");
+        for union in unions {
+            result.insert_str(0, &format!("{union}\n\n"));
+        }
+        result
+    }
+}
+
+fn to_snake_case(s: &str) -> String {
+    if s.is_empty() {
+        return String::new();
+    }
+    let mut chars = s.chars();
+    let mut snake_case = String::from(
+        chars
+            .next()
+            .expect("there should be at least one character")
+            .to_ascii_lowercase(),
+    );
+    for c in chars {
+        if c.is_ascii_uppercase() {
+            snake_case.push('_');
+            snake_case.push(c.to_ascii_lowercase());
+        } else {
+            snake_case.push(c);
+        }
+    }
+    snake_case
 }
