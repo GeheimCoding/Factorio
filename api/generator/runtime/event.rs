@@ -1,6 +1,8 @@
 #![allow(unused)]
 use serde::Deserialize;
 
+use crate::generator::{generate_docs, Generate, StringTransformation};
+
 use super::parameter::Parameter;
 
 #[derive(Debug, Deserialize)]
@@ -31,4 +33,34 @@ pub struct EventRaised {
     timeframe: String,
     /// Whether the event is always raised, or only dependant on a certain condition.
     optional: bool,
+}
+
+impl Generate for Event {
+    fn generate(
+        &self,
+        prefix: String,
+        enum_variant: bool,
+        indent: usize,
+        unions: &mut Vec<String>,
+    ) -> String {
+        let mut result = generate_docs(
+            Some(&self.description),
+            None,
+            self.notes.as_ref(),
+            self.examples.as_ref(),
+            indent,
+        );
+        let name = self.name.to_pascal_case();
+        result.push_str(&format!("pub struct {} {{\n", &name));
+        result.push_str(
+            &self
+                .data
+                .iter()
+                .map(|p| p.generate(name.clone(), enum_variant, indent + 1, unions))
+                .collect::<Vec<_>>()
+                .join("\n"),
+        );
+        result.push_str("\n}");
+        result
+    }
 }

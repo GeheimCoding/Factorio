@@ -1,7 +1,7 @@
 #![allow(unused)]
 use serde::Deserialize;
 
-use crate::generator::type_::Type;
+use crate::generator::{generate_docs, type_::Type, Generate, StringTransformation};
 
 #[derive(Debug, Deserialize)]
 pub struct Parameter {
@@ -28,4 +28,24 @@ pub struct ParameterGroup {
     description: Option<String>,
     /// The parameters that the group adds.
     parameters: Vec<Parameter>,
+}
+
+impl Generate for Parameter {
+    fn generate(
+        &self,
+        prefix: String,
+        enum_variant: bool,
+        indent: usize,
+        unions: &mut Vec<String>,
+    ) -> String {
+        let name = self.name.clone().expect("should have a name");
+        let prefix = format!("{prefix}{}", name.to_pascal_case());
+        let mut result = generate_docs(Some(&self.description), None, None, None, indent);
+        result.push_str(&format!(
+            "    {}: {},",
+            name.to_rust_field_name(),
+            self.type_.generate(prefix, enum_variant, indent, unions)
+        ));
+        result
+    }
 }

@@ -23,7 +23,7 @@ impl Generate for BasicMember {
     ) -> String {
         format!(
             "{}    {},\n",
-            generate_docs(Some(&self.description), None, None, indent),
+            generate_docs(Some(&self.description), None, None, None, indent),
             self.name.to_pascal_case()
         )
     }

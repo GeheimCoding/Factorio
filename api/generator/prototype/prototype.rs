@@ -57,6 +57,7 @@ impl Generate for Prototype {
             generate_docs(
                 Some(&self.description),
                 self.lists.as_ref(),
+                None,
                 self.examples.as_ref(),
                 indent,
             ),

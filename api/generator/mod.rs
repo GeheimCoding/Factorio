@@ -52,6 +52,7 @@ impl StringTransformation for String {
     fn to_rust_field_name(&self) -> String {
         match self.as_str() {
             "type" => "type_".to_owned(),
+            "mod" => "mod_".to_owned(),
             _ => self
                 .replace('<', "")
                 .replace('>', "")
@@ -66,15 +67,22 @@ impl StringTransformation for String {
         match self.as_str() {
             "int8" => "i8".to_owned(),
             "int16" => "i16".to_owned(),
-            "int32" => "i32".to_owned(),
+            "int32" | "int" => "i32".to_owned(),
             "float" => "f32".to_owned(),
             "double" => "f64".to_owned(),
             "string" => "String".to_owned(),
             "uint8" => "u8".to_owned(),
             "uint16" => "u16".to_owned(),
-            "uint32" => "u32".to_owned(),
+            "uint32" | "uint" => "u32".to_owned(),
             "uint64" => "u64".to_owned(),
-            _ => self.clone(),
+            s => {
+                if s.starts_with("defines.") {
+                    let parts = s.split("defines.").collect::<Vec<_>>();
+                    parts[1].to_owned().to_pascal_case()
+                } else {
+                    self.clone()
+                }
+            }
         }
     }
 
@@ -94,6 +102,7 @@ impl StringTransformation for String {
 fn generate_docs(
     description: Option<&String>,
     lists: Option<&Vec<String>>,
+    notes: Option<&Vec<String>>,
     examples: Option<&Vec<String>>,
     indent: usize,
 ) -> String {
@@ -110,6 +119,12 @@ fn generate_docs(
     if let Some(lists) = lists {
         for list in lists {
             result.push_str(&format!("{indent}/// {}\n", list.to_doc_string(&indent)));
+        }
+    }
+    if let Some(notes) = notes {
+        result.push_str(&format!("{indent}///\n{indent}/// Notes:\n{indent}///\n"));
+        for note in notes {
+            result.push_str(&format!("{indent}/// {}\n", note.to_doc_string(&indent)));
         }
     }
     if let Some(examples) = examples {
@@ -175,14 +190,14 @@ fn generate_union(
                     value: _,
                     description,
                 } => {
-                    union.push_str(&generate_docs(description.as_ref(), None, None, 1));
+                    union.push_str(&generate_docs(description.as_ref(), None, None, None, 1));
                     (false, false)
                 }
                 ComplexType::Type {
                     value: _,
                     description,
                 } => {
-                    union.push_str(&generate_docs(Some(description), None, None, 1));
+                    union.push_str(&generate_docs(Some(description), None, None, None, 1));
                     (false, false)
                 }
                 ComplexType::Struct => (false, true),

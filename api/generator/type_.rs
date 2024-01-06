@@ -178,7 +178,9 @@ impl Generate for ComplexType {
             }
             Self::Struct => prefix,
             Self::Function { parameters } => todo!(),
-            Self::LuaLazyLoadedValue { value } => todo!(),
+            Self::LuaLazyLoadedValue { value } => {
+                value.generate(prefix, enum_variant, indent, unions)
+            }
             Self::LuaStruct { attributes } => todo!(),
             Self::Table {
                 parameters,

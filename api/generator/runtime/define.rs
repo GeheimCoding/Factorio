@@ -27,7 +27,7 @@ impl Generate for Define {
         indent: usize,
         unions: &mut Vec<String>,
     ) -> String {
-        let mut result = generate_docs(Some(&self.description), None, None, 0);
+        let mut result = generate_docs(Some(&self.description), None, None, None, indent);
         result.push_str(&format!(
             "pub enum {}{} {{\n",
             prefix,

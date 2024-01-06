@@ -48,6 +48,7 @@ impl Generate for Concept {
         let mut result = String::from(generate_docs(
             Some(&self.description),
             self.lists.as_ref(),
+            None,
             self.examples.as_ref(),
             indent,
         ));

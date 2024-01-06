@@ -74,6 +74,7 @@ impl RuntimeApiFormat {
         concepts_path: &str,
         defines_path: &str,
     ) -> io::Result<()> {
+        fs::write(events_path, generate(&self.events))?;
         fs::write(defines_path, generate(&self.defines))?;
         Ok(())
     }
