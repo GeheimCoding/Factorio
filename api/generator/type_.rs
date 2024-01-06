@@ -201,14 +201,33 @@ impl Generate for ComplexType {
                 variant_parameter_groups,
                 variant_parameter_description,
             }) => {
-                format!(
-                    "pub struct {prefix} {{\n{}\n}}",
+                let mut result = format!(
+                    "pub struct {prefix} {{\n{}\n",
                     parameters
                         .iter()
-                        .map(|a| a.generate(prefix.clone(), enum_variant, indent + 1, unions))
+                        .map(|p| p.generate(prefix.clone(), enum_variant, indent + 1, unions))
                         .collect::<Vec<_>>()
                         .join("\n")
-                )
+                );
+                if let Some(description) = variant_parameter_description {
+                    result.push_str(&format!("    /// {description}\n"));
+                }
+                if let Some(groups) = variant_parameter_groups {
+                    let prefix = format!("{prefix}Attributes");
+                    result.push_str(&format!("    attributes: Option<{prefix}>"));
+                    let mut union = format!("pub enum {prefix} {{\n");
+                    for group in groups {
+                        let name = group.name().to_pascal_case();
+                        let prefix = format!("{prefix}{name}");
+                        union.push_str(&format!("    {}({}),\n", name, prefix));
+                        let group = group.generate(prefix, enum_variant, indent, unions);
+                        unions.push(group);
+                    }
+                    union.push('}');
+                    unions.insert(0, union);
+                }
+                result.push('}');
+                result
             }
         }
     }

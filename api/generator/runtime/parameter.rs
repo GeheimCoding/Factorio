@@ -30,6 +30,16 @@ pub struct ParameterGroup {
     parameters: Vec<Parameter>,
 }
 
+impl ParameterGroup {
+    pub fn name(&self) -> String {
+        if self.name == "Other types" {
+            "OtherTypes".to_owned()
+        } else {
+            self.name.clone()
+        }
+    }
+}
+
 impl Generate for Parameter {
     fn generate(
         &self,
@@ -55,6 +65,28 @@ impl Generate for Parameter {
             name
         };
         result.push_str(&format!("    {}: {},", name, type_));
+        result
+    }
+}
+
+impl Generate for ParameterGroup {
+    fn generate(
+        &self,
+        prefix: String,
+        enum_variant: bool,
+        indent: usize,
+        unions: &mut Vec<String>,
+    ) -> String {
+        let mut result = format!(
+            "{}pub struct {prefix} {{\n{}\n",
+            generate_docs(self.description.as_ref(), None, None, None, indent),
+            self.parameters
+                .iter()
+                .map(|p| p.generate(prefix.clone(), enum_variant, indent + 1, unions))
+                .collect::<Vec<_>>()
+                .join("\n")
+        );
+        result.push('}');
         result
     }
 }
