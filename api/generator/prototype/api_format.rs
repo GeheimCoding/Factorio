@@ -61,7 +61,7 @@ impl PrototypeApiFormat {
     ) -> io::Result<()> {
         fs::write(
             prototypes_path,
-            generate(&self.prototypes, vec![Import::Types]),
+            generate(&self.prototypes, vec![Import::HashMap, Import::Types]),
         )?;
         fs::write(types_path, generate(&self.types, vec![Import::HashMap]))
     }

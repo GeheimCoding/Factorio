@@ -3,7 +3,7 @@ use std::{fs, io};
 
 use serde::Deserialize;
 
-use crate::generator::{generate, Import, StringTransformation};
+use crate::generator::{generate, type_, Import, StringTransformation};
 
 use super::{
     builtin_type::BuiltinType, class::Class, concept::Concept, define::Define, event::Event,
@@ -74,11 +74,31 @@ impl RuntimeApiFormat {
         concepts_path: &str,
         defines_path: &str,
     ) -> io::Result<()> {
-        fs::write(classes_path, generate(&self.classes, vec![Import::Defines]))?;
-        fs::write(events_path, generate(&self.events, vec![Import::Defines]))?;
+        fs::write(
+            classes_path,
+            generate(
+                &self.classes,
+                vec![Import::HashMap, Import::Defines, Import::Concepts],
+            ),
+        )?;
+        fs::write(
+            events_path,
+            generate(
+                &self.events,
+                vec![
+                    Import::HashMap,
+                    Import::Defines,
+                    Import::Classes,
+                    Import::Concepts,
+                ],
+            ),
+        )?;
         fs::write(
             concepts_path,
-            generate(&self.concepts, vec![Import::Defines]),
+            generate(
+                &self.concepts,
+                vec![Import::HashMap, Import::Defines, Import::Classes],
+            ),
         )?;
         fs::write(defines_path, generate(&self.defines, vec![]))?;
         Ok(())
@@ -102,7 +122,14 @@ impl RuntimeApiFormat {
         result.push_str("}\n\npub enum Define {\n");
         for define in &self.defines {
             let name = define.name.to_pascal_case();
-            result.push_str(&format!("    {}(super::defines::{}),\n", name, name));
+            let type_ = if name == "Command" {
+                "CommandDefine".to_owned()
+            } else if name == "DifficultySettings" {
+                "DifficultySettingsDefine".to_owned()
+            } else {
+                name.clone()
+            };
+            result.push_str(&format!("    {}(super::defines::{}),\n", name, type_));
         }
         result.push_str("}\n\npub enum Event {\n");
         for event in &self.events {

@@ -28,11 +28,15 @@ impl Generate for Define {
         unions: &mut Vec<String>,
     ) -> String {
         let mut result = generate_docs(Some(&self.description), None, None, None, indent);
-        result.push_str(&format!(
-            "pub enum {}{} {{\n",
-            prefix,
-            self.name.to_pascal_case()
-        ));
+        let name = self.name.to_pascal_case();
+        let name = if name == "Command" {
+            "CommandDefine".to_owned()
+        } else if name == "DifficultySettings" {
+            "DifficultySettingsDefine".to_owned()
+        } else {
+            name
+        };
+        result.push_str(&format!("pub enum {}{} {{\n", prefix, name));
         if let Some(values) = self.values.as_ref() {
             result.push_str(
                 &values
