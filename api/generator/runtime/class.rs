@@ -49,14 +49,19 @@ impl Generate for Class {
         result.push_str(&format!("pub struct {} {{\n", self.name));
         if let Some(bases) = &self.base_classes {
             for base in bases {
-                result.push_str(&format!("    parent_{}: {},\n", to_snake_case(base), base));
+                let type_ = if base == "LuaControl" {
+                    format!("Box<{base}>")
+                } else {
+                    base.to_owned()
+                };
+                result.push_str(&format!("    parent_{}: {},\n", to_snake_case(base), type_));
             }
         }
         result.push_str(
             &self
                 .attributes
                 .iter()
-                .map(|p| p.generate(self.name.clone(), enum_variant, indent + 1, &mut unions))
+                .map(|a| a.generate(self.name.clone(), enum_variant, indent + 1, &mut unions))
                 .collect::<Vec<_>>()
                 .join("\n"),
         );

@@ -40,11 +40,11 @@ impl Generate for Attribute {
         indent: usize,
         unions: &mut Vec<String>,
     ) -> String {
-        let prefix = format!("{prefix}{}", self.name.to_pascal_case());
+        let new_prefix = format!("{prefix}{}", self.name.to_pascal_case());
         let mut result = generate_docs(Some(&self.description), None, None, None, indent);
         let type_ = self
             .type_
-            .generate(prefix.clone(), enum_variant, indent, unions);
+            .generate(new_prefix, enum_variant, indent, unions);
         let type_ = if type_.starts_with("pub struct") {
             let new_type = type_.split("pub struct ").collect::<Vec<_>>()[1]
                 .split_whitespace()
@@ -53,6 +53,18 @@ impl Generate for Attribute {
                 .to_owned();
             unions.push(type_);
             new_type
+        } else {
+            type_
+        };
+        let type_ = if type_ == prefix
+            || type_.starts_with("LuaEntity")
+            || type_ == "LuaInventory"
+            || type_ == "LuaGui"
+            || type_ == "LuaForce"
+            || type_ == "LuaEquipmentPrototype"
+            || type_ == "LuaBurnerOwner"
+        {
+            format!("Box<{type_}>")
         } else {
             type_
         };
