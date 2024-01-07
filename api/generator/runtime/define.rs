@@ -1,7 +1,7 @@
 #![allow(unused)]
 use serde::Deserialize;
 
-use crate::generator::{generate_docs, Generate, StringTransformation};
+use crate::generator::{generate_docs, Generate, Macro, StringTransformation};
 
 use super::basic_member::BasicMember;
 
@@ -36,7 +36,25 @@ impl Generate for Define {
         } else {
             name
         };
-        result.push_str(&format!("pub enum {}{} {{\n", prefix, name));
+        let macros = if let Some(subkeys) = self.subkeys.as_ref() {
+            vec![Macro::DebugDeserialize, Macro::SerdeUntagged]
+        } else {
+            if name == "Prototypes" {
+                vec![Macro::DebugDeserialize]
+            } else {
+                vec![Macro::DebugDeserializeRepr, Macro::Repr]
+            }
+        };
+        result.push_str(&format!(
+            "{}\npub enum {}{} {{\n",
+            macros
+                .iter()
+                .map(Macro::to_string)
+                .collect::<Vec<_>>()
+                .join("\n"),
+            prefix,
+            name
+        ));
         if let Some(values) = self.values.as_ref() {
             result.push_str(
                 &values

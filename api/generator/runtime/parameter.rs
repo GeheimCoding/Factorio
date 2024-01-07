@@ -1,7 +1,7 @@
 #![allow(unused)]
 use serde::Deserialize;
 
-use crate::generator::{generate_docs, type_::Type, Generate, StringTransformation};
+use crate::generator::{generate_docs, type_::Type, Generate, Macro, StringTransformation};
 
 #[derive(Debug, Deserialize)]
 pub struct Parameter {
@@ -80,8 +80,9 @@ impl Generate for ParameterGroup {
         unions: &mut Vec<String>,
     ) -> String {
         let mut result = format!(
-            "{}pub struct {prefix} {{\n{}\n",
+            "{}{}pub struct {prefix} {{\n{}\n",
             generate_docs(self.description.as_ref(), None, None, None, indent),
+            Macro::DebugDeserialize.to_string(),
             self.parameters
                 .iter()
                 .map(|p| p.generate(prefix.clone(), enum_variant, indent + 1, unions))

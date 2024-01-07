@@ -4,7 +4,7 @@ use serde::Deserialize;
 use crate::generator::{
     generate_docs,
     type_::{ComplexType, Tuple, Type},
-    Generate, StringTransformation,
+    Generate, Macro, StringTransformation,
 };
 
 #[derive(Debug, Deserialize)]
@@ -83,8 +83,20 @@ impl Generate for Concept {
             }
         }
         if self.name == "BlueprintEntity" {
-            result.insert_str(0, "pub struct BlueprintCircuitConnection;\n\n");
-            result.insert_str(0, "pub struct BlueprintControlBehavior;\n\n");
+            result.insert_str(
+                0,
+                &format!(
+                    "{}\npub struct BlueprintCircuitConnection;\n\n",
+                    Macro::DebugDeserialize.to_string()
+                ),
+            );
+            result.insert_str(
+                0,
+                &format!(
+                    "{}\npub struct BlueprintControlBehavior;\n\n",
+                    Macro::DebugDeserialize.to_string()
+                ),
+            );
         }
         result
     }

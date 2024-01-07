@@ -168,12 +168,56 @@ impl ToString for Import {
     }
 }
 
+enum Macro {
+    DebugDeserialize,
+    DebugDeserializeRepr,
+    RenameSnakeCase,
+    RenameKebabCase,
+    TagSerdeType,
+    Hash,
+    SerdeUntagged,
+    Repr,
+}
+
+impl ToString for Macro {
+    fn to_string(&self) -> String {
+        match self {
+            Macro::DebugDeserialize => "#[derive(Debug, Deserialize)]".to_owned(),
+            Macro::DebugDeserializeRepr => "#[derive(Debug, Deserialize_repr)]".to_owned(),
+            Macro::RenameSnakeCase => "#[serde(rename_all = \"snake_case\")]".to_owned(),
+            Macro::TagSerdeType => "#[serde(tag = \"serde_type\")]".to_owned(),
+            Macro::Hash => "#[derive(Debug, Deserialize, Eq, PartialEq, Hash)]".to_owned(),
+            Macro::SerdeUntagged => "#[serde(untagged)]".to_owned(),
+            Macro::RenameKebabCase => "#[serde(rename_all = \"kebab-case\")]".to_owned(),
+            Macro::Repr => "#[repr(u8)]".to_owned(),
+        }
+    }
+}
+
+fn generate_macros(macros: Vec<Macro>) -> String {
+    format!(
+        "{}\n",
+        macros
+            .iter()
+            .map(Macro::to_string)
+            .collect::<Vec<_>>()
+            .join("\n")
+    )
+}
+
 fn generate<G: Generate>(list: &[G], imports: Vec<Import>) -> String {
-    let mut result = imports
-        .iter()
-        .map(Import::to_string)
-        .collect::<Vec<_>>()
-        .join("\n");
+    let mut result = String::from("#![allow(unused)]");
+    result.push_str(
+        &imports
+            .iter()
+            .map(Import::to_string)
+            .collect::<Vec<_>>()
+            .join("\n"),
+    );
+    if imports.is_empty() {
+        result.push_str("use serde_repr::Deserialize_repr;\n");
+    }
+    result.push_str("use serde::Deserialize;");
     result.push_str("\n\n");
     result.push_str(
         &list
@@ -189,7 +233,11 @@ fn generate<G: Generate>(list: &[G], imports: Vec<Import>) -> String {
 
 fn generate_struct(name: &str, parent: Option<&String>, properties: &Vec<Property>) -> String {
     let mut unions = vec![];
-    let mut result = String::from(&format!("pub struct {} {{\n", name));
+    let mut result = String::from(&format!(
+        "{}pub struct {} {{\n",
+        Macro::DebugDeserialize.to_string(),
+        name
+    ));
     if let Some(parent) = parent {
         result.push_str(&format!("    parent_: {parent},"));
         if !properties.is_empty() {
@@ -216,8 +264,30 @@ fn generate_union(
     unions: &mut Vec<String>,
     properties: Option<&Vec<Property>>,
 ) -> String {
-    let mut union = format!("pub enum {name} {{\n");
+    let macro_ = if name == "AutoplaceSettingsSettings"
+        || name == "MapGenSettingsAutoplaceSettings"
+        || name == "CollisionMaskLayer"
+        || name == "CollisionMaskWithFlagsUnion"
+        || name == "EntityPrototypeFlag"
+        || name == "LuaGameScriptForces"
+        || name == "LuaGameScriptSurfaces"
+        || name == "LuaGameScriptPlayers"
+        || name == "MouseButtonFlagsUnion"
+        || name == "SelectionModeFlagsUnion"
+        || name == "ItemPrototypeFlag"
+    {
+        Macro::Hash
+    } else {
+        Macro::DebugDeserialize
+    };
+    let serde = Macro::SerdeUntagged;
+    let mut union = format!(
+        "{}{}\npub enum {name} {{\n",
+        macro_.to_string(),
+        serde.to_string()
+    );
     let mut fields = HashSet::new();
+    let mut all_non_value = true;
     for option in options {
         let (has_value, has_struct) = if let Type::Complex(complex) = option {
             match complex.as_ref() {
@@ -273,10 +343,17 @@ fn generate_union(
                 result = "f64".to_owned()
             }
             union.push_str(&format!("({result})"));
+            all_non_value = false;
         }
         if added {
             union.push_str(",\n");
         }
+    }
+    if all_non_value {
+        union = union.replace(
+            &Macro::SerdeUntagged.to_string(),
+            &Macro::RenameKebabCase.to_string(),
+        );
     }
     union.push('}');
     if name == "Direction" {
@@ -296,7 +373,16 @@ pub fn generate_factorio_types(
     prototype_api: &PrototypeApiFormat,
     runtime_api: &RuntimeApiFormat,
 ) -> io::Result<()> {
-    let mut content = String::from("pub enum FactorioType {\n");
+    let mut content = String::from("use serde::Deserialize;\n\n");
+    content.push_str(
+        &generate_macros(vec![
+            Macro::DebugDeserialize,
+            Macro::RenameSnakeCase,
+            Macro::TagSerdeType,
+        ])
+        .replace("serde_tag", "serde_type"),
+    );
+    content.push_str("pub enum FactorioType {\n");
     for s in ["Class", "Concept", "Define", "Event", "Prototype", "Type"] {
         content.push_str(&format!("    {s}({s}),\n"));
     }
@@ -307,7 +393,7 @@ pub fn generate_factorio_types(
 }
 
 pub fn generate_mod(mod_path: &str) -> io::Result<()> {
-    let mut content = String::new();
+    let mut content = String::from("#![allow(ambiguous_glob_reexports)]\n");
     for s in [
         "classes",
         "concepts",

@@ -4,7 +4,7 @@ use serde::Deserialize;
 use crate::generator::{
     generate_docs, generate_struct, generate_union,
     type_::{ComplexType, Type},
-    Generate,
+    Generate, Macro,
 };
 
 use super::{image::Image, property::Property};

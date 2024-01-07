@@ -1,7 +1,7 @@
 #![allow(unused)]
 use serde::Deserialize;
 
-use crate::generator::{generate_union, Generate, StringTransformation};
+use crate::generator::{generate_union, Generate, Macro, StringTransformation};
 
 use super::runtime::{
     attribute::Attribute,
@@ -190,7 +190,8 @@ impl Generate for ComplexType {
             }
             Self::LuaStruct { attributes } => {
                 format!(
-                    "pub struct {prefix} {{\n{}\n}}",
+                    "{}\npub struct {prefix} {{\n{}\n}}",
+                    Macro::DebugDeserialize.to_string(),
                     attributes
                         .iter()
                         .map(|a| a.generate(prefix.clone(), enum_variant, indent + 1, unions))
@@ -209,7 +210,8 @@ impl Generate for ComplexType {
                 variant_parameter_description,
             }) => {
                 let mut result = format!(
-                    "pub struct {prefix} {{\n{}\n",
+                    "{}\npub struct {prefix} {{\n{}\n",
+                    Macro::DebugDeserialize.to_string(),
                     parameters
                         .iter()
                         .map(|p| p.generate(prefix.clone(), enum_variant, indent + 1, unions))
@@ -222,7 +224,11 @@ impl Generate for ComplexType {
                 if let Some(groups) = variant_parameter_groups {
                     let prefix = format!("{prefix}Attributes");
                     result.push_str(&format!("    attributes: Option<{prefix}>"));
-                    let mut union = format!("pub enum {prefix} {{\n");
+                    let mut union = format!(
+                        "{}{}pub enum {prefix} {{\n",
+                        Macro::DebugDeserialize.to_string(),
+                        Macro::SerdeUntagged.to_string(),
+                    );
                     for group in groups {
                         let name = group.name().to_pascal_case();
                         let prefix = format!("{prefix}{name}");

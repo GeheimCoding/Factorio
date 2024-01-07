@@ -3,7 +3,7 @@ use std::{fs, io};
 
 use serde::Deserialize;
 
-use crate::generator::{generate, Import};
+use crate::generator::{generate, generate_macros, Import, Macro};
 
 use super::{concept::Concept, prototype::Prototype};
 
@@ -67,14 +67,22 @@ impl PrototypeApiFormat {
     }
 
     pub fn generate_factorio_types(&self) -> String {
-        let mut result = String::from("pub enum Prototype {\n");
+        let mut result = generate_macros(vec![
+            Macro::DebugDeserialize,
+            Macro::RenameSnakeCase,
+            Macro::TagSerdeType,
+        ]);
+        result.push_str("pub enum Prototype {\n");
         for proto in &self.prototypes {
             result.push_str(&format!(
                 "    {}(super::prototypes::{}),\n",
                 proto.name, proto.name
             ));
         }
-        result.push_str("}\n\npub enum Type {\n");
+        result.push_str(&format!(
+            "}}\n\n{}pub enum Type {{\n",
+            generate_macros(vec![Macro::DebugDeserialize, Macro::TagSerdeType,])
+        ));
         for concept in &self.types {
             if concept.name.chars().next().unwrap().is_uppercase() {
                 result.push_str(&format!(

@@ -1,7 +1,7 @@
 #![allow(unused)]
 use serde::Deserialize;
 
-use crate::generator::{generate_docs, type_::Type, Generate, StringTransformation};
+use crate::generator::{generate_docs, type_::Type, Generate, Macro, StringTransformation};
 
 use super::event::EventRaised;
 
@@ -45,8 +45,9 @@ impl Generate for Attribute {
         let type_ = self
             .type_
             .generate(new_prefix, enum_variant, indent, unions);
-        let type_ = if type_.starts_with("pub struct") {
-            let new_type = type_.split("pub struct ").collect::<Vec<_>>()[1]
+        let nested_struct = format!("{}\npub struct", Macro::DebugDeserialize.to_string());
+        let type_ = if type_.starts_with(&nested_struct) {
+            let new_type = type_.split(&nested_struct).collect::<Vec<_>>()[1]
                 .split_whitespace()
                 .next()
                 .unwrap()

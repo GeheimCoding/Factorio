@@ -1,7 +1,7 @@
 #![allow(unused)]
 use serde::Deserialize;
 
-use crate::generator::{generate_docs, Generate};
+use crate::generator::{generate_docs, Generate, Macro};
 
 use super::{attribute::Attribute, method::Method, operator::Operator};
 
@@ -46,7 +46,11 @@ impl Generate for Class {
             indent,
         );
         let mut unions = vec![];
-        result.push_str(&format!("pub struct {} {{\n", self.name));
+        result.push_str(&format!(
+            "{}\npub struct {} {{\n",
+            Macro::DebugDeserialize.to_string(),
+            self.name
+        ));
         if let Some(bases) = &self.base_classes {
             for base in bases {
                 let type_ = if base == "LuaControl" {

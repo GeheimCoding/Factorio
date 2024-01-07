@@ -1,7 +1,7 @@
 #![allow(unused)]
 use serde::Deserialize;
 
-use crate::generator::{generate_docs, Generate, StringTransformation};
+use crate::generator::{generate_docs, Generate, Macro, StringTransformation};
 
 use super::parameter::Parameter;
 
@@ -51,7 +51,11 @@ impl Generate for Event {
             indent,
         );
         let name = self.name.to_pascal_case();
-        result.push_str(&format!("pub struct {} {{\n", &name));
+        result.push_str(&format!(
+            "{}\npub struct {} {{\n",
+            Macro::DebugDeserialize.to_string(),
+            &name
+        ));
         result.push_str(
             &self
                 .data

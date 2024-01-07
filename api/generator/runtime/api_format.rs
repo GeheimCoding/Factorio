@@ -3,7 +3,7 @@ use std::{fs, io};
 
 use serde::Deserialize;
 
-use crate::generator::{generate, type_, Import, StringTransformation};
+use crate::generator::{generate, generate_macros, type_, Import, Macro, StringTransformation};
 
 use super::{
     builtin_type::BuiltinType, class::Class, concept::Concept, define::Define, event::Event,
@@ -105,21 +105,32 @@ impl RuntimeApiFormat {
     }
 
     pub fn generate_factorio_types(&self) -> String {
-        let mut result = String::from("pub enum Class {\n");
+        let mut result = generate_macros(vec![Macro::DebugDeserialize, Macro::TagSerdeType]);
+        result.push_str("pub enum Class {\n");
         for class in &self.classes {
             result.push_str(&format!(
                 "    {}(super::classes::{}),\n",
                 class.name, class.name
             ));
         }
-        result.push_str("}\n\npub enum Concept {\n");
+        result.push_str(&format!(
+            "}}\n\n{}pub enum Concept {{\n",
+            generate_macros(vec![
+                Macro::DebugDeserialize,
+                Macro::RenameSnakeCase,
+                Macro::TagSerdeType,
+            ])
+        ));
         for concept in &self.concepts {
             result.push_str(&format!(
                 "    {}(super::concepts::{}),\n",
                 concept.name, concept.name
             ));
         }
-        result.push_str("}\n\npub enum Define {\n");
+        result.push_str(&format!(
+            "}}\n\n{}pub enum Define {{\n",
+            generate_macros(vec![Macro::DebugDeserialize, Macro::TagSerdeType]),
+        ));
         for define in &self.defines {
             let name = define.name.to_pascal_case();
             let type_ = if name == "Command" {
@@ -131,7 +142,14 @@ impl RuntimeApiFormat {
             };
             result.push_str(&format!("    {}(super::defines::{}),\n", name, type_));
         }
-        result.push_str("}\n\npub enum Event {\n");
+        result.push_str(&format!(
+            "}}\n\n{}pub enum Event {{\n",
+            generate_macros(vec![
+                Macro::DebugDeserialize,
+                Macro::RenameSnakeCase,
+                Macro::TagSerdeType,
+            ])
+        ));
         for event in &self.events {
             let name = event.name.to_pascal_case();
             result.push_str(&format!("    {}(super::events::{}),\n", name, name));
