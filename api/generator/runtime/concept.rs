@@ -82,6 +82,10 @@ impl Generate for Concept {
                 result.insert_str(0, &format!("{union}\n\n"));
             }
         }
+        if self.name == "BlueprintEntity" {
+            result.insert_str(0, "pub struct BlueprintCircuitConnection;\n\n");
+            result.insert_str(0, "pub struct BlueprintControlBehavior;\n\n");
+        }
         result
     }
 }

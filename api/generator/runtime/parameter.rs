@@ -49,17 +49,22 @@ impl Generate for Parameter {
         unions: &mut Vec<String>,
     ) -> String {
         let name = self.name.clone().expect("should have a name");
-        let prefix = format!("{prefix}{}", name.to_pascal_case());
+        let new_prefix = format!("{prefix}{}", name.to_pascal_case());
         let mut result = generate_docs(Some(&self.description), None, None, None, indent);
         let type_ = self
             .type_
-            .generate(prefix, enum_variant, indent, unions)
+            .generate(new_prefix, enum_variant, indent, unions)
             .to_optional_if(self.optional);
         let name = name.to_rust_field_name();
         let name = if name == "_" {
             type_.chars().next().unwrap().to_lowercase().to_string()
         } else {
             name
+        };
+        let type_ = if prefix == type_ {
+            format!("Box<{type_}>")
+        } else {
+            type_
         };
         result.push_str(&format!("    {}: {},", name, type_));
         result

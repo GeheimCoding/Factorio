@@ -1,7 +1,4 @@
-use std::{
-    collections::{HashMap, HashSet},
-    fs, io,
-};
+use std::{collections::HashSet, fs, io};
 
 use self::{
     prototype::{api_format::PrototypeApiFormat, property::Property},
@@ -59,6 +56,7 @@ impl StringTransformation for String {
         match self.as_str() {
             "type" => "type_".to_owned(),
             "mod" => "mod_".to_owned(),
+            "noisePersistence" => "noise_persistence".to_owned(),
             _ => self
                 .replace('<', "")
                 .replace('>', "")
@@ -155,8 +153,6 @@ enum Import {
     Classes,
     Concepts,
     Defines,
-    Events,
-    Prototypes,
     Types,
 }
 
@@ -167,8 +163,6 @@ impl ToString for Import {
             Import::Classes => "use super::classes::*;".to_owned(),
             Import::Concepts => "use super::concepts::*;".to_owned(),
             Import::Defines => "use super::defines::*;".to_owned(),
-            Import::Events => "use super::events::*;".to_owned(),
-            Import::Prototypes => "use super::prototypes::*;".to_owned(),
             Import::Types => "use super::types::*;".to_owned(),
         }
     }
@@ -272,9 +266,11 @@ fn generate_union(
                     .join("\n"),
             );
             union.push_str("\n    }");
-        } else if has_value {
+        } else if has_value && result != "table" && result != "LuaObject" && result != "nil" {
             if name == "NoiseNumber" || name == "NoiseExpression" || name == "TriggerEffectUnion" {
                 result = format!("Box<{result}>");
+            } else if result == "number" {
+                result = "f64".to_owned()
             }
             union.push_str(&format!("({result})"));
         }

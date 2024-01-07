@@ -63,6 +63,8 @@ impl Generate for Attribute {
             || type_ == "LuaForce"
             || type_ == "LuaEquipmentPrototype"
             || type_ == "LuaBurnerOwner"
+            || type_ == "Command"
+            || type_ == "DragTarget"
         {
             format!("Box<{type_}>")
         } else {
