@@ -1,4 +1,7 @@
-use std::{fs, io};
+use std::{
+    collections::{HashMap, HashSet},
+    fs, io,
+};
 
 use self::{
     prototype::{api_format::PrototypeApiFormat, property::Property},
@@ -63,7 +66,8 @@ impl StringTransformation for String {
                 .replace('(', "")
                 .replace(')', "")
                 .replace(' ', "_")
-                .replace('-', "_"),
+                .replace('-', "_")
+                .replace('=', "_"),
         }
     }
 
@@ -146,8 +150,37 @@ fn generate_docs(
     result
 }
 
-fn generate<G: Generate>(list: &[G]) -> String {
-    let mut result = String::new();
+enum Import {
+    HashMap,
+    Classes,
+    Concepts,
+    Defines,
+    Events,
+    Prototypes,
+    Types,
+}
+
+impl ToString for Import {
+    fn to_string(&self) -> String {
+        match self {
+            Import::HashMap => "use std::collections::HashMap;".to_owned(),
+            Import::Classes => "use super::classes::*;".to_owned(),
+            Import::Concepts => "use super::concepts::*;".to_owned(),
+            Import::Defines => "use super::defines::*;".to_owned(),
+            Import::Events => "use super::events::*;".to_owned(),
+            Import::Prototypes => "use super::prototypes::*;".to_owned(),
+            Import::Types => "use super::types::*;".to_owned(),
+        }
+    }
+}
+
+fn generate<G: Generate>(list: &[G], imports: Vec<Import>) -> String {
+    let mut result = imports
+        .iter()
+        .map(Import::to_string)
+        .collect::<Vec<_>>()
+        .join("\n");
+    result.push_str("\n\n");
     result.push_str(
         &list
             .iter()
@@ -190,8 +223,8 @@ fn generate_union(
     properties: Option<&Vec<Property>>,
 ) -> String {
     let mut union = format!("pub enum {name} {{\n");
+    let mut fields = HashSet::new();
     for option in options {
-        let result = option.generate(name.to_owned(), true, 1, unions);
         let (has_value, has_struct) = if let Type::Complex(complex) = option {
             match complex.as_ref() {
                 ComplexType::Literal {
@@ -215,10 +248,19 @@ fn generate_union(
         } else {
             (true, false)
         };
-        union.push_str(&format!(
-            "    {}",
-            result.to_rust_field_name().to_pascal_case()
-        ));
+        let prefix = if has_struct || name == "LightDefinition" {
+            name.to_owned()
+        } else {
+            format!("{}Union", name)
+        };
+        let mut result = option.generate(prefix, true, 1, unions);
+        let field = result.to_rust_field_name().to_pascal_case();
+        let mut added = false;
+        if !fields.contains(&field) || name == "Direction" {
+            union.push_str(&format!("    {field}"));
+            fields.insert(field);
+            added = true;
+        }
         if has_struct {
             union.push_str(" {\n");
             union.push_str(
@@ -231,12 +273,25 @@ fn generate_union(
             );
             union.push_str("\n    }");
         } else if has_value {
+            if name == "NoiseNumber" || name == "NoiseExpression" || name == "TriggerEffectUnion" {
+                result = format!("Box<{result}>");
+            }
             union.push_str(&format!("({result})"));
         }
-        union.push_str(",\n");
+        if added {
+            union.push_str(",\n");
+        }
     }
     union.push('}');
-    unions.push(union);
+    if name == "Direction" {
+        union = union.replace("F64", "").replace("/// ", "");
+    }
+    if !unions
+        .iter()
+        .any(|u| u.contains(name) && name.ends_with("Union"))
+    {
+        unions.push(union);
+    }
     name.to_owned()
 }
 

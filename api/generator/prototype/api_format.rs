@@ -3,7 +3,7 @@ use std::{fs, io};
 
 use serde::Deserialize;
 
-use crate::generator::generate;
+use crate::generator::{generate, Import};
 
 use super::{concept::Concept, prototype::Prototype};
 
@@ -59,8 +59,11 @@ impl PrototypeApiFormat {
         prototypes_path: &str,
         types_path: &str,
     ) -> io::Result<()> {
-        fs::write(prototypes_path, generate(&self.prototypes))?;
-        fs::write(types_path, generate(&self.types))
+        fs::write(
+            prototypes_path,
+            generate(&self.prototypes, vec![Import::Types]),
+        )?;
+        fs::write(types_path, generate(&self.types, vec![Import::HashMap]))
     }
 
     pub fn generate_factorio_types(&self) -> String {

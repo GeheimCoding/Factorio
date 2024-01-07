@@ -3,7 +3,7 @@ use std::{fs, io};
 
 use serde::Deserialize;
 
-use crate::generator::{generate, StringTransformation};
+use crate::generator::{generate, Import, StringTransformation};
 
 use super::{
     builtin_type::BuiltinType, class::Class, concept::Concept, define::Define, event::Event,
@@ -74,10 +74,13 @@ impl RuntimeApiFormat {
         concepts_path: &str,
         defines_path: &str,
     ) -> io::Result<()> {
-        fs::write(classes_path, generate(&self.classes))?;
-        fs::write(events_path, generate(&self.events))?;
-        fs::write(concepts_path, generate(&self.concepts))?;
-        fs::write(defines_path, generate(&self.defines))?;
+        fs::write(classes_path, generate(&self.classes, vec![Import::Defines]))?;
+        fs::write(events_path, generate(&self.events, vec![Import::Defines]))?;
+        fs::write(
+            concepts_path,
+            generate(&self.concepts, vec![Import::Defines]),
+        )?;
+        fs::write(defines_path, generate(&self.defines, vec![]))?;
         Ok(())
     }
 

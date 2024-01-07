@@ -144,21 +144,28 @@ impl Generate for ComplexType {
                 key.generate(prefix.clone(), enum_variant, indent, unions),
                 value.generate(prefix, enum_variant, indent, unions)
             ),
-            Self::Tuple(Tuple::Tuple { values }) => format!(
-                "({})",
-                values
-                    .iter()
-                    .map(|t| t.generate(prefix.clone(), enum_variant, indent, unions))
-                    .collect::<Vec<_>>()
-                    .join(", ")
-            ),
+            Self::Tuple(Tuple::Tuple { values }) => {
+                let tuple = format!(
+                    "{}",
+                    values
+                        .iter()
+                        .map(|t| t.generate(prefix.clone(), enum_variant, indent, unions))
+                        .collect::<Vec<_>>()
+                        .join(", ")
+                );
+                if values.len() > 1 {
+                    format!("({tuple})")
+                } else {
+                    tuple
+                }
+            }
             Self::Union {
                 options,
                 full_format,
             } => generate_union(&prefix, options, unions, None),
             Self::Literal { value, description } => match value {
                 ComplexTypeLiteralValueUnion::String(s) => {
-                    if enum_variant {
+                    if enum_variant && s != "item" {
                         s.to_pascal_case()
                     } else {
                         "String".to_owned()

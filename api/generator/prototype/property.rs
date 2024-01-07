@@ -1,7 +1,11 @@
 #![allow(unused)]
 use serde::Deserialize;
 
-use crate::generator::{generate_docs, type_::Type, Generate, StringTransformation};
+use crate::generator::{
+    generate_docs,
+    type_::{self, Type},
+    Generate, StringTransformation,
+};
 
 use super::image::Image;
 
@@ -65,6 +69,17 @@ impl Generate for Property {
         unions: &mut Vec<String>,
     ) -> String {
         // TODO: alt_name & override & default?
+        let type_ = self.type_.generate(
+            format!("{prefix}{}", self.name.to_pascal_case()),
+            enum_variant,
+            indent,
+            unions,
+        );
+        let type_ = if type_ == prefix {
+            format!("Box<{type_}>")
+        } else {
+            type_
+        };
         format!(
             "{}{}{}: {},",
             generate_docs(
@@ -76,14 +91,7 @@ impl Generate for Property {
             ),
             "    ".repeat(indent),
             self.name.to_rust_field_name(),
-            self.type_
-                .generate(
-                    format!("{prefix}{}", self.name.to_pascal_case()),
-                    enum_variant,
-                    indent,
-                    unions
-                )
-                .to_optional_if(self.optional)
+            type_.to_optional_if(self.optional)
         )
     }
 }

@@ -85,7 +85,7 @@ impl Generate for Concept {
                 "pub type {} = {};",
                 self.name,
                 self.type_
-                    .generate(self.name.clone(), false, indent, unions)
+                    .generate(format!("{}Union", self.name), false, indent, unions)
             ));
             if !unions.is_empty() {
                 result.push_str("\n\n");
