@@ -12,7 +12,7 @@ use super::{image::Image, property::Property};
 #[derive(Debug, Deserialize)]
 pub struct Concept {
     /// The name of the type.
-    name: String,
+    pub name: String,
     /// The order of the type as shown in the HTML.
     order: u16,
     /// The text description of the type.

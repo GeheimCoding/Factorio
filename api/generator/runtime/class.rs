@@ -8,7 +8,7 @@ use super::{attribute::Attribute, method::Method, operator::Operator};
 #[derive(Debug, Deserialize)]
 pub struct Class {
     /// The name of the class.
-    name: String,
+    pub name: String,
     /// The order of the class as shown in the HTML.
     order: u16,
     /// The text description of the class.

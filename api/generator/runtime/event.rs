@@ -8,7 +8,7 @@ use super::parameter::Parameter;
 #[derive(Debug, Deserialize)]
 pub struct Event {
     /// The name of the event.
-    name: String,
+    pub name: String,
     /// The order of the event as shown in the HTML.
     order: u16,
     /// The text description of the event.

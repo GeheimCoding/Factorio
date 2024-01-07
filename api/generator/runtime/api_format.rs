@@ -3,7 +3,7 @@ use std::{fs, io};
 
 use serde::Deserialize;
 
-use crate::generator::generate;
+use crate::generator::{generate, StringTransformation};
 
 use super::{
     builtin_type::BuiltinType, class::Class, concept::Concept, define::Define, event::Event,
@@ -79,5 +79,34 @@ impl RuntimeApiFormat {
         fs::write(concepts_path, generate(&self.concepts))?;
         fs::write(defines_path, generate(&self.defines))?;
         Ok(())
+    }
+
+    pub fn generate_factorio_types(&self) -> String {
+        let mut result = String::from("pub enum Class {\n");
+        for class in &self.classes {
+            result.push_str(&format!(
+                "    {}(super::classes::{}),\n",
+                class.name, class.name
+            ));
+        }
+        result.push_str("}\n\npub enum Concept {\n");
+        for concept in &self.concepts {
+            result.push_str(&format!(
+                "    {}(super::concepts::{}),\n",
+                concept.name, concept.name
+            ));
+        }
+        result.push_str("}\n\npub enum Define {\n");
+        for define in &self.defines {
+            let name = define.name.to_pascal_case();
+            result.push_str(&format!("    {}(super::defines::{}),\n", name, name));
+        }
+        result.push_str("}\n\npub enum Event {\n");
+        for event in &self.events {
+            let name = event.name.to_pascal_case();
+            result.push_str(&format!("    {}(super::events::{}),\n", name, name));
+        }
+        result.push_str("}\n\n");
+        result
     }
 }

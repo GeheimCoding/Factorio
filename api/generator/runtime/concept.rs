@@ -10,7 +10,7 @@ use crate::generator::{
 #[derive(Debug, Deserialize)]
 pub struct Concept {
     /// The name of the concept.
-    name: String,
+    pub name: String,
     /// The order of the concept as shown in the HTML.
     order: u16,
     /// The text description of the concept.

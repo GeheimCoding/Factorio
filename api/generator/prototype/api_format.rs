@@ -62,4 +62,25 @@ impl PrototypeApiFormat {
         fs::write(prototypes_path, generate(&self.prototypes))?;
         fs::write(types_path, generate(&self.types))
     }
+
+    pub fn generate_factorio_types(&self) -> String {
+        let mut result = String::from("pub enum Prototype {\n");
+        for proto in &self.prototypes {
+            result.push_str(&format!(
+                "    {}(super::prototypes::{}),\n",
+                proto.name, proto.name
+            ));
+        }
+        result.push_str("}\n\npub enum Type {\n");
+        for concept in &self.types {
+            if concept.name.chars().next().unwrap().is_uppercase() {
+                result.push_str(&format!(
+                    "    {}(super::types::{}),\n",
+                    concept.name, concept.name
+                ));
+            }
+        }
+        result.push_str("}\n");
+        result
+    }
 }

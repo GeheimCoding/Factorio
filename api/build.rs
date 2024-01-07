@@ -5,7 +5,10 @@ use std::{
     process::{Child, Command},
 };
 
-use generator::{prototype::api_format::PrototypeApiFormat, runtime::api_format::RuntimeApiFormat};
+use generator::{
+    generate_factorio_types, generate_mod, prototype::api_format::PrototypeApiFormat,
+    runtime::api_format::RuntimeApiFormat,
+};
 
 mod generator;
 
@@ -17,39 +20,54 @@ fn main() -> io::Result<()> {
     println!("cargo:rerun-if-changed=generated");
 
     if run_build_script {
-        fs::create_dir_all("src/generated")?;
-        generate_prototype_api()?;
-        generate_runtime_api()?;
+        let base_path = "src/generated";
+        fs::create_dir_all(base_path)?;
+        let prototype_api = generate_prototype_api(base_path)?;
+        let runtime_api = generate_runtime_api(base_path)?;
+        generate_lib(base_path, &prototype_api, &runtime_api)?;
     }
     Ok(())
 }
 
-fn generate_prototype_api() -> io::Result<Child> {
-    let prototypes_path = "src/generated/prototypes.rs";
-    let types_path = "src/generated/types.rs";
+fn generate_prototype_api(base_path: &str) -> io::Result<PrototypeApiFormat> {
+    let prototypes_path = &format!("{base_path}/prototypes.rs");
+    let types_path = &format!("{base_path}/types.rs");
 
-    read_prototype_api_format("json/prototype-api-v1.1.101.json")?
-        .generate_prototype_api(prototypes_path, types_path)?;
+    let prototype_api = read_prototype_api_format("json/prototype-api-v1.1.101.json")?;
+    prototype_api.generate_prototype_api(prototypes_path, types_path)?;
+
     rustfmt(prototypes_path)?;
-    rustfmt(types_path)
+    rustfmt(types_path)?;
+    Ok(prototype_api)
 }
 
-fn generate_runtime_api() -> io::Result<Child> {
-    let classes_path = "src/generated/classes.rs";
-    let events_path = "src/generated/events.rs";
-    let concepts_path = "src/generated/concepts.rs";
-    let defines_path = "src/generated/defines.rs";
+fn generate_runtime_api(base_path: &str) -> io::Result<RuntimeApiFormat> {
+    let classes_path = &format!("{base_path}/classes.rs");
+    let events_path = &format!("{base_path}/events.rs");
+    let concepts_path = &format!("{base_path}/concepts.rs");
+    let defines_path = &format!("{base_path}/defines.rs");
 
-    read_runtime_api_format("json/runtime-api-v1.1.101.json")?.generate_runtime_api(
-        classes_path,
-        events_path,
-        concepts_path,
-        defines_path,
-    )?;
+    let runtime_api = read_runtime_api_format("json/runtime-api-v1.1.101.json")?;
+    runtime_api.generate_runtime_api(classes_path, events_path, concepts_path, defines_path)?;
+
     rustfmt(classes_path)?;
     rustfmt(events_path)?;
     rustfmt(concepts_path)?;
-    rustfmt(defines_path)
+    rustfmt(defines_path)?;
+    Ok(runtime_api)
+}
+
+fn generate_lib(
+    base_path: &str,
+    prototype_api: &PrototypeApiFormat,
+    runtime_api: &RuntimeApiFormat,
+) -> io::Result<Child> {
+    let factorio_types_path = &format!("{base_path}/factorio_types.rs");
+    let mod_path = &format!("{base_path}/mod.rs");
+
+    generate_factorio_types(factorio_types_path, prototype_api, runtime_api)?;
+    generate_mod(mod_path)?;
+    rustfmt(mod_path)
 }
 
 // https://lua-api.factorio.com/1.1.101/index-prototype.html

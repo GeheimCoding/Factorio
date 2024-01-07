@@ -8,7 +8,7 @@ use super::basic_member::BasicMember;
 #[derive(Debug, Deserialize)]
 pub struct Define {
     /// The name of the define.
-    name: String,
+    pub name: String,
     /// The order of the define as shown in the HTML.
     order: u16,
     /// The text description of the define.

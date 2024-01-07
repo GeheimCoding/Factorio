@@ -1,5 +1,8 @@
+use std::{fs, io};
+
 use self::{
-    prototype::property::Property,
+    prototype::{api_format::PrototypeApiFormat, property::Property},
+    runtime::api_format::RuntimeApiFormat,
     type_::{ComplexType, Type},
 };
 
@@ -235,4 +238,35 @@ fn generate_union(
     union.push('}');
     unions.push(union);
     name.to_owned()
+}
+
+pub fn generate_factorio_types(
+    factorio_types_path: &str,
+    prototype_api: &PrototypeApiFormat,
+    runtime_api: &RuntimeApiFormat,
+) -> io::Result<()> {
+    let mut content = String::from("pub enum FactorioType {\n");
+    for s in ["Class", "Concept", "Define", "Event", "Prototype", "Type"] {
+        content.push_str(&format!("    {s}({s}),\n"));
+    }
+    content.push_str("}\n\n");
+    content.push_str(&runtime_api.generate_factorio_types());
+    content.push_str(&prototype_api.generate_factorio_types());
+    fs::write(factorio_types_path, content)
+}
+
+pub fn generate_mod(mod_path: &str) -> io::Result<()> {
+    let mut content = String::new();
+    for s in [
+        "classes",
+        "concepts",
+        "defines",
+        "events",
+        "prototypes",
+        "types",
+        "factorio_types",
+    ] {
+        content.push_str(&format!("mod {s};\npub use {s}::*;\n\n"));
+    }
+    fs::write(mod_path, content)
 }
