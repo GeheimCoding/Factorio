@@ -19,7 +19,7 @@ fn remote_console() -> io::Result<()> {
     } else {
         let response = console.send_command(
             "
-            rcon.print(Json.parse(game.forces))
+            rcon.print(Json.to_string(game.forces))
         ",
         )?;
         println!("{response}");

@@ -1,21 +1,29 @@
 LuaObject = {
     is_class = function (obj)
-        return type(obj) == 'table' and type(obj.help) == 'function' and
-            obj.object_name ~= 'LuaGameScript'
+        return type(obj) == 'table' and type(obj.help) == 'function'
     end,
-    is_cycle = function (obj)
-        local counter = global.lua_objects.counter
+    get_cycle_id = function (obj)
+        local latest_counter = global.lua_objects.counter
         local found = global.lua_objects.cache[obj]
-        if not found or found.cycle_id > counter then
+        if not found then
             return false, 0
         end
-        return true, found.cycle_id
+        local cycle_id = found.cycle_id
+        return cycle_id == latest_counter, cycle_id
+    end,
+    get_type = function (obj)
+        if LuaObject.is_class(obj) then
+            return 'class'
+        elseif type(obj.name) == 'number' then
+            return 'event'
+        end
+        return 'concept'
     end,
     cache = { __index = function (t, obj)
-        if not LuaObject.is_class(obj) then
+        if not LuaObject.is_class(obj) or obj.object_name == 'LuaGameScript' then
             return false
         end
-        local index = obj.object_name
+        local index = obj.object_name -- TODO: improve
         local found = rawget(t, index)
         if not found then
             local list = {}
@@ -26,9 +34,9 @@ LuaObject = {
         return found[obj]
     end },
     entry = { __index = function (t, obj)
-        for _,v in pairs(t) do
-            if v.obj == obj then
-                return v
+        for _,entry in pairs(t) do
+            if entry.obj == obj then
+                return entry
             end
         end
         global.lua_objects.counter = global.lua_objects.counter + 1
@@ -40,53 +48,84 @@ LuaObject = {
         if type(obj) ~= 'table' or not obj.help then
             return obj
         end
-        local obj_name = obj.object_name
-        local cached = t[obj_name]
-        if cached ~= obj_name then
+        local object_name = obj.object_name
+        local cached = t[object_name]
+        if cached ~= object_name then
             return cached
         end
         local properties = {}
-        for k,_ in string.gmatch(obj.help(), '([a-z_]+)%s(%[R%u?%])') do
-            properties[k] = 0
+        for property,_ in obj.help():gmatch('([a-z_]+)%s(%[R%u?%])') do
+            properties[property] = 0
         end
-        t[obj_name] = properties
+        t[object_name] = properties
         return properties
     end }
 }
 
 Json = {
-    parse_value = function (value)
+    remove_trailing_comma = function (json)
+        local size = #json
+        if json[size] == ',\n' then
+            json[size] = ''
+        end
+    end,
+    value_to_string = function (value)
         if type(value) == 'string' then
             return '"' .. value:gsub('"', '\\"') .. '"'
         else
             local string = tostring(value)
-            if string == 'nan' or string == '-inf' or string == 'inf' then
+            if string == 'nan' or string:find('inf') then
                 return '"' .. string .. '"'
             end
             return string
         end
     end,
-    parse_custom_table = function (custom_table)
+    custom_table_to_string = function (custom_table)
         local json = {'{'}
         for k,v in pairs(custom_table) do
             table.insert(json, '"' .. tostring(k) .. '":')
-            table.insert(json, Json.parse(v))
+            table.insert(json, Json.to_string_internal(v, false))
             table.insert(json, ',\n')
         end
-        local size = #json
-        if json[size] == ',\n' then
-            json[size] = ''
+        Json.remove_trailing_comma(json)
+        table.insert(json, '}')
+        return table.concat(json, '')
+    end,
+    to_string_internal = function (obj, is_root)
+        if type(obj) ~= 'table' then
+            return Json.value_to_string(obj)
+        elseif obj.object_name == 'LuaCustomTable' then
+            return Json.custom_table_to_string(obj)
+        end
+        local json = {'{'}
+        local is_cycle, cycle_id = LuaObject.get_cycle_id(obj)
+        if is_cycle then
+            table.insert(json, '"cycle_id":' .. cycle_id)
+        else
+            local properties = global.lua_objects.properties[obj]
+            if LuaObject.is_class(obj) then
+                table.insert(json, '"class_id":' .. cycle_id .. ',\n')
+                table.insert(json, '"serde_tag":"' .. obj.object_name .. '"')
+                table.insert(json, ',\n')
+            end
+            if is_root then
+                local obj_type = LuaObject.get_type(obj)
+                if obj_type == 'event' then
+                    table.insert(json, '"serde_tag":"' .. global.events[obj.name] .. '",\n')
+                end
+                table.insert(json, '"serde_type":"' .. obj_type .. '"')
+                table.insert(json, ',\n')
+            end
+            for property,_ in pairs(properties) do
+                table.insert(json, '"TODO"')
+            end
+            Json.remove_trailing_comma(json)
         end
         table.insert(json, '}')
         return table.concat(json, '')
     end,
-    parse = function (obj)
-        if type(obj) ~= 'table' then
-            return Json.parse_value(obj)
-        elseif obj.object_name == 'LuaCustomTable' then
-            return Json.parse_custom_table(obj)
-        end
-        return '"' .. 'TODO' .. '"'
+    to_string = function (obj)
+        return to_string_internal(obj, 1)
     end
 }
 
@@ -100,3 +139,8 @@ for _,v in pairs(objects.cache) do
 end
 setmetatable(objects.cache, LuaObject.cache)
 setmetatable(objects.properties, LuaObject.properties)
+
+global.events = {}
+for k,v in pairs(defines.events) do
+    global.events[v] = k
+end
