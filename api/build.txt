@@ -15,7 +15,7 @@ mod generator;
 fn main() -> io::Result<()> {
     let run_build_script = env::var("RUN_BUILD_SCRIPT")
         .map(|v| v == "1")
-        .unwrap_or(true);
+        .unwrap_or(false);
     println!("cargo:rerun-if-changed=build.rs");
     println!("cargo:rerun-if-changed=generated");
 
