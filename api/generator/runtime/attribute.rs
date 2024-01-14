@@ -25,7 +25,7 @@ pub struct Attribute {
     pub subclasses: Option<Vec<String>>,
     /// The type of the attribute.
     #[serde(rename = "type")]
-    type_: Type,
+    pub type_: Type,
     /// Whether the attribute is optional or not.
     optional: bool,
     /// Whether the attribute can be read from.

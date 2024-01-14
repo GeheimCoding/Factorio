@@ -6,7 +6,10 @@ use remote_console::RemoteConsole;
 use std::{fs, io};
 
 fn main() -> io::Result<()> {
-    remote_console()?;
+    //remote_console()?;
+    let json = fs::read_to_string("output/output.lua")?;
+    let game = parse_factorio_type(&json)?;
+    println!("{game:#?}");
     Ok(())
 }
 
@@ -19,12 +22,11 @@ fn remote_console() -> io::Result<()> {
     } else {
         let response = console.send_command(
             "
-            Json.to_string(game.forces.player)
-            rcon.print(Json.to_string(game.forces.player))
+            rcon.print(Json.to_string(game.forces.enemy))
         ",
         )?;
         println!("{response}");
-        let game = parse_factorio_type(&response);
+        let game = parse_factorio_type(&response)?;
         println!("{game:#?}");
     }
     Ok(())
@@ -34,6 +36,8 @@ fn setup(console: &mut RemoteConsole) -> io::Result<String> {
     let mut command = fs::read_to_string("lua/setup.lua")?;
     command.push('\n');
     command.push_str(&fs::read_to_string("lua/subclasses.lua")?);
+    command.push('\n');
+    command.push_str(&fs::read_to_string("lua/dictionaries.lua")?);
     command.push('\n');
     command.push_str(&fs::read_to_string("lua/manual_patches.lua")?);
     console.send_command(&command)

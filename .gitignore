@@ -16,3 +16,6 @@ Cargo.lock
 # Offline docs and generated files
 /api/docs
 /api/src/generated
+
+# Generated output
+/output

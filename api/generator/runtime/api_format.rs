@@ -3,7 +3,11 @@ use std::{collections::HashSet, fs, io};
 
 use serde::Deserialize;
 
-use crate::generator::{generate, generate_macros, type_, Import, Macro, StringTransformation};
+use crate::generator::{
+    generate, generate_macros,
+    type_::{self, ComplexType, Type},
+    Import, Macro, StringTransformation,
+};
 
 use super::{
     builtin_type::BuiltinType, class::Class, concept::Concept, define::Define, event::Event,
@@ -172,9 +176,7 @@ impl RuntimeApiFormat {
         result.push_str("}\n\n");
         result
     }
-}
 
-impl RuntimeApiFormat {
     pub fn get_class_names(&self) -> HashSet<String> {
         self.classes
             .iter()
@@ -183,7 +185,7 @@ impl RuntimeApiFormat {
     }
 
     pub fn generate_subclasses(&self, subclasses_path: &str) -> io::Result<()> {
-        let mut result = String::new();
+        let mut result = String::from("global.lua_objects.subclasses = {\n");
         for class in &self.classes {
             let mut subclasses = vec![];
             for attribute in &class.attributes {
@@ -206,6 +208,36 @@ impl RuntimeApiFormat {
                 result.push_str("},\n");
             }
         }
+        result.push_str("}\n");
         fs::write(subclasses_path, result)
+    }
+
+    pub fn generate_dictionaries(&self, dictionaries_path: &str) -> io::Result<()> {
+        let mut result = String::from("global.lua_objects.dictionaries = {\n");
+        for class in &self.classes {
+            let mut dictionaries = vec![];
+            for attribute in &class.attributes {
+                let is_dictionary = match &attribute.type_ {
+                    Type::Simple(_) => false,
+                    Type::Complex(complex) => match complex.as_ref() {
+                        ComplexType::Dictionary { key, value }
+                        | ComplexType::LuaCustomTable { key, value } => true,
+                        _ => false,
+                    },
+                };
+                if is_dictionary {
+                    dictionaries.push(attribute.name.clone());
+                }
+            }
+            if !dictionaries.is_empty() {
+                result.push_str(&format!("{} = {{\n", class.name));
+                for attribute in dictionaries {
+                    result.push_str(&format!("    {attribute} = 0,\n"))
+                }
+                result.push_str("},\n");
+            }
+        }
+        result.push_str("}\n");
+        fs::write(dictionaries_path, result)
     }
 }
