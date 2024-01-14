@@ -1,4 +1,6 @@
 #![allow(unused)]
+use std::collections::HashSet;
+
 use serde::Deserialize;
 
 use crate::generator::{generate_union, Generate, Macro, StringTransformation};
@@ -113,11 +115,12 @@ impl Generate for Type {
         enum_variant: bool,
         indent: usize,
         unions: &mut Vec<String>,
+        class_names: &HashSet<String>,
     ) -> String {
         match self {
-            Self::Simple(name) => name.to_rust_type(),
+            Self::Simple(name) => name.to_rust_type(class_names),
             Self::Complex(complex_type) => {
-                complex_type.generate(prefix, enum_variant, indent, unions)
+                complex_type.generate(prefix, enum_variant, indent, unions, class_names)
             }
         }
     }
@@ -130,26 +133,33 @@ impl Generate for ComplexType {
         enum_variant: bool,
         indent: usize,
         unions: &mut Vec<String>,
+        class_names: &HashSet<String>,
     ) -> String {
         match self {
             Self::Array { value } => {
                 format!(
                     "Vec<{}>",
-                    value.generate(prefix, enum_variant, indent, unions)
+                    value.generate(prefix, enum_variant, indent, unions, class_names)
                 )
             }
             // TODO: derive hash for key?
             Self::Dictionary { key, value } | Self::LuaCustomTable { key, value } => format!(
                 "HashMap<{}, {}>",
-                key.generate(prefix.clone(), enum_variant, indent, unions),
-                value.generate(prefix, enum_variant, indent, unions)
+                key.generate(prefix.clone(), enum_variant, indent, unions, class_names),
+                value.generate(prefix, enum_variant, indent, unions, class_names)
             ),
             Self::Tuple(Tuple::Tuple { values }) => {
                 let tuple = format!(
                     "{}",
                     values
                         .iter()
-                        .map(|t| t.generate(prefix.clone(), enum_variant, indent, unions))
+                        .map(|t| t.generate(
+                            prefix.clone(),
+                            enum_variant,
+                            indent,
+                            unions,
+                            class_names
+                        ))
                         .collect::<Vec<_>>()
                         .join(", ")
                 );
@@ -162,7 +172,7 @@ impl Generate for ComplexType {
             Self::Union {
                 options,
                 full_format,
-            } => generate_union(&prefix, options, unions, None),
+            } => generate_union(&prefix, options, unions, None, class_names),
             Self::Literal { value, description } => match value {
                 ComplexTypeLiteralValueUnion::String(s) => {
                     if enum_variant && s != "item" {
@@ -181,12 +191,12 @@ impl Generate for ComplexType {
                 }
             },
             Self::Type { value, description } => {
-                value.generate(prefix, enum_variant, indent, unions)
+                value.generate(prefix, enum_variant, indent, unions, class_names)
             }
             Self::Struct => prefix,
             Self::Function { parameters } => todo!(),
             Self::LuaLazyLoadedValue { value } => {
-                value.generate(prefix, enum_variant, indent, unions)
+                value.generate(prefix, enum_variant, indent, unions, class_names)
             }
             Self::LuaStruct { attributes } => {
                 format!(
@@ -194,7 +204,13 @@ impl Generate for ComplexType {
                     Macro::DebugDeserialize.to_string(),
                     attributes
                         .iter()
-                        .map(|a| a.generate(prefix.clone(), enum_variant, indent + 1, unions))
+                        .map(|a| a.generate(
+                            prefix.clone(),
+                            enum_variant,
+                            indent + 1,
+                            unions,
+                            class_names
+                        ))
                         .collect::<Vec<_>>()
                         .join("\n")
                 )
@@ -214,7 +230,13 @@ impl Generate for ComplexType {
                     Macro::DebugDeserialize.to_string(),
                     parameters
                         .iter()
-                        .map(|p| p.generate(prefix.clone(), enum_variant, indent + 1, unions))
+                        .map(|p| p.generate(
+                            prefix.clone(),
+                            enum_variant,
+                            indent + 1,
+                            unions,
+                            class_names
+                        ))
                         .collect::<Vec<_>>()
                         .join("\n")
                 );
@@ -233,7 +255,8 @@ impl Generate for ComplexType {
                         let name = group.name().to_pascal_case();
                         let prefix = format!("{prefix}{name}");
                         union.push_str(&format!("    {}({}),\n", name, prefix));
-                        let group = group.generate(prefix, enum_variant, indent, unions);
+                        let group =
+                            group.generate(prefix, enum_variant, indent, unions, class_names);
                         unions.push(group);
                     }
                     union.push('}');

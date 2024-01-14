@@ -17,13 +17,14 @@ trait Generate {
         enum_variant: bool,
         indent: usize,
         unions: &mut Vec<String>,
+        class_names: &HashSet<String>,
     ) -> String;
 }
 
 trait StringTransformation {
     fn to_pascal_case(&self) -> String;
     fn to_rust_field_name(&self) -> String;
-    fn to_rust_type(&self) -> String;
+    fn to_rust_type(&self, class_names: &HashSet<String>) -> String;
     fn to_optional_if(&self, optional: bool) -> String;
     fn to_doc_string(&self, indent: &str) -> String;
 }
@@ -69,7 +70,7 @@ impl StringTransformation for String {
         }
     }
 
-    fn to_rust_type(&self) -> String {
+    fn to_rust_type(&self, class_names: &HashSet<String>) -> String {
         match self.as_str() {
             "int8" => "i8".to_owned(),
             "int16" => "i16".to_owned(),
@@ -87,7 +88,11 @@ impl StringTransformation for String {
                     let parts = s.split("defines.").collect::<Vec<_>>();
                     parts[1].to_owned().to_pascal_case()
                 } else {
-                    self.clone()
+                    if class_names.contains(s) {
+                        format!("MaybeCycle<{s}>")
+                    } else {
+                        s.to_owned()
+                    }
                 }
             }
         }
@@ -154,6 +159,7 @@ enum Import {
     Concepts,
     Defines,
     Types,
+    MaybeCycle,
 }
 
 impl ToString for Import {
@@ -164,6 +170,7 @@ impl ToString for Import {
             Import::Concepts => "use super::concepts::*;".to_owned(),
             Import::Defines => "use super::defines::*;".to_owned(),
             Import::Types => "use super::types::*;".to_owned(),
+            Import::MaybeCycle => "use super::MaybeCycle;".to_owned(),
         }
     }
 }
@@ -174,6 +181,7 @@ enum Macro {
     RenameSnakeCase,
     RenameKebabCase,
     TagSerdeType,
+    TagSerdeTag,
     Hash,
     SerdeUntagged,
     Repr,
@@ -186,6 +194,7 @@ impl ToString for Macro {
             Macro::DebugDeserializeRepr => "#[derive(Debug, Deserialize_repr)]".to_owned(),
             Macro::RenameSnakeCase => "#[serde(rename_all = \"snake_case\")]".to_owned(),
             Macro::TagSerdeType => "#[serde(tag = \"serde_type\")]".to_owned(),
+            Macro::TagSerdeTag => "#[serde(tag = \"serde_tag\")]".to_owned(),
             Macro::Hash => "#[derive(Debug, Deserialize, Eq, PartialEq, Hash)]".to_owned(),
             Macro::SerdeUntagged => "#[serde(untagged)]".to_owned(),
             Macro::RenameKebabCase => "#[serde(rename_all = \"kebab-case\")]".to_owned(),
@@ -205,7 +214,11 @@ fn generate_macros(macros: Vec<Macro>) -> String {
     )
 }
 
-fn generate<G: Generate>(list: &[G], imports: Vec<Import>) -> String {
+fn generate<G: Generate>(
+    list: &[G],
+    imports: Vec<Import>,
+    class_names: &HashSet<String>,
+) -> String {
     let mut result = String::from("#![allow(unused)]");
     result.push_str(
         &imports
@@ -222,7 +235,7 @@ fn generate<G: Generate>(list: &[G], imports: Vec<Import>) -> String {
     result.push_str(
         &list
             .iter()
-            .map(|p| p.generate(String::new(), false, 0, &mut vec![]))
+            .map(|p| p.generate(String::new(), false, 0, &mut vec![], class_names))
             .filter(|s| !s.is_empty())
             .collect::<Vec<_>>()
             .join("\n\n"),
@@ -231,7 +244,12 @@ fn generate<G: Generate>(list: &[G], imports: Vec<Import>) -> String {
     result
 }
 
-fn generate_struct(name: &str, parent: Option<&String>, properties: &Vec<Property>) -> String {
+fn generate_struct(
+    name: &str,
+    parent: Option<&String>,
+    properties: &Vec<Property>,
+    class_names: &HashSet<String>,
+) -> String {
     let mut unions = vec![];
     let mut result = String::from(&format!(
         "{}pub struct {} {{\n",
@@ -247,7 +265,7 @@ fn generate_struct(name: &str, parent: Option<&String>, properties: &Vec<Propert
     result.push_str(
         &properties
             .iter()
-            .map(|p| p.generate(name.to_owned(), false, 1, &mut unions))
+            .map(|p| p.generate(name.to_owned(), false, 1, &mut unions, class_names))
             .collect::<Vec<_>>()
             .join("\n"),
     );
@@ -263,6 +281,7 @@ fn generate_union(
     options: &Vec<Type>,
     unions: &mut Vec<String>,
     properties: Option<&Vec<Property>>,
+    class_names: &HashSet<String>,
 ) -> String {
     let macro_ = if name == "AutoplaceSettingsSettings"
         || name == "MapGenSettingsAutoplaceSettings"
@@ -317,7 +336,7 @@ fn generate_union(
         } else {
             format!("{}Union", name)
         };
-        let mut result = option.generate(prefix, true, 1, unions);
+        let mut result = option.generate(prefix, true, 1, unions, class_names);
         let field = result.to_rust_field_name().to_pascal_case();
         let mut added = false;
         if !fields.contains(&field) || name == "Direction" {
@@ -331,7 +350,7 @@ fn generate_union(
                 &properties
                     .expect("should have properties")
                     .iter()
-                    .map(|p| p.generate(name.to_owned(), true, 2, unions))
+                    .map(|p| p.generate(name.to_owned(), true, 2, unions, class_names))
                     .collect::<Vec<_>>()
                     .join("\n"),
             );
@@ -405,5 +424,17 @@ pub fn generate_mod(mod_path: &str) -> io::Result<()> {
     ] {
         content.push_str(&format!("mod {s};\npub use {s}::*;\n\n"));
     }
+    content.push_str(
+        "
+        use serde::Deserialize;
+
+        #[derive(Debug, Deserialize)]
+        #[serde(untagged)]
+        pub enum MaybeCycle<T> {
+            Cycle { cycle_id: String },
+            Value(Box<T>),
+        }
+    ",
+    );
     fs::write(mod_path, content)
 }

@@ -1,4 +1,6 @@
 #![allow(unused)]
+use std::collections::HashSet;
+
 use serde::Deserialize;
 
 use crate::generator::{generate_docs, type_::Type, Generate, Macro, StringTransformation};
@@ -47,13 +49,14 @@ impl Generate for Parameter {
         enum_variant: bool,
         indent: usize,
         unions: &mut Vec<String>,
+        class_names: &HashSet<String>,
     ) -> String {
         let name = self.name.clone().expect("should have a name");
         let new_prefix = format!("{prefix}{}", name.to_pascal_case());
         let mut result = generate_docs(Some(&self.description), None, None, None, indent);
         let type_ = self
             .type_
-            .generate(new_prefix, enum_variant, indent, unions)
+            .generate(new_prefix, enum_variant, indent, unions, class_names)
             .to_optional_if(self.optional);
         let name = name.to_rust_field_name();
         let name = if name == "_" {
@@ -78,6 +81,7 @@ impl Generate for ParameterGroup {
         enum_variant: bool,
         indent: usize,
         unions: &mut Vec<String>,
+        class_names: &HashSet<String>,
     ) -> String {
         let mut result = format!(
             "{}{}pub struct {prefix} {{\n{}\n",
@@ -85,7 +89,13 @@ impl Generate for ParameterGroup {
             Macro::DebugDeserialize.to_string(),
             self.parameters
                 .iter()
-                .map(|p| p.generate(prefix.clone(), enum_variant, indent + 1, unions))
+                .map(|p| p.generate(
+                    prefix.clone(),
+                    enum_variant,
+                    indent + 1,
+                    unions,
+                    class_names
+                ))
                 .collect::<Vec<_>>()
                 .join("\n")
         );

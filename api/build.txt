@@ -1,4 +1,5 @@
 use std::{
+    collections::HashSet,
     env,
     fs::{self, File},
     io::{self, BufReader},
@@ -22,40 +23,50 @@ fn main() -> io::Result<()> {
     if run_build_script {
         let base_path = "src/generated";
         fs::create_dir_all(base_path)?;
-        let prototype_api = generate_prototype_api(base_path)?;
-        let runtime_api = generate_runtime_api(base_path)?;
+        let (runtime_api, class_names) = generate_runtime_api(base_path)?;
+        let prototype_api = generate_prototype_api(base_path, &class_names)?;
         generate_lib(base_path, &prototype_api, &runtime_api)?;
         runtime_api.generate_subclasses(&format!("{base_path}/subclasses.lua"))?;
     }
     Ok(())
 }
 
-fn generate_prototype_api(base_path: &str) -> io::Result<PrototypeApiFormat> {
+fn generate_prototype_api(
+    base_path: &str,
+    class_names: &HashSet<String>,
+) -> io::Result<PrototypeApiFormat> {
     let prototypes_path = &format!("{base_path}/prototypes.rs");
     let types_path = &format!("{base_path}/types.rs");
 
     let prototype_api = read_prototype_api_format("json/prototype-api-v1.1.101.json")?;
-    prototype_api.generate_prototype_api(prototypes_path, types_path)?;
+    prototype_api.generate_prototype_api(prototypes_path, types_path, class_names)?;
 
     rustfmt(prototypes_path)?;
     rustfmt(types_path)?;
     Ok(prototype_api)
 }
 
-fn generate_runtime_api(base_path: &str) -> io::Result<RuntimeApiFormat> {
+fn generate_runtime_api(base_path: &str) -> io::Result<(RuntimeApiFormat, HashSet<String>)> {
     let classes_path = &format!("{base_path}/classes.rs");
     let events_path = &format!("{base_path}/events.rs");
     let concepts_path = &format!("{base_path}/concepts.rs");
     let defines_path = &format!("{base_path}/defines.rs");
 
     let runtime_api = read_runtime_api_format("json/runtime-api-v1.1.101.json")?;
-    runtime_api.generate_runtime_api(classes_path, events_path, concepts_path, defines_path)?;
+    let class_names = runtime_api.get_class_names();
+    runtime_api.generate_runtime_api(
+        classes_path,
+        events_path,
+        concepts_path,
+        defines_path,
+        &class_names,
+    )?;
 
     rustfmt(classes_path)?;
     rustfmt(events_path)?;
     rustfmt(concepts_path)?;
     rustfmt(defines_path)?;
-    Ok(runtime_api)
+    Ok((runtime_api, class_names))
 }
 
 fn generate_lib(

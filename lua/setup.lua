@@ -2,6 +2,10 @@ LuaObject = {
     is_class = function (obj)
         return type(obj) == 'table' and type(obj.help) == 'function'
     end,
+    is_dictionary = function (object_name, attribute)
+        local dictionaries = global.lua_objects.dictionaries[object_name]
+        return dictionaries and dictionaries[attribute]
+    end,
     can_access = function (obj, attributes, attribute)
         if obj.object_name == 'LuaGroup' then
             if obj.type == 'item-group' then
@@ -15,7 +19,7 @@ LuaObject = {
         if not key or not subclasses or not subclasses[attribute] then
             return true
         end
-        return subclasses[attribute][key] ~= nil
+        return subclasses[attribute][key]
     end,
     get_cycle_id = function (obj)
         local latest_counter = global.lua_objects.counter
@@ -54,7 +58,10 @@ LuaObject = {
             end
         end
         global.lua_objects.counter = global.lua_objects.counter + 1
-        local entry = { obj = obj, cycle_id = global.lua_objects.counter }
+        local entry = {
+            obj = obj,
+            cycle_id = '"' .. tostring(global.lua_objects.counter) .. '"'
+        }
         table.insert(t, entry)
         return entry
     end },
@@ -114,17 +121,20 @@ Json = {
             return Json.custom_table_to_string(obj)
         end
         local json = {'{'}
+        local is_array = false
         local is_cycle, cycle_id = LuaObject.get_cycle_id(obj)
-        if is_cycle then
+        if is_cycle and not is_root then
             table.insert(json, '"cycle_id":' .. cycle_id)
         else
             local attributes = global.lua_objects.attributes[obj]
+            local is_empty = table_size(attributes) == 0
+            is_array = attributes[1] ~= nil or is_empty
             if LuaObject.is_class(obj) then
                 table.insert(json, '"class_id":' .. cycle_id .. ',\n')
                 table.insert(json, '"serde_tag":"' .. obj.object_name .. '"')
                 table.insert(json, ',\n')
             end
-            if is_root then
+            if is_root and not is_empty then
                 local obj_type = LuaObject.get_type(obj)
                 if obj_type == 'event' then
                     table.insert(json, '"serde_tag":"' .. global.events[obj.name] .. '",\n')
@@ -137,18 +147,31 @@ Json = {
                 --rcon.print(attribute)
                 if LuaObject.can_access(obj, attributes, attribute) then
                     local internal = Json.to_string_internal(obj[attribute])
-                    table.insert(json, '"' .. attribute .. '":')
-                    table.insert(json, internal)
-                    table.insert(json, ',\n')
+                    if internal ~= 'nil' then
+                        if not is_array then
+                            table.insert(json, '"' .. attribute .. '":')
+                        end
+                        if internal == '[]' and LuaObject.is_dictionary(obj.object_name, attribute) then
+                            table.insert(json, '{}')
+                        else
+                            table.insert(json, internal)
+                        end
+                        table.insert(json, ',\n')
+                    end
                 end
             end
             Json.remove_trailing_comma(json)
         end
-        table.insert(json, '}')
+        if is_array then
+            json[1] = '['
+            table.insert(json, ']')
+        else
+            table.insert(json, '}')
+        end
         return table.concat(json, '')
     end,
     to_string = function (obj)
-        return Json.to_string_internal(obj, 1)
+        return Json.to_string_internal(obj, true)
     end
 }
 

@@ -1,4 +1,6 @@
 #![allow(unused)]
+use std::collections::HashSet;
+
 use serde::Deserialize;
 
 use crate::generator::{
@@ -31,6 +33,7 @@ impl Generate for Concept {
         enum_variant: bool,
         indent: usize,
         unions: &mut Vec<String>,
+        class_names: &HashSet<String>,
     ) -> String {
         let mut result = generate_docs(
             Some(&self.description),
@@ -46,8 +49,13 @@ impl Generate for Concept {
             result.push_str(&format!(
                 "pub type {} = {};",
                 name.clone(),
-                self.type_
-                    .generate(format!("{name}Union"), enum_variant, indent, &mut unions)
+                self.type_.generate(
+                    format!("{name}Union"),
+                    enum_variant,
+                    indent,
+                    &mut unions,
+                    class_names
+                )
             ));
         } else if name == "ComparatorString" {
             result.push_str("pub type ComparatorString = String;");
@@ -57,16 +65,16 @@ impl Generate for Concept {
                     ComplexType::Union {
                         options,
                         full_format,
-                    } => options[0].generate(name, enum_variant, indent, &mut unions),
+                    } => options[0].generate(name, enum_variant, indent, &mut unions, class_names),
                     _ => panic!("should be union"),
                 });
             } else {
                 panic!("should be complex");
             }
         } else {
-            let mut type_ = self
-                .type_
-                .generate(name.clone(), enum_variant, indent, &mut unions);
+            let mut type_ =
+                self.type_
+                    .generate(name.clone(), enum_variant, indent, &mut unions, class_names);
             if type_ != name {
                 result.push_str(&type_);
             } else {

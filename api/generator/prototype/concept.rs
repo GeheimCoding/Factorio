@@ -1,4 +1,6 @@
 #![allow(unused)]
+use std::collections::HashSet;
+
 use serde::Deserialize;
 
 use crate::generator::{
@@ -44,6 +46,7 @@ impl Generate for Concept {
         _enum_variant: bool,
         indent: usize,
         unions: &mut Vec<String>,
+        class_names: &HashSet<String>,
     ) -> String {
         let mut result = String::from(generate_docs(
             Some(&self.description),
@@ -67,6 +70,7 @@ impl Generate for Concept {
                         self.properties
                             .as_ref()
                             .expect("there should be at least one property"),
+                        class_names,
                     ));
                     false
                 }
@@ -74,7 +78,13 @@ impl Generate for Concept {
                     options,
                     full_format: _,
                 } => {
-                    generate_union(&self.name, options, unions, self.properties.as_ref());
+                    generate_union(
+                        &self.name,
+                        options,
+                        unions,
+                        self.properties.as_ref(),
+                        class_names,
+                    );
                     false
                 }
                 _ => true,
@@ -84,8 +94,13 @@ impl Generate for Concept {
             result.push_str(&format!(
                 "pub type {} = {};",
                 self.name,
-                self.type_
-                    .generate(format!("{}Union", self.name), false, indent, unions)
+                self.type_.generate(
+                    format!("{}Union", self.name),
+                    false,
+                    indent,
+                    unions,
+                    class_names
+                )
             ));
             if !unions.is_empty() {
                 result.push_str("\n\n");

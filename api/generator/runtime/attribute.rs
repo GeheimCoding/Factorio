@@ -1,4 +1,6 @@
 #![allow(unused)]
+use std::collections::HashSet;
+
 use serde::Deserialize;
 
 use crate::generator::{generate_docs, type_::Type, Generate, Macro, StringTransformation};
@@ -39,12 +41,13 @@ impl Generate for Attribute {
         enum_variant: bool,
         indent: usize,
         unions: &mut Vec<String>,
+        class_names: &HashSet<String>,
     ) -> String {
         let new_prefix = format!("{prefix}{}", self.name.to_pascal_case());
         let mut result = generate_docs(Some(&self.description), None, None, None, indent);
         let type_ = self
             .type_
-            .generate(new_prefix, enum_variant, indent, unions);
+            .generate(new_prefix, enum_variant, indent, unions, class_names);
         let nested_struct = format!("{}\npub struct", Macro::DebugDeserialize.to_string());
         let type_ = if type_.starts_with(&nested_struct) {
             let new_type = type_.split(&nested_struct).collect::<Vec<_>>()[1]

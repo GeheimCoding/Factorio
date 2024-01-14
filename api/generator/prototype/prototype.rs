@@ -1,5 +1,5 @@
 #![allow(unused)]
-use std::{fmt::Display, str::FromStr};
+use std::{collections::HashSet, fmt::Display, str::FromStr};
 
 use serde::{Deserialize, Deserializer};
 
@@ -50,6 +50,7 @@ impl Generate for Prototype {
         _enum_variant: bool,
         indent: usize,
         _unions: &mut Vec<String>,
+        class_names: &HashSet<String>,
     ) -> String {
         // TODO: typename & custom_properties?
         format!(
@@ -61,7 +62,12 @@ impl Generate for Prototype {
                 self.examples.as_ref(),
                 indent,
             ),
-            generate_struct(&self.name, self.parent.as_ref(), &self.properties)
+            generate_struct(
+                &self.name,
+                self.parent.as_ref(),
+                &self.properties,
+                class_names
+            )
         )
     }
 }

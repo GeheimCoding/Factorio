@@ -1,4 +1,6 @@
 #![allow(unused)]
+use std::collections::HashSet;
+
 use serde::Deserialize;
 
 use crate::generator::{
@@ -67,6 +69,7 @@ impl Generate for Property {
         enum_variant: bool,
         indent: usize,
         unions: &mut Vec<String>,
+        class_names: &HashSet<String>,
     ) -> String {
         // TODO: alt_name & override & default?
         let type_ = self.type_.generate(
@@ -74,6 +77,7 @@ impl Generate for Property {
             enum_variant,
             indent,
             unions,
+            class_names,
         );
         let type_ = if type_ == prefix {
             format!("Box<{type_}>")

@@ -1,4 +1,6 @@
 #![allow(unused)]
+use std::collections::HashSet;
+
 use serde::Deserialize;
 
 use crate::generator::{generate_docs, Generate, Macro};
@@ -37,6 +39,7 @@ impl Generate for Class {
         enum_variant: bool,
         indent: usize,
         unions: &mut Vec<String>,
+        class_names: &HashSet<String>,
     ) -> String {
         let mut result = generate_docs(
             Some(&self.description),
@@ -65,7 +68,15 @@ impl Generate for Class {
             &self
                 .attributes
                 .iter()
-                .map(|a| a.generate(self.name.clone(), enum_variant, indent + 1, &mut unions))
+                .map(|a| {
+                    a.generate(
+                        self.name.clone(),
+                        enum_variant,
+                        indent + 1,
+                        &mut unions,
+                        class_names,
+                    )
+                })
                 .collect::<Vec<_>>()
                 .join("\n"),
         );

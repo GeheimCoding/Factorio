@@ -1,5 +1,5 @@
 #![allow(unused)]
-use std::{fs, io};
+use std::{collections::HashSet, fs, io};
 
 use serde::Deserialize;
 
@@ -73,12 +73,19 @@ impl RuntimeApiFormat {
         events_path: &str,
         concepts_path: &str,
         defines_path: &str,
+        class_names: &HashSet<String>,
     ) -> io::Result<()> {
         fs::write(
             classes_path,
             generate(
                 &self.classes,
-                vec![Import::HashMap, Import::Defines, Import::Concepts],
+                vec![
+                    Import::HashMap,
+                    Import::Defines,
+                    Import::Concepts,
+                    Import::MaybeCycle,
+                ],
+                class_names,
             ),
         )?;
         fs::write(
@@ -90,22 +97,30 @@ impl RuntimeApiFormat {
                     Import::Defines,
                     Import::Classes,
                     Import::Concepts,
+                    Import::MaybeCycle,
                 ],
+                class_names,
             ),
         )?;
         fs::write(
             concepts_path,
             generate(
                 &self.concepts,
-                vec![Import::HashMap, Import::Defines, Import::Classes],
+                vec![
+                    Import::HashMap,
+                    Import::Defines,
+                    Import::Classes,
+                    Import::MaybeCycle,
+                ],
+                class_names,
             ),
         )?;
-        fs::write(defines_path, generate(&self.defines, vec![]))?;
+        fs::write(defines_path, generate(&self.defines, vec![], class_names))?;
         Ok(())
     }
 
     pub fn generate_factorio_types(&self) -> String {
-        let mut result = generate_macros(vec![Macro::DebugDeserialize, Macro::TagSerdeType]);
+        let mut result = generate_macros(vec![Macro::DebugDeserialize, Macro::TagSerdeTag]);
         result.push_str("pub enum Class {\n");
         for class in &self.classes {
             result.push_str(&format!(
@@ -118,7 +133,7 @@ impl RuntimeApiFormat {
             generate_macros(vec![
                 Macro::DebugDeserialize,
                 Macro::RenameSnakeCase,
-                Macro::TagSerdeType,
+                Macro::TagSerdeTag,
             ])
         ));
         for concept in &self.concepts {
@@ -129,7 +144,7 @@ impl RuntimeApiFormat {
         }
         result.push_str(&format!(
             "}}\n\n{}pub enum Define {{\n",
-            generate_macros(vec![Macro::DebugDeserialize, Macro::TagSerdeType]),
+            generate_macros(vec![Macro::DebugDeserialize, Macro::TagSerdeTag]),
         ));
         for define in &self.defines {
             let name = define.name.to_pascal_case();
@@ -147,7 +162,7 @@ impl RuntimeApiFormat {
             generate_macros(vec![
                 Macro::DebugDeserialize,
                 Macro::RenameSnakeCase,
-                Macro::TagSerdeType,
+                Macro::TagSerdeTag,
             ])
         ));
         for event in &self.events {
@@ -160,6 +175,13 @@ impl RuntimeApiFormat {
 }
 
 impl RuntimeApiFormat {
+    pub fn get_class_names(&self) -> HashSet<String> {
+        self.classes
+            .iter()
+            .map(|class| class.name.clone())
+            .collect()
+    }
+
     pub fn generate_subclasses(&self, subclasses_path: &str) -> io::Result<()> {
         let mut result = String::new();
         for class in &self.classes {

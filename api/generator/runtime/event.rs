@@ -1,4 +1,6 @@
 #![allow(unused)]
+use std::collections::HashSet;
+
 use serde::Deserialize;
 
 use crate::generator::{generate_docs, Generate, Macro, StringTransformation};
@@ -42,6 +44,7 @@ impl Generate for Event {
         enum_variant: bool,
         indent: usize,
         unions: &mut Vec<String>,
+        class_names: &HashSet<String>,
     ) -> String {
         let mut result = generate_docs(
             Some(&self.description),
@@ -60,7 +63,7 @@ impl Generate for Event {
             &self
                 .data
                 .iter()
-                .map(|p| p.generate(name.clone(), enum_variant, indent + 1, unions))
+                .map(|p| p.generate(name.clone(), enum_variant, indent + 1, unions, class_names))
                 .collect::<Vec<_>>()
                 .join("\n"),
         );

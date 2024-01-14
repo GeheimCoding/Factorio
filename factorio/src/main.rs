@@ -1,7 +1,7 @@
 #![allow(unused)]
 #![deny(clippy::unwrap_used)]
 
-use api;
+use api::parse_factorio_type;
 use remote_console::RemoteConsole;
 use std::{fs, io};
 
@@ -19,11 +19,13 @@ fn remote_console() -> io::Result<()> {
     } else {
         let response = console.send_command(
             "
-            Json.to_string(game)
-            rcon.print(global.lua_objects.counter)
+            Json.to_string(game.forces.player)
+            rcon.print(Json.to_string(game.forces.player))
         ",
         )?;
         println!("{response}");
+        let game = parse_factorio_type(&response);
+        println!("{game:#?}");
     }
     Ok(())
 }

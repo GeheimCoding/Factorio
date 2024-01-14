@@ -1,4 +1,6 @@
 #![allow(unused)]
+use std::collections::HashSet;
+
 use serde::Deserialize;
 
 use crate::generator::{generate_docs, Generate, Macro, StringTransformation};
@@ -26,6 +28,7 @@ impl Generate for Define {
         enum_variant: bool,
         indent: usize,
         unions: &mut Vec<String>,
+        class_names: &HashSet<String>,
     ) -> String {
         let mut result = generate_docs(Some(&self.description), None, None, None, indent);
         let name = self.name.to_pascal_case();
@@ -59,7 +62,7 @@ impl Generate for Define {
             result.push_str(
                 &values
                     .iter()
-                    .map(|v| v.generate(prefix.clone(), true, 1, unions))
+                    .map(|v| v.generate(prefix.clone(), true, 1, unions, class_names))
                     .collect::<String>(),
             );
         }
@@ -68,7 +71,13 @@ impl Generate for Define {
             for define in subkeys {
                 let prefix = format!("{prefix}{}", self.name.to_pascal_case());
                 let name = define.name.to_pascal_case();
-                let union = define.generate(prefix.clone(), enum_variant, indent, &mut unions);
+                let union = define.generate(
+                    prefix.clone(),
+                    enum_variant,
+                    indent,
+                    &mut unions,
+                    class_names,
+                );
                 result.push_str(&format!("    {}({}{}),\n", name, prefix, name));
                 unions.push(union);
             }

@@ -1,5 +1,5 @@
 #![allow(unused)]
-use std::{fs, io};
+use std::{collections::HashSet, fs, io};
 
 use serde::Deserialize;
 
@@ -58,19 +58,27 @@ impl PrototypeApiFormat {
         &self,
         prototypes_path: &str,
         types_path: &str,
+        class_names: &HashSet<String>,
     ) -> io::Result<()> {
         fs::write(
             prototypes_path,
-            generate(&self.prototypes, vec![Import::HashMap, Import::Types]),
+            generate(
+                &self.prototypes,
+                vec![Import::HashMap, Import::Types],
+                class_names,
+            ),
         )?;
-        fs::write(types_path, generate(&self.types, vec![Import::HashMap]))
+        fs::write(
+            types_path,
+            generate(&self.types, vec![Import::HashMap], class_names),
+        )
     }
 
     pub fn generate_factorio_types(&self) -> String {
         let mut result = generate_macros(vec![
             Macro::DebugDeserialize,
             Macro::RenameSnakeCase,
-            Macro::TagSerdeType,
+            Macro::TagSerdeTag,
         ]);
         result.push_str("pub enum Prototype {\n");
         for proto in &self.prototypes {
@@ -81,7 +89,7 @@ impl PrototypeApiFormat {
         }
         result.push_str(&format!(
             "}}\n\n{}pub enum Type {{\n",
-            generate_macros(vec![Macro::DebugDeserialize, Macro::TagSerdeType,])
+            generate_macros(vec![Macro::DebugDeserialize, Macro::TagSerdeTag,])
         ));
         for concept in &self.types {
             if concept.name.chars().next().unwrap().is_uppercase() {
