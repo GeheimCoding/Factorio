@@ -15,7 +15,7 @@ mod generator;
 fn main() -> io::Result<()> {
     let run_build_script = env::var("RUN_BUILD_SCRIPT")
         .map(|v| v == "1")
-        .unwrap_or(false);
+        .unwrap_or(true);
     println!("cargo:rerun-if-changed=build.rs");
     println!("cargo:rerun-if-changed=generated");
 
@@ -25,6 +25,7 @@ fn main() -> io::Result<()> {
         let prototype_api = generate_prototype_api(base_path)?;
         let runtime_api = generate_runtime_api(base_path)?;
         generate_lib(base_path, &prototype_api, &runtime_api)?;
+        runtime_api.generate_subclasses(&format!("{base_path}/subclasses.lua"))?;
     }
     Ok(())
 }

@@ -8,7 +8,7 @@ use super::event::EventRaised;
 #[derive(Debug, Deserialize)]
 pub struct Attribute {
     /// The name of the attribute.
-    name: String,
+    pub name: String,
     /// The order of the attribute as shown in the HTML.
     order: u16,
     /// The text description of the attribute.
@@ -20,7 +20,7 @@ pub struct Attribute {
     /// A list of events that this attribute might raise when written to.
     raises: Option<Vec<EventRaised>>,
     /// A list of strings specifying the sub-type (of the class) that the attribute applies to.
-    subclasses: Option<Vec<String>>,
+    pub subclasses: Option<Vec<String>>,
     /// The type of the attribute.
     #[serde(rename = "type")]
     type_: Type,

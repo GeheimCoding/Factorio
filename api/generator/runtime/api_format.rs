@@ -158,3 +158,32 @@ impl RuntimeApiFormat {
         result
     }
 }
+
+impl RuntimeApiFormat {
+    pub fn generate_subclasses(&self, subclasses_path: &str) -> io::Result<()> {
+        let mut result = String::new();
+        for class in &self.classes {
+            let mut subclasses = vec![];
+            for attribute in &class.attributes {
+                if let Some(classes) = attribute.subclasses.as_ref() {
+                    subclasses.push((
+                        attribute.name.clone(),
+                        classes
+                            .iter()
+                            .map(|class| format!("[\"{class}\"] = 0"))
+                            .collect::<Vec<_>>()
+                            .join(", "),
+                    ));
+                }
+            }
+            if !subclasses.is_empty() {
+                result.push_str(&format!("{} = {{\n", class.name));
+                for (attribute, subclasses) in subclasses {
+                    result.push_str(&format!("    {attribute} = {{{subclasses}}},\n"))
+                }
+                result.push_str("},\n");
+            }
+        }
+        fs::write(subclasses_path, result)
+    }
+}

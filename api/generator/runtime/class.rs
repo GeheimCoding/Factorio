@@ -20,7 +20,7 @@ pub struct Class {
     /// The methods that are part of the class.
     methods: Vec<Method>,
     /// The attributes that are part of the class.
-    attributes: Vec<Attribute>,
+    pub attributes: Vec<Attribute>,
     /// A list of operators on the class. They are called `call`, `index`, or `length` and have the format of either a [Method](https://lua-api.factorio.com/1.1.101/auxiliary/json-docs-runtime.html#Method) or an [Attribute](https://lua-api.factorio.com/1.1.101/auxiliary/json-docs-runtime.html#Attribute).
     operators: Vec<Operator>,
     /// Whether the class is never itself instantiated, only inherited from.

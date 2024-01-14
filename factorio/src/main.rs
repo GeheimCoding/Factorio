@@ -13,16 +13,26 @@ fn main() -> io::Result<()> {
 // https://developer.valvesoftware.com/wiki/Source_RCON_Protocol
 fn remote_console() -> io::Result<()> {
     let mut console = RemoteConsole::new("10.243.118.233", 25575, "123")?;
-    let response = console.send_command(&fs::read_to_string("factorio/src/setup.lua")?)?;
-    if !response.is_empty() {
-        println!("{response}");
+    let setup_response = setup(&mut console)?;
+    if !setup_response.is_empty() {
+        println!("{setup_response}");
     } else {
         let response = console.send_command(
             "
-            rcon.print(Json.to_string(game.forces))
+            Json.to_string(game)
+            rcon.print(global.lua_objects.counter)
         ",
         )?;
         println!("{response}");
     }
     Ok(())
+}
+
+fn setup(console: &mut RemoteConsole) -> io::Result<String> {
+    let mut command = fs::read_to_string("lua/setup.lua")?;
+    command.push('\n');
+    command.push_str(&fs::read_to_string("lua/subclasses.lua")?);
+    command.push('\n');
+    command.push_str(&fs::read_to_string("lua/manual_patches.lua")?);
+    console.send_command(&command)
 }
