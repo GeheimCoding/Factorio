@@ -1,3 +1,7 @@
+function string:endswith(suffix)
+    return self:sub(-#suffix) == suffix
+end
+
 LuaObject = {
     is_class = function (obj)
         return type(obj) == 'table' and type(obj.help) == 'function'
@@ -121,6 +125,10 @@ Json = {
             return Json.custom_table_to_string(obj)
         end
         local json = {'{'}
+        local object_name = obj.object_name
+        if object_name and object_name:endswith('FlowStatistics') then
+            object_name = 'LuaFlowStatistics'
+        end
         local is_array = false
         local is_cycle, cycle_id = LuaObject.get_cycle_id(obj)
         if is_cycle and not is_root then
@@ -131,7 +139,7 @@ Json = {
             is_array = attributes[1] ~= nil or is_empty
             if LuaObject.is_class(obj) then
                 table.insert(json, '"class_id":' .. cycle_id .. ',\n')
-                table.insert(json, '"serde_tag":"' .. obj.object_name .. '"')
+                table.insert(json, '"serde_tag":"' .. object_name .. '"')
                 table.insert(json, ',\n')
             end
             if is_root and not is_empty then
@@ -142,7 +150,7 @@ Json = {
                 table.insert(json, '"serde_type":"' .. obj_type .. '"')
                 table.insert(json, ',\n')
             end
-            --rcon.print(obj.object_name)
+            --rcon.print(object_name)
             for attribute,_ in pairs(attributes) do
                 --rcon.print(attribute)
                 if LuaObject.can_access(obj, attributes, attribute) then
@@ -151,7 +159,7 @@ Json = {
                         if not is_array then
                             table.insert(json, '"' .. attribute .. '":')
                         end
-                        if internal == '[]' and LuaObject.is_dictionary(obj.object_name, attribute) then
+                        if internal == '[]' and LuaObject.is_dictionary(object_name, attribute) then
                             table.insert(json, '{}')
                         else
                             table.insert(json, internal)

@@ -55,8 +55,8 @@ impl StringTransformation for String {
 
     fn to_rust_field_name(&self) -> String {
         match self.as_str() {
-            "type" => "type_".to_owned(),
-            "mod" => "mod_".to_owned(),
+            "type" => "#[serde(rename = \"type\")]\ntype_".to_owned(),
+            "mod" => "#[serde(rename = \"mod\")]\nmod_".to_owned(),
             "noisePersistence" => "noise_persistence".to_owned(),
             _ => self
                 .replace('<', "")

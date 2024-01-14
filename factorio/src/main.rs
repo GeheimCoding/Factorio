@@ -6,10 +6,7 @@ use remote_console::RemoteConsole;
 use std::{fs, io};
 
 fn main() -> io::Result<()> {
-    //remote_console()?;
-    let json = fs::read_to_string("output/output.lua")?;
-    let game = parse_factorio_type(&json)?;
-    println!("{game:#?}");
+    remote_console()?;
     Ok(())
 }
 
@@ -22,7 +19,7 @@ fn remote_console() -> io::Result<()> {
     } else {
         let response = console.send_command(
             "
-            rcon.print(Json.to_string(game.forces.enemy))
+            rcon.print(Json.to_string(game))
         ",
         )?;
         println!("{response}");
