@@ -26,8 +26,10 @@ fn main() -> io::Result<()> {
         let (runtime_api, class_names) = generate_runtime_api(base_path)?;
         let prototype_api = generate_prototype_api(base_path, &class_names)?;
         generate_lib(base_path, &prototype_api, &runtime_api)?;
+
         runtime_api.generate_subclasses(&format!("{base_path}/subclasses.lua"))?;
         runtime_api.generate_dictionaries(&format!("{base_path}/dictionaries.lua"))?;
+        runtime_api.generate_settings_attributes(&format!("{base_path}/settings.lua"))?;
     }
     Ok(())
 }

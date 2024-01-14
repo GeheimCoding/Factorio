@@ -19,7 +19,7 @@ fn remote_console() -> io::Result<()> {
     } else {
         let response = console.send_command(
             "
-            rcon.print(Json.to_string(game))
+            rcon.print(Json.to_string(game.map_settings.pollution))
         ",
         )?;
         println!("{response}");
@@ -35,6 +35,8 @@ fn setup(console: &mut RemoteConsole) -> io::Result<String> {
     command.push_str(&fs::read_to_string("lua/subclasses.lua")?);
     command.push('\n');
     command.push_str(&fs::read_to_string("lua/dictionaries.lua")?);
+    command.push('\n');
+    command.push_str(&fs::read_to_string("lua/settings.lua")?);
     command.push('\n');
     command.push_str(&fs::read_to_string("lua/manual_patches.lua")?);
     console.send_command(&command)

@@ -8,7 +8,7 @@ use crate::generator::{generate_docs, type_::Type, Generate, Macro, StringTransf
 #[derive(Debug, Deserialize)]
 pub struct Parameter {
     /// The name of the parameter.
-    name: Option<String>,
+    pub name: Option<String>,
     /// The order of the parameter as shown in the HTML.
     order: u16,
     /// The text description of the parameter.

@@ -1,17 +1,27 @@
 #![allow(unused)]
-use std::{collections::HashSet, fs, io};
+use std::{
+    collections::{HashMap, HashSet},
+    fs, io,
+};
 
 use serde::Deserialize;
 
 use crate::generator::{
     generate, generate_macros,
+    prototype::concept,
     type_::{self, ComplexType, Type},
     Import, Macro, StringTransformation,
 };
 
 use super::{
-    builtin_type::BuiltinType, class::Class, concept::Concept, define::Define, event::Event,
-    global_object::GlobalObject, method::Method,
+    attribute::{self, Attribute},
+    builtin_type::BuiltinType,
+    class::Class,
+    concept::Concept,
+    define::Define,
+    event::Event,
+    global_object::GlobalObject,
+    method::Method,
 };
 
 /// ## [Runtime JSON Format](https://lua-api.factorio.com/1.1.101/auxiliary/json-docs-runtime.html#runtime-json-format)
@@ -239,5 +249,60 @@ impl RuntimeApiFormat {
         }
         result.push_str("}\n");
         fs::write(dictionaries_path, result)
+    }
+
+    pub fn generate_settings_attributes(&self, settings_path: &str) -> io::Result<()> {
+        let concepts = self
+            .concepts
+            .iter()
+            .map(|c| (c.name.clone(), c))
+            .collect::<HashMap<_, _>>();
+        let settings = vec![
+            ("LuaMapSettings", "MapSettings"),
+            ("LuaDifficultySettings", "DifficultySettings"),
+            ("LuaGameViewSettings", "GameViewSettings"),
+            (
+                "LuaMapSettings.enemy_evolution",
+                "EnemyEvolutionMapSettings",
+            ),
+            (
+                "LuaMapSettings.enemy_expansion",
+                "EnemyExpansionMapSettings",
+            ),
+            ("LuaMapSettings.path_finder", "PathFinderMapSettings"),
+            ("LuaMapSettings.pollution", "PollutionMapSettings"),
+            ("LuaMapSettings.steering", "SteeringMapSettings"),
+            ("LuaMapSettings.steering.default", "SteeringMapSetting"),
+            ("LuaMapSettings.steering.moving", "SteeringMapSetting"),
+            ("LuaMapSettings.unit_group", "UnitGroupMapSettings"),
+        ];
+        let mut result = String::new();
+        for (object_name, concept_name) in settings {
+            let concept = concepts.get(concept_name).unwrap();
+            result.push_str(&format!(
+                "global.lua_objects.attributes[\"{object_name}\"] = {{\n"
+            ));
+            for attribute in match &concept.type_ {
+                Type::Simple(_) => vec![],
+                Type::Complex(complex) => match complex.as_ref() {
+                    ComplexType::LuaStruct { attributes } => {
+                        attributes.iter().map(|a| a.name.clone()).collect()
+                    }
+                    ComplexType::Table {
+                        parameters,
+                        variant_parameter_groups,
+                        variant_parameter_description,
+                    } => parameters
+                        .iter()
+                        .map(|p| p.name.as_ref().unwrap().clone())
+                        .collect(),
+                    _ => vec![],
+                },
+            } {
+                result.push_str(&format!("    {attribute} = 0,\n"));
+            }
+            result.push_str("}\n");
+        }
+        fs::write(settings_path, result)
     }
 }

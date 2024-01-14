@@ -74,11 +74,16 @@ impl Generate for Attribute {
         } else {
             type_
         };
-        result.push_str(&format!(
-            "    {}: {},",
-            self.name.to_rust_field_name(),
-            type_.to_optional_if(self.optional)
-        ));
+        let name = self.name.to_rust_field_name();
+        if prefix == "LuaGameScript" && name == "backer_names" {
+            result.push_str("    backer_names: HashMap<String, String>,");
+        } else {
+            result.push_str(&format!(
+                "    {}: {},",
+                self.name.to_rust_field_name(),
+                type_.to_optional_if(self.optional)
+            ));
+        }
         result
     }
 }

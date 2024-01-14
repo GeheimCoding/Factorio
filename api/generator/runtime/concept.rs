@@ -23,7 +23,7 @@ pub struct Concept {
     examples: Option<Vec<String>>,
     /// The type of the concept.
     #[serde(rename = "type")]
-    type_: Type,
+    pub type_: Type,
 }
 
 impl Generate for Concept {

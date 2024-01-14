@@ -33,10 +33,10 @@ LuaObject = {
         end
         return global.lua_objects.counter == latest_counter, found.cycle_id
     end,
-    get_type = function (obj)
+    get_type = function (obj, attributes)
         if LuaObject.is_class(obj) then
             return 'class'
-        elseif type(obj.name) == 'number' then
+        elseif type(attributes.name) == 'number' then
             return 'event'
         end
         return 'concept'
@@ -143,9 +143,11 @@ Json = {
                 table.insert(json, ',\n')
             end
             if is_root and not is_empty then
-                local obj_type = LuaObject.get_type(obj)
+                local obj_type = LuaObject.get_type(obj, attributes)
                 if obj_type == 'event' then
                     table.insert(json, '"serde_tag":"' .. global.events[obj.name] .. '",\n')
+                elseif obj_type == 'concept' then
+                    table.insert(json, '"serde_tag":"' .. object_name .. '",\n')
                 end
                 table.insert(json, '"serde_type":"' .. obj_type .. '"')
                 table.insert(json, ',\n')
@@ -153,7 +155,7 @@ Json = {
             --rcon.print(object_name)
             for attribute,_ in pairs(attributes) do
                 --rcon.print(attribute)
-                if LuaObject.can_access(obj, attributes, attribute) then
+                if is_array or LuaObject.can_access(obj, attributes, attribute) then
                     local internal = Json.to_string_internal(obj[attribute])
                     if internal ~= 'nil' then
                         if not is_array then
