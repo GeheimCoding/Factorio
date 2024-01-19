@@ -9,6 +9,26 @@ use crate::generator::{
     Generate, Macro, StringTransformation,
 };
 
+pub const SETTINGS: [(&str, &str); 11] = [
+    ("LuaMapSettings", "MapSettings"),
+    ("LuaDifficultySettings", "DifficultySettings"),
+    ("LuaGameViewSettings", "GameViewSettings"),
+    (
+        "LuaMapSettings.enemy_evolution",
+        "EnemyEvolutionMapSettings",
+    ),
+    (
+        "LuaMapSettings.enemy_expansion",
+        "EnemyExpansionMapSettings",
+    ),
+    ("LuaMapSettings.path_finder", "PathFinderMapSettings"),
+    ("LuaMapSettings.pollution", "PollutionMapSettings"),
+    ("LuaMapSettings.steering", "SteeringMapSettings"),
+    ("LuaMapSettings.steering.default", "SteeringMapSetting"),
+    ("LuaMapSettings.steering.moving", "SteeringMapSetting"),
+    ("LuaMapSettings.unit_group", "UnitGroupMapSettings"),
+];
+
 #[derive(Debug, Deserialize)]
 pub struct Concept {
     /// The name of the concept.
@@ -65,7 +85,13 @@ impl Generate for Concept {
                     ComplexType::Union {
                         options,
                         full_format,
-                    } => options[0].generate(name, enum_variant, indent, &mut unions, class_names),
+                    } => options[0].generate(
+                        name.clone(),
+                        enum_variant,
+                        indent,
+                        &mut unions,
+                        class_names,
+                    ),
                     _ => panic!("should be union"),
                 });
             } else {

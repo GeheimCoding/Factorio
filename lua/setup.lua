@@ -128,6 +128,8 @@ Json = {
         local object_name = obj.object_name
         if object_name and object_name:endswith('FlowStatistics') then
             object_name = 'LuaFlowStatistics'
+        elseif object_name == "LuaMapSettings.steering.moving" then
+            object_name = 'LuaMapSettings.steering.default'
         end
         local is_array = false
         local is_cycle, cycle_id = LuaObject.get_cycle_id(obj)
@@ -139,16 +141,11 @@ Json = {
             is_array = attributes[1] ~= nil or is_empty
             if LuaObject.is_class(obj) then
                 table.insert(json, '"class_id":' .. cycle_id .. ',\n')
-                table.insert(json, '"serde_tag":"' .. object_name .. '"')
-                table.insert(json, ',\n')
             end
             if is_root and not is_empty then
                 local obj_type = LuaObject.get_type(obj, attributes)
-                if obj_type == 'event' then
-                    table.insert(json, '"serde_tag":"' .. global.events[obj.name] .. '",\n')
-                elseif obj_type == 'concept' then
-                    table.insert(json, '"serde_tag":"' .. object_name .. '",\n')
-                end
+                table.insert(json, '"serde_tag":"' .. obj_type ~= 'event' and
+                                object_name or global.events[obj.name] .. '",\n')
                 table.insert(json, '"serde_type":"' .. obj_type .. '"')
                 table.insert(json, ',\n')
             end

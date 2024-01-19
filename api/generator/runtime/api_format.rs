@@ -17,7 +17,7 @@ use super::{
     attribute::{self, Attribute},
     builtin_type::BuiltinType,
     class::Class,
-    concept::Concept,
+    concept::{Concept, SETTINGS},
     define::Define,
     event::Event,
     global_object::GlobalObject,
@@ -257,27 +257,8 @@ impl RuntimeApiFormat {
             .iter()
             .map(|c| (c.name.clone(), c))
             .collect::<HashMap<_, _>>();
-        let settings = vec![
-            ("LuaMapSettings", "MapSettings"),
-            ("LuaDifficultySettings", "DifficultySettings"),
-            ("LuaGameViewSettings", "GameViewSettings"),
-            (
-                "LuaMapSettings.enemy_evolution",
-                "EnemyEvolutionMapSettings",
-            ),
-            (
-                "LuaMapSettings.enemy_expansion",
-                "EnemyExpansionMapSettings",
-            ),
-            ("LuaMapSettings.path_finder", "PathFinderMapSettings"),
-            ("LuaMapSettings.pollution", "PollutionMapSettings"),
-            ("LuaMapSettings.steering", "SteeringMapSettings"),
-            ("LuaMapSettings.steering.default", "SteeringMapSetting"),
-            ("LuaMapSettings.steering.moving", "SteeringMapSetting"),
-            ("LuaMapSettings.unit_group", "UnitGroupMapSettings"),
-        ];
         let mut result = String::new();
-        for (object_name, concept_name) in settings {
+        for (object_name, concept_name) in SETTINGS {
             let concept = concepts.get(concept_name).unwrap();
             result.push_str(&format!(
                 "global.lua_objects.attributes[\"{object_name}\"] = {{\n"
