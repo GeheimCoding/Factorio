@@ -3,9 +3,7 @@ use std::collections::HashSet;
 
 use serde::Deserialize;
 
-use crate::generator::{
-    generate_union, runtime::concept::SETTINGS, Generate, Macro, StringTransformation,
-};
+use crate::generator::{generate_union, Generate, Macro, StringTransformation};
 
 use super::runtime::{
     attribute::Attribute,
@@ -137,12 +135,6 @@ impl Generate for ComplexType {
         unions: &mut Vec<String>,
         class_names: &HashSet<String>,
     ) -> String {
-        let rename =
-            if let Some((lua, _)) = SETTINGS.iter().find(|(_, rust)| rust == &prefix.as_str()) {
-                format!("\n#[serde(rename = \"{lua}\")]")
-            } else {
-                String::new()
-            };
         match self {
             Self::Array { value } => {
                 format!(
@@ -208,7 +200,7 @@ impl Generate for ComplexType {
             }
             Self::LuaStruct { attributes } => {
                 format!(
-                    "{}{rename}\npub struct {prefix} {{\n{}\n}}",
+                    "{}\npub struct {prefix} {{\n{}\n}}",
                     Macro::DebugDeserialize.to_string(),
                     attributes
                         .iter()
@@ -234,7 +226,7 @@ impl Generate for ComplexType {
                 variant_parameter_description,
             }) => {
                 let mut result = format!(
-                    "{}{rename}\npub struct {prefix} {{\n{}\n",
+                    "{}\npub struct {prefix} {{\n{}\n",
                     Macro::DebugDeserialize.to_string(),
                     parameters
                         .iter()

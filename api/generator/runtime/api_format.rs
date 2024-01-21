@@ -151,8 +151,16 @@ impl RuntimeApiFormat {
             ])
         ));
         for concept in &self.concepts {
+            let rename = if let Some((lua, _)) = SETTINGS
+                .iter()
+                .find(|(_, rust)| rust == &concept.name.as_str())
+            {
+                format!("#[serde(rename = \"{lua}\")]\n    ")
+            } else {
+                String::from("    ")
+            };
             result.push_str(&format!(
-                "    {}(super::concepts::{}),\n",
+                "{rename}{}(super::concepts::{}),\n",
                 concept.name, concept.name
             ));
         }

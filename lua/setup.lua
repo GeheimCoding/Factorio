@@ -144,8 +144,8 @@ Json = {
             end
             if is_root and not is_empty then
                 local obj_type = LuaObject.get_type(obj, attributes)
-                table.insert(json, '"serde_tag":"' .. obj_type ~= 'event' and
-                                object_name or global.events[obj.name] .. '",\n')
+                table.insert(json, '"serde_tag":"' .. (obj_type ~= 'event' and
+                                object_name or global.events[obj.name]) .. '",\n')
                 table.insert(json, '"serde_type":"' .. obj_type .. '"')
                 table.insert(json, ',\n')
             end
