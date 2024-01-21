@@ -131,6 +131,77 @@ impl Generate for Concept {
                     Macro::DebugDeserialize.to_string()
                 ),
             );
+        } else if self.name == "MapPosition" {
+            result = result.replace("struct MapPosition", "struct MapPositionDirect");
+            result.push_str(
+                "\n
+                #[derive(Debug, Deserialize)]
+                pub struct MapPositionNested {
+                    pub position: MapPositionDirect,
+                }
+                
+                #[derive(Debug, Deserialize)]
+                #[serde(untagged)]
+                pub enum MapPosition {
+                    Direct(MapPositionDirect),
+                    Nested(MapPositionNested),
+                }
+            ",
+            )
+        } else if self.name == "CollisionMaskLayer" {
+            result = result.replace("enum CollisionMaskLayer", "enum CollisionMaskLayerVariants");
+            result.push_str(
+                "\n
+                #[derive(Debug, Deserialize, Eq, PartialEq, Hash)]
+                #[serde(untagged)]
+                pub enum CollisionMaskLayer {
+                    Variant(CollisionMaskLayerVariants),
+                    String(String),
+                }
+            ",
+            )
+        } else if self.name == "CollisionMaskWithFlags" {
+            result = result
+                .replace(
+                    "#[serde(untagged)]",
+                    "#[serde(rename_all = \"kebab-case\")]",
+                )
+                .replace(
+                    "enum CollisionMaskWithFlagsUnion",
+                    "enum CollisionMaskFlags",
+                )
+                .replace("CollisionMaskLayer(CollisionMaskLayer),", "");
+            result.push_str(
+                "
+                \n
+                #[derive(Debug, Deserialize, Eq, PartialEq, Hash)]
+                #[serde(untagged)]
+                pub enum CollisionMaskWithFlagsUnion {
+                    CollisionMaskFlags(CollisionMaskFlags),
+                    CollisionMaskLayer(CollisionMaskLayer),
+                }
+            ",
+            );
+        } else if self.name == "RenderLayer" {
+            result = result
+                .replace(
+                    "#[serde(untagged)]",
+                    "#[serde(rename_all = \"snake_case\")]",
+                )
+                .replace("enum RenderLayer", "enum RenderLayerVariants")
+                .replace("/// A string of a number", "")
+                .replace("String(String),", "");
+            result.push_str(
+                "
+                \n
+                #[derive(Debug, Deserialize)]
+                #[serde(untagged)]
+                pub enum RenderLayer {
+                    Variant(RenderLayerVariants),
+                    Value(u8),
+                }
+            ",
+            );
         }
         result
     }

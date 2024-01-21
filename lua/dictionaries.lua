@@ -128,4 +128,10 @@ LuaTilePrototype = {
 LuaTrain = {
     killed_players = 0,
 },
+LuaConcept = {
+    settings = 0,
+    autoplace_controls = 0,
+    autoplace_settings = 0,
+    property_expression_names = 0,
+},
 }

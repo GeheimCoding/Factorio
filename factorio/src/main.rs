@@ -7,6 +7,8 @@ use std::{fs, io};
 
 fn main() -> io::Result<()> {
     remote_console()?;
+    let game = parse_factorio_type(&fs::read_to_string("output/prototype.json").unwrap())?;
+    println!("{game:#?}");
     Ok(())
 }
 
@@ -19,7 +21,7 @@ fn remote_console() -> io::Result<()> {
     } else {
         let response = console.send_command(
             "
-            rcon.print(Json.to_string(game.map_settings))
+            rcon.print(Json.to_string(game.item_prototypes['spidertron']))
         ",
         )?;
         println!("{response}");

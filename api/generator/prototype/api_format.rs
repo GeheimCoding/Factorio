@@ -64,13 +64,22 @@ impl PrototypeApiFormat {
             prototypes_path,
             generate(
                 &self.prototypes,
-                vec![Import::HashMap, Import::Types],
+                vec![
+                    Import::HashMap,
+                    Import::Types,
+                    Import::Float,
+                    Import::Double,
+                ],
                 class_names,
             ),
         )?;
         fs::write(
             types_path,
-            generate(&self.types, vec![Import::HashMap], class_names),
+            generate(
+                &self.types,
+                vec![Import::HashMap, Import::Float, Import::Double],
+                class_names,
+            ),
         )
     }
 

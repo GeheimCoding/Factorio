@@ -15,7 +15,7 @@ pub struct Parameter {
     description: String,
     /// The type of the parameter.
     #[serde(rename = "type")]
-    type_: Type,
+    pub type_: Type,
     /// Whether the type is optional or not.
     optional: bool,
 }
@@ -66,6 +66,11 @@ impl Generate for Parameter {
         };
         let type_ = if prefix == type_ {
             format!("Box<{type_}>")
+        } else if (prefix == "AutoplaceSpecification" && type_ == "NoiseExpression")
+            || prefix == "AutoplaceSpecificationPeak"
+            || (prefix == "MapGenSettings" && self.name == "default_enable_all_autoplace_controls")
+        {
+            format!("Option<{type_}>")
         } else {
             type_
         };

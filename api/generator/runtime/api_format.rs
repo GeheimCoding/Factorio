@@ -9,7 +9,7 @@ use serde::Deserialize;
 use crate::generator::{
     generate, generate_macros,
     prototype::concept,
-    type_::{self, ComplexType, Type},
+    type_::{self, ComplexType, Tuple, Type},
     Import, Macro, StringTransformation,
 };
 
@@ -22,6 +22,7 @@ use super::{
     event::Event,
     global_object::GlobalObject,
     method::Method,
+    parameter,
 };
 
 /// ## [Runtime JSON Format](https://lua-api.factorio.com/1.1.101/auxiliary/json-docs-runtime.html#runtime-json-format)
@@ -98,6 +99,8 @@ impl RuntimeApiFormat {
                     Import::Defines,
                     Import::Concepts,
                     Import::MaybeCycle,
+                    Import::Float,
+                    Import::Double,
                 ],
                 class_names,
             ),
@@ -112,6 +115,8 @@ impl RuntimeApiFormat {
                     Import::Classes,
                     Import::Concepts,
                     Import::MaybeCycle,
+                    Import::Float,
+                    Import::Double,
                 ],
                 class_names,
             ),
@@ -125,6 +130,8 @@ impl RuntimeApiFormat {
                     Import::Defines,
                     Import::Classes,
                     Import::MaybeCycle,
+                    Import::Float,
+                    Import::Double,
                 ],
                 class_names,
             ),
@@ -254,6 +261,50 @@ impl RuntimeApiFormat {
                 }
                 result.push_str("},\n");
             }
+        }
+        let mut dictionaries = vec![];
+        for concept in &self.concepts {
+            if concept.name.ends_with("Settings") {
+                match &concept.type_ {
+                    Type::Simple(_) => (),
+                    Type::Complex(complex) => {
+                        match complex.as_ref() {
+                            ComplexType::Table {
+                                parameters,
+                                variant_parameter_groups,
+                                variant_parameter_description,
+                            }
+                            | ComplexType::Tuple(Tuple::Table {
+                                parameters,
+                                variant_parameter_groups,
+                                variant_parameter_description,
+                            }) => {
+                                for parameter in parameters {
+                                    let is_dictionary = match &parameter.type_ {
+                                        Type::Simple(_) => false,
+                                        Type::Complex(complex) => match complex.as_ref() {
+                                            ComplexType::Dictionary { key, value }
+                                            | ComplexType::LuaCustomTable { key, value } => true,
+                                            _ => false,
+                                        },
+                                    };
+                                    if is_dictionary {
+                                        dictionaries.push(parameter.name.as_ref().unwrap().clone());
+                                    }
+                                }
+                            }
+                            _ => (),
+                        };
+                    }
+                }
+            }
+        }
+        if !dictionaries.is_empty() {
+            result.push_str("LuaConcept = {\n");
+            for attribute in dictionaries {
+                result.push_str(&format!("    {attribute} = 0,\n"))
+            }
+            result.push_str("},\n");
         }
         result.push_str("}\n");
         fs::write(dictionaries_path, result)

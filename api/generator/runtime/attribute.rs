@@ -73,6 +73,8 @@ impl Generate for Attribute {
             format!("Box<{type_}>")
         } else if prefix == "MapSettings" && type_ == "SteeringMapSetting" {
             "SteeringMapSettings".to_owned()
+        } else if prefix == "LuaItemPrototype" && self.name == "flags" {
+            format!("Option<{type_}>")
         } else {
             type_
         };

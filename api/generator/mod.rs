@@ -75,8 +75,8 @@ impl StringTransformation for String {
             "int8" => "i8".to_owned(),
             "int16" => "i16".to_owned(),
             "int32" | "int" => "i32".to_owned(),
-            "float" => "f32".to_owned(),
-            "double" => "f64".to_owned(),
+            "float" => "Float".to_owned(),
+            "double" => "Double".to_owned(),
             "string" => "String".to_owned(),
             "uint8" => "u8".to_owned(),
             "uint16" => "u16".to_owned(),
@@ -160,6 +160,8 @@ enum Import {
     Defines,
     Types,
     MaybeCycle,
+    Float,
+    Double,
 }
 
 impl ToString for Import {
@@ -171,6 +173,8 @@ impl ToString for Import {
             Import::Defines => "use super::defines::*;".to_owned(),
             Import::Types => "use super::types::*;".to_owned(),
             Import::MaybeCycle => "use super::MaybeCycle;".to_owned(),
+            Import::Float => "use super::Float;".to_owned(),
+            Import::Double => "use super::Double;".to_owned(),
         }
     }
 }
@@ -434,6 +438,16 @@ pub fn generate_mod(mod_path: &str) -> io::Result<()> {
             Cycle { cycle_id: String },
             Value(Box<T>),
         }
+
+        #[derive(Debug, Deserialize)]
+        #[serde(untagged)]
+        pub enum FloatingPoint<T> {
+            SpecialValue(String),
+            Value(T),
+        }
+
+        type Float = FloatingPoint<f32>;
+        type Double = FloatingPoint<f64>;
     ",
     );
     fs::write(mod_path, content)

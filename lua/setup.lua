@@ -8,7 +8,8 @@ LuaObject = {
     end,
     is_dictionary = function (object_name, attribute)
         local dictionaries = global.lua_objects.dictionaries[object_name]
-        return dictionaries and dictionaries[attribute]
+        return (dictionaries and dictionaries[attribute]) or
+                (not object_name and global.lua_objects.dictionaries.LuaConcept[attribute])
     end,
     can_access = function (obj, attributes, attribute)
         if obj.object_name == 'LuaGroup' then
@@ -145,7 +146,7 @@ Json = {
             if is_root and not is_empty then
                 local obj_type = LuaObject.get_type(obj, attributes)
                 table.insert(json, '"serde_tag":"' .. (obj_type ~= 'event' and
-                                object_name or global.events[obj.name]) .. '",\n')
+                                object_name or global.events[obj.name] or 'unknown') .. '",\n')
                 table.insert(json, '"serde_type":"' .. obj_type .. '"')
                 table.insert(json, ',\n')
             end
