@@ -71,6 +71,8 @@ impl Generate for Attribute {
             || type_ == "DragTarget"
         {
             format!("Box<{type_}>")
+        } else if prefix == "MapSettings" && type_ == "SteeringMapSetting" {
+            "SteeringMapSettings".to_owned()
         } else {
             type_
         };
