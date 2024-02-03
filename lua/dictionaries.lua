@@ -12,16 +12,27 @@ LuaCommandProcessor = {
     commands = 0,
     game_commands = 0,
 },
+LuaDecorativePrototype = {
+    collision_mask = 0,
+    collision_mask_with_flags = 0,
+},
 LuaEntity = {
     item_requests = 0,
 },
 LuaEntityPrototype = {
+    adjacent_tile_collision_mask = 0,
+    adjacent_tile_collision_test = 0,
     allowed_effects = 0,
+    center_collision_mask = 0,
+    collision_mask = 0,
+    collision_mask_with_flags = 0,
     corpses = 0,
     crafting_categories = 0,
+    default_collision_mask_with_flags = 0,
     guns = 0,
     resistances = 0,
     resource_categories = 0,
+    trigger_collision_mask = 0,
 },
 LuaFlowStatistics = {
     input_counts = 0,
@@ -124,6 +135,8 @@ LuaTechnologyPrototype = {
 },
 LuaTilePrototype = {
     allowed_neighbors = 0,
+    collision_mask = 0,
+    collision_mask_with_flags = 0,
 },
 LuaTrain = {
     killed_players = 0,

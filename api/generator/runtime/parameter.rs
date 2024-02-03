@@ -68,7 +68,14 @@ impl Generate for Parameter {
             format!("Box<{type_}>")
         } else if (prefix == "AutoplaceSpecification" && type_ == "NoiseExpression")
             || prefix == "AutoplaceSpecificationPeak"
-            || (prefix == "MapGenSettings" && self.name == "default_enable_all_autoplace_controls")
+            || (prefix == "MapGenSettings"
+                && self.name == Some("default_enable_all_autoplace_controls".to_owned()))
+            || (prefix == "LuaTilePrototypeMineableProperties"
+                && self.name == Some("products".to_owned()))
+            || (prefix == "AutoplaceSpecification" && !self.optional)
+            || (prefix == "TriggerEffectItem" || prefix == "TriggerDelivery")
+            || (prefix == "AutoplaceControl")
+            || (prefix.ends_with("Settings") && !self.optional)
         {
             format!("Option<{type_}>")
         } else {

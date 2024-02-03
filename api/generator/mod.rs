@@ -342,6 +342,9 @@ fn generate_union(
         };
         let mut result = option.generate(prefix, true, 1, unions, class_names);
         let field = result.to_rust_field_name().to_pascal_case();
+        if field == "BuildingDirection8Way" {
+            union.push_str("#[serde(rename = \"building-direction-8-way\")]\n");
+        }
         let mut added = false;
         if !fields.contains(&field) || name == "Direction" {
             union.push_str(&format!("    {field}"));

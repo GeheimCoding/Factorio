@@ -1,14 +1,15 @@
 #![allow(unused)]
 #![deny(clippy::unwrap_used)]
 
-use api::parse_factorio_type;
+use api::{
+    parse_factorio_type, LuaEntityPrototype, LuaGameScript, LuaItemPrototype, LuaParticlePrototype,
+    LuaTilePrototype, MaybeCycle,
+};
 use remote_console::RemoteConsole;
-use std::{fs, io};
+use std::{collections::HashMap, fs, io};
 
 fn main() -> io::Result<()> {
     remote_console()?;
-    let game = parse_factorio_type(&fs::read_to_string("output/prototype.json").unwrap())?;
-    println!("{game:#?}");
     Ok(())
 }
 
@@ -21,7 +22,7 @@ fn remote_console() -> io::Result<()> {
     } else {
         let response = console.send_command(
             "
-            rcon.print(Json.to_string(game.item_prototypes['spidertron']))
+            rcon.print(Json.to_string(game))
         ",
         )?;
         println!("{response}");

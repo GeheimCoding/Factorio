@@ -243,7 +243,7 @@ impl RuntimeApiFormat {
             let mut dictionaries = vec![];
             for attribute in &class.attributes {
                 let is_dictionary = match &attribute.type_ {
-                    Type::Simple(_) => false,
+                    Type::Simple(s) => s == "CollisionMask" || s == "CollisionMaskWithFlags",
                     Type::Complex(complex) => match complex.as_ref() {
                         ComplexType::Dictionary { key, value }
                         | ComplexType::LuaCustomTable { key, value } => true,
