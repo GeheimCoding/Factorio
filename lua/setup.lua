@@ -18,6 +18,14 @@ LuaObject = {
             else
                 return attribute ~= 'subgroups' and attribute ~= 'order_in_recipe'
             end
+        elseif obj.object_name == 'LuaItemStack' then
+            if not obj.valid_for_read then
+                return false
+            elseif not obj.is_item_with_tags then
+                if attribute == 'custom_description' or attribute == 'entity_filters' or attribute == 'tile_filters' then
+                    return false
+                end
+            end
         end
         local key = attributes.type
         local subclasses = global.lua_objects.subclasses[obj.object_name]
@@ -154,6 +162,7 @@ Json = {
             for attribute,_ in pairs(attributes) do
                 --rcon.print(attribute)
                 if is_array or LuaObject.can_access(obj, attributes, attribute) then
+                    --print(attribute)
                     local internal = Json.to_string_internal(obj[attribute])
                     if internal ~= 'nil' then
                         if not is_array then
@@ -183,6 +192,15 @@ Json = {
     end
 }
 
+function poll_event_queue()
+    for k,v in pairs(global.events.queue) do
+        rcon.print(v)
+        -- needed to later split mutliple events
+        rcon.print('')
+    end
+    global.events.queue = {}
+end
+
 global.lua_objects = {}
 local objects = global.lua_objects
 objects.cache = {}
@@ -195,6 +213,16 @@ setmetatable(objects.cache, LuaObject.cache)
 setmetatable(objects.attributes, LuaObject.attributes)
 
 global.events = {}
+global.events.queue = {}
 for k,v in pairs(defines.events) do
     global.events[v] = k
+    if v ~= defines.events.on_tick
+        and v ~= defines.events.on_console_command
+        and v ~= defines.events.on_player_changed_position
+        and v ~= defines.events.on_chunk_charted then
+    --if v == defines.events.on_player_crafted_item then
+        script.on_event(v, function(event)
+            table.insert(global.events.queue, Json.to_string(event))
+        end)
+    end 
 end

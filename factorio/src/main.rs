@@ -6,7 +6,7 @@ use api::{
     LuaTilePrototype, MaybeCycle,
 };
 use remote_console::RemoteConsole;
-use std::{collections::HashMap, fs, io};
+use std::{collections::HashMap, fs, io, path::PathBuf, thread::sleep, time::Duration};
 
 fn main() -> io::Result<()> {
     remote_console()?;
@@ -22,12 +22,38 @@ fn remote_console() -> io::Result<()> {
     } else {
         let response = console.send_command(
             "
-            rcon.print(Json.to_string(game))
+            Json.to_string(game)
         ",
         )?;
-        println!("{response}");
-        let game = parse_factorio_type(&response)?;
-        println!("{game:#?}");
+        listen_to_events(&mut console)?;
+        //println!("{response}");
+        //let game = parse_factorio_type(&response)?;
+        //println!("{game:#?}");
+    }
+    Ok(())
+}
+
+fn listen_to_events(console: &mut RemoteConsole) -> io::Result<()> {
+    let paths = fs::read_dir("output/events")?;
+    let mut index = paths.count();
+    loop {
+        if index >= 1000 {
+            break;
+        }
+        let response = console.send_command("poll_event_queue()")?;
+        if !response.is_empty() {
+            let events: Vec<_> = response.split("\n\n").collect();
+            for event in events {
+                let factorio_type = parse_factorio_type(event);
+                if let Err(e) = factorio_type {
+                    println!("{index}.json: {e}");
+                    let filename = PathBuf::from(&format!("output/events/{index}.json"));
+                    fs::write(filename, event)?;
+                    index += 1;
+                }
+            }
+        }
+        sleep(Duration::from_millis(500));
     }
     Ok(())
 }
