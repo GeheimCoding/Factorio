@@ -61,7 +61,12 @@ impl Generate for Class {
                 } else {
                     base.to_owned()
                 };
-                result.push_str(&format!("    parent_{}: {},\n", to_snake_case(base), type_));
+                // TODO: convert all base attributes with lua instead
+                result.push_str(&format!(
+                    "    parent_{}: Option<{}>,\n",
+                    to_snake_case(base),
+                    type_
+                ));
             }
         }
         result.push_str(

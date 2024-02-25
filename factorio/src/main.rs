@@ -1,10 +1,7 @@
 #![allow(unused)]
 #![deny(clippy::unwrap_used)]
 
-use api::{
-    parse_factorio_type, LuaEntityPrototype, LuaGameScript, LuaItemPrototype, LuaParticlePrototype,
-    LuaTilePrototype, MaybeCycle,
-};
+use api::parse_factorio_type;
 use remote_console::RemoteConsole;
 use std::{collections::HashMap, fs, io, path::PathBuf, thread::sleep, time::Duration};
 

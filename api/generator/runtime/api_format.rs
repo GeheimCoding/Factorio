@@ -14,7 +14,7 @@ use crate::generator::{
 };
 
 use super::{
-    attribute::{self, Attribute},
+    attribute::{self, Attribute, LUA_ENTITY_SUBCLASSES},
     builtin_type::BuiltinType,
     class::Class,
     concept::{Concept, SETTINGS},
@@ -223,6 +223,18 @@ impl RuntimeApiFormat {
                             .collect::<Vec<_>>()
                             .join(", "),
                     ));
+                }
+            }
+            if class.name == "LuaEntity" {
+                for extra_subclass in LUA_ENTITY_SUBCLASSES {
+                    let (name, subs) = extra_subclass;
+                    subclasses.push((
+                        name.to_string(),
+                        subs.iter()
+                            .map(|class| format!("[\"{class}\"] = 0"))
+                            .collect::<Vec<_>>()
+                            .join(", "),
+                    ))
                 }
             }
             if !subclasses.is_empty() {
