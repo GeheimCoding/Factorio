@@ -1,12 +1,38 @@
 #![allow(unused)]
 #![deny(clippy::unwrap_used)]
 
-use api::parse_factorio_type;
+use api::{parse_factorio_type, FactorioType, LuaGameScript};
 use remote_console::RemoteConsole;
 use std::{collections::HashMap, fs, io, path::PathBuf, thread::sleep, time::Duration};
 
 fn main() -> io::Result<()> {
-    remote_console()?;
+    //remote_console()?;
+    parse_recipes()?;
+
+    Ok(())
+}
+
+fn parse_recipes() -> io::Result<()> {
+    let content = fs::read_to_string("output/game.json")?;
+    let game = parse_factorio_type(&content)?;
+
+    // LuaForce -> recipes
+    // recipe_prototypes
+    println!(
+        "{:?}",
+        game.as_class()
+            .ok_or(io::Error::new(io::ErrorKind::Other, "1"))?
+            .as_lua_game_script()
+            .ok_or(io::Error::new(io::ErrorKind::Other, "2"))?
+            .forces
+            .get(&api::LuaGameScriptForces::String("player".to_owned()))
+            .ok_or(io::Error::new(io::ErrorKind::Other, "3"))?
+            .as_value()
+            .ok_or(io::Error::new(io::ErrorKind::Other, "4"))?
+            .recipes
+            .len()
+    );
+
     Ok(())
 }
 
@@ -19,11 +45,11 @@ fn remote_console() -> io::Result<()> {
     } else {
         let response = console.send_command(
             "
-            Json.to_string(game)
+            rcon.print(Json.to_string(game))
         ",
         )?;
-        listen_to_events(&mut console)?;
-        //println!("{response}");
+        //listen_to_events(&mut console)?;
+        println!("{response}");
         //let game = parse_factorio_type(&response)?;
         //println!("{game:#?}");
     }

@@ -23,7 +23,7 @@ trait Generate {
 
 trait StringTransformation {
     fn to_pascal_case(&self) -> String;
-    fn to_rust_field_name(&self) -> String;
+    fn to_rust_field_name(&self, enum_variant: bool) -> String;
     fn to_rust_type(&self, class_names: &HashSet<String>) -> String;
     fn to_optional_if(&self, optional: bool) -> String;
     fn to_doc_string(&self, indent: &str) -> String;
@@ -53,20 +53,23 @@ impl StringTransformation for String {
         pascal_case
     }
 
-    fn to_rust_field_name(&self) -> String {
+    fn to_rust_field_name(&self, enum_variant: bool) -> String {
+        let modifier = if enum_variant { "" } else { "pub " };
         match self.as_str() {
-            "type" => "#[serde(rename = \"type\")]\ntype_".to_owned(),
-            "mod" => "#[serde(rename = \"mod\")]\nmod_".to_owned(),
-            "noisePersistence" => "noise_persistence".to_owned(),
-            _ => self
-                .replace('<', "")
-                .replace('>', "")
-                .replace(',', "")
-                .replace('(', "")
-                .replace(')', "")
-                .replace(' ', "_")
-                .replace('-', "_")
-                .replace('=', "_"),
+            "type" => format!("#[serde(rename = \"type\")]\n{modifier}type_"),
+            "mod" => format!("#[serde(rename = \"mod\")]\n{modifier}mod_"),
+            "noisePersistence" => "pub noise_persistence".to_owned(),
+            _ => format!(
+                "{modifier}{}",
+                self.replace('<', "")
+                    .replace('>', "")
+                    .replace(',', "")
+                    .replace('(', "")
+                    .replace(')', "")
+                    .replace(' ', "_")
+                    .replace('-', "_")
+                    .replace('=', "_")
+            ),
         }
     }
 
@@ -162,6 +165,8 @@ enum Import {
     MaybeCycle,
     Float,
     Double,
+    EnumAsInner,
+    DeserializeRepr,
 }
 
 impl ToString for Import {
@@ -175,12 +180,15 @@ impl ToString for Import {
             Import::MaybeCycle => "use super::MaybeCycle;".to_owned(),
             Import::Float => "use super::Float;".to_owned(),
             Import::Double => "use super::Double;".to_owned(),
+            Import::EnumAsInner => "use enum_as_inner::EnumAsInner;".to_owned(),
+            Import::DeserializeRepr => "use serde_repr::Deserialize_repr;".to_owned(),
         }
     }
 }
 
 enum Macro {
     DebugDeserialize,
+    DebugDeserializeEnumAsInner,
     DebugDeserializeRepr,
     RenameSnakeCase,
     RenameKebabCase,
@@ -195,11 +203,18 @@ impl ToString for Macro {
     fn to_string(&self) -> String {
         match self {
             Macro::DebugDeserialize => "#[derive(Debug, Deserialize)]".to_owned(),
-            Macro::DebugDeserializeRepr => "#[derive(Debug, Deserialize_repr)]".to_owned(),
+            Macro::DebugDeserializeEnumAsInner => {
+                "#[derive(Debug, Deserialize, EnumAsInner)]".to_owned()
+            }
+            Macro::DebugDeserializeRepr => {
+                "#[derive(Debug, Deserialize_repr, EnumAsInner)]".to_owned()
+            }
             Macro::RenameSnakeCase => "#[serde(rename_all = \"snake_case\")]".to_owned(),
             Macro::TagSerdeType => "#[serde(tag = \"serde_type\")]".to_owned(),
             Macro::TagSerdeTag => "#[serde(tag = \"serde_tag\")]".to_owned(),
-            Macro::Hash => "#[derive(Debug, Deserialize, Eq, PartialEq, Hash)]".to_owned(),
+            Macro::Hash => {
+                "#[derive(Debug, Deserialize, EnumAsInner, Eq, PartialEq, Hash)]".to_owned()
+            }
             Macro::SerdeUntagged => "#[serde(untagged)]".to_owned(),
             Macro::RenameKebabCase => "#[serde(rename_all = \"kebab-case\")]".to_owned(),
             Macro::Repr => "#[repr(u8)]".to_owned(),
@@ -231,9 +246,6 @@ fn generate<G: Generate>(
             .collect::<Vec<_>>()
             .join("\n"),
     );
-    if imports.is_empty() {
-        result.push_str("use serde_repr::Deserialize_repr;\n");
-    }
     result.push_str("use serde::Deserialize;");
     result.push_str("\n\n");
     result.push_str(
@@ -301,7 +313,7 @@ fn generate_union(
     {
         Macro::Hash
     } else {
-        Macro::DebugDeserialize
+        Macro::DebugDeserializeEnumAsInner
     };
     let serde = Macro::SerdeUntagged;
     let mut union = format!(
@@ -341,7 +353,7 @@ fn generate_union(
             format!("{}Union", name)
         };
         let mut result = option.generate(prefix, true, 1, unions, class_names);
-        let field = result.to_rust_field_name().to_pascal_case();
+        let field = result.to_rust_field_name(true).to_pascal_case();
         if field == "BuildingDirection8Way" {
             union.push_str("#[serde(rename = \"building-direction-8-way\")]\n");
         }
@@ -399,10 +411,10 @@ pub fn generate_factorio_types(
     prototype_api: &PrototypeApiFormat,
     runtime_api: &RuntimeApiFormat,
 ) -> io::Result<()> {
-    let mut content = String::from("use serde::Deserialize;\n\n");
+    let mut content = String::from("use enum_as_inner::EnumAsInner;\nuse serde::Deserialize;\n\n");
     content.push_str(
         &generate_macros(vec![
-            Macro::DebugDeserialize,
+            Macro::DebugDeserializeEnumAsInner,
             Macro::RenameSnakeCase,
             Macro::TagSerdeType,
         ])
@@ -433,16 +445,17 @@ pub fn generate_mod(mod_path: &str) -> io::Result<()> {
     }
     content.push_str(
         "
+        use enum_as_inner::EnumAsInner;
         use serde::Deserialize;
 
-        #[derive(Debug, Deserialize)]
+        #[derive(Debug, Deserialize, EnumAsInner)]
         #[serde(untagged)]
         pub enum MaybeCycle<T> {
             Cycle { cycle_id: String },
             Value(Box<T>),
         }
 
-        #[derive(Debug, Deserialize)]
+        #[derive(Debug, Deserialize, EnumAsInner)]
         #[serde(untagged)]
         pub enum FloatingPoint<T> {
             SpecialValue(String),

@@ -38,7 +38,7 @@ LuaObject = {
         local latest_counter = global.lua_objects.counter
         local found = global.lua_objects.cache[obj]
         if not found then
-            return false, 0
+            return false, '0'
         end
         return global.lua_objects.counter == latest_counter, found.cycle_id
     end,

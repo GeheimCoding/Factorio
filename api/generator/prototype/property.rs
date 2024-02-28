@@ -94,7 +94,7 @@ impl Generate for Property {
                 indent
             ),
             "    ".repeat(indent),
-            self.name.to_rust_field_name(),
+            self.name.to_rust_field_name(enum_variant),
             type_.to_optional_if(self.optional)
         )
     }

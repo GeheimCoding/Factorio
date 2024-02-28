@@ -248,7 +248,7 @@ impl Generate for ComplexType {
                     result.push_str(&format!("    attributes: Option<{prefix}>"));
                     let mut union = format!(
                         "{}{}pub enum {prefix} {{\n",
-                        Macro::DebugDeserialize.to_string(),
+                        Macro::DebugDeserializeEnumAsInner.to_string(),
                         Macro::SerdeUntagged.to_string(),
                     );
                     for group in groups {

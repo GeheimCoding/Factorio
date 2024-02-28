@@ -95,6 +95,7 @@ impl RuntimeApiFormat {
             generate(
                 &self.classes,
                 vec![
+                    Import::EnumAsInner,
                     Import::HashMap,
                     Import::Defines,
                     Import::Concepts,
@@ -126,6 +127,7 @@ impl RuntimeApiFormat {
             generate(
                 &self.concepts,
                 vec![
+                    Import::EnumAsInner,
                     Import::HashMap,
                     Import::Defines,
                     Import::Classes,
@@ -136,12 +138,20 @@ impl RuntimeApiFormat {
                 class_names,
             ),
         )?;
-        fs::write(defines_path, generate(&self.defines, vec![], class_names))?;
+        fs::write(
+            defines_path,
+            generate(
+                &self.defines,
+                vec![Import::EnumAsInner, Import::DeserializeRepr],
+                class_names,
+            ),
+        )?;
         Ok(())
     }
 
     pub fn generate_factorio_types(&self) -> String {
-        let mut result = generate_macros(vec![Macro::DebugDeserialize, Macro::TagSerdeTag]);
+        let mut result =
+            generate_macros(vec![Macro::DebugDeserializeEnumAsInner, Macro::TagSerdeTag]);
         result.push_str("pub enum Class {\n");
         for class in &self.classes {
             result.push_str(&format!(
@@ -152,7 +162,7 @@ impl RuntimeApiFormat {
         result.push_str(&format!(
             "}}\n\n{}pub enum Concept {{\n",
             generate_macros(vec![
-                Macro::DebugDeserialize,
+                Macro::DebugDeserializeEnumAsInner,
                 Macro::RenameSnakeCase,
                 Macro::TagSerdeTag,
             ])
@@ -173,7 +183,7 @@ impl RuntimeApiFormat {
         }
         result.push_str(&format!(
             "}}\n\n{}pub enum Define {{\n",
-            generate_macros(vec![Macro::DebugDeserialize, Macro::TagSerdeTag]),
+            generate_macros(vec![Macro::DebugDeserializeEnumAsInner, Macro::TagSerdeTag]),
         ));
         for define in &self.defines {
             let name = define.name.to_pascal_case();
@@ -189,7 +199,7 @@ impl RuntimeApiFormat {
         result.push_str(&format!(
             "}}\n\n{}pub enum Event {{\n",
             generate_macros(vec![
-                Macro::DebugDeserialize,
+                Macro::DebugDeserializeEnumAsInner,
                 Macro::RenameSnakeCase,
                 Macro::TagSerdeTag,
             ])

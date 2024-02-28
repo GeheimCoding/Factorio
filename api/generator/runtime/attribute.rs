@@ -175,13 +175,12 @@ impl Generate for Attribute {
         } else {
             type_
         };
-        let name = self.name.to_rust_field_name();
-        if prefix == "LuaGameScript" && name == "backer_names" {
-            result.push_str("    backer_names: HashMap<String, String>,");
+        let name = self.name.to_rust_field_name(enum_variant);
+        if prefix == "LuaGameScript" && name == "pub backer_names" {
+            result.push_str("    pub backer_names: HashMap<String, String>,");
         } else {
             result.push_str(&format!(
-                "    {}: {},",
-                self.name.to_rust_field_name(),
+                "    {name}: {},",
                 type_.to_optional_if(
                     self.optional
                         || self.subclasses.is_some()

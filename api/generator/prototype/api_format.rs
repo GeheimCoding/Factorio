@@ -65,6 +65,7 @@ impl PrototypeApiFormat {
             generate(
                 &self.prototypes,
                 vec![
+                    Import::EnumAsInner,
                     Import::HashMap,
                     Import::Types,
                     Import::Float,
@@ -77,7 +78,12 @@ impl PrototypeApiFormat {
             types_path,
             generate(
                 &self.types,
-                vec![Import::HashMap, Import::Float, Import::Double],
+                vec![
+                    Import::EnumAsInner,
+                    Import::HashMap,
+                    Import::Float,
+                    Import::Double,
+                ],
                 class_names,
             ),
         )
@@ -85,7 +91,7 @@ impl PrototypeApiFormat {
 
     pub fn generate_factorio_types(&self) -> String {
         let mut result = generate_macros(vec![
-            Macro::DebugDeserialize,
+            Macro::DebugDeserializeEnumAsInner,
             Macro::RenameSnakeCase,
             Macro::TagSerdeTag,
         ]);
@@ -98,7 +104,7 @@ impl PrototypeApiFormat {
         }
         result.push_str(&format!(
             "}}\n\n{}pub enum Type {{\n",
-            generate_macros(vec![Macro::DebugDeserialize, Macro::TagSerdeTag,])
+            generate_macros(vec![Macro::DebugDeserializeEnumAsInner, Macro::TagSerdeTag,])
         ));
         for concept in &self.types {
             if concept.name.chars().next().unwrap().is_uppercase() {

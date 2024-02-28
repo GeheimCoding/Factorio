@@ -58,9 +58,9 @@ impl Generate for Parameter {
             .type_
             .generate(new_prefix, enum_variant, indent, unions, class_names)
             .to_optional_if(self.optional);
-        let name = name.to_rust_field_name();
-        let name = if name == "_" {
-            type_.chars().next().unwrap().to_lowercase().to_string()
+        let name = name.to_rust_field_name(enum_variant);
+        let name = if name == "pub _" {
+            format!("pub {}", type_.chars().next().unwrap().to_lowercase())
         } else {
             name
         };
