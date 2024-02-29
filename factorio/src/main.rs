@@ -1,43 +1,60 @@
 #![allow(unused)]
 #![deny(clippy::unwrap_used)]
 
-use api::{parse_factorio_type, FactorioType, LuaGameScript};
-use remote_console::RemoteConsole;
 use std::{collections::HashMap, fs, io, path::PathBuf, thread::sleep, time::Duration};
 
-fn main() -> io::Result<()> {
+use anyhow::{Context, Result};
+
+use api::{parse_factorio_type, FactorioType, LuaRecipe, LuaRecipePrototype, MaybeCycle};
+use remote_console::RemoteConsole;
+
+fn main() -> Result<()> {
     //remote_console()?;
-    parse_recipes()?;
+    parse_recipes().context("parse_recipes")?;
 
     Ok(())
 }
 
-fn parse_recipes() -> io::Result<()> {
-    let content = fs::read_to_string("output/game.json")?;
-    let game = parse_factorio_type(&content)?;
+fn parse_recipes() -> Option<()> {
+    let content = fs::read_to_string("output/game.json").ok()?;
+    let game = parse_factorio_type(&content).ok()?;
 
-    // LuaForce -> recipes
-    // recipe_prototypes
-    println!(
-        "{:?}",
-        game.as_class()
-            .ok_or(io::Error::new(io::ErrorKind::Other, "1"))?
-            .as_lua_game_script()
-            .ok_or(io::Error::new(io::ErrorKind::Other, "2"))?
+    let recipes = get_recipes(&game)?;
+    let mut recipes = recipes.iter().map(|(k, v)| k).cloned().collect::<Vec<_>>();
+    recipes.sort();
+
+    println!("{}", recipes.len());
+    println!("{}", get_recipe_prototypes(&game)?.len());
+    println!("{}", recipes.join("\n"));
+
+    Some(())
+}
+
+fn get_recipes(factorio_type: &FactorioType) -> Option<&HashMap<String, MaybeCycle<LuaRecipe>>> {
+    Some(
+        &factorio_type
+            .as_class()?
+            .as_lua_game_script()?
             .forces
-            .get(&api::LuaGameScriptForces::String("player".to_owned()))
-            .ok_or(io::Error::new(io::ErrorKind::Other, "3"))?
-            .as_value()
-            .ok_or(io::Error::new(io::ErrorKind::Other, "4"))?
-            .recipes
-            .len()
-    );
+            .get(&api::LuaGameScriptForces::String("player".to_owned()))?
+            .as_value()?
+            .recipes,
+    )
+}
 
-    Ok(())
+fn get_recipe_prototypes(
+    factorio_type: &FactorioType,
+) -> Option<&HashMap<String, MaybeCycle<LuaRecipePrototype>>> {
+    Some(
+        &factorio_type
+            .as_class()?
+            .as_lua_game_script()?
+            .recipe_prototypes,
+    )
 }
 
 // https://developer.valvesoftware.com/wiki/Source_RCON_Protocol
-fn remote_console() -> io::Result<()> {
+fn remote_console() -> Result<()> {
     let mut console = RemoteConsole::new("10.243.118.233", 25575, "123")?;
     let setup_response = setup(&mut console)?;
     if !setup_response.is_empty() {
@@ -56,7 +73,7 @@ fn remote_console() -> io::Result<()> {
     Ok(())
 }
 
-fn listen_to_events(console: &mut RemoteConsole) -> io::Result<()> {
+fn listen_to_events(console: &mut RemoteConsole) -> Result<()> {
     let paths = fs::read_dir("output/events")?;
     let mut index = paths.count();
     loop {
