@@ -1,16 +1,31 @@
 #![allow(unused)]
 #![deny(clippy::unwrap_used)]
 
+use std::any::{Any, TypeId};
+use std::fmt::Debug;
 use std::{collections::HashMap, fs, io, path::PathBuf, thread::sleep, time::Duration};
 
 use anyhow::{Context, Result};
+use struct_iterable::Iterable;
 
-use api::{parse_factorio_type, FactorioType, LuaRecipe, LuaRecipePrototype, MaybeCycle};
+use api::{
+    add_to_lua_objects, parse_factorio_type, FactorioType, LuaAISettings, LuaRecipe,
+    LuaRecipePrototype, MaybeCycle,
+};
 use remote_console::RemoteConsole;
 
 fn main() -> Result<()> {
     //remote_console()?;
-    parse_recipes().context("parse_recipes")?;
+    // parse_recipes().context("parse_recipes")?;
+    let content = fs::read_to_string("output/game.json")?;
+    let game = parse_factorio_type(&content)?;
+    let mut lua_objects = HashMap::new();
+
+    add_to_lua_objects(
+        game.as_class().unwrap().as_lua_game_script().unwrap(),
+        &mut lua_objects,
+    );
+    println!("{:?}", lua_objects.keys());
 
     Ok(())
 }
@@ -30,6 +45,7 @@ fn parse_recipes() -> Option<()> {
     Some(())
 }
 
+// https://wiki.factorio.com/Materials_and_recipes
 fn get_recipes(factorio_type: &FactorioType) -> Option<&HashMap<String, MaybeCycle<LuaRecipe>>> {
     Some(
         &factorio_type

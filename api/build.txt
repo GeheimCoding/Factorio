@@ -25,7 +25,7 @@ fn main() -> io::Result<()> {
         fs::create_dir_all(base_path)?;
         let (runtime_api, class_names) = generate_runtime_api(base_path)?;
         let prototype_api = generate_prototype_api(base_path, &class_names)?;
-        generate_lib(base_path, &prototype_api, &runtime_api)?;
+        generate_lib(base_path, &prototype_api, &runtime_api, &class_names)?;
 
         runtime_api.generate_subclasses(&format!("{base_path}/subclasses.lua"))?;
         runtime_api.generate_dictionaries(&format!("{base_path}/dictionaries.lua"))?;
@@ -76,12 +76,15 @@ fn generate_lib(
     base_path: &str,
     prototype_api: &PrototypeApiFormat,
     runtime_api: &RuntimeApiFormat,
+    class_names: &HashSet<String>,
 ) -> io::Result<Child> {
     let factorio_types_path = &format!("{base_path}/factorio_types.rs");
     let mod_path = &format!("{base_path}/mod.rs");
 
     generate_factorio_types(factorio_types_path, prototype_api, runtime_api)?;
-    generate_mod(mod_path)?;
+    generate_mod(mod_path, class_names)?;
+
+    rustfmt(factorio_types_path)?;
     rustfmt(mod_path)
 }
 

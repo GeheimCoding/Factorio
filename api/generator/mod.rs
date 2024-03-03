@@ -1,3 +1,4 @@
+use std::fmt::Display;
 use std::{collections::HashSet, fs, io};
 
 use self::{
@@ -167,6 +168,7 @@ enum Import {
     Double,
     EnumAsInner,
     DeserializeRepr,
+    Iterable,
 }
 
 impl ToString for Import {
@@ -182,12 +184,14 @@ impl ToString for Import {
             Import::Double => "use super::Double;".to_owned(),
             Import::EnumAsInner => "use enum_as_inner::EnumAsInner;".to_owned(),
             Import::DeserializeRepr => "use serde_repr::Deserialize_repr;".to_owned(),
+            Import::Iterable => "use struct_iterable::Iterable;".to_owned(),
         }
     }
 }
 
 enum Macro {
     DebugDeserialize,
+    DebugDeserializeIterable,
     DebugDeserializeEnumAsInner,
     DebugDeserializeRepr,
     RenameSnakeCase,
@@ -199,10 +203,11 @@ enum Macro {
     Repr,
 }
 
-impl ToString for Macro {
-    fn to_string(&self) -> String {
-        match self {
+impl Display for Macro {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let str = match self {
             Macro::DebugDeserialize => "#[derive(Debug, Deserialize)]".to_owned(),
+            Macro::DebugDeserializeIterable => "#[derive(Debug, Deserialize, Iterable)]".to_owned(),
             Macro::DebugDeserializeEnumAsInner => {
                 "#[derive(Debug, Deserialize, EnumAsInner)]".to_owned()
             }
@@ -218,7 +223,8 @@ impl ToString for Macro {
             Macro::SerdeUntagged => "#[serde(untagged)]".to_owned(),
             Macro::RenameKebabCase => "#[serde(rename_all = \"kebab-case\")]".to_owned(),
             Macro::Repr => "#[repr(u8)]".to_owned(),
-        }
+        };
+        write!(f, "{}", str)
     }
 }
 
@@ -430,7 +436,7 @@ pub fn generate_factorio_types(
     fs::write(factorio_types_path, content)
 }
 
-pub fn generate_mod(mod_path: &str) -> io::Result<()> {
+pub fn generate_mod(mod_path: &str, class_names: &HashSet<String>) -> io::Result<()> {
     let mut content = String::from("#![allow(ambiguous_glob_reexports)]\n");
     for s in [
         "classes",
@@ -447,10 +453,12 @@ pub fn generate_mod(mod_path: &str) -> io::Result<()> {
         "
         use enum_as_inner::EnumAsInner;
         use serde::Deserialize;
+        use std::fmt::Debug;
+        use struct_iterable::Iterable;
 
         #[derive(Debug, Deserialize, EnumAsInner)]
         #[serde(untagged)]
-        pub enum MaybeCycle<T> {
+        pub enum MaybeCycle<T: LuaObject> {
             Cycle { cycle_id: String },
             Value(Box<T>),
         }
@@ -464,7 +472,59 @@ pub fn generate_mod(mod_path: &str) -> io::Result<()> {
 
         type Float = FloatingPoint<f32>;
         type Double = FloatingPoint<f64>;
+
+        pub trait LuaObjectClassId {
+            fn class_id(&self) -> String;
+        }
+
+        pub trait LuaObject: Debug + LuaObjectClassId + Iterable {}
+        impl<T: Debug + LuaObjectClassId + Iterable> LuaObject for T {}
+
+        macro_rules! lua_object_class_id {
+            ($t:ident) => {
+                impl LuaObjectClassId for $t {
+                    fn class_id(&self) -> String {
+                        self.class_id.clone()
+                    }
+                }
+            };
+            ($($t:ident),+) => {
+                $(lua_object_class_id!($t);)+
+            };
+        }
     ",
     );
+    content.push_str(&generate_lua_objects(class_names));
+
     fs::write(mod_path, content)
+}
+
+fn generate_lua_objects(class_names: &HashSet<String>) -> String {
+    let mut sorted_class_names = class_names.iter().cloned().collect::<Vec<_>>();
+    sorted_class_names.sort();
+
+    let mut content = format!(
+        "\n\nlua_object_class_id!({});\n\n",
+        sorted_class_names.join(", ")
+    );
+    content.push_str(&format!(
+        "pub fn resolve_cycle(maybe_cycle: &dyn std::any::Any) -> Option<&dyn LuaObject> {{
+        if let Some(MaybeCycle::Value(lua_object)) = maybe_cycle.downcast_ref::<MaybeCycle<{}>>() {{
+            Some(lua_object.as_ref())
+        }}",
+        sorted_class_names[0]
+    ));
+    for class_name in sorted_class_names.iter().skip(1) {
+        content.push_str(&format!(
+            "else if let Some(MaybeCycle::Value(lua_object)) = maybe_cycle.downcast_ref::<MaybeCycle<{class_name}>>() {{
+                Some(lua_object.as_ref())
+            }}"));
+    }
+    content.push_str(
+        "else {
+            None
+        }
+    }",
+    );
+    content
 }

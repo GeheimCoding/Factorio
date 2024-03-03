@@ -102,6 +102,7 @@ impl RuntimeApiFormat {
                     Import::MaybeCycle,
                     Import::Float,
                     Import::Double,
+                    Import::Iterable,
                 ],
                 class_names,
             ),

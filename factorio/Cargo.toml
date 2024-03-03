@@ -9,3 +9,4 @@ edition = "2021"
 remote_console = { version = "0.1.0", path = "../remote_console" }
 api = { version = "0.1.0", path = "../api" }
 anyhow = "1.0.80"
+struct_iterable = "0.1.1"

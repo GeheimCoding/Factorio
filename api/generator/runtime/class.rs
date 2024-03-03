@@ -50,8 +50,8 @@ impl Generate for Class {
         );
         let mut unions = vec![];
         result.push_str(&format!(
-            "{}\npub struct {} {{\n",
-            Macro::DebugDeserialize.to_string(),
+            "{}\npub struct {} {{\n    pub class_id: String,\n",
+            Macro::DebugDeserializeIterable.to_string(),
             self.name
         ));
         if let Some(bases) = &self.base_classes {
@@ -63,7 +63,7 @@ impl Generate for Class {
                 };
                 // TODO: convert all base attributes with lua instead
                 result.push_str(&format!(
-                    "    parent_{}: Option<{}>,\n",
+                    "    pub parent_{}: Option<{}>,\n",
                     to_snake_case(base),
                     type_
                 ));
