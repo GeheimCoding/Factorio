@@ -102,7 +102,7 @@ impl RuntimeApiFormat {
                     Import::MaybeCycle,
                     Import::Float,
                     Import::Double,
-                    Import::Iterable,
+                    Import::Traversable,
                 ],
                 class_names,
             ),
@@ -119,6 +119,7 @@ impl RuntimeApiFormat {
                     Import::MaybeCycle,
                     Import::Float,
                     Import::Double,
+                    Import::Traversable,
                 ],
                 class_names,
             ),
@@ -135,6 +136,7 @@ impl RuntimeApiFormat {
                     Import::MaybeCycle,
                     Import::Float,
                     Import::Double,
+                    Import::Traversable,
                 ],
                 class_names,
             ),
@@ -143,7 +145,11 @@ impl RuntimeApiFormat {
             defines_path,
             generate(
                 &self.defines,
-                vec![Import::EnumAsInner, Import::DeserializeRepr],
+                vec![
+                    Import::EnumAsInner,
+                    Import::DeserializeRepr,
+                    Import::Traversable,
+                ],
                 class_names,
             ),
         )?;

@@ -135,12 +135,12 @@ impl Generate for Concept {
             result = result.replace("struct MapPosition", "struct MapPositionDirect");
             result.push_str(
                 "\n
-                #[derive(Debug, Deserialize)]
+                #[derive(Debug, Deserialize, Traversable)]
                 pub struct MapPositionNested {
                     pub position: MapPositionDirect,
                 }
                 
-                #[derive(Debug, Deserialize, EnumAsInner)]
+                #[derive(Debug, Deserialize, EnumAsInner, Traversable)]
                 #[serde(untagged)]
                 pub enum MapPosition {
                     Direct(MapPositionDirect),
@@ -152,7 +152,7 @@ impl Generate for Concept {
             result = result.replace("enum CollisionMaskLayer", "enum CollisionMaskLayerVariants");
             result.push_str(
                 "\n
-                #[derive(Debug, Deserialize, EnumAsInner, Eq, PartialEq, Hash)]
+                #[derive(Debug, Deserialize, EnumAsInner, Eq, PartialEq, Hash, Traversable)]
                 #[serde(untagged)]
                 pub enum CollisionMaskLayer {
                     Variant(CollisionMaskLayerVariants),
@@ -194,7 +194,7 @@ impl Generate for Concept {
             result.push_str(
                 "
                 \n
-                #[derive(Debug, Deserialize, EnumAsInner)]
+                #[derive(Debug, Deserialize, EnumAsInner, Traversable)]
                 #[serde(untagged)]
                 pub enum RenderLayer {
                     Variant(RenderLayerVariants),

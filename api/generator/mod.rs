@@ -168,7 +168,7 @@ enum Import {
     Double,
     EnumAsInner,
     DeserializeRepr,
-    Iterable,
+    Traversable,
 }
 
 impl ToString for Import {
@@ -184,14 +184,13 @@ impl ToString for Import {
             Import::Double => "use super::Double;".to_owned(),
             Import::EnumAsInner => "use enum_as_inner::EnumAsInner;".to_owned(),
             Import::DeserializeRepr => "use serde_repr::Deserialize_repr;".to_owned(),
-            Import::Iterable => "use struct_iterable::Iterable;".to_owned(),
+            Import::Traversable => "use extensions::Traversable;".to_owned(),
         }
     }
 }
 
 enum Macro {
     DebugDeserialize,
-    DebugDeserializeIterable,
     DebugDeserializeEnumAsInner,
     DebugDeserializeRepr,
     RenameSnakeCase,
@@ -206,19 +205,19 @@ enum Macro {
 impl Display for Macro {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let str = match self {
-            Macro::DebugDeserialize => "#[derive(Debug, Deserialize)]".to_owned(),
-            Macro::DebugDeserializeIterable => "#[derive(Debug, Deserialize, Iterable)]".to_owned(),
+            Macro::DebugDeserialize => "#[derive(Debug, Deserialize, Traversable)]".to_owned(),
             Macro::DebugDeserializeEnumAsInner => {
-                "#[derive(Debug, Deserialize, EnumAsInner)]".to_owned()
+                "#[derive(Debug, Deserialize, EnumAsInner, Traversable)]".to_owned()
             }
             Macro::DebugDeserializeRepr => {
-                "#[derive(Debug, Deserialize_repr, EnumAsInner)]".to_owned()
+                "#[derive(Debug, Deserialize_repr, EnumAsInner, Traversable)]".to_owned()
             }
             Macro::RenameSnakeCase => "#[serde(rename_all = \"snake_case\")]".to_owned(),
             Macro::TagSerdeType => "#[serde(tag = \"serde_type\")]".to_owned(),
             Macro::TagSerdeTag => "#[serde(tag = \"serde_tag\")]".to_owned(),
             Macro::Hash => {
-                "#[derive(Debug, Deserialize, EnumAsInner, Eq, PartialEq, Hash)]".to_owned()
+                "#[derive(Debug, Deserialize, EnumAsInner, Eq, PartialEq, Hash, Traversable)]"
+                    .to_owned()
             }
             Macro::SerdeUntagged => "#[serde(untagged)]".to_owned(),
             Macro::RenameKebabCase => "#[serde(rename_all = \"kebab-case\")]".to_owned(),
@@ -279,7 +278,7 @@ fn generate_struct(
         name
     ));
     if let Some(parent) = parent {
-        result.push_str(&format!("    parent_: {parent},"));
+        result.push_str(&format!("    pub parent_: {parent},"));
         if !properties.is_empty() {
             result.push('\n');
         }
@@ -417,7 +416,7 @@ pub fn generate_factorio_types(
     prototype_api: &PrototypeApiFormat,
     runtime_api: &RuntimeApiFormat,
 ) -> io::Result<()> {
-    let mut content = String::from("use enum_as_inner::EnumAsInner;\nuse serde::Deserialize;\n\n");
+    let mut content = String::from("use enum_as_inner::EnumAsInner;\nuse extensions::Traversable;\nuse serde::Deserialize;\n\n");
     content.push_str(
         &generate_macros(vec![
             Macro::DebugDeserializeEnumAsInner,
@@ -436,7 +435,7 @@ pub fn generate_factorio_types(
     fs::write(factorio_types_path, content)
 }
 
-pub fn generate_mod(mod_path: &str, class_names: &HashSet<String>) -> io::Result<()> {
+pub fn generate_mod(mod_path: &str) -> io::Result<()> {
     let mut content = String::from("#![allow(ambiguous_glob_reexports)]\n");
     for s in [
         "classes",
@@ -452,9 +451,9 @@ pub fn generate_mod(mod_path: &str, class_names: &HashSet<String>) -> io::Result
     content.push_str(
         "
         use enum_as_inner::EnumAsInner;
+        use extensions::{LuaObject, Traversable};
         use serde::Deserialize;
         use std::fmt::Debug;
-        use struct_iterable::Iterable;
 
         #[derive(Debug, Deserialize, EnumAsInner)]
         #[serde(untagged)]
@@ -463,68 +462,44 @@ pub fn generate_mod(mod_path: &str, class_names: &HashSet<String>) -> io::Result
             Value(Box<T>),
         }
 
+        impl<T: LuaObject + Traversable> Traversable for MaybeCycle<T> {
+            fn traverse(&self) -> Vec<&dyn Traversable> {
+                match self {
+                    Self::Cycle { .. } => vec![],
+                    Self::Value(value) => vec![value],
+                }
+            }
+
+            fn to_trait_object(&self) -> &dyn Traversable {
+                self
+            }
+        }
+
         #[derive(Debug, Deserialize, EnumAsInner)]
         #[serde(untagged)]
-        pub enum FloatingPoint<T> {
+        pub enum FloatingPoint<T>
+        {
             SpecialValue(String),
             Value(T),
         }
 
+        impl<T: Traversable> Traversable for FloatingPoint<T> {
+            fn traverse(&self) -> Vec<&dyn Traversable> {
+                match self {
+                    Self::SpecialValue(value) => vec![value],
+                    Self::Value(value) => vec![value],
+                }
+            }
+
+            fn to_trait_object(&self) -> &dyn Traversable {
+                self
+            }
+        }
+
         type Float = FloatingPoint<f32>;
         type Double = FloatingPoint<f64>;
-
-        pub trait LuaObjectClassId {
-            fn class_id(&self) -> String;
-        }
-
-        pub trait LuaObject: Debug + LuaObjectClassId + Iterable {}
-        impl<T: Debug + LuaObjectClassId + Iterable> LuaObject for T {}
-
-        macro_rules! lua_object_class_id {
-            ($t:ident) => {
-                impl LuaObjectClassId for $t {
-                    fn class_id(&self) -> String {
-                        self.class_id.clone()
-                    }
-                }
-            };
-            ($($t:ident),+) => {
-                $(lua_object_class_id!($t);)+
-            };
-        }
     ",
     );
-    content.push_str(&generate_lua_objects(class_names));
 
     fs::write(mod_path, content)
-}
-
-fn generate_lua_objects(class_names: &HashSet<String>) -> String {
-    let mut sorted_class_names = class_names.iter().cloned().collect::<Vec<_>>();
-    sorted_class_names.sort();
-
-    let mut content = format!(
-        "\n\nlua_object_class_id!({});\n\n",
-        sorted_class_names.join(", ")
-    );
-    content.push_str(&format!(
-        "pub fn resolve_cycle(maybe_cycle: &dyn std::any::Any) -> Option<&dyn LuaObject> {{
-        if let Some(MaybeCycle::Value(lua_object)) = maybe_cycle.downcast_ref::<MaybeCycle<{}>>() {{
-            Some(lua_object.as_ref())
-        }}",
-        sorted_class_names[0]
-    ));
-    for class_name in sorted_class_names.iter().skip(1) {
-        content.push_str(&format!(
-            "else if let Some(MaybeCycle::Value(lua_object)) = maybe_cycle.downcast_ref::<MaybeCycle<{class_name}>>() {{
-                Some(lua_object.as_ref())
-            }}"));
-    }
-    content.push_str(
-        "else {
-            None
-        }
-    }",
-    );
-    content
 }

@@ -2,21 +2,23 @@
 #![deny(clippy::unwrap_used)]
 
 use std::any::{Any, TypeId};
+use std::collections::HashSet;
 use std::fmt::Debug;
 use std::{collections::HashMap, fs, io, path::PathBuf, thread::sleep, time::Duration};
 
 use anyhow::{Context, Result};
-use struct_iterable::Iterable;
 
 use api::{
     add_to_lua_objects, parse_factorio_type, FactorioType, LuaAISettings, LuaRecipe,
     LuaRecipePrototype, MaybeCycle,
 };
+use extensions::Traversable;
 use remote_console::RemoteConsole;
 
 fn main() -> Result<()> {
-    //remote_console()?;
+    // remote_console()?;
     // parse_recipes().context("parse_recipes")?;
+
     let content = fs::read_to_string("output/game.json")?;
     let game = parse_factorio_type(&content)?;
     let mut lua_objects = HashMap::new();
@@ -25,7 +27,7 @@ fn main() -> Result<()> {
         game.as_class().unwrap().as_lua_game_script().unwrap(),
         &mut lua_objects,
     );
-    println!("{:?}", lua_objects.keys());
+    println!("{}", lua_objects.keys().len());
 
     Ok(())
 }

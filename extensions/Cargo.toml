@@ -1,0 +1,8 @@
+[package]
+name = "extensions"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+traits = { version = "0.1.0", path = "traits" }
+traversable = { version = "0.1.0", path = "derives/traversable" }

@@ -50,8 +50,8 @@ impl Generate for Class {
         );
         let mut unions = vec![];
         result.push_str(&format!(
-            "{}\npub struct {} {{\n    pub class_id: String,\n",
-            Macro::DebugDeserializeIterable.to_string(),
+            "{}\npub struct {} {{\n    #[lua_object]\n    pub class_id: String,\n",
+            Macro::DebugDeserialize.to_string(),
             self.name
         ));
         if let Some(bases) = &self.base_classes {
