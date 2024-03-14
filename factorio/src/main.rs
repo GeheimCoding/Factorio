@@ -9,10 +9,10 @@ use std::{collections::HashMap, fs, io, path::PathBuf, thread::sleep, time::Dura
 use anyhow::{Context, Result};
 
 use api::{
-    add_to_lua_objects, parse_factorio_type, FactorioType, LuaAISettings, LuaRecipe,
-    LuaRecipePrototype, MaybeCycle,
+    add_to_lua_objects, parse_factorio_type, FactorioType, LuaAISettings, LuaAchievementPrototype,
+    LuaGroup, LuaRecipe, LuaRecipePrototype, MaybeCycle,
 };
-use extensions::Traversable;
+use extensions::{LuaObject, Traversable};
 use remote_console::RemoteConsole;
 
 fn main() -> Result<()> {
@@ -23,13 +23,25 @@ fn main() -> Result<()> {
     let game = parse_factorio_type(&content)?;
     let mut lua_objects = HashMap::new();
 
-    add_to_lua_objects(
-        game.as_class().unwrap().as_lua_game_script().unwrap(),
-        &mut lua_objects,
-    );
-    println!("{}", lua_objects.keys().len());
+    add_to_lua_objects(&game, &mut lua_objects);
+    use_lua_object("65", &lua_objects).context("use_lua_object")?;
 
     Ok(())
+}
+
+fn use_lua_object(class_id: &str, lua_objects: &HashMap<&str, &dyn LuaObject>) -> Option<()> {
+    println!(
+        "{}",
+        lua_objects
+            .get(class_id)?
+            .as_any()
+            .downcast_ref::<LuaGroup>()?
+            .group
+            .as_ref()?
+            .resolve(&lua_objects)?
+            .class_id
+    );
+    Some(())
 }
 
 fn parse_recipes() -> Option<()> {

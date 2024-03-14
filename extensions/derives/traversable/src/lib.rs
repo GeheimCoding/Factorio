@@ -22,9 +22,6 @@ pub fn derive_traversable(input: TokenStream) -> TokenStream {
                 #traversals
             }
             #to_lua_object_impl
-            fn to_trait_object(&self) -> &dyn extensions::Traversable {
-                self
-            }
         }
     })
     .into()
@@ -75,7 +72,7 @@ fn generate_traversals_for_fields(
     };
     let fields = fields_named.named.iter().map(|field| &field.ident);
     quote! {
-        vec![#(#prefix #fields.to_trait_object(),)*]
+        vec![#(#prefix #fields.as_traversable(),)*]
     }
 }
 

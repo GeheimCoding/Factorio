@@ -453,6 +453,7 @@ pub fn generate_mod(mod_path: &str) -> io::Result<()> {
         use enum_as_inner::EnumAsInner;
         use extensions::{LuaObject, Traversable};
         use serde::Deserialize;
+        use std::collections::HashMap;
         use std::fmt::Debug;
 
         #[derive(Debug, Deserialize, EnumAsInner)]
@@ -462,16 +463,21 @@ pub fn generate_mod(mod_path: &str) -> io::Result<()> {
             Value(Box<T>),
         }
 
+        impl<T: LuaObject> MaybeCycle<T> {
+            pub fn resolve<'a>(&'a self, lua_objects: &HashMap<&str, &'a dyn LuaObject>) -> Option<&T> {
+                match self {
+                    Self::Cycle { cycle_id } => lua_objects.get(cycle_id.as_str())?.as_any().downcast_ref(),
+                    Self::Value(value) => Some(value.as_ref()),
+                }
+            }
+        }
+
         impl<T: LuaObject + Traversable> Traversable for MaybeCycle<T> {
             fn traverse(&self) -> Vec<&dyn Traversable> {
                 match self {
                     Self::Cycle { .. } => vec![],
                     Self::Value(value) => vec![value],
                 }
-            }
-
-            fn to_trait_object(&self) -> &dyn Traversable {
-                self
             }
         }
 
@@ -489,10 +495,6 @@ pub fn generate_mod(mod_path: &str) -> io::Result<()> {
                     Self::SpecialValue(value) => vec![value],
                     Self::Value(value) => vec![value],
                 }
-            }
-
-            fn to_trait_object(&self) -> &dyn Traversable {
-                self
             }
         }
 
