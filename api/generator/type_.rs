@@ -245,7 +245,7 @@ impl Generate for ComplexType {
                 }
                 if let Some(groups) = variant_parameter_groups {
                     let prefix = format!("{prefix}Attributes");
-                    result.push_str(&format!("    attributes: Option<{prefix}>"));
+                    result.push_str(&format!("    pub attributes: Option<{prefix}>"));
                     let mut union = format!(
                         "{}{}pub enum {prefix} {{\n",
                         Macro::DebugDeserializeEnumAsInner.to_string(),

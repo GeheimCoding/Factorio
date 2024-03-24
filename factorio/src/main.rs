@@ -4,32 +4,33 @@
 use std::any::{Any, TypeId};
 use std::collections::HashSet;
 use std::fmt::Debug;
+use std::rc::Rc;
 use std::{collections::HashMap, fs, io, path::PathBuf, thread::sleep, time::Duration};
 
 use anyhow::{Context, Result};
 
 use api::{
-    add_to_lua_objects, parse_factorio_type, FactorioType, LuaAISettings, LuaAchievementPrototype,
-    LuaGroup, LuaRecipe, LuaRecipePrototype, MaybeCycle,
+    parse_factorio_type, FactorioType, LuaAISettings, LuaAchievementPrototype, LuaGameScript,
+    LuaGroup, LuaObjects, LuaRecipe, LuaRecipePrototype, MaybeCycle, Runtime,
 };
 use extensions::{LuaObject, Traversable};
 use remote_console::RemoteConsole;
 
 fn main() -> Result<()> {
+    let mut runtime = Runtime::new();
     // remote_console()?;
-    // parse_recipes().context("parse_recipes")?;
+    // parse_recipes(&mut lua_objects).context("parse_recipes")?;
 
     let content = fs::read_to_string("output/game.json")?;
-    let game = parse_factorio_type(&content)?;
-    let mut lua_objects = HashMap::new();
+    let game = parse_factorio_type(&content, &mut runtime)?;
 
-    add_to_lua_objects(&game, &mut lua_objects);
-    use_lua_object("65", &lua_objects).context("use_lua_object")?;
+    use_lua_object("65", runtime.lua_objects()).context("use_lua_object")?;
+    println!("{}", runtime.factorio_types().len());
 
     Ok(())
 }
 
-fn use_lua_object(class_id: &str, lua_objects: &HashMap<&str, &dyn LuaObject>) -> Option<()> {
+fn use_lua_object(class_id: &str, lua_objects: &LuaObjects) -> Option<()> {
     println!(
         "{}",
         lua_objects
@@ -44,42 +45,27 @@ fn use_lua_object(class_id: &str, lua_objects: &HashMap<&str, &dyn LuaObject>) -
     Some(())
 }
 
-fn parse_recipes() -> Option<()> {
-    let content = fs::read_to_string("output/game.json").ok()?;
-    let game = parse_factorio_type(&content).ok()?;
-
-    let recipes = get_recipes(&game)?;
+fn parse_recipes(game: &LuaGameScript) -> Option<()> {
+    let recipes = get_recipes(game)?;
     let mut recipes = recipes.iter().map(|(k, v)| k).cloned().collect::<Vec<_>>();
     recipes.sort();
+    let recipe_prototypes = &game.recipe_prototypes;
 
     println!("{}", recipes.len());
-    println!("{}", get_recipe_prototypes(&game)?.len());
+    println!("{}", recipe_prototypes.len());
     println!("{}", recipes.join("\n"));
 
     Some(())
 }
 
 // https://wiki.factorio.com/Materials_and_recipes
-fn get_recipes(factorio_type: &FactorioType) -> Option<&HashMap<String, MaybeCycle<LuaRecipe>>> {
+fn get_recipes(game: &LuaGameScript) -> Option<&HashMap<String, MaybeCycle<LuaRecipe>>> {
     Some(
-        &factorio_type
-            .as_class()?
-            .as_lua_game_script()?
+        &game
             .forces
             .get(&api::LuaGameScriptForces::String("player".to_owned()))?
             .as_value()?
             .recipes,
-    )
-}
-
-fn get_recipe_prototypes(
-    factorio_type: &FactorioType,
-) -> Option<&HashMap<String, MaybeCycle<LuaRecipePrototype>>> {
-    Some(
-        &factorio_type
-            .as_class()?
-            .as_lua_game_script()?
-            .recipe_prototypes,
     )
 }
 
@@ -103,7 +89,7 @@ fn remote_console() -> Result<()> {
     Ok(())
 }
 
-fn listen_to_events(console: &mut RemoteConsole) -> Result<()> {
+fn listen_to_events(console: &mut RemoteConsole, runtime: &mut Runtime) -> Result<()> {
     let paths = fs::read_dir("output/events")?;
     let mut index = paths.count();
     loop {
@@ -114,8 +100,8 @@ fn listen_to_events(console: &mut RemoteConsole) -> Result<()> {
         if !response.is_empty() {
             let events: Vec<_> = response.split("\n\n").collect();
             for event in events {
-                let factorio_type = parse_factorio_type(event);
-                if let Err(e) = factorio_type {
+                let result = parse_factorio_type(event, runtime);
+                if let Err(e) = result {
                     println!("{index}.json: {e}");
                     let filename = PathBuf::from(&format!("output/events/{index}.json"));
                     fs::write(filename, event)?;
