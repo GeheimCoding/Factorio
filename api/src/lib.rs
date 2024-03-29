@@ -32,7 +32,7 @@ impl Runtime {
 pub fn parse_factorio_type(
     json: &str,
     runtime: &mut Runtime,
-) -> Result<Box<FactorioType>, serde_json::Error> {
+) -> Result<Option<Box<FactorioType>>, serde_json::Error> {
     let factorio_type = Box::new(serde_json::from_str(json)?);
     let lua_object_count = runtime.lua_objects.len();
 
@@ -44,10 +44,9 @@ pub fn parse_factorio_type(
     if runtime.lua_objects.len() > lua_object_count {
         runtime.factorio_types.push(factorio_type);
     } else {
-        return Ok(factorio_type);
+        return Ok(Some(factorio_type));
     }
-    // there is probably a more efficient way than deserializing again
-    Ok(Box::new(serde_json::from_str(json)?))
+    Ok(None)
 }
 
 fn add_to_lua_objects<'a, T: Traversable>(traversable: &'a T, lua_objects: &mut LuaObjects<'a>) {

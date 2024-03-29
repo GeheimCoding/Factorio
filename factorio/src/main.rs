@@ -9,6 +9,7 @@ use std::{collections::HashMap, fs, io, path::PathBuf, thread::sleep, time::Dura
 
 use anyhow::{Context, Result};
 
+use crate::recipe::{map_recipe, Ingredient, Product, Recipe, Type};
 use api::{
     parse_factorio_type, FactorioType, LuaAISettings, LuaAchievementPrototype, LuaGameScript,
     LuaGroup, LuaObjects, LuaRecipe, LuaRecipePrototype, MaybeCycle, Runtime,
@@ -16,18 +17,42 @@ use api::{
 use extensions::{LuaObject, Traversable};
 use remote_console::RemoteConsole;
 
+mod recipe;
+
 fn main() -> Result<()> {
     let mut runtime = Runtime::new();
     // remote_console()?;
     // parse_recipes(&mut lua_objects).context("parse_recipes")?;
 
     let content = fs::read_to_string("output/game.json")?;
-    let game = parse_factorio_type(&content, &mut runtime)?;
+    parse_factorio_type(&content, &mut runtime)?;
+    let recipes = parse_recipes_by_category(&runtime).context("recipes")?;
+    println!("{recipes:#?}");
 
-    use_lua_object("65", runtime.lua_objects()).context("use_lua_object")?;
-    println!("{}", runtime.factorio_types().len());
+    // use_lua_object("65", runtime.lua_objects()).context("use_lua_object")?;
+    // println!("{}", runtime.factorio_types().len());
 
     Ok(())
+}
+
+fn parse_recipes_by_category(runtime: &Runtime) -> Option<HashMap<String, Vec<Recipe>>> {
+    let game = runtime.factorio_types()[0]
+        .as_class()?
+        .as_lua_game_script()?;
+
+    let mut recipes_by_category = game
+        .recipe_category_prototypes
+        .iter()
+        .map(|(name, _)| (name.clone(), vec![]))
+        .collect::<HashMap<_, _>>();
+
+    for (name, recipe) in &game.recipe_prototypes {
+        let recipe = recipe.resolve(runtime.lua_objects())?;
+        recipes_by_category
+            .get_mut(&recipe.category)?
+            .push(map_recipe(recipe));
+    }
+    Some(recipes_by_category)
 }
 
 fn use_lua_object(class_id: &str, lua_objects: &LuaObjects) -> Option<()> {
