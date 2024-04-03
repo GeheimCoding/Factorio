@@ -61,13 +61,13 @@ impl<A: Traversable, B: Traversable> Traversable for (A, B) {
     }
 }
 
-impl<T: Traversable> Traversable for (T, T, T) {
+impl<A: Traversable, B: Traversable, C: Traversable> Traversable for (A, B, C) {
     fn traverse(&self) -> Vec<&dyn Traversable> {
         vec![&self.0, &self.1, &self.2]
     }
 }
 
-impl<T: Traversable> Traversable for (T, T, T, T) {
+impl<A: Traversable, B: Traversable, C: Traversable, D: Traversable> Traversable for (A, B, C, D) {
     fn traverse(&self) -> Vec<&dyn Traversable> {
         vec![&self.0, &self.1, &self.2, &self.3]
     }

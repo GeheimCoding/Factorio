@@ -53,6 +53,7 @@ impl Generate for Prototype {
         class_names: &HashSet<String>,
     ) -> String {
         // TODO: typename & custom_properties?
+        // TODO: fix doc string, see CraftingMachinePrototype
         format!(
             "{}{}",
             generate_docs(

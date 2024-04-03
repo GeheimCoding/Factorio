@@ -163,7 +163,9 @@ enum Import {
     Concepts,
     Defines,
     Types,
+    Prototypes,
     MaybeCycle,
+    TypeOrEmptyMap,
     Float,
     Double,
     EnumAsInner,
@@ -179,7 +181,9 @@ impl ToString for Import {
             Import::Concepts => "use super::concepts::*;".to_owned(),
             Import::Defines => "use super::defines::*;".to_owned(),
             Import::Types => "use super::types::*;".to_owned(),
+            Import::Prototypes => "use super::prototypes::*;".to_owned(),
             Import::MaybeCycle => "use super::MaybeCycle;".to_owned(),
+            Import::TypeOrEmptyMap => "use super::TypeOrEmptyMap;".to_owned(),
             Import::Float => "use super::Float;".to_owned(),
             Import::Double => "use super::Double;".to_owned(),
             Import::EnumAsInner => "use enum_as_inner::EnumAsInner;".to_owned(),
@@ -200,6 +204,8 @@ enum Macro {
     Hash,
     SerdeUntagged,
     Repr,
+    Flatten,
+    Alias(String),
 }
 
 impl Display for Macro {
@@ -222,6 +228,8 @@ impl Display for Macro {
             Macro::SerdeUntagged => "#[serde(untagged)]".to_owned(),
             Macro::RenameKebabCase => "#[serde(rename_all = \"kebab-case\")]".to_owned(),
             Macro::Repr => "#[repr(u8)]".to_owned(),
+            Macro::Flatten => "#[serde(flatten)]".to_owned(),
+            Macro::Alias(alias) => format!("#[serde(alias = \"{alias}\")]"),
         };
         write!(f, "{}", str)
     }
@@ -278,7 +286,10 @@ fn generate_struct(
         name
     ));
     if let Some(parent) = parent {
-        result.push_str(&format!("    pub parent_: {parent},"));
+        result.push_str(&format!(
+            "    {}\n    pub parent_: {parent},",
+            Macro::Flatten.to_string()
+        ));
         if !properties.is_empty() {
             result.push('\n');
         }
@@ -364,7 +375,15 @@ fn generate_union(
         }
         let mut added = false;
         if !fields.contains(&field) || name == "Direction" {
-            union.push_str(&format!("    {field}"));
+            if ((name == "TechnologyDataMaxLevel" || name == "TechnologyPrototypeMaxLevel")
+                && field == "Infinite")
+                || (name == "CollisionMaskUnion" && field != "CollisionMaskLayer")
+                || (name == "RecipePrototypeExpensive" && field == "False")
+            {
+                union.push_str(&format!("    {field}(String)"));
+            } else {
+                union.push_str(&format!("    {field}"));
+            }
             fields.insert(field);
             added = true;
         }
@@ -395,7 +414,11 @@ fn generate_union(
     if all_non_value {
         union = union.replace(
             &Macro::SerdeUntagged.to_string(),
-            &Macro::RenameKebabCase.to_string(),
+            &if name == "PlayerInputMethodFilter" {
+                Macro::RenameSnakeCase.to_string()
+            } else {
+                Macro::RenameKebabCase.to_string()
+            },
         );
     }
     union.push('}');
@@ -477,6 +500,22 @@ pub fn generate_mod(mod_path: &str) -> io::Result<()> {
                 match self {
                     Self::Cycle { .. } => vec![],
                     Self::Value(value) => vec![value],
+                }
+            }
+        }
+
+        #[derive(Debug, Deserialize, EnumAsInner)]
+        #[serde(untagged)]
+        pub enum TypeOrEmptyMap<T> {
+            Type(T),
+            EmptyMap(HashMap<(), ()>),
+        }
+
+        impl<T: Traversable> Traversable for TypeOrEmptyMap<T> {
+            fn traverse(&self) -> Vec<&dyn Traversable> {
+                match self {
+                    Self::Type(type_) => type_.traverse(),
+                    Self::EmptyMap(_) => vec![],
                 }
             }
         }

@@ -61,9 +61,9 @@ impl Generate for Class {
                 } else {
                     base.to_owned()
                 };
-                // TODO: convert all base attributes with lua instead
                 result.push_str(&format!(
-                    "    pub parent_{}: Option<{}>,\n",
+                    "    {}    pub parent_{}: Option<{}>,\n",
+                    Macro::Flatten.to_string(),
                     to_snake_case(base),
                     type_
                 ));

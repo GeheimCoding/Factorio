@@ -91,7 +91,7 @@ impl Generate for Concept {
             },
         };
         if is_new_type {
-            result.push_str(&format!(
+            let mut new_type = format!(
                 "pub type {} = {};",
                 self.name,
                 self.type_.generate(
@@ -101,7 +101,15 @@ impl Generate for Concept {
                     unions,
                     class_names
                 )
-            ));
+            );
+            result.push_str(&new_type);
+            if self.name == "BoundingBox" {
+                result.push_str(
+                    &new_type
+                        .replace("MapPosition, MapPosition", "MapPosition, MapPosition, f32")
+                        .replace("BoundingBox", "BoundingBoxExtra"),
+                );
+            }
             if !unions.is_empty() {
                 result.push_str("\n\n");
             }
