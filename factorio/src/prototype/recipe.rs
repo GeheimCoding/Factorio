@@ -1,4 +1,4 @@
-use api::{LuaRecipePrototype, ProductAmountMax, ProductAmountMin};
+use api::{LuaRecipePrototype, ProductAmountMax, ProductAmountMin, RecipePrototype};
 
 #[derive(Clone, Debug)]
 pub enum Type {
@@ -24,6 +24,7 @@ pub struct Product {
     pub type_: Type,
 }
 
+// https://wiki.factorio.com/Materials_and_recipes
 #[derive(Clone, Debug)]
 pub struct Recipe {
     pub name: String,
@@ -79,5 +80,15 @@ pub fn map_recipe(recipe: &LuaRecipePrototype) -> Recipe {
                 },
             })
             .collect(),
+    }
+}
+
+pub fn map_recipe_prototype(recipe: &RecipePrototype) -> Recipe {
+    Recipe {
+        name: recipe.parent_.name.clone(),
+        category: recipe.category.as_ref().unwrap().clone(),
+        ingredients: vec![],
+        energy: *recipe.energy_required.as_ref().unwrap().as_value().unwrap(),
+        products: vec![],
     }
 }

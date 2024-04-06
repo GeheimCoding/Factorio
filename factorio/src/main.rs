@@ -8,36 +8,42 @@ use std::fs::File;
 use std::io::Read;
 use std::ops::Add;
 use std::rc::Rc;
+use std::str::FromStr;
 use std::{collections::HashMap, fs, io, path::PathBuf, thread::sleep, time::Duration};
 
 use anyhow::{Context, Result};
 use serde_json::Number;
 use zip::ZipArchive;
 
-use crate::recipe::{map_recipe, Ingredient, Product, Recipe, Type};
+use crate::prototype::{map_recipe, PrototypeStage, Recipe};
+use crate::runtime::{LuaObjects, RuntimeStage};
 use api::{
     parse_factorio_type, Animation4Way, FactorioType, GunPrototype, ItemIngredientPrototype,
-    LayeredSound, LuaAISettings, LuaAchievementPrototype, LuaGameScript, LuaGroup, LuaObjects,
-    LuaRecipe, LuaRecipePrototype, MaybeCycle, ProjectileAttackParameters, Prototype, RecipeData,
-    RecipePrototypeExpensive, Runtime, TechnologyDataMaxLevel,
+    LayeredSound, LuaAISettings, LuaAchievementPrototype, LuaGameScript, LuaGroup, LuaRecipe,
+    LuaRecipePrototype, MaybeCycle, ProjectileAttackParameters, RecipeData, RecipePrototype,
+    RecipePrototypeExpensive, TechnologyDataMaxLevel,
 };
 use extensions::{LuaObject, Traversable};
 use remote_console::RemoteConsole;
 
-mod recipe;
+mod prototype;
+mod runtime;
 
+// TODO: prevent doc string errors
+// TODO: hide abstract classes from factorio_types
+// TODO: add flattened map to FactorioType and warn if this has some entries after deserialization?
 fn main() -> Result<()> {
-    let mut runtime = Runtime::new();
+    let prototype_stage = parse_prototype_stage()?;
+    let mut runtime_stage = RuntimeStage::new();
 
-    // TODO: parse recipes from prototypes and compare against game prototypes
-    let prototypes = parse_prototypes()?;
-    println!("parsed {} prototypes", prototypes.len());
+    let recipe_prototypes = parse_recipe_prototypes_by_category(prototype_stage.recipes());
+    println!("{}", recipe_prototypes.len());
 
     // remote_console()?;
     // parse_recipes(&mut lua_objects).context("parse_recipes")?;
 
     // let content = fs::read_to_string("output/game.json")?;
-    // parse_factorio_type(&content, &mut runtime)?;
+    // runtime.add_factorio_type(&content)?;
     // let recipes = parse_recipes_by_category(&runtime).context("recipes")?;
     // println!("{recipes:#?}");
 
@@ -47,92 +53,31 @@ fn main() -> Result<()> {
     Ok(())
 }
 
-// TODO: add flattened map to FactorioType and warn if this has some entries after deserialization?
-// TODO: move to lib?
-// TODO: prevent doc string errors
-// TODO: hide abstract classes from factorio_types
-// https://lua-api.factorio.com/latest/tree.html
-fn parse_prototypes() -> Result<Vec<Prototype>> {
+fn parse_prototype_stage() -> Result<PrototypeStage> {
     let mut archive = ZipArchive::new(File::open("api/json/data-raw-dump-v1.1.101.zip")?)?;
     let mut file = ZipArchive::by_name(&mut archive, "data-raw-dump.json")?;
     let mut content = String::new();
+
     file.read_to_string(&mut content)?;
-
-    let mut parsed_prototypes = vec![];
-    let data = serde_json::from_str::<serde_json::Value>(&content)?;
-    for (tag, prototypes) in data.as_object().unwrap() {
-        let tag = get_tag(tag);
-        // TODO: those expressions are huge and take too long to deserialize
-        if tag == "named_noise_expression" {
-            continue;
-        }
-        for (name, prototype) in prototypes.as_object().unwrap() {
-            let mut prototype = prototype.as_object().unwrap().clone();
-            prototype.insert(
-                "serde_tag".to_owned(),
-                serde_json::Value::String(tag.clone()),
-            );
-            let prototype =
-                serde_json::from_value::<Prototype>(serde_json::Value::Object(prototype))?;
-            parsed_prototypes.push(prototype);
-        }
-    }
-    Ok(parsed_prototypes)
+    Ok(PrototypeStage::from_str(&content)?)
 }
 
-fn get_tag(tag: &str) -> String {
-    let add_prototype = match tag {
-        "combat-robot-count" => return "combat_robot_count_achievement_prototype".to_owned(),
-        "optimized-decorative" => return "decorative_prototype".to_owned(),
-        "particle" => return "entity_particle_prototype".to_owned(),
-        "unit-spawner" => return "enemy_spawner_prototype".to_owned(),
-        "loader-1x1" => return "loader1x1_prototype".to_owned(),
-        "loader" => return "loader1x2_prototype".to_owned(),
-        "fire" => return "fire_flame_prototype".to_owned(),
-        "stream" => return "fluid_stream_prototype".to_owned(),
-        "highlight-box" => return "highlight_box_entity_prototype".to_owned(),
-        "resource" => return "resource_entity_prototype".to_owned(),
-        "smoke" => return "simple_smoke_prototype".to_owned(),
-        "ammo" => return "ammo_item_prototype".to_owned(),
-        "blueprint" => return "blueprint_item_prototype".to_owned(),
-        "item-subgroup" => return "item_sub_group".to_owned(),
-        "noise-expression" => return "named_noise_expression".to_owned(),
-        "optimized-particle" => return "particle_prototype".to_owned(),
-        "tutorial" => return "tutorial_definition".to_owned(),
-        "tile-effect" => return "tile_effect_definition".to_owned(),
-        "ambient-sound"
-        | "map-gen-presets"
-        | "map-settings"
-        | "mouse-cursor"
-        | "ammo-category"
-        | "autoplace-control"
-        | "damage-type"
-        | "equipment-category"
-        | "fuel-category"
-        | "gui-style"
-        | "item-group"
-        | "module-category"
-        | "noise-layer"
-        | "recipe-category"
-        | "resource-category"
-        | "tips-and-tricks-item"
-        | "utility-constants"
-        | "utility-sounds"
-        | "utility-sprites"
-        | "tips-and-tricks-item-category"
-        | "trigger-target-type"
-        | "wind-sound" => false,
-        _ => true,
-    };
-    let tag = tag.replace("-", "_");
-    if add_prototype {
-        tag.add("_prototype")
-    } else {
-        tag
-    }
+fn parse_recipe_prototypes_by_category(recipes: &Vec<Recipe>) -> HashMap<String, Vec<Recipe>> {
+    let mut recipes_by_category = recipes
+        .iter()
+        .map(|recipe| (recipe.category.clone(), vec![]))
+        .collect::<HashMap<_, _>>();
+    recipes.iter().for_each(|recipe| {
+        recipes_by_category
+            .get_mut(&recipe.category)
+            .unwrap()
+            // TODO: remove clone / move to prototype stage?
+            .push(recipe.clone())
+    });
+    recipes_by_category
 }
 
-fn parse_recipes_by_category(runtime: &Runtime) -> Option<HashMap<String, Vec<Recipe>>> {
+fn parse_recipes_by_category(runtime: &RuntimeStage) -> Option<HashMap<String, Vec<Recipe>>> {
     let game = runtime.factorio_types()[0]
         .as_class()?
         .as_lua_game_script()?;
@@ -150,45 +95,6 @@ fn parse_recipes_by_category(runtime: &Runtime) -> Option<HashMap<String, Vec<Re
             .push(map_recipe(recipe));
     }
     Some(recipes_by_category)
-}
-
-fn use_lua_object(class_id: &str, lua_objects: &LuaObjects) -> Option<()> {
-    println!(
-        "{}",
-        lua_objects
-            .get(class_id)?
-            .as_any()
-            .downcast_ref::<LuaGroup>()?
-            .group
-            .as_ref()?
-            .resolve(&lua_objects)?
-            .class_id
-    );
-    Some(())
-}
-
-fn parse_recipes(game: &LuaGameScript) -> Option<()> {
-    let recipes = get_recipes(game)?;
-    let mut recipes = recipes.iter().map(|(k, v)| k).cloned().collect::<Vec<_>>();
-    recipes.sort();
-    let recipe_prototypes = &game.recipe_prototypes;
-
-    println!("{}", recipes.len());
-    println!("{}", recipe_prototypes.len());
-    println!("{}", recipes.join("\n"));
-
-    Some(())
-}
-
-// https://wiki.factorio.com/Materials_and_recipes
-fn get_recipes(game: &LuaGameScript) -> Option<&HashMap<String, MaybeCycle<LuaRecipe>>> {
-    Some(
-        &game
-            .forces
-            .get(&api::LuaGameScriptForces::String("player".to_owned()))?
-            .as_value()?
-            .recipes,
-    )
 }
 
 // https://developer.valvesoftware.com/wiki/Source_RCON_Protocol
@@ -211,7 +117,7 @@ fn remote_console() -> Result<()> {
     Ok(())
 }
 
-fn listen_to_events(console: &mut RemoteConsole, runtime: &mut Runtime) -> Result<()> {
+fn listen_to_events(console: &mut RemoteConsole, runtime: &mut RuntimeStage) -> Result<()> {
     let paths = fs::read_dir("output/events")?;
     let mut index = paths.count();
     loop {
@@ -222,7 +128,7 @@ fn listen_to_events(console: &mut RemoteConsole, runtime: &mut Runtime) -> Resul
         if !response.is_empty() {
             let events: Vec<_> = response.split("\n\n").collect();
             for event in events {
-                let result = parse_factorio_type(event, runtime);
+                let result = runtime.add_factorio_type(event);
                 if let Err(e) = result {
                     println!("{index}.json: {e}");
                     let filename = PathBuf::from(&format!("output/events/{index}.json"));
