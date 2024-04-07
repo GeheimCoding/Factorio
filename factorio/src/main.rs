@@ -37,15 +37,18 @@ fn main() -> Result<()> {
     let mut runtime_stage = RuntimeStage::new();
 
     let recipe_prototypes = parse_recipe_prototypes_by_category(prototype_stage.recipes());
-    println!("{}", recipe_prototypes.len());
+    //println!("{recipe_prototypes:#?}");
+
+    let content = fs::read_to_string("output/game.json")?;
+    runtime_stage.add_factorio_type(&content)?;
+    let mut recipes = parse_recipes_by_category(&runtime_stage).context("recipes")?;
+    recipes.remove("basic-crafting");
+    //println!("{recipes:#?}");
+
+    println!("{}", recipe_prototypes == recipes);
 
     // remote_console()?;
     // parse_recipes(&mut lua_objects).context("parse_recipes")?;
-
-    // let content = fs::read_to_string("output/game.json")?;
-    // runtime.add_factorio_type(&content)?;
-    // let recipes = parse_recipes_by_category(&runtime).context("recipes")?;
-    // println!("{recipes:#?}");
 
     // use_lua_object("65", runtime.lua_objects()).context("use_lua_object")?;
     // println!("{}", runtime.factorio_types().len());
@@ -62,37 +65,41 @@ fn parse_prototype_stage() -> Result<PrototypeStage> {
     Ok(PrototypeStage::from_str(&content)?)
 }
 
-fn parse_recipe_prototypes_by_category(recipes: &Vec<Recipe>) -> HashMap<String, Vec<Recipe>> {
+fn parse_recipe_prototypes_by_category(
+    recipes: &Vec<Recipe>,
+) -> HashMap<String, HashMap<String, Recipe>> {
     let mut recipes_by_category = recipes
         .iter()
-        .map(|recipe| (recipe.category.clone(), vec![]))
+        .map(|recipe| (recipe.category.clone(), HashMap::new()))
         .collect::<HashMap<_, _>>();
     recipes.iter().for_each(|recipe| {
         recipes_by_category
             .get_mut(&recipe.category)
             .unwrap()
             // TODO: remove clone / move to prototype stage?
-            .push(recipe.clone())
+            .insert(recipe.name.clone(), recipe.clone());
     });
     recipes_by_category
 }
 
-fn parse_recipes_by_category(runtime: &RuntimeStage) -> Option<HashMap<String, Vec<Recipe>>> {
-    let game = runtime.factorio_types()[0]
+fn parse_recipes_by_category(
+    runtime_stage: &RuntimeStage,
+) -> Option<HashMap<String, HashMap<String, Recipe>>> {
+    let game = runtime_stage.factorio_types()[0]
         .as_class()?
         .as_lua_game_script()?;
 
     let mut recipes_by_category = game
         .recipe_category_prototypes
         .iter()
-        .map(|(name, _)| (name.clone(), vec![]))
+        .map(|(name, _)| (name.clone(), HashMap::new()))
         .collect::<HashMap<_, _>>();
 
     for (name, recipe) in &game.recipe_prototypes {
-        let recipe = recipe.resolve(runtime.lua_objects())?;
+        let recipe = map_recipe(recipe.resolve(runtime_stage.lua_objects())?);
         recipes_by_category
             .get_mut(&recipe.category)?
-            .push(map_recipe(recipe));
+            .insert(recipe.name.clone(), recipe);
     }
     Some(recipes_by_category)
 }
@@ -117,7 +124,7 @@ fn remote_console() -> Result<()> {
     Ok(())
 }
 
-fn listen_to_events(console: &mut RemoteConsole, runtime: &mut RuntimeStage) -> Result<()> {
+fn listen_to_events(console: &mut RemoteConsole, runtime_stage: &mut RuntimeStage) -> Result<()> {
     let paths = fs::read_dir("output/events")?;
     let mut index = paths.count();
     loop {
@@ -128,7 +135,7 @@ fn listen_to_events(console: &mut RemoteConsole, runtime: &mut RuntimeStage) -> 
         if !response.is_empty() {
             let events: Vec<_> = response.split("\n\n").collect();
             for event in events {
-                let result = runtime.add_factorio_type(event);
+                let result = runtime_stage.add_factorio_type(event);
                 if let Err(e) = result {
                     println!("{index}.json: {e}");
                     let filename = PathBuf::from(&format!("output/events/{index}.json"));

@@ -16,7 +16,11 @@ impl FromStr for PrototypeStage {
     fn from_str(s: &str) -> Result<Self, Self::Err> {
         let prototypes = parse_prototypes(s)?;
         Ok(PrototypeStage {
-            recipes: vec![],
+            recipes: prototypes
+                .iter()
+                .filter(|recipe| recipe.as_recipe_prototype().is_some())
+                .map(|recipe| map_recipe_prototype(recipe.as_recipe_prototype().unwrap()))
+                .collect(),
             prototypes,
         })
     }

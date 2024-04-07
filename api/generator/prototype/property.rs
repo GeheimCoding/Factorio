@@ -99,7 +99,7 @@ impl Generate for Property {
         if prefix == "CraftingMachinePrototype" && self.name == "fluid_boxes" {
             unions.push(format!(
                 "
-                #[derive(Debug, Deserialize, EnumAsInner, Traversable)]
+                #[derive(Clone, Debug, Deserialize, EnumAsInner, Traversable)]
                 #[serde(untagged)]
                 pub enum CraftingMachinePrototypeFluidBoxes {{
                     Vec(Vec<CraftingMachinePrototypeFluidBoxesValue>),
@@ -109,7 +109,7 @@ impl Generate for Property {
             ));
             unions.push(format!(
                 "
-                #[derive(Debug, Deserialize, EnumAsInner, Traversable)]
+                #[derive(Clone, Debug, Deserialize, EnumAsInner, Traversable)]
                 #[serde(untagged)]
                 pub enum CraftingMachinePrototypeFluidBoxesValue {{
                     FluidBox(FluidBox),
@@ -121,7 +121,7 @@ impl Generate for Property {
         } else if prefix == "HeatConnection" && self.name == "direction" {
             unions.push(format!(
                 "
-                #[derive(Debug, Deserialize, EnumAsInner, Traversable)]
+                #[derive(Clone, Debug, Deserialize, EnumAsInner, Traversable)]
                 #[serde(untagged)]
                 pub enum HeatConnectionDirection {{
                     Direction(Direction),
@@ -133,7 +133,7 @@ impl Generate for Property {
         } else if prefix == "BaseAttackParameters" && self.name == "sound" {
             unions.push(format!(
                 "
-                #[derive(Debug, Deserialize, EnumAsInner, Traversable)]
+                #[derive(Clone, Debug, Deserialize, EnumAsInner, Traversable)]
                 #[serde(untagged)]
                 pub enum BaseAttackParametersSound {{
                     LayeredSound(LayeredSound),
@@ -145,7 +145,7 @@ impl Generate for Property {
         } else if prefix == "ItemWithInventoryPrototype" && self.name == "inventory_size" {
             unions.push(format!(
                 "
-                #[derive(Debug, Deserialize, EnumAsInner, Traversable)]
+                #[derive(Clone, Debug, Deserialize, EnumAsInner, Traversable)]
                 #[serde(untagged)]
                 pub enum ItemWithInventoryPrototypeInventorySize {{
                     ItemStackIndex(ItemStackIndex),
@@ -157,7 +157,7 @@ impl Generate for Property {
         } else if prefix == "EntityPrototype" && self.name == "selection_box" {
             unions.push(format!(
                 "
-                #[derive(Debug, Deserialize, EnumAsInner, Traversable)]
+                #[derive(Clone, Debug, Deserialize, EnumAsInner, Traversable)]
                 #[serde(untagged)]
                 pub enum EntityPrototypeBoundingBox {{
                     BoundingBox(BoundingBox),

@@ -211,18 +211,18 @@ enum Macro {
 impl Display for Macro {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let str = match self {
-            Macro::DebugDeserialize => "#[derive(Debug, Deserialize, Traversable)]".to_owned(),
+            Macro::DebugDeserialize => "#[derive(Clone, Debug, Deserialize, Traversable)]".to_owned(),
             Macro::DebugDeserializeEnumAsInner => {
-                "#[derive(Debug, Deserialize, EnumAsInner, Traversable)]".to_owned()
+                "#[derive(Clone, Debug, Deserialize, EnumAsInner, Traversable)]".to_owned()
             }
             Macro::DebugDeserializeRepr => {
-                "#[derive(Debug, Deserialize_repr, EnumAsInner, Traversable)]".to_owned()
+                "#[derive(Clone, Debug, Deserialize_repr, EnumAsInner, Traversable)]".to_owned()
             }
             Macro::RenameSnakeCase => "#[serde(rename_all = \"snake_case\")]".to_owned(),
             Macro::TagSerdeType => "#[serde(tag = \"serde_type\")]".to_owned(),
             Macro::TagSerdeTag => "#[serde(tag = \"serde_tag\")]".to_owned(),
             Macro::Hash => {
-                "#[derive(Debug, Deserialize, EnumAsInner, Eq, PartialEq, Hash, Traversable)]"
+                "#[derive(Clone, Debug, Deserialize, EnumAsInner, Eq, PartialEq, Hash, Traversable)]"
                     .to_owned()
             }
             Macro::SerdeUntagged => "#[serde(untagged)]".to_owned(),
@@ -479,7 +479,7 @@ pub fn generate_mod(mod_path: &str) -> io::Result<()> {
         use std::collections::HashMap;
         use std::fmt::Debug;
 
-        #[derive(Debug, Deserialize, EnumAsInner)]
+        #[derive(Clone, Debug, Deserialize, EnumAsInner)]
         #[serde(untagged)]
         pub enum MaybeCycle<T: LuaObject> {
             Cycle { cycle_id: String },
@@ -504,7 +504,7 @@ pub fn generate_mod(mod_path: &str) -> io::Result<()> {
             }
         }
 
-        #[derive(Debug, Deserialize, EnumAsInner)]
+        #[derive(Clone, Debug, Deserialize, EnumAsInner)]
         #[serde(untagged)]
         pub enum TypeOrEmptyMap<T> {
             Type(T),
@@ -520,7 +520,7 @@ pub fn generate_mod(mod_path: &str) -> io::Result<()> {
             }
         }
 
-        #[derive(Debug, Deserialize, EnumAsInner)]
+        #[derive(Clone, Debug, Deserialize, EnumAsInner)]
         #[serde(untagged)]
         pub enum FloatingPoint<T>
         {
