@@ -161,10 +161,12 @@ impl RuntimeApiFormat {
             generate_macros(vec![Macro::DebugDeserializeEnumAsInner, Macro::TagSerdeTag]);
         result.push_str("pub enum Class {\n");
         for class in &self.classes {
-            result.push_str(&format!(
-                "    {}(super::classes::{}),\n",
-                class.name, class.name
-            ));
+            if !class.abstract_ {
+                result.push_str(&format!(
+                    "    {}(super::classes::{}),\n",
+                    class.name, class.name
+                ));
+            }
         }
         result.push_str(&format!(
             "}}\n\n{}pub enum Concept {{\n",

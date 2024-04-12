@@ -29,7 +29,7 @@ pub struct Concept {
     parent: Option<String>,
     /// Whether the type is abstract, and thus can't be created directly.
     #[serde(rename = "abstract")]
-    abstract_: bool,
+    pub abstract_: bool,
     /// Whether the type is inlined inside another property's description.
     inline: bool,
     /// The type of the type/concept (Yes, this naming is confusing). Either a proper [Type](https://lua-api.factorio.com/1.1.101/auxiliary/json-docs-prototype.html#Type), or the string `"builtin"`, indicating a fundamental type like `string` or `number`.

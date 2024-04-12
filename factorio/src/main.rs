@@ -29,9 +29,8 @@ use remote_console::RemoteConsole;
 mod prototype;
 mod runtime;
 
-// TODO: prevent doc string errors
-// TODO: hide abstract classes from factorio_types
 // TODO: add flattened map to FactorioType and warn if this has some entries after deserialization?
+// TODO: try to split into more libs to decrease build time
 fn main() -> Result<()> {
     let prototype_stage = parse_prototype_stage()?;
     let mut runtime_stage = RuntimeStage::new();

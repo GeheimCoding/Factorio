@@ -28,7 +28,7 @@ pub struct Prototype {
     parent: Option<String>,
     /// Whether the prototype is abstract, and thus can't be created directly.
     #[serde(rename = "abstract")]
-    abstract_: bool,
+    pub abstract_: bool,
     /// The type name of the prototype, like `"boiler"`. `null` for abstract prototypes.
     typename: Option<String>,
     /// instance_limit :: number (optional): The maximum number of instances of this prototype that can be created, if any.

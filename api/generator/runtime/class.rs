@@ -27,7 +27,7 @@ pub struct Class {
     operators: Vec<Operator>,
     /// Whether the class is never itself instantiated, only inherited from.
     #[serde(rename = "abstract")]
-    abstract_: bool,
+    pub abstract_: bool,
     /// A list of the names of the classes that his class inherits from.
     base_classes: Option<Vec<String>>,
 }

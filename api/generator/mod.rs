@@ -112,6 +112,7 @@ impl StringTransformation for String {
 
     fn to_doc_string(&self, indent: &str) -> String {
         self.replace('\n', &format!("\n{indent}/// "))
+            .replace("```", "```text")
     }
 }
 

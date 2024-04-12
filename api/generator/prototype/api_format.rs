@@ -102,17 +102,19 @@ impl PrototypeApiFormat {
         ]);
         result.push_str("pub enum Prototype {\n");
         for proto in &self.prototypes {
-            result.push_str(&format!(
-                "    {}(super::prototypes::{}),\n",
-                proto.name, proto.name
-            ));
+            if !proto.abstract_ {
+                result.push_str(&format!(
+                    "    {}(super::prototypes::{}),\n",
+                    proto.name, proto.name
+                ));
+            }
         }
         result.push_str(&format!(
             "}}\n\n{}pub enum Type {{\n",
             generate_macros(vec![Macro::DebugDeserializeEnumAsInner, Macro::TagSerdeTag,])
         ));
         for concept in &self.types {
-            if concept.name.chars().next().unwrap().is_uppercase() {
+            if !concept.abstract_ && concept.name.chars().next().unwrap().is_uppercase() {
                 result.push_str(&format!(
                     "    {}(super::types::{}),\n",
                     concept.name, concept.name
