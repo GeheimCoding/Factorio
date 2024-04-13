@@ -1,12 +1,16 @@
 mod recipe;
 
-use api::Prototype;
+use api::{CraftingMachinePrototype, FactorioType, Prototype};
 pub use recipe::*;
+use std::collections::HashMap;
+use std::hash::Hash;
 use std::ops::Add;
 use std::str::FromStr;
 
 pub struct PrototypeStage {
-    recipes: Vec<Recipe>,
+    recipes: HashMap<String, Recipe>,
+    // TODO: reference prototypes? similar to runtime stage
+    crafting_machines: HashMap<String, Prototype>,
     prototypes: Vec<Prototype>,
 }
 
@@ -16,23 +20,29 @@ impl FromStr for PrototypeStage {
     fn from_str(s: &str) -> Result<Self, Self::Err> {
         let prototypes = parse_prototypes(s)?;
         Ok(PrototypeStage {
-            recipes: prototypes
-                .iter()
-                .filter(|recipe| recipe.as_recipe_prototype().is_some())
-                .map(|recipe| map_recipe_prototype(recipe.as_recipe_prototype().unwrap()))
-                .collect(),
+            recipes: map_recipes(&prototypes),
+            crafting_machines: map_crafting_machines(&prototypes),
             prototypes,
         })
     }
 }
 
 impl PrototypeStage {
-    pub fn recipes(&self) -> &Vec<Recipe> {
+    pub fn recipes(&self) -> &HashMap<String, Recipe> {
         &self.recipes
     }
 
     pub fn prototypes(&self) -> &Vec<Prototype> {
         &self.prototypes
+    }
+
+    pub fn crafting_machines(&self) -> &HashMap<String, Prototype> {
+        &self.crafting_machines
+    }
+
+    // TODO: put into own file
+    pub fn to_crafting_machine_prototype(&self, name: &str) -> Option<&CraftingMachinePrototype> {
+        to_crafting_machine_prototype(self.crafting_machines.get(name)?)
     }
 }
 
@@ -110,4 +120,49 @@ fn get_tag(tag: &str) -> String {
     } else {
         tag
     }
+}
+
+fn map_recipes(prototypes: &Vec<Prototype>) -> HashMap<String, Recipe> {
+    prototypes
+        .iter()
+        .filter(|prototype| prototype.as_recipe_prototype().is_some())
+        .map(|recipe| {
+            let recipe = map_recipe(recipe.as_recipe_prototype().unwrap());
+            (recipe.name.clone(), recipe)
+        })
+        .collect()
+}
+
+fn map_crafting_machines(prototypes: &Vec<Prototype>) -> HashMap<String, Prototype> {
+    prototypes
+        .iter()
+        .filter(|prototype| match prototype {
+            Prototype::AssemblingMachinePrototype(_)
+            | Prototype::RocketSiloPrototype(_)
+            | Prototype::FurnacePrototype(_) => true,
+            _ => false,
+        })
+        .map(|crafting_machine| {
+            (
+                to_crafting_machine_prototype(crafting_machine)
+                    .unwrap()
+                    .parent_
+                    .parent_
+                    .parent_
+                    .parent_
+                    .name
+                    .clone(),
+                crafting_machine.clone(),
+            )
+        })
+        .collect()
+}
+
+fn to_crafting_machine_prototype(prototype: &Prototype) -> Option<&CraftingMachinePrototype> {
+    Some(match prototype {
+        Prototype::AssemblingMachinePrototype(assembling_machine) => &assembling_machine.parent_,
+        Prototype::RocketSiloPrototype(rocket_silo) => &rocket_silo.parent_.parent_,
+        Prototype::FurnacePrototype(furnace) => &furnace.parent_,
+        _ => return None,
+    })
 }

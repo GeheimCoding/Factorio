@@ -29,78 +29,47 @@ use remote_console::RemoteConsole;
 mod prototype;
 mod runtime;
 
-// TODO: add flattened map to FactorioType and warn if this has some entries after deserialization?
 // TODO: try to split into more libs to decrease build time
+// TODO: add flattened map to FactorioType and warn if this has some entries after deserialization?
 fn main() -> Result<()> {
     let prototype_stage = parse_prototype_stage()?;
-    let mut runtime_stage = RuntimeStage::new();
+    let recipes = parse_recipes_by_category(prototype_stage.recipes());
 
-    let recipe_prototypes = parse_recipe_prototypes_by_category(prototype_stage.recipes());
-    //println!("{recipe_prototypes:#?}");
+    println!("{:?}", prototype_stage.crafting_machines().keys());
+    println!("{:?}", prototype_stage.recipes().get("oil-refinery"));
 
-    let content = fs::read_to_string("output/game.json")?;
-    runtime_stage.add_factorio_type(&content)?;
-    let mut recipes = parse_recipes_by_category(&runtime_stage).context("recipes")?;
-    recipes.remove("basic-crafting");
-    //println!("{recipes:#?}");
-
-    println!("{}", recipe_prototypes == recipes);
+    // let mut runtime_stage = RuntimeStage::new();
+    // let game = fs::read_to_string("output/game.json")?;
+    // runtime_stage.add_factorio_type(&game)?;
 
     // remote_console()?;
-    // parse_recipes(&mut lua_objects).context("parse_recipes")?;
-
-    // use_lua_object("65", runtime.lua_objects()).context("use_lua_object")?;
-    // println!("{}", runtime.factorio_types().len());
-
     Ok(())
 }
 
 fn parse_prototype_stage() -> Result<PrototypeStage> {
     let mut archive = ZipArchive::new(File::open("api/json/data-raw-dump-v1.1.101.zip")?)?;
     let mut file = ZipArchive::by_name(&mut archive, "data-raw-dump.json")?;
-    let mut content = String::new();
+    let mut data = String::new();
 
-    file.read_to_string(&mut content)?;
-    Ok(PrototypeStage::from_str(&content)?)
+    file.read_to_string(&mut data)?;
+    Ok(PrototypeStage::from_str(&data)?)
 }
 
-fn parse_recipe_prototypes_by_category(
-    recipes: &Vec<Recipe>,
+fn parse_recipes_by_category(
+    recipes: &HashMap<String, Recipe>,
 ) -> HashMap<String, HashMap<String, Recipe>> {
     let mut recipes_by_category = recipes
         .iter()
-        .map(|recipe| (recipe.category.clone(), HashMap::new()))
+        .map(|(_, recipe)| (recipe.category.clone(), HashMap::new()))
         .collect::<HashMap<_, _>>();
-    recipes.iter().for_each(|recipe| {
+    recipes.iter().for_each(|(name, recipe)| {
         recipes_by_category
             .get_mut(&recipe.category)
             .unwrap()
             // TODO: remove clone / move to prototype stage?
-            .insert(recipe.name.clone(), recipe.clone());
+            .insert(name.clone(), recipe.clone());
     });
     recipes_by_category
-}
-
-fn parse_recipes_by_category(
-    runtime_stage: &RuntimeStage,
-) -> Option<HashMap<String, HashMap<String, Recipe>>> {
-    let game = runtime_stage.factorio_types()[0]
-        .as_class()?
-        .as_lua_game_script()?;
-
-    let mut recipes_by_category = game
-        .recipe_category_prototypes
-        .iter()
-        .map(|(name, _)| (name.clone(), HashMap::new()))
-        .collect::<HashMap<_, _>>();
-
-    for (name, recipe) in &game.recipe_prototypes {
-        let recipe = map_recipe(recipe.resolve(runtime_stage.lua_objects())?);
-        recipes_by_category
-            .get_mut(&recipe.category)?
-            .insert(recipe.name.clone(), recipe);
-    }
-    Some(recipes_by_category)
 }
 
 // https://developer.valvesoftware.com/wiki/Source_RCON_Protocol
@@ -115,10 +84,10 @@ fn remote_console() -> Result<()> {
             rcon.print(Json.to_string(game))
         ",
         )?;
-        //listen_to_events(&mut console)?;
+        // listen_to_events(&mut console)?;
         println!("{response}");
-        //let game = parse_factorio_type(&response)?;
-        //println!("{game:#?}");
+        // let game = parse_factorio_type(&response)?;
+        // println!("{game:#?}");
     }
     Ok(())
 }

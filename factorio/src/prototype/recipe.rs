@@ -37,58 +37,7 @@ pub struct Recipe {
     pub products: HashMap<String, Product>,
 }
 
-pub fn map_recipe(recipe: &LuaRecipePrototype) -> Recipe {
-    Recipe {
-        name: recipe.name.clone(),
-        category: recipe.category.clone(),
-        ingredients: recipe
-            .ingredients
-            .iter()
-            .map(|ingredient| {
-                (
-                    ingredient.name.clone(),
-                    Ingredient {
-                        name: ingredient.name.clone(),
-                        amount: *ingredient.amount.as_value().unwrap(),
-                        type_: if ingredient.type_ == "item" {
-                            Type::Item
-                        } else {
-                            Type::Fluid
-                        },
-                    },
-                )
-            })
-            .collect(),
-        energy: *recipe.energy.as_value().unwrap(),
-        products: recipe
-            .products
-            .iter()
-            .map(|product| {
-                (
-                    product.name.clone(),
-                    Product {
-                        name: product.name.clone(),
-                        amount: product
-                            .amount
-                            .as_ref()
-                            .map_or(1.0, |amount| *amount.as_value().unwrap()),
-                        probability: product
-                            .probability
-                            .as_ref()
-                            .map_or(1.0, |amount| *amount.as_value().unwrap()),
-                        type_: if product.type_ == "item" {
-                            Type::Item
-                        } else {
-                            Type::Fluid
-                        },
-                    },
-                )
-            })
-            .collect(),
-    }
-}
-
-pub fn map_recipe_prototype(recipe: &RecipePrototype) -> Recipe {
+pub fn map_recipe(recipe: &RecipePrototype) -> Recipe {
     let recipe_data =
         if let Some(RecipePrototypeNormal::RecipeData(recipe_data)) = recipe.normal.clone() {
             recipe_data
