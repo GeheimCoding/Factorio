@@ -1,3 +1,4 @@
+mod crafting_machine;
 mod recipe;
 
 use api::{CraftingMachinePrototype, FactorioType, Prototype};
@@ -136,12 +137,8 @@ fn map_recipes(prototypes: &Vec<Prototype>) -> HashMap<String, Recipe> {
 fn map_crafting_machines(prototypes: &Vec<Prototype>) -> HashMap<String, Prototype> {
     prototypes
         .iter()
-        .filter(|prototype| match prototype {
-            Prototype::AssemblingMachinePrototype(_)
-            | Prototype::RocketSiloPrototype(_)
-            | Prototype::FurnacePrototype(_) => true,
-            _ => false,
-        })
+        // TODO: use map of option to map further
+        .filter(|prototype| to_crafting_machine_prototype(prototype).is_some())
         .map(|crafting_machine| {
             (
                 to_crafting_machine_prototype(crafting_machine)

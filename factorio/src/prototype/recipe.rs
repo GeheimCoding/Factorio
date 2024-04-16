@@ -1,8 +1,8 @@
 use api::VehiclePrototypeBrakingPower::Double;
 use api::{
     FloatingPoint, IngredientPrototype, ItemIngredientPrototype, ItemProductPrototype,
-    LuaRecipePrototype, ProductAmountMax, ProductAmountMin, ProductPrototype, RecipeData,
-    RecipePrototype, RecipePrototypeNormal,
+    LuaRecipePrototype, ProductAmountMax, ProductAmountMin, ProductPrototype, Prototype,
+    RecipeData, RecipePrototype, RecipePrototypeNormal,
 };
 use std::collections::{HashMap, HashSet};
 
@@ -35,7 +35,26 @@ pub struct Recipe {
     pub ingredients: HashMap<String, Ingredient>,
     pub energy: f64,
     pub products: HashMap<String, Product>,
+    pub crafting_machines: HashSet<String>,
 }
+
+pub type RecipesByName = HashMap<String, Recipe>;
+
+#[derive(Debug)]
+pub struct Recipes {
+    pub by_name: RecipesByName,
+    pub by_category: HashMap<String, RecipesByName>,
+    pub by_ingredient: HashMap<String, RecipesByName>,
+    pub by_product: HashMap<String, RecipesByName>,
+    pub by_crafting_machine: HashMap<String, RecipesByName>,
+}
+
+// TODO: impl from instead of map?
+// impl From<&(Vec<Prototype> /* TODO: pass crafting machines here */,)> for Recipes {
+//     fn from(value: &Vec<Prototype>) -> Self {
+//         todo!()
+//     }
+// }
 
 pub fn map_recipe(recipe: &RecipePrototype) -> Recipe {
     let recipe_data =
@@ -73,6 +92,7 @@ pub fn map_recipe(recipe: &RecipePrototype) -> Recipe {
             .clone()
             .map_or(0.5, |double| *double.as_value().unwrap()),
         products,
+        crafting_machines: HashSet::new(),
     }
 }
 
