@@ -1,5 +1,6 @@
 mod crafting_machine;
 mod recipe;
+mod resource;
 
 use api::{CraftingMachinePrototype, FactorioType, Prototype};
 pub use recipe::*;
