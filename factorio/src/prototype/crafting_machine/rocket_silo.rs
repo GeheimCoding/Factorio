@@ -1,7 +1,7 @@
 use crate::prototype::crafting_machine::assembling_machine::AssemblingMachineData;
 use api::RocketSiloPrototype;
 
-#[derive(Debug)]
+#[derive(Clone, Debug)]
 pub struct RocketSiloData {
     pub parent: AssemblingMachineData,
     // TODO: extend

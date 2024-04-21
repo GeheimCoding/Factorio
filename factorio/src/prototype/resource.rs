@@ -1,3 +1,4 @@
+use crate::{group_by_field, map_by_name};
 use api::{Prototype, ResourceEntityPrototype};
 use itertools::Itertools;
 use std::collections::HashMap;
@@ -37,23 +38,10 @@ impl From<&Vec<Prototype>> for Resources {
             .iter()
             .filter_map(|prototype| prototype.as_resource_entity_prototype())
             .map(Resource::from)
-            .collect();
+            .collect::<Vec<_>>();
         Self {
-            by_name: map_by_name(&resources),
-            by_category: resources
-                .iter()
-                .group_by(|resource| resource.category.clone())
-                .into_iter()
-                .map(|(category, resources)| (category, map_by_name(&resources.cloned().collect())))
-                .collect(),
+            by_name: map_by_name!(resources),
+            by_category: group_by_field!(resources, category),
         }
     }
-}
-
-// TODO: make generic (impl Iter)
-fn map_by_name(resources: &Vec<Resource>) -> ResourcesByName {
-    resources
-        .iter()
-        .map(|resource| (resource.name.clone(), resource.clone()))
-        .collect()
 }

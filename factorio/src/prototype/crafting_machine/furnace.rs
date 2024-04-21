@@ -1,6 +1,6 @@
 use api::FurnacePrototype;
 
-#[derive(Debug)]
+#[derive(Clone, Debug)]
 pub struct FurnaceData {
     pub result_inventory_size: u16,
     pub source_inventory_size: u16,

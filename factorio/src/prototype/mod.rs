@@ -1,5 +1,8 @@
 mod crafting_machine;
+mod fluid;
+mod item;
 mod recipe;
+
 mod resource;
 
 use api::{CraftingMachinePrototype, FactorioType, Prototype};
@@ -16,6 +19,28 @@ pub struct PrototypeStage {
     // TODO: reference prototypes? similar to runtime stage
     crafting_machines: HashMap<String, Prototype>,
     prototypes: Vec<Prototype>,
+}
+
+pub struct InvalidPrototype;
+
+#[macro_export]
+macro_rules! map_by_name {
+    ($e:expr) => {
+        $e.iter()
+            .map(|value| (value.name.clone(), value.clone()))
+            .collect()
+    };
+}
+
+#[macro_export]
+macro_rules! group_by_field {
+    ($e:expr, $f:ident) => {
+        $e.iter()
+            .group_by(|value| value.$f.clone())
+            .into_iter()
+            .map(|(field, values)| (field, map_by_name!(&values.cloned().collect::<Vec<_>>())))
+            .collect()
+    };
 }
 
 impl FromStr for PrototypeStage {

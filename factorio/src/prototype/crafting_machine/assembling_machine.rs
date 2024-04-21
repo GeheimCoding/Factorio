@@ -1,6 +1,6 @@
 use api::AssemblingMachinePrototype;
 
-#[derive(Debug)]
+#[derive(Clone, Debug)]
 pub struct AssemblingMachineData {
     pub ingredient_count: u8,
 }

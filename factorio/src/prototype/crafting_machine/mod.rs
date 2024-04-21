@@ -5,20 +5,23 @@ mod rocket_silo;
 use crate::prototype::crafting_machine::assembling_machine::AssemblingMachineData;
 use crate::prototype::crafting_machine::furnace::FurnaceData;
 use crate::prototype::crafting_machine::rocket_silo::RocketSiloData;
+use crate::prototype::InvalidPrototype;
+use crate::{group_by_field, map_by_name};
 use api::{
     AssemblingMachinePrototype, CraftingMachinePrototype, FurnacePrototype, Prototype,
     RocketSiloPrototype,
 };
+use itertools::Itertools;
 use std::collections::{HashMap, HashSet};
 
-#[derive(Debug)]
+#[derive(Clone, Debug)]
 pub enum CraftingMachineVariant {
     AssemblingMachine(AssemblingMachineData),
     Furnace(FurnaceData),
     RocketSilo(RocketSiloData),
 }
 
-#[derive(Debug)]
+#[derive(Clone, Debug)]
 pub struct CraftingMachine {
     pub name: String,
     pub categories: HashSet<String>,
@@ -31,7 +34,7 @@ pub type CraftingMachinesByName = HashMap<String, CraftingMachine>;
 #[derive(Debug)]
 pub struct CraftingMachines {
     pub by_name: CraftingMachinesByName,
-    pub by_category: HashSet<String, CraftingMachinesByName>,
+    pub by_category: HashMap<String, CraftingMachinesByName>,
 }
 
 impl From<(&CraftingMachinePrototype, CraftingMachineVariant)> for CraftingMachine {
@@ -53,8 +56,6 @@ impl From<(&CraftingMachinePrototype, CraftingMachineVariant)> for CraftingMachi
     }
 }
 
-pub struct InvalidPrototype;
-
 impl TryFrom<&Prototype> for CraftingMachine {
     type Error = InvalidPrototype;
 
@@ -75,5 +76,36 @@ impl TryFrom<&Prototype> for CraftingMachine {
             }
             .into(),
         )
+    }
+}
+
+impl From<&Vec<Prototype>> for CraftingMachines {
+    fn from(prototypes: &Vec<Prototype>) -> Self {
+        let crafting_machines = prototypes
+            .iter()
+            .filter_map(|prototype| prototype.try_into().ok())
+            .collect::<Vec<CraftingMachine>>();
+        let categories = crafting_machines
+            .iter()
+            .flat_map(|crafting_machine| crafting_machine.categories.clone())
+            .collect::<HashSet<_>>();
+        Self {
+            by_name: map_by_name!(crafting_machines),
+            by_category: categories
+                .iter()
+                .map(|category| {
+                    (
+                        category.clone(),
+                        map_by_name!(crafting_machines
+                            .iter()
+                            .filter(|crafting_machine| {
+                                crafting_machine.categories.contains(category)
+                            })
+                            .cloned()
+                            .collect::<Vec<_>>()),
+                    )
+                })
+                .collect(),
+        }
     }
 }
