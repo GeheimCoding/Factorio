@@ -2,7 +2,6 @@ mod crafting_machine;
 mod fluid;
 mod item;
 mod recipe;
-
 mod resource;
 
 use api::{CraftingMachinePrototype, FactorioType, Prototype};
@@ -26,6 +25,7 @@ pub struct InvalidPrototype;
 #[macro_export]
 macro_rules! map_by_name {
     ($e:expr) => {
+        // TODO: put collect in here?
         $e.iter()
             .map(|value| (value.name.clone(), value.clone()))
             .collect()
@@ -39,6 +39,25 @@ macro_rules! group_by_field {
             .group_by(|value| value.$f.clone())
             .into_iter()
             .map(|(field, values)| (field, map_by_name!(&values.cloned().collect::<Vec<_>>())))
+            .collect()
+    };
+}
+
+// TODO: find better name
+#[macro_export]
+macro_rules! group_by_field_in_set {
+    ($e:expr, $f:ident, $s:expr) => {
+        $s.iter()
+            .map(|s_value| {
+                (
+                    s_value.clone(),
+                    map_by_name!($e
+                        .iter()
+                        .filter(|e_value| { e_value.$f.contains(s_value) })
+                        .cloned()
+                        .collect::<Vec<_>>()),
+                )
+            })
             .collect()
     };
 }
@@ -156,8 +175,9 @@ fn map_recipes(prototypes: &Vec<Prototype>) -> HashMap<String, Recipe> {
         .iter()
         .filter(|prototype| prototype.as_recipe_prototype().is_some())
         .map(|recipe| {
-            let recipe = map_recipe(recipe.as_recipe_prototype().unwrap());
-            (recipe.name.clone(), recipe)
+            // let recipe = recipe.as_recipe_prototype().unwrap().into();
+            // (recipe.name.clone(), recipe)
+            todo!()
         })
         .collect()
 }

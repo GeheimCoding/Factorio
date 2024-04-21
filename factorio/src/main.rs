@@ -15,7 +15,7 @@ use anyhow::{Context, Result};
 use serde_json::Number;
 use zip::ZipArchive;
 
-use crate::prototype::{map_recipe, PrototypeStage, Recipe, Resources};
+use crate::prototype::{PrototypeStage, Recipe, Resources};
 use crate::runtime::{LuaObjects, RuntimeStage};
 use api::{
     parse_factorio_type, Animation4Way, FactorioType, GunPrototype, ItemIngredientPrototype,
