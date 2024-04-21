@@ -15,7 +15,7 @@ use anyhow::{Context, Result};
 use serde_json::Number;
 use zip::ZipArchive;
 
-use crate::prototype::{map_recipe, PrototypeStage, Recipe};
+use crate::prototype::{map_recipe, PrototypeStage, Recipe, Resources};
 use crate::runtime::{LuaObjects, RuntimeStage};
 use api::{
     parse_factorio_type, Animation4Way, FactorioType, GunPrototype, ItemIngredientPrototype,
@@ -35,8 +35,8 @@ fn main() -> Result<()> {
     let prototype_stage = parse_prototype_stage()?;
     let recipes = parse_recipes_by_category(prototype_stage.recipes());
 
-    println!("{:?}", prototype_stage.crafting_machines().keys());
-    println!("{:?}", prototype_stage.recipes().get("oil-refinery"));
+    let resources: Resources = prototype_stage.prototypes().into();
+    println!("{resources:?}");
 
     // let mut runtime_stage = RuntimeStage::new();
     // let game = fs::read_to_string("output/game.json")?;

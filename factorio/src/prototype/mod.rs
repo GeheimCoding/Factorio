@@ -9,6 +9,8 @@ use std::hash::Hash;
 use std::ops::Add;
 use std::str::FromStr;
 
+pub use resource::*;
+
 pub struct PrototypeStage {
     recipes: HashMap<String, Recipe>,
     // TODO: reference prototypes? similar to runtime stage
