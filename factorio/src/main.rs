@@ -33,10 +33,9 @@ mod runtime;
 // TODO: add flattened map to FactorioType and warn if this has some entries after deserialization?
 fn main() -> Result<()> {
     let prototype_stage = parse_prototype_stage()?;
-    let recipes = parse_recipes_by_category(prototype_stage.recipes());
-
-    let resources: Resources = prototype_stage.prototypes().into();
-    println!("{resources:?}");
+    // println!("{:#?}", prototype_stage.crafting_machines());
+    // println!("{:#?}", prototype_stage.recipes());
+    // println!("{:#?}", prototype_stage.resources());
 
     // let mut runtime_stage = RuntimeStage::new();
     // let game = fs::read_to_string("output/game.json")?;
@@ -53,23 +52,6 @@ fn parse_prototype_stage() -> Result<PrototypeStage> {
 
     file.read_to_string(&mut data)?;
     Ok(PrototypeStage::from_str(&data)?)
-}
-
-fn parse_recipes_by_category(
-    recipes: &HashMap<String, Recipe>,
-) -> HashMap<String, HashMap<String, Recipe>> {
-    let mut recipes_by_category = recipes
-        .iter()
-        .map(|(_, recipe)| (recipe.category.clone(), HashMap::new()))
-        .collect::<HashMap<_, _>>();
-    recipes.iter().for_each(|(name, recipe)| {
-        recipes_by_category
-            .get_mut(&recipe.category)
-            .unwrap()
-            // TODO: remove clone / move to prototype stage?
-            .insert(name.clone(), recipe.clone());
-    });
-    recipes_by_category
 }
 
 // https://developer.valvesoftware.com/wiki/Source_RCON_Protocol
