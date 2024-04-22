@@ -12,10 +12,13 @@ use std::ops::Add;
 use std::str::FromStr;
 
 use crate::prototype::crafting_machine::CraftingMachines;
+use crate::prototype::item::Items;
 pub use resource::*;
 
+// TODO: map_by_variant?
 pub struct PrototypeStage {
     crafting_machines: CraftingMachines,
+    items: Items,
     recipes: Recipes,
     resources: Resources,
     prototypes: Vec<Prototype>,
@@ -79,10 +82,12 @@ impl FromStr for PrototypeStage {
     fn from_str(s: &str) -> Result<Self, Self::Err> {
         let prototypes = parse_prototypes(s)?;
         let crafting_machines = (&prototypes).into();
+        let items = (&prototypes).into();
         let recipes = (&prototypes, &crafting_machines).into();
         let resources = (&prototypes).into();
         Ok(PrototypeStage {
             crafting_machines,
+            items,
             recipes,
             resources,
             prototypes,
@@ -93,6 +98,10 @@ impl FromStr for PrototypeStage {
 impl PrototypeStage {
     pub fn crafting_machines(&self) -> &CraftingMachines {
         &self.crafting_machines
+    }
+
+    pub fn items(&self) -> &Items {
+        &self.items
     }
 
     pub fn recipes(&self) -> &Recipes {

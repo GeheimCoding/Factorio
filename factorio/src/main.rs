@@ -36,6 +36,7 @@ fn main() -> Result<()> {
     // println!("{:#?}", prototype_stage.crafting_machines());
     // println!("{:#?}", prototype_stage.recipes());
     // println!("{:#?}", prototype_stage.resources());
+    // println!("{:#?}", prototype_stage.items());
 
     // let mut runtime_stage = RuntimeStage::new();
     // let game = fs::read_to_string("output/game.json")?;
