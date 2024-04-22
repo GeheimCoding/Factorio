@@ -15,7 +15,7 @@ use anyhow::{Context, Result};
 use serde_json::Number;
 use zip::ZipArchive;
 
-use crate::prototype::{PrototypeStage, Recipe, Resources};
+use crate::prototype::{PrototypeStage, Recipe, Recipes, Resources};
 use crate::runtime::{LuaObjects, RuntimeStage};
 use api::{
     parse_factorio_type, Animation4Way, FactorioType, GunPrototype, ItemIngredientPrototype,
@@ -38,12 +38,55 @@ fn main() -> Result<()> {
     // println!("{:#?}", prototype_stage.resources());
     // println!("{:#?}", prototype_stage.items());
 
+    process_recipes(&prototype_stage);
+
     // let mut runtime_stage = RuntimeStage::new();
     // let game = fs::read_to_string("output/game.json")?;
     // runtime_stage.add_factorio_type(&game)?;
 
     // remote_console()?;
     Ok(())
+}
+
+// TODO: put into own file
+#[derive(Debug)]
+pub enum Source {
+    Recipe(String),
+    Resource(String),
+    Other,
+}
+
+fn process_recipes(prototype_stage: &PrototypeStage) {
+    let ingredients_and_products = prototype_stage
+        .recipes()
+        .by_name
+        .iter()
+        .flat_map(|(_, recipe)| {
+            let mut ingredients_and_products =
+                recipe.ingredients.keys().cloned().collect::<HashSet<_>>();
+            ingredients_and_products.extend(recipe.products.keys().cloned());
+            ingredients_and_products
+        })
+        .collect::<HashSet<_>>();
+
+    let sources = ingredients_and_products
+        .iter()
+        .map(|name| {
+            let mut sources = vec![];
+            if let Some(recipes) = prototype_stage.recipes().by_product.get(name) {
+                sources.extend(recipes.keys().map(|recipe| Source::Recipe(recipe.clone())));
+            }
+            if let Some(resource) = prototype_stage.resources().by_name.get(name) {
+                sources.push(Source::Resource(resource.name.clone()));
+            }
+            if sources.is_empty() {
+                sources.push(Source::Other);
+            }
+            (name.clone(), sources)
+        })
+        .collect::<HashMap<_, _>>();
+
+    println!("{sources:#?}");
 }
 
 fn parse_prototype_stage() -> Result<PrototypeStage> {
