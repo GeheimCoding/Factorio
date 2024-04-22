@@ -6,7 +6,7 @@ use crate::prototype::crafting_machine::assembling_machine::AssemblingMachineDat
 use crate::prototype::crafting_machine::furnace::FurnaceData;
 use crate::prototype::crafting_machine::rocket_silo::RocketSiloData;
 use crate::prototype::InvalidPrototype;
-use crate::{group_by_field, group_by_field_in_set, map_by_name};
+use crate::{contains, group_by_field, group_by_field_in_set, map_by_name};
 use api::{
     AssemblingMachinePrototype, CraftingMachinePrototype, FurnacePrototype, Prototype,
     RocketSiloPrototype,
@@ -85,16 +85,13 @@ impl From<&Vec<Prototype>> for CraftingMachines {
             .iter()
             .filter_map(|prototype| CraftingMachine::try_from(prototype).ok())
             .collect::<Vec<_>>();
+        let categories = crafting_machines
+            .iter()
+            .flat_map(|crafting_machine| crafting_machine.categories.clone())
+            .collect::<HashSet<_>>();
         Self {
             by_name: map_by_name!(crafting_machines),
-            by_category: group_by_field_in_set!(
-                crafting_machines,
-                categories,
-                crafting_machines
-                    .iter()
-                    .flat_map(|crafting_machine| crafting_machine.categories.clone())
-                    .collect::<HashSet<_>>()
-            ),
+            by_category: group_by_field_in_set!(crafting_machines, categories, categories, set),
         }
     }
 }

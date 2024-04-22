@@ -1,16 +1,17 @@
 mod ingredient;
 mod product;
 
-use crate::map_by_name;
 use crate::prototype::crafting_machine::CraftingMachines;
 use crate::prototype::recipe::ingredient::Ingredient;
 use crate::prototype::recipe::product::Product;
+use crate::{contains, group_by_field, group_by_field_in_set, map_by_name};
 use api::VehiclePrototypeBrakingPower::Double;
 use api::{
     FloatingPoint, IngredientPrototype, ItemIngredientPrototype, ItemProductPrototype,
     LuaRecipePrototype, ProductAmountMax, ProductAmountMin, ProductPrototype, Prototype,
     RecipeData, RecipePrototype, RecipePrototypeNormal,
 };
+use itertools::Itertools;
 use std::collections::{HashMap, HashSet};
 
 #[derive(Clone, Debug, PartialEq)]
@@ -60,9 +61,10 @@ impl From<(&RecipePrototype, &CraftingMachines)> for Recipe {
             ));
             HashMap::from([(product.name.clone(), product)])
         };
+        let category = recipe.category.clone().unwrap_or("crafting".to_owned());
         Recipe {
             name: recipe.parent_.name.clone(),
-            category: recipe.category.clone().unwrap_or("crafting".to_owned()),
+            category: category.clone(),
             ingredients: map_by_name!(recipe_data
                 .ingredients
                 .iter()
@@ -73,14 +75,49 @@ impl From<(&RecipePrototype, &CraftingMachines)> for Recipe {
                 .clone()
                 .map_or(0.5, |double| *double.as_value().unwrap()),
             products,
-            crafting_machines: crafting_machines.by_name.keys().cloned().collect(),
+            crafting_machines: crafting_machines
+                .by_category
+                .get(&category)
+                .unwrap_or(&HashMap::new())
+                .keys()
+                .cloned()
+                .collect(),
         }
     }
 }
 
 impl From<(&Vec<Prototype>, &CraftingMachines)> for Recipes {
     fn from((prototypes, crafting_machines): (&Vec<Prototype>, &CraftingMachines)) -> Self {
-        todo!()
+        let recipes = prototypes
+            .iter()
+            .filter_map(|prototype| prototype.as_recipe_prototype())
+            .map(|recipe| Recipe::from((recipe, crafting_machines)))
+            .collect::<Vec<_>>();
+        let ingredients = recipes
+            .iter()
+            .flat_map(|recipe| recipe.ingredients.keys().cloned())
+            .collect::<HashSet<_>>();
+        let products = recipes
+            .iter()
+            .flat_map(|recipe| recipe.products.keys().cloned())
+            .collect::<HashSet<_>>();
+        let crafting_machines = crafting_machines
+            .by_name
+            .keys()
+            .cloned()
+            .collect::<HashSet<_>>();
+        Self {
+            by_name: map_by_name!(recipes),
+            by_category: group_by_field!(recipes, category),
+            by_ingredient: group_by_field_in_set!(recipes, ingredients, ingredients, map),
+            by_product: group_by_field_in_set!(recipes, products, products, map),
+            by_crafting_machine: group_by_field_in_set!(
+                recipes,
+                crafting_machines,
+                crafting_machines,
+                set
+            ),
+        }
     }
 }
 

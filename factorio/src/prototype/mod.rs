@@ -43,22 +43,32 @@ macro_rules! group_by_field {
     };
 }
 
-// TODO: find better name
+// TODO: find better name and make prettier
+// requires imports, not very hygienic!
+// probably just a generic function at this point
 #[macro_export]
 macro_rules! group_by_field_in_set {
-    ($e:expr, $f:ident, $s:expr) => {
+    ($e:expr, $f:ident, $s:expr, $t:ident) => {
         $s.iter()
             .map(|s_value| {
-                (
-                    s_value.clone(),
-                    map_by_name!($e
-                        .iter()
-                        .filter(|e_value| { e_value.$f.contains(s_value) })
-                        .cloned()
-                        .collect::<Vec<_>>()),
-                )
+                let expr = $e
+                    .iter()
+                    .filter(|e_value| contains!(e_value.$f, s_value, $t))
+                    .cloned()
+                    .collect::<Vec<_>>();
+                (s_value.clone(), map_by_name!(expr))
             })
             .collect()
+    };
+}
+
+#[macro_export]
+macro_rules! contains {
+    ($e:expr, $v:expr, map) => {
+        $e.contains_key($v)
+    };
+    ($e:expr, $v:expr, set) => {
+        $e.contains($v)
     };
 }
 
