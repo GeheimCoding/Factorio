@@ -9,14 +9,18 @@ use std::io::Read;
 use std::ops::Add;
 use std::rc::Rc;
 use std::str::FromStr;
-use std::{collections::HashMap, fs, io, path::PathBuf, thread::sleep, time::Duration};
+use std::{collections::HashMap, fs, io, path::PathBuf, thread, thread::sleep, time::Duration};
 
 use anyhow::{Context, Result};
+use enigo::Direction::{Click, Press, Release};
+use enigo::{Button, Coordinate, Enigo, Key, Keyboard, Mouse, Settings};
 use serde_json::Number;
 use zip::ZipArchive;
 
 use crate::prototype::{PrototypeStage, Recipe, Recipes, Resources};
 use crate::runtime::{LuaObjects, RuntimeStage};
+use api::Define::MouseButtonType;
+use api::Type::Direction;
 use api::{
     parse_factorio_type, Animation4Way, FactorioType, GunPrototype, ItemIngredientPrototype,
     LayeredSound, LuaAISettings, LuaAchievementPrototype, LuaGameScript, LuaGroup, LuaRecipe,
@@ -32,19 +36,47 @@ mod runtime;
 // TODO: try to split into more libs to decrease build time
 // TODO: add flattened map to FactorioType and warn if this has some entries after deserialization?
 fn main() -> Result<()> {
-    let prototype_stage = parse_prototype_stage()?;
+    // let prototype_stage = parse_prototype_stage()?;
     // println!("{:#?}", prototype_stage.crafting_machines());
     // println!("{:#?}", prototype_stage.recipes());
     // println!("{:#?}", prototype_stage.resources());
     // println!("{:#?}", prototype_stage.items());
 
-    process_recipes(&prototype_stage);
+    // process_recipes(&prototype_stage);
+    enigo()?;
 
     // let mut runtime_stage = RuntimeStage::new();
     // let game = fs::read_to_string("output/game.json")?;
     // runtime_stage.add_factorio_type(&game)?;
 
-    // remote_console()?;
+    // remote_console(&mut runtime_stage)?;
+    Ok(())
+}
+
+fn enigo() -> Result<()> {
+    let millis = 42;
+    let mut enigo = Enigo::new(&Settings::default())?;
+    enigo.move_mouse(600, 230, Coordinate::Abs);
+    sleep(Duration::from_millis(millis));
+    enigo.button(Button::Left, Click);
+    sleep(Duration::from_millis(millis));
+    enigo.fast_text("hello");
+    sleep(Duration::from_millis(millis));
+    enigo.button(Button::Left, Press);
+    sleep(Duration::from_millis(millis));
+    enigo.move_mouse(-30, 0, Coordinate::Rel);
+    sleep(Duration::from_millis(millis));
+    enigo.key(Key::Delete, Click);
+    sleep(Duration::from_millis(millis));
+    enigo.button(Button::Left, Release);
+    sleep(Duration::from_millis(millis));
+    enigo.move_mouse(0, 750, Coordinate::Rel);
+    sleep(Duration::from_millis(millis));
+    enigo.button(Button::Left, Click);
+    sleep(Duration::from_millis(millis));
+    enigo.key(Key::UpArrow, Click);
+    sleep(Duration::from_millis(millis));
+
     Ok(())
 }
 
@@ -99,7 +131,7 @@ fn parse_prototype_stage() -> Result<PrototypeStage> {
 }
 
 // https://developer.valvesoftware.com/wiki/Source_RCON_Protocol
-fn remote_console() -> Result<()> {
+fn remote_console(runtime_stage: &mut RuntimeStage) -> Result<()> {
     let mut console = RemoteConsole::new("10.243.118.233", 25575, "123")?;
     let setup_response = setup(&mut console)?;
     if !setup_response.is_empty() {
@@ -107,11 +139,11 @@ fn remote_console() -> Result<()> {
     } else {
         let response = console.send_command(
             "
-            rcon.print(Json.to_string(game))
+          Json.to_string(game)
         ",
         )?;
-        // listen_to_events(&mut console)?;
-        println!("{response}");
+        listen_to_events(&mut console, runtime_stage)?;
+        // println!("{response}");
         // let game = parse_factorio_type(&response)?;
         // println!("{game:#?}");
     }
@@ -130,11 +162,19 @@ fn listen_to_events(console: &mut RemoteConsole, runtime_stage: &mut RuntimeStag
             let events: Vec<_> = response.split("\n\n").collect();
             for event in events {
                 let result = runtime_stage.add_factorio_type(event);
-                if let Err(e) = result {
+                if let Err(e) = &result {
                     println!("{index}.json: {e}");
                     let filename = PathBuf::from(&format!("output/events/{index}.json"));
                     fs::write(filename, event)?;
                     index += 1;
+                } else if let Ok(Some(factorio_type)) = result {
+                    if let Some(on_event) = factorio_type.as_event() {
+                        //if format!("{on_event:?}").starts_with("OnGui") {
+                        let filename = PathBuf::from(&format!("output/events/{index}.json"));
+                        fs::write(filename, event)?;
+                        index += 1;
+                        // }
+                    }
                 }
             }
         }
