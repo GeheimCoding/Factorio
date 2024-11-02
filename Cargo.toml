@@ -1,6 +1,6 @@
 [workspace]
+resolver = "2"
 members = [
     "factorio",
     "remote_console",
-    "runtime_api",
 ]
