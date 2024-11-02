@@ -192,10 +192,14 @@ Json = {
     end
 }
 
+Chunk = {
+
+}
+
 function poll_event_queue()
     for k,v in pairs(global.events.queue) do
         rcon.print(v)
-        -- needed to later split mutliple events
+        -- needed to later split multiple events
         rcon.print('')
     end
     global.events.queue = {}
@@ -211,6 +215,11 @@ for _,v in pairs(objects.cache) do
 end
 setmetatable(objects.cache, LuaObject.cache)
 setmetatable(objects.attributes, LuaObject.attributes)
+
+global.chunks = {}
+global.chunks.row = 1
+global.chunks.queue = {}
+global.chunks.processed = {}
 
 global.events = {}
 global.events.queue = {}

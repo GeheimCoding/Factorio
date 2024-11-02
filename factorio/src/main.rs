@@ -43,7 +43,8 @@ fn main() -> Result<()> {
     // println!("{:#?}", prototype_stage.items());
 
     // process_recipes(&prototype_stage);
-    enigo()?;
+    // enigo()?;
+    tiles();
 
     // let mut runtime_stage = RuntimeStage::new();
     // let game = fs::read_to_string("output/game.json")?;
@@ -51,6 +52,32 @@ fn main() -> Result<()> {
 
     // remote_console(&mut runtime_stage)?;
     Ok(())
+}
+
+struct ChunkPosition {
+    pub x: i32,
+    pub y: i32,
+}
+
+struct Chunks {
+    pub in_queue: Vec<ChunkPosition>,
+    pub current_row: u32,
+    pub processed: Vec<ChunkPosition>,
+    pub tiles: HashMap<(i32, i32), String>,
+}
+
+fn tiles() {
+    /* TODO: create in_queue list of "to be converted chunks"
+        initial: LuaSurface::get_chunks -> iterator over ChunkPositionAndArea
+        running: on_chunk_generated -> position and area separate
+        if already in either in_queue or processed, do not add again
+        every tick (or every n-th tick?):
+            - abort if in_queue is empty
+            - convert current_row tiles of in_queue[0] chunk to JSON
+            - current_row = (current_row + 1) % 32
+            - if current_row == 0 -> move in_queue[0] to back of processed
+        once chunk is complete -> remove JSON from global table
+    */
 }
 
 fn enigo() -> Result<()> {
