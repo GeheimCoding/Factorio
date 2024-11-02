@@ -44,3 +44,41 @@ can print.
 ```sh
 wget https://lua-api.factorio.com/stable/static/archive.zip -P lua_api_docs/
 ```
+
+# Development Notes
+
+Things that came up during development.
+
+## Lua versus Rust
+
+Some concepts you find in Lua are not available/allowed in Rust, which have to be circumvented:
+
+* Reserved keywords: some keywords are used as fields, such as `abstract`, `override` or `type`. In those cases an
+  underscore is attached to preserve the name and resolve the conflict. In addition, `serde` should [keep the original
+  name](https://serde.rs/container-attrs.html#rename), so e.g. an `abstract` boolean field becomes:
+
+```
+#[serde(rename = "abstract")]
+pub abstract_: bool,
+```
+
+* Inheritance: for each parent instead of inheriting the fields, the base type is added as a field (composition over
+  inheritance). For the deserialization to work, the base type needs to
+  be [flattened](https://serde.rs/attr-flatten.html) with `#[serde(flatten)]`.
+
+* Unions: those can be easily converted to enums. Each union member is represented by an enum variant with the same name
+  as the type of the member. The enum itself contains the name of the type that needs it. To make the deserialization
+  work, each enum has to be [untagged](https://serde.rs/container-attrs.html#untagged), so e.g. the union `value`
+  with `union[string, number, boolean]` of the type `Literal` would translate to:
+
+```rust
+#[derive(Debug, Deserialize)]
+#[serde(untagged)]
+pub enum LiteralValue {
+    String(String),
+    Number(f64),
+    Bool(bool),
+}
+```
+
+* Cycles: to resolve e.g. self-referential structures the types need to wrapped with `Box<T>`.

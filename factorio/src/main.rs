@@ -1,14 +1,15 @@
 #![allow(unused)]
 #![deny(clippy::unwrap_used)]
 
+use prototype::deserialize_format;
+use remote_console::RemoteConsole;
 use std::{
     cmp::Ordering, collections::HashMap, fs, io, path::PathBuf, thread::sleep, time::Duration,
 };
 
-use remote_console::RemoteConsole;
-
 fn main() -> io::Result<()> {
-    remote_console()?;
+    //remote_console()?;
+    deserialize_format()?;
 
     Ok(())
 }
