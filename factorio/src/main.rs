@@ -1,7 +1,7 @@
 #![allow(unused)]
 #![deny(clippy::unwrap_used)]
 
-use prototype::deserialize_format;
+use prototype::generate_prototype_stage;
 use remote_console::RemoteConsole;
 use std::{
     cmp::Ordering, collections::HashMap, fs, io, path::PathBuf, thread::sleep, time::Duration,
@@ -9,7 +9,7 @@ use std::{
 
 fn main() -> io::Result<()> {
     //remote_console()?;
-    deserialize_format()?;
+    generate_prototype_stage()?;
 
     Ok(())
 }

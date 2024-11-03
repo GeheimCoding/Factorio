@@ -3,7 +3,7 @@ use serde::Deserialize;
 
 #[derive(Debug, Deserialize)]
 pub struct BasicMember {
-    name: String,
+    pub name: String,
     order: u16,
     description: String,
     lists: Option<Vec<String>>,
