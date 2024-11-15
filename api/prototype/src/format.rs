@@ -1,9 +1,9 @@
 use crate::concept::Concept;
 use crate::define::Define;
 use crate::prototype::Prototype;
+use rayon::iter::{IntoParallelRefIterator, ParallelIterator};
 use serde::Deserialize;
 use std::path::Path;
-use std::process::{Child, Command};
 use std::{fs, io};
 
 // https://lua-api.factorio.com/stable/auxiliary/json-docs-prototype.html
@@ -20,24 +20,17 @@ pub struct Format {
 
 impl Format {
     pub fn generate(&self) -> io::Result<()> {
-        let defines = self.generate_defines();
-        let path = Path::new("api/prototype/generated/defines.rs");
-        fs::create_dir_all(path.parent().expect("parent directory"))?;
-        fs::write("api/prototype/generated/defines.rs", defines)?;
-        Self::rustfmt(path)?;
-
-        Ok(())
+        let path = Path::new("api/prototype/generated/defines");
+        fs::create_dir_all(path)?;
+        self.generate_defines(path)
     }
 
-    fn generate_defines(&self) -> String {
-        let mut defines = String::new();
-        for define in &self.defines {
-            defines.push_str(&define.generate())
-        }
-        defines
-    }
-
-    fn rustfmt(path: &Path) -> io::Result<Child> {
-        Command::new("rustfmt").arg(path).spawn()
+    fn generate_defines(&self, path: &Path) -> io::Result<()> {
+        let results = self
+            .defines
+            .par_iter()
+            .map(|define| define.generate(path))
+            .collect::<Vec<_>>();
+        results.into_iter().collect::<Result<_, _>>()
     }
 }

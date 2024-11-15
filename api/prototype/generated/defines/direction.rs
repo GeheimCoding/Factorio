@@ -1,0 +1,18 @@
+pub enum Direction {
+    East,
+    Eastnortheast,
+    Eastsoutheast,
+    North,
+    Northeast,
+    Northnortheast,
+    Northnorthwest,
+    Northwest,
+    South,
+    Southeast,
+    Southsoutheast,
+    Southsouthwest,
+    Southwest,
+    West,
+    Westnorthwest,
+    Westsouthwest,
+}
