@@ -1,6 +1,10 @@
 [workspace]
 resolver = "2"
-members = [ "api", "api/prototype",
+members = [
+    "api",
+    "api/prototype",
+    "api/prototype/shared",
+    "api/prototype/defines",
     "factorio",
     "remote_console",
 ]

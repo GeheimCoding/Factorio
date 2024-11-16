@@ -6,12 +6,12 @@ use serde::Deserialize;
 #[derive(Debug, Deserialize)]
 pub struct Concept {
     #[serde(flatten)]
-    base: BasicMember,
-    parent: Option<String>,
+    pub base: BasicMember,
+    pub parent: Option<String>,
     #[serde(rename = "abstract")]
-    abstract_: bool,
-    inline: bool,
+    pub abstract_: bool,
+    pub inline: bool,
     #[serde(rename = "type")]
-    type_: Type,
-    properties: Option<Vec<Property>>,
+    pub type_: Type,
+    pub properties: Option<Vec<Property>>,
 }

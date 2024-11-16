@@ -5,15 +5,15 @@ use serde::Deserialize;
 #[derive(Debug, Deserialize)]
 pub struct Property {
     #[serde(flatten)]
-    base: BasicMember,
-    visibility: Option<Vec<String>>,
-    alt_name: Option<String>,
+    pub base: BasicMember,
+    pub visibility: Option<Vec<String>>,
+    pub alt_name: Option<String>,
     #[serde(rename = "override")]
-    override_: bool,
+    pub override_: bool,
     #[serde(rename = "type")]
-    type_: Type,
-    optional: bool,
-    default: Option<PropertyDefault>,
+    pub type_: Type,
+    pub optional: bool,
+    pub default: Option<PropertyDefault>,
 }
 
 #[derive(Debug, Deserialize)]

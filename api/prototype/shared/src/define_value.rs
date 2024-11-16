@@ -3,9 +3,9 @@ use serde::Deserialize;
 
 #[derive(Debug, Deserialize)]
 pub struct DefineValue {
-    name: String,
-    order: u16,
-    description: String,
+    pub name: String,
+    pub order: u16,
+    pub description: String,
 }
 
 impl DefineValue {

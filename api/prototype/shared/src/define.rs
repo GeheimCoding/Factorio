@@ -9,9 +9,9 @@ use std::{fs, io};
 #[derive(Debug, Deserialize)]
 pub struct Define {
     #[serde(flatten)]
-    base: BasicMember,
-    values: Option<Vec<DefineValue>>,
-    subkeys: Option<Vec<Define>>,
+    pub base: BasicMember,
+    pub values: Option<Vec<DefineValue>>,
+    pub subkeys: Option<Vec<Define>>,
 }
 
 impl Define {
@@ -24,22 +24,26 @@ impl Define {
         Ok(())
     }
 
+    pub fn name(&self) -> &str {
+        &self.base.name
+    }
+
+    pub fn rust_name(&self) -> String {
+        self.base.name.to_pascal_case()
+    }
+
     fn generate_internal(&self) -> io::Result<String> {
-        let mut define = format!("pub enum {}{{", self.generate_name());
+        let mut define = format!("pub enum {}{{", self.rust_name());
         if let Some(values) = &self.values {
             define.push_str(&values.iter().map(DefineValue::generate).collect::<String>());
         }
         if let Some(subkeys) = &self.subkeys {
             for sub in subkeys {
-                let sub_name = sub.generate_name();
+                let sub_name = sub.rust_name();
                 define.push_str(&format!("{}({}),", sub_name, sub_name));
                 define.insert_str(0, &sub.generate_internal()?);
             }
         }
         Ok(format!("{define}}}"))
-    }
-
-    fn generate_name(&self) -> String {
-        self.base.name.to_pascal_case()
     }
 }
