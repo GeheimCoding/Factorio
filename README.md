@@ -82,3 +82,18 @@ pub enum LiteralValue {
 ```
 
 * Cycles: to resolve e.g. self-referential structures the types need to wrapped with `Box<T>`.
+
+## Generated Code Adjustments
+
+This tracks all the extra adjustments that had to be made to make the generated code compile. Each adjustment is
+surrounded by the comment `TODO: Adjustment [X]`, where `X` is the number from the following list:
+
+1) The [control_behavior](https://lua-api.factorio.com/latest/defines.html#defines.control_behavior) define of the
+   prototype stage has two `exclusive_mode` inside its sub defines, one for
+   the [logistic_container](https://lua-api.factorio.com/latest/defines.html#defines.control_behavior.logistic_container.exclusive_mode)
+   and one for
+   the [cargo_landing_pad](https://lua-api.factorio.com/latest/defines.html#defines.control_behavior.cargo_landing_pad.exclusive_mode).
+   Even though the variants have a different order in the HTML, they contain the same values (`send_contents = 0`,
+   `set_requests = 1`, `none = 2`), which can be checked by printing them within the game itself:
+   `print(serpent.block(defines.control_behavior))`. So in order to resolve the naming conflict in Rust, only one
+   `ExclusiveMode` will be generated. [1]

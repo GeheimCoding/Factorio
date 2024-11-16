@@ -1,10 +1,10 @@
 use crate::basic_member::BasicMember;
 use crate::define_value::DefineValue;
+use crate::file_utils::save_file;
 use crate::pascal_case::PascalCase;
 use serde::Deserialize;
+use std::io;
 use std::path::Path;
-use std::process::Command;
-use std::{fs, io};
 
 #[derive(Debug, Deserialize)]
 pub struct Define {
@@ -18,10 +18,7 @@ impl Define {
     pub fn generate(&self, path: &Path) -> io::Result<()> {
         let path = &path.join(&self.base.name).with_extension("rs");
         let define = self.generate_internal()?;
-
-        fs::write(path, define)?;
-        Command::new("rustfmt").arg(path).spawn()?;
-        Ok(())
+        save_file(path, &define)
     }
 
     pub fn name(&self) -> &str {
@@ -41,6 +38,11 @@ impl Define {
             for sub in subkeys {
                 let sub_name = sub.rust_name();
                 define.push_str(&format!("{}({}),", sub_name, sub_name));
+                // TODO: Adjustment [1]
+                if self.rust_name() == "CargoLandingPad" && sub_name == "ExclusiveMode" {
+                    continue;
+                }
+                // TODO: Adjustment [1]
                 define.insert_str(0, &sub.generate_internal()?);
             }
         }

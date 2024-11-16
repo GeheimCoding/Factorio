@@ -1,11 +1,12 @@
 use rayon::iter::{IntoParallelRefIterator, ParallelIterator};
+use shared::file_utils::save_file;
 use shared::format::Format;
-use shared::rustfmt::rustfmt;
 use std::path::Path;
 use std::{fs, io};
 
-//pub mod generated;
+pub mod generated;
 
+// TODO: pass defines from game to set the correct value per variant -> print(serpent.block(defines))
 pub fn generate(format: &Format) -> io::Result<()> {
     let path = Path::new("api/prototype/defines/src/generated");
     fs::create_dir_all(path)?;
@@ -17,8 +18,7 @@ pub fn generate(format: &Format) -> io::Result<()> {
         content.push_str(&format!("{}({}::{}),", rust_name, define.name(), rust_name));
     });
     let mod_path = &path.join("mod").with_extension("rs");
-    fs::write(mod_path, format!("{content}}}"))?;
-    rustfmt(mod_path)?;
+    save_file(mod_path, &format!("{content}}}"))?;
 
     let results = format
         .defines

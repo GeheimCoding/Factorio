@@ -86,11 +86,6 @@ pub enum HandReadMode {
 pub enum Inserter {
     HandReadMode(HandReadMode),
 }
-pub enum ExclusiveMode {
-    None,
-    SendContents,
-    SetRequests,
-}
 pub enum CargoLandingPad {
     ExclusiveMode(ExclusiveMode),
 }
