@@ -25,7 +25,17 @@ can print.
    the line `write-data=__PATH__system-write-data__` with `write-data=data`. This will basically read all your settings
    as normal, but write all data into the `data` folder, which allows you to have e.g. different mods running for your
    normal game and on the server as well as being able to join your own server on the same machine.
-4. Run the server:
+4. Create a dump of the raw data used for the prototype stage:
+    * Create a dump_data.bat file with the following content:
+   ```
+   "C:\Program Files (x86)\Steam\steamapps\common\Factorio\bin\x64\factorio" --config config.ini --dump-data
+   pause
+   ```
+    * Running this should create a `data-raw-dump.json` inside the `data/script-output` folder. This dump contains all
+      the necessary info for the prototype stage.
+    * Zip and copy this file (`data-raw-dump.zip` containing `data-raw-dump.json`) into the `api/prototype/shared`
+      folder to use it within this project.
+5. Run the server:
     * Create a `server.bat` file with the following content:
    ```
    "C:\Program Files (x86)\Steam\steamapps\common\Factorio\bin\x64\factorio" --config config.ini --start-server world.zip --rcon-port 25575 --rcon-password 123
@@ -38,6 +48,16 @@ can print.
       `localhost:34197` -> `Connect`.
     * You can connect to this server via `RCON` from any machine by providing the host (e.g. `10.243.166.195`) and the
       port/password from the `server.bat`.
+6. Get the values of all defines:
+    * Run the following command in the terminal where the server is running:
+   ```
+   /c print(serpent.block(defines))
+   ```
+    * If you see
+      `[WARNING] Using Lua console commands will disable achievements. Please repeat the command to proceed.`, just run
+      it a second time.
+    * Copy the output into a `defines.lua` file inside the `api/prototype/defines` folder to use it within this
+      project.
 
 ## Download the stable API Docs
 
