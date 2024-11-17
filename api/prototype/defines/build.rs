@@ -5,7 +5,7 @@ use std::io;
 use std::path::Path;
 
 fn main() -> io::Result<()> {
-    let format = deserialize_format(Path::new("../prototype-api.json"))?;
+    let format = deserialize_format(Path::new("../shared/prototype-api.json"))?;
     let path = Path::new("src/generated");
     create_rustfmt_config_without_reordering(path)?;
 
