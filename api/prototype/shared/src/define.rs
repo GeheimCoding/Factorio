@@ -1,6 +1,6 @@
 use crate::basic_member::BasicMember;
 use crate::define_value::DefineValue;
-use crate::file_utils::save_file;
+use crate::file_utils::save_file_if_changed;
 use crate::pascal_case::PascalCase;
 use serde::Deserialize;
 use std::io;
@@ -18,7 +18,7 @@ impl Define {
     pub fn generate(&self, path: &Path) -> io::Result<()> {
         let path = &path.join(&self.base.name).with_extension("rs");
         let define = self.generate_internal()?;
-        save_file(path, &define)
+        save_file_if_changed(path, &define)
     }
 
     pub fn name(&self) -> &str {

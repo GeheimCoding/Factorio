@@ -1,15 +1,15 @@
 use rayon::iter::{IntoParallelRefIterator, ParallelIterator};
-use shared::file_utils::save_file;
+use shared::file_utils::{create_rustfmt_config_without_reordering, save_file_if_changed};
 use shared::format::Format;
+use std::io;
 use std::path::Path;
-use std::{fs, io};
 
-pub mod generated;
+//pub mod generated;
 
 // TODO: pass defines from game to set the correct value per variant -> print(serpent.block(defines))
 pub fn generate(format: &Format) -> io::Result<()> {
     let path = Path::new("api/prototype/defines/src/generated");
-    fs::create_dir_all(path)?;
+    create_rustfmt_config_without_reordering(path)?;
 
     let mut content = String::from("pub enum Defines {");
     format.defines.iter().for_each(|define| {
@@ -18,7 +18,7 @@ pub fn generate(format: &Format) -> io::Result<()> {
         content.push_str(&format!("{}({}::{}),", rust_name, define.name(), rust_name));
     });
     let mod_path = &path.join("mod").with_extension("rs");
-    save_file(mod_path, &format!("{content}}}"))?;
+    save_file_if_changed(mod_path, &format!("{content}}}"))?;
 
     let results = format
         .defines
