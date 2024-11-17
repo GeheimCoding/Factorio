@@ -1,15 +1,13 @@
 #![allow(unused)]
 #![deny(clippy::unwrap_used)]
 
-use prototype::generate_prototype_stage;
 use remote_console::RemoteConsole;
 use std::{
     cmp::Ordering, collections::HashMap, fs, io, path::PathBuf, thread::sleep, time::Duration,
 };
 
 fn main() -> io::Result<()> {
-    //remote_console()?;
-    generate_prototype_stage()?;
+    // remote_console()?;
 
     Ok(())
 }
