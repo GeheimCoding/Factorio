@@ -106,7 +106,7 @@ pub enum LiteralValue {
 ## Generated Code Adjustments
 
 This tracks all the extra adjustments that had to be made to make the generated code compile. Each adjustment is
-surrounded by the comment `TODO: Adjustment [X]`, where `X` is the number from the following list:
+surrounded by the comment `README: Adjustment [X]`, where `X` is the number from the following list:
 
 1) The [control_behavior](https://lua-api.factorio.com/latest/defines.html#defines.control_behavior) define of the
    prototype stage has two `exclusive_mode` inside its sub defines, one for
@@ -117,3 +117,4 @@ surrounded by the comment `TODO: Adjustment [X]`, where `X` is the number from t
    `set_requests = 1`, `none = 2`), which can be checked by printing them within the game itself:
    `print(serpent.block(defines.control_behavior))`. So in order to resolve the naming conflict in Rust, only one
    `ExclusiveMode` will be generated. [1]
+2) TODO

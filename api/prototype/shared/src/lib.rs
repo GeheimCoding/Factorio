@@ -10,6 +10,7 @@ pub mod define_value;
 pub mod file_utils;
 pub mod format;
 pub mod image;
+pub mod lua_value;
 pub mod pascal_case;
 pub mod property;
 pub mod prototype;

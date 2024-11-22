@@ -6,3 +6,9 @@ edition = "2021"
 [build-dependencies]
 shared = { path = "../shared" }
 rayon = "1.10.0"
+mlua = { version = "0.10.1", features = ["lua52", "vendored"] }
+
+[dependencies]
+serde = { version = "1.0.215", features = ["derive"] }
+serde_json = "1.0.133"
+serde_repr = "0.1.19"
