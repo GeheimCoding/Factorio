@@ -5,6 +5,7 @@ members = [
     "api/prototype",
     "api/prototype/shared",
     "api/prototype/defines",
+    "api/prototype/types",
     "factorio",
     "remote_console",
 ]

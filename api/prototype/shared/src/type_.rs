@@ -1,13 +1,13 @@
 use serde::Deserialize;
 
-#[derive(Debug, Deserialize)]
+#[derive(Debug, Deserialize, PartialEq)]
 #[serde(untagged)]
 pub enum Type {
     Simple(String),
     Complex(Box<ComplexType>),
 }
 
-#[derive(Debug, Deserialize)]
+#[derive(Debug, Deserialize, PartialEq)]
 #[serde(tag = "complex_type")]
 #[serde(rename_all = "snake_case")]
 pub enum ComplexType {
@@ -36,7 +36,7 @@ pub enum ComplexType {
     Struct,
 }
 
-#[derive(Debug, Deserialize)]
+#[derive(Debug, Deserialize, PartialEq)]
 #[serde(untagged)]
 pub enum LiteralValue {
     String(String),
