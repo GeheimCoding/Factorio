@@ -16,20 +16,14 @@ impl<'de> serde::Deserialize<'de> for TransportLine {
         match <u16 as serde::Deserialize>::deserialize(deserializer)? {
             1 => Ok(TransportLine::LeftLine),
             2 => Ok(TransportLine::RightLine),
-            3 => {
-                use std::collections::HashSet;
-                let mut variants = vec![];
-                variants.push(Value3::LeftUndergroundLine);
-                variants.push(Value3::SecondaryLeftLine);
-                Ok(TransportLine::Value3(HashSet::from_iter(variants)))
-            }
-            4 => {
-                use std::collections::HashSet;
-                let mut variants = vec![];
-                variants.push(Value4::RightUndergroundLine);
-                variants.push(Value4::SecondaryRightLine);
-                Ok(TransportLine::Value4(HashSet::from_iter(variants)))
-            }
+            3 => Ok(TransportLine::Value3(std::collections::HashSet::from([
+                Value3::LeftUndergroundLine,
+                Value3::SecondaryLeftLine,
+            ]))),
+            4 => Ok(TransportLine::Value4(std::collections::HashSet::from([
+                Value4::RightUndergroundLine,
+                Value4::SecondaryRightLine,
+            ]))),
             5 => Ok(TransportLine::LeftSplitLine),
             6 => Ok(TransportLine::RightSplitLine),
             7 => Ok(TransportLine::SecondaryLeftSplitLine),

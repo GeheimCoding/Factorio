@@ -114,10 +114,10 @@ impl Define {
                     "Value{key}(std::collections::HashSet<Value{key}>),"
                 ));
                 variants.push_str(&format!(
-                    "{key} => {{use std::collections::HashSet;let mut variants = vec![];{}Ok({rust_name}::Value{key}(HashSet::from_iter(variants)))}}",
+                    "{key} => Ok({rust_name}::Value{key}(std::collections::HashSet::from([{}]))),",
                     values
                         .iter()
-                        .map(|value| format!("variants.push(Value{key}::{value});"))
+                        .map(|value| format!("Value{key}::{value},"))
                         .collect::<String>()
                 ));
                 serde.push_str(&format!(
@@ -141,7 +141,7 @@ impl Define {
             }}
         "#
         ));
-        // TODO: implement serde for either repr or rename (String - check casing?) or lookup
+        // TODO: implement serde for repr or rename (String - check casing?) or lookup
         (serde, return_variants)
     }
     // README: Adjustment [2]

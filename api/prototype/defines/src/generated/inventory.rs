@@ -69,85 +69,67 @@ impl<'de> serde::Deserialize<'de> for Inventory {
         D: serde::Deserializer<'de>,
     {
         match <u16 as serde::Deserialize>::deserialize(deserializer)? {
-            1 => {
-                use std::collections::HashSet;
-                let mut variants = vec![];
-                variants.push(Value1::ArtilleryTurretAmmo);
-                variants.push(Value1::ArtilleryWagonAmmo);
-                variants.push(Value1::BeaconModules);
-                variants.push(Value1::CargoLandingPadMain);
-                variants.push(Value1::CargoUnit);
-                variants.push(Value1::CargoWagon);
-                variants.push(Value1::CharacterCorpse);
-                variants.push(Value1::CharacterMain);
-                variants.push(Value1::Chest);
-                variants.push(Value1::EditorMain);
-                variants.push(Value1::Fuel);
-                variants.push(Value1::HubMain);
-                variants.push(Value1::ItemMain);
-                variants.push(Value1::RoboportRobot);
-                variants.push(Value1::RobotCargo);
-                variants.push(Value1::TurretAmmo);
-                Ok(Inventory::Value1(HashSet::from_iter(variants)))
-            }
+            1 => Ok(Inventory::Value1(std::collections::HashSet::from([
+                Value1::ArtilleryTurretAmmo,
+                Value1::ArtilleryWagonAmmo,
+                Value1::BeaconModules,
+                Value1::CargoLandingPadMain,
+                Value1::CargoUnit,
+                Value1::CargoWagon,
+                Value1::CharacterCorpse,
+                Value1::CharacterMain,
+                Value1::Chest,
+                Value1::EditorMain,
+                Value1::Fuel,
+                Value1::HubMain,
+                Value1::ItemMain,
+                Value1::RoboportRobot,
+                Value1::RobotCargo,
+                Value1::TurretAmmo,
+            ]))),
             11 => Ok(Inventory::RocketSiloTrash),
-            2 => {
-                use std::collections::HashSet;
-                let mut variants = vec![];
-                variants.push(Value2::AssemblingMachineInput);
-                variants.push(Value2::CarTrunk);
-                variants.push(Value2::CargoLandingPadTrash);
-                variants.push(Value2::FurnaceSource);
-                variants.push(Value2::GodMain);
-                variants.push(Value2::HubTrash);
-                variants.push(Value2::LabInput);
-                variants.push(Value2::LogisticContainerTrash);
-                variants.push(Value2::MiningDrillModules);
-                variants.push(Value2::RoboportMaterial);
-                variants.push(Value2::RobotRepair);
-                variants.push(Value2::RocketSiloInput);
-                variants.push(Value2::SpiderTrunk);
-                Ok(Inventory::Value2(HashSet::from_iter(variants)))
-            }
-            3 => {
-                use std::collections::HashSet;
-                let mut variants = vec![];
-                variants.push(Value3::AssemblingMachineOutput);
-                variants.push(Value3::CarAmmo);
-                variants.push(Value3::CharacterGuns);
-                variants.push(Value3::EditorGuns);
-                variants.push(Value3::FurnaceResult);
-                variants.push(Value3::LabModules);
-                variants.push(Value3::RocketSiloOutput);
-                variants.push(Value3::SpiderAmmo);
-                Ok(Inventory::Value3(HashSet::from_iter(variants)))
-            }
-            4 => {
-                use std::collections::HashSet;
-                let mut variants = vec![];
-                variants.push(Value4::AssemblingMachineModules);
-                variants.push(Value4::CharacterAmmo);
-                variants.push(Value4::EditorAmmo);
-                variants.push(Value4::FurnaceModules);
-                variants.push(Value4::RocketSiloModules);
-                variants.push(Value4::SpiderTrash);
-                Ok(Inventory::Value4(HashSet::from_iter(variants)))
-            }
-            5 => {
-                use std::collections::HashSet;
-                let mut variants = vec![];
-                variants.push(Value5::CharacterArmor);
-                variants.push(Value5::EditorArmor);
-                Ok(Inventory::Value5(HashSet::from_iter(variants)))
-            }
+            2 => Ok(Inventory::Value2(std::collections::HashSet::from([
+                Value2::AssemblingMachineInput,
+                Value2::CarTrunk,
+                Value2::CargoLandingPadTrash,
+                Value2::FurnaceSource,
+                Value2::GodMain,
+                Value2::HubTrash,
+                Value2::LabInput,
+                Value2::LogisticContainerTrash,
+                Value2::MiningDrillModules,
+                Value2::RoboportMaterial,
+                Value2::RobotRepair,
+                Value2::RocketSiloInput,
+                Value2::SpiderTrunk,
+            ]))),
+            3 => Ok(Inventory::Value3(std::collections::HashSet::from([
+                Value3::AssemblingMachineOutput,
+                Value3::CarAmmo,
+                Value3::CharacterGuns,
+                Value3::EditorGuns,
+                Value3::FurnaceResult,
+                Value3::LabModules,
+                Value3::RocketSiloOutput,
+                Value3::SpiderAmmo,
+            ]))),
+            4 => Ok(Inventory::Value4(std::collections::HashSet::from([
+                Value4::AssemblingMachineModules,
+                Value4::CharacterAmmo,
+                Value4::EditorAmmo,
+                Value4::FurnaceModules,
+                Value4::RocketSiloModules,
+                Value4::SpiderTrash,
+            ]))),
+            5 => Ok(Inventory::Value5(std::collections::HashSet::from([
+                Value5::CharacterArmor,
+                Value5::EditorArmor,
+            ]))),
             6 => Ok(Inventory::BurntResult),
-            7 => {
-                use std::collections::HashSet;
-                let mut variants = vec![];
-                variants.push(Value7::AssemblingMachineDump);
-                variants.push(Value7::CharacterVehicle);
-                Ok(Inventory::Value7(HashSet::from_iter(variants)))
-            }
+            7 => Ok(Inventory::Value7(std::collections::HashSet::from([
+                Value7::AssemblingMachineDump,
+                Value7::CharacterVehicle,
+            ]))),
             8 => Ok(Inventory::CharacterTrash),
             9 => Ok(Inventory::RocketSiloRocket),
             other => Err(serde::de::Error::custom(format!(

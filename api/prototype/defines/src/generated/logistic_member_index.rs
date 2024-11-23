@@ -16,22 +16,17 @@ impl<'de> serde::Deserialize<'de> for LogisticMemberIndex {
         D: serde::Deserializer<'de>,
     {
         match <u16 as serde::Deserialize>::deserialize(deserializer)? {
-            0 => {
-                use std::collections::HashSet;
-                let mut variants = vec![];
-                variants.push(Value0::CharacterRequester);
-                variants.push(Value0::GenericOnOffBehavior);
-                variants.push(Value0::LogisticContainer);
-                variants.push(Value0::SpidertronRequester);
-                Ok(LogisticMemberIndex::Value0(HashSet::from_iter(variants)))
-            }
-            1 => {
-                use std::collections::HashSet;
-                let mut variants = vec![];
-                variants.push(Value1::CharacterStorage);
-                variants.push(Value1::VehicleStorage);
-                Ok(LogisticMemberIndex::Value1(HashSet::from_iter(variants)))
-            }
+            0 => Ok(LogisticMemberIndex::Value0(
+                std::collections::HashSet::from([
+                    Value0::CharacterRequester,
+                    Value0::GenericOnOffBehavior,
+                    Value0::LogisticContainer,
+                    Value0::SpidertronRequester,
+                ]),
+            )),
+            1 => Ok(LogisticMemberIndex::Value1(
+                std::collections::HashSet::from([Value1::CharacterStorage, Value1::VehicleStorage]),
+            )),
             2 => Ok(LogisticMemberIndex::CharacterProvider),
             other => Err(serde::de::Error::custom(format!(
                 "unexpected value: {other}"
