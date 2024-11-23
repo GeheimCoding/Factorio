@@ -5,7 +5,6 @@ use crate::lua_value::{LuaValue, State};
 use crate::pascal_case::PascalCase;
 use serde::Deserialize;
 use std::collections::HashMap;
-use std::io;
 use std::path::Path;
 
 #[derive(Debug, Deserialize)]
@@ -17,7 +16,11 @@ pub struct Define {
 }
 
 impl Define {
-    pub fn generate(&self, path: &Path, lua_defines: &HashMap<String, LuaValue>) -> io::Result<()> {
+    pub fn generate(
+        &self,
+        path: &Path,
+        lua_defines: &HashMap<String, LuaValue>,
+    ) -> anyhow::Result<()> {
         let path = &path.join(&self.base.name).with_extension("rs");
         let define = self.generate_internal(String::new(), lua_defines)?;
         save_file_if_changed("defines", path, &define)
@@ -35,7 +38,7 @@ impl Define {
         &self,
         lua_define_key: String,
         lua_defines: &HashMap<String, LuaValue>,
-    ) -> io::Result<String> {
+    ) -> anyhow::Result<String> {
         let mut define = format!("pub enum {}{{", self.rust_name());
         let lua_define_key = if lua_define_key.is_empty() {
             &self.base.name

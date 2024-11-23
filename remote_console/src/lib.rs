@@ -1,5 +1,6 @@
+use anyhow::{anyhow, Context};
 use std::{
-    io::{self, Error, ErrorKind, Read, Write},
+    io::{Error, ErrorKind, Read, Write},
     net::{TcpStream, ToSocketAddrs},
     time::Duration,
 };
@@ -19,7 +20,7 @@ pub struct RemoteConsole {
 }
 
 impl RemoteConsole {
-    pub fn new(host: &str, port: u16, password: &str) -> io::Result<Self> {
+    pub fn new(host: &str, port: u16, password: &str) -> anyhow::Result<Self> {
         let timeout = Duration::from_secs(TCP_TIMEOUT_IN_SECONDS);
         let stream = TcpStream::connect_timeout(
             &format!("{host}:{port}")
@@ -38,11 +39,11 @@ impl RemoteConsole {
         if console.is_authenticated(password)? {
             Ok(console)
         } else {
-            Err(Error::new(ErrorKind::Other, "wrong password"))
+            Err(anyhow!("wrong password"))
         }
     }
 
-    pub fn send_command(&mut self, command: &str) -> io::Result<String> {
+    pub fn send_command(&mut self, command: &str) -> anyhow::Result<String> {
         self.send_packet(
             &format!("/silent-command {command}"),
             PACKET_TYPE_SERVERDATA_EXECCOMMAND,
@@ -50,7 +51,7 @@ impl RemoteConsole {
         self.get_response()
     }
 
-    fn is_authenticated(&mut self, password: &str) -> io::Result<bool> {
+    fn is_authenticated(&mut self, password: &str) -> anyhow::Result<bool> {
         self.send_packet(password, PACKET_TYPE_SERVERDATA_AUTH)?;
         self.receive_response()?;
         let mut id = [0u8; 4];
@@ -60,7 +61,7 @@ impl RemoteConsole {
         Ok(u32::from_le_bytes(id) != u32::MAX)
     }
 
-    fn send_packet(&mut self, payload: &str, packet_type: u32) -> io::Result<usize> {
+    fn send_packet(&mut self, payload: &str, packet_type: u32) -> anyhow::Result<usize> {
         let payload_len = payload.len();
         // same as below but with additional 4 for packet size
         let mut packet = vec![0; payload_len + 14];
@@ -79,10 +80,10 @@ impl RemoteConsole {
             .to_owned()
             .swap_with_slice(&mut packet[12..12 + payload_len]);
 
-        self.stream.write(&packet)
+        self.stream.write(&packet).context("failed to write packet")
     }
 
-    fn get_response(&mut self) -> io::Result<String> {
+    fn get_response(&mut self) -> anyhow::Result<String> {
         let mut packet_length = self.receive_response()?;
         let mut total_length_buffer = [0u8; 4];
         total_length_buffer.swap_with_slice(&mut self.buffer[0..4]);
@@ -117,8 +118,10 @@ impl RemoteConsole {
         Ok(response)
     }
 
-    fn receive_response(&mut self) -> io::Result<usize> {
-        self.stream.read(&mut self.buffer)
+    fn receive_response(&mut self) -> anyhow::Result<usize> {
+        self.stream
+            .read(&mut self.buffer)
+            .context("failed to read response")
     }
 }
 

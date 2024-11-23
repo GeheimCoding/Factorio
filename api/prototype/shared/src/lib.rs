@@ -1,6 +1,6 @@
 use crate::format::Format;
+use std::fs;
 use std::path::Path;
-use std::{fs, io};
 
 pub mod basic_member;
 pub mod concept;
@@ -16,7 +16,7 @@ pub mod property;
 pub mod prototype;
 pub mod type_;
 
-pub fn deserialize_format(path: &Path) -> io::Result<Format> {
+pub fn deserialize_format(path: &Path) -> anyhow::Result<Format> {
     let json = fs::read_to_string(path)?;
     let format = serde_json::from_str(&json)?;
 

@@ -2,12 +2,11 @@ use crate::lua_defines::parse_lua_defines;
 use rayon::iter::{IntoParallelRefIterator, ParallelIterator};
 use shared::deserialize_format;
 use shared::file_utils::save_file_if_changed;
-use std::io;
 use std::path::Path;
 
 mod lua_defines;
 
-fn main() -> io::Result<()> {
+fn main() -> anyhow::Result<()> {
     let format = deserialize_format(Path::new("../shared/prototype-api.json"))?;
     let path = Path::new("src/generated");
 
@@ -20,7 +19,7 @@ fn main() -> io::Result<()> {
     let mod_path = &path.join("mod").with_extension("rs");
     save_file_if_changed("defines", mod_path, &format!("{content}}}"))?;
 
-    let lua_defines = parse_lua_defines("defines.lua").expect("expected to parse lua defines");
+    let lua_defines = parse_lua_defines("defines.lua")?;
     let results = format
         .defines
         .par_iter()

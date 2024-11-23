@@ -1,20 +1,29 @@
+use anyhow::anyhow;
+use mlua::prelude::LuaError;
 use mlua::{Lua, Value};
 use shared::lua_value::{LuaValue, State};
 use std::collections::{HashMap, HashSet};
 use std::fs;
 
-pub fn parse_lua_defines(path: &str) -> mlua::Result<HashMap<String, LuaValue>> {
+pub fn parse_lua_defines(path: &str) -> anyhow::Result<HashMap<String, LuaValue>> {
     let lua = Lua::new();
     let defines = fs::read_to_string(path)?;
-    let root = lua.load(defines).eval::<Value>()?;
+    let root = lua
+        .load(defines)
+        .eval::<Value>()
+        .map_err(|e| anyhow!("{e}"))?;
 
     let mut defines = HashMap::new();
-    traverse(String::new(), root, &mut defines);
+    traverse(String::new(), root, &mut defines)?;
 
     Ok(defines)
 }
 
-fn traverse(prefix: String, value: Value, defines: &mut HashMap<String, LuaValue>) -> LuaValue {
+fn traverse(
+    prefix: String,
+    value: Value,
+    defines: &mut HashMap<String, LuaValue>,
+) -> anyhow::Result<LuaValue> {
     let lua_value;
     if let Some(table) = value.as_table() {
         let next_prefix = if prefix.is_empty() {
@@ -26,7 +35,8 @@ fn traverse(prefix: String, value: Value, defines: &mut HashMap<String, LuaValue
         let mut state = State::AllDifferent;
         table
             .for_each(|k: String, v| {
-                let value = traverse(format!("{next_prefix}{k}"), v, defines);
+                let value = traverse(format!("{next_prefix}{k}"), v, defines)
+                    .map_err(|e| LuaError::external(e))?;
                 if let LuaValue::State(_) = value {
                 } else if !values.insert(value) {
                     // README: Adjustment [2]
@@ -35,7 +45,7 @@ fn traverse(prefix: String, value: Value, defines: &mut HashMap<String, LuaValue
                 }
                 Ok(())
             })
-            .expect("traversable");
+            .map_err(|e| anyhow!("{e}"))?;
         if values.len() == 1 && values.contains(&LuaValue::Number(0)) {
             state = State::Lookup;
         }
@@ -48,5 +58,5 @@ fn traverse(prefix: String, value: Value, defines: &mut HashMap<String, LuaValue
         unimplemented!("unexpected value: {:?}", value)
     }
     defines.insert(prefix, lua_value.clone());
-    lua_value
+    Ok(lua_value)
 }
