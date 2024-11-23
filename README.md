@@ -108,8 +108,8 @@ pub enum LiteralValue {
 This tracks all the extra adjustments that had to be made to make the generated code compile. Each adjustment is
 surrounded by the comment `README: Adjustment [X]`, where `X` is the number from the following list:
 
-1) The [control_behavior](https://lua-api.factorio.com/latest/defines.html#defines.control_behavior) define of the
-   prototype stage has two `exclusive_mode` inside its sub defines, one for
+1) [defines.control_behavior](https://lua-api.factorio.com/latest/defines.html#defines.control_behavior) has two
+   `exclusive_mode` inside its sub defines, one for
    the [logistic_container](https://lua-api.factorio.com/latest/defines.html#defines.control_behavior.logistic_container.exclusive_mode)
    and one for
    the [cargo_landing_pad](https://lua-api.factorio.com/latest/defines.html#defines.control_behavior.cargo_landing_pad.exclusive_mode).
@@ -117,4 +117,14 @@ surrounded by the comment `README: Adjustment [X]`, where `X` is the number from
    `set_requests = 1`, `none = 2`), which can be checked by printing them within the game itself:
    `print(serpent.block(defines.control_behavior))`. So in order to resolve the naming conflict in Rust, only one
    `ExclusiveMode` will be generated. [1]
-2) TODO
+2) Defines act as constants and should have unique values per group.
+   Unfortunately [defines.inventory](https://lua-api.factorio.com/stable/defines.html#defines.inventory),
+   [defines.logistic_member_index](https://lua-api.factorio.com/stable/defines.html#defines.logistic_member_index), [defines.transport_line](https://lua-api.factorio.com/stable/defines.html#defines.transport_line)
+   and [defines.wire_connector_id](https://lua-api.factorio.com/stable/defines.html#defines.wire_connector_id) contain
+   duplicate values. This means that when such a define gets deserialized for a duplicate value, a simple 1 to 1 mapping
+   would be ambiguous. To solve this a custom deserialize method is generated that maps a duplicated value to a set of
+   all
+   possible
+   variants with this value. All defines
+   from [defines.prototype](https://lua-api.factorio.com/stable/defines.html#defines.prototypes) have the value 0, as
+   those are just used as a lookup table. It is not necessary to create a custom deserialize method for them.

@@ -22,7 +22,7 @@ impl Define {
         lua_defines: &HashMap<String, LuaValue>,
     ) -> anyhow::Result<()> {
         let path = &path.join(&self.base.name).with_extension("rs");
-        let define = self.generate_internal(String::new(), lua_defines)?;
+        let define = self.generate_internal("", lua_defines)?;
         save_file_if_changed("defines", path, &define)
     }
 
@@ -36,7 +36,7 @@ impl Define {
 
     fn generate_internal(
         &self,
-        lua_define_key: String,
+        lua_define_key: &str,
         lua_defines: &HashMap<String, LuaValue>,
     ) -> anyhow::Result<String> {
         let mut define = format!("pub enum {}{{", self.rust_name());
@@ -66,10 +66,7 @@ impl Define {
                     continue;
                 }
                 // README: Adjustment [1]
-                define.insert_str(
-                    0,
-                    &sub.generate_internal(lua_define_key.clone(), lua_defines)?,
-                );
+                define.insert_str(0, &sub.generate_internal(lua_define_key, lua_defines)?);
             }
         }
         Ok(format!("{define}}}"))
@@ -144,7 +141,6 @@ impl Define {
             }}
         "#
         ));
-        // TODO: implement serde for repr or rename (String - check casing?) or lookup
         (serde, return_variants)
     }
     // README: Adjustment [2]

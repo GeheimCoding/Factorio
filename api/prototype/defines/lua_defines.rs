@@ -1,5 +1,3 @@
-use anyhow::anyhow;
-use mlua::prelude::LuaError;
 use mlua::{Lua, Value};
 use shared::lua_value::{LuaValue, State};
 use std::collections::{HashMap, HashSet};
@@ -8,10 +6,7 @@ use std::fs;
 pub fn parse_lua_defines(path: &str) -> anyhow::Result<HashMap<String, LuaValue>> {
     let lua = Lua::new();
     let defines = fs::read_to_string(path)?;
-    let root = lua
-        .load(defines)
-        .eval::<Value>()
-        .map_err(|e| anyhow!("{e}"))?;
+    let root = lua.load(defines).eval::<Value>()?;
 
     let mut defines = HashMap::new();
     traverse(String::new(), root, &mut defines)?;
@@ -33,19 +28,16 @@ fn traverse(
         };
         let mut values = HashSet::new();
         let mut state = State::AllDifferent;
-        table
-            .for_each(|k: String, v| {
-                let value = traverse(format!("{next_prefix}{k}"), v, defines)
-                    .map_err(|e| LuaError::external(e))?;
-                if let LuaValue::State(_) = value {
-                } else if !values.insert(value) {
-                    // README: Adjustment [2]
-                    state = State::ContainsDuplicates;
-                    // README: Adjustment [2]
-                }
-                Ok(())
-            })
-            .map_err(|e| anyhow!("{e}"))?;
+        table.for_each(|k: String, v| {
+            let value = traverse(format!("{next_prefix}{k}"), v, defines)?;
+            if let LuaValue::State(_) = value {
+            } else if !values.insert(value) {
+                // README: Adjustment [2]
+                state = State::ContainsDuplicates;
+                // README: Adjustment [2]
+            }
+            Ok(())
+        })?;
         if values.len() == 1 && values.contains(&LuaValue::Number(0)) {
             state = State::Lookup;
         }
