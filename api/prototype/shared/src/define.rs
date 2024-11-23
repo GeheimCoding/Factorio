@@ -20,7 +20,7 @@ impl Define {
     pub fn generate(&self, path: &Path, lua_defines: &HashMap<String, LuaValue>) -> io::Result<()> {
         let path = &path.join(&self.base.name).with_extension("rs");
         let define = self.generate_internal(String::new(), lua_defines)?;
-        save_file_if_changed(path, &define)
+        save_file_if_changed("defines", path, &define)
     }
 
     pub fn name(&self) -> &str {
