@@ -1,11 +1,17 @@
-#[derive(Eq, Hash, PartialEq)]
+#[derive(Debug, Clone)]
+pub enum LogisticMemberIndex {
+    Value0(std::collections::HashSet<Value0>),
+    Value1(std::collections::HashSet<Value1>),
+    CharacterProvider,
+}
+#[derive(Debug, Clone, PartialEq, Eq, Hash)]
 pub enum Value0 {
     CharacterRequester,
     GenericOnOffBehavior,
     LogisticContainer,
     SpidertronRequester,
 }
-#[derive(Eq, Hash, PartialEq)]
+#[derive(Debug, Clone, PartialEq, Eq, Hash)]
 pub enum Value1 {
     CharacterStorage,
     VehicleStorage,
@@ -33,9 +39,4 @@ impl<'de> serde::Deserialize<'de> for LogisticMemberIndex {
             ))),
         }
     }
-}
-pub enum LogisticMemberIndex {
-    Value0(std::collections::HashSet<Value0>),
-    Value1(std::collections::HashSet<Value1>),
-    CharacterProvider,
 }

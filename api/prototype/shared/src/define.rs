@@ -1,9 +1,11 @@
 use crate::basic_member::BasicMember;
 use crate::define_value::DefineValue;
+use crate::derive::Derive;
 use crate::file_utils::save_file_if_changed;
 use crate::lua_value::{LuaValue, State};
 use crate::pascal_case::PascalCase;
 use serde::Deserialize;
+use std::cmp::PartialEq;
 use std::collections::HashMap;
 use std::path::Path;
 
@@ -13,6 +15,13 @@ pub struct Define {
     pub base: BasicMember,
     pub values: Option<Vec<DefineValue>>,
     pub subkeys: Option<Vec<Define>>,
+}
+
+#[derive(PartialEq)]
+enum DeriveType {
+    None,
+    SerdeRepr,
+    SerdeRename,
 }
 
 impl Define {
@@ -40,23 +49,42 @@ impl Define {
         lua_defines: &HashMap<String, LuaValue>,
     ) -> anyhow::Result<String> {
         let mut define = format!("pub enum {}{{", self.rust_name());
+        let mut other = String::new();
+        let mut derive_type = DeriveType::None;
         let lua_define_key = if lua_define_key.is_empty() {
             &self.base.name
         } else {
             &format!("{lua_define_key}.{}", self.base.name)
         };
+        let parent_lua_value = lua_defines.get(lua_define_key);
         // README: Adjustment [2]
         if let Some(LuaValue::State(State::ContainsDuplicates)) = lua_defines.get(lua_define_key) {
             assert!(self.subkeys.is_none(), "unexpected subkeys");
             let (serde, variants) =
                 &self.generate_values_with_duplicates(lua_define_key, lua_defines);
-            define.insert_str(0, serde);
+            other.push_str(serde);
             define.push_str(variants);
         }
         // README: Adjustment [2]
         else if let Some(values) = &self.values {
             assert!(self.subkeys.is_none(), "unexpected subkeys");
-            define.push_str(&values.iter().map(DefineValue::generate).collect::<String>());
+            define.push_str(
+                &values
+                    .iter()
+                    .map(|value| {
+                        let lua_define =
+                            lua_defines.get(&format!("{lua_define_key}.{}", value.name));
+                        if let Some(LuaValue::String(_)) = lua_define {
+                            derive_type = DeriveType::SerdeRename;
+                        } else if let Some(LuaValue::Number(_)) = lua_define {
+                            if parent_lua_value != Some(&LuaValue::State(State::Lookup)) {
+                                derive_type = DeriveType::SerdeRepr;
+                            }
+                        }
+                        value.generate(lua_define, parent_lua_value)
+                    })
+                    .collect::<String>(),
+            );
         } else if let Some(subkeys) = &self.subkeys {
             for sub in subkeys {
                 let sub_name = sub.rust_name();
@@ -66,10 +94,15 @@ impl Define {
                     continue;
                 }
                 // README: Adjustment [1]
-                define.insert_str(0, &sub.generate_internal(lua_define_key, lua_defines)?);
+                other.push_str(&sub.generate_internal(lua_define_key, lua_defines)?);
             }
         }
-        Ok(format!("{define}}}"))
+        let derive = match derive_type {
+            DeriveType::None => Derive::new(),
+            DeriveType::SerdeRepr => Derive::new().with_serde_repr(),
+            DeriveType::SerdeRename => Derive::new().with_serde().with_kebab_case(),
+        };
+        Ok(format!("{derive}{define}}} {other}"))
     }
 
     // README: Adjustment [2]
@@ -121,7 +154,8 @@ impl Define {
                         .collect::<String>()
                 ));
                 serde.push_str(&format!(
-                    "#[derive(Eq, Hash, PartialEq)]pub enum Value{key}{{ {}, }}",
+                    "{}pub enum Value{key}{{ {}, }}",
+                    Derive::new().with_hash(),
                     values.join(",")
                 ));
             }

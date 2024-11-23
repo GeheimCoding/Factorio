@@ -1,3 +1,5 @@
+#[derive(Debug, Clone, serde::Deserialize)]
+#[serde(rename_all = "kebab-case")]
 pub enum RelativeGuiType {
     AccumulatorGui,
     AchievementGui,

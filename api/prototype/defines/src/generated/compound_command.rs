@@ -1,5 +1,7 @@
+#[derive(Debug, Clone, serde_repr::Deserialize_repr)]
+#[repr(u16)]
 pub enum CompoundCommand {
-    LogicalAnd,
-    LogicalOr,
-    ReturnLast,
+    LogicalAnd = 0,
+    LogicalOr = 1,
+    ReturnLast = 2,
 }

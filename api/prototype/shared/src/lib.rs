@@ -7,6 +7,7 @@ pub mod concept;
 pub mod custom_property;
 pub mod define;
 pub mod define_value;
+mod derive;
 pub mod file_utils;
 pub mod format;
 pub mod image;

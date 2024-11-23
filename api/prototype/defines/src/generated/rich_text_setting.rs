@@ -1,5 +1,7 @@
+#[derive(Debug, Clone, serde_repr::Deserialize_repr)]
+#[repr(u16)]
 pub enum RichTextSetting {
-    Disabled,
-    Enabled,
-    Highlight,
+    Disabled = 0,
+    Enabled = 17,
+    Highlight = 30,
 }

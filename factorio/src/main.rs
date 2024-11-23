@@ -1,6 +1,9 @@
 #![allow(unused)]
 #![deny(clippy::unwrap_used)]
 
+use defines::generated::relative_gui_type::RelativeGuiType;
+use defines::generated::wire_connector_id::WireConnectorId;
+use defines::generated::Defines;
 use remote_console::RemoteConsole;
 use std::{
     cmp::Ordering, collections::HashMap, fs, io, path::PathBuf, thread::sleep, time::Duration,

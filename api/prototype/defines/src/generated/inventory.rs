@@ -1,4 +1,17 @@
-#[derive(Eq, Hash, PartialEq)]
+#[derive(Debug, Clone)]
+pub enum Inventory {
+    Value1(std::collections::HashSet<Value1>),
+    RocketSiloTrash,
+    Value2(std::collections::HashSet<Value2>),
+    Value3(std::collections::HashSet<Value3>),
+    Value4(std::collections::HashSet<Value4>),
+    Value5(std::collections::HashSet<Value5>),
+    BurntResult,
+    Value7(std::collections::HashSet<Value7>),
+    CharacterTrash,
+    RocketSiloRocket,
+}
+#[derive(Debug, Clone, PartialEq, Eq, Hash)]
 pub enum Value1 {
     ArtilleryTurretAmmo,
     ArtilleryWagonAmmo,
@@ -17,7 +30,7 @@ pub enum Value1 {
     RobotCargo,
     TurretAmmo,
 }
-#[derive(Eq, Hash, PartialEq)]
+#[derive(Debug, Clone, PartialEq, Eq, Hash)]
 pub enum Value2 {
     AssemblingMachineInput,
     CarTrunk,
@@ -33,7 +46,7 @@ pub enum Value2 {
     RocketSiloInput,
     SpiderTrunk,
 }
-#[derive(Eq, Hash, PartialEq)]
+#[derive(Debug, Clone, PartialEq, Eq, Hash)]
 pub enum Value3 {
     AssemblingMachineOutput,
     CarAmmo,
@@ -44,7 +57,7 @@ pub enum Value3 {
     RocketSiloOutput,
     SpiderAmmo,
 }
-#[derive(Eq, Hash, PartialEq)]
+#[derive(Debug, Clone, PartialEq, Eq, Hash)]
 pub enum Value4 {
     AssemblingMachineModules,
     CharacterAmmo,
@@ -53,12 +66,12 @@ pub enum Value4 {
     RocketSiloModules,
     SpiderTrash,
 }
-#[derive(Eq, Hash, PartialEq)]
+#[derive(Debug, Clone, PartialEq, Eq, Hash)]
 pub enum Value5 {
     CharacterArmor,
     EditorArmor,
 }
-#[derive(Eq, Hash, PartialEq)]
+#[derive(Debug, Clone, PartialEq, Eq, Hash)]
 pub enum Value7 {
     AssemblingMachineDump,
     CharacterVehicle,
@@ -137,16 +150,4 @@ impl<'de> serde::Deserialize<'de> for Inventory {
             ))),
         }
     }
-}
-pub enum Inventory {
-    Value1(std::collections::HashSet<Value1>),
-    RocketSiloTrash,
-    Value2(std::collections::HashSet<Value2>),
-    Value3(std::collections::HashSet<Value3>),
-    Value4(std::collections::HashSet<Value4>),
-    Value5(std::collections::HashSet<Value5>),
-    BurntResult,
-    Value7(std::collections::HashSet<Value7>),
-    CharacterTrash,
-    RocketSiloRocket,
 }

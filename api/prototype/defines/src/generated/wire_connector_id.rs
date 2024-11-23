@@ -1,14 +1,23 @@
-#[derive(Eq, Hash, PartialEq)]
+#[derive(Debug, Clone)]
+pub enum WireConnectorId {
+    Value1(std::collections::HashSet<Value1>),
+    Value2(std::collections::HashSet<Value2>),
+    CombinatorOutputRed,
+    CombinatorOutputGreen,
+    Value5(std::collections::HashSet<Value5>),
+    PowerSwitchRightCopper,
+}
+#[derive(Debug, Clone, PartialEq, Eq, Hash)]
 pub enum Value1 {
     CircuitRed,
     CombinatorInputRed,
 }
-#[derive(Eq, Hash, PartialEq)]
+#[derive(Debug, Clone, PartialEq, Eq, Hash)]
 pub enum Value2 {
     CircuitGreen,
     CombinatorInputGreen,
 }
-#[derive(Eq, Hash, PartialEq)]
+#[derive(Debug, Clone, PartialEq, Eq, Hash)]
 pub enum Value5 {
     PoleCopper,
     PowerSwitchLeftCopper,
@@ -39,12 +48,4 @@ impl<'de> serde::Deserialize<'de> for WireConnectorId {
             ))),
         }
     }
-}
-pub enum WireConnectorId {
-    Value1(std::collections::HashSet<Value1>),
-    Value2(std::collections::HashSet<Value2>),
-    CombinatorOutputRed,
-    CombinatorOutputGreen,
-    Value5(std::collections::HashSet<Value5>),
-    PowerSwitchRightCopper,
 }

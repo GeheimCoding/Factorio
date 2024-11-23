@@ -1,9 +1,20 @@
-#[derive(Eq, Hash, PartialEq)]
+#[derive(Debug, Clone)]
+pub enum TransportLine {
+    LeftLine,
+    RightLine,
+    Value3(std::collections::HashSet<Value3>),
+    Value4(std::collections::HashSet<Value4>),
+    LeftSplitLine,
+    RightSplitLine,
+    SecondaryLeftSplitLine,
+    SecondaryRightSplitLine,
+}
+#[derive(Debug, Clone, PartialEq, Eq, Hash)]
 pub enum Value3 {
     LeftUndergroundLine,
     SecondaryLeftLine,
 }
-#[derive(Eq, Hash, PartialEq)]
+#[derive(Debug, Clone, PartialEq, Eq, Hash)]
 pub enum Value4 {
     RightUndergroundLine,
     SecondaryRightLine,
@@ -33,14 +44,4 @@ impl<'de> serde::Deserialize<'de> for TransportLine {
             ))),
         }
     }
-}
-pub enum TransportLine {
-    LeftLine,
-    RightLine,
-    Value3(std::collections::HashSet<Value3>),
-    Value4(std::collections::HashSet<Value4>),
-    LeftSplitLine,
-    RightSplitLine,
-    SecondaryLeftSplitLine,
-    SecondaryRightSplitLine,
 }
