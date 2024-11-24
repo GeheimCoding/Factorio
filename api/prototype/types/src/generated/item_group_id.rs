@@ -1,1 +1,1 @@
-pub struct ItemGroupID {}
+pub type ItemGroupID = String;

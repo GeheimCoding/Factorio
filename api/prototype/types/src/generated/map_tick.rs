@@ -1,1 +1,1 @@
-pub struct MapTick {}
+pub type MapTick = u64;

@@ -1,1 +1,1 @@
-pub struct LogisticFilterIndex {}
+pub type LogisticFilterIndex = u16;

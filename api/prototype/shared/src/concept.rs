@@ -1,7 +1,7 @@
 use crate::basic_member::BasicMember;
-use crate::case::Case;
 use crate::file_utils::save_file_if_changed;
 use crate::property::Property;
+use crate::transformation::Transformation;
 use crate::type_::Type;
 use serde::Deserialize;
 use std::path::Path;
@@ -34,16 +34,23 @@ impl Concept {
         &self.base.name
     }
 
-    pub fn is_builtin(&self) -> bool {
-        // self.type_ == Type::Simple(String::from("builtin"))
+    pub fn should_be_generated(&self) -> bool {
         self.base
             .name
             .chars()
             .next()
-            .map_or(false, char::is_lowercase)
+            .map_or(false, char::is_uppercase)
+            && !self.inline
     }
 
     fn generate_internal(&self) -> anyhow::Result<String> {
+        if let Type::Simple(simple) = &self.type_ {
+            return Ok(format!(
+                "pub type {} = {};",
+                self.rust_name(),
+                simple.to_rust_type()
+            ));
+        }
         let concept = format!("pub struct {} {{", self.rust_name());
         Ok(format!("{concept}}}"))
     }

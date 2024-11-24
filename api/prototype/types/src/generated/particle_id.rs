@@ -1,1 +1,1 @@
-pub struct ParticleID {}
+pub type ParticleID = String;

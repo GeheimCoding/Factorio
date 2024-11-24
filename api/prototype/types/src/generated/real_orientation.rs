@@ -1,1 +1,1 @@
-pub struct RealOrientation {}
+pub type RealOrientation = f32;

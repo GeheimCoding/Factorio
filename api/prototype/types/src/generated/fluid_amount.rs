@@ -1,1 +1,1 @@
-pub struct FluidAmount {}
+pub type FluidAmount = f64;

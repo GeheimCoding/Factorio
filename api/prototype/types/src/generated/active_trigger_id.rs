@@ -1,1 +1,1 @@
-pub struct ActiveTriggerID {}
+pub type ActiveTriggerID = String;

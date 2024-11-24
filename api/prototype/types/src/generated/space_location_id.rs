@@ -1,1 +1,1 @@
-pub struct SpaceLocationID {}
+pub type SpaceLocationID = String;

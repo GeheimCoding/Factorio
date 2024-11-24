@@ -1,1 +1,1 @@
-pub struct CollisionLayerID {}
+pub type CollisionLayerID = String;

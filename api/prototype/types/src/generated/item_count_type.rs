@@ -1,1 +1,1 @@
-pub struct ItemCountType {}
+pub type ItemCountType = u32;

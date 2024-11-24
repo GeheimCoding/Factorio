@@ -1,1 +1,1 @@
-pub struct NeighbourConnectableConnectionCategory {}
+pub type NeighbourConnectableConnectionCategory = String;

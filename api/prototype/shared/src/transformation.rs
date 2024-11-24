@@ -1,9 +1,10 @@
-pub trait Case {
+pub trait Transformation {
     fn to_pascal_case(&self) -> String;
     fn to_snake_case(&self) -> String;
+    fn to_rust_type(&self) -> String;
 }
 
-impl Case for String {
+impl Transformation for String {
     fn to_pascal_case(&self) -> String {
         if self.is_empty() {
             return String::new();
@@ -40,7 +41,7 @@ impl Case for String {
         );
         let mut with_underscore = true;
         while let Some(c) = chars.next() {
-            if c.is_ascii_uppercase() {
+            if c.is_ascii_uppercase() || c.is_numeric() {
                 if with_underscore {
                     snake_case.push_str(&format!("_{}", c.to_ascii_lowercase()));
                     with_underscore = false;
@@ -56,5 +57,22 @@ impl Case for String {
             }
         }
         snake_case
+    }
+
+    fn to_rust_type(&self) -> String {
+        match self.as_str() {
+            "double" => "f64".to_owned(),
+            "float" => "f32".to_owned(),
+            "int16" => "i16".to_owned(),
+            "int32" => "i32".to_owned(),
+            "int64" => "i64".to_owned(),
+            "int8" => "i8".to_owned(),
+            "string" => "String".to_owned(),
+            "uint16" => "u16".to_owned(),
+            "uint32" => "u32".to_owned(),
+            "uint64" => "u64".to_owned(),
+            "uint8" => "u8".to_owned(),
+            s => s.to_owned(),
+        }
     }
 }

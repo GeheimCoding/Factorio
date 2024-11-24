@@ -1,1 +1,1 @@
-pub struct Order {}
+pub type Order = String;

@@ -1,1 +1,1 @@
-pub struct ResourceCategoryID {}
+pub type ResourceCategoryID = String;

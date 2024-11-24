@@ -1,1 +1,1 @@
-pub struct TileEffectDefinitionID {}
+pub type TileEffectDefinitionID = String;

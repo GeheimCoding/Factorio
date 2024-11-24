@@ -1,1 +1,1 @@
-pub struct ProcessionLayerWithTime {}
+pub type ProcessionLayerWithTime = ProcessionLayer;

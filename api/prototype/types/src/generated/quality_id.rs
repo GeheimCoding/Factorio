@@ -1,1 +1,1 @@
-pub struct QualityID {}
+pub type QualityID = String;

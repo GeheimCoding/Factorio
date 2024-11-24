@@ -1,1 +1,1 @@
-pub struct TrivialSmokeID {}
+pub type TrivialSmokeID = String;

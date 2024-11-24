@@ -1,1 +1,1 @@
-pub struct SpriteSizeType {}
+pub type SpriteSizeType = i16;

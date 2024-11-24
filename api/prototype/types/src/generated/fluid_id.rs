@@ -1,1 +1,1 @@
-pub struct FluidID {}
+pub type FluidID = String;

@@ -1,1 +1,1 @@
-pub struct Energy {}
+pub type Energy = String;

@@ -1,1 +1,1 @@
-pub struct DecorativeID {}
+pub type DecorativeID = String;

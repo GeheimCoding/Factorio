@@ -1,1 +1,1 @@
-pub struct DataExtendMethod {}
+pub type DataExtendMethod = builtin;

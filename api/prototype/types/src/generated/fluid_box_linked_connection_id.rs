@@ -1,1 +1,1 @@
-pub struct FluidBoxLinkedConnectionID {}
+pub type FluidBoxLinkedConnectionID = u32;

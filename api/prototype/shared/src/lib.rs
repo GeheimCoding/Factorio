@@ -3,7 +3,6 @@ use std::fs;
 use std::path::Path;
 
 pub mod basic_member;
-pub mod case;
 pub mod concept;
 pub mod custom_property;
 pub mod define;
@@ -15,6 +14,7 @@ pub mod image;
 pub mod lua_value;
 pub mod property;
 pub mod prototype;
+pub mod transformation;
 pub mod type_;
 
 pub fn deserialize_format(path: &Path) -> anyhow::Result<Format> {

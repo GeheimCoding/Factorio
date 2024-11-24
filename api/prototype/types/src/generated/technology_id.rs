@@ -1,1 +1,1 @@
-pub struct TechnologyID {}
+pub type TechnologyID = String;

@@ -1,1 +1,1 @@
-pub struct RecipeCategoryID {}
+pub type RecipeCategoryID = String;

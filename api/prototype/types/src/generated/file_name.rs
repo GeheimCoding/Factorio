@@ -1,1 +1,1 @@
-pub struct FileName {}
+pub type FileName = String;

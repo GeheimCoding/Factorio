@@ -1,1 +1,1 @@
-pub struct FuelCategoryID {}
+pub type FuelCategoryID = String;

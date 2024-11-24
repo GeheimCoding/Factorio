@@ -1,1 +1,1 @@
-pub struct AirbornePollutantID {}
+pub type AirbornePollutantID = String;

@@ -1,1 +1,1 @@
-pub struct EffectValue {}
+pub type EffectValue = f32;

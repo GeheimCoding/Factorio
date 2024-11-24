@@ -1,1 +1,1 @@
-pub struct ProcessionLayerInheritanceGroupID {}
+pub type ProcessionLayerInheritanceGroupID = String;

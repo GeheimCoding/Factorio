@@ -1,1 +1,1 @@
-pub struct ItemStackIndex {}
+pub type ItemStackIndex = u16;

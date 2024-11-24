@@ -1,1 +1,1 @@
-pub struct SurfaceID {}
+pub type SurfaceID = String;

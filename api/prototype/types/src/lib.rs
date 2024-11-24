@@ -3,17 +3,25 @@ use shared::deserialize_format;
 use shared::file_utils::save_file_if_changed;
 use std::path::Path;
 
-pub mod generated;
+//pub mod generated;
 
 pub fn build_types() -> anyhow::Result<()> {
     let format = deserialize_format(Path::new("api/prototype/shared/prototype-api.json"))?;
     let path = Path::new("api/prototype/types/src/generated");
 
+    let results = format
+        .types
+        .par_iter()
+        .filter(|concept| concept.should_be_generated())
+        .map(|concept| concept.generate(path))
+        .collect::<Vec<_>>();
+    results.into_iter().collect::<Result<(), _>>()?;
+
     let mut content = String::from("pub enum Types {");
     format
         .types
         .iter()
-        .filter(|concept| !concept.is_builtin())
+        .filter(|concept| concept.should_be_generated())
         .for_each(|concept| {
             let rust_name = &concept.rust_name();
             content.insert_str(0, &format!("pub mod {};", concept.name()));
@@ -25,13 +33,5 @@ pub fn build_types() -> anyhow::Result<()> {
             ));
         });
     let mod_path = &path.join("mod").with_extension("rs");
-    save_file_if_changed("types", mod_path, &format!("{content}}}"))?;
-
-    let results = format
-        .types
-        .par_iter()
-        .filter(|concept| !concept.is_builtin())
-        .map(|concept| concept.generate(path))
-        .collect::<Vec<_>>();
-    results.into_iter().collect::<Result<_, _>>()
+    save_file_if_changed("types", mod_path, &format!("{content}}}"))
 }

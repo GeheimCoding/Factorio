@@ -1,1 +1,1 @@
-pub struct MathExpression {}
+pub type MathExpression = String;

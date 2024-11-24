@@ -1,1 +1,1 @@
-pub struct TileID {}
+pub type TileID = String;

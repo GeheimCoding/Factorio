@@ -1,1 +1,1 @@
-pub struct MouseCursorID {}
+pub type MouseCursorID = String;

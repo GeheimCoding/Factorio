@@ -1,9 +1,9 @@
 use crate::basic_member::BasicMember;
-use crate::case::Case;
 use crate::define_value::DefineValue;
 use crate::derive::Derive;
 use crate::file_utils::save_file_if_changed;
 use crate::lua_value::{LuaValue, State};
+use crate::transformation::Transformation;
 use serde::Deserialize;
 use std::cmp::PartialEq;
 use std::collections::HashMap;

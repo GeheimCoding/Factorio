@@ -1,1 +1,1 @@
-pub struct VirtualSignalID {}
+pub type VirtualSignalID = String;

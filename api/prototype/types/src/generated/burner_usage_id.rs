@@ -1,1 +1,1 @@
-pub struct BurnerUsageID {}
+pub type BurnerUsageID = String;

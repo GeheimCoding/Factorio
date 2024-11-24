@@ -1,1 +1,1 @@
-pub struct AmmoCategoryID {}
+pub type AmmoCategoryID = String;

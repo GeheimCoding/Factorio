@@ -1,1 +1,1 @@
-pub struct AutoplaceControlID {}
+pub type AutoplaceControlID = String;

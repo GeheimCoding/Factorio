@@ -1,1 +1,1 @@
-pub struct AsteroidChunkID {}
+pub type AsteroidChunkID = String;

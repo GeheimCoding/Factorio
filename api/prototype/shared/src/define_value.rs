@@ -1,5 +1,5 @@
-use crate::case::Case;
 use crate::lua_value::{LuaValue, State};
+use crate::transformation::Transformation;
 use serde::Deserialize;
 
 #[derive(Debug, Deserialize)]

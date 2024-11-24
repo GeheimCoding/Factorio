@@ -1,1 +1,1 @@
-pub struct MaterialAmountType {}
+pub type MaterialAmountType = f64;

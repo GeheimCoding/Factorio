@@ -1,1 +1,1 @@
-pub struct Weight {}
+pub type Weight = f64;
