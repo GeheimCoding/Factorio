@@ -45,13 +45,28 @@ impl Concept {
 
     fn generate_internal(&self) -> anyhow::Result<String> {
         if let Type::Simple(simple) = &self.type_ {
-            return Ok(format!(
-                "pub type {} = {};",
-                self.rust_name(),
-                simple.to_rust_type()
-            ));
+            return Ok(self.generate_simple_type(simple));
         }
         let concept = format!("pub struct {} {{", self.rust_name());
         Ok(format!("{concept}}}"))
+    }
+
+    fn generate_simple_type(&self, simple: &String) -> String {
+        let name = self.rust_name();
+        assert!(
+            self.properties.is_none(),
+            "expected no properties for '{name}' with type '{simple}'"
+        );
+        assert!(
+            self.parent.is_none(),
+            "expected no parent for '{name}' with type '{simple}'"
+        );
+        // README: Adjustment [3]
+        if name == "DataExtendMethod" {
+            assert_eq!(simple, "builtin", "expected builtin type");
+            return String::from("pub struct DataExtendMethod;");
+        }
+        // README: Adjustment [3]
+        format!("pub type {name} = {};", simple.to_rust_type())
     }
 }

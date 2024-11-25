@@ -128,3 +128,6 @@ surrounded by the comment `README: Adjustment [X]`, where `X` is the number from
    variants with this value. All defines
    from [defines.prototype](https://lua-api.factorio.com/stable/defines.html#defines.prototypes) have the value 0, as
    those are just used as a lookup table. It is not necessary to create a custom deserialize method for them.
+3) [DataExtendMethod](https://lua-api.factorio.com/stable/types/DataExtendMethod.html) is a bit of an edge case, because
+   it is a `builtin` type, but does not map to any Rust type. To satisfy the deserializer it is generated as an empty
+   struct.
