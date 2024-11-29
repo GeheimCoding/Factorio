@@ -1,1 +1,1 @@
-pub type CircularProjectileCreationSpecification = todo!();
+pub type CircularProjectileCreationSpecification = Vec<(RealOrientation, Vector)>;

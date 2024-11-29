@@ -1,1 +1,1 @@
-pub type TriggerTargetMask = todo!();
+pub type TriggerTargetMask = Vec<String>;

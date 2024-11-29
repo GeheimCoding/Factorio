@@ -1,1 +1,1 @@
-pub type Mods = todo!();
+pub type Mods = std::collections::HashMap<String, String>;

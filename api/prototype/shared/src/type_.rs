@@ -100,18 +100,30 @@ impl Type {
     }
 
     fn generate_array(value: &Type) -> String {
-        String::from("todo!()")
+        format!("Vec<{}>", value.generate())
     }
 
     fn generate_dictionary(key: &Type, value: &Type) -> String {
-        String::from("todo!()")
+        format!(
+            "std::collections::HashMap<{},{}>",
+            key.generate(),
+            value.generate()
+        )
     }
 
     fn generate_tuple(values: &Vec<Type>) -> String {
-        String::from("todo!()")
+        format!(
+            "({})",
+            values
+                .iter()
+                .map(|v| v.generate())
+                .collect::<Vec<_>>()
+                .join(",")
+        )
     }
 
     fn generate_union(options: &Vec<Type>, full_format: &bool) -> String {
+        // TODO: only return name of union (needs prefix?)
         String::from("todo!()")
     }
 
@@ -120,6 +132,6 @@ impl Type {
     }
 
     fn generate_type(value: &Type, description: &String) -> String {
-        String::from("todo!()")
+        value.generate()
     }
 }

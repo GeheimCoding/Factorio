@@ -1,1 +1,1 @@
-pub type ProbabilityTableItem = todo!();
+pub type ProbabilityTableItem = (u8, u8);

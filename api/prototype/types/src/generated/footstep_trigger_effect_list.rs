@@ -1,1 +1,1 @@
-pub type FootstepTriggerEffectList = todo!();
+pub type FootstepTriggerEffectList = Vec<FootstepTriggerEffectItem>;

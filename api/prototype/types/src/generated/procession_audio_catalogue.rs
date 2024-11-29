@@ -1,1 +1,1 @@
-pub type ProcessionAudioCatalogue = todo!();
+pub type ProcessionAudioCatalogue = Vec<ProcessionAudioCatalogueItem>;

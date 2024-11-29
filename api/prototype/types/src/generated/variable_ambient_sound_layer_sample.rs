@@ -1,1 +1,1 @@
-pub type VariableAmbientSoundLayerSample = todo!();
+pub type VariableAmbientSoundLayerSample = (String, u32);

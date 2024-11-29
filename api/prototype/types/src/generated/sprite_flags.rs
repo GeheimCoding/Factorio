@@ -1,1 +1,1 @@
-pub type SpriteFlags = todo!();
+pub type SpriteFlags = Vec<todo!()>;

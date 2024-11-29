@@ -1,1 +1,1 @@
-pub type ProbabilityTable = todo!();
+pub type ProbabilityTable = Vec<ProbabilityTableItem>;

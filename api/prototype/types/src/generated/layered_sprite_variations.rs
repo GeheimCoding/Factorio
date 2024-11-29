@@ -1,1 +1,1 @@
-pub type LayeredSpriteVariations = todo!();
+pub type LayeredSpriteVariations = Vec<LayeredSprite>;

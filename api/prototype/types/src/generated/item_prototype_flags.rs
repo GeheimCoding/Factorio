@@ -1,1 +1,1 @@
-pub type ItemPrototypeFlags = todo!();
+pub type ItemPrototypeFlags = Vec<todo!()>;

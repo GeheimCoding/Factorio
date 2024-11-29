@@ -1,1 +1,1 @@
-pub type EntityPrototypeFlags = todo!();
+pub type EntityPrototypeFlags = Vec<todo!()>;

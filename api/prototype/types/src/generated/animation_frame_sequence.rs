@@ -1,1 +1,1 @@
-pub type AnimationFrameSequence = todo!();
+pub type AnimationFrameSequence = Vec<u16>;

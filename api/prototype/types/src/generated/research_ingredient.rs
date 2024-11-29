@@ -1,1 +1,1 @@
-pub type ResearchIngredient = todo!();
+pub type ResearchIngredient = (ItemID, u16);

@@ -1,1 +1,1 @@
-pub type ProcessionGraphicCatalogue = todo!();
+pub type ProcessionGraphicCatalogue = Vec<ProcessionGraphicCatalogueItem>;
