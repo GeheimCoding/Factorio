@@ -1,1 +1,1 @@
-pub struct TechnologyTrigger {}
+todo!();

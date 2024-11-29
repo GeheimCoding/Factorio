@@ -1,1 +1,1 @@
-pub struct GeneratingPowerTipTrigger {}
+todo!();

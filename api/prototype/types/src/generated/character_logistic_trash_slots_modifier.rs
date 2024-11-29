@@ -1,1 +1,1 @@
-pub struct CharacterLogisticTrashSlotsModifier {}
+todo!();

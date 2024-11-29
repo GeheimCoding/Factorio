@@ -1,1 +1,1 @@
-pub struct InstantTriggerDelivery {}
+todo!();

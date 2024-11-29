@@ -1,1 +1,1 @@
-pub struct BeltTraverseTipTrigger {}
+todo!();

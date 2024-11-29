@@ -1,1 +1,1 @@
-pub struct SpaceDustEffectProperties {}
+todo!();

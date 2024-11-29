@@ -1,1 +1,1 @@
-pub struct CharacterLootPickupDistanceModifier {}
+todo!();

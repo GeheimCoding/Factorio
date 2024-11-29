@@ -1,1 +1,1 @@
-pub struct KillTipTrigger {}
+todo!();

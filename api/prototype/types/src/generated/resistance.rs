@@ -1,1 +1,1 @@
-pub struct Resistance {}
+todo!();

@@ -1,1 +1,1 @@
-pub struct VariableAmbientSoundStateType {}
+todo!();

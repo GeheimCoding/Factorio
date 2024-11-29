@@ -1,1 +1,1 @@
-pub struct ShiftAnimationWaypoints {}
+todo!();

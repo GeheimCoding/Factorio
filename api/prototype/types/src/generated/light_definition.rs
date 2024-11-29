@@ -1,1 +1,1 @@
-pub struct LightDefinition {}
+todo!();

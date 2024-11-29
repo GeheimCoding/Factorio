@@ -1,1 +1,1 @@
-pub struct WorkerRobotStorageModifier {}
+todo!();

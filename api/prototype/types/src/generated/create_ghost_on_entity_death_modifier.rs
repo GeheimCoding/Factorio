@@ -1,1 +1,1 @@
-pub struct CreateGhostOnEntityDeathModifier {}
+todo!();

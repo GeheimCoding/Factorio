@@ -1,1 +1,1 @@
-pub struct AsteroidSpawnPoint {}
+todo!();

@@ -1,1 +1,1 @@
-pub struct SpriteFlags {}
+pub type SpriteFlags = todo!();

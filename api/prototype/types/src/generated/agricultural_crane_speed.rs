@@ -1,1 +1,1 @@
-pub struct AgriculturalCraneSpeed {}
+todo!();

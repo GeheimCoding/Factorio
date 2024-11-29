@@ -1,1 +1,1 @@
-pub struct ProductPrototype {}
+todo!();

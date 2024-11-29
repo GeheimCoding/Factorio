@@ -1,1 +1,1 @@
-pub struct VariableAmbientSoundNextStateTrigger {}
+todo!();

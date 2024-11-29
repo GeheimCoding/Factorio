@@ -1,1 +1,1 @@
-pub struct StackTransferTipTrigger {}
+todo!();

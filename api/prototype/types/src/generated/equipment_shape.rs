@@ -1,1 +1,1 @@
-pub struct EquipmentShape {}
+todo!();

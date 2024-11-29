@@ -1,1 +1,1 @@
-pub struct CircularProjectileCreationSpecification {}
+pub type CircularProjectileCreationSpecification = todo!();

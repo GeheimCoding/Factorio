@@ -1,1 +1,1 @@
-pub struct RollingStockRotatedSlopedGraphics {}
+todo!();

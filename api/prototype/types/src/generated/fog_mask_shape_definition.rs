@@ -1,1 +1,1 @@
-pub struct FogMaskShapeDefinition {}
+todo!();

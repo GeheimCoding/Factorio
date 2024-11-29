@@ -1,1 +1,1 @@
-pub struct PasteEntitySettingsTipTrigger {}
+todo!();

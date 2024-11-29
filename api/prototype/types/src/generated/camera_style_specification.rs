@@ -1,1 +1,1 @@
-pub struct CameraStyleSpecification {}
+todo!();

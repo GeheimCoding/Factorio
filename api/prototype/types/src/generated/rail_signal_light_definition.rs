@@ -1,1 +1,1 @@
-pub struct RailSignalLightDefinition {}
+todo!();

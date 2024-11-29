@@ -1,1 +1,1 @@
-pub struct CargoHatchDefinition {}
+todo!();

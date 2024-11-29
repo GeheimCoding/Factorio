@@ -1,1 +1,1 @@
-pub struct TriggerDelivery {}
+todo!();

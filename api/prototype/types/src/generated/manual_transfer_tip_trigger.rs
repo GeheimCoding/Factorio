@@ -1,1 +1,1 @@
-pub struct ManualTransferTipTrigger {}
+todo!();

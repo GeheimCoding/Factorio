@@ -1,1 +1,1 @@
-pub struct ConsumingType {}
+todo!();

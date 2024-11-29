@@ -1,1 +1,1 @@
-pub struct TriggerTargetMask {}
+pub type TriggerTargetMask = todo!();

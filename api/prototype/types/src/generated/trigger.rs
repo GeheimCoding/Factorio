@@ -1,1 +1,1 @@
-pub struct Trigger {}
+todo!();

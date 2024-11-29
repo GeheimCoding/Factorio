@@ -1,1 +1,1 @@
-pub struct CreateFireTriggerEffectItem {}
+todo!();

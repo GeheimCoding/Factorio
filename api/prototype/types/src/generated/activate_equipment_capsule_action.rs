@@ -1,1 +1,1 @@
-pub struct ActivateEquipmentCapsuleAction {}
+todo!();

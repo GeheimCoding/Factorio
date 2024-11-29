@@ -1,1 +1,1 @@
-pub struct Animation4Way {}
+todo!();

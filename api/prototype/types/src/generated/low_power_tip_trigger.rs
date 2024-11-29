@@ -1,1 +1,1 @@
-pub struct LowPowerTipTrigger {}
+todo!();

@@ -1,1 +1,1 @@
-pub struct AnimationFrameSequence {}
+pub type AnimationFrameSequence = todo!();

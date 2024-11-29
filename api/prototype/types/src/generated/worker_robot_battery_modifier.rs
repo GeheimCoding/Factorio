@@ -1,1 +1,1 @@
-pub struct WorkerRobotBatteryModifier {}
+todo!();

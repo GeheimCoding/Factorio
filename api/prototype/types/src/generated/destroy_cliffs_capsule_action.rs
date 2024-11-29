@@ -1,1 +1,1 @@
-pub struct DestroyCliffsCapsuleAction {}
+todo!();

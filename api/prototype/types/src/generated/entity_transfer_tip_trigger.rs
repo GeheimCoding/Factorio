@@ -1,1 +1,1 @@
-pub struct EntityTransferTipTrigger {}
+todo!();

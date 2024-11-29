@@ -1,1 +1,1 @@
-pub struct DaytimeColorLookupTable {}
+pub type DaytimeColorLookupTable = todo!();

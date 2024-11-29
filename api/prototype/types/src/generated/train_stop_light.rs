@@ -1,1 +1,1 @@
-pub struct TrainStopLight {}
+todo!();

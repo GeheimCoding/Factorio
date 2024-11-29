@@ -1,1 +1,1 @@
-pub struct ProcessionGraphicCatalogue {}
+pub type ProcessionGraphicCatalogue = todo!();

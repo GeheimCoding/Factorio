@@ -1,1 +1,1 @@
-pub struct ItemPrototypeFlags {}
+pub type ItemPrototypeFlags = todo!();

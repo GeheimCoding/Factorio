@@ -1,1 +1,1 @@
-pub struct MapGenSettings {}
+todo!();

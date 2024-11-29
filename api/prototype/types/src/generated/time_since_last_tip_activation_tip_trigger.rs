@@ -1,1 +1,1 @@
-pub struct TimeSinceLastTipActivationTipTrigger {}
+todo!();

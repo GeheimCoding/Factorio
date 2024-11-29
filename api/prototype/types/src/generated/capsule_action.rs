@@ -1,1 +1,1 @@
-pub struct CapsuleAction {}
+todo!();

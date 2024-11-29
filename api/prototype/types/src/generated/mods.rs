@@ -1,1 +1,1 @@
-pub struct Mods {}
+pub type Mods = todo!();

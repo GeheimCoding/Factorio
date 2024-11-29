@@ -1,1 +1,1 @@
-pub struct VehicleLogisticsModifier {}
+todo!();

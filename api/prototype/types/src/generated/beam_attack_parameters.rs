@@ -1,1 +1,1 @@
-pub struct BeamAttackParameters {}
+todo!();

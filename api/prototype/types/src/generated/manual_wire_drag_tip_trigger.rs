@@ -1,1 +1,1 @@
-pub struct ManualWireDragTipTrigger {}
+todo!();

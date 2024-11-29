@@ -1,1 +1,1 @@
-pub struct ProbabilityTable {}
+pub type ProbabilityTable = todo!();

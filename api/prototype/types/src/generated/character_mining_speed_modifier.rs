@@ -1,1 +1,1 @@
-pub struct CharacterMiningSpeedModifier {}
+todo!();

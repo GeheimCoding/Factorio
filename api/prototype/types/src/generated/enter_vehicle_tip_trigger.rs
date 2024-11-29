@@ -1,1 +1,1 @@
-pub struct EnterVehicleTipTrigger {}
+todo!();

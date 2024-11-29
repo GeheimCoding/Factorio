@@ -1,1 +1,1 @@
-pub struct RangedValue {}
+todo!();

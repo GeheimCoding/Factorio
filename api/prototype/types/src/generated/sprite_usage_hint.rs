@@ -1,1 +1,1 @@
-pub struct SpriteUsageHint {}
+todo!();

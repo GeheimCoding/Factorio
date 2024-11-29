@@ -1,1 +1,1 @@
-pub struct FrequencySizeRichness {}
+todo!();

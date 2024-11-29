@@ -1,1 +1,1 @@
-pub struct MineEntityTechnologyTrigger {}
+todo!();

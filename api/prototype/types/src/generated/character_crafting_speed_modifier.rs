@@ -1,1 +1,1 @@
-pub struct CharacterCraftingSpeedModifier {}
+todo!();

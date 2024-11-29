@@ -1,1 +1,1 @@
-pub struct CoverGraphicEffectData {}
+todo!();

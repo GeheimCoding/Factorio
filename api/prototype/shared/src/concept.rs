@@ -2,7 +2,7 @@ use crate::basic_member::BasicMember;
 use crate::file_utils::save_file_if_changed;
 use crate::property::Property;
 use crate::transformation::Transformation;
-use crate::type_::Type;
+use crate::type_::{ComplexType, Type};
 use serde::Deserialize;
 use std::path::Path;
 
@@ -22,7 +22,7 @@ pub struct Concept {
 impl Concept {
     pub fn generate(&self, path: &Path) -> anyhow::Result<()> {
         let path = &path.join(self.name()).with_extension("rs");
-        let concept = self.generate_internal()?;
+        let concept = self.generate_internal();
         save_file_if_changed("types", path, &concept)
     }
 
@@ -43,30 +43,62 @@ impl Concept {
             && !self.inline
     }
 
-    fn generate_internal(&self) -> anyhow::Result<String> {
-        if let Type::Simple(simple) = &self.type_ {
-            return Ok(self.generate_simple_type(simple));
+    fn generate_internal(&self) -> String {
+        if self.type_.is_struct() {
+            self.generate_struct()
+        } else if self.type_.is_union() {
+            self.generate_enum()
+        } else {
+            self.generate_new_type()
         }
-        let concept = format!("pub struct {} {{", self.rust_name());
-        Ok(format!("{concept}}}"))
     }
 
-    fn generate_simple_type(&self, simple: &String) -> String {
+    fn generate_struct(&self) -> String {
+        assert!(
+            self.properties.is_some(),
+            "expected properties for '{}'",
+            self.rust_name()
+        );
+        String::from("todo!();")
+    }
+
+    fn generate_enum(&self) -> String {
+        if !self.type_.contains_struct() {
+            self.assert_no_properties();
+            self.assert_no_parent();
+        }
+        String::from("todo!();")
+    }
+
+    fn generate_new_type(&self) -> String {
         let name = self.rust_name();
-        assert!(
-            self.properties.is_none(),
-            "expected no properties for '{name}' with type '{simple}'"
-        );
-        assert!(
-            self.parent.is_none(),
-            "expected no parent for '{name}' with type '{simple}'"
-        );
+        self.assert_no_properties();
+        self.assert_no_parent();
         // README: Adjustment [3]
         if name == "DataExtendMethod" {
-            assert_eq!(simple, "builtin", "expected builtin type");
+            assert!(
+                matches!(&self.type_, Type::Simple(simple) if simple == &String::from("builtin")),
+                "expected builtin type"
+            );
             return String::from("pub struct DataExtendMethod;");
         }
         // README: Adjustment [3]
-        format!("pub type {name} = {};", simple.to_rust_type())
+        format!("pub type {name} = {};", self.type_.generate())
+    }
+
+    fn assert_no_properties(&self) {
+        assert!(
+            self.properties.is_none(),
+            "expected no properties for '{}'",
+            self.rust_name()
+        );
+    }
+
+    fn assert_no_parent(&self) {
+        assert!(
+            self.parent.is_none(),
+            "expected no parent for '{}'",
+            self.rust_name()
+        );
     }
 }

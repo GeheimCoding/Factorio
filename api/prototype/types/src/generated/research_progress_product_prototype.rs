@@ -1,1 +1,1 @@
-pub struct ResearchProgressProductPrototype {}
+todo!();

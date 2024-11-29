@@ -1,1 +1,1 @@
-pub struct LootItem {}
+todo!();

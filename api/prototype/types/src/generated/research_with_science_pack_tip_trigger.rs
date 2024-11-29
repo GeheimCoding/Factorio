@@ -1,1 +1,1 @@
-pub struct ResearchWithSciencePackTipTrigger {}
+todo!();

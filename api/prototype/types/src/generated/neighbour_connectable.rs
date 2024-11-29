@@ -1,1 +1,1 @@
-pub struct NeighbourConnectable {}
+todo!();

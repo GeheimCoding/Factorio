@@ -1,1 +1,1 @@
-pub struct FootstepTriggerEffectList {}
+pub type FootstepTriggerEffectList = todo!();

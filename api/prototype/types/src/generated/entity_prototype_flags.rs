@@ -1,1 +1,1 @@
-pub struct EntityPrototypeFlags {}
+pub type EntityPrototypeFlags = todo!();

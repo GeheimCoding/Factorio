@@ -1,1 +1,1 @@
-pub struct MapGenPresetPollutionSettings {}
+todo!();

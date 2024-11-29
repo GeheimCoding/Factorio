@@ -1,1 +1,1 @@
-pub struct RandomRange {}
+todo!();

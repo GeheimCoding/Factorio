@@ -1,1 +1,1 @@
-pub struct TimeElapsedTipTrigger {}
+todo!();

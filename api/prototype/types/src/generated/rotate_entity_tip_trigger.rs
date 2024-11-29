@@ -1,1 +1,1 @@
-pub struct RotateEntityTipTrigger {}
+todo!();

@@ -1,1 +1,1 @@
-pub struct VariableAmbientSoundLayerSample {}
+pub type VariableAmbientSoundLayerSample = todo!();

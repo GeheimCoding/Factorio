@@ -1,1 +1,1 @@
-pub struct ProcessionAudioCatalogue {}
+pub type ProcessionAudioCatalogue = todo!();

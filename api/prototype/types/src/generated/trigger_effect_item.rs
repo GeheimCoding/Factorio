@@ -1,1 +1,1 @@
-pub struct TriggerEffectItem {}
+todo!();

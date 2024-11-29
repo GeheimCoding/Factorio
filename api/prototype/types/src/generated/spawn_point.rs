@@ -1,1 +1,1 @@
-pub struct SpawnPoint {}
+todo!();

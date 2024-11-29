@@ -1,1 +1,1 @@
-pub struct AgriculturalCraneProperties {}
+todo!();

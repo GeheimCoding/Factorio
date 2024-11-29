@@ -1,1 +1,1 @@
-pub struct VariableAmbientSoundNextStateConditions {}
+todo!();

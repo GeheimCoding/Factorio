@@ -1,1 +1,1 @@
-pub struct FusionGeneratorFluidInputGraphics {}
+todo!();

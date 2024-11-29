@@ -1,1 +1,1 @@
-pub struct GroupAttackTipTrigger {}
+todo!();

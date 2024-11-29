@@ -1,1 +1,1 @@
-pub struct LayeredSpriteVariations {}
+pub type LayeredSpriteVariations = todo!();

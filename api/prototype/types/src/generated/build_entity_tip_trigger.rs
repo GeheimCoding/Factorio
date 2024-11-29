@@ -1,1 +1,1 @@
-pub struct BuildEntityTipTrigger {}
+todo!();

@@ -1,1 +1,1 @@
-pub struct UnlockRecipeTipTrigger {}
+todo!();

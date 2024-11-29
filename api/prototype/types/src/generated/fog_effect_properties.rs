@@ -1,1 +1,1 @@
-pub struct FogEffectProperties {}
+todo!();

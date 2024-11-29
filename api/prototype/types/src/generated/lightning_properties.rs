@@ -1,1 +1,1 @@
-pub struct LightningProperties {}
+todo!();

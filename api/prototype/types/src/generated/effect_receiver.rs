@@ -1,1 +1,1 @@
-pub struct EffectReceiver {}
+todo!();

@@ -1,1 +1,1 @@
-pub struct PlanetPrototypeMapGenSettings {}
+todo!();

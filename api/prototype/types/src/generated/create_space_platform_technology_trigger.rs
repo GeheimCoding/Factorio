@@ -1,1 +1,1 @@
-pub struct CreateSpacePlatformTechnologyTrigger {}
+todo!();

@@ -1,1 +1,1 @@
-pub struct BuildEntityByRobotTipTrigger {}
+todo!();

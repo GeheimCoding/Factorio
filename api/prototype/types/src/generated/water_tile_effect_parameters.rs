@@ -1,1 +1,1 @@
-pub struct WaterTileEffectParameters {}
+todo!();

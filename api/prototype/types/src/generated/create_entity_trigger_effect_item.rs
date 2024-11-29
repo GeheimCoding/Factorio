@@ -1,1 +1,1 @@
-pub struct CreateEntityTriggerEffectItem {}
+todo!();

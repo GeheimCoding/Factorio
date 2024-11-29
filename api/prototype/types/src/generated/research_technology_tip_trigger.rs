@@ -1,1 +1,1 @@
-pub struct ResearchTechnologyTipTrigger {}
+todo!();

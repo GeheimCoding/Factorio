@@ -1,1 +1,1 @@
-pub struct ResearchIngredient {}
+pub type ResearchIngredient = todo!();

@@ -1,1 +1,1 @@
-pub struct DestroyDecorativesTriggerEffectItem {}
+todo!();

@@ -1,1 +1,1 @@
-pub struct BeaconDistributionModifier {}
+todo!();

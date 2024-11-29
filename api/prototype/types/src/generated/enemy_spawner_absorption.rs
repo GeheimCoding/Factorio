@@ -1,1 +1,1 @@
-pub struct EnemySpawnerAbsorption {}
+todo!();

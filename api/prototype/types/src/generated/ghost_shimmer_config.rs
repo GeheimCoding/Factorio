@@ -1,1 +1,1 @@
-pub struct GhostShimmerConfig {}
+todo!();

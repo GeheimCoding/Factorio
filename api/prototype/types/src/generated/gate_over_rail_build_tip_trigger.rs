@@ -1,1 +1,1 @@
-pub struct GateOverRailBuildTipTrigger {}
+todo!();

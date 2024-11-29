@@ -1,1 +1,1 @@
-pub struct ShootTipTrigger {}
+todo!();

@@ -1,1 +1,1 @@
-pub struct TipTrigger {}
+todo!();

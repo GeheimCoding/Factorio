@@ -1,1 +1,1 @@
-pub struct MapGenPresetAsteroidSettings {}
+todo!();

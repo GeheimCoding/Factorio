@@ -1,1 +1,1 @@
-pub struct SpaceConnectionAsteroidSpawnDefinition {}
+todo!();
