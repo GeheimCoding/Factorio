@@ -1,1 +1,18 @@
-todo!();
+pub struct GraphStyleSpecification {
+    background_color: Color,
+    data_line_highlight_distance: u32,
+    font: String,
+    graph_right_margin: u32,
+    graph_top_margin: u32,
+    grid_lines_color: Color,
+    guide_lines_color: Color,
+    horizontal_label_style: LabelStyleSpecification,
+    horizontal_labels_margin: u32,
+    line_colors: Vec<Color>,
+    minimal_horizontal_label_spacing: u32,
+    minimal_vertical_label_spacing: u32,
+    selection_dot_radius: u32,
+    type_: GraphStyle,
+    vertical_label_style: LabelStyleSpecification,
+    vertical_labels_margin: u32,
+}

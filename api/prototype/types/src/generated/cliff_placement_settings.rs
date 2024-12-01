@@ -1,1 +1,8 @@
-todo!();
+pub struct CliffPlacementSettings {
+    cliff_elevation_0: f32,
+    cliff_elevation_interval: f32,
+    cliff_smoothing: f32,
+    control: AutoplaceControlID,
+    name: EntityID,
+    richness: f32,
+}

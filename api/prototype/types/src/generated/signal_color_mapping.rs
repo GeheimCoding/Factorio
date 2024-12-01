@@ -1,1 +1,3 @@
-todo!();
+pub struct SignalColorMapping {
+    color: Color,
+}

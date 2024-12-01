@@ -1,1 +1,18 @@
-todo!();
+pub struct ConnectableEntityGraphics {
+    corner_left_down: SpriteVariations,
+    corner_left_up: SpriteVariations,
+    corner_right_down: SpriteVariations,
+    corner_right_up: SpriteVariations,
+    cross: SpriteVariations,
+    ending_down: SpriteVariations,
+    ending_left: SpriteVariations,
+    ending_right: SpriteVariations,
+    ending_up: SpriteVariations,
+    single: SpriteVariations,
+    straight_horizontal: SpriteVariations,
+    straight_vertical: SpriteVariations,
+    t_down: SpriteVariations,
+    t_left: SpriteVariations,
+    t_right: SpriteVariations,
+    t_up: SpriteVariations,
+}

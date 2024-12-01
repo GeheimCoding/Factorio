@@ -1,1 +1,1 @@
-todo!();
+pub struct EffectTexture {}

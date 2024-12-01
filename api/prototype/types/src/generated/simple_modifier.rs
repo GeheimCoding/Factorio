@@ -1,1 +1,3 @@
-todo!();
+pub struct SimpleModifier {
+    modifier: f64,
+}

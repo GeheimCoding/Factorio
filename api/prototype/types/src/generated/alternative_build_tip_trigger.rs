@@ -1,1 +1,3 @@
-todo!();
+pub struct AlternativeBuildTipTrigger {
+    type_: AlternativeBuild,
+}

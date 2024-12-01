@@ -1,1 +1,45 @@
-todo!();
+pub struct BaseStyleSpecification {
+    bottom_margin: i16,
+    bottom_padding: i16,
+    effect: BaseStyleSpecificationEffect,
+    effect_opacity: f32,
+    height: u32,
+    horizontal_align: HorizontalAlign,
+    horizontally_squashable: StretchRule,
+    horizontally_stretchable: StretchRule,
+    ignored_by_search: bool,
+    left_margin: i16,
+    left_padding: i16,
+    margin: i16,
+    maximal_height: u32,
+    maximal_width: u32,
+    minimal_height: u32,
+    minimal_width: u32,
+    natural_height: u32,
+    natural_size: BaseStyleSpecificationNaturalSize,
+    natural_width: u32,
+    never_hide_by_search: bool,
+    padding: i16,
+    parent: String,
+    right_margin: i16,
+    right_padding: i16,
+    size: BaseStyleSpecificationSize,
+    tooltip: LocalisedString,
+    top_margin: i16,
+    top_padding: i16,
+    vertical_align: VerticalAlign,
+    vertically_squashable: StretchRule,
+    vertically_stretchable: StretchRule,
+    width: u32,
+}
+pub enum BaseStyleSpecificationEffect {
+    CompilatronHologram,
+}
+pub enum BaseStyleSpecificationNaturalSize {
+    U32(u32),
+    U32U32((u32, u32)),
+}
+pub enum BaseStyleSpecificationSize {
+    U32(u32),
+    U32U32((u32, u32)),
+}

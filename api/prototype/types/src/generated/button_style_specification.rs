@@ -1,1 +1,19 @@
-todo!();
+pub struct ButtonStyleSpecification {
+    clicked_font_color: Color,
+    clicked_vertical_offset: u32,
+    default_font_color: Color,
+    disabled_font_color: Color,
+    draw_grayscale_picture: bool,
+    draw_shadow_under_picture: bool,
+    font: String,
+    hovered_font_color: Color,
+    icon_horizontal_align: HorizontalAlign,
+    invert_colors_of_picture_when_disabled: bool,
+    invert_colors_of_picture_when_hovered_or_toggled: bool,
+    pie_progress_color: Color,
+    selected_clicked_font_color: Color,
+    selected_font_color: Color,
+    selected_hovered_font_color: Color,
+    strikethrough_color: Color,
+    type_: ButtonStyle,
+}

@@ -1,1 +1,21 @@
-todo!();
+pub struct SimulationDefinition {
+    checkboard: bool,
+    game_view_settings: GameViewSettings,
+    generate_map: bool,
+    hide_factoriopedia_gradient: bool,
+    hide_health_bars: bool,
+    init: String,
+    init_file: FileName,
+    init_update_count: u32,
+    length: u32,
+    mods: Vec<String>,
+    mute_alert_sounds: bool,
+    mute_technology_finished_sound: bool,
+    mute_wind_sounds: bool,
+    override_volume: bool,
+    planet: SpaceLocationID,
+    save: FileName,
+    update: String,
+    update_file: FileName,
+    volume_modifier: f32,
+}

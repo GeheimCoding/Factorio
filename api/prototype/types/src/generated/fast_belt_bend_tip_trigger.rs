@@ -1,1 +1,3 @@
-todo!();
+pub struct FastBeltBendTipTrigger {
+    type_: FastBeltBend,
+}

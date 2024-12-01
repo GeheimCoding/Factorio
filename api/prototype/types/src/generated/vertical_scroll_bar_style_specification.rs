@@ -1,1 +1,3 @@
-todo!();
+pub struct VerticalScrollBarStyleSpecification {
+    type_: VerticalScrollbarStyle,
+}

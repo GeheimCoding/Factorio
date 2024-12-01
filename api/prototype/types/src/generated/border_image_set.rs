@@ -1,1 +1,19 @@
-todo!();
+pub struct BorderImageSet {
+    border_width: i32,
+    bottom_end: Sprite,
+    bottom_left_corner: Sprite,
+    bottom_right_corner: Sprite,
+    bottom_t: Sprite,
+    cross: Sprite,
+    horizontal_line: Sprite,
+    left_end: Sprite,
+    left_t: Sprite,
+    right_end: Sprite,
+    right_t: Sprite,
+    scale: f64,
+    top_end: Sprite,
+    top_left_coner: Sprite,
+    top_right_corner: Sprite,
+    top_t: Sprite,
+    vertical_line: Sprite,
+}

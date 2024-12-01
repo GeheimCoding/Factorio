@@ -66,19 +66,20 @@ impl Transformation for String {
 
     fn to_rust_type(&self) -> String {
         match self.as_str() {
-            "double" => "f64".to_owned(),
-            "float" => "f32".to_owned(),
-            "int16" => "i16".to_owned(),
-            "int32" => "i32".to_owned(),
-            "int64" => "i64".to_owned(),
-            "int8" => "i8".to_owned(),
-            "string" => "String".to_owned(),
-            "uint16" => "u16".to_owned(),
-            "uint32" => "u32".to_owned(),
-            "uint64" => "u64".to_owned(),
-            "uint8" => "u8".to_owned(),
-            "type" => "type_".to_owned(),
-            s => s.to_owned(),
+            "double" => String::from("f64"),
+            "float" => String::from("f32"),
+            "int16" => String::from("i16"),
+            "int32" => String::from("i32"),
+            "int64" => String::from("i64"),
+            "int8" => String::from("i8"),
+            "string" => String::from("String"),
+            "uint16" => String::from("u16"),
+            "uint32" => String::from("u32"),
+            "uint64" => String::from("u64"),
+            "uint8" => String::from("u8"),
+            "type" => String::from("type_"),
+            s if s.starts_with("defines.") => String::from(r#"todo!("defines")"#),
+            s => String::from(s),
         }
     }
 }

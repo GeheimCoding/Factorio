@@ -1,1 +1,18 @@
-todo!();
+pub struct RotatedSprite {
+    allow_low_quality_rotation: bool,
+    apply_projection: bool,
+    axially_symmetrical: bool,
+    back_equals_front: bool,
+    counterclockwise: bool,
+    dice: SpriteSizeType,
+    dice_x: SpriteSizeType,
+    dice_y: SpriteSizeType,
+    direction_count: u16,
+    filename: FileName,
+    filenames: Vec<FileName>,
+    frames: Vec<RotatedSpriteFrame>,
+    generate_sdf: bool,
+    layers: Vec<RotatedSprite>,
+    line_length: u32,
+    lines_per_file: u64,
+}

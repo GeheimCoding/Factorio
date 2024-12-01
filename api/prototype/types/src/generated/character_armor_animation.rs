@@ -1,1 +1,18 @@
-todo!();
+pub struct CharacterArmorAnimation {
+    armors: Vec<ItemID>,
+    extra_smoke_cycles_per_tile: f32,
+    flipped_shadow_running_with_gun: RotatedAnimation,
+    flying: RotatedAnimation,
+    flying_with_gun: RotatedAnimation,
+    idle: RotatedAnimation,
+    idle_in_air: RotatedAnimation,
+    idle_with_gun: RotatedAnimation,
+    idle_with_gun_in_air: RotatedAnimation,
+    landing: RotatedAnimation,
+    mining_with_tool: RotatedAnimation,
+    running: RotatedAnimation,
+    running_with_gun: RotatedAnimation,
+    smoke_cycles_per_tick: f32,
+    smoke_in_air: Vec<SmokeSource>,
+    take_off: RotatedAnimation,
+}

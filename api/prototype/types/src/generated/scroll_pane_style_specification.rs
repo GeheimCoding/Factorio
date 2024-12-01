@@ -1,1 +1,21 @@
-todo!();
+pub struct ScrollPaneStyleSpecification {
+    always_draw_borders: bool,
+    background_graphical_set: ElementImageSet,
+    dont_force_clipping_rect_for_contents: bool,
+    extra_bottom_margin_when_activated: i32,
+    extra_bottom_padding_when_activated: i32,
+    extra_left_margin_when_activated: i32,
+    extra_left_padding_when_activated: i32,
+    extra_margin_when_activated: i32,
+    extra_padding_when_activated: i32,
+    extra_right_margin_when_activated: i32,
+    extra_right_padding_when_activated: i32,
+    extra_top_margin_when_activated: i32,
+    extra_top_padding_when_activated: i32,
+    graphical_set: ElementImageSet,
+    horizontal_scrollbar_style: HorizontalScrollBarStyleSpecification,
+    scrollbars_go_outside: bool,
+    type_: ScrollPaneStyle,
+    vertical_flow_style: VerticalFlowStyleSpecification,
+    vertical_scrollbar_style: VerticalScrollBarStyleSpecification,
+}

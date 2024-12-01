@@ -60,7 +60,9 @@ impl Concept {
 
     fn generate_struct(&self) -> String {
         self.assert_properties();
-        String::from("todo!();")
+        let name = self.rust_name();
+        let (inner, additional) = self.type_.generate(name, &self.properties);
+        format!("pub struct {name}{inner}{}", additional.join(""))
     }
 
     fn generate_enum(&self) -> String {

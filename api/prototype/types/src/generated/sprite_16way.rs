@@ -1,1 +1,20 @@
-todo!();
+pub struct Sprite16Way {
+    east: Sprite,
+    east_north_east: Sprite,
+    east_south_east: Sprite,
+    north: Sprite,
+    north_east: Sprite,
+    north_north_east: Sprite,
+    north_north_west: Sprite,
+    north_west: Sprite,
+    sheet: SpriteNWaySheet,
+    sheets: Vec<SpriteNWaySheet>,
+    south: Sprite,
+    south_east: Sprite,
+    south_south_east: Sprite,
+    south_south_west: Sprite,
+    south_west: Sprite,
+    west: Sprite,
+    west_north_west: Sprite,
+    west_south_west: Sprite,
+}

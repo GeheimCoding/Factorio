@@ -1,1 +1,20 @@
-todo!();
+pub struct SpriteParameters {
+    apply_runtime_tint: bool,
+    apply_special_effect: bool,
+    blend_mode: BlendMode,
+    draw_as_glow: bool,
+    draw_as_light: bool,
+    draw_as_shadow: bool,
+    flags: SpriteFlags,
+    generate_sdf: bool,
+    invert_colors: bool,
+    mipmap_count: u8,
+    priority: SpritePriority,
+    rotate_shift: bool,
+    scale: f64,
+    shift: Vector,
+    surface: SpriteUsageSurfaceHint,
+    tint: Color,
+    tint_as_overlay: bool,
+    usage: SpriteUsageHint,
+}

@@ -1,1 +1,3 @@
-todo!();
+pub struct FlipEntityTipTrigger {
+    type_: FlipEntity,
+}

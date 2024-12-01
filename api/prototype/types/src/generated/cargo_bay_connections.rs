@@ -1,1 +1,19 @@
-todo!();
+pub struct CargoBayConnections {
+    bottom_left_inner_corner: LayeredSpriteVariations,
+    bottom_left_outer_corner: LayeredSpriteVariations,
+    bottom_right_inner_corner: LayeredSpriteVariations,
+    bottom_right_outer_corner: LayeredSpriteVariations,
+    bottom_wall: LayeredSpriteVariations,
+    bridge_crossing: LayeredSpriteVariations,
+    bridge_horizontal_narrow: LayeredSpriteVariations,
+    bridge_horizontal_wide: LayeredSpriteVariations,
+    bridge_vertical_narrow: LayeredSpriteVariations,
+    bridge_vertical_wide: LayeredSpriteVariations,
+    left_wall: LayeredSpriteVariations,
+    right_wall: LayeredSpriteVariations,
+    top_left_inner_corner: LayeredSpriteVariations,
+    top_left_outer_corner: LayeredSpriteVariations,
+    top_right_inner_corner: LayeredSpriteVariations,
+    top_right_outer_corner: LayeredSpriteVariations,
+    top_wall: LayeredSpriteVariations,
+}

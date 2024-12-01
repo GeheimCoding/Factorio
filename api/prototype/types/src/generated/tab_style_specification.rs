@@ -1,1 +1,22 @@
-todo!();
+pub struct TabStyleSpecification {
+    badge_font: String,
+    badge_horizontal_spacing: i16,
+    default_badge_font_color: Color,
+    default_badge_graphical_set: ElementImageSet,
+    default_font_color: Color,
+    disabled_badge_font_color: Color,
+    disabled_badge_graphical_set: ElementImageSet,
+    disabled_font_color: Color,
+    draw_grayscale_picture: bool,
+    font: String,
+    hover_badge_graphical_set: ElementImageSet,
+    increase_height_when_selected: bool,
+    left_edge_selected_graphical_set: ElementImageSet,
+    override_graphics_on_edges: bool,
+    press_badge_graphical_set: ElementImageSet,
+    right_edge_selected_graphical_set: ElementImageSet,
+    selected_badge_font_color: Color,
+    selected_badge_graphical_set: ElementImageSet,
+    selected_font_color: Color,
+    type_: TabStyle,
+}

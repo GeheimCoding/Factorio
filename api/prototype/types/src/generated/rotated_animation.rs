@@ -1,1 +1,15 @@
-todo!();
+pub struct RotatedAnimation {
+    apply_projection: bool,
+    axially_symmetrical: bool,
+    counterclockwise: bool,
+    direction_count: u32,
+    filename: FileName,
+    filenames: Vec<FileName>,
+    layers: Vec<RotatedAnimation>,
+    lines_per_file: u32,
+    middle_orientation: RealOrientation,
+    orientation_range: f32,
+    slice: u32,
+    still_frame: u32,
+    stripes: Vec<Stripe>,
+}

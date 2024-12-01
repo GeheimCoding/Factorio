@@ -1,1 +1,16 @@
-todo!();
+pub struct LabelStyleSpecification {
+    clicked_font_color: Color,
+    disabled_font_color: Color,
+    font: String,
+    font_color: Color,
+    game_controller_hovered_font_color: Color,
+    hovered_font_color: Color,
+    parent_hovered_font_color: Color,
+    rich_text_highlight_error_color: Color,
+    rich_text_highlight_ok_color: Color,
+    rich_text_highlight_warning_color: Color,
+    rich_text_setting: RichTextSetting,
+    single_line: bool,
+    type_: LabelStyle,
+    underlined: bool,
+}

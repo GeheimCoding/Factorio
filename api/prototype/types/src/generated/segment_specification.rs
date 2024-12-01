@@ -1,1 +1,3 @@
-todo!();
+pub struct SegmentSpecification {
+    segment: EntityID,
+}

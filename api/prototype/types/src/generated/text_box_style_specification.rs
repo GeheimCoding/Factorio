@@ -1,1 +1,18 @@
-todo!();
+pub struct TextBoxStyleSpecification {
+    active_background: ElementImageSet,
+    default_background: ElementImageSet,
+    disabled_background: ElementImageSet,
+    disabled_font_color: Color,
+    font: String,
+    font_color: Color,
+    game_controller_hovered_background: ElementImageSet,
+    rich_text_highlight_error_color: Color,
+    rich_text_highlight_ok_color: Color,
+    rich_text_highlight_warning_color: Color,
+    rich_text_setting: RichTextSetting,
+    selected_rich_text_highlight_error_color: Color,
+    selected_rich_text_highlight_ok_color: Color,
+    selected_rich_text_highlight_warning_color: Color,
+    selection_background_color: Color,
+    type_: TextboxStyle,
+}
