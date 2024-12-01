@@ -1,4 +1,5 @@
 use crate::basic_member::BasicMember;
+use crate::transformation::Transformation;
 use crate::type_::{ComplexType, Type};
 use serde::Deserialize;
 
@@ -21,4 +22,15 @@ pub struct Property {
 pub enum PropertyDefault {
     String(String),
     Literal(ComplexType),
+}
+
+impl Property {
+    pub fn generate(&self, prefix: &str) -> (String, Vec<String>) {
+        let prefix = format!("{prefix}{}", self.base.name.to_pascal_case());
+        let (inner, additional) = self.type_.generate(&prefix, &None);
+        (
+            format!("{}: {inner}", self.base.name.to_rust_type()),
+            additional,
+        )
+    }
 }

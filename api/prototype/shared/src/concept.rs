@@ -4,6 +4,7 @@ use crate::property::Property;
 use crate::transformation::Transformation;
 use crate::type_::Type;
 use serde::Deserialize;
+use std::collections::HashSet;
 use std::path::Path;
 
 #[derive(Debug, Deserialize)]
@@ -58,11 +59,7 @@ impl Concept {
     }
 
     fn generate_struct(&self) -> String {
-        assert!(
-            self.properties.is_some(),
-            "expected properties for '{}'",
-            self.rust_name()
-        );
+        self.assert_properties();
         String::from("todo!();")
     }
 
@@ -70,8 +67,12 @@ impl Concept {
         if !self.type_.contains_struct() {
             self.assert_no_properties();
             self.assert_no_parent();
+        } else {
+            self.assert_properties();
         }
-        let (_, additional) = self.type_.generate(&self.rust_name());
+        let (_, mut additional) = self.type_.generate(&self.rust_name(), &self.properties);
+        let mut seen: HashSet<String> = HashSet::new();
+        additional.retain(|a| seen.insert(a.clone()));
         additional.join("")
     }
 
@@ -88,8 +89,16 @@ impl Concept {
             return String::from("pub struct DataExtendMethod;");
         }
         // README: Adjustment [3]
-        let (generated, additional) = self.type_.generate(&format!("{name}Variants"));
+        let (generated, additional) = self.type_.generate(&format!("{name}Variants"), &None);
         format!("pub type {name} = {generated};{}", additional.join(""))
+    }
+
+    fn assert_properties(&self) {
+        assert!(
+            self.properties.is_some(),
+            "expected properties for '{}'",
+            self.rust_name()
+        );
     }
 
     fn assert_no_properties(&self) {

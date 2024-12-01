@@ -77,6 +77,7 @@ impl Transformation for String {
             "uint32" => "u32".to_owned(),
             "uint64" => "u64".to_owned(),
             "uint8" => "u8".to_owned(),
+            "type" => "type_".to_owned(),
             s => s.to_owned(),
         }
     }

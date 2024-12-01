@@ -1,3 +1,4 @@
+use crate::property::Property;
 use crate::transformation::Transformation;
 use serde::Deserialize;
 
@@ -46,11 +47,15 @@ pub enum LiteralValue {
 }
 
 impl Type {
-    pub fn generate(&self, prefix: &str) -> (String, Vec<String>) {
+    pub fn generate(
+        &self,
+        prefix: &str,
+        properties: &Option<Vec<Property>>,
+    ) -> (String, Vec<String>) {
         match self {
             Type::Simple(simple) => (simple.to_rust_type(), vec![]),
             Type::Complex(complex) => match complex.as_ref() {
-                ComplexType::Array { value } => Self::generate_array(value, prefix),
+                ComplexType::Array { value } => Self::generate_array(value, prefix, properties),
                 ComplexType::Dictionary { key, value } => {
                     Self::generate_dictionary(key, value, prefix)
                 }
@@ -58,14 +63,14 @@ impl Type {
                 ComplexType::Union {
                     options,
                     full_format,
-                } => Self::generate_union(options, full_format, prefix),
+                } => Self::generate_union(options, full_format, prefix, properties),
                 ComplexType::Literal { value, description } => {
                     Self::generate_literal(value, description)
                 }
                 ComplexType::Type { value, description } => {
-                    Self::generate_type(value, description, prefix)
+                    Self::generate_type(value, description, prefix, properties)
                 }
-                ComplexType::Struct => (String::new(), vec![]),
+                ComplexType::Struct => Self::generate_struct(prefix, properties),
             },
         }
     }
@@ -114,14 +119,18 @@ impl Type {
         }
     }
 
-    fn generate_array(value: &Type, prefix: &str) -> (String, Vec<String>) {
-        let (inner, additional) = value.generate(prefix);
+    fn generate_array(
+        value: &Type,
+        prefix: &str,
+        properties: &Option<Vec<Property>>,
+    ) -> (String, Vec<String>) {
+        let (inner, additional) = value.generate(prefix, properties);
         (format!("Vec<{inner}>"), additional)
     }
 
     fn generate_dictionary(key: &Type, value: &Type, prefix: &str) -> (String, Vec<String>) {
-        let (inner_key, additional_key) = key.generate(prefix);
-        let (inner_value, additional_value) = value.generate(prefix);
+        let (inner_key, additional_key) = key.generate(prefix, &None);
+        let (inner_value, additional_value) = value.generate(prefix, &None);
         let additional = [additional_key, additional_value].concat();
         (
             format!("std::collections::HashMap<{inner_key},{inner_value}>"),
@@ -130,8 +139,10 @@ impl Type {
     }
 
     fn generate_tuple(values: &Vec<Type>, prefix: &str) -> (String, Vec<String>) {
-        let (inner, additional): (Vec<String>, Vec<Vec<String>>) =
-            values.iter().map(|value| value.generate(prefix)).unzip();
+        let (inner, additional): (Vec<String>, Vec<Vec<String>>) = values
+            .iter()
+            .map(|value| value.generate(prefix, &None))
+            .unzip();
         let additional = additional
             .into_iter()
             .fold(vec![], |acc, e| [acc, e].concat());
@@ -148,22 +159,30 @@ impl Type {
         options: &Vec<Type>,
         _full_format: &bool,
         prefix: &str,
+        properties: &Option<Vec<Property>>,
     ) -> (String, Vec<String>) {
         let mut others = vec![];
         let mut union = format!("pub enum {prefix}{{");
         for option in options {
-            let (inner, additional) = option.generate(prefix);
+            let (inner, additional) = option.generate(prefix, properties);
             others.extend(additional);
+            // TODO: remove after structs are generated
             if inner.is_empty() {
                 continue;
             }
             if option.is_literal_value() {
                 union.push_str(&format!("{inner},"));
+            } else if option.is_struct()
+            /* // README: Adjustment [TODO] */
+                && prefix != "LightDefinition"
+            /* // README: Adjustment [TODO] */
+            {
+                union.push_str(&format!("{prefix}{inner},"));
             } else {
                 union.push_str(&format!("{}({inner}),", inner.to_pascal_case()));
             }
         }
-        others.push(format!("{union}}}"));
+        others.insert(0, format!("{union}}}"));
         (String::from(prefix), others)
     }
 
@@ -174,8 +193,34 @@ impl Type {
         (value.generate(), vec![])
     }
 
-    fn generate_type(value: &Type, _description: &String, prefix: &str) -> (String, Vec<String>) {
-        value.generate(prefix)
+    fn generate_type(
+        value: &Type,
+        _description: &String,
+        prefix: &str,
+        properties: &Option<Vec<Property>>,
+    ) -> (String, Vec<String>) {
+        value.generate(prefix, properties)
+    }
+
+    fn generate_struct(prefix: &str, properties: &Option<Vec<Property>>) -> (String, Vec<String>) {
+        if let Some(properties) = properties {
+            let mut others = Vec::new();
+            let mut result = String::from("{");
+            for property in properties {
+                let (inner, additional) = property.generate(prefix);
+                result.push_str(&format!("{inner},"));
+                others.extend(additional);
+            }
+            // README: Adjustment [TODO]
+            if prefix == "LightDefinition" {
+                others.insert(0, format!("pub struct LightDefinitionStruct{result}}}"));
+                return (String::from("LightDefinitionStruct"), others);
+            }
+            // README: Adjustment [TODO]
+            (format!("{result}}}"), others)
+        } else {
+            unreachable!("struct {prefix} has no properties");
+        }
     }
 }
 
