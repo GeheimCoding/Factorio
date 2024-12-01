@@ -46,21 +46,25 @@ pub enum LiteralValue {
 }
 
 impl Type {
-    pub fn generate(&self) -> String {
+    pub fn generate(&self, prefix: &str) -> (String, Vec<String>) {
         match self {
-            Type::Simple(simple) => simple.to_rust_type(),
+            Type::Simple(simple) => (simple.to_rust_type(), vec![]),
             Type::Complex(complex) => match complex.as_ref() {
-                ComplexType::Array { value } => Self::generate_array(value),
-                ComplexType::Dictionary { key, value } => Self::generate_dictionary(key, value),
-                ComplexType::Tuple { values } => Self::generate_tuple(values),
+                ComplexType::Array { value } => Self::generate_array(value, prefix),
+                ComplexType::Dictionary { key, value } => {
+                    Self::generate_dictionary(key, value, prefix)
+                }
+                ComplexType::Tuple { values } => Self::generate_tuple(values, prefix),
                 ComplexType::Union {
                     options,
                     full_format,
-                } => Self::generate_union(options, full_format),
+                } => Self::generate_union(options, full_format, prefix),
                 ComplexType::Literal { value, description } => {
                     Self::generate_literal(value, description)
                 }
-                ComplexType::Type { value, description } => Self::generate_type(value, description),
+                ComplexType::Type { value, description } => {
+                    Self::generate_type(value, description, prefix)
+                }
                 ComplexType::Struct => unimplemented!("nothing to generate"),
             },
         }
@@ -99,39 +103,71 @@ impl Type {
         }
     }
 
-    fn generate_array(value: &Type) -> String {
-        format!("Vec<{}>", value.generate())
+    fn generate_array(value: &Type, prefix: &str) -> (String, Vec<String>) {
+        let (inner, additional) = value.generate(prefix);
+        (format!("Vec<{inner}>"), additional)
     }
 
-    fn generate_dictionary(key: &Type, value: &Type) -> String {
-        format!(
-            "std::collections::HashMap<{},{}>",
-            key.generate(),
-            value.generate()
+    fn generate_dictionary(key: &Type, value: &Type, prefix: &str) -> (String, Vec<String>) {
+        let (inner_key, additional_key) = key.generate(prefix);
+        let (inner_value, additional_value) = value.generate(prefix);
+        let additional = [additional_key, additional_value].concat();
+        (
+            format!("std::collections::HashMap<{inner_key},{inner_value}>"),
+            additional,
         )
     }
 
-    fn generate_tuple(values: &Vec<Type>) -> String {
-        format!(
-            "({})",
-            values
-                .iter()
-                .map(|v| v.generate())
-                .collect::<Vec<_>>()
-                .join(",")
+    fn generate_tuple(values: &Vec<Type>, prefix: &str) -> (String, Vec<String>) {
+        let (inner, additional): (Vec<String>, Vec<Vec<String>>) =
+            values.iter().map(|value| value.generate(prefix)).unzip();
+        let additional = additional
+            .into_iter()
+            .fold(vec![], |mut acc, e| [acc, e].concat());
+        (
+            format!(
+                "({})",
+                inner.into_iter().map(|v| v).collect::<Vec<_>>().join(",")
+            ),
+            additional,
         )
     }
 
-    fn generate_union(options: &Vec<Type>, full_format: &bool) -> String {
-        // TODO: only return name of union (needs prefix?)
-        String::from("todo!()")
+    fn generate_union(
+        options: &Vec<Type>,
+        full_format: &bool,
+        prefix: &str,
+    ) -> (String, Vec<String>) {
+        let name = format!("{prefix}Variants");
+        let mut others = vec![];
+        let mut union = format!("pub enum {name}{{");
+        for option in options {
+            let (inner, additional) = option.generate(prefix);
+            union.push_str(&format!("{inner},"));
+            others.extend(additional);
+        }
+        others.push(format!("{union}}}"));
+        (name, others)
     }
 
-    fn generate_literal(value: &LiteralValue, description: &Option<String>) -> String {
-        String::from("todo!()")
+    fn generate_literal(
+        value: &LiteralValue,
+        description: &Option<String>,
+    ) -> (String, Vec<String>) {
+        (value.generate(), vec![])
     }
 
-    fn generate_type(value: &Type, description: &String) -> String {
-        value.generate()
+    fn generate_type(value: &Type, description: &String, prefix: &str) -> (String, Vec<String>) {
+        value.generate(prefix)
+    }
+}
+
+impl LiteralValue {
+    pub fn generate(&self) -> String {
+        match self {
+            LiteralValue::String(s) => format!("{}", s.to_pascal_case()),
+            LiteralValue::Number(n) => format!("{n}"),
+            LiteralValue::Bool(b) => format!("{b}"),
+        }
     }
 }

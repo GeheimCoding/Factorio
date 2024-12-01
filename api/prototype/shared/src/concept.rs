@@ -83,7 +83,8 @@ impl Concept {
             return String::from("pub struct DataExtendMethod;");
         }
         // README: Adjustment [3]
-        format!("pub type {name} = {};", self.type_.generate())
+        let (generated, additional) = self.type_.generate(&name);
+        format!("pub type {name} = {generated};{}", additional.join(""))
     }
 
     fn assert_no_properties(&self) {

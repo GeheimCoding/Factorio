@@ -17,7 +17,7 @@ impl Transformation for String {
                 .to_ascii_uppercase(),
         );
         while let Some(c) = chars.next() {
-            if c == '_' || c == '.' || c == '-' || c == ':' {
+            if c.is_ascii_punctuation() {
                 if let Some(next) = chars.next() {
                     pascal_case.push(next.to_ascii_uppercase());
                 }
