@@ -1,1 +1,3 @@
-todo!();
+pub enum ExplosionDefinition {
+    EntityID(EntityID),
+}

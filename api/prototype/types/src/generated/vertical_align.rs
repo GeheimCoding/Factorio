@@ -1,1 +1,5 @@
-todo!();
+pub enum VerticalAlign {
+    Top,
+    Center,
+    Bottom,
+}

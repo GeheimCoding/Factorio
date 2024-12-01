@@ -2,7 +2,7 @@ use crate::basic_member::BasicMember;
 use crate::file_utils::save_file_if_changed;
 use crate::property::Property;
 use crate::transformation::Transformation;
-use crate::type_::{ComplexType, Type};
+use crate::type_::Type;
 use serde::Deserialize;
 use std::path::Path;
 
@@ -41,6 +41,10 @@ impl Concept {
             .next()
             .map_or(false, char::is_uppercase)
             && !self.inline
+        // README: Adjustment [TODO]
+        && self.rust_name() != "Direction"
+        && self.rust_name() != "ComparatorString"
+        // README: Adjustment [TODO]
     }
 
     fn generate_internal(&self) -> String {
@@ -67,7 +71,8 @@ impl Concept {
             self.assert_no_properties();
             self.assert_no_parent();
         }
-        String::from("todo!();")
+        let (_, additional) = self.type_.generate(&self.rust_name());
+        additional.join("")
     }
 
     fn generate_new_type(&self) -> String {
@@ -83,7 +88,7 @@ impl Concept {
             return String::from("pub struct DataExtendMethod;");
         }
         // README: Adjustment [3]
-        let (generated, additional) = self.type_.generate(&name);
+        let (generated, additional) = self.type_.generate(&format!("{name}Variants"));
         format!("pub type {name} = {generated};{}", additional.join(""))
     }
 

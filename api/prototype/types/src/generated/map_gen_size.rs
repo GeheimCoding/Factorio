@@ -1,1 +1,19 @@
-todo!();
+pub enum MapGenSize {
+    F32(f32),
+    None,
+    VeryLow,
+    VerySmall,
+    VeryPoor,
+    Low,
+    Small,
+    Poor,
+    Normal,
+    Medium,
+    Regular,
+    High,
+    Big,
+    Good,
+    VeryHigh,
+    VeryBig,
+    VeryGood,
+}

@@ -1,1 +1,3 @@
-todo!();
+pub enum EntityIDFilter {
+    EntityID(EntityID),
+}

@@ -1,1 +1,4 @@
-todo!();
+pub enum VariableAmbientSoundNextStateTrigger {
+    LayersFinished,
+    Duration,
+}

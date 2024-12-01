@@ -10,16 +10,21 @@ impl Transformation for String {
             return String::new();
         }
         let mut chars = self.chars();
-        let mut pascal_case = String::from(
-            chars
-                .next()
-                .expect("there should be at least one character")
-                .to_ascii_uppercase(),
-        );
+        let next = chars
+            .next()
+            .expect("there should be at least one character");
+        let mut pascal_case = String::new();
+        if !next.is_ascii_punctuation() {
+            pascal_case.push(next.to_ascii_uppercase());
+        } else if let Some(next) = chars.next() {
+            pascal_case.push(next.to_ascii_uppercase());
+        }
         while let Some(c) = chars.next() {
             if c.is_ascii_punctuation() {
                 if let Some(next) = chars.next() {
-                    pascal_case.push(next.to_ascii_uppercase());
+                    if !next.is_ascii_punctuation() {
+                        pascal_case.push(next.to_ascii_uppercase());
+                    }
                 }
             } else {
                 pascal_case.push(c);
