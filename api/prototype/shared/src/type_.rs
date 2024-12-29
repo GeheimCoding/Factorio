@@ -119,12 +119,20 @@ impl Type {
         }
     }
 
+    fn postfix_variants(&self, prefix: &str) -> String {
+        if self.is_union() && !prefix.ends_with("Variants") {
+            format!("{prefix}Variants")
+        } else {
+            String::from(prefix)
+        }
+    }
+
     fn generate_array(
         value: &Type,
         prefix: &str,
         properties: &Option<Vec<Property>>,
     ) -> (String, Vec<String>) {
-        let (inner, additional) = value.generate(prefix, properties);
+        let (inner, additional) = value.generate(&value.postfix_variants(prefix), properties);
         (format!("Vec<{inner}>"), additional)
     }
 
@@ -164,7 +172,7 @@ impl Type {
         let mut others = vec![];
         let mut union = format!("pub enum {prefix}{{");
         for option in options {
-            let (inner, additional) = option.generate(prefix, properties);
+            let (inner, additional) = option.generate(&option.postfix_variants(prefix), properties);
             others.extend(additional);
             // TODO: remove after structs are generated
             if inner.is_empty() {

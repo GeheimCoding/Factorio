@@ -1,8 +1,8 @@
 pub enum TriggerEffect {
-    TriggerEffect(TriggerEffect),
-    VecTriggerEffect(Vec<TriggerEffect>),
+    TriggerEffectVariants(TriggerEffectVariants),
+    VecTriggerEffectVariants(Vec<TriggerEffectVariants>),
 }
-pub enum TriggerEffect {
+pub enum TriggerEffectVariants {
     DamageTriggerEffectItem(DamageTriggerEffectItem),
     CreateEntityTriggerEffectItem(CreateEntityTriggerEffectItem),
     CreateExplosionTriggerEffectItem(CreateExplosionTriggerEffectItem),

@@ -1,8 +1,8 @@
 pub enum SelectionModeFlags {
-    SelectionModeFlags(SelectionModeFlags),
-    VecSelectionModeFlags(Vec<SelectionModeFlags>),
+    SelectionModeFlagsVariants(SelectionModeFlagsVariants),
+    VecSelectionModeFlagsVariants(Vec<SelectionModeFlagsVariants>),
 }
-pub enum SelectionModeFlags {
+pub enum SelectionModeFlagsVariants {
     Blueprint,
     Deconstruct,
     CancelDeconstruct,

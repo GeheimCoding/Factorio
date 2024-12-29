@@ -1,8 +1,8 @@
 pub enum Trigger {
-    Trigger(Trigger),
-    VecTrigger(Vec<Trigger>),
+    TriggerVariants(TriggerVariants),
+    VecTriggerVariants(Vec<TriggerVariants>),
 }
-pub enum Trigger {
+pub enum TriggerVariants {
     DirectTriggerItem(DirectTriggerItem),
     AreaTriggerItem(AreaTriggerItem),
     LineTriggerItem(LineTriggerItem),

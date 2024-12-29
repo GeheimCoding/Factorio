@@ -1,8 +1,8 @@
 pub enum EffectTypeLimitation {
-    EffectTypeLimitation(EffectTypeLimitation),
-    VecEffectTypeLimitation(Vec<EffectTypeLimitation>),
+    EffectTypeLimitationVariants(EffectTypeLimitationVariants),
+    VecEffectTypeLimitationVariants(Vec<EffectTypeLimitationVariants>),
 }
-pub enum EffectTypeLimitation {
+pub enum EffectTypeLimitationVariants {
     Speed,
     Productivity,
     Consumption,
