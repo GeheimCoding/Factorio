@@ -1,7 +1,9 @@
 use crate::basic_member::BasicMember;
+use crate::concept::Kind;
 use crate::transformation::Transformation;
 use crate::type_::{ComplexType, Type};
 use serde::Deserialize;
+use std::collections::HashMap;
 
 #[derive(Debug, Deserialize)]
 pub struct Property {
@@ -25,9 +27,9 @@ pub enum PropertyDefault {
 }
 
 impl Property {
-    pub fn generate(&self, prefix: &str) -> (String, Vec<String>) {
+    pub fn generate(&self, prefix: &str, kinds: &HashMap<String, Kind>) -> (String, Vec<String>) {
         let prefix = format!("{prefix}{}", self.base.name.to_pascal_case());
-        let (inner, additional) = self.type_.generate(&prefix, &None);
+        let (inner, additional) = self.type_.generate(&prefix, &None, kinds);
         (
             format!("{}: {inner}", self.base.name.to_rust_type()),
             additional,

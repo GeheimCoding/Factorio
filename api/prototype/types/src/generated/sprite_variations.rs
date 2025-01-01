@@ -1,5 +1,5 @@
 pub enum SpriteVariations {
     SpriteVariations { sheet: SpriteSheet },
-    SpriteSheet(SpriteSheet),
+    SpriteSheet(Box<SpriteSheet>),
     VecSprite(Vec<Sprite>),
 }

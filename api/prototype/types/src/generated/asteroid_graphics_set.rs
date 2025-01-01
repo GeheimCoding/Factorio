@@ -14,10 +14,10 @@ pub struct AsteroidGraphicsSet {
     variations: AsteroidGraphicsSetVariations,
 }
 pub enum AsteroidGraphicsSetLights {
-    LightProperties(LightProperties),
+    LightProperties(Box<LightProperties>),
     VecLightProperties(Vec<LightProperties>),
 }
 pub enum AsteroidGraphicsSetVariations {
-    AsteroidVariation(AsteroidVariation),
+    AsteroidVariation(Box<AsteroidVariation>),
     VecAsteroidVariation(Vec<AsteroidVariation>),
 }

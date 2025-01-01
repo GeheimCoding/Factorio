@@ -22,7 +22,7 @@ pub enum Sound {
     VecSoundDefinition(Vec<SoundDefinition>),
 }
 pub enum SoundModifiers {
-    SoundModifier(SoundModifier),
+    SoundModifier(Box<SoundModifier>),
     VecSoundModifier(Vec<SoundModifier>),
 }
 pub enum SoundVariations {

@@ -9,9 +9,9 @@ pub struct MiningDrillGraphicsSet {
 }
 pub enum MiningDrillGraphicsSetCircuitConnectorLayer {
     RenderLayer(RenderLayer),
-    CircuitConnectorLayer(CircuitConnectorLayer),
+    CircuitConnectorLayer(Box<CircuitConnectorLayer>),
 }
 pub enum MiningDrillGraphicsSetCircuitConnectorSecondaryDrawOrder {
     I8(i8),
-    CircuitConnectorSecondaryDrawOrder(CircuitConnectorSecondaryDrawOrder),
+    CircuitConnectorSecondaryDrawOrder(Box<CircuitConnectorSecondaryDrawOrder>),
 }

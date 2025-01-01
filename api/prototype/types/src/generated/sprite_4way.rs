@@ -7,5 +7,5 @@ pub enum Sprite4Way {
         south: Sprite,
         west: Sprite,
     },
-    Sprite(Sprite),
+    Sprite(Box<Sprite>),
 }

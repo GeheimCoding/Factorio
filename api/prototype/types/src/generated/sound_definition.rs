@@ -13,6 +13,6 @@ pub enum SoundDefinition {
     FileName(FileName),
 }
 pub enum SoundDefinitionModifiers {
-    SoundModifier(SoundModifier),
+    SoundModifier(Box<SoundModifier>),
     VecSoundModifier(Vec<SoundModifier>),
 }

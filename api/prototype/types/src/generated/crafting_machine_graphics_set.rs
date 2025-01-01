@@ -8,9 +8,9 @@ pub struct CraftingMachineGraphicsSet {
 }
 pub enum CraftingMachineGraphicsSetCircuitConnectorLayer {
     RenderLayer(RenderLayer),
-    CircuitConnectorLayer(CircuitConnectorLayer),
+    CircuitConnectorLayer(Box<CircuitConnectorLayer>),
 }
 pub enum CraftingMachineGraphicsSetCircuitConnectorSecondaryDrawOrder {
     I8(i8),
-    CircuitConnectorSecondaryDrawOrder(CircuitConnectorSecondaryDrawOrder),
+    CircuitConnectorSecondaryDrawOrder(Box<CircuitConnectorSecondaryDrawOrder>),
 }

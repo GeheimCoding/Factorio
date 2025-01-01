@@ -1,6 +1,8 @@
+use crate::concept::Kind;
 use crate::property::Property;
 use crate::transformation::Transformation;
 use serde::Deserialize;
+use std::collections::HashMap;
 
 #[derive(Debug, Deserialize, PartialEq)]
 #[serde(untagged)]
@@ -51,11 +53,14 @@ impl Type {
         &self,
         prefix: &str,
         properties: &Option<Vec<Property>>,
+        kinds: &HashMap<String, Kind>,
     ) -> (String, Vec<String>) {
         match self {
             Type::Simple(simple) => (simple.to_rust_type(), vec![]),
             Type::Complex(complex) => match complex.as_ref() {
-                ComplexType::Array { value } => Self::generate_array(value, prefix, properties),
+                ComplexType::Array { value } => {
+                    Self::generate_array(value, prefix, properties, kinds)
+                }
                 ComplexType::Dictionary { key, value } => {
                     Self::generate_dictionary(key, value, prefix)
                 }
@@ -63,14 +68,14 @@ impl Type {
                 ComplexType::Union {
                     options,
                     full_format,
-                } => Self::generate_union(options, full_format, prefix, properties),
+                } => Self::generate_union(options, full_format, prefix, properties, kinds),
                 ComplexType::Literal { value, description } => {
                     Self::generate_literal(value, description)
                 }
                 ComplexType::Type { value, description } => {
-                    Self::generate_type(value, description, prefix, properties)
+                    Self::generate_type(value, description, prefix, properties, kinds)
                 }
-                ComplexType::Struct => Self::generate_struct(prefix, properties),
+                ComplexType::Struct => Self::generate_struct(prefix, properties, kinds),
             },
         }
     }
@@ -108,12 +113,22 @@ impl Type {
         }
     }
 
-    pub fn is_literal_value(&self) -> bool {
+    fn is_literal_value(&self) -> bool {
         match self {
             Type::Simple(_) => false,
             Type::Complex(complex) => match complex.as_ref() {
                 ComplexType::Literal { .. } => true,
                 ComplexType::Type { value, .. } => value.is_literal_value(),
+                _ => false,
+            },
+        }
+    }
+
+    fn should_be_boxed(&self, kinds: &HashMap<String, Kind>) -> bool {
+        match self {
+            Type::Simple(simple) => kinds.get(simple) == Some(&Kind::Struct),
+            Type::Complex(complex) => match complex.as_ref() {
+                ComplexType::Type { value, .. } => value.should_be_boxed(kinds),
                 _ => false,
             },
         }
@@ -131,14 +146,16 @@ impl Type {
         value: &Type,
         prefix: &str,
         properties: &Option<Vec<Property>>,
+        kinds: &HashMap<String, Kind>,
     ) -> (String, Vec<String>) {
-        let (inner, additional) = value.generate(&value.postfix_variants(prefix), properties);
+        let (inner, additional) =
+            value.generate(&value.postfix_variants(prefix), properties, kinds);
         (format!("Vec<{inner}>"), additional)
     }
 
     fn generate_dictionary(key: &Type, value: &Type, prefix: &str) -> (String, Vec<String>) {
-        let (inner_key, additional_key) = key.generate(prefix, &None);
-        let (inner_value, additional_value) = value.generate(prefix, &None);
+        let (inner_key, additional_key) = key.generate(prefix, &None, &HashMap::new());
+        let (inner_value, additional_value) = value.generate(prefix, &None, &HashMap::new());
         let additional = [additional_key, additional_value].concat();
         (
             format!("std::collections::HashMap<{inner_key},{inner_value}>"),
@@ -149,7 +166,7 @@ impl Type {
     fn generate_tuple(values: &Vec<Type>, prefix: &str) -> (String, Vec<String>) {
         let (inner, additional): (Vec<String>, Vec<Vec<String>>) = values
             .iter()
-            .map(|value| value.generate(prefix, &None))
+            .map(|value| value.generate(prefix, &None, &HashMap::new()))
             .unzip();
         let additional = additional
             .into_iter()
@@ -168,16 +185,15 @@ impl Type {
         _full_format: &bool,
         prefix: &str,
         properties: &Option<Vec<Property>>,
+        kinds: &HashMap<String, Kind>,
     ) -> (String, Vec<String>) {
         let mut others = vec![];
         let mut union = format!("pub enum {prefix}{{");
         for option in options {
-            let (inner, additional) = option.generate(&option.postfix_variants(prefix), properties);
+            let (inner, additional) =
+                option.generate(&option.postfix_variants(prefix), properties, kinds);
             others.extend(additional);
-            // TODO: remove after structs are generated
-            if inner.is_empty() {
-                continue;
-            }
+
             if option.is_literal_value() {
                 union.push_str(&format!("{inner},"));
             } else if option.is_struct()
@@ -187,7 +203,13 @@ impl Type {
             {
                 union.push_str(&format!("{prefix}{inner},"));
             } else {
-                union.push_str(&format!("{}({inner}),", inner.to_pascal_case()));
+                let name = inner.to_pascal_case();
+                let inner = if option.should_be_boxed(kinds) {
+                    format!("Box<{inner}>")
+                } else {
+                    inner
+                };
+                union.push_str(&format!("{name}({inner}),"));
             }
         }
         others.insert(0, format!("{union}}}"));
@@ -206,16 +228,21 @@ impl Type {
         _description: &String,
         prefix: &str,
         properties: &Option<Vec<Property>>,
+        kinds: &HashMap<String, Kind>,
     ) -> (String, Vec<String>) {
-        value.generate(prefix, properties)
+        value.generate(prefix, properties, kinds)
     }
 
-    fn generate_struct(prefix: &str, properties: &Option<Vec<Property>>) -> (String, Vec<String>) {
+    fn generate_struct(
+        prefix: &str,
+        properties: &Option<Vec<Property>>,
+        kinds: &HashMap<String, Kind>,
+    ) -> (String, Vec<String>) {
         if let Some(properties) = properties {
             let mut others = Vec::new();
             let mut result = String::from("{");
             for property in properties {
-                let (inner, additional) = property.generate(prefix);
+                let (inner, additional) = property.generate(prefix, kinds);
                 result.push_str(&format!("{inner},"));
                 others.extend(additional);
             }

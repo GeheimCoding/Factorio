@@ -34,6 +34,6 @@ pub struct StatelessVisualisation {
     spread_progress_duration: f32,
 }
 pub enum StatelessVisualisationNestedVisualisations {
-    StatelessVisualisation(StatelessVisualisation),
+    StatelessVisualisation(Box<StatelessVisualisation>),
     VecStatelessVisualisation(Vec<StatelessVisualisation>),
 }

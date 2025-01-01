@@ -50,7 +50,7 @@ pub enum ElementImageSetLayer {
         top_width: SpriteSizeType,
         type_: ElementImageSetLayerType,
     },
-    Sprite(Sprite),
+    Sprite(Box<Sprite>),
 }
 pub enum ElementImageSetLayerCornerSize {
     U16(u16),

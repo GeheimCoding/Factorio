@@ -15,10 +15,10 @@ pub enum WorkingSound {
     Sound(Sound),
 }
 pub enum WorkingSoundMainSounds {
-    MainSound(MainSound),
+    MainSound(Box<MainSound>),
     VecMainSound(Vec<MainSound>),
 }
 pub enum WorkingSoundSoundAccents {
-    SoundAccent(SoundAccent),
+    SoundAccent(Box<SoundAccent>),
     VecSoundAccent(Vec<SoundAccent>),
 }

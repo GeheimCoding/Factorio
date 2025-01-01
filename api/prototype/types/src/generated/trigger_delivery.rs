@@ -1,9 +1,9 @@
 pub enum TriggerDelivery {
-    InstantTriggerDelivery(InstantTriggerDelivery),
-    ProjectileTriggerDelivery(ProjectileTriggerDelivery),
-    BeamTriggerDelivery(BeamTriggerDelivery),
-    StreamTriggerDelivery(StreamTriggerDelivery),
-    ArtilleryTriggerDelivery(ArtilleryTriggerDelivery),
-    ChainTriggerDelivery(ChainTriggerDelivery),
-    DelayedTriggerDelivery(DelayedTriggerDelivery),
+    InstantTriggerDelivery(Box<InstantTriggerDelivery>),
+    ProjectileTriggerDelivery(Box<ProjectileTriggerDelivery>),
+    BeamTriggerDelivery(Box<BeamTriggerDelivery>),
+    StreamTriggerDelivery(Box<StreamTriggerDelivery>),
+    ArtilleryTriggerDelivery(Box<ArtilleryTriggerDelivery>),
+    ChainTriggerDelivery(Box<ChainTriggerDelivery>),
+    DelayedTriggerDelivery(Box<DelayedTriggerDelivery>),
 }

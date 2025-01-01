@@ -8,5 +8,5 @@ pub struct StreamAttackParameters {
 }
 pub enum StreamAttackParametersGunCenterShift {
     Vector(Vector),
-    GunShift4Way(GunShift4Way),
+    GunShift4Way(Box<GunShift4Way>),
 }

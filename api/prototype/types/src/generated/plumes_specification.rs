@@ -6,6 +6,6 @@ pub struct PlumesSpecification {
     stateless_visualisations: PlumesSpecificationStatelessVisualisations,
 }
 pub enum PlumesSpecificationStatelessVisualisations {
-    PlumeEffect(PlumeEffect),
+    PlumeEffect(Box<PlumeEffect>),
     VecPlumeEffect(Vec<PlumeEffect>),
 }

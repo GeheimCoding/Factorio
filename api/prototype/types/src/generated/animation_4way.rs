@@ -9,5 +9,5 @@ pub enum Animation4Way {
         south_west: Animation,
         west: Animation,
     },
-    Animation(Animation),
+    Animation(Box<Animation>),
 }

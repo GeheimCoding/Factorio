@@ -1,4 +1,4 @@
 pub enum RotatedAnimationVariations {
-    RotatedAnimation(RotatedAnimation),
+    RotatedAnimation(Box<RotatedAnimation>),
     VecRotatedAnimation(Vec<RotatedAnimation>),
 }

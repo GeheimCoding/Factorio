@@ -3,6 +3,6 @@ pub enum AnimationVariations {
         sheet: AnimationSheet,
         sheets: Vec<AnimationSheet>,
     },
-    Animation(Animation),
+    Animation(Box<Animation>),
     VecAnimation(Vec<Animation>),
 }

@@ -32,6 +32,6 @@ pub struct TableStyleSpecification {
     wide_as_column_count: bool,
 }
 pub enum TableStyleSpecificationColumnWidths {
-    ColumnWidthItem(ColumnWidthItem),
+    ColumnWidthItem(Box<ColumnWidthItem>),
     VecColumnWidth(Vec<ColumnWidth>),
 }

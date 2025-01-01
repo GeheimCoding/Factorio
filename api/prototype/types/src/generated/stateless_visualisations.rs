@@ -1,4 +1,4 @@
 pub enum StatelessVisualisations {
-    StatelessVisualisation(StatelessVisualisation),
+    StatelessVisualisation(Box<StatelessVisualisation>),
     VecStatelessVisualisation(Vec<StatelessVisualisation>),
 }

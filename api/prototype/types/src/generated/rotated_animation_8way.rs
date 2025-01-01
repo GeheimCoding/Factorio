@@ -9,5 +9,5 @@ pub enum RotatedAnimation8Way {
         south_west: RotatedAnimation,
         west: RotatedAnimation,
     },
-    RotatedAnimation(RotatedAnimation),
+    RotatedAnimation(Box<RotatedAnimation>),
 }

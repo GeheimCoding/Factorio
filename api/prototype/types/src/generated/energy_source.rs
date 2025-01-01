@@ -1,7 +1,7 @@
 pub enum EnergySource {
-    ElectricEnergySource(ElectricEnergySource),
-    BurnerEnergySource(BurnerEnergySource),
-    HeatEnergySource(HeatEnergySource),
-    FluidEnergySource(FluidEnergySource),
-    VoidEnergySource(VoidEnergySource),
+    ElectricEnergySource(Box<ElectricEnergySource>),
+    BurnerEnergySource(Box<BurnerEnergySource>),
+    HeatEnergySource(Box<HeatEnergySource>),
+    FluidEnergySource(Box<FluidEnergySource>),
+    VoidEnergySource(Box<VoidEnergySource>),
 }

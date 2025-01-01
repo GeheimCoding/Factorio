@@ -1,7 +1,7 @@
 pub enum CapsuleAction {
-    ThrowCapsuleAction(ThrowCapsuleAction),
-    ActivateEquipmentCapsuleAction(ActivateEquipmentCapsuleAction),
-    UseOnSelfCapsuleAction(UseOnSelfCapsuleAction),
-    DestroyCliffsCapsuleAction(DestroyCliffsCapsuleAction),
-    ArtilleryRemoteCapsuleAction(ArtilleryRemoteCapsuleAction),
+    ThrowCapsuleAction(Box<ThrowCapsuleAction>),
+    ActivateEquipmentCapsuleAction(Box<ActivateEquipmentCapsuleAction>),
+    UseOnSelfCapsuleAction(Box<UseOnSelfCapsuleAction>),
+    DestroyCliffsCapsuleAction(Box<DestroyCliffsCapsuleAction>),
+    ArtilleryRemoteCapsuleAction(Box<ArtilleryRemoteCapsuleAction>),
 }
