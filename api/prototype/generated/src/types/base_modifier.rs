@@ -1,6 +1,6 @@
 pub struct BaseModifier {
     hidden: bool,
-    icon: FileName,
-    icon_size: SpriteSizeType,
-    icons: Vec<IconData>,
+    icon: crate::types::FileName,
+    icon_size: crate::types::SpriteSizeType,
+    icons: Vec<crate::types::IconData>,
 }

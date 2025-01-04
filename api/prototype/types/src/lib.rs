@@ -23,13 +23,12 @@ pub fn build_types() -> anyhow::Result<()> {
         .filter(|concept| concept.should_be_generated())
         .for_each(|concept| {
             let rust_name = &concept.rust_name();
-            content.insert_str(0, &format!("pub mod {};", concept.name()));
-            content.push_str(&format!(
-                "{}({}::{}),",
-                rust_name,
-                concept.name(),
-                rust_name
-            ));
+            let concept_name = concept.name();
+            content.insert_str(
+                0,
+                &format!("pub mod {concept_name};pub use {concept_name}::{rust_name};"),
+            );
+            content.push_str(&format!("{rust_name}(Box<{rust_name}>),",));
         });
     let mod_path = &path.join("mod").with_extension("rs");
     save_file_if_changed("types", mod_path, &format!("{content}}}"))

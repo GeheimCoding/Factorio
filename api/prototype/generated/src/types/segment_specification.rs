@@ -1,3 +1,3 @@
 pub struct SegmentSpecification {
-    segment: EntityID,
+    segment: crate::types::EntityID,
 }

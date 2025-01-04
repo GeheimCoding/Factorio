@@ -1,4 +1,4 @@
 pub struct Attenuation {
-    curve_type: AttenuationType,
+    curve_type: crate::types::AttenuationType,
     tuning_parameter: f32,
 }

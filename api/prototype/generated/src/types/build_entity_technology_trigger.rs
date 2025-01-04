@@ -1,4 +1,4 @@
 pub struct BuildEntityTechnologyTrigger {
-    entity: EntityIDFilter,
+    entity: crate::types::EntityIDFilter,
     type_: BuildEntity,
 }

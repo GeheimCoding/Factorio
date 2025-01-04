@@ -1,3 +1,3 @@
 pub struct SignalColorMapping {
-    color: Color,
+    color: crate::types::Color,
 }

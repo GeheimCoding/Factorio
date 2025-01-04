@@ -2,8 +2,8 @@ pub struct TileSpriteLayoutVariant {
     count: u8,
     line_length: u8,
     scale: f32,
-    spritesheet: FileName,
+    spritesheet: crate::types::FileName,
     tile_height: u8,
-    x: SpriteSizeType,
-    y: SpriteSizeType,
+    x: crate::types::SpriteSizeType,
+    y: crate::types::SpriteSizeType,
 }

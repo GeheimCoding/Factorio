@@ -1,5 +1,5 @@
 pub struct TintProcessionLayer {
-    frames: Vec<TintProcessionBezierControlPoint>,
-    render_layer: RenderLayer,
+    frames: Vec<crate::types::TintProcessionBezierControlPoint>,
+    render_layer: crate::types::RenderLayer,
     type_: Tint,
 }

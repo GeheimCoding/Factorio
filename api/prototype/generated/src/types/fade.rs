@@ -1,7 +1,7 @@
 pub enum Fade {
     Fade {
-        from: ControlPoint,
-        to: ControlPoint,
+        from: crate::types::ControlPoint,
+        to: crate::types::ControlPoint,
     },
-    AttenuationType(AttenuationType),
+    AttenuationType(crate::types::AttenuationType),
 }

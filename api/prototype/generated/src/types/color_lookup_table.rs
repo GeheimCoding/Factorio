@@ -1,4 +1,4 @@
 pub enum ColorLookupTable {
-    FileName(FileName),
+    FileName(crate::types::FileName),
     Identity,
 }

@@ -1,5 +1,5 @@
 pub struct AdvancedVolumeControl {
-    attenuation: Fade,
+    attenuation: crate::types::Fade,
     darkness_threshold: f32,
-    fades: Fades,
+    fades: crate::types::Fades,
 }

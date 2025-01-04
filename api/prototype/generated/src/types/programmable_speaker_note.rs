@@ -1,4 +1,4 @@
 pub struct ProgrammableSpeakerNote {
     name: String,
-    sound: Sound,
+    sound: crate::types::Sound,
 }

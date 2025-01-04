@@ -3,8 +3,8 @@ pub enum Trigger {
     VecTriggerVariants(Vec<TriggerVariants>),
 }
 pub enum TriggerVariants {
-    DirectTriggerItem(Box<DirectTriggerItem>),
-    AreaTriggerItem(Box<AreaTriggerItem>),
-    LineTriggerItem(Box<LineTriggerItem>),
-    ClusterTriggerItem(Box<ClusterTriggerItem>),
+    DirectTriggerItem(Box<crate::types::DirectTriggerItem>),
+    AreaTriggerItem(Box<crate::types::AreaTriggerItem>),
+    LineTriggerItem(Box<crate::types::LineTriggerItem>),
+    ClusterTriggerItem(Box<crate::types::ClusterTriggerItem>),
 }

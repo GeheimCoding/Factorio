@@ -1,9 +1,9 @@
 pub enum ProcessionLayer {
-    PodDistanceTraveledProcessionLayer(Box<PodDistanceTraveledProcessionLayer>),
-    PodMovementProcessionLayer(Box<PodMovementProcessionLayer>),
-    PodOpacityProcessionLayer(Box<PodOpacityProcessionLayer>),
-    SingleGraphicProcessionLayer(Box<SingleGraphicProcessionLayer>),
-    CoverGraphicProcessionLayer(Box<CoverGraphicProcessionLayer>),
-    TintProcessionLayer(Box<TintProcessionLayer>),
-    PodAnimationProcessionLayer(Box<PodAnimationProcessionLayer>),
+    PodDistanceTraveledProcessionLayer(Box<crate::types::PodDistanceTraveledProcessionLayer>),
+    PodMovementProcessionLayer(Box<crate::types::PodMovementProcessionLayer>),
+    PodOpacityProcessionLayer(Box<crate::types::PodOpacityProcessionLayer>),
+    SingleGraphicProcessionLayer(Box<crate::types::SingleGraphicProcessionLayer>),
+    CoverGraphicProcessionLayer(Box<crate::types::CoverGraphicProcessionLayer>),
+    TintProcessionLayer(Box<crate::types::TintProcessionLayer>),
+    PodAnimationProcessionLayer(Box<crate::types::PodAnimationProcessionLayer>),
 }

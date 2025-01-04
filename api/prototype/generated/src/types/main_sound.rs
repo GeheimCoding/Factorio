@@ -1,6 +1,6 @@
 pub struct MainSound {
-    activity_to_speed_modifiers: ActivityMatchingModifiers,
-    activity_to_volume_modifiers: ActivityMatchingModifiers,
+    activity_to_speed_modifiers: crate::types::ActivityMatchingModifiers,
+    activity_to_volume_modifiers: crate::types::ActivityMatchingModifiers,
     audible_distance_modifier: f64,
     fade_in_ticks: u32,
     fade_out_ticks: u32,
@@ -9,6 +9,6 @@ pub struct MainSound {
     match_volume_to_activity: bool,
     play_for_working_visualisations: Vec<String>,
     probability: f64,
-    sound: Sound,
+    sound: crate::types::Sound,
     volume_smoothing_window_size: u32,
 }

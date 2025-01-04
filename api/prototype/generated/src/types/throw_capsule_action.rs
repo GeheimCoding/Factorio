@@ -1,5 +1,5 @@
 pub struct ThrowCapsuleAction {
-    attack_parameters: AttackParameters,
+    attack_parameters: crate::types::AttackParameters,
     type_: Throw,
     uses_stack: bool,
 }

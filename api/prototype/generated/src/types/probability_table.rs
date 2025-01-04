@@ -1,1 +1,1 @@
-pub type ProbabilityTable = Vec<ProbabilityTableItem>;
+pub type ProbabilityTable = Vec<crate::types::ProbabilityTableItem>;

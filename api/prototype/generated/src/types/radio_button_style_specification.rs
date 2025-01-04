@@ -1,7 +1,7 @@
 pub struct RadioButtonStyleSpecification {
-    disabled_font_color: Color,
+    disabled_font_color: crate::types::Color,
     font: String,
-    font_color: Color,
+    font_color: crate::types::Color,
     text_padding: u32,
     type_: RadiobuttonStyle,
 }

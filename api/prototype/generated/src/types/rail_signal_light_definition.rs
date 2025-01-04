@@ -1,4 +1,4 @@
 pub struct RailSignalLightDefinition {
-    light: LightDefinition,
-    shift: Vector,
+    light: crate::types::LightDefinition,
+    shift: crate::types::Vector,
 }

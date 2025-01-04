@@ -1,8 +1,8 @@
 pub enum AnimationVariations {
     AnimationVariations {
-        sheet: AnimationSheet,
-        sheets: Vec<AnimationSheet>,
+        sheet: crate::types::AnimationSheet,
+        sheets: Vec<crate::types::AnimationSheet>,
     },
-    Animation(Box<Animation>),
-    VecAnimation(Vec<Animation>),
+    Animation(Box<crate::types::Animation>),
+    VecAnimation(Vec<crate::types::Animation>),
 }

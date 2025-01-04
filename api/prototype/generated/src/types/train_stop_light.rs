@@ -1,5 +1,5 @@
 pub struct TrainStopLight {
-    light: LightDefinition,
-    picture: Sprite4Way,
-    red_picture: Sprite4Way,
+    light: crate::types::LightDefinition,
+    picture: crate::types::Sprite4Way,
+    red_picture: crate::types::Sprite4Way,
 }

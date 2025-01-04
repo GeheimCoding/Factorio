@@ -1,4 +1,4 @@
 pub struct TriggerDeliveryItem {
-    source_effects: TriggerEffect,
-    target_effects: TriggerEffect,
+    source_effects: crate::types::TriggerEffect,
+    target_effects: crate::types::TriggerEffect,
 }

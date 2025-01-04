@@ -1,4 +1,4 @@
 pub struct Fades {
-    fade_in: Fade,
-    fade_out: Fade,
+    fade_in: crate::types::Fade,
+    fade_out: crate::types::Fade,
 }

@@ -1,5 +1,5 @@
 pub struct FootprintParticle {
-    particle_name: ParticleID,
-    tiles: Vec<TileID>,
+    particle_name: crate::types::ParticleID,
+    tiles: Vec<crate::types::TileID>,
     use_as_default: bool,
 }

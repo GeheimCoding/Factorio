@@ -1,5 +1,5 @@
 pub struct WirePosition {
-    copper: Vector,
-    green: Vector,
-    red: Vector,
+    copper: crate::types::Vector,
+    green: crate::types::Vector,
+    red: crate::types::Vector,
 }

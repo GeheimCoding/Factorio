@@ -1,8 +1,8 @@
 pub struct EnemySpawnerGraphicsSet {
-    animations: AnimationVariations,
-    integration: SpriteVariations,
+    animations: crate::types::AnimationVariations,
+    integration: crate::types::SpriteVariations,
     random_animation_offset: bool,
-    underwater_animations: AnimationVariations,
+    underwater_animations: crate::types::AnimationVariations,
     underwater_layer_offset: i8,
-    water_effect_map_animations: AnimationVariations,
+    water_effect_map_animations: crate::types::AnimationVariations,
 }

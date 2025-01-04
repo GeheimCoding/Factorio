@@ -1,4 +1,4 @@
 pub struct ProcessionSet {
-    arrival: Vec<ProcessionID>,
-    departure: Vec<ProcessionID>,
+    arrival: Vec<crate::types::ProcessionID>,
+    departure: Vec<crate::types::ProcessionID>,
 }

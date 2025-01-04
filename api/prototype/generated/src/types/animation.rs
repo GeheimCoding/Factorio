@@ -1,8 +1,8 @@
 pub struct Animation {
-    filename: FileName,
-    filenames: Vec<FileName>,
-    layers: Vec<Animation>,
+    filename: crate::types::FileName,
+    filenames: Vec<crate::types::FileName>,
+    layers: Vec<crate::types::Animation>,
     lines_per_file: u32,
     slice: u32,
-    stripes: Vec<Stripe>,
+    stripes: Vec<crate::types::Stripe>,
 }

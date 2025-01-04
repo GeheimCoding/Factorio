@@ -1,9 +1,9 @@
 pub struct OffshorePumpGraphicsSet {
-    animation: Animation4Way,
-    base_pictures: Sprite4Way,
-    base_render_layer: RenderLayer,
-    fluid_animation: Animation4Way,
-    glass_pictures: Sprite4Way,
+    animation: crate::types::Animation4Way,
+    base_pictures: crate::types::Sprite4Way,
+    base_render_layer: crate::types::RenderLayer,
+    fluid_animation: crate::types::Animation4Way,
+    glass_pictures: crate::types::Sprite4Way,
     underwater_layer_offset: i8,
-    underwater_pictures: Sprite4Way,
+    underwater_pictures: crate::types::Sprite4Way,
 }

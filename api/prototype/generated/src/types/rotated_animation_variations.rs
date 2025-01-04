@@ -1,4 +1,4 @@
 pub enum RotatedAnimationVariations {
-    RotatedAnimation(Box<RotatedAnimation>),
-    VecRotatedAnimation(Vec<RotatedAnimation>),
+    RotatedAnimation(Box<crate::types::RotatedAnimation>),
+    VecRotatedAnimation(Vec<crate::types::RotatedAnimation>),
 }

@@ -1,5 +1,5 @@
 pub struct AnimatedVector {
-    direction_shift: DirectionShift,
-    render_layer: RenderLayer,
-    rotations: Vec<VectorRotation>,
+    direction_shift: crate::types::DirectionShift,
+    render_layer: crate::types::RenderLayer,
+    rotations: Vec<crate::types::VectorRotation>,
 }

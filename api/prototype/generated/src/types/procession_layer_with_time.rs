@@ -1,1 +1,1 @@
-pub type ProcessionLayerWithTime = ProcessionLayer;
+pub type ProcessionLayerWithTime = crate::types::ProcessionLayer;

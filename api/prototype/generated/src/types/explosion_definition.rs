@@ -1,4 +1,7 @@
 pub enum ExplosionDefinition {
-    EntityID(EntityID),
-    ExplosionDefinition { name: EntityID, offset: Vector },
+    EntityID(crate::types::EntityID),
+    ExplosionDefinition {
+        name: crate::types::EntityID,
+        offset: crate::types::Vector,
+    },
 }

@@ -1,9 +1,9 @@
 pub struct FusionGeneratorGraphicsSet {
-    east_graphics_set: FusionGeneratorDirectionGraphicsSet,
-    glow_color: Color,
-    light: LightDefinition,
-    north_graphics_set: FusionGeneratorDirectionGraphicsSet,
-    render_layer: RenderLayer,
-    south_graphics_set: FusionGeneratorDirectionGraphicsSet,
-    west_graphics_set: FusionGeneratorDirectionGraphicsSet,
+    east_graphics_set: crate::types::FusionGeneratorDirectionGraphicsSet,
+    glow_color: crate::types::Color,
+    light: crate::types::LightDefinition,
+    north_graphics_set: crate::types::FusionGeneratorDirectionGraphicsSet,
+    render_layer: crate::types::RenderLayer,
+    south_graphics_set: crate::types::FusionGeneratorDirectionGraphicsSet,
+    west_graphics_set: crate::types::FusionGeneratorDirectionGraphicsSet,
 }

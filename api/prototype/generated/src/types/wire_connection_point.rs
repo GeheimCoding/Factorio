@@ -1,4 +1,4 @@
 pub struct WireConnectionPoint {
-    shadow: WirePosition,
-    wire: WirePosition,
+    shadow: crate::types::WirePosition,
+    wire: crate::types::WirePosition,
 }

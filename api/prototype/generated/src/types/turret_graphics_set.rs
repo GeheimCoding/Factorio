@@ -2,6 +2,6 @@ pub struct TurretGraphicsSet {
     base_visualisation: TurretGraphicsSetBaseVisualisation,
 }
 pub enum TurretGraphicsSetBaseVisualisation {
-    TurretBaseVisualisation(Box<TurretBaseVisualisation>),
-    VecTurretBaseVisualisation(Vec<TurretBaseVisualisation>),
+    TurretBaseVisualisation(Box<crate::types::TurretBaseVisualisation>),
+    VecTurretBaseVisualisation(Vec<crate::types::TurretBaseVisualisation>),
 }

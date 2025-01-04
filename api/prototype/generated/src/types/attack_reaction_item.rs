@@ -1,6 +1,6 @@
 pub struct AttackReactionItem {
-    action: Trigger,
-    damage_type: DamageTypeID,
+    action: crate::types::Trigger,
+    damage_type: crate::types::DamageTypeID,
     range: f32,
     reaction_modifier: f32,
 }

@@ -5,7 +5,7 @@ pub struct ItemProductPrototype {
     extra_count_fraction: f32,
     ignored_by_productivity: u16,
     ignored_by_stats: u16,
-    name: ItemID,
+    name: crate::types::ItemID,
     percent_spoiled: f32,
     probability: f64,
     show_details_in_recipe_tooltip: bool,

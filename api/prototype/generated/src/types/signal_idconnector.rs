@@ -3,14 +3,14 @@ pub struct SignalIDConnector {
     type_: SignalIDConnectorType,
 }
 pub enum SignalIDConnectorName {
-    VirtualSignalID(VirtualSignalID),
-    ItemID(ItemID),
-    FluidID(FluidID),
-    RecipeID(RecipeID),
-    EntityID(EntityID),
-    SpaceLocationID(SpaceLocationID),
-    AsteroidChunkID(AsteroidChunkID),
-    QualityID(QualityID),
+    VirtualSignalID(crate::types::VirtualSignalID),
+    ItemID(crate::types::ItemID),
+    FluidID(crate::types::FluidID),
+    RecipeID(crate::types::RecipeID),
+    EntityID(crate::types::EntityID),
+    SpaceLocationID(crate::types::SpaceLocationID),
+    AsteroidChunkID(crate::types::AsteroidChunkID),
+    QualityID(crate::types::QualityID),
 }
 pub enum SignalIDConnectorType {
     Virtual,

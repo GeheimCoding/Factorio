@@ -55,7 +55,7 @@ impl Type {
         context: &Context,
     ) -> (String, Vec<String>) {
         match self {
-            Type::Simple(simple) => (simple.to_rust_type(), vec![]),
+            Type::Simple(simple) => (simple.to_rust_type(context), vec![]),
             Type::Complex(complex) => match complex.as_ref() {
                 ComplexType::Array { value } => {
                     Self::generate_array(value, prefix, properties, context)
@@ -211,7 +211,7 @@ impl Type {
             {
                 union.push_str(&format!("{prefix}{inner},"));
             } else {
-                let name = inner.to_pascal_case();
+                let name = Self::remove_prefix(&inner).to_pascal_case();
                 let inner = if option.should_be_boxed(context) {
                     format!("Box<{inner}>")
                 } else {
@@ -222,6 +222,18 @@ impl Type {
         }
         others.insert(0, format!("{union}}}"));
         (String::from(prefix), others)
+    }
+
+    fn remove_prefix(name: &str) -> String {
+        if let Some(prefix) = name.rfind("::") {
+            if let Some(start) = name.rfind("crate::") {
+                Self::remove_prefix(&format!("{}{}", &name[..start], &name[prefix + 2..]))
+            } else {
+                String::from(name)
+            }
+        } else {
+            String::from(name)
+        }
     }
 
     fn generate_literal(

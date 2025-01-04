@@ -1,6 +1,6 @@
 pub struct DamageTriggerEffectItem {
     apply_damage_to_trees: bool,
-    damage: DamageParameters,
+    damage: crate::types::DamageParameters,
     lower_damage_modifier: f32,
     lower_distance_threshold: u16,
     type_: Damage,

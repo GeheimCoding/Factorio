@@ -1,4 +1,4 @@
 pub enum LayeredSound {
-    LayeredSound { layers: Vec<Sound> },
-    Sound(Sound),
+    LayeredSound { layers: Vec<crate::types::Sound> },
+    Sound(crate::types::Sound),
 }

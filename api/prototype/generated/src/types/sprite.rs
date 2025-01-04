@@ -1,7 +1,7 @@
 pub struct Sprite {
-    dice: SpriteSizeType,
-    dice_x: SpriteSizeType,
-    dice_y: SpriteSizeType,
-    filename: FileName,
-    layers: Vec<Sprite>,
+    dice: crate::types::SpriteSizeType,
+    dice_x: crate::types::SpriteSizeType,
+    dice_y: crate::types::SpriteSizeType,
+    filename: crate::types::FileName,
+    layers: Vec<crate::types::Sprite>,
 }

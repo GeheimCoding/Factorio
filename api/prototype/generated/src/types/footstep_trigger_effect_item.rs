@@ -1,5 +1,5 @@
 pub struct FootstepTriggerEffectItem {
-    actions: Vec<CreateParticleTriggerEffectItem>,
-    tiles: Vec<TileID>,
+    actions: Vec<crate::types::CreateParticleTriggerEffectItem>,
+    tiles: Vec<crate::types::TileID>,
     use_as_default: bool,
 }

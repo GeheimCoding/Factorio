@@ -1,4 +1,4 @@
 pub struct SpiderLegTriggerEffect {
-    effect: TriggerEffect,
+    effect: crate::types::TriggerEffect,
     position: f32,
 }

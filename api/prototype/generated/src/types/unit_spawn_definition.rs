@@ -1,7 +1,7 @@
 pub enum UnitSpawnDefinition {
     UnitSpawnDefinition {
-        spawn_points: Vec<SpawnPoint>,
-        unit: EntityID,
+        spawn_points: Vec<crate::types::SpawnPoint>,
+        unit: crate::types::EntityID,
     },
-    EntityIDVecSpawnPoint((EntityID, Vec<SpawnPoint>)),
+    EntityIDVecSpawnPoint((crate::types::EntityID, Vec<crate::types::SpawnPoint>)),
 }

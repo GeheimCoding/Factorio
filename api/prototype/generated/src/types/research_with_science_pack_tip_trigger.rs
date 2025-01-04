@@ -1,4 +1,4 @@
 pub struct ResearchWithSciencePackTipTrigger {
-    science_pack: ItemID,
+    science_pack: crate::types::ItemID,
     type_: ResearchWithSciencePack,
 }

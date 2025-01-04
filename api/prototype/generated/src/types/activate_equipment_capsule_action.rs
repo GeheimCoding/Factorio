@@ -1,4 +1,4 @@
 pub struct ActivateEquipmentCapsuleAction {
-    equipment: EquipmentID,
+    equipment: crate::types::EquipmentID,
     type_: EquipmentRemote,
 }

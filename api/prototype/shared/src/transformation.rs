@@ -1,7 +1,9 @@
+use crate::format::Context;
+
 pub trait Transformation {
     fn to_pascal_case(&self) -> String;
     fn to_snake_case(&self) -> String;
-    fn to_rust_type(&self) -> String;
+    fn to_rust_type(&self, context: &Context) -> String;
 }
 
 impl Transformation for String {
@@ -64,7 +66,7 @@ impl Transformation for String {
         snake_case
     }
 
-    fn to_rust_type(&self) -> String {
+    fn to_rust_type(&self, context: &Context) -> String {
         match self.as_str() {
             "double" => String::from("f64"),
             "float" => String::from("f32"),
@@ -78,8 +80,7 @@ impl Transformation for String {
             "uint64" => String::from("u64"),
             "uint8" => String::from("u8"),
             "type" => String::from("type_"),
-            s if s.starts_with("defines.") => String::from(r#"todo!("defines")"#),
-            s => String::from(s),
+            s => context.with_prefix(s),
         }
     }
 }

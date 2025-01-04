@@ -1,7 +1,7 @@
 pub struct ManualWireDragTipTrigger {
     match_type_only: bool,
-    source: EntityID,
-    target: EntityID,
+    source: crate::types::EntityID,
+    target: crate::types::EntityID,
     type_: ManualWireDrag,
     wire_type: ManualWireDragTipTriggerWireType,
 }

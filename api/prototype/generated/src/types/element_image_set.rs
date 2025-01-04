@@ -1,8 +1,8 @@
 pub enum ElementImageSet {
     ElementImageSet {
-        base: ElementImageSetLayer,
-        glow: ElementImageSetLayer,
-        shadow: ElementImageSetLayer,
+        base: crate::types::ElementImageSetLayer,
+        glow: crate::types::ElementImageSetLayer,
+        shadow: crate::types::ElementImageSetLayer,
     },
-    ElementImageSetLayer(ElementImageSetLayer),
+    ElementImageSetLayer(crate::types::ElementImageSetLayer),
 }

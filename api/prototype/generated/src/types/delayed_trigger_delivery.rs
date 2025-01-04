@@ -1,4 +1,4 @@
 pub struct DelayedTriggerDelivery {
-    delayed_trigger: ActiveTriggerID,
+    delayed_trigger: crate::types::ActiveTriggerID,
     type_: Delayed,
 }

@@ -1,4 +1,4 @@
 pub struct CircuitConnectorDefinition {
-    points: WireConnectionPoint,
-    sprites: CircuitConnectorSprites,
+    points: crate::types::WireConnectionPoint,
+    sprites: crate::types::CircuitConnectorSprites,
 }

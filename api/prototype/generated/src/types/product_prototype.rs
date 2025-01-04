@@ -1,5 +1,5 @@
 pub enum ProductPrototype {
-    ItemProductPrototype(Box<ItemProductPrototype>),
-    FluidProductPrototype(Box<FluidProductPrototype>),
-    ResearchProgressProductPrototype(Box<ResearchProgressProductPrototype>),
+    ItemProductPrototype(Box<crate::types::ItemProductPrototype>),
+    FluidProductPrototype(Box<crate::types::FluidProductPrototype>),
+    ResearchProgressProductPrototype(Box<crate::types::ResearchProgressProductPrototype>),
 }

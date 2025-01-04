@@ -1,6 +1,6 @@
 pub struct InsertItemTriggerEffectItem {
-    count: ItemCountType,
-    item: ItemID,
-    quality: QualityID,
+    count: crate::types::ItemCountType,
+    item: crate::types::ItemID,
+    quality: crate::types::QualityID,
     type_: InsertItem,
 }

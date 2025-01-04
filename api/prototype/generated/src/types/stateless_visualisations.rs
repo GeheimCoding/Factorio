@@ -1,4 +1,4 @@
 pub enum StatelessVisualisations {
-    StatelessVisualisation(Box<StatelessVisualisation>),
-    VecStatelessVisualisation(Vec<StatelessVisualisation>),
+    StatelessVisualisation(Box<crate::types::StatelessVisualisation>),
+    VecStatelessVisualisation(Vec<crate::types::StatelessVisualisation>),
 }

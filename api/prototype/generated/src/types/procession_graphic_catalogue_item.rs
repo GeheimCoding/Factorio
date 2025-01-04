@@ -1,5 +1,5 @@
 pub struct ProcessionGraphicCatalogueItem {
-    animation: Animation,
+    animation: crate::types::Animation,
     index: u32,
-    picture: Sprite,
+    picture: crate::types::Sprite,
 }

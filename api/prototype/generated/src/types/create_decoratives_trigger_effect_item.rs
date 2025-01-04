@@ -1,6 +1,6 @@
 pub struct CreateDecorativesTriggerEffectItem {
     apply_projection: bool,
-    decorative: DecorativeID,
+    decorative: crate::types::DecorativeID,
     radius_curve: f32,
     spawn_max: u16,
     spawn_max_radius: f32,

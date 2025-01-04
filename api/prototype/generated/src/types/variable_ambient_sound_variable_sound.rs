@@ -1,7 +1,7 @@
 pub struct VariableAmbientSoundVariableSound {
     alignment_samples: u32,
-    intermezzo: Sound,
-    layers: Vec<VariableAmbientSoundLayer>,
+    intermezzo: crate::types::Sound,
+    layers: Vec<crate::types::VariableAmbientSoundLayer>,
     length_seconds: u32,
-    states: Vec<VariableAmbientSoundState>,
+    states: Vec<crate::types::VariableAmbientSoundState>,
 }

@@ -1,12 +1,12 @@
 pub enum Sound {
     Sound {
-        advanced_volume_control: AdvancedVolumeControl,
-        aggregation: AggregationSpecification,
+        advanced_volume_control: crate::types::AdvancedVolumeControl,
+        aggregation: crate::types::AggregationSpecification,
         allow_random_repeat: bool,
         audible_distance_modifier: f64,
-        category: SoundType,
-        filename: FileName,
-        game_controller_vibration_data: GameControllerVibrationData,
+        category: crate::types::SoundType,
+        filename: crate::types::FileName,
+        game_controller_vibration_data: crate::types::GameControllerVibrationData,
         max_speed: f32,
         max_volume: f32,
         min_speed: f32,
@@ -19,13 +19,13 @@ pub enum Sound {
         variations: SoundVariations,
         volume: f32,
     },
-    VecSoundDefinition(Vec<SoundDefinition>),
+    VecSoundDefinition(Vec<crate::types::SoundDefinition>),
 }
 pub enum SoundModifiers {
-    SoundModifier(Box<SoundModifier>),
-    VecSoundModifier(Vec<SoundModifier>),
+    SoundModifier(Box<crate::types::SoundModifier>),
+    VecSoundModifier(Vec<crate::types::SoundModifier>),
 }
 pub enum SoundVariations {
-    SoundDefinition(SoundDefinition),
-    VecSoundDefinition(Vec<SoundDefinition>),
+    SoundDefinition(crate::types::SoundDefinition),
+    VecSoundDefinition(Vec<crate::types::SoundDefinition>),
 }

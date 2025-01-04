@@ -1,4 +1,4 @@
 pub enum LocalisedString {
     String(String),
-    VecLocalisedString(Vec<LocalisedString>),
+    VecLocalisedString(Vec<crate::types::LocalisedString>),
 }

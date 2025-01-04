@@ -1,6 +1,6 @@
 pub struct CircuitConnectorLayer {
-    east: RenderLayer,
-    north: RenderLayer,
-    south: RenderLayer,
-    west: RenderLayer,
+    east: crate::types::RenderLayer,
+    north: crate::types::RenderLayer,
+    south: crate::types::RenderLayer,
+    west: crate::types::RenderLayer,
 }

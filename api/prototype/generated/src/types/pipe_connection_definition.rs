@@ -1,15 +1,20 @@
 pub struct PipeConnectionDefinition {
     connection_category: PipeConnectionDefinitionConnectionCategory,
-    connection_type: PipeConnectionType,
-    direction: Direction,
+    connection_type: crate::types::PipeConnectionType,
+    direction: crate::types::Direction,
     enable_working_visualisations: Vec<String>,
     flow_direction: PipeConnectionDefinitionFlowDirection,
-    linked_connection_id: FluidBoxLinkedConnectionID,
-    max_distance_tint: Color,
+    linked_connection_id: crate::types::FluidBoxLinkedConnectionID,
+    max_distance_tint: crate::types::Color,
     max_underground_distance: u8,
-    position: MapPosition,
-    positions: (MapPosition, MapPosition, MapPosition, MapPosition),
-    underground_collision_mask: CollisionMaskConnector,
+    position: crate::types::MapPosition,
+    positions: (
+        crate::types::MapPosition,
+        crate::types::MapPosition,
+        crate::types::MapPosition,
+        crate::types::MapPosition,
+    ),
+    underground_collision_mask: crate::types::CollisionMaskConnector,
 }
 pub enum PipeConnectionDefinitionConnectionCategory {
     String(String),

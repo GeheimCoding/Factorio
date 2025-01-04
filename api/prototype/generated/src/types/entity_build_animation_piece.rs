@@ -1,4 +1,4 @@
 pub struct EntityBuildAnimationPiece {
-    body: Animation,
-    top: Animation,
+    body: crate::types::Animation,
+    top: crate::types::Animation,
 }

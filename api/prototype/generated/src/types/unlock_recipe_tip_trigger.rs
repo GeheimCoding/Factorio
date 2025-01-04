@@ -1,4 +1,4 @@
 pub struct UnlockRecipeTipTrigger {
-    recipe: RecipeID,
+    recipe: crate::types::RecipeID,
     type_: UnlockRecipe,
 }

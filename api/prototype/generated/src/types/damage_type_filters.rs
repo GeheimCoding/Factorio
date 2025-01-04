@@ -3,10 +3,10 @@ pub enum DamageTypeFilters {
         types: DamageTypeFiltersTypes,
         whitelist: bool,
     },
-    DamageTypeID(DamageTypeID),
-    VecDamageTypeID(Vec<DamageTypeID>),
+    DamageTypeID(crate::types::DamageTypeID),
+    VecDamageTypeID(Vec<crate::types::DamageTypeID>),
 }
 pub enum DamageTypeFiltersTypes {
-    DamageTypeID(DamageTypeID),
-    VecDamageTypeID(Vec<DamageTypeID>),
+    DamageTypeID(crate::types::DamageTypeID),
+    VecDamageTypeID(Vec<crate::types::DamageTypeID>),
 }

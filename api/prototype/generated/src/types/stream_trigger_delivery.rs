@@ -1,5 +1,5 @@
 pub struct StreamTriggerDelivery {
-    source_offset: Vector,
-    stream: EntityID,
+    source_offset: crate::types::Vector,
+    stream: crate::types::EntityID,
     type_: Stream,
 }

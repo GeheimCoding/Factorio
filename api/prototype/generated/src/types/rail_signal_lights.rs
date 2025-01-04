@@ -1,6 +1,6 @@
 pub struct RailSignalLights {
-    blue: RailSignalLightDefinition,
-    green: RailSignalLightDefinition,
-    red: RailSignalLightDefinition,
-    yellow: RailSignalLightDefinition,
+    blue: crate::types::RailSignalLightDefinition,
+    green: crate::types::RailSignalLightDefinition,
+    red: crate::types::RailSignalLightDefinition,
+    yellow: crate::types::RailSignalLightDefinition,
 }

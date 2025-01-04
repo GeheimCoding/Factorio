@@ -1,4 +1,4 @@
 pub struct ColorHintSpecification {
     text: String,
-    text_color: Color,
+    text_color: crate::types::Color,
 }

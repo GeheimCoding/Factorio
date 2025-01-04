@@ -1,9 +1,9 @@
 pub enum TechnologyTrigger {
-    MineEntityTechnologyTrigger(Box<MineEntityTechnologyTrigger>),
-    CraftItemTechnologyTrigger(Box<CraftItemTechnologyTrigger>),
-    CraftFluidTechnologyTrigger(Box<CraftFluidTechnologyTrigger>),
-    SendItemToOrbitTechnologyTrigger(Box<SendItemToOrbitTechnologyTrigger>),
-    CaptureSpawnerTechnologyTrigger(Box<CaptureSpawnerTechnologyTrigger>),
-    BuildEntityTechnologyTrigger(Box<BuildEntityTechnologyTrigger>),
-    CreateSpacePlatformTechnologyTrigger(Box<CreateSpacePlatformTechnologyTrigger>),
+    MineEntityTechnologyTrigger(Box<crate::types::MineEntityTechnologyTrigger>),
+    CraftItemTechnologyTrigger(Box<crate::types::CraftItemTechnologyTrigger>),
+    CraftFluidTechnologyTrigger(Box<crate::types::CraftFluidTechnologyTrigger>),
+    SendItemToOrbitTechnologyTrigger(Box<crate::types::SendItemToOrbitTechnologyTrigger>),
+    CaptureSpawnerTechnologyTrigger(Box<crate::types::CaptureSpawnerTechnologyTrigger>),
+    BuildEntityTechnologyTrigger(Box<crate::types::BuildEntityTechnologyTrigger>),
+    CreateSpacePlatformTechnologyTrigger(Box<crate::types::CreateSpacePlatformTechnologyTrigger>),
 }

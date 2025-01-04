@@ -1,4 +1,4 @@
 pub struct SoundModifier {
-    type_: SoundModifierType,
+    type_: crate::types::SoundModifierType,
     volume_multiplier: f32,
 }

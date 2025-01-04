@@ -1,4 +1,4 @@
 pub struct ModuleTransferTipTrigger {
-    module: ItemID,
+    module: crate::types::ItemID,
     type_: ModuleTransfer,
 }

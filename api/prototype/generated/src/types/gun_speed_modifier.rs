@@ -1,5 +1,5 @@
 pub struct GunSpeedModifier {
-    ammo_category: AmmoCategoryID,
+    ammo_category: crate::types::AmmoCategoryID,
     infer_icon: bool,
     modifier: f64,
     type_: GunSpeed,

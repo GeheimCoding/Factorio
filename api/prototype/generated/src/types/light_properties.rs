@@ -1,4 +1,4 @@
 pub struct LightProperties {
-    color: Color,
-    direction: Vector3D,
+    color: crate::types::Color,
+    direction: crate::types::Vector3D,
 }

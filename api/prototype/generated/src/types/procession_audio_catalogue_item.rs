@@ -1,5 +1,5 @@
 pub struct ProcessionAudioCatalogueItem {
     index: u32,
-    looped_sound: InterruptibleSound,
-    sound: Sound,
+    looped_sound: crate::types::InterruptibleSound,
+    sound: crate::types::Sound,
 }

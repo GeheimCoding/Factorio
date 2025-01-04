@@ -1,7 +1,7 @@
 pub enum EnergySource {
-    ElectricEnergySource(Box<ElectricEnergySource>),
-    BurnerEnergySource(Box<BurnerEnergySource>),
-    HeatEnergySource(Box<HeatEnergySource>),
-    FluidEnergySource(Box<FluidEnergySource>),
-    VoidEnergySource(Box<VoidEnergySource>),
+    ElectricEnergySource(Box<crate::types::ElectricEnergySource>),
+    BurnerEnergySource(Box<crate::types::BurnerEnergySource>),
+    HeatEnergySource(Box<crate::types::HeatEnergySource>),
+    FluidEnergySource(Box<crate::types::FluidEnergySource>),
+    VoidEnergySource(Box<crate::types::VoidEnergySource>),
 }

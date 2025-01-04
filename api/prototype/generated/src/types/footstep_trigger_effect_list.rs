@@ -1,1 +1,1 @@
-pub type FootstepTriggerEffectList = Vec<FootstepTriggerEffectItem>;
+pub type FootstepTriggerEffectList = Vec<crate::types::FootstepTriggerEffectItem>;

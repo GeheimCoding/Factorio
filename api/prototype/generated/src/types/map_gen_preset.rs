@@ -1,6 +1,6 @@
 pub struct MapGenPreset {
-    advanced_settings: AdvancedMapGenSettings,
-    basic_settings: MapGenSettings,
+    advanced_settings: crate::types::AdvancedMapGenSettings,
+    basic_settings: crate::types::MapGenSettings,
     default: bool,
-    order: Order,
+    order: crate::types::Order,
 }

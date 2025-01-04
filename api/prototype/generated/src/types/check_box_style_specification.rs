@@ -1,10 +1,10 @@
 pub struct CheckBoxStyleSpecification {
-    checkmark: Sprite,
-    disabled_checkmark: Sprite,
-    disabled_font_color: Color,
+    checkmark: crate::types::Sprite,
+    disabled_checkmark: crate::types::Sprite,
+    disabled_font_color: crate::types::Color,
     font: String,
-    font_color: Color,
-    intermediate_mark: Sprite,
+    font_color: crate::types::Color,
+    intermediate_mark: crate::types::Sprite,
     text_padding: u32,
     type_: CheckboxStyle,
 }

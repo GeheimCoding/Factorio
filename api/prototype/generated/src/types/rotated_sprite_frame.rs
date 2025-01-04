@@ -1,7 +1,7 @@
 pub struct RotatedSpriteFrame {
-    height: SpriteSizeType,
-    shift: Vector,
-    width: SpriteSizeType,
-    x: SpriteSizeType,
-    y: SpriteSizeType,
+    height: crate::types::SpriteSizeType,
+    shift: crate::types::Vector,
+    width: crate::types::SpriteSizeType,
+    x: crate::types::SpriteSizeType,
+    y: crate::types::SpriteSizeType,
 }

@@ -3,6 +3,6 @@ pub struct SpiderEngineSpecification {
     walking_group_overlap: f32,
 }
 pub enum SpiderEngineSpecificationLegs {
-    SpiderLegSpecification(Box<SpiderLegSpecification>),
-    VecSpiderLegSpecification(Vec<SpiderLegSpecification>),
+    SpiderLegSpecification(Box<crate::types::SpiderLegSpecification>),
+    VecSpiderLegSpecification(Vec<crate::types::SpiderLegSpecification>),
 }

@@ -1,4 +1,4 @@
 pub struct BeltReaderLayer {
-    render_layer: RenderLayer,
-    sprites: RotatedAnimation,
+    render_layer: crate::types::RenderLayer,
+    sprites: crate::types::RotatedAnimation,
 }

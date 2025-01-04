@@ -1,4 +1,4 @@
 pub struct EmptyWidgetStyleSpecification {
-    graphical_set: ElementImageSet,
+    graphical_set: crate::types::ElementImageSet,
     type_: EmptyWidgetStyle,
 }

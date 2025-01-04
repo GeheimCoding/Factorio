@@ -1,6 +1,6 @@
 pub struct NoiseFunction {
-    expression: NoiseExpression,
-    local_expressions: std::collections::HashMap<String, NoiseExpression>,
-    local_functions: std::collections::HashMap<String, NoiseFunction>,
+    expression: crate::types::NoiseExpression,
+    local_expressions: std::collections::HashMap<String, crate::types::NoiseExpression>,
+    local_functions: std::collections::HashMap<String, crate::types::NoiseFunction>,
     parameters: Vec<String>,
 }

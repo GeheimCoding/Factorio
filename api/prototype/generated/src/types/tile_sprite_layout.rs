@@ -1,8 +1,8 @@
 pub struct TileSpriteLayout {
     count: u8,
     line_length: u8,
-    picture: FileName,
+    picture: crate::types::FileName,
     scale: f32,
-    x: SpriteSizeType,
-    y: SpriteSizeType,
+    x: crate::types::SpriteSizeType,
+    y: crate::types::SpriteSizeType,
 }

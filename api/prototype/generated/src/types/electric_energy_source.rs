@@ -1,8 +1,8 @@
 pub struct ElectricEnergySource {
-    buffer_capacity: Energy,
-    drain: Energy,
-    input_flow_limit: Energy,
-    output_flow_limit: Energy,
+    buffer_capacity: crate::types::Energy,
+    drain: crate::types::Energy,
+    input_flow_limit: crate::types::Energy,
+    output_flow_limit: crate::types::Energy,
     type_: Electric,
-    usage_priority: ElectricUsagePriority,
+    usage_priority: crate::types::ElectricUsagePriority,
 }

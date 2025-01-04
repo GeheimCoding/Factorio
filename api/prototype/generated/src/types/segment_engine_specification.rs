@@ -1,3 +1,3 @@
 pub struct SegmentEngineSpecification {
-    segments: Vec<SegmentSpecification>,
+    segments: Vec<crate::types::SegmentSpecification>,
 }

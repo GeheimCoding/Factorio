@@ -21,8 +21,12 @@ fn main() -> anyhow::Result<()> {
     let mut content = String::from("pub enum Defines {");
     format.defines.iter().for_each(|define| {
         let rust_name = &define.rust_name();
-        content.insert_str(0, &format!("pub mod {};", define.name()));
-        content.push_str(&format!("{}({}::{}),", rust_name, define.name(), rust_name));
+        let define_name = define.name();
+        content.insert_str(
+            0,
+            &format!("pub mod {define_name};pub use {define_name}::{rust_name};"),
+        );
+        content.push_str(&format!("{rust_name}({rust_name}),"));
     });
     let mod_path = &path.join("mod").with_extension("rs");
     save_file_if_changed("defines", mod_path, &format!("{content}}}"))

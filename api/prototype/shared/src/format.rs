@@ -1,6 +1,7 @@
 use crate::concept::Concept;
 use crate::define::Define;
 use crate::prototype::Prototype;
+use crate::transformation::Transformation;
 use crate::type_::Type;
 use serde::Deserialize;
 use std::collections::HashMap;
@@ -19,6 +20,30 @@ pub struct Format {
 
 #[derive(Debug)]
 pub struct Context(pub HashMap<String, (Kind, DataType)>);
+
+impl Context {
+    pub fn with_prefix(&self, rust_name: &str) -> String {
+        if let Some(define) = rust_name.split("defines.").into_iter().skip(1).next() {
+            return format!("crate::defines::{}", String::from(define).to_pascal_case());
+        } else if rust_name
+            .chars()
+            .next()
+            .expect("expected at least one char")
+            .is_ascii_lowercase()
+        {
+            return String::from(rust_name);
+        }
+        let (kind, _) = self
+            .0
+            .get(rust_name)
+            .expect(&format!("expected context for {rust_name}"));
+
+        match kind {
+            Kind::Concept => format!("crate::types::{rust_name}"),
+            Kind::Prototype => format!("crate::prototypes::{rust_name}"),
+        }
+    }
+}
 
 #[derive(Debug)]
 pub enum DataType {

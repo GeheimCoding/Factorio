@@ -1,4 +1,4 @@
 pub struct OrTipTrigger {
-    triggers: Vec<TipTrigger>,
+    triggers: Vec<crate::types::TipTrigger>,
     type_: Or,
 }

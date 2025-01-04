@@ -1,8 +1,11 @@
 pub struct MapGenSettings {
-    autoplace_controls: std::collections::HashMap<AutoplaceControlID, FrequencySizeRichness>,
+    autoplace_controls: std::collections::HashMap<
+        crate::types::AutoplaceControlID,
+        crate::types::FrequencySizeRichness,
+    >,
     autoplace_settings:
-        std::collections::HashMap<MapGenSettingsAutoplaceSettings, AutoplaceSettings>,
-    cliff_settings: CliffPlacementSettings,
+        std::collections::HashMap<MapGenSettingsAutoplaceSettings, crate::types::AutoplaceSettings>,
+    cliff_settings: crate::types::CliffPlacementSettings,
     default_enable_all_autoplace_controls: bool,
     height: u32,
     no_enemies_mode: bool,
@@ -10,9 +13,9 @@ pub struct MapGenSettings {
     property_expression_names:
         std::collections::HashMap<String, MapGenSettingsPropertyExpressionNames>,
     seed: u32,
-    starting_area: MapGenSize,
-    starting_points: Vec<MapPosition>,
-    territory_settings: TerritorySettings,
+    starting_area: crate::types::MapGenSize,
+    starting_points: Vec<crate::types::MapPosition>,
+    territory_settings: crate::types::TerritorySettings,
     width: u32,
 }
 pub enum MapGenSettingsAutoplaceSettings {

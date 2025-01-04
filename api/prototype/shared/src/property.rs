@@ -30,7 +30,7 @@ impl Property {
         let prefix = format!("{prefix}{}", self.base.name.to_pascal_case());
         let (inner, additional) = self.type_.generate(&prefix, &None, context);
         (
-            format!("{}: {inner}", self.base.name.to_rust_type()),
+            format!("{}: {inner}", self.base.name.to_rust_type(context)),
             additional,
         )
     }

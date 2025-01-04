@@ -1,12 +1,12 @@
 pub struct StreamAttackParameters {
-    fluid_consumption: FluidAmount,
-    fluids: Vec<StreamFluidProperties>,
+    fluid_consumption: crate::types::FluidAmount,
+    fluids: Vec<crate::types::StreamFluidProperties>,
     gun_barrel_length: f32,
     gun_center_shift: StreamAttackParametersGunCenterShift,
-    projectile_creation_parameters: CircularProjectileCreationSpecification,
+    projectile_creation_parameters: crate::types::CircularProjectileCreationSpecification,
     type_: Stream,
 }
 pub enum StreamAttackParametersGunCenterShift {
-    Vector(Vector),
-    GunShift4Way(Box<GunShift4Way>),
+    Vector(crate::types::Vector),
+    GunShift4Way(Box<crate::types::GunShift4Way>),
 }

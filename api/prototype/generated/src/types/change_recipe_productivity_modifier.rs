@@ -1,6 +1,6 @@
 pub struct ChangeRecipeProductivityModifier {
-    change: EffectValue,
-    recipe: RecipeID,
+    change: crate::types::EffectValue,
+    recipe: crate::types::RecipeID,
     type_: ChangeRecipeProductivity,
     use_icon_overlay_constant: bool,
 }

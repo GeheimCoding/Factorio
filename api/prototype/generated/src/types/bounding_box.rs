@@ -1,8 +1,8 @@
 pub enum BoundingBox {
     BoundingBox {
-        left_top: MapPosition,
-        orientation: RealOrientation,
-        right_bottom: MapPosition,
+        left_top: crate::types::MapPosition,
+        orientation: crate::types::RealOrientation,
+        right_bottom: crate::types::MapPosition,
     },
-    MapPositionMapPosition((MapPosition, MapPosition)),
+    MapPositionMapPosition((crate::types::MapPosition, crate::types::MapPosition)),
 }

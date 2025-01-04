@@ -1,6 +1,6 @@
 pub struct BoilerPictures {
-    fire: Animation,
-    fire_glow: Animation,
-    patch: Sprite,
-    structure: Animation,
+    fire: crate::types::Animation,
+    fire_glow: crate::types::Animation,
+    patch: crate::types::Sprite,
+    structure: crate::types::Animation,
 }

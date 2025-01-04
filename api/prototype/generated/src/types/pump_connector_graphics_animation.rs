@@ -1,7 +1,7 @@
 pub struct PumpConnectorGraphicsAnimation {
-    connector: Animation,
-    connector_shadow: Animation,
-    standup_base: Animation,
-    standup_shadow: Animation,
-    standup_top: Animation,
+    connector: crate::types::Animation,
+    connector_shadow: crate::types::Animation,
+    standup_base: crate::types::Animation,
+    standup_shadow: crate::types::Animation,
+    standup_top: crate::types::Animation,
 }

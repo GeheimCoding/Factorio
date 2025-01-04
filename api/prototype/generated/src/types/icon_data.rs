@@ -1,8 +1,8 @@
 pub struct IconData {
     draw_background: bool,
-    icon: FileName,
-    icon_size: SpriteSizeType,
+    icon: crate::types::FileName,
+    icon_size: crate::types::SpriteSizeType,
     scale: f64,
-    shift: Vector,
-    tint: Color,
+    shift: crate::types::Vector,
+    tint: crate::types::Color,
 }

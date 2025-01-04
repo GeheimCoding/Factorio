@@ -1,6 +1,6 @@
 pub struct ShiftAnimationWaypoints {
-    east: Vec<Vector>,
-    north: Vec<Vector>,
-    south: Vec<Vector>,
-    west: Vec<Vector>,
+    east: Vec<crate::types::Vector>,
+    north: Vec<crate::types::Vector>,
+    south: Vec<crate::types::Vector>,
+    west: Vec<crate::types::Vector>,
 }

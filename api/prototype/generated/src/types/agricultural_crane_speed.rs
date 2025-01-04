@@ -1,4 +1,4 @@
 pub struct AgriculturalCraneSpeed {
-    arm: AgriculturalCraneSpeedArm,
-    grappler: AgriculturalCraneSpeedGrappler,
+    arm: crate::types::AgriculturalCraneSpeedArm,
+    grappler: crate::types::AgriculturalCraneSpeedGrappler,
 }

@@ -5,7 +5,7 @@ pub enum WorldAmbientSoundDefinition {
         max_entity_count: u32,
         min_entity_count: u32,
         radius: f64,
-        sound: Sound,
+        sound: crate::types::Sound,
     },
-    Sound(Sound),
+    Sound(crate::types::Sound),
 }

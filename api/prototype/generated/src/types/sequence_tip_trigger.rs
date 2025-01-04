@@ -1,4 +1,4 @@
 pub struct SequenceTipTrigger {
-    triggers: Vec<TipTrigger>,
+    triggers: Vec<crate::types::TipTrigger>,
     type_: Sequence,
 }

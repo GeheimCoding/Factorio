@@ -1,5 +1,5 @@
 pub struct AsteroidGraphicsSet {
-    ambient_light: Color,
+    ambient_light: crate::types::Color,
     brightness: f32,
     light_width: f32,
     lights: AsteroidGraphicsSetLights,
@@ -8,16 +8,16 @@ pub struct AsteroidGraphicsSet {
     specular_power: f32,
     specular_purity: f32,
     specular_strength: f32,
-    sprite: Sprite,
+    sprite: crate::types::Sprite,
     sss_amount: f32,
     sss_contrast: f32,
     variations: AsteroidGraphicsSetVariations,
 }
 pub enum AsteroidGraphicsSetLights {
-    LightProperties(Box<LightProperties>),
-    VecLightProperties(Vec<LightProperties>),
+    LightProperties(Box<crate::types::LightProperties>),
+    VecLightProperties(Vec<crate::types::LightProperties>),
 }
 pub enum AsteroidGraphicsSetVariations {
-    AsteroidVariation(Box<AsteroidVariation>),
-    VecAsteroidVariation(Vec<AsteroidVariation>),
+    AsteroidVariation(Box<crate::types::AsteroidVariation>),
+    VecAsteroidVariation(Vec<crate::types::AsteroidVariation>),
 }

@@ -1,7 +1,7 @@
 pub struct CraftItemTipTrigger {
     consecutive: bool,
     event_type: CraftItemTipTriggerEventType,
-    item: ItemID,
+    item: crate::types::ItemID,
     type_: CraftItem,
 }
 pub enum CraftItemTipTriggerEventType {

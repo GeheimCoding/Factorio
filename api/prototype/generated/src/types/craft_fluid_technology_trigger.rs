@@ -1,5 +1,5 @@
 pub struct CraftFluidTechnologyTrigger {
     amount: f64,
-    fluid: FluidID,
+    fluid: crate::types::FluidID,
     type_: CraftFluid,
 }

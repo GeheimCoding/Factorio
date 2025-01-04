@@ -1,8 +1,8 @@
 pub enum EntityIDFilter {
     EntityIDFilter {
-        comparator: ComparatorString,
-        name: EntityID,
-        quality: QualityID,
+        comparator: crate::types::ComparatorString,
+        name: crate::types::EntityID,
+        quality: crate::types::QualityID,
     },
-    EntityID(EntityID),
+    EntityID(crate::types::EntityID),
 }

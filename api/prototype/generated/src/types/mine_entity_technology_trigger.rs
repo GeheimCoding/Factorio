@@ -1,4 +1,4 @@
 pub struct MineEntityTechnologyTrigger {
-    entity: EntityID,
+    entity: crate::types::EntityID,
     type_: MineEntity,
 }

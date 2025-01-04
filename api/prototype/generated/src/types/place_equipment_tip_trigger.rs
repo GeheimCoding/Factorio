@@ -1,4 +1,4 @@
 pub struct PlaceEquipmentTipTrigger {
-    equipment: EquipmentID,
+    equipment: crate::types::EquipmentID,
     type_: PlaceEquipment,
 }

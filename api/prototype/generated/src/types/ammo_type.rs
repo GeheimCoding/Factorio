@@ -1,12 +1,12 @@
 pub struct AmmoType {
-    action: Trigger,
+    action: crate::types::Trigger,
     clamp_position: bool,
     consumption_modifier: f32,
     cooldown_modifier: f64,
-    energy_consumption: Energy,
+    energy_consumption: crate::types::Energy,
     range_modifier: f64,
-    source_type: AmmoSourceType,
-    target_filter: Vec<EntityID>,
+    source_type: crate::types::AmmoSourceType,
+    target_filter: Vec<crate::types::EntityID>,
     target_type: AmmoTypeTargetType,
 }
 pub enum AmmoTypeTargetType {

@@ -1,4 +1,4 @@
 pub enum IngredientPrototype {
-    ItemIngredientPrototype(Box<ItemIngredientPrototype>),
-    FluidIngredientPrototype(Box<FluidIngredientPrototype>),
+    ItemIngredientPrototype(Box<crate::types::ItemIngredientPrototype>),
+    FluidIngredientPrototype(Box<crate::types::FluidIngredientPrototype>),
 }

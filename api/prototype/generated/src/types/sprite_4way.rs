@@ -1,11 +1,11 @@
 pub enum Sprite4Way {
     Sprite4Way {
-        east: Sprite,
-        north: Sprite,
-        sheet: SpriteNWaySheet,
-        sheets: Vec<SpriteNWaySheet>,
-        south: Sprite,
-        west: Sprite,
+        east: crate::types::Sprite,
+        north: crate::types::Sprite,
+        sheet: crate::types::SpriteNWaySheet,
+        sheets: Vec<crate::types::SpriteNWaySheet>,
+        south: crate::types::Sprite,
+        west: crate::types::Sprite,
     },
-    Sprite(Box<Sprite>),
+    Sprite(Box<crate::types::Sprite>),
 }

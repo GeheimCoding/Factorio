@@ -1,6 +1,6 @@
 pub struct RecipeTints {
-    primary: Color,
-    quaternary: Color,
-    secondary: Color,
-    tertiary: Color,
+    primary: crate::types::Color,
+    quaternary: crate::types::Color,
+    secondary: crate::types::Color,
+    tertiary: crate::types::Color,
 }

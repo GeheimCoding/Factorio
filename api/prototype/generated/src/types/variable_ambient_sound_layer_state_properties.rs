@@ -1,15 +1,15 @@
 pub struct VariableAmbientSoundLayerStateProperties {
     enabled: bool,
-    end_pause: RandomRange,
+    end_pause: crate::types::RandomRange,
     number_of_repetitions: VariableAmbientSoundLayerStatePropertiesNumberOfRepetitions,
-    pause_between_repetitions: RandomRange,
-    pause_between_samples: RandomRange,
-    sequence_length: RandomRange,
+    pause_between_repetitions: crate::types::RandomRange,
+    pause_between_samples: crate::types::RandomRange,
+    sequence_length: crate::types::RandomRange,
     silence_instead_of_sample_probability: f32,
-    start_pause: RandomRange,
+    start_pause: crate::types::RandomRange,
     variant: u8,
 }
 pub enum VariableAmbientSoundLayerStatePropertiesNumberOfRepetitions {
-    RandomRange(RandomRange),
-    ProbabilityTable(ProbabilityTable),
+    RandomRange(crate::types::RandomRange),
+    ProbabilityTable(crate::types::ProbabilityTable),
 }

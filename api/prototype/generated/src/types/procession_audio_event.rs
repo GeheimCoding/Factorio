@@ -1,6 +1,6 @@
 pub struct ProcessionAudioEvent {
-    audio: ProcessionAudio,
+    audio: crate::types::ProcessionAudio,
     loop_id: u32,
-    type_: ProcessionAudioEventType,
-    usage: ProcessionAudioUsage,
+    type_: crate::types::ProcessionAudioEventType,
+    usage: crate::types::ProcessionAudioUsage,
 }

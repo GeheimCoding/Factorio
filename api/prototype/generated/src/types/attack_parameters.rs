@@ -1,5 +1,5 @@
 pub enum AttackParameters {
-    ProjectileAttackParameters(Box<ProjectileAttackParameters>),
-    BeamAttackParameters(Box<BeamAttackParameters>),
-    StreamAttackParameters(Box<StreamAttackParameters>),
+    ProjectileAttackParameters(Box<crate::types::ProjectileAttackParameters>),
+    BeamAttackParameters(Box<crate::types::BeamAttackParameters>),
+    StreamAttackParameters(Box<crate::types::StreamAttackParameters>),
 }

@@ -1,1 +1,1 @@
-pub type LayeredSpriteVariations = Vec<LayeredSprite>;
+pub type LayeredSpriteVariations = Vec<crate::types::LayeredSprite>;

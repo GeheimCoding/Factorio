@@ -1,5 +1,5 @@
 pub struct ArtilleryRemoteCapsuleAction {
-    flare: EntityID,
+    flare: crate::types::EntityID,
     play_sound_on_failure: bool,
     type_: ArtilleryRemote,
 }

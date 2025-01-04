@@ -1,6 +1,6 @@
 pub struct PumpConnectorGraphics {
-    east: Vec<PumpConnectorGraphicsAnimation>,
-    north: Vec<PumpConnectorGraphicsAnimation>,
-    south: Vec<PumpConnectorGraphicsAnimation>,
-    west: Vec<PumpConnectorGraphicsAnimation>,
+    east: Vec<crate::types::PumpConnectorGraphicsAnimation>,
+    north: Vec<crate::types::PumpConnectorGraphicsAnimation>,
+    south: Vec<crate::types::PumpConnectorGraphicsAnimation>,
+    west: Vec<crate::types::PumpConnectorGraphicsAnimation>,
 }

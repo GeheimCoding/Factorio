@@ -1,8 +1,8 @@
 pub struct SpiderLegSpecification {
-    ground_position: Vector,
-    leg: EntityID,
-    leg_hit_the_ground_trigger: TriggerEffect,
-    leg_hit_the_ground_when_attacking_trigger: TriggerEffect,
-    mount_position: Vector,
+    ground_position: crate::types::Vector,
+    leg: crate::types::EntityID,
+    leg_hit_the_ground_trigger: crate::types::TriggerEffect,
+    leg_hit_the_ground_when_attacking_trigger: crate::types::TriggerEffect,
+    mount_position: crate::types::Vector,
     walking_group: u8,
 }

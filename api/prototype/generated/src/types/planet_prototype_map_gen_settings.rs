@@ -1,15 +1,18 @@
 pub struct PlanetPrototypeMapGenSettings {
-    autoplace_controls: std::collections::HashMap<AutoplaceControlID, FrequencySizeRichness>,
+    autoplace_controls: std::collections::HashMap<
+        crate::types::AutoplaceControlID,
+        crate::types::FrequencySizeRichness,
+    >,
     autoplace_settings: std::collections::HashMap<
         PlanetPrototypeMapGenSettingsAutoplaceSettings,
-        AutoplaceSettings,
+        crate::types::AutoplaceSettings,
     >,
     aux_climate_control: bool,
-    cliff_settings: CliffPlacementSettings,
+    cliff_settings: crate::types::CliffPlacementSettings,
     moisture_climate_control: bool,
     property_expression_names:
         std::collections::HashMap<String, PlanetPrototypeMapGenSettingsPropertyExpressionNames>,
-    territory_settings: TerritorySettings,
+    territory_settings: crate::types::TerritorySettings,
 }
 pub enum PlanetPrototypeMapGenSettingsAutoplaceSettings {
     Entity,

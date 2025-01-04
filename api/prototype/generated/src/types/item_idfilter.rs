@@ -1,8 +1,8 @@
 pub enum ItemIDFilter {
     ItemIDFilter {
-        comparator: ComparatorString,
-        name: ItemID,
-        quality: QualityID,
+        comparator: crate::types::ComparatorString,
+        name: crate::types::ItemID,
+        quality: crate::types::QualityID,
     },
-    ItemID(ItemID),
+    ItemID(crate::types::ItemID),
 }

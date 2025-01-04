@@ -3,8 +3,8 @@ pub struct SpaceLocationAsteroidSpawnDefinition {
     type_: SpaceLocationAsteroidSpawnDefinitionType,
 }
 pub enum SpaceLocationAsteroidSpawnDefinitionAsteroid {
-    EntityID(EntityID),
-    AsteroidChunkID(AsteroidChunkID),
+    EntityID(crate::types::EntityID),
+    AsteroidChunkID(crate::types::AsteroidChunkID),
 }
 pub enum SpaceLocationAsteroidSpawnDefinitionType {
     Entity,

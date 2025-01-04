@@ -1,7 +1,7 @@
 pub struct TransportBeltAnimationSet {
     alternate: bool,
-    animation_set: RotatedAnimation,
-    belt_reader: Vec<BeltReaderLayer>,
+    animation_set: crate::types::RotatedAnimation,
+    belt_reader: Vec<crate::types::BeltReaderLayer>,
     east_index: u8,
     east_index_frozen: u8,
     ending_east_index: u8,
@@ -12,7 +12,7 @@ pub struct TransportBeltAnimationSet {
     ending_south_index_frozen: u8,
     ending_west_index: u8,
     ending_west_index_frozen: u8,
-    frozen_patch: RotatedSprite,
+    frozen_patch: crate::types::RotatedSprite,
     north_index: u8,
     north_index_frozen: u8,
     south_index: u8,

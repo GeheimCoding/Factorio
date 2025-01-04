@@ -1,6 +1,6 @@
 pub enum SoundDefinition {
     SoundDefinition {
-        filename: FileName,
+        filename: crate::types::FileName,
         max_speed: f32,
         max_volume: f32,
         min_speed: f32,
@@ -10,9 +10,9 @@ pub enum SoundDefinition {
         speed: f32,
         volume: f32,
     },
-    FileName(FileName),
+    FileName(crate::types::FileName),
 }
 pub enum SoundDefinitionModifiers {
-    SoundModifier(Box<SoundModifier>),
-    VecSoundModifier(Vec<SoundModifier>),
+    SoundModifier(Box<crate::types::SoundModifier>),
+    VecSoundModifier(Vec<crate::types::SoundModifier>),
 }

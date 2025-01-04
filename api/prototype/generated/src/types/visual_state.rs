@@ -1,5 +1,5 @@
 pub struct VisualState {
-    color: Color,
+    color: crate::types::Color,
     duration: u8,
     name: String,
     next_active: String,

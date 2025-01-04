@@ -1,16 +1,16 @@
 pub struct RailFencePictureSet {
     ends: (
-        RailFenceDirectionSet,
-        RailFenceDirectionSet,
-        RailFenceDirectionSet,
-        RailFenceDirectionSet,
+        crate::types::RailFenceDirectionSet,
+        crate::types::RailFenceDirectionSet,
+        crate::types::RailFenceDirectionSet,
+        crate::types::RailFenceDirectionSet,
     ),
     ends_upper: (
-        RailFenceDirectionSet,
-        RailFenceDirectionSet,
-        RailFenceDirectionSet,
-        RailFenceDirectionSet,
+        crate::types::RailFenceDirectionSet,
+        crate::types::RailFenceDirectionSet,
+        crate::types::RailFenceDirectionSet,
+        crate::types::RailFenceDirectionSet,
     ),
-    fence: RailFenceDirectionSet,
-    fence_upper: RailFenceDirectionSet,
+    fence: crate::types::RailFenceDirectionSet,
+    fence_upper: crate::types::RailFenceDirectionSet,
 }

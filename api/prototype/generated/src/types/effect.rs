@@ -1,7 +1,7 @@
 pub struct Effect {
-    consumption: EffectValue,
-    pollution: EffectValue,
-    productivity: EffectValue,
-    quality: EffectValue,
-    speed: EffectValue,
+    consumption: crate::types::EffectValue,
+    pollution: crate::types::EffectValue,
+    productivity: crate::types::EffectValue,
+    quality: crate::types::EffectValue,
+    speed: crate::types::EffectValue,
 }

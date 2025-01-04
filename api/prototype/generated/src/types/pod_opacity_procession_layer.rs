@@ -1,5 +1,5 @@
 pub struct PodOpacityProcessionLayer {
-    frames: Vec<PodOpacityProcessionBezierControlPoint>,
-    lut: ColorLookupTable,
+    frames: Vec<crate::types::PodOpacityProcessionBezierControlPoint>,
+    lut: crate::types::ColorLookupTable,
     type_: PodOpacity,
 }

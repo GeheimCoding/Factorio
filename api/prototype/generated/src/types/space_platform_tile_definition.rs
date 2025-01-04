@@ -1,4 +1,4 @@
 pub struct SpacePlatformTileDefinition {
-    position: TilePosition,
-    tile: TileID,
+    position: crate::types::TilePosition,
+    tile: crate::types::TileID,
 }

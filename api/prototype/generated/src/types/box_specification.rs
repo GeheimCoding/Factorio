@@ -3,5 +3,5 @@ pub struct BoxSpecification {
     max_side_length: f64,
     side_height: f64,
     side_length: f64,
-    sprite: Sprite,
+    sprite: crate::types::Sprite,
 }

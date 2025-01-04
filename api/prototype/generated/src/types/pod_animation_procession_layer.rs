@@ -1,5 +1,5 @@
 pub struct PodAnimationProcessionLayer {
-    frames: Vec<PodAnimationProcessionBezierControlPoint>,
-    graphic: ProcessionGraphic,
+    frames: Vec<crate::types::PodAnimationProcessionBezierControlPoint>,
+    graphic: crate::types::ProcessionGraphic,
     type_: PodAnimation,
 }

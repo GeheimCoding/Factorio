@@ -1,5 +1,5 @@
 pub struct WaterReflectionDefinition {
     orientation_to_variation: bool,
-    pictures: SpriteVariations,
+    pictures: crate::types::SpriteVariations,
     rotate: bool,
 }

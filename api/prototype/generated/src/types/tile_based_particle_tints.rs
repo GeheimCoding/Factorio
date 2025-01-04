@@ -1,4 +1,4 @@
 pub struct TileBasedParticleTints {
-    primary: Color,
-    secondary: Color,
+    primary: crate::types::Color,
+    secondary: crate::types::Color,
 }

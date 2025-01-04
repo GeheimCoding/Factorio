@@ -1,7 +1,7 @@
 pub enum SimpleBoundingBox {
     SimpleBoundingBox {
-        left_top: MapPosition,
-        right_bottom: MapPosition,
+        left_top: crate::types::MapPosition,
+        right_bottom: crate::types::MapPosition,
     },
-    MapPositionMapPosition((MapPosition, MapPosition)),
+    MapPositionMapPosition((crate::types::MapPosition, crate::types::MapPosition)),
 }

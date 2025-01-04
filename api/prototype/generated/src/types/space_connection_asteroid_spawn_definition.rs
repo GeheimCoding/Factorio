@@ -1,16 +1,19 @@
 pub enum SpaceConnectionAsteroidSpawnDefinition {
     SpaceConnectionAsteroidSpawnDefinition {
         asteroid: SpaceConnectionAsteroidSpawnDefinitionAsteroid,
-        spawn_points: Vec<SpaceConnectionAsteroidSpawnPoint>,
+        spawn_points: Vec<crate::types::SpaceConnectionAsteroidSpawnPoint>,
         type_: SpaceConnectionAsteroidSpawnDefinitionType,
     },
     EntityIDVecSpaceConnectionAsteroidSpawnPoint(
-        (EntityID, Vec<SpaceConnectionAsteroidSpawnPoint>),
+        (
+            crate::types::EntityID,
+            Vec<crate::types::SpaceConnectionAsteroidSpawnPoint>,
+        ),
     ),
 }
 pub enum SpaceConnectionAsteroidSpawnDefinitionAsteroid {
-    EntityID(EntityID),
-    AsteroidChunkID(AsteroidChunkID),
+    EntityID(crate::types::EntityID),
+    AsteroidChunkID(crate::types::AsteroidChunkID),
 }
 pub enum SpaceConnectionAsteroidSpawnDefinitionType {
     Entity,

@@ -1,6 +1,6 @@
 pub struct TriggerEffectItem {
     affects_target: bool,
-    damage_type_filters: DamageTypeFilters,
+    damage_type_filters: crate::types::DamageTypeFilters,
     probability: f32,
     repeat_count: u16,
     repeat_count_deviation: u16,

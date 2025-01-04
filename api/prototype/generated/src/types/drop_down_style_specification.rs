@@ -1,8 +1,8 @@
 pub struct DropDownStyleSpecification {
-    button_style: ButtonStyleSpecification,
-    icon: Sprite,
-    list_box_style: ListBoxStyleSpecification,
-    opened_sound: Sound,
+    button_style: crate::types::ButtonStyleSpecification,
+    icon: crate::types::Sprite,
+    list_box_style: crate::types::ListBoxStyleSpecification,
+    opened_sound: crate::types::Sound,
     selector_and_title_spacing: i16,
     type_: DropdownStyle,
 }

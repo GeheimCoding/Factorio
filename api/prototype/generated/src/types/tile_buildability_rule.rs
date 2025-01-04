@@ -1,6 +1,6 @@
 pub struct TileBuildabilityRule {
-    area: SimpleBoundingBox,
-    colliding_tiles: CollisionMaskConnector,
+    area: crate::types::SimpleBoundingBox,
+    colliding_tiles: crate::types::CollisionMaskConnector,
     remove_on_collision: bool,
-    required_tiles: CollisionMaskConnector,
+    required_tiles: crate::types::CollisionMaskConnector,
 }

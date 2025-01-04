@@ -1,4 +1,4 @@
 pub struct ItemToPlace {
-    count: ItemCountType,
-    item: ItemID,
+    count: crate::types::ItemCountType,
+    item: crate::types::ItemID,
 }

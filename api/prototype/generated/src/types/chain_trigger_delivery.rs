@@ -1,4 +1,4 @@
 pub struct ChainTriggerDelivery {
-    chain: ActiveTriggerID,
+    chain: crate::types::ActiveTriggerID,
     type_: Chain,
 }

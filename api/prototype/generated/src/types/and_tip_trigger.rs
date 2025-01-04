@@ -1,4 +1,4 @@
 pub struct AndTipTrigger {
-    triggers: Vec<TipTrigger>,
+    triggers: Vec<crate::types::TipTrigger>,
     type_: And,
 }

@@ -1,4 +1,4 @@
 pub struct SendItemToOrbitTechnologyTrigger {
-    item: ItemIDFilter,
+    item: crate::types::ItemIDFilter,
     type_: SendItemToOrbit,
 }

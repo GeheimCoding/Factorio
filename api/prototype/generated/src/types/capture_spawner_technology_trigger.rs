@@ -1,4 +1,4 @@
 pub struct CaptureSpawnerTechnologyTrigger {
-    entity: EntityID,
+    entity: crate::types::EntityID,
     type_: CaptureSpawner,
 }

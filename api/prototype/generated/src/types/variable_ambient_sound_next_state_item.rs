@@ -1,4 +1,4 @@
 pub struct VariableAmbientSoundNextStateItem {
-    conditions: VariableAmbientSoundNextStateConditions,
+    conditions: crate::types::VariableAmbientSoundNextStateConditions,
     state: String,
 }

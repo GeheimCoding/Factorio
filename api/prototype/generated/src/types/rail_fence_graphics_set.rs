@@ -1,9 +1,9 @@
 pub struct RailFenceGraphicsSet {
-    back_fence_render_layer: RenderLayer,
-    back_fence_render_layer_secondary: RenderLayer,
-    front_fence_render_layer: RenderLayer,
-    front_fence_render_layer_secondary: RenderLayer,
+    back_fence_render_layer: crate::types::RenderLayer,
+    back_fence_render_layer_secondary: crate::types::RenderLayer,
+    front_fence_render_layer: crate::types::RenderLayer,
+    front_fence_render_layer_secondary: crate::types::RenderLayer,
     segment_count: u8,
-    side_A: RailFencePictureSet,
-    side_B: RailFencePictureSet,
+    side_A: crate::types::RailFencePictureSet,
+    side_B: crate::types::RailFencePictureSet,
 }

@@ -1,4 +1,4 @@
 pub struct LineStyleSpecification {
-    border: BorderImageSet,
+    border: crate::types::BorderImageSet,
     type_: LineStyle,
 }

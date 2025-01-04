@@ -1,6 +1,6 @@
 pub struct ProcessionGraphic {
-    animation: Animation,
+    animation: crate::types::Animation,
     catalogue_id: u32,
-    sprite: Sprite,
-    type_: ProcessionGraphicType,
+    sprite: crate::types::Sprite,
+    type_: crate::types::ProcessionGraphicType,
 }

@@ -1,10 +1,10 @@
 pub struct StatusColors {
-    disabled: Color,
-    full_output: Color,
-    idle: Color,
-    insufficient_input: Color,
-    low_power: Color,
-    no_minable_resources: Color,
-    no_power: Color,
-    working: Color,
+    disabled: crate::types::Color,
+    full_output: crate::types::Color,
+    idle: crate::types::Color,
+    insufficient_input: crate::types::Color,
+    low_power: crate::types::Color,
+    no_minable_resources: crate::types::Color,
+    no_power: crate::types::Color,
+    working: crate::types::Color,
 }

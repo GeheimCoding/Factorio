@@ -1,8 +1,8 @@
 pub struct SpiderTorsoGraphicsSet {
-    animation: RotatedAnimation,
-    base_animation: RotatedAnimation,
-    base_render_layer: RenderLayer,
-    render_layer: RenderLayer,
-    shadow_animation: RotatedAnimation,
-    shadow_base_animation: RotatedAnimation,
+    animation: crate::types::RotatedAnimation,
+    base_animation: crate::types::RotatedAnimation,
+    base_render_layer: crate::types::RenderLayer,
+    render_layer: crate::types::RenderLayer,
+    shadow_animation: crate::types::RotatedAnimation,
+    shadow_base_animation: crate::types::RotatedAnimation,
 }

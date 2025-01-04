@@ -6,5 +6,5 @@ pub enum ModSettingValue {
     F64(f64),
     Bool(bool),
     String(String),
-    Color(Color),
+    Color(crate::types::Color),
 }

@@ -1,4 +1,4 @@
 pub struct HeatConnection {
-    direction: Direction,
-    position: MapPosition,
+    direction: crate::types::Direction,
+    position: crate::types::MapPosition,
 }
