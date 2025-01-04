@@ -17,3 +17,9 @@ pub struct Prototype {
     pub properties: Vec<Property>,
     pub custom_properties: Option<CustomProperty>,
 }
+
+impl Prototype {
+    pub fn rust_name(&self) -> &str {
+        &self.base.name
+    }
+}

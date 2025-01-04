@@ -1,10 +1,11 @@
 use crate::basic_member::BasicMember;
 use crate::file_utils::save_file_if_changed;
+use crate::format::{Context, DataType};
 use crate::property::Property;
 use crate::transformation::Transformation;
 use crate::type_::Type;
 use serde::Deserialize;
-use std::collections::{HashMap, HashSet};
+use std::collections::HashSet;
 use std::path::Path;
 
 #[derive(Debug, Deserialize)]
@@ -20,17 +21,10 @@ pub struct Concept {
     pub properties: Option<Vec<Property>>,
 }
 
-#[derive(Debug, PartialEq)]
-pub enum Kind {
-    Struct,
-    Union,
-    NewType,
-}
-
 impl Concept {
-    pub fn generate(&self, path: &Path, kinds: &HashMap<String, Kind>) -> anyhow::Result<()> {
+    pub fn generate(&self, path: &Path, context: &Context) -> anyhow::Result<()> {
         let path = &path.join(self.name()).with_extension("rs");
-        let concept = self.generate_internal(kinds);
+        let concept = self.generate_internal(context);
         save_file_if_changed("types", path, &concept)
     }
 
@@ -55,26 +49,26 @@ impl Concept {
         // README: Adjustment [TODO]
     }
 
-    fn generate_internal(&self, kinds: &HashMap<String, Kind>) -> String {
-        if let Some(kind) = kinds.get(self.rust_name()) {
-            match kind {
-                Kind::Struct => self.generate_struct(kinds),
-                Kind::Union => self.generate_enum(kinds),
-                Kind::NewType => self.generate_new_type(),
+    fn generate_internal(&self, context: &Context) -> String {
+        if let Some((_, data_type)) = context.0.get(self.rust_name()) {
+            match data_type {
+                DataType::Struct => self.generate_struct(context),
+                DataType::Union => self.generate_enum(context),
+                DataType::NewType => self.generate_new_type(context),
             }
         } else {
-            unreachable!("expected to find kind for {}", self.rust_name())
+            unreachable!("expected to find context for {}", self.rust_name())
         }
     }
 
-    fn generate_struct(&self, kinds: &HashMap<String, Kind>) -> String {
+    fn generate_struct(&self, context: &Context) -> String {
         self.assert_properties();
         let name = self.rust_name();
-        let (inner, additional) = self.type_.generate(name, &self.properties, kinds);
+        let (inner, additional) = self.type_.generate(name, &self.properties, context);
         format!("pub struct {name}{inner}{}", additional.join(""))
     }
 
-    fn generate_enum(&self, kinds: &HashMap<String, Kind>) -> String {
+    fn generate_enum(&self, context: &Context) -> String {
         if !self.type_.contains_struct() {
             self.assert_no_properties();
             self.assert_no_parent();
@@ -83,13 +77,13 @@ impl Concept {
         }
         let (_, mut additional) = self
             .type_
-            .generate(&self.rust_name(), &self.properties, kinds);
+            .generate(&self.rust_name(), &self.properties, context);
         let mut seen: HashSet<String> = HashSet::new();
         additional.retain(|a| seen.insert(a.clone()));
         additional.join("")
     }
 
-    fn generate_new_type(&self) -> String {
+    fn generate_new_type(&self, context: &Context) -> String {
         let name = self.rust_name();
         self.assert_no_properties();
         self.assert_no_parent();
@@ -102,7 +96,7 @@ impl Concept {
             return String::from("pub struct DataExtendMethod;");
         }
         // README: Adjustment [3]
-        let (generated, additional) = self.type_.generate(name, &None, &HashMap::new());
+        let (generated, additional) = self.type_.generate(name, &None, context);
         format!("pub type {name} = {generated};{}", additional.join(""))
     }
 

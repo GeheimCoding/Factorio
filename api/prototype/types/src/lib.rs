@@ -1,8 +1,6 @@
 use rayon::iter::{IntoParallelRefIterator, ParallelIterator};
-use shared::concept::{Concept, Kind};
 use shared::deserialize_format;
 use shared::file_utils::save_file_if_changed;
-use std::collections::HashMap;
 use std::path::Path;
 
 //pub mod generated;
@@ -10,13 +8,13 @@ use std::path::Path;
 pub fn build_types() -> anyhow::Result<()> {
     let format = deserialize_format(Path::new("api/prototype/shared/prototype-api.json"))?;
     let path = Path::new("api/prototype/types/src/generated");
-    let kinds = create_kinds_lookup(&format.types);
+    let context = format.create_context();
 
     let results = format
         .types
         .par_iter()
         .filter(|concept| concept.should_be_generated())
-        .map(|concept| concept.generate(path, &kinds))
+        .map(|concept| concept.generate(path, &context))
         .collect::<Vec<_>>();
     results.into_iter().collect::<Result<(), _>>()?;
 
@@ -37,20 +35,4 @@ pub fn build_types() -> anyhow::Result<()> {
         });
     let mod_path = &path.join("mod").with_extension("rs");
     save_file_if_changed("types", mod_path, &format!("{content}}}"))
-}
-
-fn create_kinds_lookup(concepts: &Vec<Concept>) -> HashMap<String, Kind> {
-    let mut kinds = HashMap::new();
-    concepts.iter().for_each(|concept| {
-        let name = concept.rust_name();
-        let kind = if concept.type_.is_struct() {
-            Kind::Struct
-        } else if concept.type_.is_union() {
-            Kind::Union
-        } else {
-            Kind::NewType
-        };
-        kinds.insert(String::from(name), kind);
-    });
-    kinds
 }

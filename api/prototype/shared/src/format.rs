@@ -1,7 +1,9 @@
 use crate::concept::Concept;
 use crate::define::Define;
 use crate::prototype::Prototype;
+use crate::type_::Type;
 use serde::Deserialize;
+use std::collections::HashMap;
 
 // https://lua-api.factorio.com/stable/auxiliary/json-docs-prototype.html
 #[derive(Debug, Deserialize)]
@@ -13,4 +15,55 @@ pub struct Format {
     pub prototypes: Vec<Prototype>,
     pub types: Vec<Concept>,
     pub defines: Vec<Define>,
+}
+
+#[derive(Debug)]
+pub struct Context(pub HashMap<String, (Kind, DataType)>);
+
+#[derive(Debug)]
+pub enum DataType {
+    Union,
+    Struct,
+    NewType,
+}
+
+#[derive(Debug)]
+pub enum Kind {
+    Concept,
+    Prototype,
+}
+
+impl Format {
+    pub fn create_context(&self) -> Context {
+        let mut context = HashMap::new();
+
+        for concept in &self.types {
+            let name = concept.rust_name();
+            if let Some(found) = context.insert(
+                String::from(name),
+                (Kind::Concept, Self::get_datatype(&concept.type_)),
+            ) {
+                unreachable!("concept with name {name} already exists in context: {found:?}");
+            }
+        }
+        for prototype in &self.prototypes {
+            let name = prototype.rust_name();
+            if let Some(found) =
+                context.insert(String::from(name), (Kind::Prototype, DataType::Struct))
+            {
+                unreachable!("prototype with name {name} already exists in context: {found:?}");
+            }
+        }
+        Context(context)
+    }
+
+    fn get_datatype(type_: &Type) -> DataType {
+        if type_.is_struct() {
+            DataType::Struct
+        } else if type_.is_union() {
+            DataType::Union
+        } else {
+            DataType::NewType
+        }
+    }
 }
