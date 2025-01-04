@@ -3,13 +3,4 @@ name = "defines"
 version = "0.1.0"
 edition = "2021"
 
-[build-dependencies]
-anyhow = "1.0.93"
-shared = { path = "../shared" }
-rayon = "1.10.0"
-mlua = { version = "0.10.1", features = ["anyhow", "lua52", "vendored"] }
-
 [dependencies]
-serde = { version = "1.0.215", features = ["derive"] }
-serde_json = "1.0.133"
-serde_repr = "0.1.19"

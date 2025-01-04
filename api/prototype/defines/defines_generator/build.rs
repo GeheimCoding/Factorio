@@ -7,9 +7,9 @@ use std::path::Path;
 mod lua_defines;
 
 fn main() -> anyhow::Result<()> {
-    let format = deserialize_format(Path::new("../shared/prototype-api.json"))?;
+    let format = deserialize_format(Path::new("../../shared/prototype-api.json"))?;
     let lua_defines = parse_lua_defines("defines.lua")?;
-    let path = Path::new("src/generated");
+    let path = Path::new("../../generated/src/defines");
 
     let results = format
         .defines

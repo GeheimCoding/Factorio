@@ -3,9 +3,12 @@ resolver = "2"
 members = [
     "api",
     "api/prototype",
-    "api/prototype/shared",
     "api/prototype/defines",
+    "api/prototype/defines/defines_generator",
+    "api/prototype/generated",
+    "api/prototype/shared",
     "api/prototype/types",
+    "api/prototype/types/types_generator",
     "factorio",
     "remote_console",
 ]

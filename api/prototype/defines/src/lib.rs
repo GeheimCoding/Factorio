@@ -1,1 +1,1 @@
-pub mod generated;
+// TODO: provide parse method for defines

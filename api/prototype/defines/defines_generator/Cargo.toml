@@ -1,0 +1,12 @@
+[package]
+name = "defines_generator"
+version = "0.1.0"
+edition = "2021"
+
+[build-dependencies]
+anyhow = "1.0.93"
+shared = { path = "../../shared" }
+rayon = "1.10.0"
+mlua = { version = "0.10.1", features = ["anyhow", "lua52", "vendored"] }
+
+[dependencies]

@@ -3,11 +3,9 @@ use shared::deserialize_format;
 use shared::file_utils::save_file_if_changed;
 use std::path::Path;
 
-//pub mod generated;
-
 pub fn build_types() -> anyhow::Result<()> {
     let format = deserialize_format(Path::new("api/prototype/shared/prototype-api.json"))?;
-    let path = Path::new("api/prototype/types/src/generated");
+    let path = Path::new("api/prototype/generated/src/types");
     let context = format.create_context();
 
     let results = format
