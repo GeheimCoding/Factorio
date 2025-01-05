@@ -45,6 +45,7 @@ impl Concept {
             && !self.inline
         // README: Adjustment [TODO]
         && self.rust_name() != "Direction"
+        && self.rust_name() != "AnyPrototype"
         && self.rust_name() != "ComparatorString"
         // README: Adjustment [TODO]
     }
@@ -64,7 +65,9 @@ impl Concept {
     fn generate_struct(&self, context: &Context) -> String {
         self.assert_properties();
         let name = self.rust_name();
-        let (inner, additional) = self.type_.generate(name, &self.properties, context);
+        let (inner, mut additional) = self.type_.generate(name, &self.properties, context);
+        let mut seen: HashSet<String> = HashSet::new();
+        additional.retain(|a| seen.insert(a.clone()));
         format!("pub struct {name}{inner}{}", additional.join(""))
     }
 
