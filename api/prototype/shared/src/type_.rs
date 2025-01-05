@@ -164,7 +164,11 @@ impl Type {
         let (inner_value, additional_value) = value.generate(prefix, &None, context);
         let additional = [additional_key, additional_value].concat();
         (
-            format!("std::collections::HashMap<{inner_key},{inner_value}>"),
+            if inner_value == "true" {
+                format!("std::collections::HashSet<{inner_key}>")
+            } else {
+                format!("std::collections::HashMap<{inner_key},{inner_value}>")
+            },
             additional,
         )
     }
