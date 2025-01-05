@@ -7,7 +7,12 @@ pub struct ProgressBarStyleSpecification {
     filled_font_color: crate::types::Color,
     font: String,
     font_color: crate::types::Color,
-    other_colors: Vec<crate::types::OtherColors>,
+    other_colors: Vec<OtherColors>,
     side_text_padding: i16,
     type_: String,
+}
+pub struct OtherColors {
+    bar: crate::types::ElementImageSet,
+    color: crate::types::Color,
+    less_than: f64,
 }

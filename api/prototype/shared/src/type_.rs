@@ -55,7 +55,7 @@ impl Type {
         context: &Context,
     ) -> (String, Vec<String>) {
         match self {
-            Type::Simple(simple) => (simple.to_rust_type(context), vec![]),
+            Type::Simple(simple) => simple.to_rust_type(context),
             Type::Complex(complex) => match complex.as_ref() {
                 ComplexType::Array { value } => {
                     Self::generate_array(value, prefix, properties, context)
@@ -125,7 +125,9 @@ impl Type {
 
     fn should_be_boxed(&self, context: &Context) -> bool {
         match self {
-            Type::Simple(simple) => matches!(context.0.get(simple), Some((_, DataType::Struct))),
+            Type::Simple(simple) => {
+                matches!(context.context.get(simple), Some((_, DataType::Struct)))
+            }
             Type::Complex(complex) => match complex.as_ref() {
                 ComplexType::Type { value, .. } => value.should_be_boxed(context),
                 _ => false,

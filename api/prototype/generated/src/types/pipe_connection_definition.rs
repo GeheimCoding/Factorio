@@ -1,6 +1,6 @@
 pub struct PipeConnectionDefinition {
     connection_category: PipeConnectionDefinitionConnectionCategory,
-    connection_type: crate::types::PipeConnectionType,
+    connection_type: PipeConnectionType,
     direction: crate::types::Direction,
     enable_working_visualisations: Vec<String>,
     flow_direction: PipeConnectionDefinitionFlowDirection,
@@ -19,6 +19,11 @@ pub struct PipeConnectionDefinition {
 pub enum PipeConnectionDefinitionConnectionCategory {
     String(String),
     VecString(Vec<String>),
+}
+pub enum PipeConnectionType {
+    Normal,
+    Underground,
+    Linked,
 }
 pub enum PipeConnectionDefinitionFlowDirection {
     InputOutput,

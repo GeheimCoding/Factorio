@@ -19,29 +19,43 @@ pub struct Format {
 }
 
 #[derive(Debug)]
-pub struct Context(pub HashMap<String, (Kind, DataType)>);
+pub struct Context<'a> {
+    pub context: HashMap<String, (Kind, DataType)>,
+    pub inline_types: HashMap<String, &'a Concept>,
+}
 
-impl Context {
-    pub fn with_prefix(&self, rust_name: &str) -> String {
+impl Context<'_> {
+    pub fn with_prefix(&self, rust_name: &str) -> (String, Vec<String>) {
         if let Some(define) = rust_name.split("defines.").into_iter().skip(1).next() {
-            return format!("crate::defines::{}", String::from(define).to_pascal_case());
+            return (
+                format!("crate::defines::{}", String::from(define).to_pascal_case()),
+                vec![],
+            );
         } else if rust_name
             .chars()
             .next()
             .expect("expected at least one char")
             .is_ascii_lowercase()
         {
-            return String::from(rust_name);
+            return (String::from(rust_name), vec![]);
+        } else if let Some(inline_type) = self.inline_types.get(rust_name) {
+            return (
+                String::from(rust_name),
+                vec![inline_type.generate_internal(self)],
+            );
         }
         let (kind, _) = self
-            .0
+            .context
             .get(rust_name)
             .expect(&format!("expected context for {rust_name}"));
 
-        match kind {
-            Kind::Concept => format!("crate::types::{rust_name}"),
-            Kind::Prototype => format!("crate::prototypes::{rust_name}"),
-        }
+        (
+            match kind {
+                Kind::Concept => format!("crate::types::{rust_name}"),
+                Kind::Prototype => format!("crate::prototypes::{rust_name}"),
+            },
+            vec![],
+        )
     }
 }
 
@@ -61,14 +75,22 @@ pub enum Kind {
 impl Format {
     pub fn create_context(&self) -> Context {
         let mut context = HashMap::new();
+        let mut inline_types = HashMap::new();
 
-        for concept in &self.types {
+        for concept in self.types.iter() {
             let name = concept.rust_name();
             if let Some(found) = context.insert(
                 String::from(name),
                 (Kind::Concept, Self::get_datatype(&concept.type_)),
             ) {
                 unreachable!("concept with name {name} already exists in context: {found:?}");
+            }
+            if concept.inline {
+                if let Some(found) = inline_types.insert(String::from(name), concept) {
+                    unreachable!(
+                        "concept with name {name} already exists in inline types: {found:?}"
+                    );
+                }
             }
         }
         for prototype in &self.prototypes {
@@ -79,7 +101,10 @@ impl Format {
                 unreachable!("prototype with name {name} already exists in context: {found:?}");
             }
         }
-        Context(context)
+        Context {
+            context,
+            inline_types,
+        }
     }
 
     fn get_datatype(type_: &Type) -> DataType {

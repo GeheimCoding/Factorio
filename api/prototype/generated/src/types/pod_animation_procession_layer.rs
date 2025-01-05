@@ -1,5 +1,9 @@
 pub struct PodAnimationProcessionLayer {
-    frames: Vec<crate::types::PodAnimationProcessionBezierControlPoint>,
+    frames: Vec<PodAnimationProcessionBezierControlPoint>,
     graphic: crate::types::ProcessionGraphic,
     type_: String,
+}
+pub struct PodAnimationProcessionBezierControlPoint {
+    frame: f32,
+    timestamp: crate::types::MapTick,
 }

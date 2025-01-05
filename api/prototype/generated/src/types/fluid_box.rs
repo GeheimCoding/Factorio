@@ -12,9 +12,21 @@ pub struct FluidBox {
     pipe_covers_frozen: crate::types::Sprite4Way,
     pipe_picture: crate::types::Sprite4Way,
     pipe_picture_frozen: crate::types::Sprite4Way,
-    production_type: crate::types::ProductionType,
+    production_type: ProductionType,
     render_layer: crate::types::RenderLayer,
     secondary_draw_order: i8,
-    secondary_draw_orders: crate::types::FluidBoxSecondaryDrawOrders,
+    secondary_draw_orders: FluidBoxSecondaryDrawOrders,
     volume: crate::types::FluidAmount,
+}
+pub enum ProductionType {
+    None,
+    Input,
+    InputOutput,
+    Output,
+}
+pub struct FluidBoxSecondaryDrawOrders {
+    east: i8,
+    north: i8,
+    south: i8,
+    west: i8,
 }

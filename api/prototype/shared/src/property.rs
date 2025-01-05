@@ -33,7 +33,7 @@ impl Property {
             inner = String::from("String");
         }
         (
-            format!("{}: {inner}", self.base.name.to_rust_type(context)),
+            format!("{}: {inner}", self.base.name.to_rust_type(context).0),
             additional,
         )
     }

@@ -20,5 +20,11 @@ pub struct LightningGraphicsSet {
     min_ground_streamer_distance: f32,
     min_relative_fork_length: f32,
     relative_cloud_fork_length: f32,
-    shader_configuration: Vec<crate::types::LightningShaderConfiguration>,
+    shader_configuration: Vec<LightningShaderConfiguration>,
+}
+pub struct LightningShaderConfiguration {
+    color: crate::types::Color,
+    distortion: f32,
+    power: f32,
+    thickness: f32,
 }

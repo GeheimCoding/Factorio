@@ -8,11 +8,15 @@ pub struct AutoplaceSpecification {
     placement_density: u32,
     probability_expression: crate::types::NoiseExpression,
     richness_expression: crate::types::NoiseExpression,
-    tile_restriction: Vec<crate::types::TileIDRestriction>,
+    tile_restriction: Vec<TileIDRestriction>,
 }
 pub enum AutoplaceSpecificationForce {
     Enemy,
     Player,
     Neutral,
     String(String),
+}
+pub enum TileIDRestriction {
+    TileID(crate::types::TileID),
+    TileIDTileID((crate::types::TileID, crate::types::TileID)),
 }

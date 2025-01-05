@@ -49,8 +49,8 @@ impl Concept {
         // README: Adjustment [TODO]
     }
 
-    fn generate_internal(&self, context: &Context) -> String {
-        if let Some((_, data_type)) = context.0.get(self.rust_name()) {
+    pub fn generate_internal(&self, context: &Context) -> String {
+        if let Some((_, data_type)) = context.context.get(self.rust_name()) {
             match data_type {
                 DataType::Struct => self.generate_struct(context),
                 DataType::Union => self.generate_enum(context),

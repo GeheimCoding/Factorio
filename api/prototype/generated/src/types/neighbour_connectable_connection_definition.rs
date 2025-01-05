@@ -1,5 +1,9 @@
 pub struct NeighbourConnectableConnectionDefinition {
     category: crate::types::NeighbourConnectableConnectionCategory,
-    location: crate::types::MapLocation,
+    location: MapLocation,
     neighbour_category: Vec<crate::types::NeighbourConnectableConnectionCategory>,
+}
+pub struct MapLocation {
+    direction: crate::types::MapPosition,
+    position: crate::types::MapPosition,
 }

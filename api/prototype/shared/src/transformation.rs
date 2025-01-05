@@ -3,7 +3,7 @@ use crate::format::Context;
 pub trait Transformation {
     fn to_pascal_case(&self) -> String;
     fn to_snake_case(&self) -> String;
-    fn to_rust_type(&self, context: &Context) -> String;
+    fn to_rust_type(&self, context: &Context) -> (String, Vec<String>);
 }
 
 impl Transformation for String {
@@ -66,20 +66,20 @@ impl Transformation for String {
         snake_case
     }
 
-    fn to_rust_type(&self, context: &Context) -> String {
+    fn to_rust_type(&self, context: &Context) -> (String, Vec<String>) {
         match self.as_str() {
-            "double" => String::from("f64"),
-            "float" => String::from("f32"),
-            "int16" => String::from("i16"),
-            "int32" => String::from("i32"),
-            "int64" => String::from("i64"),
-            "int8" => String::from("i8"),
-            "string" => String::from("String"),
-            "uint16" => String::from("u16"),
-            "uint32" => String::from("u32"),
-            "uint64" => String::from("u64"),
-            "uint8" => String::from("u8"),
-            "type" => String::from("type_"),
+            "double" => (String::from("f64"), vec![]),
+            "float" => (String::from("f32"), vec![]),
+            "int16" => (String::from("i16"), vec![]),
+            "int32" => (String::from("i32"), vec![]),
+            "int64" => (String::from("i64"), vec![]),
+            "int8" => (String::from("i8"), vec![]),
+            "string" => (String::from("String"), vec![]),
+            "uint16" => (String::from("u16"), vec![]),
+            "uint32" => (String::from("u32"), vec![]),
+            "uint64" => (String::from("u64"), vec![]),
+            "uint8" => (String::from("u8"), vec![]),
+            "type" => (String::from("type_"), vec![]),
             s => context.with_prefix(s),
         }
     }
