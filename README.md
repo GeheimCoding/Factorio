@@ -123,11 +123,15 @@ surrounded by the comment `README: Adjustment [X]`, where `X` is the number from
    and [defines.wire_connector_id](https://lua-api.factorio.com/stable/defines.html#defines.wire_connector_id) contain
    duplicate values. This means that when such a define gets deserialized for a duplicate value, a simple 1 to 1 mapping
    would be ambiguous. To solve this a custom deserialize method is generated that maps a duplicated value to a set of
-   all
-   possible
-   variants with this value. All defines
+   all possible variants with this value. All defines
    from [defines.prototype](https://lua-api.factorio.com/stable/defines.html#defines.prototypes) have the value 0, as
-   those are just used as a lookup table. It is not necessary to create a custom deserialize method for them.
+   those are just used as a lookup table. It is not necessary to create a custom deserialize method for them. [2]
 3) [DataExtendMethod](https://lua-api.factorio.com/stable/types/DataExtendMethod.html) is a bit of an edge case, because
    it is a `builtin` type, but does not map to any Rust type. To satisfy the deserializer it is generated as an empty
-   struct.
+   struct. [3]
+4) [Direction](https://lua-api.factorio.com/stable/types/Direction.html) is basically just a type alias
+   for [defines.direction](https://lua-api.factorio.com/stable/defines.html#defines.direction), so no need to generate
+   it again. [4]
+5) [ComparatorString](https://lua-api.factorio.com/stable/types/ComparatorString.html) contains symbols as variants,
+   which are not supported by Rust as names. To still support this, readable variants are renamed with serde with the
+   symbols. [5]

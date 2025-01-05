@@ -890,6 +890,8 @@ pub mod double_slider_style_specification;
 pub use double_slider_style_specification::DoubleSliderStyleSpecification;
 pub mod direction_string;
 pub use direction_string::DirectionString;
+pub mod direction;
+pub use direction::Direction;
 pub mod direct_trigger_item;
 pub use direct_trigger_item::DirectTriggerItem;
 pub mod difficulty_settings;
@@ -974,6 +976,8 @@ pub mod consuming_type;
 pub use consuming_type::ConsumingType;
 pub mod connectable_entity_graphics;
 pub use connectable_entity_graphics::ConnectableEntityGraphics;
+pub mod comparator_string;
+pub use comparator_string::ComparatorString;
 pub mod column_width_item;
 pub use column_width_item::ColumnWidthItem;
 pub mod column_width;
@@ -1353,6 +1357,7 @@ pub enum Types {
     ColumnAlignment(Box<ColumnAlignment>),
     ColumnWidth(Box<ColumnWidth>),
     ColumnWidthItem(Box<ColumnWidthItem>),
+    ComparatorString(Box<ComparatorString>),
     ConnectableEntityGraphics(Box<ConnectableEntityGraphics>),
     ConsumingType(Box<ConsumingType>),
     ControlPoint(Box<ControlPoint>),
@@ -1395,6 +1400,7 @@ pub enum Types {
     DestroyDecorativesTriggerEffectItem(Box<DestroyDecorativesTriggerEffectItem>),
     DifficultySettings(Box<DifficultySettings>),
     DirectTriggerItem(Box<DirectTriggerItem>),
+    Direction(Box<Direction>),
     DirectionString(Box<DirectionString>),
     DoubleSliderStyleSpecification(Box<DoubleSliderStyleSpecification>),
     DropDownStyleSpecification(Box<DropDownStyleSpecification>),

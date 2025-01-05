@@ -44,9 +44,7 @@ impl Concept {
             .map_or(false, char::is_uppercase)
             && !self.inline
         // README: Adjustment [TODO]
-        && self.rust_name() != "Direction"
         && self.rust_name() != "AnyPrototype"
-        && self.rust_name() != "ComparatorString"
         // README: Adjustment [TODO]
     }
 
@@ -72,6 +70,16 @@ impl Concept {
     }
 
     fn generate_enum(&self, context: &Context) -> String {
+        // README: Adjustment [4]
+        if self.rust_name() == "Direction" {
+            return Self::generate_direction();
+        }
+        // README: Adjustment [4]
+        // README: Adjustment [5]
+        if self.rust_name() == "ComparatorString" {
+            return Self::generate_comparator_string();
+        }
+        // README: Adjustment [5]
         if !self.type_.contains_struct() {
             self.assert_no_properties();
             self.assert_no_parent();
@@ -126,4 +134,36 @@ impl Concept {
             self.rust_name()
         );
     }
+
+    // README: Adjustment [4]
+    fn generate_direction() -> String {
+        String::from("pub type Direction = crate::defines::Direction;")
+    }
+    // README: Adjustment [4]
+
+    // README: Adjustment [5]
+    fn generate_comparator_string() -> String {
+        String::from(
+            r#"
+            #[derive(serde::Deserialize)]
+            pub enum ComparatorString {
+                #[serde(rename = "=")]
+                EqualTo,
+                #[serde(rename = ">")]
+                GreaterThan,
+                #[serde(rename = "<")]
+                LesserThan,
+                #[serde(rename = ">=")]
+                #[serde(alias = "≥")]
+                GreaterThanOrEqualTo,
+                #[serde(rename = "<=")]
+                #[serde(alias = "≤")]
+                LessThanOrEqualTo,
+                #[serde(rename = "!=")]
+                #[serde(alias = "≠")]
+                NotEqualTo,
+            }"#,
+        )
+    }
+    // README: Adjustment [5]
 }
