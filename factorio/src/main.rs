@@ -3,12 +3,9 @@
 
 use remote_console::RemoteConsole;
 use std::fs;
-use types::build_types;
 
 fn main() -> anyhow::Result<()> {
     // remote_console()?;
-
-    build_types()?;
 
     Ok(())
 }

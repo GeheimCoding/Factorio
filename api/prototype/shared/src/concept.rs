@@ -144,8 +144,7 @@ impl Concept {
     // README: Adjustment [5]
     fn generate_comparator_string() -> String {
         String::from(
-            r#"
-            #[derive(serde::Deserialize)]
+            r#"#[derive(serde::Deserialize)]
             pub enum ComparatorString {
                 #[serde(rename = "=")]
                 EqualTo,
