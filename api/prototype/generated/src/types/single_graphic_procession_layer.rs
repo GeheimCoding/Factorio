@@ -10,5 +10,5 @@ pub struct SingleGraphicProcessionLayer {
     rotates_with_pod: bool,
     secondary_draw_order: i8,
     shift_rotates_with_pod: bool,
-    type_: SingleGraphic,
+    type_: String,
 }

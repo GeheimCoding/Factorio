@@ -4,7 +4,7 @@ pub struct AreaTriggerItem {
     show_in_tooltip: bool,
     target_entities: bool,
     trigger_from_target: bool,
-    type_: Area,
+    type_: String,
 }
 pub enum AreaTriggerItemCollisionMode {
     DistanceFromCollisionBox,

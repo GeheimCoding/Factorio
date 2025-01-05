@@ -1,5 +1,5 @@
 pub struct InserterStackSizeBonusModifier {
     infer_icon: bool,
-    type_: InserterStackSizeBonus,
+    type_: String,
     use_icon_overlay_constant: bool,
 }

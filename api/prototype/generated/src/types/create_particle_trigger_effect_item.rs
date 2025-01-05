@@ -20,7 +20,7 @@ pub struct CreateParticleTriggerEffectItem {
     tail_width: f32,
     tile_collision_mask: crate::types::CollisionMaskConnector,
     tint: crate::types::Color,
-    type_: CreateParticle,
+    type_: String,
 }
 pub enum CreateParticleTriggerEffectItemApplyTileTint {
     Primary,

@@ -1,3 +1,3 @@
 pub struct BuildEntityByRobotTipTrigger {
-    type_: BuildEntityByRobot,
+    type_: String,
 }

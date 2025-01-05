@@ -6,5 +6,5 @@ pub struct DestroyDecorativesTriggerEffectItem {
     invoke_decorative_trigger: bool,
     radius: f32,
     to_render_layer: crate::types::RenderLayer,
-    type_: DestroyDecoratives,
+    type_: String,
 }

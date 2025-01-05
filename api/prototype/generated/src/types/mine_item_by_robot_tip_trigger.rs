@@ -1,3 +1,3 @@
 pub struct MineItemByRobotTipTrigger {
-    type_: MineItemByRobot,
+    type_: String,
 }

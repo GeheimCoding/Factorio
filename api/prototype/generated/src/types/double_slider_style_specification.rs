@@ -1,3 +1,3 @@
 pub struct DoubleSliderStyleSpecification {
-    type_: DoubleSliderStyle,
+    type_: String,
 }

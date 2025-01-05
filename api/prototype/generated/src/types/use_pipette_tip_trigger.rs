@@ -1,3 +1,3 @@
 pub struct UsePipetteTipTrigger {
-    type_: UsePipette,
+    type_: String,
 }

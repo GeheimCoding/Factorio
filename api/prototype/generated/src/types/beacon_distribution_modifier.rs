@@ -1,5 +1,5 @@
 pub struct BeaconDistributionModifier {
     infer_icon: bool,
-    type_: BeaconDistribution,
+    type_: String,
     use_icon_overlay_constant: bool,
 }

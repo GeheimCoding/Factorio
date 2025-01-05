@@ -6,5 +6,5 @@ pub struct TurretSpecialEffect {
     falloff: f32,
     max_radius: f32,
     min_radius: f32,
-    type_: MaskByCircle,
+    type_: String,
 }

@@ -1,3 +1,3 @@
 pub struct DependenciesMetTipTrigger {
-    type_: DependenciesMet,
+    type_: String,
 }

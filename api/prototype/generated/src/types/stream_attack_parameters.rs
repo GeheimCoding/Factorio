@@ -4,7 +4,7 @@ pub struct StreamAttackParameters {
     gun_barrel_length: f32,
     gun_center_shift: StreamAttackParametersGunCenterShift,
     projectile_creation_parameters: crate::types::CircularProjectileCreationSpecification,
-    type_: Stream,
+    type_: String,
 }
 pub enum StreamAttackParametersGunCenterShift {
     Vector(crate::types::Vector),

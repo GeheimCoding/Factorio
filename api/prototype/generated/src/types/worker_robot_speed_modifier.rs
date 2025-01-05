@@ -1,5 +1,5 @@
 pub struct WorkerRobotSpeedModifier {
     infer_icon: bool,
-    type_: WorkerRobotSpeed,
+    type_: String,
     use_icon_overlay_constant: bool,
 }

@@ -1,3 +1,3 @@
 pub struct ToggleShowEntityInfoTipTrigger {
-    type_: ToggleShowEntityInfo,
+    type_: String,
 }

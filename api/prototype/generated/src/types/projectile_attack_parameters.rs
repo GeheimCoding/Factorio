@@ -6,5 +6,5 @@ pub struct ProjectileAttackParameters {
     projectile_creation_parameters: crate::types::CircularProjectileCreationSpecification,
     projectile_orientation_offset: crate::types::RealOrientation,
     shell_particle: crate::types::CircularParticleCreationSpecification,
-    type_: Projectile,
+    type_: String,
 }

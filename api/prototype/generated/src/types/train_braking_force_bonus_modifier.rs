@@ -1,5 +1,5 @@
 pub struct TrainBrakingForceBonusModifier {
     infer_icon: bool,
-    type_: TrainBrakingForceBonus,
+    type_: String,
     use_icon_overlay_constant: bool,
 }

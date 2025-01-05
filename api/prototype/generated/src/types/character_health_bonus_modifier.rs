@@ -1,4 +1,4 @@
 pub struct CharacterHealthBonusModifier {
-    type_: CharacterHealthBonus,
+    type_: String,
     use_icon_overlay_constant: bool,
 }

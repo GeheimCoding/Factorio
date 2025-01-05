@@ -1,5 +1,5 @@
 pub struct UnlockRecipeModifier {
     recipe: crate::types::RecipeID,
-    type_: UnlockRecipe,
+    type_: String,
     use_icon_overlay_constant: bool,
 }

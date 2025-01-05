@@ -1,4 +1,4 @@
 pub struct RailPlannerAllowElevatedRailsModifier {
-    type_: RailPlannerAllowElevatedRails,
+    type_: String,
     use_icon_overlay_constant: bool,
 }

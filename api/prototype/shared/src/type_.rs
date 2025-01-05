@@ -112,7 +112,7 @@ impl Type {
         }
     }
 
-    fn is_literal_value(&self) -> bool {
+    pub fn is_literal_value(&self) -> bool {
         match self {
             Type::Simple(_) => false,
             Type::Complex(complex) => match complex.as_ref() {

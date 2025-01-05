@@ -1,3 +1,3 @@
 pub struct MinimapStyleSpecification {
-    type_: MinimapStyle,
+    type_: String,
 }

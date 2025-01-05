@@ -1,3 +1,3 @@
 pub struct UseConfirmTipTrigger {
-    type_: UseConfirm,
+    type_: String,
 }

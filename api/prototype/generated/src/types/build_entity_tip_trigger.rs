@@ -6,5 +6,5 @@ pub struct BuildEntityTipTrigger {
     linear_power_pole_line: bool,
     match_type_only: bool,
     quality: crate::types::QualityID,
-    type_: BuildEntity,
+    type_: String,
 }

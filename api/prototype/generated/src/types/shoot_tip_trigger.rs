@@ -1,6 +1,6 @@
 pub struct ShootTipTrigger {
     target: ShootTipTriggerTarget,
-    type_: Shoot,
+    type_: String,
 }
 pub enum ShootTipTriggerTarget {
     Enemy,

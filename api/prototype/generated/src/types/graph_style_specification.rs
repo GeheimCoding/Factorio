@@ -12,7 +12,7 @@ pub struct GraphStyleSpecification {
     minimal_horizontal_label_spacing: u32,
     minimal_vertical_label_spacing: u32,
     selection_dot_radius: u32,
-    type_: GraphStyle,
+    type_: String,
     vertical_label_style: crate::types::LabelStyleSpecification,
     vertical_labels_margin: u32,
 }

@@ -1,3 +1,3 @@
 pub struct AlternativeBuildTipTrigger {
-    type_: AlternativeBuild,
+    type_: String,
 }

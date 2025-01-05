@@ -1,4 +1,4 @@
 pub struct MaxFailedAttemptsPerTickPerConstructionQueueModifier {
-    type_: MaxFailedAttemptsPerTickPerConstructionQueue,
+    type_: String,
     use_icon_overlay_constant: bool,
 }

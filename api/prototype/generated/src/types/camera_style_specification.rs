@@ -1,3 +1,3 @@
 pub struct CameraStyleSpecification {
-    type_: CameraStyle,
+    type_: String,
 }

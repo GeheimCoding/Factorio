@@ -1,3 +1,3 @@
 pub struct ClearCursorTipTrigger {
-    type_: ClearCursor,
+    type_: String,
 }

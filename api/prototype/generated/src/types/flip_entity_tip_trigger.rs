@@ -1,3 +1,3 @@
 pub struct FlipEntityTipTrigger {
-    type_: FlipEntity,
+    type_: String,
 }

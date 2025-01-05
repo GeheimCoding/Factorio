@@ -1,4 +1,4 @@
 pub struct CharacterBuildDistanceModifier {
-    type_: CharacterBuildDistance,
+    type_: String,
     use_icon_overlay_constant: bool,
 }

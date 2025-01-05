@@ -7,5 +7,5 @@ pub struct FluidIngredientPrototype {
     minimum_temperature: f32,
     name: crate::types::FluidID,
     temperature: f32,
-    type_: Fluid,
+    type_: String,
 }

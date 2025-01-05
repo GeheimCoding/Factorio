@@ -1,3 +1,3 @@
 pub struct GateOverRailBuildTipTrigger {
-    type_: GateOverRailBuild,
+    type_: String,
 }

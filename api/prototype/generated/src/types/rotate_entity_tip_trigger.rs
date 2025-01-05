@@ -1,3 +1,3 @@
 pub struct RotateEntityTipTrigger {
-    type_: RotateEntity,
+    type_: String,
 }

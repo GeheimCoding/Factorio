@@ -6,5 +6,5 @@ pub struct ProjectileTriggerDelivery {
     range_deviation: f32,
     starting_speed: f32,
     starting_speed_deviation: f32,
-    type_: Projectile,
+    type_: String,
 }

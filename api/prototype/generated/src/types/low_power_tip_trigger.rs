@@ -1,3 +1,3 @@
 pub struct LowPowerTipTrigger {
-    type_: LowPower,
+    type_: String,
 }

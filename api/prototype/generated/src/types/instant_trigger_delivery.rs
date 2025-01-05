@@ -1,3 +1,3 @@
 pub struct InstantTriggerDelivery {
-    type_: Instant,
+    type_: String,
 }

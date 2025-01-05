@@ -1,3 +1,3 @@
 pub struct LimitChestTipTrigger {
-    type_: LimitChest,
+    type_: String,
 }

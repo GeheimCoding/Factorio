@@ -1,3 +1,3 @@
 pub struct VerticalScrollBarStyleSpecification {
-    type_: VerticalScrollbarStyle,
+    type_: String,
 }

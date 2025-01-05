@@ -6,5 +6,5 @@ pub struct CheckBoxStyleSpecification {
     font_color: crate::types::Color,
     intermediate_mark: crate::types::Sprite,
     text_padding: u32,
-    type_: CheckboxStyle,
+    type_: String,
 }

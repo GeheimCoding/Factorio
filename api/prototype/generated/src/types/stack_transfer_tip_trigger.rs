@@ -1,6 +1,6 @@
 pub struct StackTransferTipTrigger {
     transfer: StackTransferTipTriggerTransfer,
-    type_: StackTransfer,
+    type_: String,
 }
 pub enum StackTransferTipTriggerTransfer {
     Stack,

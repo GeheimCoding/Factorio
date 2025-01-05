@@ -6,5 +6,5 @@ pub struct CameraEffectTriggerEffectItem {
     full_strength_max_distance: u16,
     max_distance: u16,
     strength: f32,
-    type_: CameraEffect,
+    type_: String,
 }

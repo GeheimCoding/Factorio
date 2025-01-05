@@ -1,3 +1,3 @@
 pub struct CreateSpacePlatformTechnologyTrigger {
-    type_: CreateSpacePlatform,
+    type_: String,
 }

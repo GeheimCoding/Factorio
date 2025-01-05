@@ -1,4 +1,4 @@
 pub struct CharacterItemPickupDistanceModifier {
-    type_: CharacterItemPickupDistance,
+    type_: String,
     use_icon_overlay_constant: bool,
 }

@@ -3,6 +3,6 @@ pub struct DestroyCliffsCapsuleAction {
     play_sound_on_failure: bool,
     radius: f32,
     timeout: u32,
-    type_: DestroyCliffs,
+    type_: String,
     uses_stack: bool,
 }

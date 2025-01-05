@@ -5,5 +5,5 @@ pub struct ActivityBarStyleSpecification {
     bar_width: u32,
     color: crate::types::Color,
     speed: f32,
-    type_: ActivityBarStyle,
+    type_: String,
 }

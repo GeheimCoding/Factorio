@@ -1,4 +1,4 @@
 pub struct TimeSinceLastTipActivationTipTrigger {
     ticks: crate::types::MapTick,
-    type_: TimeSinceLastTipActivation,
+    type_: String,
 }

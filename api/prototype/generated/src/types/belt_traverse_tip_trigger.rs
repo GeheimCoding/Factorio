@@ -1,3 +1,3 @@
 pub struct BeltTraverseTipTrigger {
-    type_: BeltTraverse,
+    type_: String,
 }

@@ -1,3 +1,3 @@
 pub struct FastBeltBendTipTrigger {
-    type_: FastBeltBend,
+    type_: String,
 }

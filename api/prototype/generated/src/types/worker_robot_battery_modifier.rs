@@ -1,5 +1,5 @@
 pub struct WorkerRobotBatteryModifier {
     infer_icon: bool,
-    type_: WorkerRobotBattery,
+    type_: String,
     use_icon_overlay_constant: bool,
 }

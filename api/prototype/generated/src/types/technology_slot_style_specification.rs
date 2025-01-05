@@ -32,5 +32,5 @@ pub struct TechnologySlotStyleSpecification {
     progress_bar_color: crate::types::Color,
     progress_bar_height: u32,
     progress_bar_shadow: crate::types::ElementImageSet,
-    type_: TechnologySlotStyle,
+    type_: String,
 }

@@ -1,3 +1,3 @@
 pub struct VoidEnergySource {
-    type_: Void,
+    type_: String,
 }

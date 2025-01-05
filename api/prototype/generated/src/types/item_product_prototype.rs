@@ -9,5 +9,5 @@ pub struct ItemProductPrototype {
     percent_spoiled: f32,
     probability: f64,
     show_details_in_recipe_tooltip: bool,
-    type_: Item,
+    type_: String,
 }

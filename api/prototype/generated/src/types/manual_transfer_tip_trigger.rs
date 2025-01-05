@@ -1,3 +1,3 @@
 pub struct ManualTransferTipTrigger {
-    type_: ManualTransfer,
+    type_: String,
 }

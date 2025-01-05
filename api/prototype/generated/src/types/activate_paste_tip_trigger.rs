@@ -1,3 +1,3 @@
 pub struct ActivatePasteTipTrigger {
-    type_: ActivatePaste,
+    type_: String,
 }

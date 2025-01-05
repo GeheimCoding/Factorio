@@ -1,3 +1,3 @@
 pub struct GeneratingPowerTipTrigger {
-    type_: GeneratingPower,
+    type_: String,
 }

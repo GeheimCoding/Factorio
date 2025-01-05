@@ -4,5 +4,5 @@ pub struct DropDownStyleSpecification {
     list_box_style: crate::types::ListBoxStyleSpecification,
     opened_sound: crate::types::Sound,
     selector_and_title_spacing: i16,
-    type_: DropdownStyle,
+    type_: String,
 }

@@ -1,4 +1,4 @@
 pub struct ResearchTechnologyTipTrigger {
     technology: crate::types::TechnologyID,
-    type_: Research,
+    type_: String,
 }

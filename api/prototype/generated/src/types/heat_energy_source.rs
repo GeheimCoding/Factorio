@@ -12,5 +12,5 @@ pub struct HeatEnergySource {
     minimum_glow_temperature: f32,
     pipe_covers: crate::types::Sprite4Way,
     specific_heat: crate::types::Energy,
-    type_: Heat,
+    type_: String,
 }

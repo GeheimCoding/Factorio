@@ -1,4 +1,4 @@
 pub struct DropItemTipTrigger {
     drop_into_entity: bool,
-    type_: DropItem,
+    type_: String,
 }

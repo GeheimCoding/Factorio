@@ -8,7 +8,7 @@ pub struct FrameStyleSpecification {
     header_flow_style: crate::types::HorizontalFlowStyleSpecification,
     horizontal_flow_style: crate::types::HorizontalFlowStyleSpecification,
     title_style: crate::types::LabelStyleSpecification,
-    type_: FrameStyle,
+    type_: String,
     use_header_filler: bool,
     vertical_flow_style: crate::types::VerticalFlowStyleSpecification,
 }

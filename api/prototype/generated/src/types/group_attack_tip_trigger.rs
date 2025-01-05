@@ -1,3 +1,3 @@
 pub struct GroupAttackTipTrigger {
-    type_: GroupAttack,
+    type_: String,
 }

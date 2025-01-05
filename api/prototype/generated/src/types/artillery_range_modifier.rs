@@ -1,5 +1,5 @@
 pub struct ArtilleryRangeModifier {
     infer_icon: bool,
-    type_: ArtilleryRange,
+    type_: String,
     use_icon_overlay_constant: bool,
 }

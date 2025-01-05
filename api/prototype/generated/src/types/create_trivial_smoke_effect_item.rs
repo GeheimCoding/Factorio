@@ -11,5 +11,5 @@ pub struct CreateTrivialSmokeEffectItem {
     speed_multiplier_deviation: f32,
     starting_frame: f32,
     starting_frame_deviation: f32,
-    type_: CreateTrivialSmoke,
+    type_: String,
 }

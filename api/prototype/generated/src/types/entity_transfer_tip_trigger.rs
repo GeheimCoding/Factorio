@@ -1,6 +1,6 @@
 pub struct EntityTransferTipTrigger {
     transfer: EntityTransferTipTriggerTransfer,
-    type_: EntityTransfer,
+    type_: String,
 }
 pub enum EntityTransferTipTriggerTransfer {
     In,

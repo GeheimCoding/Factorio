@@ -9,5 +9,5 @@ pub struct ProgressBarStyleSpecification {
     font_color: crate::types::Color,
     other_colors: Vec<crate::types::OtherColors>,
     side_text_padding: i16,
-    type_: ProgressbarStyle,
+    type_: String,
 }

@@ -4,5 +4,5 @@ pub struct PodMovementProcessionLayer {
     frames: Vec<crate::types::PodMovementProcessionBezierControlPoint>,
     inherit_from: crate::types::ProcessionLayerInheritanceGroupID,
     reference_group: crate::types::ProcessionLayerInheritanceGroupID,
-    type_: PodMovement,
+    type_: String,
 }

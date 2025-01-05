@@ -1,3 +1,3 @@
 pub struct ToggleRailLayerTipTrigger {
-    type_: ToggleRailLayer,
+    type_: String,
 }

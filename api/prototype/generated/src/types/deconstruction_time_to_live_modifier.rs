@@ -1,4 +1,4 @@
 pub struct DeconstructionTimeToLiveModifier {
-    type_: DeconstructionTimeToLive,
+    type_: String,
     use_icon_overlay_constant: bool,
 }

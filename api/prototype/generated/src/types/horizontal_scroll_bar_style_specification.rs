@@ -1,3 +1,3 @@
 pub struct HorizontalScrollBarStyleSpecification {
-    type_: HorizontalScrollbarStyle,
+    type_: String,
 }

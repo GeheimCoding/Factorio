@@ -1,3 +1,3 @@
 pub struct ApplyStarterPackTipTrigger {
-    type_: ApplyStarterPack,
+    type_: String,
 }

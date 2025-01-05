@@ -3,5 +3,5 @@ pub struct PodDistanceTraveledProcessionLayer {
     distance_traveled_contribution: f32,
     frames: Vec<crate::types::PodDistanceTraveledProcessionBezierControlPoint>,
     reference_group: crate::types::ProcessionLayerInheritanceGroupID,
-    type_: PodDistanceTraveled,
+    type_: String,
 }

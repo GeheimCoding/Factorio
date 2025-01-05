@@ -18,5 +18,5 @@ pub struct TabStyleSpecification {
     selected_badge_font_color: crate::types::Color,
     selected_badge_graphical_set: crate::types::ElementImageSet,
     selected_font_color: crate::types::Color,
-    type_: TabStyle,
+    type_: String,
 }

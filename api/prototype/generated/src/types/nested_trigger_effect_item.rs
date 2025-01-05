@@ -1,4 +1,4 @@
 pub struct NestedTriggerEffectItem {
     action: crate::types::Trigger,
-    type_: NestedResult,
+    type_: String,
 }

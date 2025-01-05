@@ -1,4 +1,4 @@
 pub struct VerticalFlowStyleSpecification {
-    type_: VerticalFlowStyle,
+    type_: String,
     vertical_spacing: i32,
 }

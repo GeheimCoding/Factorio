@@ -1,4 +1,4 @@
 pub struct VehicleLogisticsModifier {
-    type_: VehicleLogistics,
+    type_: String,
     use_icon_overlay_constant: bool,
 }

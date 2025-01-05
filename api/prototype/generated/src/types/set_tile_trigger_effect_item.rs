@@ -4,5 +4,5 @@ pub struct SetTileTriggerEffectItem {
     radius: f32,
     tile_collision_mask: crate::types::CollisionMaskConnector,
     tile_name: crate::types::TileID,
-    type_: SetTile,
+    type_: String,
 }

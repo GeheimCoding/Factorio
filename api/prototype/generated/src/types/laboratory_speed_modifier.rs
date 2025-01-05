@@ -1,5 +1,5 @@
 pub struct LaboratorySpeedModifier {
     infer_icon: bool,
-    type_: LaboratorySpeed,
+    type_: String,
     use_icon_overlay_constant: bool,
 }
