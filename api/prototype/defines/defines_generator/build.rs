@@ -7,6 +7,8 @@ use std::path::Path;
 mod lua_defines;
 
 fn main() -> anyhow::Result<()> {
+    println!("cargo:rerun-if-changed=../../generated/src/defines");
+
     let format = deserialize_format(Path::new("../../shared/prototype-api.json"))?;
     let lua_defines = parse_lua_defines("defines.lua")?;
     let path = Path::new("../../generated/src/defines");

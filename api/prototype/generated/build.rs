@@ -1,4 +1,2 @@
-fn main() {
-    defines_generator::depend_on();
-    types_generator::depend_on();
-}
+// only needed for the build dependencies to work, there is nothing else to do here
+fn main() {}
