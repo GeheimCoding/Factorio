@@ -1,1 +1,2 @@
-// nothing to do here, only used as a build dependency
+// used in the generated package to depend on the generator
+pub fn depend_on() {}
