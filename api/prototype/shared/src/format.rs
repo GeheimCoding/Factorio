@@ -1,5 +1,7 @@
 use crate::concept::Concept;
+use crate::custom_properties::CustomProperties;
 use crate::define::Define;
+use crate::property::Property;
 use crate::prototype::Prototype;
 use crate::transformation::Transformation;
 use crate::type_::Type;
@@ -19,9 +21,17 @@ pub struct Format {
 }
 
 #[derive(Debug)]
+pub struct Metadata<'a> {
+    pub parent: &'a Option<String>,
+    pub properties: Option<&'a Vec<Property>>,
+    pub custom_properties: Option<&'a CustomProperties>,
+}
+
+#[derive(Debug)]
 pub struct Context<'a> {
     pub context: HashMap<String, (Kind, DataType)>,
     pub inline_types: HashMap<String, &'a Concept>,
+    pub metadata: HashMap<String, Metadata<'a>>,
 }
 
 impl Context<'_> {
@@ -76,6 +86,7 @@ impl Format {
     pub fn create_context(&self) -> Context {
         let mut context = HashMap::new();
         let mut inline_types = HashMap::new();
+        let mut metadata = HashMap::new();
 
         for concept in self.types.iter() {
             let name = concept.rust_name();
@@ -92,6 +103,16 @@ impl Format {
                     );
                 }
             }
+            if let Some(found) = metadata.insert(
+                String::from(name),
+                Metadata {
+                    parent: &concept.parent,
+                    properties: concept.properties.as_ref(),
+                    custom_properties: None,
+                },
+            ) {
+                unreachable!("concept with name {name} already exists in metadata: {found:?}");
+            }
         }
         for prototype in &self.prototypes {
             let name = prototype.rust_name();
@@ -100,10 +121,21 @@ impl Format {
             {
                 unreachable!("prototype with name {name} already exists in context: {found:?}");
             }
+            if let Some(found) = metadata.insert(
+                String::from(name),
+                Metadata {
+                    parent: &prototype.parent,
+                    properties: Some(prototype.properties.as_ref()),
+                    custom_properties: prototype.custom_properties.as_ref(),
+                },
+            ) {
+                unreachable!("concept with name {name} already exists in metadata: {found:?}");
+            }
         }
         Context {
             context,
             inline_types,
+            metadata,
         }
     }
 

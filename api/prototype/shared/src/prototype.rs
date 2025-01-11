@@ -1,5 +1,5 @@
 use crate::basic_member::BasicMember;
-use crate::custom_property::CustomProperty;
+use crate::custom_properties::CustomProperties;
 use crate::file_utils::save_file_if_changed;
 use crate::format::{Context, DataType};
 use crate::property::Property;
@@ -21,7 +21,7 @@ pub struct Prototype {
     pub instance_limit: Option<u64>,
     pub deprecated: bool,
     pub properties: Vec<Property>,
-    pub custom_properties: Option<CustomProperty>,
+    pub custom_properties: Option<CustomProperties>,
 }
 
 impl Prototype {
@@ -52,11 +52,8 @@ impl Prototype {
 
     fn generate_struct(&self, context: &Context) -> String {
         let name = self.rust_name();
-        let (inner, mut additional) = Type::Complex(Box::new(ComplexType::Struct)).generate(
-            name,
-            Some(&self.properties),
-            context,
-        );
+        let (inner, mut additional) =
+            Type::Complex(Box::new(ComplexType::Struct)).generate(name, context);
         let mut seen: HashSet<String> = HashSet::new();
         additional.retain(|a| seen.insert(a.clone()));
         format!("pub struct {name}{inner}{}", additional.join(""))

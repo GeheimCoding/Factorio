@@ -28,7 +28,7 @@ pub enum PropertyDefault {
 impl Property {
     pub fn generate(&self, prefix: &str, context: &Context) -> (String, Vec<String>) {
         let prefix = format!("{prefix}{}", self.base.name.to_pascal_case());
-        let (mut inner, additional) = self.type_.generate(&prefix, None, context);
+        let (mut inner, additional) = self.type_.generate(&prefix, context);
         if self.type_.is_literal_value() {
             inner = String::from("String");
         }

@@ -4,7 +4,7 @@ use std::path::Path;
 
 pub mod basic_member;
 pub mod concept;
-pub mod custom_property;
+pub mod custom_properties;
 pub mod define;
 pub mod define_value;
 pub mod derive;

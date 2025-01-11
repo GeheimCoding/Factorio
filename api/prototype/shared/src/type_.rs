@@ -1,5 +1,4 @@
 use crate::format::{Context, DataType};
-use crate::property::Property;
 use crate::transformation::Transformation;
 use serde::Deserialize;
 
@@ -48,18 +47,11 @@ pub enum LiteralValue {
 }
 
 impl Type {
-    pub fn generate(
-        &self,
-        prefix: &str,
-        properties: Option<&Vec<Property>>,
-        context: &Context,
-    ) -> (String, Vec<String>) {
+    pub fn generate(&self, prefix: &str, context: &Context) -> (String, Vec<String>) {
         match self {
             Type::Simple(simple) => simple.to_rust_type(context),
             Type::Complex(complex) => match complex.as_ref() {
-                ComplexType::Array { value } => {
-                    Self::generate_array(value, prefix, properties, context)
-                }
+                ComplexType::Array { value } => Self::generate_array(value, prefix, context),
                 ComplexType::Dictionary { key, value } => {
                     Self::generate_dictionary(key, value, prefix, context)
                 }
@@ -67,14 +59,14 @@ impl Type {
                 ComplexType::Union {
                     options,
                     full_format,
-                } => Self::generate_union(options, full_format, prefix, properties, context),
+                } => Self::generate_union(options, full_format, prefix, context),
                 ComplexType::Literal { value, description } => {
                     Self::generate_literal(value, description)
                 }
                 ComplexType::Type { value, description } => {
-                    Self::generate_type(value, description, prefix, properties, context)
+                    Self::generate_type(value, description, prefix, context)
                 }
-                ComplexType::Struct => Self::generate_struct(prefix, properties, context),
+                ComplexType::Struct => Self::generate_struct(prefix, context),
             },
         }
     }
@@ -143,14 +135,8 @@ impl Type {
         }
     }
 
-    fn generate_array(
-        value: &Type,
-        prefix: &str,
-        properties: Option<&Vec<Property>>,
-        context: &Context,
-    ) -> (String, Vec<String>) {
-        let (inner, additional) =
-            value.generate(&value.postfix_variants(prefix), properties, context);
+    fn generate_array(value: &Type, prefix: &str, context: &Context) -> (String, Vec<String>) {
+        let (inner, additional) = value.generate(&value.postfix_variants(prefix), context);
         (format!("Vec<{inner}>"), additional)
     }
 
@@ -160,8 +146,8 @@ impl Type {
         prefix: &str,
         context: &Context,
     ) -> (String, Vec<String>) {
-        let (inner_key, additional_key) = key.generate(prefix, None, context);
-        let (inner_value, additional_value) = value.generate(prefix, None, context);
+        let (inner_key, additional_key) = key.generate(prefix, context);
+        let (inner_value, additional_value) = value.generate(prefix, context);
         let additional = [additional_key, additional_value].concat();
         (
             if inner_value == "true" {
@@ -180,7 +166,7 @@ impl Type {
     ) -> (String, Vec<String>) {
         let (inner, additional): (Vec<String>, Vec<Vec<String>>) = values
             .iter()
-            .map(|value| value.generate(prefix, None, context))
+            .map(|value| value.generate(prefix, context))
             .unzip();
         let additional = additional
             .into_iter()
@@ -198,14 +184,12 @@ impl Type {
         options: &Vec<Type>,
         _full_format: &bool,
         prefix: &str,
-        properties: Option<&Vec<Property>>,
         context: &Context,
     ) -> (String, Vec<String>) {
         let mut others = vec![];
         let mut union = format!("pub enum {prefix}{{");
         for option in options {
-            let (inner, additional) =
-                option.generate(&option.postfix_variants(prefix), properties, context);
+            let (inner, additional) = option.generate(&option.postfix_variants(prefix), context);
             others.extend(additional);
 
             if option.is_literal_value() {
@@ -253,18 +237,13 @@ impl Type {
         value: &Type,
         _description: &String,
         prefix: &str,
-        properties: Option<&Vec<Property>>,
         context: &Context,
     ) -> (String, Vec<String>) {
-        value.generate(prefix, properties, context)
+        value.generate(prefix, context)
     }
 
-    fn generate_struct(
-        prefix: &str,
-        properties: Option<&Vec<Property>>,
-        context: &Context,
-    ) -> (String, Vec<String>) {
-        if let Some(properties) = properties {
+    fn generate_struct(prefix: &str, context: &Context) -> (String, Vec<String>) {
+        if let Some(Some(properties)) = context.metadata.get(prefix).map(|m| m.properties) {
             let mut others = Vec::new();
             let mut result = String::from("{");
             for property in properties {
