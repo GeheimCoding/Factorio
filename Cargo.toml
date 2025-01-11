@@ -6,6 +6,7 @@ members = [
     "api/prototype/defines",
     "api/prototype/defines/defines_generator",
     "api/prototype/generated",
+    "api/prototype/prototypes",
     "api/prototype/shared",
     "api/prototype/types",
     "api/prototype/types/types_generator",

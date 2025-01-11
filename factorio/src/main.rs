@@ -1,6 +1,7 @@
 #![allow(unused)]
 #![deny(clippy::unwrap_used)]
 
+use prototypes::build_prototypes;
 use remote_console::RemoteConsole;
 use std::fs;
 
@@ -8,6 +9,7 @@ fn main() -> anyhow::Result<()> {
     // remote_console()?;
 
     // TODO: generate prototypes
+    build_prototypes()?;
 
     Ok(())
 }

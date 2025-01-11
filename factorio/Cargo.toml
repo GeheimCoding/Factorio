@@ -11,4 +11,5 @@ remote_console = { version = "0.1.0", path = "../remote_console" }
 prototype = { version = "0.1.0", path = "../api/prototype" }
 defines = { path = "../api/prototype/defines" }
 types = { path = "../api/prototype/types" }
+prototypes = { path = "../api/prototype/prototypes" }
 serde_json = "1.0.133"

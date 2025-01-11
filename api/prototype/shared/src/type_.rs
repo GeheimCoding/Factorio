@@ -51,7 +51,7 @@ impl Type {
     pub fn generate(
         &self,
         prefix: &str,
-        properties: &Option<Vec<Property>>,
+        properties: Option<&Vec<Property>>,
         context: &Context,
     ) -> (String, Vec<String>) {
         match self {
@@ -146,7 +146,7 @@ impl Type {
     fn generate_array(
         value: &Type,
         prefix: &str,
-        properties: &Option<Vec<Property>>,
+        properties: Option<&Vec<Property>>,
         context: &Context,
     ) -> (String, Vec<String>) {
         let (inner, additional) =
@@ -160,8 +160,8 @@ impl Type {
         prefix: &str,
         context: &Context,
     ) -> (String, Vec<String>) {
-        let (inner_key, additional_key) = key.generate(prefix, &None, context);
-        let (inner_value, additional_value) = value.generate(prefix, &None, context);
+        let (inner_key, additional_key) = key.generate(prefix, None, context);
+        let (inner_value, additional_value) = value.generate(prefix, None, context);
         let additional = [additional_key, additional_value].concat();
         (
             if inner_value == "true" {
@@ -180,7 +180,7 @@ impl Type {
     ) -> (String, Vec<String>) {
         let (inner, additional): (Vec<String>, Vec<Vec<String>>) = values
             .iter()
-            .map(|value| value.generate(prefix, &None, context))
+            .map(|value| value.generate(prefix, None, context))
             .unzip();
         let additional = additional
             .into_iter()
@@ -198,7 +198,7 @@ impl Type {
         options: &Vec<Type>,
         _full_format: &bool,
         prefix: &str,
-        properties: &Option<Vec<Property>>,
+        properties: Option<&Vec<Property>>,
         context: &Context,
     ) -> (String, Vec<String>) {
         let mut others = vec![];
@@ -253,7 +253,7 @@ impl Type {
         value: &Type,
         _description: &String,
         prefix: &str,
-        properties: &Option<Vec<Property>>,
+        properties: Option<&Vec<Property>>,
         context: &Context,
     ) -> (String, Vec<String>) {
         value.generate(prefix, properties, context)
@@ -261,7 +261,7 @@ impl Type {
 
     fn generate_struct(
         prefix: &str,
-        properties: &Option<Vec<Property>>,
+        properties: Option<&Vec<Property>>,
         context: &Context,
     ) -> (String, Vec<String>) {
         if let Some(properties) = properties {

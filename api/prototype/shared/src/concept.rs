@@ -63,7 +63,7 @@ impl Concept {
     fn generate_struct(&self, context: &Context) -> String {
         self.assert_properties();
         let name = self.rust_name();
-        let (inner, mut additional) = self.type_.generate(name, &self.properties, context);
+        let (inner, mut additional) = self.type_.generate(name, self.properties.as_ref(), context);
         let mut seen: HashSet<String> = HashSet::new();
         additional.retain(|a| seen.insert(a.clone()));
         format!("pub struct {name}{inner}{}", additional.join(""))
@@ -86,9 +86,9 @@ impl Concept {
         } else {
             self.assert_properties();
         }
-        let (_, mut additional) = self
-            .type_
-            .generate(&self.rust_name(), &self.properties, context);
+        let (_, mut additional) =
+            self.type_
+                .generate(&self.rust_name(), self.properties.as_ref(), context);
         let mut seen: HashSet<String> = HashSet::new();
         additional.retain(|a| seen.insert(a.clone()));
         additional.join("")
@@ -107,7 +107,7 @@ impl Concept {
             return String::from("pub struct DataExtendMethod;");
         }
         // README: Adjustment [3]
-        let (generated, additional) = self.type_.generate(name, &None, context);
+        let (generated, additional) = self.type_.generate(name, None, context);
         format!("pub type {name} = {generated};{}", additional.join(""))
     }
 
