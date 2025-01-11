@@ -8,7 +8,6 @@ use std::fs;
 fn main() -> anyhow::Result<()> {
     // remote_console()?;
 
-    // TODO: generate custom properties
     build_prototypes()?;
 
     Ok(())

@@ -258,6 +258,18 @@ impl Type {
                 result.push_str(&format!("{inner},"));
                 others.extend(additional);
             }
+            if let Some(custom_properties) = metadata.custom_properties {
+                result.push_str(&format!(
+                    "custom_: {},",
+                    Self::generate_dictionary(
+                        &custom_properties.key_type,
+                        &custom_properties.value_type,
+                        prefix,
+                        context,
+                    )
+                    .0
+                ));
+            }
             // README: Adjustment [TODO]
             if prefix == "LightDefinition" {
                 others.insert(0, format!("pub struct LightDefinitionStruct{result}}}"));
