@@ -1,4 +1,5 @@
 pub struct BoilerPrototype {
+    base_: crate::prototypes::EntityWithOwnerPrototype,
     burning_cooldown: u16,
     energy_consumption: crate::types::Energy,
     energy_source: crate::types::EnergySource,

@@ -1,4 +1,5 @@
 pub struct SwitchStyleSpecification {
+    base_: crate::types::BaseStyleSpecification,
     active_label: crate::types::LabelStyleSpecification,
     button: crate::types::ButtonStyleSpecification,
     default_background: crate::types::Sprite,

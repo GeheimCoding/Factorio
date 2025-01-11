@@ -1,4 +1,5 @@
 pub struct ThrusterPrototype {
+    base_: crate::prototypes::EntityWithOwnerPrototype,
     fuel_fluid_box: crate::types::FluidBox,
     graphics_set: crate::types::ThrusterGraphicsSet,
     max_performance: crate::types::ThrusterPerformancePoint,

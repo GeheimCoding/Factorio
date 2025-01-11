@@ -1,4 +1,5 @@
 pub struct EntityWithHealthPrototype {
+    base_: crate::prototypes::EntityPrototype,
     alert_when_damaged: bool,
     attack_reaction: EntityWithHealthPrototypeAttackReaction,
     corpse: EntityWithHealthPrototypeCorpse,

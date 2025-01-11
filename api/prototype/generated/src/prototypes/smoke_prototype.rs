@@ -1,4 +1,5 @@
 pub struct SmokePrototype {
+    base_: crate::prototypes::EntityPrototype,
     affected_by_wind: bool,
     animation: crate::types::Animation,
     collision_box: crate::types::BoundingBox,

@@ -1,4 +1,5 @@
 pub struct GiveItemModifier {
+    base_: crate::types::BaseModifier,
     count: crate::types::ItemCountType,
     item: crate::types::ItemID,
     quality: crate::types::QualityID,

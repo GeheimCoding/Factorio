@@ -1,4 +1,5 @@
 pub struct TreePrototype {
+    base_: crate::prototypes::EntityWithHealthPrototype,
     colors: Vec<crate::types::Color>,
     darkness_of_burnt_tree: f32,
     healing_per_tick: f32,

@@ -1,4 +1,5 @@
 pub struct EquipArmorAchievementPrototype {
+    base_: crate::prototypes::AchievementPrototype,
     alternative_armor: crate::types::ItemID,
     amount: u32,
     armor: crate::types::ItemID,

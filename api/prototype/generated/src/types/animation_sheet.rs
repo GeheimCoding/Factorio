@@ -1,4 +1,5 @@
 pub struct AnimationSheet {
+    base_: crate::types::AnimationParameters,
     filename: crate::types::FileName,
     filenames: Vec<crate::types::FileName>,
     line_length: u32,

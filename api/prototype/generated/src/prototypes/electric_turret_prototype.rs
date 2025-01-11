@@ -1,4 +1,5 @@
 pub struct ElectricTurretPrototype {
+    base_: crate::prototypes::TurretPrototype,
     energy_source: ElectricTurretPrototypeEnergySource,
 }
 pub enum ElectricTurretPrototypeEnergySource {

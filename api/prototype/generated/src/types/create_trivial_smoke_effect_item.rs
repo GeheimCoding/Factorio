@@ -1,4 +1,5 @@
 pub struct CreateTrivialSmokeEffectItem {
+    base_: crate::types::TriggerEffectItem,
     initial_height: f32,
     max_radius: f32,
     offset_deviation: crate::types::BoundingBox,

@@ -1,4 +1,5 @@
 pub struct WallPrototype {
+    base_: crate::prototypes::EntityWithOwnerPrototype,
     circuit_connector: crate::types::CircuitConnectorDefinition,
     circuit_wire_max_distance: f64,
     connected_gate_visualization: crate::types::Sprite,

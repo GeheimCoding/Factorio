@@ -1,4 +1,5 @@
 pub struct ProjectilePrototype {
+    base_: crate::prototypes::EntityPrototype,
     acceleration: f64,
     action: crate::types::Trigger,
     animation: crate::types::RotatedAnimationVariations,

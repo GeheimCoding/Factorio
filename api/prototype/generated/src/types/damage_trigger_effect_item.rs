@@ -1,4 +1,5 @@
 pub struct DamageTriggerEffectItem {
+    base_: crate::types::TriggerEffectItem,
     apply_damage_to_trees: bool,
     damage: crate::types::DamageParameters,
     lower_damage_modifier: f32,

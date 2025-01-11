@@ -1,4 +1,5 @@
 pub struct BeamPrototype {
+    base_: crate::prototypes::EntityPrototype,
     action: crate::types::Trigger,
     action_triggered_automatically: bool,
     damage_interval: u32,

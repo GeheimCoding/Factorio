@@ -1,1 +1,3 @@
-pub struct RocketSiloRocketShadowPrototype {}
+pub struct RocketSiloRocketShadowPrototype {
+    base_: crate::prototypes::EntityPrototype,
+}

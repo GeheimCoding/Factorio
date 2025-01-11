@@ -1,4 +1,5 @@
 pub struct FrameStyleSpecification {
+    base_: crate::types::BaseStyleSpecification,
     background_graphical_set: crate::types::ElementImageSet,
     border: crate::types::BorderImageSet,
     drag_by_title: bool,

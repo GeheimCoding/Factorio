@@ -1,4 +1,5 @@
 pub struct LampPrototype {
+    base_: crate::prototypes::EntityWithOwnerPrototype,
     always_on: bool,
     circuit_connector: crate::types::CircuitConnectorDefinition,
     circuit_wire_max_distance: f64,

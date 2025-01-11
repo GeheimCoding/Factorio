@@ -1,4 +1,5 @@
 pub struct SpriteSheet {
+    base_: crate::types::SpriteParameters,
     dice: crate::types::SpriteSizeType,
     dice_x: crate::types::SpriteSizeType,
     dice_y: crate::types::SpriteSizeType,

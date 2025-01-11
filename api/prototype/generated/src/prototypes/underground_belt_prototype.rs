@@ -1,4 +1,5 @@
 pub struct UndergroundBeltPrototype {
+    base_: crate::prototypes::TransportBeltConnectablePrototype,
     max_distance: u8,
     max_distance_tint: crate::types::Color,
     max_distance_underground_remove_belts_sprite: crate::types::Sprite,

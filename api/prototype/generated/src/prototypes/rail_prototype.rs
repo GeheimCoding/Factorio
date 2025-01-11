@@ -1,4 +1,5 @@
 pub struct RailPrototype {
+    base_: crate::prototypes::EntityWithOwnerPrototype,
     build_grid_size: String,
     deconstruction_marker_positions: Vec<crate::types::Vector>,
     ending_shifts: Vec<crate::types::Vector>,

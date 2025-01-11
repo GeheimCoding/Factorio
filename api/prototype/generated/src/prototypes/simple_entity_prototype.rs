@@ -1,4 +1,5 @@
 pub struct SimpleEntityPrototype {
+    base_: crate::prototypes::EntityWithHealthPrototype,
     animations: crate::types::AnimationVariations,
     count_as_rock_for_filtered_deconstruction: bool,
     lower_pictures: crate::types::SpriteVariations,

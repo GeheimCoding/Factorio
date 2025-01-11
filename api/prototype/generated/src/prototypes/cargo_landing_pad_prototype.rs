@@ -1,4 +1,5 @@
 pub struct CargoLandingPadPrototype {
+    base_: crate::prototypes::EntityWithOwnerPrototype,
     cargo_station_parameters: crate::types::CargoStationParameters,
     circuit_connector: crate::types::CircuitConnectorDefinition,
     circuit_wire_max_distance: f64,

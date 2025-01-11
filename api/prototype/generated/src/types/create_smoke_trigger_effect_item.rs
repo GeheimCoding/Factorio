@@ -1,4 +1,5 @@
 pub struct CreateSmokeTriggerEffectItem {
+    base_: crate::types::CreateEntityTriggerEffectItem,
     initial_height: f32,
     speed: crate::types::Vector,
     speed_from_center: f32,

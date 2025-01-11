@@ -1,4 +1,5 @@
 pub struct ModulePrototype {
+    base_: crate::prototypes::ItemPrototype,
     art_style: String,
     beacon_tint: BeaconVisualizationTints,
     category: crate::types::ModuleCategoryID,

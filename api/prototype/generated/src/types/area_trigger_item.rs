@@ -1,4 +1,5 @@
 pub struct AreaTriggerItem {
+    base_: crate::types::TriggerItem,
     collision_mode: AreaTriggerItemCollisionMode,
     radius: f64,
     show_in_tooltip: bool,

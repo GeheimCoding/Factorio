@@ -1,4 +1,5 @@
 pub struct AmmoItemPrototype {
+    base_: crate::prototypes::ItemPrototype,
     ammo_category: crate::types::AmmoCategoryID,
     ammo_type: AmmoItemPrototypeAmmoType,
     magazine_size: f32,

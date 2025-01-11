@@ -1,4 +1,5 @@
 pub struct RailSignalBasePrototype {
+    base_: crate::prototypes::EntityWithOwnerPrototype,
     circuit_wire_max_distance: f64,
     collision_box: crate::types::BoundingBox,
     default_blue_output_signal: crate::types::SignalIDConnector,

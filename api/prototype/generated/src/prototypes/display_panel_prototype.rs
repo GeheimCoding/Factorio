@@ -1,4 +1,5 @@
 pub struct DisplayPanelPrototype {
+    base_: crate::prototypes::EntityWithOwnerPrototype,
     background_color: crate::types::Color,
     circuit_connector: (
         crate::types::CircuitConnectorDefinition,

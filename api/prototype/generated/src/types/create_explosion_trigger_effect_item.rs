@@ -1,4 +1,5 @@
 pub struct CreateExplosionTriggerEffectItem {
+    base_: crate::types::CreateEntityTriggerEffectItem,
     cycle_while_moving: bool,
     inherit_movement_distance_from_projectile: bool,
     max_movement_distance: f32,

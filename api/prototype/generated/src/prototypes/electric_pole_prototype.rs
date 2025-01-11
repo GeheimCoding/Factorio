@@ -1,4 +1,5 @@
 pub struct ElectricPolePrototype {
+    base_: crate::prototypes::EntityWithOwnerPrototype,
     active_picture: crate::types::Sprite,
     auto_connect_up_to_n_wires: u8,
     connection_points: Vec<crate::types::WireConnectionPoint>,

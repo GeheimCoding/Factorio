@@ -1,4 +1,5 @@
 pub struct PipeToGroundPrototype {
+    base_: crate::prototypes::EntityWithOwnerPrototype,
     disabled_visualization: crate::types::Sprite4Way,
     draw_fluid_icon_override: bool,
     fluid_box: crate::types::FluidBox,

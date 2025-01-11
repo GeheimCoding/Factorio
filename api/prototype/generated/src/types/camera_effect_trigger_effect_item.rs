@@ -1,4 +1,5 @@
 pub struct CameraEffectTriggerEffectItem {
+    base_: crate::types::TriggerEffectItem,
     delay: u8,
     duration: u8,
     ease_in_duration: u8,

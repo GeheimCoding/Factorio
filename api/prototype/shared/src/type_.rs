@@ -243,9 +243,16 @@ impl Type {
     }
 
     fn generate_struct(prefix: &str, context: &Context) -> (String, Vec<String>) {
-        if let Some(Some(properties)) = context.metadata.get(prefix).map(|m| m.properties) {
+        let metadata = context
+            .metadata
+            .get(prefix)
+            .expect(&format!("expected metadata for struct {prefix}"));
+        if let Some(properties) = metadata.properties {
             let mut others = Vec::new();
             let mut result = String::from("{");
+            if let Some(parent) = metadata.parent {
+                result.push_str(&format!("base_: {},", parent.to_rust_type(context).0));
+            }
             for property in properties {
                 let (inner, additional) = property.generate(prefix, context);
                 result.push_str(&format!("{inner},"));

@@ -1,4 +1,5 @@
 pub struct CharacterPrototype {
+    base_: crate::prototypes::EntityWithOwnerPrototype,
     animations: Vec<crate::types::CharacterArmorAnimation>,
     build_distance: u32,
     character_corpse: crate::types::EntityID,

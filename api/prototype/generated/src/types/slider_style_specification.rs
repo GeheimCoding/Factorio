@@ -1,4 +1,5 @@
 pub struct SliderStyleSpecification {
+    base_: crate::types::BaseStyleSpecification,
     button: crate::types::ButtonStyleSpecification,
     draw_notches: bool,
     empty_bar: crate::types::ElementImageSet,

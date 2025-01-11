@@ -1,4 +1,5 @@
 pub struct LoaderPrototype {
+    base_: crate::prototypes::TransportBeltConnectablePrototype,
     allow_container_interaction: bool,
     allow_rail_interaction: bool,
     belt_length: f64,

@@ -1,4 +1,5 @@
 pub struct MiningDrillPrototype {
+    base_: crate::prototypes::EntityWithOwnerPrototype,
     allowed_effects: crate::types::EffectTypeLimitation,
     allowed_module_categories: Vec<crate::types::ModuleCategoryID>,
     base_picture: crate::types::Sprite4Way,

@@ -1,4 +1,5 @@
 pub struct RotatedAnimation {
+    base_: crate::types::AnimationParameters,
     apply_projection: bool,
     axially_symmetrical: bool,
     counterclockwise: bool,

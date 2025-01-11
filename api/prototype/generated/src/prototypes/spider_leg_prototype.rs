@@ -1,4 +1,5 @@
 pub struct SpiderLegPrototype {
+    base_: crate::prototypes::EntityWithOwnerPrototype,
     ankle_height: f64,
     base_position_selection_distance: f64,
     graphics_set: SpiderLegGraphicsSet,

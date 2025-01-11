@@ -1,4 +1,5 @@
 pub struct RollingStockPrototype {
+    base_: crate::prototypes::VehiclePrototype,
     air_resistance: f64,
     allow_manual_color: bool,
     allow_robot_dispatch_in_automatic_mode: bool,

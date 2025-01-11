@@ -1,4 +1,5 @@
 pub struct AgriculturalTowerPrototype {
+    base_: crate::prototypes::EntityWithOwnerPrototype,
     arm_extending_sound: crate::types::InterruptibleSound,
     arm_extending_sound_source: String,
     central_orienting_sound: crate::types::InterruptibleSound,

@@ -1,4 +1,5 @@
 pub struct AsteroidCollectorPrototype {
+    base_: crate::prototypes::EntityWithOwnerPrototype,
     arm_angular_speed_cap_base: f32,
     arm_angular_speed_cap_quality_scaling: f32,
     arm_color_gradient: Vec<crate::types::Color>,

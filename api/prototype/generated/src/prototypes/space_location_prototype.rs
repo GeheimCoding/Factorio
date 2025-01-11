@@ -1,4 +1,5 @@
 pub struct SpaceLocationPrototype {
+    base_: crate::prototypes::Prototype,
     asteroid_spawn_definitions: Vec<crate::types::SpaceLocationAsteroidSpawnDefinition>,
     asteroid_spawn_influence: f64,
     auto_save_on_first_trip: bool,

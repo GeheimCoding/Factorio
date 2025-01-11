@@ -1,4 +1,5 @@
 pub struct ElectricEnergySource {
+    base_: crate::types::BaseEnergySource,
     buffer_capacity: crate::types::Energy,
     drain: crate::types::Energy,
     input_flow_limit: crate::types::Energy,

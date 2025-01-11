@@ -1,4 +1,5 @@
 pub struct PumpPrototype {
+    base_: crate::prototypes::EntityWithOwnerPrototype,
     animations: crate::types::Animation4Way,
     circuit_connector: (
         crate::types::CircuitConnectorDefinition,

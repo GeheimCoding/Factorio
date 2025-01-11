@@ -1,4 +1,5 @@
 pub struct TechnologyPrototype {
+    base_: crate::prototypes::Prototype,
     allows_productivity: bool,
     effects: Vec<crate::types::Modifier>,
     enabled: bool,

@@ -1,4 +1,5 @@
 pub struct AccumulatorPrototype {
+    base_: crate::prototypes::EntityWithOwnerPrototype,
     chargable_graphics: crate::types::ChargableGraphics,
     circuit_connector: crate::types::CircuitConnectorDefinition,
     circuit_wire_max_distance: f64,

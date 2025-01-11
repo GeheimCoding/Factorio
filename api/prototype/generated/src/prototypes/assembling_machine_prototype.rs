@@ -1,4 +1,5 @@
 pub struct AssemblingMachinePrototype {
+    base_: crate::prototypes::CraftingMachinePrototype,
     circuit_connector: (
         crate::types::CircuitConnectorDefinition,
         crate::types::CircuitConnectorDefinition,

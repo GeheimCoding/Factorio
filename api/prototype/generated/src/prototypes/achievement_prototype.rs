@@ -1,4 +1,5 @@
 pub struct AchievementPrototype {
+    base_: crate::prototypes::Prototype,
     allowed_without_fight: bool,
     icon: crate::types::FileName,
     icon_size: crate::types::SpriteSizeType,

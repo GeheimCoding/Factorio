@@ -1,4 +1,5 @@
 pub struct DecorativePrototype {
+    base_: crate::prototypes::Prototype,
     autoplace: crate::types::AutoplaceSpecification,
     collision_box: crate::types::BoundingBox,
     collision_mask: crate::types::CollisionMaskConnector,

@@ -1,1 +1,3 @@
-pub struct ActiveTriggerPrototype {}
+pub struct ActiveTriggerPrototype {
+    base_: crate::prototypes::Prototype,
+}

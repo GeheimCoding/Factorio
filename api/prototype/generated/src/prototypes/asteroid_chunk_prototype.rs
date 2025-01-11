@@ -1,4 +1,5 @@
 pub struct AsteroidChunkPrototype {
+    base_: crate::prototypes::Prototype,
     collision_box: crate::types::SimpleBoundingBox,
     dying_trigger_effect: crate::types::TriggerEffect,
     graphics_set: crate::types::AsteroidGraphicsSet,

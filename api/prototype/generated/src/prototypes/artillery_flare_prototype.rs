@@ -1,4 +1,5 @@
 pub struct ArtilleryFlarePrototype {
+    base_: crate::prototypes::EntityPrototype,
     creation_shift: crate::types::Vector,
     early_death_ticks: u32,
     ended_in_water_trigger_effect: crate::types::TriggerEffect,

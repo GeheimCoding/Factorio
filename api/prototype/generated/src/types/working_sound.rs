@@ -1,5 +1,6 @@
 pub enum WorkingSound {
     WorkingSound {
+        base_: crate::types::MainSound,
         activate_sound: crate::types::Sound,
         apparent_volume: f32,
         audible_distance_modifier: f64,

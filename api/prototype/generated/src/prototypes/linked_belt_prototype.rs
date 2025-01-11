@@ -1,4 +1,5 @@
 pub struct LinkedBeltPrototype {
+    base_: crate::prototypes::TransportBeltConnectablePrototype,
     allow_blueprint_connection: bool,
     allow_clone_connection: bool,
     allow_side_loading: bool,

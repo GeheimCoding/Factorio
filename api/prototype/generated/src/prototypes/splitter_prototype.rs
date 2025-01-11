@@ -1,4 +1,5 @@
 pub struct SplitterPrototype {
+    base_: crate::prototypes::TransportBeltConnectablePrototype,
     frozen_patch: crate::types::Sprite4Way,
     related_transport_belt: crate::types::EntityID,
     structure: crate::types::Animation4Way,

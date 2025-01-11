@@ -1,4 +1,5 @@
 pub struct SpriteParameters {
+    base_: crate::types::SpriteSource,
     apply_runtime_tint: bool,
     apply_special_effect: bool,
     blend_mode: crate::types::BlendMode,

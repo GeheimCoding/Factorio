@@ -1,4 +1,5 @@
 pub struct EquipmentPrototype {
+    base_: crate::prototypes::Prototype,
     background_border_color: crate::types::Color,
     background_color: crate::types::Color,
     categories: Vec<crate::types::EquipmentCategoryID>,

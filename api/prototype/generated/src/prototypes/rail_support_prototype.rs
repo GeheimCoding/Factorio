@@ -1,4 +1,5 @@
 pub struct RailSupportPrototype {
+    base_: crate::prototypes::EntityWithOwnerPrototype,
     build_grid_size: String,
     collision_mask_allow_on_deep_oil_ocean: crate::types::CollisionMaskConnector,
     elevated_selection_boxes: Vec<crate::types::BoundingBox>,

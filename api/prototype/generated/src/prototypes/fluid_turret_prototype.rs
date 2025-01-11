@@ -1,4 +1,5 @@
 pub struct FluidTurretPrototype {
+    base_: crate::prototypes::TurretPrototype,
     activation_buffer_ratio: crate::types::FluidAmount,
     attack_parameters: crate::types::StreamAttackParameters,
     attacking_muzzle_animation_shift: crate::types::AnimatedVector,

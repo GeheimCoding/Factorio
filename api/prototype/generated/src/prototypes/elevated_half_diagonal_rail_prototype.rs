@@ -1,1 +1,3 @@
-pub struct ElevatedHalfDiagonalRailPrototype {}
+pub struct ElevatedHalfDiagonalRailPrototype {
+    base_: crate::prototypes::HalfDiagonalRailPrototype,
+}

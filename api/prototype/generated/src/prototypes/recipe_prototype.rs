@@ -1,4 +1,5 @@
 pub struct RecipePrototype {
+    base_: crate::prototypes::Prototype,
     allow_as_intermediate: bool,
     allow_consumption: bool,
     allow_consumption_message: crate::types::LocalisedString,

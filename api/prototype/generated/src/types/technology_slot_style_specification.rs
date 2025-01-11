@@ -1,4 +1,5 @@
 pub struct TechnologySlotStyleSpecification {
+    base_: crate::types::ButtonStyleSpecification,
     clicked_ingredients_background: crate::types::ElementImageSet,
     clicked_overlay: crate::types::ElementImageSet,
     default_background_shadow: crate::types::ElementImageSet,

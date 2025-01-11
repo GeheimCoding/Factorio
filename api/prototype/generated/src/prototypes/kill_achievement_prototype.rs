@@ -1,4 +1,5 @@
 pub struct KillAchievementPrototype {
+    base_: crate::prototypes::AchievementPrototype,
     amount: u32,
     damage_dealer: KillAchievementPrototypeDamageDealer,
     damage_type: crate::types::DamageTypeID,

@@ -1,4 +1,5 @@
 pub struct RocketSiloRocketPrototype {
+    base_: crate::prototypes::EntityPrototype,
     cargo_attachment_offset: crate::types::Vector,
     cargo_pod_entity: crate::types::EntityID,
     dying_explosion: crate::types::EntityID,

@@ -1,4 +1,5 @@
 pub struct UtilityConstants {
+    base_: crate::prototypes::PrototypeBase,
     agricultural_range_visualization_color: crate::types::Color,
     artillery_range_visualization_color: crate::types::Color,
     asteroid_collector_blockage_update_tile_distance: u32,

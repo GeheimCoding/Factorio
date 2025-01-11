@@ -1,4 +1,5 @@
 pub struct ArtilleryWagonPrototype {
+    base_: crate::prototypes::RollingStockPrototype,
     ammo_stack_limit: crate::types::ItemCountType,
     cannon_barrel_light_direction: crate::types::Vector3D,
     cannon_barrel_pictures: crate::types::RollingStockRotatedSlopedGraphics,

@@ -1,4 +1,5 @@
 pub struct TipsAndTricksItem {
+    base_: crate::prototypes::PrototypeBase,
     category: String,
     dependencies: Vec<String>,
     icon: crate::types::FileName,

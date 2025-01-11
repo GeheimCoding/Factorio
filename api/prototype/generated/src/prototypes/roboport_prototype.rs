@@ -1,4 +1,5 @@
 pub struct RoboportPrototype {
+    base_: crate::prototypes::EntityWithOwnerPrototype,
     base: crate::types::Sprite,
     base_animation: crate::types::Animation,
     base_patch: crate::types::Sprite,

@@ -1,4 +1,5 @@
 pub struct StorageTankPrototype {
+    base_: crate::prototypes::EntityWithOwnerPrototype,
     circuit_connector: (
         crate::types::CircuitConnectorDefinition,
         crate::types::CircuitConnectorDefinition,

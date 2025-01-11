@@ -1,4 +1,5 @@
 pub struct ParticlePrototype {
+    base_: crate::prototypes::Prototype,
     draw_shadow_when_on_ground: bool,
     ended_in_water_trigger_effect: crate::types::TriggerEffect,
     ended_on_ground_trigger_effect: crate::types::TriggerEffect,

@@ -1,4 +1,5 @@
 pub struct ProcessionPrototype {
+    base_: crate::prototypes::Prototype,
     ground_timeline: crate::types::ProcessionTimeline,
     procession_style: ProcessionPrototypeProcessionStyle,
     timeline: crate::types::ProcessionTimeline,

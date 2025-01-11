@@ -1,4 +1,5 @@
 pub struct LogisticContainerPrototype {
+    base_: crate::prototypes::ContainerPrototype,
     animation: crate::types::Animation,
     animation_sound: crate::types::Sound,
     landing_location_offset: crate::types::Vector,

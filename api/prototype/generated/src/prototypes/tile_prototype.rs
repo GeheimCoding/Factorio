@@ -1,4 +1,5 @@
 pub struct TilePrototype {
+    base_: crate::prototypes::Prototype,
     absorptions_per_second: std::collections::HashMap<crate::types::AirbornePollutantID, f64>,
     allowed_neighbors: Vec<crate::types::TileID>,
     allows_being_covered: bool,

@@ -1,4 +1,5 @@
 pub struct ButtonStyleSpecification {
+    base_: crate::types::StyleWithClickableGraphicalSetSpecification,
     clicked_font_color: crate::types::Color,
     clicked_vertical_offset: u32,
     default_font_color: crate::types::Color,

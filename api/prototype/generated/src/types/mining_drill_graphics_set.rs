@@ -1,4 +1,5 @@
 pub struct MiningDrillGraphicsSet {
+    base_: crate::types::WorkingVisualisations,
     animation_progress: f32,
     circuit_connector_layer: MiningDrillGraphicsSetCircuitConnectorLayer,
     circuit_connector_secondary_draw_order:

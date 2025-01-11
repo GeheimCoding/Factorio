@@ -1,4 +1,5 @@
 pub struct HeatEnergySource {
+    base_: crate::types::BaseEnergySource,
     connections: Vec<crate::types::HeatConnection>,
     default_temperature: f64,
     emissions_per_minute: std::collections::HashMap<crate::types::AirbornePollutantID, f64>,

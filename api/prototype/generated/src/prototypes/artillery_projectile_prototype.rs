@@ -1,4 +1,5 @@
 pub struct ArtilleryProjectilePrototype {
+    base_: crate::prototypes::EntityPrototype,
     action: crate::types::Trigger,
     chart_picture: crate::types::Sprite,
     collision_box: crate::types::BoundingBox,

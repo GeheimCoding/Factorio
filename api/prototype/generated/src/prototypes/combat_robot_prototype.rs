@@ -1,4 +1,5 @@
 pub struct CombatRobotPrototype {
+    base_: crate::prototypes::FlyingRobotPrototype,
     attack_parameters: crate::types::AttackParameters,
     destroy_action: crate::types::Trigger,
     follows_player: bool,

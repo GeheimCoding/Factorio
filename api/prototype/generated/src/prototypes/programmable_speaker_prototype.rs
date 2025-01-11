@@ -1,4 +1,5 @@
 pub struct ProgrammableSpeakerPrototype {
+    base_: crate::prototypes::EntityWithOwnerPrototype,
     audible_distance_modifier: f32,
     circuit_connector: crate::types::CircuitConnectorDefinition,
     circuit_wire_max_distance: f64,

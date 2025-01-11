@@ -1,4 +1,5 @@
 pub struct LabelStyleSpecification {
+    base_: crate::types::BaseStyleSpecification,
     clicked_font_color: crate::types::Color,
     disabled_font_color: crate::types::Color,
     font: String,

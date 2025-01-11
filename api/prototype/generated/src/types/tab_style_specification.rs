@@ -1,4 +1,5 @@
 pub struct TabStyleSpecification {
+    base_: crate::types::StyleWithClickableGraphicalSetSpecification,
     badge_font: String,
     badge_horizontal_spacing: i16,
     default_badge_font_color: crate::types::Color,

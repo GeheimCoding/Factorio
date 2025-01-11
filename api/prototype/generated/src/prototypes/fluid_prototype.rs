@@ -1,4 +1,5 @@
 pub struct FluidPrototype {
+    base_: crate::prototypes::Prototype,
     auto_barrel: bool,
     base_color: crate::types::Color,
     default_temperature: f32,

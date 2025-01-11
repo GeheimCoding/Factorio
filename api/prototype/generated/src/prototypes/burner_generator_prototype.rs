@@ -1,4 +1,5 @@
 pub struct BurnerGeneratorPrototype {
+    base_: crate::prototypes::EntityWithOwnerPrototype,
     always_draw_idle_animation: bool,
     animation: crate::types::Animation4Way,
     burner: crate::types::BurnerEnergySource,

@@ -1,4 +1,5 @@
 pub struct FluidStreamPrototype {
+    base_: crate::prototypes::EntityPrototype,
     action: crate::types::Trigger,
     ground_light: crate::types::LightDefinition,
     initial_action: crate::types::Trigger,

@@ -1,4 +1,5 @@
 pub struct CreateParticleTriggerEffectItem {
+    base_: crate::types::TriggerEffectItem,
     apply_tile_tint: CreateParticleTriggerEffectItemApplyTileTint,
     frame_speed: f32,
     frame_speed_deviation: f32,

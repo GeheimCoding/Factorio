@@ -1,4 +1,5 @@
 pub struct CraftingMachineGraphicsSet {
+    base_: crate::types::WorkingVisualisations,
     animation_progress: f32,
     circuit_connector_layer: CraftingMachineGraphicsSetCircuitConnectorLayer,
     circuit_connector_secondary_draw_order:

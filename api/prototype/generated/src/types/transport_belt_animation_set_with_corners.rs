@@ -1,4 +1,5 @@
 pub struct TransportBeltAnimationSetWithCorners {
+    base_: crate::types::TransportBeltAnimationSet,
     east_to_north_index: u8,
     east_to_north_index_frozen: u8,
     east_to_south_index: u8,

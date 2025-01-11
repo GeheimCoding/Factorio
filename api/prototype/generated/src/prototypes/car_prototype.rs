@@ -1,4 +1,5 @@
 pub struct CarPrototype {
+    base_: crate::prototypes::VehiclePrototype,
     animation: crate::types::RotatedAnimation,
     auto_sort_inventory: bool,
     consumption: crate::types::Energy,

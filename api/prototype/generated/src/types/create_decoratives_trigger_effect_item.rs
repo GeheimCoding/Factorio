@@ -1,4 +1,5 @@
 pub struct CreateDecorativesTriggerEffectItem {
+    base_: crate::types::TriggerEffectItem,
     apply_projection: bool,
     decorative: crate::types::DecorativeID,
     radius_curve: f32,

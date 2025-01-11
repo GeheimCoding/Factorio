@@ -1,4 +1,5 @@
 pub struct InfinityContainerPrototype {
+    base_: crate::prototypes::LogisticContainerPrototype,
     erase_contents_when_mined: bool,
     gui_mode: InfinityContainerPrototypeGuiMode,
     inventory_size: crate::types::ItemStackIndex,

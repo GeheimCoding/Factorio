@@ -1,4 +1,5 @@
 pub struct LocomotivePrototype {
+    base_: crate::prototypes::RollingStockPrototype,
     darkness_to_render_light_animation: f32,
     energy_source: LocomotivePrototypeEnergySource,
     front_light: crate::types::LightDefinition,

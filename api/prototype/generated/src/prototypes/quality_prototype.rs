@@ -1,4 +1,5 @@
 pub struct QualityPrototype {
+    base_: crate::prototypes::Prototype,
     beacon_power_usage_multiplier: f32,
     color: crate::types::Color,
     draw_sprite_by_default: bool,

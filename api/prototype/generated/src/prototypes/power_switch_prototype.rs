@@ -1,4 +1,5 @@
 pub struct PowerSwitchPrototype {
+    base_: crate::prototypes::EntityWithOwnerPrototype,
     circuit_wire_connection_point: crate::types::WireConnectionPoint,
     draw_circuit_wires: bool,
     draw_copper_wires: bool,

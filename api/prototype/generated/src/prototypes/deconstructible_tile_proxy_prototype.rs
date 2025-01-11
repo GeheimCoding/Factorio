@@ -1,1 +1,3 @@
-pub struct DeconstructibleTileProxyPrototype {}
+pub struct DeconstructibleTileProxyPrototype {
+    base_: crate::prototypes::EntityPrototype,
+}

@@ -1,4 +1,5 @@
 pub struct DontBuildEntityAchievementPrototype {
+    base_: crate::prototypes::AchievementPrototypeWithCondition,
     amount: u32,
     dont_build: DontBuildEntityAchievementPrototypeDontBuild,
     research_with: DontBuildEntityAchievementPrototypeResearchWith,

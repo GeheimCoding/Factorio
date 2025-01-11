@@ -1,4 +1,5 @@
 pub struct ScrollPaneStyleSpecification {
+    base_: crate::types::BaseStyleSpecification,
     always_draw_borders: bool,
     background_graphical_set: crate::types::ElementImageSet,
     dont_force_clipping_rect_for_contents: bool,

@@ -1,4 +1,5 @@
 pub struct CargoBayPrototype {
+    base_: crate::prototypes::EntityWithOwnerPrototype,
     build_grid_size: String,
     graphics_set: crate::types::CargoBayConnectableGraphicsSet,
     hatch_definitions: Vec<crate::types::CargoHatchDefinition>,

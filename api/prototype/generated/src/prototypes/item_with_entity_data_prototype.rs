@@ -1,4 +1,5 @@
 pub struct ItemWithEntityDataPrototype {
+    base_: crate::prototypes::ItemPrototype,
     icon_tintable: crate::types::FileName,
     icon_tintable_mask: crate::types::FileName,
     icon_tintable_mask_size: crate::types::SpriteSizeType,

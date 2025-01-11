@@ -1,4 +1,5 @@
 pub struct SelectionToolPrototype {
+    base_: crate::prototypes::ItemWithLabelPrototype,
     alt_reverse_select: crate::types::SelectionModeData,
     alt_select: crate::types::SelectionModeData,
     always_include_tiles: bool,

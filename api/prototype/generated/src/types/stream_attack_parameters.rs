@@ -1,4 +1,5 @@
 pub struct StreamAttackParameters {
+    base_: crate::types::BaseAttackParameters,
     fluid_consumption: crate::types::FluidAmount,
     fluids: Vec<StreamFluidProperties>,
     gun_barrel_length: f32,

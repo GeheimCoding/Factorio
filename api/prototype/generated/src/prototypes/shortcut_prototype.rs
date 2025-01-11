@@ -1,4 +1,5 @@
 pub struct ShortcutPrototype {
+    base_: crate::prototypes::Prototype,
     action: ShortcutPrototypeAction,
     associated_control_input: String,
     icon: crate::types::FileName,

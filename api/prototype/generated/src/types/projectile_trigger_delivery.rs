@@ -1,4 +1,5 @@
 pub struct ProjectileTriggerDelivery {
+    base_: crate::types::TriggerDeliveryItem,
     direction_deviation: f32,
     max_range: f64,
     min_range: f64,

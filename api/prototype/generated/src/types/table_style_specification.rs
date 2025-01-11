@@ -1,4 +1,5 @@
 pub struct TableStyleSpecification {
+    base_: crate::types::BaseStyleSpecification,
     apply_row_graphical_set_per_column: bool,
     background_graphical_set: crate::types::ElementImageSet,
     border: crate::types::BorderImageSet,

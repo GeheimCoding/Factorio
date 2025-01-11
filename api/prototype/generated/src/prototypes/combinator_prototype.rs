@@ -1,4 +1,5 @@
 pub struct CombinatorPrototype {
+    base_: crate::prototypes::EntityWithOwnerPrototype,
     active_energy_usage: crate::types::Energy,
     activity_led_hold_time: u8,
     activity_led_light: crate::types::LightDefinition,

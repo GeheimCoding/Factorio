@@ -1,4 +1,5 @@
 pub struct ChainActiveTriggerPrototype {
+    base_: crate::prototypes::ActiveTriggerPrototype,
     action: crate::types::Trigger,
     fork_chance: f64,
     fork_chance_increase_per_quality_level: f64,

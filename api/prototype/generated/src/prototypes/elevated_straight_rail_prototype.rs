@@ -1,1 +1,3 @@
-pub struct ElevatedStraightRailPrototype {}
+pub struct ElevatedStraightRailPrototype {
+    base_: crate::prototypes::StraightRailPrototype,
+}

@@ -1,4 +1,5 @@
 pub struct CargoPodPrototype {
+    base_: crate::prototypes::EntityWithOwnerPrototype,
     default_graphic: crate::types::ProcessionGraphic,
     default_shadow_graphic: crate::types::ProcessionGraphic,
     inventory_size: crate::types::ItemStackIndex,

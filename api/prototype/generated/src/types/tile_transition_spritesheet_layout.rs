@@ -1,4 +1,5 @@
 pub struct TileTransitionSpritesheetLayout {
+    base_: crate::types::TileSpriteLayoutVariant,
     auxiliary_effect_mask: crate::types::TileTransitionVariantLayout,
     background: crate::types::TileTransitionVariantLayout,
     background_mask: crate::types::TileTransitionVariantLayout,

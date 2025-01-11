@@ -1,4 +1,5 @@
 pub struct ItemWithInventoryPrototype {
+    base_: crate::prototypes::ItemWithLabelPrototype,
     filter_message_key: String,
     filter_mode: ItemWithInventoryPrototypeFilterMode,
     inventory_size: crate::types::ItemStackIndex,

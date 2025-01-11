@@ -1,4 +1,5 @@
 pub struct EntityPrototype {
+    base_: crate::prototypes::Prototype,
     additional_pastable_entities: Vec<crate::types::EntityID>,
     alert_icon_scale: f32,
     alert_icon_shift: crate::types::Vector,

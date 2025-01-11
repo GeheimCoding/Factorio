@@ -1,4 +1,5 @@
 pub struct FlyingRobotPrototype {
+    base_: crate::prototypes::EntityWithOwnerPrototype,
     energy_per_move: crate::types::Energy,
     energy_per_tick: crate::types::Energy,
     is_military_target: bool,

@@ -1,1 +1,3 @@
-pub struct PlayerPortPrototype {}
+pub struct PlayerPortPrototype {
+    base_: crate::prototypes::EntityWithOwnerPrototype,
+}

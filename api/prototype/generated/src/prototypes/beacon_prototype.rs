@@ -1,4 +1,5 @@
 pub struct BeaconPrototype {
+    base_: crate::prototypes::EntityWithOwnerPrototype,
     allowed_effects: crate::types::EffectTypeLimitation,
     allowed_module_categories: Vec<crate::types::ModuleCategoryID>,
     animation: crate::types::Animation,

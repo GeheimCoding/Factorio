@@ -1,4 +1,5 @@
 pub struct ConstructionRobotPrototype {
+    base_: crate::prototypes::RobotWithLogisticInterfacePrototype,
     collision_box: crate::types::BoundingBox,
     construction_vector: crate::types::Vector,
     mined_sound_volume_modifier: f32,

@@ -1,4 +1,5 @@
 pub struct LightningAttractorPrototype {
+    base_: crate::prototypes::EntityWithOwnerPrototype,
     chargable_graphics: crate::types::ChargableGraphics,
     efficiency: f64,
     energy_source: crate::types::ElectricEnergySource,

@@ -1,4 +1,5 @@
 pub struct DontUseEntityInEnergyProductionAchievementPrototype {
+    base_: crate::prototypes::AchievementPrototypeWithCondition,
     excluded: DontUseEntityInEnergyProductionAchievementPrototypeExcluded,
     included: DontUseEntityInEnergyProductionAchievementPrototypeIncluded,
     last_hour_only: bool,

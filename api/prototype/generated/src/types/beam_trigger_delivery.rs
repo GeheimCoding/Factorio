@@ -1,4 +1,5 @@
 pub struct BeamTriggerDelivery {
+    base_: crate::types::TriggerDeliveryItem,
     add_to_shooter: bool,
     beam: crate::types::EntityID,
     destroy_with_source_or_target: bool,

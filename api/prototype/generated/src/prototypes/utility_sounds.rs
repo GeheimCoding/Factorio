@@ -1,4 +1,5 @@
 pub struct UtilitySounds {
+    base_: crate::prototypes::PrototypeBase,
     achievement_unlocked: crate::types::Sound,
     alert_destroyed: crate::types::Sound,
     armor_insert: crate::types::Sound,

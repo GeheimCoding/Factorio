@@ -1,4 +1,5 @@
 pub struct SetTileTriggerEffectItem {
+    base_: crate::types::TriggerEffectItem,
     apply_on_space_platform: bool,
     apply_projection: bool,
     radius: f32,

@@ -1,4 +1,5 @@
 pub struct CliffPrototype {
+    base_: crate::prototypes::EntityPrototype,
     cliff_explosive: crate::types::ItemID,
     grid_offset: crate::types::Vector,
     grid_size: crate::types::Vector,

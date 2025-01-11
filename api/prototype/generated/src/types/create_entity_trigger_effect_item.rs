@@ -1,4 +1,5 @@
 pub struct CreateEntityTriggerEffectItem {
+    base_: crate::types::TriggerEffectItem,
     as_enemy: bool,
     check_buildability: bool,
     entity_name: crate::types::EntityID,

@@ -1,4 +1,5 @@
 pub struct SpeechBubbleStyleSpecification {
+    base_: crate::types::BaseStyleSpecification,
     arrow_graphical_set: crate::types::ElementImageSet,
     arrow_indent: f64,
     close_color: crate::types::Color,

@@ -1,1 +1,3 @@
-pub struct Loader1x1Prototype {}
+pub struct Loader1x1Prototype {
+    base_: crate::prototypes::LoaderPrototype,
+}

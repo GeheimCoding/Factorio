@@ -1,4 +1,5 @@
 pub struct FluidEnergySource {
+    base_: crate::types::BaseEnergySource,
     burns_fluid: bool,
     destroy_non_fuel_fluid: bool,
     effectivity: f64,

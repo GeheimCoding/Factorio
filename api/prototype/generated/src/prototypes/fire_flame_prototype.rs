@@ -1,4 +1,5 @@
 pub struct FireFlamePrototype {
+    base_: crate::prototypes::EntityPrototype,
     add_fuel_cooldown: u32,
     burnt_patch_alpha_default: f32,
     burnt_patch_alpha_variations: Vec<TileAndAlpha>,

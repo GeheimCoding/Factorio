@@ -1,4 +1,5 @@
 pub struct SpiderUnitPrototype {
+    base_: crate::prototypes::EntityWithOwnerPrototype,
     absorptions_to_join_attack: std::collections::HashMap<crate::types::AirbornePollutantID, f32>,
     ai_settings: crate::types::UnitAISettings,
     attack_parameters: crate::types::AttackParameters,

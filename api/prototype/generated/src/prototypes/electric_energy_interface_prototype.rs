@@ -1,4 +1,5 @@
 pub struct ElectricEnergyInterfacePrototype {
+    base_: crate::prototypes::EntityWithOwnerPrototype,
     allow_copy_paste: bool,
     animation: crate::types::Animation,
     animations: crate::types::Animation4Way,

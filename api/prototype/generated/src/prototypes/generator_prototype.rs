@@ -1,4 +1,5 @@
 pub struct GeneratorPrototype {
+    base_: crate::prototypes::EntityWithOwnerPrototype,
     burns_fluid: bool,
     destroy_non_fuel_fluid: bool,
     effectivity: f64,

@@ -1,4 +1,5 @@
 pub struct RoboportEquipmentPrototype {
+    base_: crate::prototypes::EquipmentPrototype,
     burner: crate::types::BurnerEnergySource,
     charge_approach_distance: f32,
     charging_distance: f32,

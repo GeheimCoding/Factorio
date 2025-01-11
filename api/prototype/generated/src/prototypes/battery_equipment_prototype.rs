@@ -1,1 +1,3 @@
-pub struct BatteryEquipmentPrototype {}
+pub struct BatteryEquipmentPrototype {
+    base_: crate::prototypes::EquipmentPrototype,
+}

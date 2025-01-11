@@ -1,1 +1,3 @@
-pub struct CustomEventPrototype {}
+pub struct CustomEventPrototype {
+    base_: crate::prototypes::Prototype,
+}

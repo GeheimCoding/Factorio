@@ -1,4 +1,5 @@
 pub struct UnitPrototype {
+    base_: crate::prototypes::EntityWithOwnerPrototype,
     absorptions_to_join_attack: std::collections::HashMap<crate::types::AirbornePollutantID, f32>,
     affected_by_tiles: bool,
     ai_settings: crate::types::UnitAISettings,

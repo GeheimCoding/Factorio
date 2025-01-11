@@ -1,4 +1,5 @@
 pub struct SpaceConnectionPrototype {
+    base_: crate::prototypes::Prototype,
     asteroid_spawn_definitions: Vec<crate::types::SpaceConnectionAsteroidSpawnDefinition>,
     from: crate::types::SpaceLocationID,
     icon: crate::types::FileName,

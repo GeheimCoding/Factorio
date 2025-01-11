@@ -1,4 +1,5 @@
 pub struct SmokeWithTriggerPrototype {
+    base_: crate::prototypes::SmokePrototype,
     action: crate::types::Trigger,
     action_cooldown: u32,
     attach_to_target: bool,

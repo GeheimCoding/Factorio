@@ -1,4 +1,5 @@
 pub struct SpaceLocationAsteroidSpawnDefinition {
+    base_: crate::types::AsteroidSpawnPoint,
     asteroid: SpaceLocationAsteroidSpawnDefinitionAsteroid,
     type_: SpaceLocationAsteroidSpawnDefinitionType,
 }

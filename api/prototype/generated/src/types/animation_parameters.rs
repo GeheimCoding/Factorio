@@ -1,4 +1,5 @@
 pub struct AnimationParameters {
+    base_: crate::types::SpriteParameters,
     animation_speed: f32,
     dice: u8,
     dice_x: u8,

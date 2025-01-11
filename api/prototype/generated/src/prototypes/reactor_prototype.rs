@@ -1,4 +1,5 @@
 pub struct ReactorPrototype {
+    base_: crate::prototypes::EntityWithOwnerPrototype,
     circuit_connector: crate::types::CircuitConnectorDefinition,
     circuit_wire_max_distance: f64,
     connection_patches_connected: crate::types::SpriteVariations,

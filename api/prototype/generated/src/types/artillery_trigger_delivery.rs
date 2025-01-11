@@ -1,4 +1,5 @@
 pub struct ArtilleryTriggerDelivery {
+    base_: crate::types::TriggerDeliveryItem,
     direction_deviation: f32,
     projectile: crate::types::EntityID,
     range_deviation: f32,

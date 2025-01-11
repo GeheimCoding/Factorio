@@ -1,4 +1,5 @@
 pub struct BlueprintItemPrototype {
+    base_: crate::prototypes::SelectionToolPrototype,
     alt_select: crate::types::SelectionModeData,
     always_include_tiles: bool,
     draw_label_for_cursor_render: bool,

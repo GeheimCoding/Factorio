@@ -1,4 +1,5 @@
 pub struct StyleWithClickableGraphicalSetSpecification {
+    base_: crate::types::BaseStyleSpecification,
     clicked_graphical_set: crate::types::ElementImageSet,
     default_graphical_set: crate::types::ElementImageSet,
     disabled_graphical_set: crate::types::ElementImageSet,

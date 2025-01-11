@@ -1,4 +1,5 @@
 pub struct GraphStyleSpecification {
+    base_: crate::types::BaseStyleSpecification,
     background_color: crate::types::Color,
     data_line_highlight_distance: u32,
     font: String,

@@ -1,1 +1,3 @@
-pub struct EffectTexture {}
+pub struct EffectTexture {
+    base_: crate::types::SpriteSource,
+}

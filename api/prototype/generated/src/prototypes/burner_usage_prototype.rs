@@ -1,4 +1,5 @@
 pub struct BurnerUsagePrototype {
+    base_: crate::prototypes::Prototype,
     accepted_fuel_key: String,
     burned_in_key: String,
     empty_slot_caption: crate::types::LocalisedString,

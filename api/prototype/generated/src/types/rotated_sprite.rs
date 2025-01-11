@@ -1,4 +1,5 @@
 pub struct RotatedSprite {
+    base_: crate::types::SpriteParameters,
     allow_low_quality_rotation: bool,
     apply_projection: bool,
     axially_symmetrical: bool,

@@ -1,4 +1,5 @@
 pub struct UtilitySprites {
+    base_: crate::prototypes::PrototypeBase,
     achievement_label: crate::types::Sprite,
     achievement_label_completed: crate::types::Sprite,
     achievement_label_failed: crate::types::Sprite,

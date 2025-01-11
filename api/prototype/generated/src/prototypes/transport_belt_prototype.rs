@@ -1,4 +1,5 @@
 pub struct TransportBeltPrototype {
+    base_: crate::prototypes::TransportBeltConnectablePrototype,
     belt_animation_set: crate::types::TransportBeltAnimationSetWithCorners,
     circuit_connector: Vec<crate::types::CircuitConnectorDefinition>,
     circuit_wire_max_distance: f64,

@@ -1,4 +1,5 @@
 pub struct FusionReactorPrototype {
+    base_: crate::prototypes::EntityWithOwnerPrototype,
     burner: crate::types::BurnerEnergySource,
     energy_source: crate::types::ElectricEnergySource,
     graphics_set: crate::types::FusionReactorGraphicsSet,

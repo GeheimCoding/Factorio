@@ -1,4 +1,5 @@
 pub struct GatePrototype {
+    base_: crate::prototypes::EntityWithOwnerPrototype,
     activation_distance: f64,
     closing_sound: crate::types::Sound,
     fadeout_interval: u32,

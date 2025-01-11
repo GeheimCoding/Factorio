@@ -1,4 +1,5 @@
 pub struct TextBoxStyleSpecification {
+    base_: crate::types::BaseStyleSpecification,
     active_background: crate::types::ElementImageSet,
     default_background: crate::types::ElementImageSet,
     disabled_background: crate::types::ElementImageSet,

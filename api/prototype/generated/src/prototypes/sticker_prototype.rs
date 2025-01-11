@@ -1,4 +1,5 @@
 pub struct StickerPrototype {
+    base_: crate::prototypes::EntityPrototype,
     animation: crate::types::Animation,
     damage_interval: u32,
     damage_per_tick: crate::types::DamageParameters,

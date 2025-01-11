@@ -1,4 +1,5 @@
 pub struct DontResearchBeforeResearchingAchievementPrototype {
+    base_: crate::prototypes::AchievementPrototypeWithCondition,
     dont_research: DontResearchBeforeResearchingAchievementPrototypeDontResearch,
     research_with: DontResearchBeforeResearchingAchievementPrototypeResearchWith,
 }

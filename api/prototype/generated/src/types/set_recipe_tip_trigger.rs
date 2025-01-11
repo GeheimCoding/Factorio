@@ -1,4 +1,5 @@
 pub struct SetRecipeTipTrigger {
+    base_: crate::types::CountBasedTipTrigger,
     any_quality: bool,
     consecutive: bool,
     machine: crate::types::EntityID,

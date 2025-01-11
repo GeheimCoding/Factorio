@@ -1,4 +1,5 @@
 pub struct ItemPrototype {
+    base_: crate::prototypes::Prototype,
     burnt_result: crate::types::ItemID,
     close_sound: crate::types::Sound,
     color_hint: crate::types::ColorHintSpecification,

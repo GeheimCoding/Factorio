@@ -1,4 +1,5 @@
 pub struct ResourceEntityPrototype {
+    base_: crate::prototypes::EntityPrototype,
     category: crate::types::ResourceCategoryID,
     cliff_removal_probability: f64,
     draw_stateless_visualisation_under_building: bool,

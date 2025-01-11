@@ -1,4 +1,5 @@
 pub struct LandMinePrototype {
+    base_: crate::prototypes::EntityWithOwnerPrototype,
     action: crate::types::Trigger,
     ammo_category: crate::types::AmmoCategoryID,
     force_die_on_attack: bool,

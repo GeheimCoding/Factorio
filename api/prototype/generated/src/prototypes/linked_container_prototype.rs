@@ -1,4 +1,5 @@
 pub struct LinkedContainerPrototype {
+    base_: crate::prototypes::EntityWithOwnerPrototype,
     circuit_connector: crate::types::CircuitConnectorDefinition,
     circuit_wire_max_distance: f64,
     draw_circuit_wires: bool,

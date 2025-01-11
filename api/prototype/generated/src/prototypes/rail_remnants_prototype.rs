@@ -1,4 +1,5 @@
 pub struct RailRemnantsPrototype {
+    base_: crate::prototypes::CorpsePrototype,
     build_grid_size: String,
     collision_box: crate::types::BoundingBox,
     pictures: crate::types::RailPictureSet,

@@ -1,4 +1,5 @@
 pub struct LogisticRobotPrototype {
+    base_: crate::prototypes::RobotWithLogisticInterfacePrototype,
     collision_box: crate::types::BoundingBox,
     idle_with_cargo: crate::types::RotatedAnimation,
     in_motion_with_cargo: crate::types::RotatedAnimation,

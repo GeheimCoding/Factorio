@@ -1,4 +1,5 @@
 pub struct RocketSiloPrototype {
+    base_: crate::prototypes::AssemblingMachinePrototype,
     active_energy_usage: crate::types::Energy,
     alarm_sound: crate::types::Sound,
     alarm_trigger: crate::types::TriggerEffect,

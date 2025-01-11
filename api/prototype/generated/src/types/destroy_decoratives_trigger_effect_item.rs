@@ -1,4 +1,5 @@
 pub struct DestroyDecorativesTriggerEffectItem {
+    base_: crate::types::TriggerEffectItem,
     decoratives_with_trigger_only: bool,
     from_render_layer: crate::types::RenderLayer,
     include_decals: bool,

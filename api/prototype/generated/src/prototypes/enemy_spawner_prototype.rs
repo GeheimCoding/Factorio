@@ -1,4 +1,5 @@
 pub struct EnemySpawnerPrototype {
+    base_: crate::prototypes::EntityWithOwnerPrototype,
     absorptions_per_second: std::collections::HashMap<
         crate::types::AirbornePollutantID,
         crate::types::EnemySpawnerAbsorption,

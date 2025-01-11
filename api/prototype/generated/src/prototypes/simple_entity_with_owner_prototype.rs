@@ -1,4 +1,5 @@
 pub struct SimpleEntityWithOwnerPrototype {
+    base_: crate::prototypes::EntityWithOwnerPrototype,
     animations: crate::types::AnimationVariations,
     force_visibility: crate::types::ForceCondition,
     lower_pictures: crate::types::SpriteVariations,

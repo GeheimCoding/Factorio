@@ -1,4 +1,5 @@
 pub struct BurnerEnergySource {
+    base_: crate::types::BaseEnergySource,
     burner_usage: crate::types::BurnerUsageID,
     burnt_inventory_size: crate::types::ItemStackIndex,
     effectivity: f64,

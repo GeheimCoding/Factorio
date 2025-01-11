@@ -1,4 +1,5 @@
 pub struct TileTransitionVariantLayout {
+    base_: crate::types::TileSpriteLayoutVariant,
     double_side: crate::types::TileSpriteLayoutVariant,
     double_side_count: u8,
     double_side_line_length: u8,

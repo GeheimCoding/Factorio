@@ -1,4 +1,5 @@
 pub struct ParticleSourcePrototype {
+    base_: crate::prototypes::EntityPrototype,
     height: f32,
     height_deviation: f32,
     horizontal_speed: f32,

@@ -1,4 +1,5 @@
 pub struct TrainStopPrototype {
+    base_: crate::prototypes::EntityWithOwnerPrototype,
     animation_ticks_per_frame: u32,
     animations: crate::types::Animation4Way,
     build_grid_size: String,

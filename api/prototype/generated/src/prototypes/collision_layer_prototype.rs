@@ -1,1 +1,3 @@
-pub struct CollisionLayerPrototype {}
+pub struct CollisionLayerPrototype {
+    base_: crate::prototypes::Prototype,
+}

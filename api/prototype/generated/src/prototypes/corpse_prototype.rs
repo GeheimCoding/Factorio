@@ -1,4 +1,5 @@
 pub struct CorpsePrototype {
+    base_: crate::prototypes::EntityPrototype,
     animation: crate::types::RotatedAnimationVariations,
     animation_overlay: crate::types::RotatedAnimationVariations,
     animation_overlay_final_render_layer: crate::types::RenderLayer,

@@ -1,4 +1,5 @@
 pub struct TrivialSmokePrototype {
+    base_: crate::prototypes::Prototype,
     affected_by_wind: bool,
     animation: crate::types::Animation,
     color: crate::types::Color,

@@ -1,1 +1,3 @@
-pub struct EquipmentCategory {}
+pub struct EquipmentCategory {
+    base_: crate::prototypes::Prototype,
+}

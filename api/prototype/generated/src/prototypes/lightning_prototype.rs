@@ -1,4 +1,5 @@
 pub struct LightningPrototype {
+    base_: crate::prototypes::EntityPrototype,
     attracted_volume_modifier: f32,
     damage: f64,
     effect_duration: u16,

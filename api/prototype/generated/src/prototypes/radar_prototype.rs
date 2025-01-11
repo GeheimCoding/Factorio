@@ -1,4 +1,5 @@
 pub struct RadarPrototype {
+    base_: crate::prototypes::EntityWithOwnerPrototype,
     circuit_connector: crate::types::CircuitConnectorDefinition,
     circuit_wire_max_distance: f64,
     connects_to_other_radars: bool,

@@ -1,4 +1,5 @@
 pub struct PlaceEquipmentAchievementPrototype {
+    base_: crate::prototypes::AchievementPrototype,
     amount: u32,
     armor: crate::types::ItemID,
     limit_equip_quality: crate::types::QualityID,

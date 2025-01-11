@@ -1,4 +1,5 @@
 pub struct RobotWithLogisticInterfacePrototype {
+    base_: crate::prototypes::FlyingRobotPrototype,
     charging_sound: crate::types::InterruptibleSound,
     destroy_action: crate::types::Trigger,
     draw_cargo: bool,

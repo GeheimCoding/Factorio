@@ -1,4 +1,5 @@
 pub struct TurretPrototype {
+    base_: crate::prototypes::EntityWithOwnerPrototype,
     alert_when_attacking: bool,
     allow_turning_when_starting_attack: bool,
     attack_from_start_frame: bool,

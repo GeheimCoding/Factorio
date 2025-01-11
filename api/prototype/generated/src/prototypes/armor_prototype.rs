@@ -1,4 +1,5 @@
 pub struct ArmorPrototype {
+    base_: crate::prototypes::ToolPrototype,
     collision_box: crate::types::BoundingBox,
     drawing_box: crate::types::BoundingBox,
     equipment_grid: crate::types::EquipmentGridID,

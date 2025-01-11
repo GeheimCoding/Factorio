@@ -1,4 +1,5 @@
 pub struct SpacePlatformHubPrototype {
+    base_: crate::prototypes::EntityWithOwnerPrototype,
     build_grid_size: String,
     cargo_station_parameters: crate::types::CargoStationParameters,
     circuit_connector: crate::types::CircuitConnectorDefinition,

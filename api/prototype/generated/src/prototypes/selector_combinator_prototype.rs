@@ -1,4 +1,5 @@
 pub struct SelectorCombinatorPrototype {
+    base_: crate::prototypes::CombinatorPrototype,
     count_symbol_sprites: crate::types::Sprite4Way,
     max_symbol_sprites: crate::types::Sprite4Way,
     min_symbol_sprites: crate::types::Sprite4Way,

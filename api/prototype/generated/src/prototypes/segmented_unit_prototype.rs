@@ -1,4 +1,5 @@
 pub struct SegmentedUnitPrototype {
+    base_: crate::prototypes::SegmentPrototype,
     acceleration_rate: f64,
     attack_parameters: crate::types::AttackParameters,
     attacking_speed: f64,

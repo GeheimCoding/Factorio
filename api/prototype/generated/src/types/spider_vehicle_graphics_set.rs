@@ -1,4 +1,5 @@
 pub struct SpiderVehicleGraphicsSet {
+    base_: crate::types::SpiderTorsoGraphicsSet,
     autopilot_destination_on_map_visualisation: crate::types::Animation,
     autopilot_destination_queue_on_map_visualisation: crate::types::Animation,
     autopilot_destination_queue_visualisation: crate::types::Animation,

@@ -1,4 +1,5 @@
 pub struct ProgressBarStyleSpecification {
+    base_: crate::types::BaseStyleSpecification,
     bar: crate::types::ElementImageSet,
     bar_background: crate::types::ElementImageSet,
     bar_width: u32,

@@ -1,4 +1,5 @@
 pub struct PlanetPrototype {
+    base_: crate::prototypes::SpaceLocationPrototype,
     entities_require_heating: bool,
     lightning_properties: crate::types::LightningProperties,
     map_gen_settings: crate::types::PlanetPrototypeMapGenSettings,

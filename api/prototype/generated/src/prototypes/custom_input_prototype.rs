@@ -1,4 +1,5 @@
 pub struct CustomInputPrototype {
+    base_: crate::prototypes::Prototype,
     action: CustomInputPrototypeAction,
     alternative_key_sequence: String,
     block_modifiers: bool,
