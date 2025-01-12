@@ -1,2 +1,3 @@
 pub mod defines;
-//pub mod types;
+pub mod prototypes;
+pub mod types;

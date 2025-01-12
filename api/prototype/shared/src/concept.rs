@@ -43,9 +43,6 @@ impl Concept {
             .next()
             .map_or(false, char::is_uppercase)
             && !self.inline
-        // README: Adjustment [TODO]
-        && self.rust_name() != "AnyPrototype"
-        // README: Adjustment [TODO]
     }
 
     pub fn generate_internal(&self, context: &Context) -> String {

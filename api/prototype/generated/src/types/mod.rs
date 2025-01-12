@@ -1172,6 +1172,8 @@ pub mod area_trigger_item;
 pub use area_trigger_item::AreaTriggerItem;
 pub mod apply_starter_pack_tip_trigger;
 pub use apply_starter_pack_tip_trigger::ApplyStarterPackTipTrigger;
+pub mod any_prototype;
+pub use any_prototype::AnyPrototype;
 pub mod animation_variations;
 pub use animation_variations::AnimationVariations;
 pub mod animation_sheet;
@@ -1260,6 +1262,7 @@ pub enum Types {
     AnimationRunMode(Box<AnimationRunMode>),
     AnimationSheet(Box<AnimationSheet>),
     AnimationVariations(Box<AnimationVariations>),
+    AnyPrototype(Box<AnyPrototype>),
     ApplyStarterPackTipTrigger(Box<ApplyStarterPackTipTrigger>),
     AreaTriggerItem(Box<AreaTriggerItem>),
     ArtilleryRangeModifier(Box<ArtilleryRangeModifier>),
