@@ -58,16 +58,25 @@ pub struct TilePrototype {
     walking_speed_modifier: f64,
     weight: crate::types::Weight,
 }
+#[derive(serde::Deserialize)]
 pub enum TilePrototypeAmbientSounds {
+    #[serde(untagged)]
     WorldAmbientSoundDefinition(crate::types::WorldAmbientSoundDefinition),
+    #[serde(untagged)]
     VecWorldAmbientSoundDefinition(Vec<crate::types::WorldAmbientSoundDefinition>),
 }
+#[derive(serde::Deserialize)]
 pub enum TilePrototypeBoundDecoratives {
+    #[serde(untagged)]
     DecorativeID(crate::types::DecorativeID),
+    #[serde(untagged)]
     VecDecorativeID(Vec<crate::types::DecorativeID>),
 }
+#[derive(serde::Deserialize)]
 pub enum TilePrototypeBuildSound {
+    #[serde(untagged)]
     Sound(crate::types::Sound),
+    #[serde(untagged)]
     TileBuildSound(Box<TileBuildSound>),
 }
 pub struct TileBuildSound {
@@ -76,11 +85,17 @@ pub struct TileBuildSound {
     medium: crate::types::Sound,
     small: crate::types::Sound,
 }
+#[derive(serde::Deserialize)]
 pub enum TilePrototypeDyingExplosion {
+    #[serde(untagged)]
     ExplosionDefinition(crate::types::ExplosionDefinition),
+    #[serde(untagged)]
     VecExplosionDefinition(Vec<crate::types::ExplosionDefinition>),
 }
+#[derive(serde::Deserialize)]
 pub enum TilePrototypePlaceableBy {
+    #[serde(untagged)]
     ItemToPlace(Box<crate::types::ItemToPlace>),
+    #[serde(untagged)]
     VecItemToPlace(Vec<crate::types::ItemToPlace>),
 }

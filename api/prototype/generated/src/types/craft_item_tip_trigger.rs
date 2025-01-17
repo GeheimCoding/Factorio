@@ -5,8 +5,12 @@ pub struct CraftItemTipTrigger {
     item: crate::types::ItemID,
     type_: String,
 }
+#[derive(serde::Deserialize)]
 pub enum CraftItemTipTriggerEventType {
+    #[serde(rename = "crafting_of_single_item_ordered")]
     CraftingOfSingleItemOrdered,
+    #[serde(rename = "crafting_of_multiple_items_ordered")]
     CraftingOfMultipleItemsOrdered,
+    #[serde(rename = "crafting_finished")]
     CraftingFinished,
 }

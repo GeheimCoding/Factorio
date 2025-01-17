@@ -16,7 +16,10 @@ pub struct BeaconGraphicsSet {
     reset_animation_when_frozen: bool,
     top_layer: crate::types::RenderLayer,
 }
+#[derive(serde::Deserialize)]
 pub enum BeaconGraphicsSetModuleTintMode {
+    #[serde(rename = "single_module")]
     SingleModule,
+    #[serde(rename = "mix")]
     Mix,
 }

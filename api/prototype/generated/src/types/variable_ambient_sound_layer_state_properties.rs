@@ -9,7 +9,10 @@ pub struct VariableAmbientSoundLayerStateProperties {
     start_pause: crate::types::RandomRange,
     variant: u8,
 }
+#[derive(serde::Deserialize)]
 pub enum VariableAmbientSoundLayerStatePropertiesNumberOfRepetitions {
+    #[serde(untagged)]
     RandomRange(crate::types::RandomRange),
+    #[serde(untagged)]
     ProbabilityTable(crate::types::ProbabilityTable),
 }

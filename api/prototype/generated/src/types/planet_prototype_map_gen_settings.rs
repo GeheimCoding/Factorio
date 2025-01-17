@@ -14,13 +14,21 @@ pub struct PlanetPrototypeMapGenSettings {
         std::collections::HashMap<String, PlanetPrototypeMapGenSettingsPropertyExpressionNames>,
     territory_settings: crate::types::TerritorySettings,
 }
+#[derive(serde::Deserialize)]
 pub enum PlanetPrototypeMapGenSettingsAutoplaceSettings {
+    #[serde(rename = "entity")]
     Entity,
+    #[serde(rename = "tile")]
     Tile,
+    #[serde(rename = "decorative")]
     Decorative,
 }
+#[derive(serde::Deserialize)]
 pub enum PlanetPrototypeMapGenSettingsPropertyExpressionNames {
+    #[serde(untagged)]
     String(String),
+    #[serde(untagged)]
     Bool(bool),
+    #[serde(untagged)]
     F64(f64),
 }

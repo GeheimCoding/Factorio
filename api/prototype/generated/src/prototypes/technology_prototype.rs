@@ -16,7 +16,10 @@ pub struct TechnologyPrototype {
     upgrade: bool,
     visible_when_disabled: bool,
 }
+#[derive(serde::Deserialize)]
 pub enum TechnologyPrototypeMaxLevel {
-    U32(u32),
+    #[serde(rename = "infinite")]
     Infinite,
+    #[serde(untagged)]
+    U32(u32),
 }

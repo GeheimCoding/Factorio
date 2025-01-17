@@ -19,15 +19,24 @@ pub struct EntityWithHealthPrototype {
     repair_speed_modifier: f32,
     resistances: Vec<crate::types::Resistance>,
 }
+#[derive(serde::Deserialize)]
 pub enum EntityWithHealthPrototypeAttackReaction {
+    #[serde(untagged)]
     AttackReactionItem(Box<crate::types::AttackReactionItem>),
+    #[serde(untagged)]
     VecAttackReactionItem(Vec<crate::types::AttackReactionItem>),
 }
+#[derive(serde::Deserialize)]
 pub enum EntityWithHealthPrototypeCorpse {
+    #[serde(untagged)]
     EntityID(crate::types::EntityID),
+    #[serde(untagged)]
     VecEntityID(Vec<crate::types::EntityID>),
 }
+#[derive(serde::Deserialize)]
 pub enum EntityWithHealthPrototypeDyingExplosion {
+    #[serde(untagged)]
     ExplosionDefinition(crate::types::ExplosionDefinition),
+    #[serde(untagged)]
     VecExplosionDefinition(Vec<crate::types::ExplosionDefinition>),
 }

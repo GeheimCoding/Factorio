@@ -11,11 +11,17 @@ pub struct VariableAmbientSoundLayer {
     sublayer_starting_offset: VariableAmbientSoundLayerSublayerStartingOffset,
     variants: Vec<crate::types::Sound>,
 }
+#[derive(serde::Deserialize)]
 pub enum VariableAmbientSoundLayerSublayerOffset {
+    #[serde(untagged)]
     RandomRange(crate::types::RandomRange),
+    #[serde(untagged)]
     ProbabilityTable(crate::types::ProbabilityTable),
 }
+#[derive(serde::Deserialize)]
 pub enum VariableAmbientSoundLayerSublayerStartingOffset {
+    #[serde(untagged)]
     RandomRange(crate::types::RandomRange),
+    #[serde(untagged)]
     ProbabilityTable(crate::types::ProbabilityTable),
 }

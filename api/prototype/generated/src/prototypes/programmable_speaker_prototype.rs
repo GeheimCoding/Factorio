@@ -11,8 +11,11 @@ pub struct ProgrammableSpeakerPrototype {
     maximum_polyphony: u32,
     sprite: crate::types::Sprite,
 }
+#[derive(serde::Deserialize)]
 pub enum ProgrammableSpeakerPrototypeEnergySource {
+    #[serde(untagged)]
     ElectricEnergySource(Box<crate::types::ElectricEnergySource>),
+    #[serde(untagged)]
     VoidEnergySource(Box<crate::types::VoidEnergySource>),
 }
 pub struct ProgrammableSpeakerInstrument {

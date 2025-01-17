@@ -11,8 +11,11 @@ pub struct BoilerPrototype {
     pictures: BoilerPictureSet,
     target_temperature: f32,
 }
+#[derive(serde::Deserialize)]
 pub enum BoilerPrototypeMode {
+    #[serde(rename = "heat_fluid_inside")]
     HeatFluidInside,
+    #[serde(rename = "output_to_separate_pipe")]
     OutputToSeparatePipe,
 }
 pub struct BoilerPictureSet {

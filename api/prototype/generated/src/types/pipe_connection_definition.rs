@@ -16,17 +16,28 @@ pub struct PipeConnectionDefinition {
     ),
     underground_collision_mask: crate::types::CollisionMaskConnector,
 }
+#[derive(serde::Deserialize)]
 pub enum PipeConnectionDefinitionConnectionCategory {
+    #[serde(untagged)]
     String(String),
+    #[serde(untagged)]
     VecString(Vec<String>),
 }
+#[derive(serde::Deserialize)]
 pub enum PipeConnectionType {
+    #[serde(rename = "normal")]
     Normal,
+    #[serde(rename = "underground")]
     Underground,
+    #[serde(rename = "linked")]
     Linked,
 }
+#[derive(serde::Deserialize)]
 pub enum PipeConnectionDefinitionFlowDirection {
+    #[serde(rename = "input_output")]
     InputOutput,
+    #[serde(rename = "input")]
     Input,
+    #[serde(rename = "output")]
     Output,
 }

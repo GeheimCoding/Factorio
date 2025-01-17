@@ -10,13 +10,21 @@ pub struct AutoplaceSpecification {
     richness_expression: crate::types::NoiseExpression,
     tile_restriction: Vec<TileIDRestriction>,
 }
+#[derive(serde::Deserialize)]
 pub enum AutoplaceSpecificationForce {
+    #[serde(rename = "enemy")]
     Enemy,
+    #[serde(rename = "player")]
     Player,
+    #[serde(rename = "neutral")]
     Neutral,
+    #[serde(untagged)]
     String(String),
 }
+#[derive(serde::Deserialize)]
 pub enum TileIDRestriction {
+    #[serde(untagged)]
     TileID(crate::types::TileID),
+    #[serde(untagged)]
     TileIDTileID((crate::types::TileID, crate::types::TileID)),
 }

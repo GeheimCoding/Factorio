@@ -4,9 +4,14 @@ pub struct AutoplaceControl {
     category: AutoplaceControlCategory,
     richness: bool,
 }
+#[derive(serde::Deserialize)]
 pub enum AutoplaceControlCategory {
+    #[serde(rename = "resource")]
     Resource,
+    #[serde(rename = "terrain")]
     Terrain,
+    #[serde(rename = "cliff")]
     Cliff,
+    #[serde(rename = "enemy")]
     Enemy,
 }

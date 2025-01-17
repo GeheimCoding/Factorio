@@ -9,8 +9,12 @@ pub struct ContainerPrototype {
     inventory_type: ContainerPrototypeInventoryType,
     picture: crate::types::Sprite,
 }
+#[derive(serde::Deserialize)]
 pub enum ContainerPrototypeInventoryType {
+    #[serde(rename = "normal")]
     Normal,
+    #[serde(rename = "with_bar")]
     WithBar,
+    #[serde(rename = "with_filters_and_bar")]
     WithFiltersAndBar,
 }

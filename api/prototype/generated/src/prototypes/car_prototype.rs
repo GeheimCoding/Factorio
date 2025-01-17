@@ -24,7 +24,10 @@ pub struct CarPrototype {
     turret_return_timeout: u32,
     turret_rotation_speed: f32,
 }
+#[derive(serde::Deserialize)]
 pub enum CarPrototypeEnergySource {
+    #[serde(untagged)]
     BurnerEnergySource(Box<crate::types::BurnerEnergySource>),
+    #[serde(untagged)]
     VoidEnergySource(Box<crate::types::VoidEnergySource>),
 }

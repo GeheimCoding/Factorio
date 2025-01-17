@@ -1,56 +1,105 @@
+#[derive(serde::Deserialize)]
 pub enum Modifier {
+    #[serde(untagged)]
     InserterStackSizeBonusModifier(Box<crate::types::InserterStackSizeBonusModifier>),
+    #[serde(untagged)]
     BulkInserterCapacityBonusModifier(Box<crate::types::BulkInserterCapacityBonusModifier>),
+    #[serde(untagged)]
     LaboratorySpeedModifier(Box<crate::types::LaboratorySpeedModifier>),
+    #[serde(untagged)]
     CharacterLogisticTrashSlotsModifier(Box<crate::types::CharacterLogisticTrashSlotsModifier>),
+    #[serde(untagged)]
     MaximumFollowingRobotsCountModifier(Box<crate::types::MaximumFollowingRobotsCountModifier>),
+    #[serde(untagged)]
     WorkerRobotSpeedModifier(Box<crate::types::WorkerRobotSpeedModifier>),
+    #[serde(untagged)]
     WorkerRobotStorageModifier(Box<crate::types::WorkerRobotStorageModifier>),
+    #[serde(untagged)]
     TurretAttackModifier(Box<crate::types::TurretAttackModifier>),
+    #[serde(untagged)]
     AmmoDamageModifier(Box<crate::types::AmmoDamageModifier>),
+    #[serde(untagged)]
     GiveItemModifier(Box<crate::types::GiveItemModifier>),
+    #[serde(untagged)]
     GunSpeedModifier(Box<crate::types::GunSpeedModifier>),
+    #[serde(untagged)]
     UnlockRecipeModifier(Box<crate::types::UnlockRecipeModifier>),
+    #[serde(untagged)]
     CharacterCraftingSpeedModifier(Box<crate::types::CharacterCraftingSpeedModifier>),
+    #[serde(untagged)]
     CharacterMiningSpeedModifier(Box<crate::types::CharacterMiningSpeedModifier>),
+    #[serde(untagged)]
     CharacterRunningSpeedModifier(Box<crate::types::CharacterRunningSpeedModifier>),
+    #[serde(untagged)]
     CharacterBuildDistanceModifier(Box<crate::types::CharacterBuildDistanceModifier>),
+    #[serde(untagged)]
     CharacterItemDropDistanceModifier(Box<crate::types::CharacterItemDropDistanceModifier>),
+    #[serde(untagged)]
     CharacterReachDistanceModifier(Box<crate::types::CharacterReachDistanceModifier>),
+    #[serde(untagged)]
     CharacterResourceReachDistanceModifier(
         Box<crate::types::CharacterResourceReachDistanceModifier>,
     ),
+    #[serde(untagged)]
     CharacterItemPickupDistanceModifier(Box<crate::types::CharacterItemPickupDistanceModifier>),
+    #[serde(untagged)]
     CharacterLootPickupDistanceModifier(Box<crate::types::CharacterLootPickupDistanceModifier>),
+    #[serde(untagged)]
     CharacterInventorySlotsBonusModifier(Box<crate::types::CharacterInventorySlotsBonusModifier>),
+    #[serde(untagged)]
     DeconstructionTimeToLiveModifier(Box<crate::types::DeconstructionTimeToLiveModifier>),
+    #[serde(untagged)]
     MaxFailedAttemptsPerTickPerConstructionQueueModifier(
         Box<crate::types::MaxFailedAttemptsPerTickPerConstructionQueueModifier>,
     ),
+    #[serde(untagged)]
     MaxSuccessfulAttemptsPerTickPerConstructionQueueModifier(
         Box<crate::types::MaxSuccessfulAttemptsPerTickPerConstructionQueueModifier>,
     ),
+    #[serde(untagged)]
     CharacterHealthBonusModifier(Box<crate::types::CharacterHealthBonusModifier>),
+    #[serde(untagged)]
     MiningDrillProductivityBonusModifier(Box<crate::types::MiningDrillProductivityBonusModifier>),
+    #[serde(untagged)]
     TrainBrakingForceBonusModifier(Box<crate::types::TrainBrakingForceBonusModifier>),
+    #[serde(untagged)]
     WorkerRobotBatteryModifier(Box<crate::types::WorkerRobotBatteryModifier>),
+    #[serde(untagged)]
     LaboratoryProductivityModifier(Box<crate::types::LaboratoryProductivityModifier>),
+    #[serde(untagged)]
     FollowerRobotLifetimeModifier(Box<crate::types::FollowerRobotLifetimeModifier>),
+    #[serde(untagged)]
     ArtilleryRangeModifier(Box<crate::types::ArtilleryRangeModifier>),
+    #[serde(untagged)]
     NothingModifier(Box<crate::types::NothingModifier>),
+    #[serde(untagged)]
     CharacterLogisticRequestsModifier(Box<crate::types::CharacterLogisticRequestsModifier>),
+    #[serde(untagged)]
     VehicleLogisticsModifier(Box<crate::types::VehicleLogisticsModifier>),
+    #[serde(untagged)]
     UnlockSpaceLocationModifier(Box<crate::types::UnlockSpaceLocationModifier>),
+    #[serde(untagged)]
     UnlockQualityModifier(Box<crate::types::UnlockQualityModifier>),
+    #[serde(untagged)]
     SpacePlatformsModifier(Box<crate::types::SpacePlatformsModifier>),
+    #[serde(untagged)]
     CircuitNetworkModifier(Box<crate::types::CircuitNetworkModifier>),
+    #[serde(untagged)]
     CargoLandingPadLimitModifier(Box<crate::types::CargoLandingPadLimitModifier>),
+    #[serde(untagged)]
     ChangeRecipeProductivityModifier(Box<crate::types::ChangeRecipeProductivityModifier>),
+    #[serde(untagged)]
     CliffDeconstructionEnabledModifier(Box<crate::types::CliffDeconstructionEnabledModifier>),
+    #[serde(untagged)]
     MiningWithFluidModifier(Box<crate::types::MiningWithFluidModifier>),
+    #[serde(untagged)]
     RailSupportOnDeepOilOceanModifier(Box<crate::types::RailSupportOnDeepOilOceanModifier>),
+    #[serde(untagged)]
     RailPlannerAllowElevatedRailsModifier(Box<crate::types::RailPlannerAllowElevatedRailsModifier>),
+    #[serde(untagged)]
     BeaconDistributionModifier(Box<crate::types::BeaconDistributionModifier>),
+    #[serde(untagged)]
     CreateGhostOnEntityDeathModifier(Box<crate::types::CreateGhostOnEntityDeathModifier>),
+    #[serde(untagged)]
     BeltStackSizeBonusModifier(Box<crate::types::BeltStackSizeBonusModifier>),
 }

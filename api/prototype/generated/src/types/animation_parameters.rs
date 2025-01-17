@@ -16,7 +16,10 @@ pub struct AnimationParameters {
     size: AnimationParametersSize,
     width: crate::types::SpriteSizeType,
 }
+#[derive(serde::Deserialize)]
 pub enum AnimationParametersSize {
+    #[serde(untagged)]
     SpriteSizeType(crate::types::SpriteSizeType),
+    #[serde(untagged)]
     SpriteSizeTypeSpriteSizeType((crate::types::SpriteSizeType, crate::types::SpriteSizeType)),
 }

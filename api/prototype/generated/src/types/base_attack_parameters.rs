@@ -25,9 +25,14 @@ pub struct BaseAttackParameters {
     use_shooter_direction: bool,
     warmup: u32,
 }
+#[derive(serde::Deserialize)]
 pub enum BaseAttackParametersActivationType {
+    #[serde(rename = "shoot")]
     Shoot,
+    #[serde(rename = "throw")]
     Throw,
+    #[serde(rename = "consume")]
     Consume,
+    #[serde(rename = "activate")]
     Activate,
 }

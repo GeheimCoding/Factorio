@@ -48,7 +48,10 @@ pub struct RoboportPrototype {
     stationing_offset: crate::types::Vector,
     stationing_render_layer_swap_height: f32,
 }
+#[derive(serde::Deserialize)]
 pub enum RoboportPrototypeEnergySource {
+    #[serde(untagged)]
     ElectricEnergySource(Box<crate::types::ElectricEnergySource>),
+    #[serde(untagged)]
     VoidEnergySource(Box<crate::types::VoidEnergySource>),
 }

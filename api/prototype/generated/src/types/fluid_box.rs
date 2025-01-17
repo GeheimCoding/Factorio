@@ -18,10 +18,15 @@ pub struct FluidBox {
     secondary_draw_orders: FluidBoxSecondaryDrawOrders,
     volume: crate::types::FluidAmount,
 }
+#[derive(serde::Deserialize)]
 pub enum ProductionType {
+    #[serde(rename = "none")]
     None,
+    #[serde(rename = "input")]
     Input,
+    #[serde(rename = "input_output")]
     InputOutput,
+    #[serde(rename = "output")]
     Output,
 }
 pub struct FluidBoxSecondaryDrawOrders {

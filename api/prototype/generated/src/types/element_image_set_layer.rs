@@ -1,4 +1,6 @@
+#[derive(serde::Deserialize)]
 pub enum ElementImageSetLayer {
+    #[serde(untagged)]
     ElementImageSetLayer {
         background_blur: bool,
         background_blur_sigma: f32,
@@ -50,17 +52,27 @@ pub enum ElementImageSetLayer {
         top_width: crate::types::SpriteSizeType,
         type_: ElementImageSetLayerType,
     },
+    #[serde(untagged)]
     Sprite(Box<crate::types::Sprite>),
 }
+#[derive(serde::Deserialize)]
 pub enum ElementImageSetLayerCornerSize {
+    #[serde(untagged)]
     U16(u16),
+    #[serde(untagged)]
     U16U16((u16, u16)),
 }
+#[derive(serde::Deserialize)]
 pub enum ElementImageSetLayerDrawType {
+    #[serde(rename = "inner")]
     Inner,
+    #[serde(rename = "outer")]
     Outer,
 }
+#[derive(serde::Deserialize)]
 pub enum ElementImageSetLayerType {
+    #[serde(rename = "none")]
     None,
+    #[serde(rename = "composition")]
     Composition,
 }

@@ -15,10 +15,16 @@ pub struct CustomInputPrototype {
     linked_game_control: crate::types::LinkedGameControl,
     name: String,
 }
+#[derive(serde::Deserialize)]
 pub enum CustomInputPrototypeAction {
+    #[serde(rename = "lua")]
     Lua,
+    #[serde(rename = "spawn_item")]
     SpawnItem,
+    #[serde(rename = "toggle_personal_roboport")]
     TogglePersonalRoboport,
+    #[serde(rename = "toggle_personal_logistic_requests")]
     TogglePersonalLogisticRequests,
+    #[serde(rename = "toggle_equipment_movement_bonus")]
     ToggleEquipmentMovementBonus,
 }

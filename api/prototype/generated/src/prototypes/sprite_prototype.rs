@@ -33,7 +33,10 @@ pub struct SpritePrototype {
     x: crate::types::SpriteSizeType,
     y: crate::types::SpriteSizeType,
 }
+#[derive(serde::Deserialize)]
 pub enum SpritePrototypeSize {
+    #[serde(untagged)]
     SpriteSizeType(crate::types::SpriteSizeType),
+    #[serde(untagged)]
     SpriteSizeTypeSpriteSizeType((crate::types::SpriteSizeType, crate::types::SpriteSizeType)),
 }

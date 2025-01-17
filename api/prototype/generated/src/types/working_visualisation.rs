@@ -36,23 +36,40 @@ pub struct WorkingVisualisation {
     west_position: crate::types::Vector,
     west_secondary_draw_order: i8,
 }
+#[derive(serde::Deserialize)]
 pub enum WorkingVisualisationApplyRecipeTint {
+    #[serde(rename = "primary")]
     Primary,
+    #[serde(rename = "secondary")]
     Secondary,
+    #[serde(rename = "tertiary")]
     Tertiary,
+    #[serde(rename = "quaternary")]
     Quaternary,
+    #[serde(rename = "none")]
     None,
 }
+#[derive(serde::Deserialize)]
 pub enum WorkingVisualisationApplyTint {
+    #[serde(rename = "resource_color")]
     ResourceColor,
+    #[serde(rename = "input_fluid_base_color")]
     InputFluidBaseColor,
+    #[serde(rename = "input_fluid_flow_color")]
     InputFluidFlowColor,
+    #[serde(rename = "status")]
     Status,
+    #[serde(rename = "none")]
     None,
+    #[serde(rename = "visual_state_color")]
     VisualStateColor,
 }
+#[derive(serde::Deserialize)]
 pub enum WorkingVisualisationEffect {
+    #[serde(rename = "flicker")]
     Flicker,
+    #[serde(rename = "uranium_glow")]
     UraniumGlow,
+    #[serde(rename = "none")]
     None,
 }

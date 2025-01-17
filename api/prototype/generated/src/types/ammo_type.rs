@@ -9,8 +9,12 @@ pub struct AmmoType {
     target_filter: Vec<crate::types::EntityID>,
     target_type: AmmoTypeTargetType,
 }
+#[derive(serde::Deserialize)]
 pub enum AmmoTypeTargetType {
+    #[serde(rename = "entity")]
     Entity,
+    #[serde(rename = "position")]
     Position,
+    #[serde(rename = "direction")]
     Direction,
 }

@@ -22,11 +22,17 @@ pub struct LampPrototype {
     picture_on: crate::types::Sprite,
     signal_to_color_mapping: Vec<crate::types::SignalColorMapping>,
 }
+#[derive(serde::Deserialize)]
 pub enum LampPrototypeEnergySource {
+    #[serde(untagged)]
     ElectricEnergySource(Box<crate::types::ElectricEnergySource>),
+    #[serde(untagged)]
     VoidEnergySource(Box<crate::types::VoidEnergySource>),
 }
+#[derive(serde::Deserialize)]
 pub enum LampPrototypeGlowRenderMode {
+    #[serde(rename = "additive")]
     Additive,
+    #[serde(rename = "multiplicative")]
     Multiplicative,
 }

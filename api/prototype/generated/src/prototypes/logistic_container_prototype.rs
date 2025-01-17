@@ -10,10 +10,16 @@ pub struct LogisticContainerPrototype {
     trash_inventory_size: crate::types::ItemStackIndex,
     use_exact_mode: bool,
 }
+#[derive(serde::Deserialize)]
 pub enum LogisticContainerPrototypeLogisticMode {
+    #[serde(rename = "active_provider")]
     ActiveProvider,
+    #[serde(rename = "passive_provider")]
     PassiveProvider,
+    #[serde(rename = "requester")]
     Requester,
+    #[serde(rename = "storage")]
     Storage,
+    #[serde(rename = "buffer")]
     Buffer,
 }

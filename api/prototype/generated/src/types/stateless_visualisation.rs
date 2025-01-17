@@ -33,7 +33,10 @@ pub struct StatelessVisualisation {
     speed_z: crate::types::RangedValue,
     spread_progress_duration: f32,
 }
+#[derive(serde::Deserialize)]
 pub enum StatelessVisualisationNestedVisualisations {
+    #[serde(untagged)]
     StatelessVisualisation(Box<crate::types::StatelessVisualisation>),
+    #[serde(untagged)]
     VecStatelessVisualisation(Vec<crate::types::StatelessVisualisation>),
 }

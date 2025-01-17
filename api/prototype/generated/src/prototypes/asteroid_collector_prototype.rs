@@ -42,8 +42,11 @@ pub struct AsteroidCollectorPrototype {
     tether_size: f32,
     unpowered_arm_speed_scale: f32,
 }
+#[derive(serde::Deserialize)]
 pub enum AsteroidCollectorPrototypeEnergySource {
+    #[serde(untagged)]
     ElectricEnergySource(Box<crate::types::ElectricEnergySource>),
+    #[serde(untagged)]
     VoidEnergySource(Box<crate::types::VoidEnergySource>),
 }
 pub struct AsteroidCollectorGraphicsSet {

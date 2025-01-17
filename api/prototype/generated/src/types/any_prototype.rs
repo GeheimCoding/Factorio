@@ -1,285 +1,541 @@
+#[derive(serde::Deserialize)]
 pub enum AnyPrototype {
+    #[serde(untagged)]
     AccumulatorPrototype(Box<crate::prototypes::AccumulatorPrototype>),
+    #[serde(untagged)]
     AchievementPrototype(Box<crate::prototypes::AchievementPrototype>),
+    #[serde(untagged)]
     ActiveDefenseEquipmentPrototype(Box<crate::prototypes::ActiveDefenseEquipmentPrototype>),
+    #[serde(untagged)]
     AgriculturalTowerPrototype(Box<crate::prototypes::AgriculturalTowerPrototype>),
+    #[serde(untagged)]
     AirbornePollutantPrototype(Box<crate::prototypes::AirbornePollutantPrototype>),
+    #[serde(untagged)]
     AmbientSound(Box<crate::prototypes::AmbientSound>),
+    #[serde(untagged)]
     AmmoCategory(Box<crate::prototypes::AmmoCategory>),
+    #[serde(untagged)]
     AmmoItemPrototype(Box<crate::prototypes::AmmoItemPrototype>),
+    #[serde(untagged)]
     AmmoTurretPrototype(Box<crate::prototypes::AmmoTurretPrototype>),
+    #[serde(untagged)]
     AnimationPrototype(Box<crate::prototypes::AnimationPrototype>),
+    #[serde(untagged)]
     ArithmeticCombinatorPrototype(Box<crate::prototypes::ArithmeticCombinatorPrototype>),
+    #[serde(untagged)]
     ArmorPrototype(Box<crate::prototypes::ArmorPrototype>),
+    #[serde(untagged)]
     ArrowPrototype(Box<crate::prototypes::ArrowPrototype>),
+    #[serde(untagged)]
     ArtilleryFlarePrototype(Box<crate::prototypes::ArtilleryFlarePrototype>),
+    #[serde(untagged)]
     ArtilleryProjectilePrototype(Box<crate::prototypes::ArtilleryProjectilePrototype>),
+    #[serde(untagged)]
     ArtilleryTurretPrototype(Box<crate::prototypes::ArtilleryTurretPrototype>),
+    #[serde(untagged)]
     ArtilleryWagonPrototype(Box<crate::prototypes::ArtilleryWagonPrototype>),
+    #[serde(untagged)]
     AssemblingMachinePrototype(Box<crate::prototypes::AssemblingMachinePrototype>),
+    #[serde(untagged)]
     AsteroidChunkPrototype(Box<crate::prototypes::AsteroidChunkPrototype>),
+    #[serde(untagged)]
     AsteroidCollectorPrototype(Box<crate::prototypes::AsteroidCollectorPrototype>),
+    #[serde(untagged)]
     AsteroidPrototype(Box<crate::prototypes::AsteroidPrototype>),
+    #[serde(untagged)]
     AutoplaceControl(Box<crate::prototypes::AutoplaceControl>),
+    #[serde(untagged)]
     BatteryEquipmentPrototype(Box<crate::prototypes::BatteryEquipmentPrototype>),
+    #[serde(untagged)]
     BeaconPrototype(Box<crate::prototypes::BeaconPrototype>),
+    #[serde(untagged)]
     BeamPrototype(Box<crate::prototypes::BeamPrototype>),
+    #[serde(untagged)]
     BeltImmunityEquipmentPrototype(Box<crate::prototypes::BeltImmunityEquipmentPrototype>),
+    #[serde(untagged)]
     BlueprintBookPrototype(Box<crate::prototypes::BlueprintBookPrototype>),
+    #[serde(untagged)]
     BlueprintItemPrototype(Box<crate::prototypes::BlueprintItemPrototype>),
+    #[serde(untagged)]
     BoilerPrototype(Box<crate::prototypes::BoilerPrototype>),
+    #[serde(untagged)]
     BuildEntityAchievementPrototype(Box<crate::prototypes::BuildEntityAchievementPrototype>),
+    #[serde(untagged)]
     BurnerGeneratorPrototype(Box<crate::prototypes::BurnerGeneratorPrototype>),
+    #[serde(untagged)]
     BurnerUsagePrototype(Box<crate::prototypes::BurnerUsagePrototype>),
+    #[serde(untagged)]
     CapsulePrototype(Box<crate::prototypes::CapsulePrototype>),
+    #[serde(untagged)]
     CaptureRobotPrototype(Box<crate::prototypes::CaptureRobotPrototype>),
+    #[serde(untagged)]
     CarPrototype(Box<crate::prototypes::CarPrototype>),
+    #[serde(untagged)]
     CargoBayPrototype(Box<crate::prototypes::CargoBayPrototype>),
+    #[serde(untagged)]
     CargoLandingPadPrototype(Box<crate::prototypes::CargoLandingPadPrototype>),
+    #[serde(untagged)]
     CargoPodPrototype(Box<crate::prototypes::CargoPodPrototype>),
+    #[serde(untagged)]
     CargoWagonPrototype(Box<crate::prototypes::CargoWagonPrototype>),
+    #[serde(untagged)]
     ChainActiveTriggerPrototype(Box<crate::prototypes::ChainActiveTriggerPrototype>),
+    #[serde(untagged)]
     ChangedSurfaceAchievementPrototype(Box<crate::prototypes::ChangedSurfaceAchievementPrototype>),
+    #[serde(untagged)]
     CharacterCorpsePrototype(Box<crate::prototypes::CharacterCorpsePrototype>),
+    #[serde(untagged)]
     CharacterPrototype(Box<crate::prototypes::CharacterPrototype>),
+    #[serde(untagged)]
     CliffPrototype(Box<crate::prototypes::CliffPrototype>),
+    #[serde(untagged)]
     CollisionLayerPrototype(Box<crate::prototypes::CollisionLayerPrototype>),
+    #[serde(untagged)]
     CombatRobotCountAchievementPrototype(
         Box<crate::prototypes::CombatRobotCountAchievementPrototype>,
     ),
+    #[serde(untagged)]
     CombatRobotPrototype(Box<crate::prototypes::CombatRobotPrototype>),
+    #[serde(untagged)]
     CompleteObjectiveAchievementPrototype(
         Box<crate::prototypes::CompleteObjectiveAchievementPrototype>,
     ),
+    #[serde(untagged)]
     ConstantCombinatorPrototype(Box<crate::prototypes::ConstantCombinatorPrototype>),
+    #[serde(untagged)]
     ConstructWithRobotsAchievementPrototype(
         Box<crate::prototypes::ConstructWithRobotsAchievementPrototype>,
     ),
+    #[serde(untagged)]
     ConstructionRobotPrototype(Box<crate::prototypes::ConstructionRobotPrototype>),
+    #[serde(untagged)]
     ContainerPrototype(Box<crate::prototypes::ContainerPrototype>),
+    #[serde(untagged)]
     CopyPasteToolPrototype(Box<crate::prototypes::CopyPasteToolPrototype>),
+    #[serde(untagged)]
     CorpsePrototype(Box<crate::prototypes::CorpsePrototype>),
+    #[serde(untagged)]
     CreatePlatformAchievementPrototype(Box<crate::prototypes::CreatePlatformAchievementPrototype>),
+    #[serde(untagged)]
     CurvedRailAPrototype(Box<crate::prototypes::CurvedRailAPrototype>),
+    #[serde(untagged)]
     CurvedRailBPrototype(Box<crate::prototypes::CurvedRailBPrototype>),
+    #[serde(untagged)]
     CustomEventPrototype(Box<crate::prototypes::CustomEventPrototype>),
+    #[serde(untagged)]
     CustomInputPrototype(Box<crate::prototypes::CustomInputPrototype>),
+    #[serde(untagged)]
     DamageType(Box<crate::prototypes::DamageType>),
+    #[serde(untagged)]
     DeciderCombinatorPrototype(Box<crate::prototypes::DeciderCombinatorPrototype>),
+    #[serde(untagged)]
     DeconstructWithRobotsAchievementPrototype(
         Box<crate::prototypes::DeconstructWithRobotsAchievementPrototype>,
     ),
+    #[serde(untagged)]
     DeconstructibleTileProxyPrototype(Box<crate::prototypes::DeconstructibleTileProxyPrototype>),
+    #[serde(untagged)]
     DeconstructionItemPrototype(Box<crate::prototypes::DeconstructionItemPrototype>),
+    #[serde(untagged)]
     DecorativePrototype(Box<crate::prototypes::DecorativePrototype>),
+    #[serde(untagged)]
     DelayedActiveTriggerPrototype(Box<crate::prototypes::DelayedActiveTriggerPrototype>),
+    #[serde(untagged)]
     DeliverByRobotsAchievementPrototype(
         Box<crate::prototypes::DeliverByRobotsAchievementPrototype>,
     ),
+    #[serde(untagged)]
     DeliverCategory(Box<crate::prototypes::DeliverCategory>),
+    #[serde(untagged)]
     DeliverImpactCombination(Box<crate::prototypes::DeliverImpactCombination>),
+    #[serde(untagged)]
     DepleteResourceAchievementPrototype(
         Box<crate::prototypes::DepleteResourceAchievementPrototype>,
     ),
+    #[serde(untagged)]
     DestroyCliffAchievementPrototype(Box<crate::prototypes::DestroyCliffAchievementPrototype>),
+    #[serde(untagged)]
     DisplayPanelPrototype(Box<crate::prototypes::DisplayPanelPrototype>),
+    #[serde(untagged)]
     DontBuildEntityAchievementPrototype(
         Box<crate::prototypes::DontBuildEntityAchievementPrototype>,
     ),
+    #[serde(untagged)]
     DontCraftManuallyAchievementPrototype(
         Box<crate::prototypes::DontCraftManuallyAchievementPrototype>,
     ),
+    #[serde(untagged)]
     DontKillManuallyAchievementPrototype(
         Box<crate::prototypes::DontKillManuallyAchievementPrototype>,
     ),
+    #[serde(untagged)]
     DontResearchBeforeResearchingAchievementPrototype(
         Box<crate::prototypes::DontResearchBeforeResearchingAchievementPrototype>,
     ),
+    #[serde(untagged)]
     DontUseEntityInEnergyProductionAchievementPrototype(
         Box<crate::prototypes::DontUseEntityInEnergyProductionAchievementPrototype>,
     ),
+    #[serde(untagged)]
     EditorControllerPrototype(Box<crate::prototypes::EditorControllerPrototype>),
+    #[serde(untagged)]
     ElectricEnergyInterfacePrototype(Box<crate::prototypes::ElectricEnergyInterfacePrototype>),
+    #[serde(untagged)]
     ElectricPolePrototype(Box<crate::prototypes::ElectricPolePrototype>),
+    #[serde(untagged)]
     ElectricTurretPrototype(Box<crate::prototypes::ElectricTurretPrototype>),
+    #[serde(untagged)]
     ElevatedCurvedRailAPrototype(Box<crate::prototypes::ElevatedCurvedRailAPrototype>),
+    #[serde(untagged)]
     ElevatedCurvedRailBPrototype(Box<crate::prototypes::ElevatedCurvedRailBPrototype>),
+    #[serde(untagged)]
     ElevatedHalfDiagonalRailPrototype(Box<crate::prototypes::ElevatedHalfDiagonalRailPrototype>),
+    #[serde(untagged)]
     ElevatedStraightRailPrototype(Box<crate::prototypes::ElevatedStraightRailPrototype>),
+    #[serde(untagged)]
     EnemySpawnerPrototype(Box<crate::prototypes::EnemySpawnerPrototype>),
+    #[serde(untagged)]
     EnergyShieldEquipmentPrototype(Box<crate::prototypes::EnergyShieldEquipmentPrototype>),
+    #[serde(untagged)]
     EntityGhostPrototype(Box<crate::prototypes::EntityGhostPrototype>),
+    #[serde(untagged)]
     EquipArmorAchievementPrototype(Box<crate::prototypes::EquipArmorAchievementPrototype>),
+    #[serde(untagged)]
     EquipmentCategory(Box<crate::prototypes::EquipmentCategory>),
+    #[serde(untagged)]
     EquipmentGhostPrototype(Box<crate::prototypes::EquipmentGhostPrototype>),
+    #[serde(untagged)]
     EquipmentGridPrototype(Box<crate::prototypes::EquipmentGridPrototype>),
+    #[serde(untagged)]
     ExplosionPrototype(Box<crate::prototypes::ExplosionPrototype>),
+    #[serde(untagged)]
     FireFlamePrototype(Box<crate::prototypes::FireFlamePrototype>),
+    #[serde(untagged)]
     FishPrototype(Box<crate::prototypes::FishPrototype>),
+    #[serde(untagged)]
     FluidPrototype(Box<crate::prototypes::FluidPrototype>),
+    #[serde(untagged)]
     FluidStreamPrototype(Box<crate::prototypes::FluidStreamPrototype>),
+    #[serde(untagged)]
     FluidTurretPrototype(Box<crate::prototypes::FluidTurretPrototype>),
+    #[serde(untagged)]
     FluidWagonPrototype(Box<crate::prototypes::FluidWagonPrototype>),
+    #[serde(untagged)]
     FontPrototype(Box<crate::prototypes::FontPrototype>),
+    #[serde(untagged)]
     FuelCategory(Box<crate::prototypes::FuelCategory>),
+    #[serde(untagged)]
     FurnacePrototype(Box<crate::prototypes::FurnacePrototype>),
+    #[serde(untagged)]
     FusionGeneratorPrototype(Box<crate::prototypes::FusionGeneratorPrototype>),
+    #[serde(untagged)]
     FusionReactorPrototype(Box<crate::prototypes::FusionReactorPrototype>),
+    #[serde(untagged)]
     GatePrototype(Box<crate::prototypes::GatePrototype>),
+    #[serde(untagged)]
     GeneratorEquipmentPrototype(Box<crate::prototypes::GeneratorEquipmentPrototype>),
+    #[serde(untagged)]
     GeneratorPrototype(Box<crate::prototypes::GeneratorPrototype>),
+    #[serde(untagged)]
     GodControllerPrototype(Box<crate::prototypes::GodControllerPrototype>),
+    #[serde(untagged)]
     GroupAttackAchievementPrototype(Box<crate::prototypes::GroupAttackAchievementPrototype>),
+    #[serde(untagged)]
     GuiStyle(Box<crate::prototypes::GuiStyle>),
+    #[serde(untagged)]
     GunPrototype(Box<crate::prototypes::GunPrototype>),
+    #[serde(untagged)]
     HalfDiagonalRailPrototype(Box<crate::prototypes::HalfDiagonalRailPrototype>),
+    #[serde(untagged)]
     HeatInterfacePrototype(Box<crate::prototypes::HeatInterfacePrototype>),
+    #[serde(untagged)]
     HeatPipePrototype(Box<crate::prototypes::HeatPipePrototype>),
+    #[serde(untagged)]
     HighlightBoxEntityPrototype(Box<crate::prototypes::HighlightBoxEntityPrototype>),
+    #[serde(untagged)]
     ImpactCategory(Box<crate::prototypes::ImpactCategory>),
+    #[serde(untagged)]
     InfinityContainerPrototype(Box<crate::prototypes::InfinityContainerPrototype>),
+    #[serde(untagged)]
     InfinityPipePrototype(Box<crate::prototypes::InfinityPipePrototype>),
+    #[serde(untagged)]
     InserterPrototype(Box<crate::prototypes::InserterPrototype>),
+    #[serde(untagged)]
     InventoryBonusEquipmentPrototype(Box<crate::prototypes::InventoryBonusEquipmentPrototype>),
+    #[serde(untagged)]
     ItemEntityPrototype(Box<crate::prototypes::ItemEntityPrototype>),
+    #[serde(untagged)]
     ItemGroup(Box<crate::prototypes::ItemGroup>),
+    #[serde(untagged)]
     ItemPrototype(Box<crate::prototypes::ItemPrototype>),
+    #[serde(untagged)]
     ItemRequestProxyPrototype(Box<crate::prototypes::ItemRequestProxyPrototype>),
+    #[serde(untagged)]
     ItemSubGroup(Box<crate::prototypes::ItemSubGroup>),
+    #[serde(untagged)]
     ItemWithEntityDataPrototype(Box<crate::prototypes::ItemWithEntityDataPrototype>),
+    #[serde(untagged)]
     ItemWithInventoryPrototype(Box<crate::prototypes::ItemWithInventoryPrototype>),
+    #[serde(untagged)]
     ItemWithLabelPrototype(Box<crate::prototypes::ItemWithLabelPrototype>),
+    #[serde(untagged)]
     ItemWithTagsPrototype(Box<crate::prototypes::ItemWithTagsPrototype>),
+    #[serde(untagged)]
     KillAchievementPrototype(Box<crate::prototypes::KillAchievementPrototype>),
+    #[serde(untagged)]
     LabPrototype(Box<crate::prototypes::LabPrototype>),
+    #[serde(untagged)]
     LampPrototype(Box<crate::prototypes::LampPrototype>),
+    #[serde(untagged)]
     LandMinePrototype(Box<crate::prototypes::LandMinePrototype>),
+    #[serde(untagged)]
     LaneSplitterPrototype(Box<crate::prototypes::LaneSplitterPrototype>),
+    #[serde(untagged)]
     LegacyCurvedRailPrototype(Box<crate::prototypes::LegacyCurvedRailPrototype>),
+    #[serde(untagged)]
     LegacyStraightRailPrototype(Box<crate::prototypes::LegacyStraightRailPrototype>),
+    #[serde(untagged)]
     LightningAttractorPrototype(Box<crate::prototypes::LightningAttractorPrototype>),
+    #[serde(untagged)]
     LightningPrototype(Box<crate::prototypes::LightningPrototype>),
+    #[serde(untagged)]
     LinkedBeltPrototype(Box<crate::prototypes::LinkedBeltPrototype>),
+    #[serde(untagged)]
     LinkedContainerPrototype(Box<crate::prototypes::LinkedContainerPrototype>),
+    #[serde(untagged)]
     Loader1x1Prototype(Box<crate::prototypes::Loader1x1Prototype>),
+    #[serde(untagged)]
     Loader1x2Prototype(Box<crate::prototypes::Loader1x2Prototype>),
+    #[serde(untagged)]
     LocomotivePrototype(Box<crate::prototypes::LocomotivePrototype>),
+    #[serde(untagged)]
     LogisticContainerPrototype(Box<crate::prototypes::LogisticContainerPrototype>),
+    #[serde(untagged)]
     LogisticRobotPrototype(Box<crate::prototypes::LogisticRobotPrototype>),
+    #[serde(untagged)]
     MapGenPresets(Box<crate::prototypes::MapGenPresets>),
+    #[serde(untagged)]
     MapSettings(Box<crate::prototypes::MapSettings>),
+    #[serde(untagged)]
     MarketPrototype(Box<crate::prototypes::MarketPrototype>),
+    #[serde(untagged)]
     MiningDrillPrototype(Box<crate::prototypes::MiningDrillPrototype>),
+    #[serde(untagged)]
     ModuleCategory(Box<crate::prototypes::ModuleCategory>),
+    #[serde(untagged)]
     ModulePrototype(Box<crate::prototypes::ModulePrototype>),
+    #[serde(untagged)]
     ModuleTransferAchievementPrototype(Box<crate::prototypes::ModuleTransferAchievementPrototype>),
+    #[serde(untagged)]
     MouseCursor(Box<crate::prototypes::MouseCursor>),
+    #[serde(untagged)]
     MovementBonusEquipmentPrototype(Box<crate::prototypes::MovementBonusEquipmentPrototype>),
+    #[serde(untagged)]
     NamedNoiseExpression(Box<crate::prototypes::NamedNoiseExpression>),
+    #[serde(untagged)]
     NamedNoiseFunction(Box<crate::prototypes::NamedNoiseFunction>),
+    #[serde(untagged)]
     NightVisionEquipmentPrototype(Box<crate::prototypes::NightVisionEquipmentPrototype>),
+    #[serde(untagged)]
     OffshorePumpPrototype(Box<crate::prototypes::OffshorePumpPrototype>),
+    #[serde(untagged)]
     ParticlePrototype(Box<crate::prototypes::ParticlePrototype>),
+    #[serde(untagged)]
     ParticleSourcePrototype(Box<crate::prototypes::ParticleSourcePrototype>),
+    #[serde(untagged)]
     PipePrototype(Box<crate::prototypes::PipePrototype>),
+    #[serde(untagged)]
     PipeToGroundPrototype(Box<crate::prototypes::PipeToGroundPrototype>),
+    #[serde(untagged)]
     PlaceEquipmentAchievementPrototype(Box<crate::prototypes::PlaceEquipmentAchievementPrototype>),
+    #[serde(untagged)]
     PlanetPrototype(Box<crate::prototypes::PlanetPrototype>),
+    #[serde(untagged)]
     PlantPrototype(Box<crate::prototypes::PlantPrototype>),
+    #[serde(untagged)]
     PlayerDamagedAchievementPrototype(Box<crate::prototypes::PlayerDamagedAchievementPrototype>),
+    #[serde(untagged)]
     PlayerPortPrototype(Box<crate::prototypes::PlayerPortPrototype>),
+    #[serde(untagged)]
     PowerSwitchPrototype(Box<crate::prototypes::PowerSwitchPrototype>),
+    #[serde(untagged)]
     ProcessionLayerInheritanceGroup(Box<crate::prototypes::ProcessionLayerInheritanceGroup>),
+    #[serde(untagged)]
     ProcessionPrototype(Box<crate::prototypes::ProcessionPrototype>),
+    #[serde(untagged)]
     ProduceAchievementPrototype(Box<crate::prototypes::ProduceAchievementPrototype>),
+    #[serde(untagged)]
     ProducePerHourAchievementPrototype(Box<crate::prototypes::ProducePerHourAchievementPrototype>),
+    #[serde(untagged)]
     ProgrammableSpeakerPrototype(Box<crate::prototypes::ProgrammableSpeakerPrototype>),
+    #[serde(untagged)]
     ProjectilePrototype(Box<crate::prototypes::ProjectilePrototype>),
+    #[serde(untagged)]
     PumpPrototype(Box<crate::prototypes::PumpPrototype>),
+    #[serde(untagged)]
     QualityPrototype(Box<crate::prototypes::QualityPrototype>),
+    #[serde(untagged)]
     RadarPrototype(Box<crate::prototypes::RadarPrototype>),
+    #[serde(untagged)]
     RailChainSignalPrototype(Box<crate::prototypes::RailChainSignalPrototype>),
+    #[serde(untagged)]
     RailPlannerPrototype(Box<crate::prototypes::RailPlannerPrototype>),
+    #[serde(untagged)]
     RailRampPrototype(Box<crate::prototypes::RailRampPrototype>),
+    #[serde(untagged)]
     RailRemnantsPrototype(Box<crate::prototypes::RailRemnantsPrototype>),
+    #[serde(untagged)]
     RailSignalPrototype(Box<crate::prototypes::RailSignalPrototype>),
+    #[serde(untagged)]
     RailSupportPrototype(Box<crate::prototypes::RailSupportPrototype>),
+    #[serde(untagged)]
     ReactorPrototype(Box<crate::prototypes::ReactorPrototype>),
+    #[serde(untagged)]
     RecipeCategory(Box<crate::prototypes::RecipeCategory>),
+    #[serde(untagged)]
     RecipePrototype(Box<crate::prototypes::RecipePrototype>),
+    #[serde(untagged)]
     RemoteControllerPrototype(Box<crate::prototypes::RemoteControllerPrototype>),
+    #[serde(untagged)]
     RepairToolPrototype(Box<crate::prototypes::RepairToolPrototype>),
+    #[serde(untagged)]
     ResearchAchievementPrototype(Box<crate::prototypes::ResearchAchievementPrototype>),
+    #[serde(untagged)]
     ResearchWithSciencePackAchievementPrototype(
         Box<crate::prototypes::ResearchWithSciencePackAchievementPrototype>,
     ),
+    #[serde(untagged)]
     ResourceCategory(Box<crate::prototypes::ResourceCategory>),
+    #[serde(untagged)]
     ResourceEntityPrototype(Box<crate::prototypes::ResourceEntityPrototype>),
+    #[serde(untagged)]
     RoboportEquipmentPrototype(Box<crate::prototypes::RoboportEquipmentPrototype>),
+    #[serde(untagged)]
     RoboportPrototype(Box<crate::prototypes::RoboportPrototype>),
+    #[serde(untagged)]
     RocketSiloPrototype(Box<crate::prototypes::RocketSiloPrototype>),
+    #[serde(untagged)]
     RocketSiloRocketPrototype(Box<crate::prototypes::RocketSiloRocketPrototype>),
+    #[serde(untagged)]
     RocketSiloRocketShadowPrototype(Box<crate::prototypes::RocketSiloRocketShadowPrototype>),
+    #[serde(untagged)]
     SegmentPrototype(Box<crate::prototypes::SegmentPrototype>),
+    #[serde(untagged)]
     SegmentedUnitPrototype(Box<crate::prototypes::SegmentedUnitPrototype>),
+    #[serde(untagged)]
     SelectionToolPrototype(Box<crate::prototypes::SelectionToolPrototype>),
+    #[serde(untagged)]
     SelectorCombinatorPrototype(Box<crate::prototypes::SelectorCombinatorPrototype>),
+    #[serde(untagged)]
     ShootAchievementPrototype(Box<crate::prototypes::ShootAchievementPrototype>),
+    #[serde(untagged)]
     ShortcutPrototype(Box<crate::prototypes::ShortcutPrototype>),
+    #[serde(untagged)]
     SimpleEntityPrototype(Box<crate::prototypes::SimpleEntityPrototype>),
+    #[serde(untagged)]
     SimpleEntityWithForcePrototype(Box<crate::prototypes::SimpleEntityWithForcePrototype>),
+    #[serde(untagged)]
     SimpleEntityWithOwnerPrototype(Box<crate::prototypes::SimpleEntityWithOwnerPrototype>),
+    #[serde(untagged)]
     SmokeWithTriggerPrototype(Box<crate::prototypes::SmokeWithTriggerPrototype>),
+    #[serde(untagged)]
     SolarPanelEquipmentPrototype(Box<crate::prototypes::SolarPanelEquipmentPrototype>),
+    #[serde(untagged)]
     SolarPanelPrototype(Box<crate::prototypes::SolarPanelPrototype>),
+    #[serde(untagged)]
     SoundPrototype(Box<crate::prototypes::SoundPrototype>),
+    #[serde(untagged)]
     SpaceConnectionDistanceTraveledAchievementPrototype(
         Box<crate::prototypes::SpaceConnectionDistanceTraveledAchievementPrototype>,
     ),
+    #[serde(untagged)]
     SpaceConnectionPrototype(Box<crate::prototypes::SpaceConnectionPrototype>),
+    #[serde(untagged)]
     SpaceLocationPrototype(Box<crate::prototypes::SpaceLocationPrototype>),
+    #[serde(untagged)]
     SpacePlatformHubPrototype(Box<crate::prototypes::SpacePlatformHubPrototype>),
+    #[serde(untagged)]
     SpacePlatformStarterPackPrototype(Box<crate::prototypes::SpacePlatformStarterPackPrototype>),
+    #[serde(untagged)]
     SpectatorControllerPrototype(Box<crate::prototypes::SpectatorControllerPrototype>),
+    #[serde(untagged)]
     SpeechBubblePrototype(Box<crate::prototypes::SpeechBubblePrototype>),
+    #[serde(untagged)]
     SpiderLegPrototype(Box<crate::prototypes::SpiderLegPrototype>),
+    #[serde(untagged)]
     SpiderUnitPrototype(Box<crate::prototypes::SpiderUnitPrototype>),
+    #[serde(untagged)]
     SpiderVehiclePrototype(Box<crate::prototypes::SpiderVehiclePrototype>),
+    #[serde(untagged)]
     SpidertronRemotePrototype(Box<crate::prototypes::SpidertronRemotePrototype>),
+    #[serde(untagged)]
     SplitterPrototype(Box<crate::prototypes::SplitterPrototype>),
+    #[serde(untagged)]
     SpritePrototype(Box<crate::prototypes::SpritePrototype>),
+    #[serde(untagged)]
     StickerPrototype(Box<crate::prototypes::StickerPrototype>),
+    #[serde(untagged)]
     StorageTankPrototype(Box<crate::prototypes::StorageTankPrototype>),
+    #[serde(untagged)]
     StraightRailPrototype(Box<crate::prototypes::StraightRailPrototype>),
+    #[serde(untagged)]
     SurfacePropertyPrototype(Box<crate::prototypes::SurfacePropertyPrototype>),
+    #[serde(untagged)]
     SurfacePrototype(Box<crate::prototypes::SurfacePrototype>),
+    #[serde(untagged)]
     TechnologyPrototype(Box<crate::prototypes::TechnologyPrototype>),
+    #[serde(untagged)]
     TemporaryContainerPrototype(Box<crate::prototypes::TemporaryContainerPrototype>),
+    #[serde(untagged)]
     ThrusterPrototype(Box<crate::prototypes::ThrusterPrototype>),
+    #[serde(untagged)]
     TileEffectDefinition(Box<crate::prototypes::TileEffectDefinition>),
+    #[serde(untagged)]
     TileGhostPrototype(Box<crate::prototypes::TileGhostPrototype>),
+    #[serde(untagged)]
     TilePrototype(Box<crate::prototypes::TilePrototype>),
+    #[serde(untagged)]
     TipsAndTricksItem(Box<crate::prototypes::TipsAndTricksItem>),
+    #[serde(untagged)]
     TipsAndTricksItemCategory(Box<crate::prototypes::TipsAndTricksItemCategory>),
+    #[serde(untagged)]
     ToolPrototype(Box<crate::prototypes::ToolPrototype>),
+    #[serde(untagged)]
     TrainPathAchievementPrototype(Box<crate::prototypes::TrainPathAchievementPrototype>),
+    #[serde(untagged)]
     TrainStopPrototype(Box<crate::prototypes::TrainStopPrototype>),
+    #[serde(untagged)]
     TransportBeltPrototype(Box<crate::prototypes::TransportBeltPrototype>),
+    #[serde(untagged)]
     TreePrototype(Box<crate::prototypes::TreePrototype>),
+    #[serde(untagged)]
     TriggerTargetType(Box<crate::prototypes::TriggerTargetType>),
+    #[serde(untagged)]
     TrivialSmokePrototype(Box<crate::prototypes::TrivialSmokePrototype>),
+    #[serde(untagged)]
     TurretPrototype(Box<crate::prototypes::TurretPrototype>),
+    #[serde(untagged)]
     TutorialDefinition(Box<crate::prototypes::TutorialDefinition>),
+    #[serde(untagged)]
     UndergroundBeltPrototype(Box<crate::prototypes::UndergroundBeltPrototype>),
+    #[serde(untagged)]
     UnitPrototype(Box<crate::prototypes::UnitPrototype>),
+    #[serde(untagged)]
     UpgradeItemPrototype(Box<crate::prototypes::UpgradeItemPrototype>),
+    #[serde(untagged)]
     UseEntityInEnergyProductionAchievementPrototype(
         Box<crate::prototypes::UseEntityInEnergyProductionAchievementPrototype>,
     ),
+    #[serde(untagged)]
     UseItemAchievementPrototype(Box<crate::prototypes::UseItemAchievementPrototype>),
+    #[serde(untagged)]
     UtilityConstants(Box<crate::prototypes::UtilityConstants>),
+    #[serde(untagged)]
     UtilitySounds(Box<crate::prototypes::UtilitySounds>),
+    #[serde(untagged)]
     UtilitySprites(Box<crate::prototypes::UtilitySprites>),
+    #[serde(untagged)]
     VirtualSignalPrototype(Box<crate::prototypes::VirtualSignalPrototype>),
+    #[serde(untagged)]
     WallPrototype(Box<crate::prototypes::WallPrototype>),
 }

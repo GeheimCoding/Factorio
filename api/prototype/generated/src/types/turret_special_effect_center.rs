@@ -1,4 +1,6 @@
+#[derive(serde::Deserialize)]
 pub enum TurretSpecialEffectCenter {
+    #[serde(untagged)]
     TurretSpecialEffectCenter {
         default: crate::types::Vector,
         east: crate::types::Vector,
@@ -10,5 +12,6 @@ pub enum TurretSpecialEffectCenter {
         south_west: crate::types::Vector,
         west: crate::types::Vector,
     },
+    #[serde(untagged)]
     Vector(crate::types::Vector),
 }

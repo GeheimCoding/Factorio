@@ -23,7 +23,10 @@ pub struct CreateParticleTriggerEffectItem {
     tint: crate::types::Color,
     type_: String,
 }
+#[derive(serde::Deserialize)]
 pub enum CreateParticleTriggerEffectItemApplyTileTint {
+    #[serde(rename = "primary")]
     Primary,
+    #[serde(rename = "secondary")]
     Secondary,
 }

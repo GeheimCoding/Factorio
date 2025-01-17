@@ -85,7 +85,10 @@ pub struct TurretPrototype {
     turret_base_has_direction: bool,
     unfolds_before_dying: bool,
 }
+#[derive(serde::Deserialize)]
 pub enum TurretPrototypeFoldedStateCorpse {
+    #[serde(untagged)]
     EntityID(crate::types::EntityID),
+    #[serde(untagged)]
     VecEntityID(Vec<crate::types::EntityID>),
 }

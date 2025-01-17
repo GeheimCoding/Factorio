@@ -8,7 +8,10 @@ pub struct LocomotivePrototype {
     max_snap_to_train_stop_distance: f32,
     reversing_power_modifier: f64,
 }
+#[derive(serde::Deserialize)]
 pub enum LocomotivePrototypeEnergySource {
+    #[serde(untagged)]
     BurnerEnergySource(Box<crate::types::BurnerEnergySource>),
+    #[serde(untagged)]
     VoidEnergySource(Box<crate::types::VoidEnergySource>),
 }

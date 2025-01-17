@@ -5,7 +5,10 @@ pub struct PlumesSpecification {
     min_y_offset: f32,
     stateless_visualisations: PlumesSpecificationStatelessVisualisations,
 }
+#[derive(serde::Deserialize)]
 pub enum PlumesSpecificationStatelessVisualisations {
+    #[serde(untagged)]
     PlumeEffect(Box<crate::types::PlumeEffect>),
+    #[serde(untagged)]
     VecPlumeEffect(Vec<crate::types::PlumeEffect>),
 }

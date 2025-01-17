@@ -1,51 +1,101 @@
+#[derive(serde::Deserialize)]
 pub enum TipTrigger {
+    #[serde(untagged)]
     OrTipTrigger(Box<crate::types::OrTipTrigger>),
+    #[serde(untagged)]
     AndTipTrigger(Box<crate::types::AndTipTrigger>),
+    #[serde(untagged)]
     SequenceTipTrigger(Box<crate::types::SequenceTipTrigger>),
+    #[serde(untagged)]
     DependenciesMetTipTrigger(Box<crate::types::DependenciesMetTipTrigger>),
+    #[serde(untagged)]
     TimeElapsedTipTrigger(Box<crate::types::TimeElapsedTipTrigger>),
+    #[serde(untagged)]
     TimeSinceLastTipActivationTipTrigger(Box<crate::types::TimeSinceLastTipActivationTipTrigger>),
+    #[serde(untagged)]
     ResearchTechnologyTipTrigger(Box<crate::types::ResearchTechnologyTipTrigger>),
+    #[serde(untagged)]
     ResearchWithSciencePackTipTrigger(Box<crate::types::ResearchWithSciencePackTipTrigger>),
+    #[serde(untagged)]
     UnlockRecipeTipTrigger(Box<crate::types::UnlockRecipeTipTrigger>),
+    #[serde(untagged)]
     CraftItemTipTrigger(Box<crate::types::CraftItemTipTrigger>),
+    #[serde(untagged)]
     BuildEntityTipTrigger(Box<crate::types::BuildEntityTipTrigger>),
+    #[serde(untagged)]
     ManualTransferTipTrigger(Box<crate::types::ManualTransferTipTrigger>),
+    #[serde(untagged)]
     ModuleTransferTipTrigger(Box<crate::types::ModuleTransferTipTrigger>),
+    #[serde(untagged)]
     StackTransferTipTrigger(Box<crate::types::StackTransferTipTrigger>),
+    #[serde(untagged)]
     EntityTransferTipTrigger(Box<crate::types::EntityTransferTipTrigger>),
+    #[serde(untagged)]
     DropItemTipTrigger(Box<crate::types::DropItemTipTrigger>),
+    #[serde(untagged)]
     SetRecipeTipTrigger(Box<crate::types::SetRecipeTipTrigger>),
+    #[serde(untagged)]
     SetFilterTipTrigger(Box<crate::types::SetFilterTipTrigger>),
+    #[serde(untagged)]
     LimitChestTipTrigger(Box<crate::types::LimitChestTipTrigger>),
+    #[serde(untagged)]
     UsePipetteTipTrigger(Box<crate::types::UsePipetteTipTrigger>),
+    #[serde(untagged)]
     SetLogisticRequestTipTrigger(Box<crate::types::SetLogisticRequestTipTrigger>),
+    #[serde(untagged)]
     UseConfirmTipTrigger(Box<crate::types::UseConfirmTipTrigger>),
+    #[serde(untagged)]
     ToggleShowEntityInfoTipTrigger(Box<crate::types::ToggleShowEntityInfoTipTrigger>),
+    #[serde(untagged)]
     GeneratingPowerTipTrigger(Box<crate::types::GeneratingPowerTipTrigger>),
+    #[serde(untagged)]
     LowPowerTipTrigger(Box<crate::types::LowPowerTipTrigger>),
+    #[serde(untagged)]
     PasteEntitySettingsTipTrigger(Box<crate::types::PasteEntitySettingsTipTrigger>),
+    #[serde(untagged)]
     FastReplaceTipTrigger(Box<crate::types::FastReplaceTipTrigger>),
+    #[serde(untagged)]
     GroupAttackTipTrigger(Box<crate::types::GroupAttackTipTrigger>),
+    #[serde(untagged)]
     FastBeltBendTipTrigger(Box<crate::types::FastBeltBendTipTrigger>),
+    #[serde(untagged)]
     BeltTraverseTipTrigger(Box<crate::types::BeltTraverseTipTrigger>),
+    #[serde(untagged)]
     PlaceEquipmentTipTrigger(Box<crate::types::PlaceEquipmentTipTrigger>),
+    #[serde(untagged)]
     ClearCursorTipTrigger(Box<crate::types::ClearCursorTipTrigger>),
+    #[serde(untagged)]
     RotateEntityTipTrigger(Box<crate::types::RotateEntityTipTrigger>),
+    #[serde(untagged)]
     FlipEntityTipTrigger(Box<crate::types::FlipEntityTipTrigger>),
+    #[serde(untagged)]
     AlternativeBuildTipTrigger(Box<crate::types::AlternativeBuildTipTrigger>),
+    #[serde(untagged)]
     GateOverRailBuildTipTrigger(Box<crate::types::GateOverRailBuildTipTrigger>),
+    #[serde(untagged)]
     ManualWireDragTipTrigger(Box<crate::types::ManualWireDragTipTrigger>),
+    #[serde(untagged)]
     ShootTipTrigger(Box<crate::types::ShootTipTrigger>),
+    #[serde(untagged)]
     ChangeSurfaceTipTrigger(Box<crate::types::ChangeSurfaceTipTrigger>),
+    #[serde(untagged)]
     ApplyStarterPackTipTrigger(Box<crate::types::ApplyStarterPackTipTrigger>),
+    #[serde(untagged)]
     MineItemByRobotTipTrigger(Box<crate::types::MineItemByRobotTipTrigger>),
+    #[serde(untagged)]
     BuildEntityByRobotTipTrigger(Box<crate::types::BuildEntityByRobotTipTrigger>),
+    #[serde(untagged)]
     PlanTrainPathTipTrigger(Box<crate::types::PlanTrainPathTipTrigger>),
+    #[serde(untagged)]
     UseRailPlannerTipTrigger(Box<crate::types::UseRailPlannerTipTrigger>),
+    #[serde(untagged)]
     ToggleRailLayerTipTrigger(Box<crate::types::ToggleRailLayerTipTrigger>),
+    #[serde(untagged)]
     EnterVehicleTipTrigger(Box<crate::types::EnterVehicleTipTrigger>),
+    #[serde(untagged)]
     SendSpidertronTipTrigger(Box<crate::types::SendSpidertronTipTrigger>),
+    #[serde(untagged)]
     ActivatePasteTipTrigger(Box<crate::types::ActivatePasteTipTrigger>),
+    #[serde(untagged)]
     KillTipTrigger(Box<crate::types::KillTipTrigger>),
 }

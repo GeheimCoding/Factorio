@@ -6,8 +6,12 @@ pub struct ManualWireDragTipTrigger {
     type_: String,
     wire_type: ManualWireDragTipTriggerWireType,
 }
+#[derive(serde::Deserialize)]
 pub enum ManualWireDragTipTriggerWireType {
+    #[serde(rename = "red")]
     Red,
+    #[serde(rename = "green")]
     Green,
+    #[serde(rename = "copper")]
     Copper,
 }

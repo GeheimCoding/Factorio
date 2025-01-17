@@ -16,7 +16,10 @@ pub struct VehiclePrototype {
     terrain_friction_modifier: f32,
     weight: f64,
 }
+#[derive(serde::Deserialize)]
 pub enum VehiclePrototypeBrakingPower {
+    #[serde(untagged)]
     Energy(crate::types::Energy),
+    #[serde(untagged)]
     F64(f64),
 }

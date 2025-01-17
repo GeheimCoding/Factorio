@@ -13,8 +13,12 @@ pub struct ElectricEnergyInterfacePrototype {
     pictures: crate::types::Sprite4Way,
     render_layer: crate::types::RenderLayer,
 }
+#[derive(serde::Deserialize)]
 pub enum ElectricEnergyInterfacePrototypeGuiMode {
+    #[serde(rename = "all")]
     All,
+    #[serde(rename = "none")]
     None,
+    #[serde(rename = "admins")]
     Admins,
 }

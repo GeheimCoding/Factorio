@@ -8,7 +8,10 @@ pub struct ItemWithInventoryPrototype {
     item_subgroup_filters: Vec<crate::types::ItemSubGroupID>,
     stack_size: String,
 }
+#[derive(serde::Deserialize)]
 pub enum ItemWithInventoryPrototypeFilterMode {
+    #[serde(rename = "blacklist")]
     Blacklist,
+    #[serde(rename = "whitelist")]
     Whitelist,
 }

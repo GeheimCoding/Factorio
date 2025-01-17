@@ -1,33 +1,65 @@
+#[derive(serde::Deserialize)]
 pub enum StyleSpecification {
+    #[serde(untagged)]
     ActivityBarStyleSpecification(Box<crate::types::ActivityBarStyleSpecification>),
+    #[serde(untagged)]
     ButtonStyleSpecification(Box<crate::types::ButtonStyleSpecification>),
+    #[serde(untagged)]
     CameraStyleSpecification(Box<crate::types::CameraStyleSpecification>),
+    #[serde(untagged)]
     CheckBoxStyleSpecification(Box<crate::types::CheckBoxStyleSpecification>),
+    #[serde(untagged)]
     DropDownStyleSpecification(Box<crate::types::DropDownStyleSpecification>),
+    #[serde(untagged)]
     FlowStyleSpecification(Box<crate::types::FlowStyleSpecification>),
+    #[serde(untagged)]
     FrameStyleSpecification(Box<crate::types::FrameStyleSpecification>),
+    #[serde(untagged)]
     GraphStyleSpecification(Box<crate::types::GraphStyleSpecification>),
+    #[serde(untagged)]
     HorizontalFlowStyleSpecification(Box<crate::types::HorizontalFlowStyleSpecification>),
+    #[serde(untagged)]
     LineStyleSpecification(Box<crate::types::LineStyleSpecification>),
+    #[serde(untagged)]
     ImageStyleSpecification(Box<crate::types::ImageStyleSpecification>),
+    #[serde(untagged)]
     LabelStyleSpecification(Box<crate::types::LabelStyleSpecification>),
+    #[serde(untagged)]
     ListBoxStyleSpecification(Box<crate::types::ListBoxStyleSpecification>),
+    #[serde(untagged)]
     ProgressBarStyleSpecification(Box<crate::types::ProgressBarStyleSpecification>),
+    #[serde(untagged)]
     RadioButtonStyleSpecification(Box<crate::types::RadioButtonStyleSpecification>),
+    #[serde(untagged)]
     HorizontalScrollBarStyleSpecification(Box<crate::types::HorizontalScrollBarStyleSpecification>),
+    #[serde(untagged)]
     VerticalScrollBarStyleSpecification(Box<crate::types::VerticalScrollBarStyleSpecification>),
+    #[serde(untagged)]
     ScrollPaneStyleSpecification(Box<crate::types::ScrollPaneStyleSpecification>),
+    #[serde(untagged)]
     SliderStyleSpecification(Box<crate::types::SliderStyleSpecification>),
+    #[serde(untagged)]
     SwitchStyleSpecification(Box<crate::types::SwitchStyleSpecification>),
+    #[serde(untagged)]
     TableStyleSpecification(Box<crate::types::TableStyleSpecification>),
+    #[serde(untagged)]
     TabStyleSpecification(Box<crate::types::TabStyleSpecification>),
+    #[serde(untagged)]
     TextBoxStyleSpecification(Box<crate::types::TextBoxStyleSpecification>),
+    #[serde(untagged)]
     VerticalFlowStyleSpecification(Box<crate::types::VerticalFlowStyleSpecification>),
+    #[serde(untagged)]
     TabbedPaneStyleSpecification(Box<crate::types::TabbedPaneStyleSpecification>),
+    #[serde(untagged)]
     EmptyWidgetStyleSpecification(Box<crate::types::EmptyWidgetStyleSpecification>),
+    #[serde(untagged)]
     MinimapStyleSpecification(Box<crate::types::MinimapStyleSpecification>),
+    #[serde(untagged)]
     TechnologySlotStyleSpecification(Box<crate::types::TechnologySlotStyleSpecification>),
+    #[serde(untagged)]
     GlowStyleSpecification(Box<crate::types::GlowStyleSpecification>),
+    #[serde(untagged)]
     SpeechBubbleStyleSpecification(Box<crate::types::SpeechBubbleStyleSpecification>),
+    #[serde(untagged)]
     DoubleSliderStyleSpecification(Box<crate::types::DoubleSliderStyleSpecification>),
 }

@@ -4,7 +4,10 @@ pub struct BlueprintBookPrototype {
     inventory_size: BlueprintBookPrototypeInventorySize,
     stack_size: String,
 }
+#[derive(serde::Deserialize)]
 pub enum BlueprintBookPrototypeInventorySize {
-    ItemStackIndex(crate::types::ItemStackIndex),
+    #[serde(rename = "dynamic")]
     Dynamic,
+    #[serde(untagged)]
+    ItemStackIndex(crate::types::ItemStackIndex),
 }

@@ -1,4 +1,6 @@
+#[derive(serde::Deserialize)]
 pub enum Sound {
+    #[serde(untagged)]
     Sound {
         advanced_volume_control: crate::types::AdvancedVolumeControl,
         aggregation: crate::types::AggregationSpecification,
@@ -19,13 +21,20 @@ pub enum Sound {
         variations: SoundVariations,
         volume: f32,
     },
+    #[serde(untagged)]
     VecSoundDefinition(Vec<crate::types::SoundDefinition>),
 }
+#[derive(serde::Deserialize)]
 pub enum SoundModifiers {
+    #[serde(untagged)]
     SoundModifier(Box<crate::types::SoundModifier>),
+    #[serde(untagged)]
     VecSoundModifier(Vec<crate::types::SoundModifier>),
 }
+#[derive(serde::Deserialize)]
 pub enum SoundVariations {
+    #[serde(untagged)]
     SoundDefinition(crate::types::SoundDefinition),
+    #[serde(untagged)]
     VecSoundDefinition(Vec<crate::types::SoundDefinition>),
 }

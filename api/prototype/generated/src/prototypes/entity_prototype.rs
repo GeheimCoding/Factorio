@@ -60,20 +60,33 @@ pub struct EntityPrototype {
     water_reflection: crate::types::WaterReflectionDefinition,
     working_sound: crate::types::WorkingSound,
 }
+#[derive(serde::Deserialize)]
 pub enum EntityPrototypeAmbientSounds {
+    #[serde(untagged)]
     WorldAmbientSoundDefinition(crate::types::WorldAmbientSoundDefinition),
+    #[serde(untagged)]
     VecWorldAmbientSoundDefinition(Vec<crate::types::WorldAmbientSoundDefinition>),
 }
+#[derive(serde::Deserialize)]
 pub enum EntityPrototypePlaceableBy {
+    #[serde(untagged)]
     ItemToPlace(Box<crate::types::ItemToPlace>),
+    #[serde(untagged)]
     VecItemToPlace(Vec<crate::types::ItemToPlace>),
 }
+#[derive(serde::Deserialize)]
 pub enum EntityPrototypeRemainsWhenMined {
+    #[serde(untagged)]
     EntityID(crate::types::EntityID),
+    #[serde(untagged)]
     VecEntityID(Vec<crate::types::EntityID>),
 }
+#[derive(serde::Deserialize)]
 pub enum EntityPrototypeRemoveDecoratives {
+    #[serde(rename = "automatic")]
     Automatic,
+    #[serde(rename = "true")]
     True,
+    #[serde(rename = "false")]
     False,
 }

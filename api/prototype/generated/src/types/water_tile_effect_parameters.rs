@@ -17,19 +17,31 @@ pub struct WaterTileEffectParameters {
     textures: Vec<crate::types::EffectTexture>,
     tick_scale: f32,
 }
+#[derive(serde::Deserialize)]
 pub enum WaterTileEffectParametersAnimationScale {
+    #[serde(untagged)]
     F32(f32),
+    #[serde(untagged)]
     F32F32((f32, f32)),
 }
+#[derive(serde::Deserialize)]
 pub enum WaterTileEffectParametersDarkThreshold {
+    #[serde(untagged)]
     F32(f32),
+    #[serde(untagged)]
     F32F32((f32, f32)),
 }
+#[derive(serde::Deserialize)]
 pub enum WaterTileEffectParametersReflectionThreshold {
+    #[serde(untagged)]
     F32(f32),
+    #[serde(untagged)]
     F32F32((f32, f32)),
 }
+#[derive(serde::Deserialize)]
 pub enum WaterTileEffectParametersSpecularThreshold {
+    #[serde(untagged)]
     F32(f32),
+    #[serde(untagged)]
     F32F32((f32, f32)),
 }

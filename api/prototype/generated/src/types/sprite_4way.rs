@@ -1,4 +1,6 @@
+#[derive(serde::Deserialize)]
 pub enum Sprite4Way {
+    #[serde(untagged)]
     Sprite4Way {
         east: crate::types::Sprite,
         north: crate::types::Sprite,
@@ -7,5 +9,6 @@ pub enum Sprite4Way {
         south: crate::types::Sprite,
         west: crate::types::Sprite,
     },
+    #[serde(untagged)]
     Sprite(Box<crate::types::Sprite>),
 }

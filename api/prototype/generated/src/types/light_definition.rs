@@ -1,5 +1,8 @@
+#[derive(serde::Deserialize)]
 pub enum LightDefinition {
+    #[serde(untagged)]
     LightDefinitionStruct(LightDefinitionStruct),
+    #[serde(untagged)]
     VecLightDefinitionStruct(Vec<LightDefinitionStruct>),
 }
 pub struct LightDefinitionStruct {
@@ -18,7 +21,10 @@ pub struct LightDefinitionStruct {
     source_orientation_offset: crate::types::RealOrientation,
     type_: LightDefinitionType,
 }
+#[derive(serde::Deserialize)]
 pub enum LightDefinitionType {
+    #[serde(rename = "basic")]
     Basic,
+    #[serde(rename = "oriented")]
     Oriented,
 }

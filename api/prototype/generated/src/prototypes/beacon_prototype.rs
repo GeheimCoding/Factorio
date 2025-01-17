@@ -16,11 +16,17 @@ pub struct BeaconPrototype {
     radius_visualisation_picture: crate::types::Sprite,
     supply_area_distance: f64,
 }
+#[derive(serde::Deserialize)]
 pub enum BeaconPrototypeBeaconCounter {
+    #[serde(rename = "total")]
     Total,
+    #[serde(rename = "same_type")]
     SameType,
 }
+#[derive(serde::Deserialize)]
 pub enum BeaconPrototypeEnergySource {
+    #[serde(untagged)]
     ElectricEnergySource(Box<crate::types::ElectricEnergySource>),
+    #[serde(untagged)]
     VoidEnergySource(Box<crate::types::VoidEnergySource>),
 }

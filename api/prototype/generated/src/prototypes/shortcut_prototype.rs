@@ -15,21 +15,37 @@ pub struct ShortcutPrototype {
     toggleable: bool,
     unavailable_until_unlocked: bool,
 }
+#[derive(serde::Deserialize)]
 pub enum ShortcutPrototypeAction {
+    #[serde(rename = "toggle_alt_mode")]
     ToggleAltMode,
+    #[serde(rename = "undo")]
     Undo,
+    #[serde(rename = "copy")]
     Copy,
+    #[serde(rename = "cut")]
     Cut,
+    #[serde(rename = "paste")]
     Paste,
+    #[serde(rename = "import_string")]
     ImportString,
+    #[serde(rename = "toggle_personal_roboport")]
     TogglePersonalRoboport,
+    #[serde(rename = "toggle_equipment_movement_bonus")]
     ToggleEquipmentMovementBonus,
+    #[serde(rename = "spawn_item")]
     SpawnItem,
+    #[serde(rename = "lua")]
     Lua,
 }
+#[derive(serde::Deserialize)]
 pub enum ShortcutPrototypeStyle {
+    #[serde(rename = "default")]
     Default,
+    #[serde(rename = "blue")]
     Blue,
+    #[serde(rename = "red")]
     Red,
+    #[serde(rename = "green")]
     Green,
 }

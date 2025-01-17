@@ -6,12 +6,20 @@ pub struct MouseCursor {
     system_cursor: MouseCursorSystemCursor,
     type_: String,
 }
+#[derive(serde::Deserialize)]
 pub enum MouseCursorSystemCursor {
+    #[serde(rename = "arrow")]
     Arrow,
+    #[serde(rename = "i_beam")]
     IBeam,
+    #[serde(rename = "crosshair")]
     Crosshair,
+    #[serde(rename = "wait_arrow")]
     WaitArrow,
+    #[serde(rename = "size_all")]
     SizeAll,
+    #[serde(rename = "no")]
     No,
+    #[serde(rename = "hand")]
     Hand,
 }

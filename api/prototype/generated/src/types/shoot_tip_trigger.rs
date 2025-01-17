@@ -3,7 +3,10 @@ pub struct ShootTipTrigger {
     target: ShootTipTriggerTarget,
     type_: String,
 }
+#[derive(serde::Deserialize)]
 pub enum ShootTipTriggerTarget {
+    #[serde(rename = "enemy")]
     Enemy,
+    #[serde(rename = "entity")]
     Entity,
 }

@@ -16,9 +16,14 @@ pub struct LoaderPrototype {
     structure: crate::types::LoaderStructure,
     structure_render_layer: crate::types::RenderLayer,
 }
+#[derive(serde::Deserialize)]
 pub enum LoaderPrototypeEnergySource {
+    #[serde(untagged)]
     ElectricEnergySource(Box<crate::types::ElectricEnergySource>),
+    #[serde(untagged)]
     HeatEnergySource(Box<crate::types::HeatEnergySource>),
+    #[serde(untagged)]
     FluidEnergySource(Box<crate::types::FluidEnergySource>),
+    #[serde(untagged)]
     VoidEnergySource(Box<crate::types::VoidEnergySource>),
 }

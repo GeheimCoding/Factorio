@@ -1,4 +1,7 @@
+#[derive(serde::Deserialize)]
 pub enum ColorLookupTable {
-    FileName(crate::types::FileName),
+    #[serde(rename = "identity")]
     Identity,
+    #[serde(untagged)]
+    FileName(crate::types::FileName),
 }

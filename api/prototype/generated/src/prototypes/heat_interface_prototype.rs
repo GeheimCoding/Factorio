@@ -4,8 +4,12 @@ pub struct HeatInterfacePrototype {
     heat_buffer: crate::types::HeatBuffer,
     picture: crate::types::Sprite,
 }
+#[derive(serde::Deserialize)]
 pub enum HeatInterfacePrototypeGuiMode {
+    #[serde(rename = "all")]
     All,
+    #[serde(rename = "none")]
     None,
+    #[serde(rename = "admins")]
     Admins,
 }

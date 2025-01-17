@@ -186,20 +186,24 @@ impl Type {
         prefix: &str,
         context: &Context,
     ) -> (String, Vec<String>) {
+        let untagged = "#[serde(untagged)]";
         let mut others = vec![];
-        let mut union = format!("pub enum {prefix}{{");
+        let mut union = vec![];
         for option in options {
             let (inner, additional) = option.generate(&option.postfix_variants(prefix), context);
             others.extend(additional);
 
             if option.is_literal_value() {
-                union.push_str(&format!("{inner},"));
+                union.push(format!(
+                    "#[serde(rename = \"{}\")]{inner},",
+                    inner.to_snake_case()
+                ));
             } else if option.is_struct()
             /* // README: Adjustment [TODO] */
                 && prefix != "LightDefinition"
             /* // README: Adjustment [TODO] */
             {
-                union.push_str(&format!("{prefix}{inner},"));
+                union.push(format!("{untagged}{prefix}{inner},"));
             } else {
                 let name = Self::remove_prefix(&inner).to_pascal_case();
                 let inner = if option.should_be_boxed(context) {
@@ -207,10 +211,17 @@ impl Type {
                 } else {
                     inner
                 };
-                union.push_str(&format!("{name}({inner}),"));
+                union.push(format!("{untagged}{name}({inner}),"));
             }
         }
-        others.insert(0, format!("{union}}}"));
+        union.sort_by(|a, b| a.contains(untagged).cmp(&b.contains(untagged)));
+        others.insert(
+            0,
+            format!(
+                "#[derive(serde::Deserialize)]pub enum {prefix}{{{}}}",
+                union.join("")
+            ),
+        );
         (String::from(prefix), others)
     }
 

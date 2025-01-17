@@ -11,8 +11,11 @@ pub struct StreamFluidProperties {
     damage_modifier: f64,
     type_: crate::types::FluidID,
 }
+#[derive(serde::Deserialize)]
 pub enum StreamAttackParametersGunCenterShift {
+    #[serde(untagged)]
     Vector(crate::types::Vector),
+    #[serde(untagged)]
     GunShift4Way(Box<GunShift4Way>),
 }
 pub struct GunShift4Way {

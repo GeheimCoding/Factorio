@@ -20,11 +20,17 @@ pub struct SoundPrototype {
     variations: SoundPrototypeVariations,
     volume: f32,
 }
+#[derive(serde::Deserialize)]
 pub enum SoundPrototypeModifiers {
+    #[serde(untagged)]
     SoundModifier(Box<crate::types::SoundModifier>),
+    #[serde(untagged)]
     VecSoundModifier(Vec<crate::types::SoundModifier>),
 }
+#[derive(serde::Deserialize)]
 pub enum SoundPrototypeVariations {
+    #[serde(untagged)]
     SoundDefinition(crate::types::SoundDefinition),
+    #[serde(untagged)]
     VecSoundDefinition(Vec<crate::types::SoundDefinition>),
 }

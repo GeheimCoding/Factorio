@@ -5,7 +5,10 @@ pub struct PersistentWorldAmbientSoundsDefinitionCrossfade {
         PersistentWorldAmbientSoundsDefinitionCrossfadeOrder,
     ),
 }
+#[derive(serde::Deserialize)]
 pub enum PersistentWorldAmbientSoundsDefinitionCrossfadeOrder {
+    #[serde(rename = "wind")]
     Wind,
+    #[serde(rename = "base_ambience")]
     BaseAmbience,
 }

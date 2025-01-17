@@ -9,13 +9,21 @@ pub struct LinkedContainerPrototype {
     inventory_type: LinkedContainerPrototypeInventoryType,
     picture: crate::types::Sprite,
 }
+#[derive(serde::Deserialize)]
 pub enum LinkedContainerPrototypeGuiMode {
+    #[serde(rename = "all")]
     All,
+    #[serde(rename = "none")]
     None,
+    #[serde(rename = "admins")]
     Admins,
 }
+#[derive(serde::Deserialize)]
 pub enum LinkedContainerPrototypeInventoryType {
+    #[serde(rename = "normal")]
     Normal,
+    #[serde(rename = "with_bar")]
     WithBar,
+    #[serde(rename = "with_filters_and_bar")]
     WithFiltersAndBar,
 }

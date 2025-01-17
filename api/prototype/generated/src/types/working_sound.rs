@@ -1,4 +1,6 @@
+#[derive(serde::Deserialize)]
 pub enum WorkingSound {
+    #[serde(untagged)]
     WorkingSound {
         base_: crate::types::MainSound,
         activate_sound: crate::types::Sound,
@@ -13,13 +15,20 @@ pub enum WorkingSound {
         sound_accents: WorkingSoundSoundAccents,
         use_doppler_shift: bool,
     },
+    #[serde(untagged)]
     Sound(crate::types::Sound),
 }
+#[derive(serde::Deserialize)]
 pub enum WorkingSoundMainSounds {
+    #[serde(untagged)]
     MainSound(Box<crate::types::MainSound>),
+    #[serde(untagged)]
     VecMainSound(Vec<crate::types::MainSound>),
 }
+#[derive(serde::Deserialize)]
 pub enum WorkingSoundSoundAccents {
+    #[serde(untagged)]
     SoundAccent(Box<crate::types::SoundAccent>),
+    #[serde(untagged)]
     VecSoundAccent(Vec<crate::types::SoundAccent>),
 }

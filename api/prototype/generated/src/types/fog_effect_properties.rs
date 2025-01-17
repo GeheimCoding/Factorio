@@ -5,7 +5,10 @@ pub struct FogEffectProperties {
     fog_type: FogEffectPropertiesFogType,
     shape_noise_texture: crate::types::EffectTexture,
 }
+#[derive(serde::Deserialize)]
 pub enum FogEffectPropertiesFogType {
+    #[serde(rename = "vulcanus")]
     Vulcanus,
+    #[serde(rename = "gleba")]
     Gleba,
 }

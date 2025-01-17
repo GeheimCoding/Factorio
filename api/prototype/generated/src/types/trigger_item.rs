@@ -8,7 +8,10 @@ pub struct TriggerItem {
     repeat_count: u32,
     trigger_target_mask: crate::types::TriggerTargetMask,
 }
+#[derive(serde::Deserialize)]
 pub enum TriggerItemActionDelivery {
+    #[serde(untagged)]
     TriggerDelivery(crate::types::TriggerDelivery),
+    #[serde(untagged)]
     VecTriggerDelivery(Vec<crate::types::TriggerDelivery>),
 }

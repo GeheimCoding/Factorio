@@ -39,7 +39,10 @@ pub struct CombinatorPrototype {
     ),
     sprites: crate::types::Sprite4Way,
 }
+#[derive(serde::Deserialize)]
 pub enum CombinatorPrototypeEnergySource {
+    #[serde(untagged)]
     ElectricEnergySource(Box<crate::types::ElectricEnergySource>),
+    #[serde(untagged)]
     VoidEnergySource(Box<crate::types::VoidEnergySource>),
 }

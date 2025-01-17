@@ -32,14 +32,22 @@ pub struct BaseStyleSpecification {
     vertically_stretchable: crate::types::StretchRule,
     width: u32,
 }
+#[derive(serde::Deserialize)]
 pub enum BaseStyleSpecificationEffect {
+    #[serde(rename = "compilatron_hologram")]
     CompilatronHologram,
 }
+#[derive(serde::Deserialize)]
 pub enum BaseStyleSpecificationNaturalSize {
+    #[serde(untagged)]
     U32(u32),
+    #[serde(untagged)]
     U32U32((u32, u32)),
 }
+#[derive(serde::Deserialize)]
 pub enum BaseStyleSpecificationSize {
+    #[serde(untagged)]
     U32(u32),
+    #[serde(untagged)]
     U32U32((u32, u32)),
 }

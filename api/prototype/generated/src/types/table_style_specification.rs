@@ -32,7 +32,10 @@ pub struct TableStyleSpecification {
     vertical_spacing: i32,
     wide_as_column_count: bool,
 }
+#[derive(serde::Deserialize)]
 pub enum TableStyleSpecificationColumnWidths {
+    #[serde(untagged)]
     ColumnWidthItem(Box<crate::types::ColumnWidthItem>),
+    #[serde(untagged)]
     VecColumnWidth(Vec<crate::types::ColumnWidth>),
 }

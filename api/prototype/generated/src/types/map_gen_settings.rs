@@ -18,13 +18,21 @@ pub struct MapGenSettings {
     territory_settings: crate::types::TerritorySettings,
     width: u32,
 }
+#[derive(serde::Deserialize)]
 pub enum MapGenSettingsAutoplaceSettings {
+    #[serde(rename = "entity")]
     Entity,
+    #[serde(rename = "tile")]
     Tile,
+    #[serde(rename = "decorative")]
     Decorative,
 }
+#[derive(serde::Deserialize)]
 pub enum MapGenSettingsPropertyExpressionNames {
+    #[serde(untagged)]
     String(String),
+    #[serde(untagged)]
     Bool(bool),
+    #[serde(untagged)]
     F64(f64),
 }

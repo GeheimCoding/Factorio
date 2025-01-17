@@ -4,7 +4,10 @@ pub struct ModuleTransferAchievementPrototype {
     limited_to_one_game: bool,
     module: ModuleTransferAchievementPrototypeModule,
 }
+#[derive(serde::Deserialize)]
 pub enum ModuleTransferAchievementPrototypeModule {
+    #[serde(untagged)]
     ItemID(crate::types::ItemID),
+    #[serde(untagged)]
     VecItemID(Vec<crate::types::ItemID>),
 }

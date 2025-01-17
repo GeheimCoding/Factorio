@@ -13,11 +13,17 @@ pub struct AsteroidGraphicsSet {
     sss_contrast: f32,
     variations: AsteroidGraphicsSetVariations,
 }
+#[derive(serde::Deserialize)]
 pub enum AsteroidGraphicsSetLights {
+    #[serde(untagged)]
     LightProperties(Box<crate::types::LightProperties>),
+    #[serde(untagged)]
     VecLightProperties(Vec<crate::types::LightProperties>),
 }
+#[derive(serde::Deserialize)]
 pub enum AsteroidGraphicsSetVariations {
+    #[serde(untagged)]
     AsteroidVariation(Box<crate::types::AsteroidVariation>),
+    #[serde(untagged)]
     VecAsteroidVariation(Vec<crate::types::AsteroidVariation>),
 }

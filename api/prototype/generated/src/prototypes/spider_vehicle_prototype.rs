@@ -14,7 +14,10 @@ pub struct SpiderVehiclePrototype {
     torso_rotation_speed: f32,
     trash_inventory_size: crate::types::ItemStackIndex,
 }
+#[derive(serde::Deserialize)]
 pub enum SpiderVehiclePrototypeEnergySource {
+    #[serde(untagged)]
     BurnerEnergySource(Box<crate::types::BurnerEnergySource>),
+    #[serde(untagged)]
     VoidEnergySource(Box<crate::types::VoidEnergySource>),
 }

@@ -13,11 +13,17 @@ pub struct SelectionModeData {
     tile_filter_mode: SelectionModeDataTileFilterMode,
     tile_filters: Vec<crate::types::TileID>,
 }
+#[derive(serde::Deserialize)]
 pub enum SelectionModeDataEntityFilterMode {
+    #[serde(rename = "whitelist")]
     Whitelist,
+    #[serde(rename = "blacklist")]
     Blacklist,
 }
+#[derive(serde::Deserialize)]
 pub enum SelectionModeDataTileFilterMode {
+    #[serde(rename = "whitelist")]
     Whitelist,
+    #[serde(rename = "blacklist")]
     Blacklist,
 }
