@@ -1,3 +1,4 @@
+#[derive(serde::Deserialize)]
 pub struct FogEffectProperties {
     color1: crate::types::Color,
     color2: crate::types::Color,

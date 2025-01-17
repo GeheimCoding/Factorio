@@ -1,3 +1,4 @@
+#[derive(serde::Deserialize)]
 pub struct TrainStopPrototype {
     base_: crate::prototypes::EntityWithOwnerPrototype,
     animation_ticks_per_frame: u32,
@@ -24,6 +25,7 @@ pub struct TrainStopPrototype {
     rail_overlay_animations: crate::types::Animation4Way,
     top_animations: crate::types::Animation4Way,
 }
+#[derive(serde::Deserialize)]
 pub struct TrainStopDrawingBoxes {
     east: crate::types::BoundingBox,
     north: crate::types::BoundingBox,

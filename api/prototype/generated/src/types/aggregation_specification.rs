@@ -1,3 +1,4 @@
+#[derive(serde::Deserialize)]
 pub struct AggregationSpecification {
     count_already_playing: bool,
     max_count: u32,

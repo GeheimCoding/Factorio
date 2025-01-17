@@ -1,3 +1,4 @@
+#[derive(serde::Deserialize)]
 pub struct SegmentPrototype {
     base_: crate::prototypes::EntityWithOwnerPrototype,
     animation: crate::types::RotatedAnimation,

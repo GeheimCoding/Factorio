@@ -1,3 +1,4 @@
+#[derive(serde::Deserialize)]
 pub struct MaxSuccessfulAttemptsPerTickPerConstructionQueueModifier {
     base_: crate::types::SimpleModifier,
     type_: String,

@@ -1,3 +1,4 @@
+#[derive(serde::Deserialize)]
 pub struct PlanetPrototype {
     base_: crate::prototypes::SpaceLocationPrototype,
     entities_require_heating: bool,

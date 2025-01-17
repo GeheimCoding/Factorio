@@ -1,3 +1,4 @@
+#[derive(serde::Deserialize)]
 pub struct AnimationElement {
     always_draw: bool,
     animation: crate::types::Animation,

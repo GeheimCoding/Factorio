@@ -1,3 +1,4 @@
+#[derive(serde::Deserialize)]
 pub struct StorageTankPrototype {
     base_: crate::prototypes::EntityWithOwnerPrototype,
     circuit_connector: (
@@ -16,6 +17,7 @@ pub struct StorageTankPrototype {
     two_direction_only: bool,
     window_bounding_box: crate::types::BoundingBox,
 }
+#[derive(serde::Deserialize)]
 pub struct StorageTankPictures {
     flow_sprite: crate::types::Sprite,
     fluid_background: crate::types::Sprite,

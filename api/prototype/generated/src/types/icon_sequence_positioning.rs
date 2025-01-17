@@ -1,3 +1,4 @@
+#[derive(serde::Deserialize)]
 pub struct IconSequencePositioning {
     inventory_index: crate::defines::Inventory,
     max_icon_rows: u8,

@@ -1,3 +1,4 @@
+#[derive(serde::Deserialize)]
 pub struct FusionReactorPrototype {
     base_: crate::prototypes::EntityWithOwnerPrototype,
     burner: crate::types::BurnerEnergySource,

@@ -1,3 +1,4 @@
+#[derive(serde::Deserialize)]
 pub struct FusionGeneratorGraphicsSet {
     east_graphics_set: crate::types::FusionGeneratorDirectionGraphicsSet,
     glow_color: crate::types::Color,

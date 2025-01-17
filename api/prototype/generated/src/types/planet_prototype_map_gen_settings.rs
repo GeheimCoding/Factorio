@@ -1,3 +1,4 @@
+#[derive(serde::Deserialize)]
 pub struct PlanetPrototypeMapGenSettings {
     autoplace_controls: std::collections::HashMap<
         crate::types::AutoplaceControlID,

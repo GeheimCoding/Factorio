@@ -1,3 +1,4 @@
+#[derive(serde::Deserialize)]
 pub struct Resistance {
     decrease: f32,
     percent: f32,

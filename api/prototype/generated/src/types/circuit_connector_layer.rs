@@ -1,3 +1,4 @@
+#[derive(serde::Deserialize)]
 pub struct CircuitConnectorLayer {
     east: crate::types::RenderLayer,
     north: crate::types::RenderLayer,

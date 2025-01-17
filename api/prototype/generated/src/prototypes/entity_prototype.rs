@@ -1,3 +1,4 @@
+#[derive(serde::Deserialize)]
 pub struct EntityPrototype {
     base_: crate::prototypes::Prototype,
     additional_pastable_entities: Vec<crate::types::EntityID>,

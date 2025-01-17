@@ -1,3 +1,4 @@
+#[derive(serde::Deserialize)]
 pub struct LightningRuleBase {
     String: String,
     type_: LightningRuleBaseType,

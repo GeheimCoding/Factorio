@@ -1,3 +1,4 @@
+#[derive(serde::Deserialize)]
 pub struct ArtilleryFlarePrototype {
     base_: crate::prototypes::EntityPrototype,
     creation_shift: crate::types::Vector,

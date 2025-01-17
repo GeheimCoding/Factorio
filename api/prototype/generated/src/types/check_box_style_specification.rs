@@ -1,3 +1,4 @@
+#[derive(serde::Deserialize)]
 pub struct CheckBoxStyleSpecification {
     base_: crate::types::StyleWithClickableGraphicalSetSpecification,
     checkmark: crate::types::Sprite,

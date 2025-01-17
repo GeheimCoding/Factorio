@@ -1,3 +1,4 @@
+#[derive(serde::Deserialize)]
 pub struct BurnerEnergySource {
     base_: crate::types::BaseEnergySource,
     burner_usage: crate::types::BurnerUsageID,

@@ -1,3 +1,4 @@
+#[derive(serde::Deserialize)]
 pub struct CircuitConnectorSecondaryDrawOrder {
     east: i8,
     north: i8,

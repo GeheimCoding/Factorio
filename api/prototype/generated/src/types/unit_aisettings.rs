@@ -1,3 +1,4 @@
+#[derive(serde::Deserialize)]
 pub struct UnitAISettings {
     allow_try_return_to_spawner: bool,
     destroy_when_commands_fail: bool,

@@ -1,3 +1,4 @@
+#[derive(serde::Deserialize)]
 pub struct BeamAttackParameters {
     base_: crate::types::BaseAttackParameters,
     source_direction_count: u32,

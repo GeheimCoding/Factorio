@@ -1,3 +1,4 @@
+#[derive(serde::Deserialize)]
 pub struct TipsAndTricksItem {
     base_: crate::prototypes::PrototypeBase,
     category: String,

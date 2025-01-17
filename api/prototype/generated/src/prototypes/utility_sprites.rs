@@ -1,3 +1,4 @@
+#[derive(serde::Deserialize)]
 pub struct UtilitySprites {
     base_: crate::prototypes::PrototypeBase,
     achievement_label: crate::types::Sprite,
@@ -581,6 +582,7 @@ pub struct UtilitySprites {
     worker_robot_storage_modifier_constant: crate::types::Sprite,
     worker_robot_storage_modifier_icon: crate::types::Sprite,
 }
+#[derive(serde::Deserialize)]
 pub struct CursorBoxSpecification {
     blueprint_snap_rectangle: Vec<crate::types::BoxSpecification>,
     copy: Vec<crate::types::BoxSpecification>,
@@ -594,6 +596,7 @@ pub struct CursorBoxSpecification {
     rts_to_be_selected: Vec<crate::types::BoxSpecification>,
     train_visualization: Vec<crate::types::BoxSpecification>,
 }
+#[derive(serde::Deserialize)]
 pub struct EntityBuildAnimations {
     back_left: crate::types::EntityBuildAnimationPiece,
     back_right: crate::types::EntityBuildAnimationPiece,

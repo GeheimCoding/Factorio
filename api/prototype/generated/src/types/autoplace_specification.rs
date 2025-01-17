@@ -1,3 +1,4 @@
+#[derive(serde::Deserialize)]
 pub struct AutoplaceSpecification {
     control: crate::types::AutoplaceControlID,
     default_enabled: bool,

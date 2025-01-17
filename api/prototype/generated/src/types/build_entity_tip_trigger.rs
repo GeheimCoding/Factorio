@@ -1,3 +1,4 @@
+#[derive(serde::Deserialize)]
 pub struct BuildEntityTipTrigger {
     base_: crate::types::CountBasedTipTrigger,
     build_by_dragging: bool,

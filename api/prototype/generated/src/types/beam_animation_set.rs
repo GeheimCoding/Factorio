@@ -1,3 +1,4 @@
+#[derive(serde::Deserialize)]
 pub struct BeamAnimationSet {
     body: crate::types::AnimationVariations,
     ending: crate::types::Animation,

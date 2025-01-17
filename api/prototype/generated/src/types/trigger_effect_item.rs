@@ -1,3 +1,4 @@
+#[derive(serde::Deserialize)]
 pub struct TriggerEffectItem {
     affects_target: bool,
     damage_type_filters: crate::types::DamageTypeFilters,

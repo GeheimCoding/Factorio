@@ -1,3 +1,4 @@
+#[derive(serde::Deserialize)]
 pub struct ItemProductPrototype {
     amount: u16,
     amount_max: u16,

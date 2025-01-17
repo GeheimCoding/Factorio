@@ -1,3 +1,4 @@
+#[derive(serde::Deserialize)]
 pub struct AnimationPrototype {
     animation_speed: f32,
     apply_runtime_tint: bool,

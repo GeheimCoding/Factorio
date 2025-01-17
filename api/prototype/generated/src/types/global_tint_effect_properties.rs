@@ -1,3 +1,4 @@
+#[derive(serde::Deserialize)]
 pub struct GlobalTintEffectProperties {
     global_intensity: f32,
     global_scale: f32,

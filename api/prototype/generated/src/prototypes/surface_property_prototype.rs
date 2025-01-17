@@ -1,3 +1,4 @@
+#[derive(serde::Deserialize)]
 pub struct SurfacePropertyPrototype {
     base_: crate::prototypes::Prototype,
     default_value: f64,

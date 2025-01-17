@@ -1,3 +1,4 @@
+#[derive(serde::Deserialize)]
 pub struct GiveItemModifier {
     base_: crate::types::BaseModifier,
     count: crate::types::ItemCountType,

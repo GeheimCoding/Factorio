@@ -1,3 +1,4 @@
+#[derive(serde::Deserialize)]
 pub struct PlaySoundTriggerEffectItem {
     base_: crate::types::TriggerEffectItem,
     audible_distance_modifier: f32,

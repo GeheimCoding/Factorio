@@ -1,3 +1,4 @@
+#[derive(serde::Deserialize)]
 pub struct TechnologyPrototype {
     base_: crate::prototypes::Prototype,
     allows_productivity: bool,

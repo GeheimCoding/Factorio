@@ -1,3 +1,4 @@
+#[derive(serde::Deserialize)]
 pub struct AsteroidCollectorPrototype {
     base_: crate::prototypes::EntityWithOwnerPrototype,
     arm_angular_speed_cap_base: f32,
@@ -49,6 +50,7 @@ pub enum AsteroidCollectorPrototypeEnergySource {
     #[serde(untagged)]
     VoidEnergySource(Box<crate::types::VoidEnergySource>),
 }
+#[derive(serde::Deserialize)]
 pub struct AsteroidCollectorGraphicsSet {
     animation: crate::types::Animation4Way,
     arm_head_animation: crate::types::RotatedAnimation,

@@ -1,3 +1,4 @@
+#[derive(serde::Deserialize)]
 pub struct ChartUtilityConstants {
     artillery_range_color: crate::types::Color,
     blue_signal_color: crate::types::Color,

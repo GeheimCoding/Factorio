@@ -1,3 +1,4 @@
+#[derive(serde::Deserialize)]
 pub struct AsteroidChunkPrototype {
     base_: crate::prototypes::Prototype,
     collision_box: crate::types::SimpleBoundingBox,

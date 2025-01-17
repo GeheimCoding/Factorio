@@ -1,3 +1,4 @@
+#[derive(serde::Deserialize)]
 pub struct SetTileTriggerEffectItem {
     base_: crate::types::TriggerEffectItem,
     apply_on_space_platform: bool,

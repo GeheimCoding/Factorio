@@ -5,6 +5,7 @@ pub enum LightDefinition {
     #[serde(untagged)]
     VecLightDefinitionStruct(Vec<LightDefinitionStruct>),
 }
+#[derive(serde::Deserialize)]
 pub struct LightDefinitionStruct {
     add_perspective: bool,
     color: crate::types::Color,

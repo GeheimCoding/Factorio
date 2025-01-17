@@ -1,3 +1,4 @@
+#[derive(serde::Deserialize)]
 pub struct CraftItemTechnologyTrigger {
     count: crate::types::ItemCountType,
     item: crate::types::ItemID,

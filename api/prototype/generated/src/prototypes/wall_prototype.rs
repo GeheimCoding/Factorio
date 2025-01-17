@@ -1,3 +1,4 @@
+#[derive(serde::Deserialize)]
 pub struct WallPrototype {
     base_: crate::prototypes::EntityWithOwnerPrototype,
     circuit_connector: crate::types::CircuitConnectorDefinition,
@@ -19,6 +20,7 @@ pub struct WallPrototype {
     wall_diode_red_light_right: crate::types::LightDefinition,
     wall_diode_red_light_top: crate::types::LightDefinition,
 }
+#[derive(serde::Deserialize)]
 pub struct WallPictures {
     corner_left_down: crate::types::SpriteVariations,
     corner_right_down: crate::types::SpriteVariations,

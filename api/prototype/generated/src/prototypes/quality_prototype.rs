@@ -1,3 +1,4 @@
+#[derive(serde::Deserialize)]
 pub struct QualityPrototype {
     base_: crate::prototypes::Prototype,
     beacon_power_usage_multiplier: f32,

@@ -1,3 +1,4 @@
+#[derive(serde::Deserialize)]
 pub struct AsteroidPrototype {
     base_: crate::prototypes::EntityWithOwnerPrototype,
     emissions_per_second: std::collections::HashMap<crate::types::AirbornePollutantID, f64>,

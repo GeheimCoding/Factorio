@@ -1,3 +1,4 @@
+#[derive(serde::Deserialize)]
 pub struct ElectricTurretPrototype {
     base_: crate::prototypes::TurretPrototype,
     energy_source: ElectricTurretPrototypeEnergySource,

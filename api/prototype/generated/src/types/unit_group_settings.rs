@@ -1,3 +1,4 @@
+#[derive(serde::Deserialize)]
 pub struct UnitGroupSettings {
     max_gathering_unit_groups: u32,
     max_group_gathering_time: u32,

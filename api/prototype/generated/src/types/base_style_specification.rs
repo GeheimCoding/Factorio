@@ -1,3 +1,4 @@
+#[derive(serde::Deserialize)]
 pub struct BaseStyleSpecification {
     bottom_margin: i16,
     bottom_padding: i16,

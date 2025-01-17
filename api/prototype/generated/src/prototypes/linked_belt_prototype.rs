@@ -1,3 +1,4 @@
+#[derive(serde::Deserialize)]
 pub struct LinkedBeltPrototype {
     base_: crate::prototypes::TransportBeltConnectablePrototype,
     allow_blueprint_connection: bool,
@@ -6,6 +7,7 @@ pub struct LinkedBeltPrototype {
     structure: LinkedBeltStructure,
     structure_render_layer: crate::types::RenderLayer,
 }
+#[derive(serde::Deserialize)]
 pub struct LinkedBeltStructure {
     back_patch: crate::types::Sprite4Way,
     direction_in: crate::types::Sprite4Way,

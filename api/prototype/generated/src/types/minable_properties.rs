@@ -1,3 +1,4 @@
+#[derive(serde::Deserialize)]
 pub struct MinableProperties {
     count: u16,
     fluid_amount: crate::types::FluidAmount,

@@ -1,3 +1,4 @@
+#[derive(serde::Deserialize)]
 pub struct TileTransitions {
     apply_effect_color_to_overlay: bool,
     apply_waving_effect_on_background_mask: bool,

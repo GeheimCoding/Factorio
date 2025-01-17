@@ -1,3 +1,4 @@
+#[derive(serde::Deserialize)]
 pub struct ResourceEntityPrototype {
     base_: crate::prototypes::EntityPrototype,
     category: crate::types::ResourceCategoryID,

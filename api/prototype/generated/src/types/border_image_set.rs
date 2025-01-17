@@ -1,3 +1,4 @@
+#[derive(serde::Deserialize)]
 pub struct BorderImageSet {
     border_width: i32,
     bottom_end: crate::types::Sprite,

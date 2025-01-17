@@ -1,3 +1,4 @@
+#[derive(serde::Deserialize)]
 pub struct FluidTurretPrototype {
     base_: crate::prototypes::TurretPrototype,
     activation_buffer_ratio: crate::types::FluidAmount,

@@ -1,3 +1,4 @@
+#[derive(serde::Deserialize)]
 pub struct CollisionMaskConnector {
     colliding_with_tiles_only: bool,
     consider_tile_transitions: bool,

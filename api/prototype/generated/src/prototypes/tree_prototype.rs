@@ -1,3 +1,4 @@
+#[derive(serde::Deserialize)]
 pub struct TreePrototype {
     base_: crate::prototypes::EntityWithHealthPrototype,
     colors: Vec<crate::types::Color>,

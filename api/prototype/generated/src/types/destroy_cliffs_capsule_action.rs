@@ -1,3 +1,4 @@
+#[derive(serde::Deserialize)]
 pub struct DestroyCliffsCapsuleAction {
     attack_parameters: crate::types::AttackParameters,
     play_sound_on_failure: bool,

@@ -1,3 +1,4 @@
+#[derive(serde::Deserialize)]
 pub struct EquipmentShape {
     height: u32,
     points: Vec<Vec<u32>>,

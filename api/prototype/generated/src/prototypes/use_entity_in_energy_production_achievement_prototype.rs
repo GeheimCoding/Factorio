@@ -1,3 +1,4 @@
+#[derive(serde::Deserialize)]
 pub struct UseEntityInEnergyProductionAchievementPrototype {
     base_: crate::prototypes::AchievementPrototype,
     consumed_condition: crate::types::ItemID,

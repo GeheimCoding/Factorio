@@ -1,3 +1,4 @@
+#[derive(serde::Deserialize)]
 pub struct AgriculturalCraneProperties {
     min_arm_extent: f64,
     min_grappler_extent: f64,

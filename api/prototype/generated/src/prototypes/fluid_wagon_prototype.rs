@@ -1,3 +1,4 @@
+#[derive(serde::Deserialize)]
 pub struct FluidWagonPrototype {
     base_: crate::prototypes::RollingStockPrototype,
     capacity: crate::types::FluidAmount,

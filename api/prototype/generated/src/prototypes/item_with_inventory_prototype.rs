@@ -1,3 +1,4 @@
+#[derive(serde::Deserialize)]
 pub struct ItemWithInventoryPrototype {
     base_: crate::prototypes::ItemWithLabelPrototype,
     filter_message_key: String,

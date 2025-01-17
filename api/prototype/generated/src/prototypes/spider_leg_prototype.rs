@@ -1,3 +1,4 @@
+#[derive(serde::Deserialize)]
 pub struct SpiderLegPrototype {
     base_: crate::prototypes::EntityWithOwnerPrototype,
     ankle_height: f64,
@@ -17,6 +18,7 @@ pub struct SpiderLegPrototype {
     walking_sound_speed_modifier: f32,
     walking_sound_volume_modifier: f32,
 }
+#[derive(serde::Deserialize)]
 pub struct SpiderLegGraphicsSet {
     foot: crate::types::RotatedSprite,
     foot_shadow: crate::types::RotatedSprite,

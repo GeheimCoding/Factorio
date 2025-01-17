@@ -1,3 +1,4 @@
+#[derive(serde::Deserialize)]
 pub struct CreateDecorativesTriggerEffectItem {
     base_: crate::types::TriggerEffectItem,
     apply_projection: bool,

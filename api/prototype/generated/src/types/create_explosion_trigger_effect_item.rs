@@ -1,3 +1,4 @@
+#[derive(serde::Deserialize)]
 pub struct CreateExplosionTriggerEffectItem {
     base_: crate::types::CreateEntityTriggerEffectItem,
     cycle_while_moving: bool,

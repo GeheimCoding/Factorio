@@ -1,3 +1,4 @@
+#[derive(serde::Deserialize)]
 pub struct Data {
     extend: crate::types::DataExtendMethod,
     is_demo: bool,

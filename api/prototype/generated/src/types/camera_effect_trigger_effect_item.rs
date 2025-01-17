@@ -1,3 +1,4 @@
+#[derive(serde::Deserialize)]
 pub struct CameraEffectTriggerEffectItem {
     base_: crate::types::TriggerEffectItem,
     delay: u8,

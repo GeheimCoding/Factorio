@@ -1,3 +1,4 @@
+#[derive(serde::Deserialize)]
 pub struct DontBuildEntityAchievementPrototype {
     base_: crate::prototypes::AchievementPrototypeWithCondition,
     amount: u32,

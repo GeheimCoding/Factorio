@@ -1,3 +1,4 @@
+#[derive(serde::Deserialize)]
 pub struct RobotWithLogisticInterfacePrototype {
     base_: crate::prototypes::FlyingRobotPrototype,
     charging_sound: crate::types::InterruptibleSound,

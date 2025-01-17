@@ -1,3 +1,4 @@
+#[derive(serde::Deserialize)]
 pub struct CargoLandingPadPrototype {
     base_: crate::prototypes::EntityWithOwnerPrototype,
     cargo_station_parameters: crate::types::CargoStationParameters,

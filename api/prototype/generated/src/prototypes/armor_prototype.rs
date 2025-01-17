@@ -1,3 +1,4 @@
+#[derive(serde::Deserialize)]
 pub struct ArmorPrototype {
     base_: crate::prototypes::ToolPrototype,
     collision_box: crate::types::BoundingBox,

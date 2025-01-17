@@ -1,3 +1,4 @@
+#[derive(serde::Deserialize)]
 pub struct RoboportPrototype {
     base_: crate::prototypes::EntityWithOwnerPrototype,
     base: crate::types::Sprite,

@@ -1,3 +1,4 @@
+#[derive(serde::Deserialize)]
 pub struct CircularParticleCreationSpecification {
     center: crate::types::Vector,
     creation_distance: f64,

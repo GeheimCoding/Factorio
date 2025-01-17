@@ -1,3 +1,4 @@
+#[derive(serde::Deserialize)]
 pub struct MiningDrillGraphicsSet {
     base_: crate::types::WorkingVisualisations,
     animation_progress: f32,

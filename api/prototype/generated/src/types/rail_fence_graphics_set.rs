@@ -1,3 +1,4 @@
+#[derive(serde::Deserialize)]
 pub struct RailFenceGraphicsSet {
     back_fence_render_layer: crate::types::RenderLayer,
     back_fence_render_layer_secondary: crate::types::RenderLayer,

@@ -1,3 +1,4 @@
+#[derive(serde::Deserialize)]
 pub struct PodDistanceTraveledProcessionLayer {
     contribute_to_distance_traveled: bool,
     distance_traveled_contribution: f32,
@@ -5,6 +6,7 @@ pub struct PodDistanceTraveledProcessionLayer {
     reference_group: crate::types::ProcessionLayerInheritanceGroupID,
     type_: String,
 }
+#[derive(serde::Deserialize)]
 pub struct PodDistanceTraveledProcessionBezierControlPoint {
     distance: f64,
     distance_t: f64,

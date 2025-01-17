@@ -1,3 +1,4 @@
+#[derive(serde::Deserialize)]
 pub struct Stripe {
     filename: crate::types::FileName,
     height_in_frames: u32,

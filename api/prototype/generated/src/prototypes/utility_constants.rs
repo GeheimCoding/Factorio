@@ -1,3 +1,4 @@
+#[derive(serde::Deserialize)]
 pub struct UtilityConstants {
     base_: crate::prototypes::PrototypeBase,
     agricultural_range_visualization_color: crate::types::Color,
@@ -175,6 +176,7 @@ pub struct UtilityConstants {
     zoom_to_world_daytime_color_lookup: crate::types::DaytimeColorLookupTable,
     zoom_to_world_effect_strength: f32,
 }
+#[derive(serde::Deserialize)]
 pub struct BonusGuiOrdering {
     artillery_range: crate::types::Order,
     beacon_distribution: crate::types::Order,
@@ -189,21 +191,25 @@ pub struct BonusGuiOrdering {
     turret_attack: crate::types::Order,
     worker_robots: crate::types::Order,
 }
+#[derive(serde::Deserialize)]
 pub struct ColorFilterData {
     localised_name: crate::types::LocalisedString,
     matrix: Vec<Vec<f32>>,
     name: String,
 }
+#[derive(serde::Deserialize)]
 pub struct EntityRendererSearchBoxLimits {
     bottom: u8,
     left: u8,
     right: u8,
     top: u8,
 }
+#[derive(serde::Deserialize)]
 pub struct ItemHealthColorData {
     color: crate::types::Color,
     threshold: f32,
 }
+#[derive(serde::Deserialize)]
 pub struct MapEditorConstants {
     cliff_editor_remove_cliffs_color: crate::types::Color,
     clone_editor_brush_cursor_preview_tint: crate::types::Color,
@@ -222,11 +228,13 @@ pub struct MapEditorConstants {
     tile_editor_selection_preview_radius: u8,
     tile_editor_selection_preview_tint: crate::types::Color,
 }
+#[derive(serde::Deserialize)]
 pub struct PlayerColorData {
     chat_color: crate::types::Color,
     name: String,
     player_color: crate::types::Color,
 }
+#[derive(serde::Deserialize)]
 pub struct TrainPathFinderConstants {
     signal_reserved_by_circuit_network_penalty: u32,
     stopped_manually_controlled_train_penalty: u32,

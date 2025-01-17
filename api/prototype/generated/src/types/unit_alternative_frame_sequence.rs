@@ -1,3 +1,4 @@
+#[derive(serde::Deserialize)]
 pub struct UnitAlternativeFrameSequence {
     attacking_animation_speed: f32,
     attacking_frame_sequence: Vec<u16>,

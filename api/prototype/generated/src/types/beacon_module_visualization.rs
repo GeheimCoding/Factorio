@@ -1,3 +1,4 @@
+#[derive(serde::Deserialize)]
 pub struct BeaconModuleVisualization {
     apply_module_tint: crate::types::ModuleTint,
     has_empty_slot: bool,

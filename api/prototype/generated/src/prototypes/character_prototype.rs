@@ -1,3 +1,4 @@
+#[derive(serde::Deserialize)]
 pub struct CharacterPrototype {
     base_: crate::prototypes::EntityWithOwnerPrototype,
     animations: Vec<crate::types::CharacterArmorAnimation>,

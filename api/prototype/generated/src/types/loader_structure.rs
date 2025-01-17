@@ -1,3 +1,4 @@
+#[derive(serde::Deserialize)]
 pub struct LoaderStructure {
     back_patch: crate::types::Sprite4Way,
     direction_in: crate::types::Sprite4Way,

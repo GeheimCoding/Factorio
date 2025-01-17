@@ -1,3 +1,4 @@
+#[derive(serde::Deserialize)]
 pub struct CraftItemTipTrigger {
     base_: crate::types::CountBasedTipTrigger,
     consecutive: bool,

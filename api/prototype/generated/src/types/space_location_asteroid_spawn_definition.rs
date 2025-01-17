@@ -1,3 +1,4 @@
+#[derive(serde::Deserialize)]
 pub struct SpaceLocationAsteroidSpawnDefinition {
     base_: crate::types::AsteroidSpawnPoint,
     asteroid: SpaceLocationAsteroidSpawnDefinitionAsteroid,

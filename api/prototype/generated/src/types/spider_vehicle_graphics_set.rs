@@ -1,3 +1,4 @@
+#[derive(serde::Deserialize)]
 pub struct SpiderVehicleGraphicsSet {
     base_: crate::types::SpiderTorsoGraphicsSet,
     autopilot_destination_on_map_visualisation: crate::types::Animation,

@@ -1,3 +1,4 @@
+#[derive(serde::Deserialize)]
 pub struct TileTransitionsVariants {
     empty_transitions: bool,
     light: Vec<crate::types::TileLightPictures>,

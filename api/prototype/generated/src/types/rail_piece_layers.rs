@@ -1,3 +1,4 @@
+#[derive(serde::Deserialize)]
 pub struct RailPieceLayers {
     backplates: crate::types::SpriteVariations,
     metals: crate::types::SpriteVariations,

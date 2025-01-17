@@ -1,3 +1,4 @@
+#[derive(serde::Deserialize)]
 pub struct RailSupportPrototype {
     base_: crate::prototypes::EntityWithOwnerPrototype,
     build_grid_size: String,
@@ -8,6 +9,7 @@ pub struct RailSupportPrototype {
     snap_to_spots_distance: f32,
     support_range: f32,
 }
+#[derive(serde::Deserialize)]
 pub struct RailSupportGraphicsSet {
     render_layer: crate::types::RenderLayer,
     structure: crate::types::RotatedSprite,

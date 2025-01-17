@@ -1,3 +1,4 @@
+#[derive(serde::Deserialize)]
 pub struct CranePart {
     allow_sprite_rotation: bool,
     dying_effect: crate::types::CranePartDyingEffect,

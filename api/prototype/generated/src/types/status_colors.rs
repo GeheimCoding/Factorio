@@ -1,3 +1,4 @@
+#[derive(serde::Deserialize)]
 pub struct StatusColors {
     disabled: crate::types::Color,
     full_output: crate::types::Color,

@@ -1,3 +1,4 @@
+#[derive(serde::Deserialize)]
 pub struct ElectricEnergyInterfacePrototype {
     base_: crate::prototypes::EntityWithOwnerPrototype,
     allow_copy_paste: bool,

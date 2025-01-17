@@ -1,3 +1,4 @@
+#[derive(serde::Deserialize)]
 pub struct RailSignalBasePrototype {
     base_: crate::prototypes::EntityWithOwnerPrototype,
     circuit_wire_max_distance: f64,

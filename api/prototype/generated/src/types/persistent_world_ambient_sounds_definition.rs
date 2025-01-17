@@ -1,3 +1,4 @@
+#[derive(serde::Deserialize)]
 pub struct PersistentWorldAmbientSoundsDefinition {
     base_ambience: PersistentWorldAmbientSoundsDefinitionBaseAmbience,
     crossfade: crate::types::PersistentWorldAmbientSoundsDefinitionCrossfade,

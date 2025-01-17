@@ -1,3 +1,4 @@
+#[derive(serde::Deserialize)]
 pub struct RailRemnantsPrototype {
     base_: crate::prototypes::CorpsePrototype,
     build_grid_size: String,

@@ -1,3 +1,4 @@
+#[derive(serde::Deserialize)]
 pub struct CopyPasteToolPrototype {
     base_: crate::prototypes::SelectionToolPrototype,
     alt_select: crate::types::SelectionModeData,

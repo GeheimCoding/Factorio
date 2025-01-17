@@ -1,3 +1,4 @@
+#[derive(serde::Deserialize)]
 pub struct SelectionToolPrototype {
     base_: crate::prototypes::ItemWithLabelPrototype,
     alt_reverse_select: crate::types::SelectionModeData,

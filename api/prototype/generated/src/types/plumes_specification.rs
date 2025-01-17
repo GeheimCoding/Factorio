@@ -1,3 +1,4 @@
+#[derive(serde::Deserialize)]
 pub struct PlumesSpecification {
     max_probability: f32,
     max_y_offset: f32,

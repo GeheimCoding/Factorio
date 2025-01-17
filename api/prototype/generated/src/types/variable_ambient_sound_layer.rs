@@ -1,3 +1,4 @@
+#[derive(serde::Deserialize)]
 pub struct VariableAmbientSoundLayer {
     composition_mode: crate::types::VariableAmbientSoundCompositionMode,
     control_layer: String,

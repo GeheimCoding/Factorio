@@ -1,3 +1,4 @@
+#[derive(serde::Deserialize)]
 pub struct RailSignalLights {
     blue: crate::types::RailSignalLightDefinition,
     green: crate::types::RailSignalLightDefinition,

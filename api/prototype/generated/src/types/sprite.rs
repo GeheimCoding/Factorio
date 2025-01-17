@@ -1,3 +1,4 @@
+#[derive(serde::Deserialize)]
 pub struct Sprite {
     base_: crate::types::SpriteParameters,
     dice: crate::types::SpriteSizeType,

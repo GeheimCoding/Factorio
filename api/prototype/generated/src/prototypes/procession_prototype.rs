@@ -1,3 +1,4 @@
+#[derive(serde::Deserialize)]
 pub struct ProcessionPrototype {
     base_: crate::prototypes::Prototype,
     ground_timeline: crate::types::ProcessionTimeline,

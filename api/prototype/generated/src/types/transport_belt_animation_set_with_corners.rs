@@ -1,3 +1,4 @@
+#[derive(serde::Deserialize)]
 pub struct TransportBeltAnimationSetWithCorners {
     base_: crate::types::TransportBeltAnimationSet,
     east_to_north_index: u8,

@@ -1,3 +1,4 @@
+#[derive(serde::Deserialize)]
 pub struct HeatBuffer {
     connections: Vec<crate::types::HeatConnection>,
     default_temperature: f64,

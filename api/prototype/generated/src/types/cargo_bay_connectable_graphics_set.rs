@@ -1,3 +1,4 @@
+#[derive(serde::Deserialize)]
 pub struct CargoBayConnectableGraphicsSet {
     animation: crate::types::Animation,
     animation_render_layer: crate::types::RenderLayer,

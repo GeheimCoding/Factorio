@@ -1,3 +1,4 @@
+#[derive(serde::Deserialize)]
 pub struct AmmoCategory {
     base_: crate::prototypes::Prototype,
     bonus_gui_order: crate::types::Order,

@@ -1,3 +1,4 @@
+#[derive(serde::Deserialize)]
 pub struct CliffPlacementSettings {
     cliff_elevation_0: f32,
     cliff_elevation_interval: f32,

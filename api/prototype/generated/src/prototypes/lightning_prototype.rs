@@ -1,3 +1,4 @@
+#[derive(serde::Deserialize)]
 pub struct LightningPrototype {
     base_: crate::prototypes::EntityPrototype,
     attracted_volume_modifier: f32,

@@ -1,3 +1,4 @@
+#[derive(serde::Deserialize)]
 pub struct CharacterResourceReachDistanceModifier {
     base_: crate::types::SimpleModifier,
     type_: String,

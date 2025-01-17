@@ -1,3 +1,4 @@
+#[derive(serde::Deserialize)]
 pub struct ParticlePrototype {
     base_: crate::prototypes::Prototype,
     draw_shadow_when_on_ground: bool,

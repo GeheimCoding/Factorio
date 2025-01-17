@@ -1,3 +1,4 @@
+#[derive(serde::Deserialize)]
 pub struct MainSound {
     activity_to_speed_modifiers: crate::types::ActivityMatchingModifiers,
     activity_to_volume_modifiers: crate::types::ActivityMatchingModifiers,

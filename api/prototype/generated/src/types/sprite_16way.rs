@@ -1,3 +1,4 @@
+#[derive(serde::Deserialize)]
 pub struct Sprite16Way {
     east: crate::types::Sprite,
     east_north_east: crate::types::Sprite,

@@ -1,3 +1,4 @@
+#[derive(serde::Deserialize)]
 pub struct UnlockQualityModifier {
     base_: crate::types::BaseModifier,
     quality: crate::types::QualityID,

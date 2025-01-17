@@ -1,3 +1,4 @@
+#[derive(serde::Deserialize)]
 pub struct ProgrammableSpeakerPrototype {
     base_: crate::prototypes::EntityWithOwnerPrototype,
     audible_distance_modifier: f32,
@@ -18,6 +19,7 @@ pub enum ProgrammableSpeakerPrototypeEnergySource {
     #[serde(untagged)]
     VoidEnergySource(Box<crate::types::VoidEnergySource>),
 }
+#[derive(serde::Deserialize)]
 pub struct ProgrammableSpeakerInstrument {
     name: String,
     notes: Vec<crate::types::ProgrammableSpeakerNote>,

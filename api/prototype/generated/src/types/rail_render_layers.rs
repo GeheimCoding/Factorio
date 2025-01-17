@@ -1,3 +1,4 @@
+#[derive(serde::Deserialize)]
 pub struct RailRenderLayers {
     back_end: crate::types::RenderLayer,
     front_end: crate::types::RenderLayer,

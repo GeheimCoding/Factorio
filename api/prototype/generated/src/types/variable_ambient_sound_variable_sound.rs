@@ -1,3 +1,4 @@
+#[derive(serde::Deserialize)]
 pub struct VariableAmbientSoundVariableSound {
     alignment_samples: u32,
     intermezzo: crate::types::Sound,

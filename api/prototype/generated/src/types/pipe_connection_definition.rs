@@ -1,3 +1,4 @@
+#[derive(serde::Deserialize)]
 pub struct PipeConnectionDefinition {
     connection_category: PipeConnectionDefinitionConnectionCategory,
     connection_type: PipeConnectionType,

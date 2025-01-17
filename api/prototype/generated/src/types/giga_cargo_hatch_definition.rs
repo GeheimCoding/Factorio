@@ -1,3 +1,4 @@
+#[derive(serde::Deserialize)]
 pub struct GigaCargoHatchDefinition {
     closing_sound: crate::types::InterruptibleSound,
     covered_hatches: Vec<u32>,

@@ -1,3 +1,4 @@
+#[derive(serde::Deserialize)]
 pub struct CharacterLogisticTrashSlotsModifier {
     base_: crate::types::SimpleModifier,
     type_: String,

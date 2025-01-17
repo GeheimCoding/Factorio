@@ -1,3 +1,4 @@
+#[derive(serde::Deserialize)]
 pub struct InsertItemTriggerEffectItem {
     base_: crate::types::TriggerEffectItem,
     count: crate::types::ItemCountType,

@@ -1,3 +1,4 @@
+#[derive(serde::Deserialize)]
 pub struct SpriteParameters {
     base_: crate::types::SpriteSource,
     apply_runtime_tint: bool,

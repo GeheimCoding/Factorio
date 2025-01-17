@@ -1,3 +1,4 @@
+#[derive(serde::Deserialize)]
 pub struct BeaconPrototype {
     base_: crate::prototypes::EntityWithOwnerPrototype,
     allowed_effects: crate::types::EffectTypeLimitation,

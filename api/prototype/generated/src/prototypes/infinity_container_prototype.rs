@@ -1,3 +1,4 @@
+#[derive(serde::Deserialize)]
 pub struct InfinityContainerPrototype {
     base_: crate::prototypes::LogisticContainerPrototype,
     erase_contents_when_mined: bool,

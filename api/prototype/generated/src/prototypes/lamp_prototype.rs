@@ -1,3 +1,4 @@
+#[derive(serde::Deserialize)]
 pub struct LampPrototype {
     base_: crate::prototypes::EntityWithOwnerPrototype,
     always_on: bool,

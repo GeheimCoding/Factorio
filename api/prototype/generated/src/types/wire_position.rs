@@ -1,3 +1,4 @@
+#[derive(serde::Deserialize)]
 pub struct WirePosition {
     copper: crate::types::Vector,
     green: crate::types::Vector,

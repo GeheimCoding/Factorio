@@ -1,3 +1,4 @@
+#[derive(serde::Deserialize)]
 pub struct AgriculturalTowerPrototype {
     base_: crate::prototypes::EntityWithOwnerPrototype,
     arm_extending_sound: crate::types::InterruptibleSound,

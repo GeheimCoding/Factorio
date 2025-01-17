@@ -1,3 +1,4 @@
+#[derive(serde::Deserialize)]
 pub struct LogisticContainerPrototype {
     base_: crate::prototypes::ContainerPrototype,
     animation: crate::types::Animation,

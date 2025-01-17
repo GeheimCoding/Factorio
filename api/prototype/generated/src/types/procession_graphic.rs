@@ -1,3 +1,4 @@
+#[derive(serde::Deserialize)]
 pub struct ProcessionGraphic {
     animation: crate::types::Animation,
     catalogue_id: u32,

@@ -1,3 +1,4 @@
+#[derive(serde::Deserialize)]
 pub struct PathFinderSettings {
     cache_accept_path_end_distance_ratio: f64,
     cache_accept_path_start_distance_ratio: f64,

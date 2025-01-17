@@ -1,3 +1,4 @@
+#[derive(serde::Deserialize)]
 pub struct InventoryBonusEquipmentPrototype {
     base_: crate::prototypes::EquipmentPrototype,
     energy_source: crate::types::ElectricEnergySource,

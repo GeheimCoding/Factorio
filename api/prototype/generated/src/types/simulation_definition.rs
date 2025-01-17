@@ -1,3 +1,4 @@
+#[derive(serde::Deserialize)]
 pub struct SimulationDefinition {
     checkboard: bool,
     game_view_settings: crate::types::GameViewSettings,

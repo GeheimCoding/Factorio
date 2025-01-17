@@ -283,7 +283,12 @@ impl Type {
             }
             // README: Adjustment [TODO]
             if prefix == "LightDefinition" {
-                others.insert(0, format!("pub struct LightDefinitionStruct{result}}}"));
+                others.insert(
+                    0,
+                    format!(
+                        "#[derive(serde::Deserialize)]pub struct LightDefinitionStruct{result}}}"
+                    ),
+                );
                 return (String::from("LightDefinitionStruct"), others);
             }
             // README: Adjustment [TODO]

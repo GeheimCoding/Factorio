@@ -1,3 +1,4 @@
+#[derive(serde::Deserialize)]
 pub struct BeamPrototype {
     base_: crate::prototypes::EntityPrototype,
     action: crate::types::Trigger,

@@ -1,3 +1,4 @@
+#[derive(serde::Deserialize)]
 pub struct TurretSpecialEffect {
     attacking_falloff: f32,
     attacking_max_radius: f32,

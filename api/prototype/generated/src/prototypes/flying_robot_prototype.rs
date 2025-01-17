@@ -1,3 +1,4 @@
+#[derive(serde::Deserialize)]
 pub struct FlyingRobotPrototype {
     base_: crate::prototypes::EntityWithOwnerPrototype,
     energy_per_move: crate::types::Energy,

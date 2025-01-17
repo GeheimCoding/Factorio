@@ -1,3 +1,4 @@
+#[derive(serde::Deserialize)]
 pub struct GeneratorPrototype {
     base_: crate::prototypes::EntityWithOwnerPrototype,
     burns_fluid: bool,

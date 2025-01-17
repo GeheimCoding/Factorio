@@ -1,3 +1,4 @@
+#[derive(serde::Deserialize)]
 pub struct ImageStyleSpecification {
     base_: crate::types::BaseStyleSpecification,
     graphical_set: crate::types::ElementImageSet,

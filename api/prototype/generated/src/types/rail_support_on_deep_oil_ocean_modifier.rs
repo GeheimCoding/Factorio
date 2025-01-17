@@ -1,3 +1,4 @@
+#[derive(serde::Deserialize)]
 pub struct RailSupportOnDeepOilOceanModifier {
     base_: crate::types::BoolModifier,
     type_: String,

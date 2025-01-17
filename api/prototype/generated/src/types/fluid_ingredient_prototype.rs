@@ -1,3 +1,4 @@
+#[derive(serde::Deserialize)]
 pub struct FluidIngredientPrototype {
     amount: crate::types::FluidAmount,
     fluidbox_index: u32,

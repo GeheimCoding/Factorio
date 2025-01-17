@@ -1,3 +1,4 @@
+#[derive(serde::Deserialize)]
 pub struct InserterPrototype {
     base_: crate::prototypes::EntityWithOwnerPrototype,
     allow_burner_leech: bool,

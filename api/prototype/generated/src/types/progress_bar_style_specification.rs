@@ -1,3 +1,4 @@
+#[derive(serde::Deserialize)]
 pub struct ProgressBarStyleSpecification {
     base_: crate::types::BaseStyleSpecification,
     bar: crate::types::ElementImageSet,
@@ -12,6 +13,7 @@ pub struct ProgressBarStyleSpecification {
     side_text_padding: i16,
     type_: String,
 }
+#[derive(serde::Deserialize)]
 pub struct OtherColors {
     bar: crate::types::ElementImageSet,
     color: crate::types::Color,

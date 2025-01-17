@@ -1,3 +1,4 @@
+#[derive(serde::Deserialize)]
 pub struct IconData {
     draw_background: bool,
     icon: crate::types::FileName,

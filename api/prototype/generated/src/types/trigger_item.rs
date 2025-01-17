@@ -1,3 +1,4 @@
+#[derive(serde::Deserialize)]
 pub struct TriggerItem {
     action_delivery: TriggerItemActionDelivery,
     collision_mask: crate::types::CollisionMaskConnector,

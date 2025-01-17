@@ -1,3 +1,4 @@
+#[derive(serde::Deserialize)]
 pub struct WorkerRobotSpeedModifier {
     base_: crate::types::SimpleModifier,
     infer_icon: bool,

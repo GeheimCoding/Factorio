@@ -1,3 +1,4 @@
+#[derive(serde::Deserialize)]
 pub struct AmmoType {
     action: crate::types::Trigger,
     clamp_position: bool,

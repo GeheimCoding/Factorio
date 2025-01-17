@@ -1,3 +1,4 @@
+#[derive(serde::Deserialize)]
 pub struct AchievementPrototype {
     base_: crate::prototypes::Prototype,
     allowed_without_fight: bool,

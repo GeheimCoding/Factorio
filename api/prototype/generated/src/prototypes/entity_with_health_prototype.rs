@@ -1,3 +1,4 @@
+#[derive(serde::Deserialize)]
 pub struct EntityWithHealthPrototype {
     base_: crate::prototypes::EntityPrototype,
     alert_when_damaged: bool,

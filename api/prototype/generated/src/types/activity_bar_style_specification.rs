@@ -1,3 +1,4 @@
+#[derive(serde::Deserialize)]
 pub struct ActivityBarStyleSpecification {
     base_: crate::types::BaseStyleSpecification,
     bar: crate::types::ElementImageSet,

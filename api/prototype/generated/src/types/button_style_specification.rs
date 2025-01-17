@@ -1,3 +1,4 @@
+#[derive(serde::Deserialize)]
 pub struct ButtonStyleSpecification {
     base_: crate::types::StyleWithClickableGraphicalSetSpecification,
     clicked_font_color: crate::types::Color,

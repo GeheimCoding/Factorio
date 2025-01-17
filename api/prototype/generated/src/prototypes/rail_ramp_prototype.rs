@@ -1,3 +1,4 @@
+#[derive(serde::Deserialize)]
 pub struct RailRampPrototype {
     base_: crate::prototypes::RailPrototype,
     collision_box: crate::types::BoundingBox,

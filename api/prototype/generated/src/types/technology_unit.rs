@@ -1,3 +1,4 @@
+#[derive(serde::Deserialize)]
 pub struct TechnologyUnit {
     count: u64,
     count_formula: crate::types::MathExpression,

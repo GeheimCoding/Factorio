@@ -1,3 +1,4 @@
+#[derive(serde::Deserialize)]
 pub struct RailSignalColorToFrameIndex {
     blue: u8,
     green: u8,

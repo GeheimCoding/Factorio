@@ -1,3 +1,4 @@
+#[derive(serde::Deserialize)]
 pub struct BaseModifier {
     hidden: bool,
     icon: crate::types::FileName,

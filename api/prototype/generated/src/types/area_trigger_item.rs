@@ -1,3 +1,4 @@
+#[derive(serde::Deserialize)]
 pub struct AreaTriggerItem {
     base_: crate::types::TriggerItem,
     collision_mode: AreaTriggerItemCollisionMode,

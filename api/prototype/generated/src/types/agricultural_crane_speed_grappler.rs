@@ -1,3 +1,4 @@
+#[derive(serde::Deserialize)]
 pub struct AgriculturalCraneSpeedGrappler {
     allow_transpolar_movement: bool,
     extension_speed: f64,

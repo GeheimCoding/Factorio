@@ -1,3 +1,4 @@
+#[derive(serde::Deserialize)]
 pub struct UnlockSpaceLocationModifier {
     base_: crate::types::BaseModifier,
     space_location: crate::types::SpaceLocationID,

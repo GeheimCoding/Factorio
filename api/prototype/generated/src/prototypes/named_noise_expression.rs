@@ -1,3 +1,4 @@
+#[derive(serde::Deserialize)]
 pub struct NamedNoiseExpression {
     base_: crate::prototypes::Prototype,
     expression: crate::types::NoiseExpression,

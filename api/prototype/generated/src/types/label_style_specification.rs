@@ -1,3 +1,4 @@
+#[derive(serde::Deserialize)]
 pub struct LabelStyleSpecification {
     base_: crate::types::BaseStyleSpecification,
     clicked_font_color: crate::types::Color,

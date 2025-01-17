@@ -1,3 +1,4 @@
+#[derive(serde::Deserialize)]
 pub struct WorkingVisualisation {
     align_to_waypoint: bool,
     always_draw: bool,

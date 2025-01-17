@@ -1,3 +1,4 @@
+#[derive(serde::Deserialize)]
 pub struct RecipeTints {
     primary: crate::types::Color,
     quaternary: crate::types::Color,

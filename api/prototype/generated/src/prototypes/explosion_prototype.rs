@@ -1,3 +1,4 @@
+#[derive(serde::Deserialize)]
 pub struct ExplosionPrototype {
     base_: crate::prototypes::EntityPrototype,
     animations: crate::types::AnimationVariations,

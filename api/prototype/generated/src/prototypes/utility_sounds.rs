@@ -1,3 +1,4 @@
+#[derive(serde::Deserialize)]
 pub struct UtilitySounds {
     base_: crate::prototypes::PrototypeBase,
     achievement_unlocked: crate::types::Sound,

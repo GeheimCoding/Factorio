@@ -63,7 +63,10 @@ impl Concept {
         let (inner, mut additional) = self.type_.generate(name, context);
         let mut seen: HashSet<String> = HashSet::new();
         additional.retain(|a| seen.insert(a.clone()));
-        format!("pub struct {name}{inner}{}", additional.join(""))
+        format!(
+            "#[derive(serde::Deserialize)]pub struct {name}{inner}{}",
+            additional.join("")
+        )
     }
 
     fn generate_enum(&self, context: &Context) -> String {
@@ -99,7 +102,7 @@ impl Concept {
                 matches!(&self.type_, Type::Simple(simple) if simple == &String::from("builtin")),
                 "expected builtin type"
             );
-            return String::from("pub struct DataExtendMethod;");
+            return String::from("#[derive(serde::Deserialize)]pub struct DataExtendMethod;");
         }
         // README: Adjustment [3]
         let (generated, additional) = self.type_.generate(name, context);

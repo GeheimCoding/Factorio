@@ -1,3 +1,4 @@
+#[derive(serde::Deserialize)]
 pub struct ColumnAlignment {
     alignment: ColumnAlignmentAlignment,
     column: u32,

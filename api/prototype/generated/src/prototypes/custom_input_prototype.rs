@@ -1,3 +1,4 @@
+#[derive(serde::Deserialize)]
 pub struct CustomInputPrototype {
     base_: crate::prototypes::Prototype,
     action: CustomInputPrototypeAction,

@@ -1,3 +1,4 @@
+#[derive(serde::Deserialize)]
 pub struct MapGenPresetPollutionSettings {
     ageing: f64,
     diffusion_ratio: f64,

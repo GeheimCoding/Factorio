@@ -1,3 +1,4 @@
+#[derive(serde::Deserialize)]
 pub struct LoaderPrototype {
     base_: crate::prototypes::TransportBeltConnectablePrototype,
     allow_container_interaction: bool,

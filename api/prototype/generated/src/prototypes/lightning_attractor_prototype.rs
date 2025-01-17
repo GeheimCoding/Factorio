@@ -1,3 +1,4 @@
+#[derive(serde::Deserialize)]
 pub struct LightningAttractorPrototype {
     base_: crate::prototypes::EntityWithOwnerPrototype,
     chargable_graphics: crate::types::ChargableGraphics,

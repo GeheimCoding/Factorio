@@ -1,3 +1,4 @@
+#[derive(serde::Deserialize)]
 pub struct VehiclePrototype {
     base_: crate::prototypes::EntityWithOwnerPrototype,
     allow_passengers: bool,

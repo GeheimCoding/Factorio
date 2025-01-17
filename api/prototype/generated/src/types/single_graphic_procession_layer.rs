@@ -1,3 +1,4 @@
+#[derive(serde::Deserialize)]
 pub struct SingleGraphicProcessionLayer {
     animation_driven_by_curve: bool,
     clip_with_hatches: bool,
@@ -12,6 +13,7 @@ pub struct SingleGraphicProcessionLayer {
     shift_rotates_with_pod: bool,
     type_: String,
 }
+#[derive(serde::Deserialize)]
 pub struct SingleGraphicLayerProcessionBezierControlPoint {
     frame: f32,
     opacity: f64,

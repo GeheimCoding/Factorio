@@ -1,3 +1,4 @@
+#[derive(serde::Deserialize)]
 pub struct MaximumFollowingRobotsCountModifier {
     base_: crate::types::SimpleModifier,
     infer_icon: bool,

@@ -1,3 +1,4 @@
+#[derive(serde::Deserialize)]
 pub struct CharacterLogisticRequestsModifier {
     base_: crate::types::BoolModifier,
     type_: String,

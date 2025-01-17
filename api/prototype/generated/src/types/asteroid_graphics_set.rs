@@ -1,3 +1,4 @@
+#[derive(serde::Deserialize)]
 pub struct AsteroidGraphicsSet {
     ambient_light: crate::types::Color,
     brightness: f32,

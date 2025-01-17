@@ -1,3 +1,4 @@
+#[derive(serde::Deserialize)]
 pub struct BlueprintBookPrototype {
     base_: crate::prototypes::ItemWithInventoryPrototype,
     draw_label_for_cursor_render: bool,

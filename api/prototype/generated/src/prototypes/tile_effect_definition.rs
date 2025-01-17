@@ -1,3 +1,4 @@
+#[derive(serde::Deserialize)]
 pub struct TileEffectDefinition {
     name: String,
     puddle: crate::types::PuddleTileEffectParameters,

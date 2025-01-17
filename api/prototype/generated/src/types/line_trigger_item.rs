@@ -1,3 +1,4 @@
+#[derive(serde::Deserialize)]
 pub struct LineTriggerItem {
     base_: crate::types::TriggerItem,
     range: f64,

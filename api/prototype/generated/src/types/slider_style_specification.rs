@@ -1,3 +1,4 @@
+#[derive(serde::Deserialize)]
 pub struct SliderStyleSpecification {
     base_: crate::types::BaseStyleSpecification,
     button: crate::types::ButtonStyleSpecification,

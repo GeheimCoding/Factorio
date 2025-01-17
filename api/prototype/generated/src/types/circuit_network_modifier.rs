@@ -1,3 +1,4 @@
+#[derive(serde::Deserialize)]
 pub struct CircuitNetworkModifier {
     base_: crate::types::BoolModifier,
     type_: String,

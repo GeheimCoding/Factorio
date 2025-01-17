@@ -1,3 +1,4 @@
+#[derive(serde::Deserialize)]
 pub struct CaptureRobotPrototype {
     base_: crate::prototypes::FlyingRobotPrototype,
     capture_animation: crate::types::Animation,

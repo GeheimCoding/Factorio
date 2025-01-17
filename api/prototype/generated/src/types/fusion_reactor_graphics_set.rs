@@ -1,3 +1,4 @@
+#[derive(serde::Deserialize)]
 pub struct FusionReactorGraphicsSet {
     connections_graphics: Vec<crate::types::FusionReactorConnectionGraphics>,
     default_fuel_glow_color: crate::types::Color,

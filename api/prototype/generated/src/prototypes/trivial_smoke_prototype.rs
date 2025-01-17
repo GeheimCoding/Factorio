@@ -1,3 +1,4 @@
+#[derive(serde::Deserialize)]
 pub struct TrivialSmokePrototype {
     base_: crate::prototypes::Prototype,
     affected_by_wind: bool,

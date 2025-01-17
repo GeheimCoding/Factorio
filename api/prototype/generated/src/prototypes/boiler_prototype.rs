@@ -1,3 +1,4 @@
+#[derive(serde::Deserialize)]
 pub struct BoilerPrototype {
     base_: crate::prototypes::EntityWithOwnerPrototype,
     burning_cooldown: u16,
@@ -18,6 +19,7 @@ pub enum BoilerPrototypeMode {
     #[serde(rename = "output_to_separate_pipe")]
     OutputToSeparatePipe,
 }
+#[derive(serde::Deserialize)]
 pub struct BoilerPictureSet {
     east: crate::types::BoilerPictures,
     north: crate::types::BoilerPictures,

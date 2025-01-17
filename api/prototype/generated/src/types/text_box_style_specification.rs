@@ -1,3 +1,4 @@
+#[derive(serde::Deserialize)]
 pub struct TextBoxStyleSpecification {
     base_: crate::types::BaseStyleSpecification,
     active_background: crate::types::ElementImageSet,

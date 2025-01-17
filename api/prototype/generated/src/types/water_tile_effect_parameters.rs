@@ -1,3 +1,4 @@
+#[derive(serde::Deserialize)]
 pub struct WaterTileEffectParameters {
     animation_scale: WaterTileEffectParametersAnimationScale,
     animation_speed: f32,

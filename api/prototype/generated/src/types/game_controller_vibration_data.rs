@@ -1,3 +1,4 @@
+#[derive(serde::Deserialize)]
 pub struct GameControllerVibrationData {
     duration: u32,
     high_frequency_vibration_intensity: f32,

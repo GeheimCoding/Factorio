@@ -1,3 +1,4 @@
+#[derive(serde::Deserialize)]
 pub struct PumpPrototype {
     base_: crate::prototypes::EntityWithOwnerPrototype,
     animations: crate::types::Animation4Way,
@@ -22,6 +23,7 @@ pub struct PumpPrototype {
     glass_pictures: crate::types::Sprite4Way,
     pumping_speed: crate::types::FluidAmount,
 }
+#[derive(serde::Deserialize)]
 pub struct FluidWagonConnectorGraphics {
     load_animations: crate::types::PumpConnectorGraphics,
     unload_animations: crate::types::PumpConnectorGraphics,

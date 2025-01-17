@@ -1,3 +1,4 @@
+#[derive(serde::Deserialize)]
 pub struct AnimationParameters {
     base_: crate::types::SpriteParameters,
     animation_speed: f32,

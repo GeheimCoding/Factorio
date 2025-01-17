@@ -1,3 +1,4 @@
+#[derive(serde::Deserialize)]
 pub struct StreamAttackParameters {
     base_: crate::types::BaseAttackParameters,
     fluid_consumption: crate::types::FluidAmount,
@@ -7,6 +8,7 @@ pub struct StreamAttackParameters {
     projectile_creation_parameters: crate::types::CircularProjectileCreationSpecification,
     type_: String,
 }
+#[derive(serde::Deserialize)]
 pub struct StreamFluidProperties {
     damage_modifier: f64,
     type_: crate::types::FluidID,
@@ -18,6 +20,7 @@ pub enum StreamAttackParametersGunCenterShift {
     #[serde(untagged)]
     GunShift4Way(Box<GunShift4Way>),
 }
+#[derive(serde::Deserialize)]
 pub struct GunShift4Way {
     east: crate::types::Vector,
     north: crate::types::Vector,

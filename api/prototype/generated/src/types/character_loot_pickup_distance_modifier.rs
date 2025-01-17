@@ -1,3 +1,4 @@
+#[derive(serde::Deserialize)]
 pub struct CharacterLootPickupDistanceModifier {
     base_: crate::types::SimpleModifier,
     type_: String,

@@ -1,3 +1,4 @@
+#[derive(serde::Deserialize)]
 pub struct WorkingVisualisations {
     always_draw_idle_animation: bool,
     animation: crate::types::Animation4Way,

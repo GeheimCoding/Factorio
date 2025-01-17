@@ -1,3 +1,4 @@
+#[derive(serde::Deserialize)]
 pub struct PrototypeStrafeSettings {
     clockwise_chance: f32,
     face_target: bool,

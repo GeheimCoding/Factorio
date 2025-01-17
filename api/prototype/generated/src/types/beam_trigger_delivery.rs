@@ -1,3 +1,4 @@
+#[derive(serde::Deserialize)]
 pub struct BeamTriggerDelivery {
     base_: crate::types::TriggerDeliveryItem,
     add_to_shooter: bool,

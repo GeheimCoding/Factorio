@@ -1,8 +1,10 @@
+#[derive(serde::Deserialize)]
 pub struct TintProcessionLayer {
     frames: Vec<TintProcessionBezierControlPoint>,
     render_layer: crate::types::RenderLayer,
     type_: String,
 }
+#[derive(serde::Deserialize)]
 pub struct TintProcessionBezierControlPoint {
     opacity: f64,
     opacity_t: f64,

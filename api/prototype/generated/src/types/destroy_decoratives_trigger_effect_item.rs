@@ -1,3 +1,4 @@
+#[derive(serde::Deserialize)]
 pub struct DestroyDecorativesTriggerEffectItem {
     base_: crate::types::TriggerEffectItem,
     decoratives_with_trigger_only: bool,

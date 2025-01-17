@@ -1,3 +1,4 @@
+#[derive(serde::Deserialize)]
 pub struct TerritorySettings {
     minimum_territory_size: u32,
     territory_index_expression: String,

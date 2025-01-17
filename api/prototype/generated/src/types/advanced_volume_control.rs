@@ -1,3 +1,4 @@
+#[derive(serde::Deserialize)]
 pub struct AdvancedVolumeControl {
     attenuation: crate::types::Fade,
     darkness_threshold: f32,

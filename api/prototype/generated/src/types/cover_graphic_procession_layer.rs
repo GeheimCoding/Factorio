@@ -1,3 +1,4 @@
+#[derive(serde::Deserialize)]
 pub struct CoverGraphicProcessionLayer {
     alt_effect: crate::types::CoverGraphicEffectData,
     distance_traveled_strength: crate::types::Vector,
@@ -18,6 +19,7 @@ pub struct CoverGraphicProcessionLayer {
     type_: String,
     world_size: crate::types::Vector,
 }
+#[derive(serde::Deserialize)]
 pub struct CoverGraphicProcessionLayerBezierControlPoint {
     alt_effect_scale_max: f64,
     alt_effect_scale_max_t: f64,

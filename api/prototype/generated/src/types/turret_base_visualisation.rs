@@ -1,3 +1,4 @@
+#[derive(serde::Deserialize)]
 pub struct TurretBaseVisualisation {
     animation: crate::types::Animation4Way,
     draw_when_frozen: bool,

@@ -1,3 +1,4 @@
+#[derive(serde::Deserialize)]
 pub struct FireFlamePrototype {
     base_: crate::prototypes::EntityPrototype,
     add_fuel_cooldown: u32,
@@ -47,6 +48,7 @@ pub struct FireFlamePrototype {
     tree_dying_factor: f32,
     uses_alternative_behavior: bool,
 }
+#[derive(serde::Deserialize)]
 pub struct TileAndAlpha {
     alpha: f32,
     tile: crate::types::TileID,

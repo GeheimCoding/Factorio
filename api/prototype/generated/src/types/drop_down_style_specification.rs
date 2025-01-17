@@ -1,3 +1,4 @@
+#[derive(serde::Deserialize)]
 pub struct DropDownStyleSpecification {
     base_: crate::types::BaseStyleSpecification,
     button_style: crate::types::ButtonStyleSpecification,

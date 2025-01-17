@@ -1,3 +1,4 @@
+#[derive(serde::Deserialize)]
 pub struct SpiderLegPart {
     bottom_end: crate::types::RotatedSprite,
     bottom_end_length: f32,

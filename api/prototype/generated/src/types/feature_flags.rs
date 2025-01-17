@@ -1,3 +1,4 @@
+#[derive(serde::Deserialize)]
 pub struct FeatureFlags {
     expansion_shaders: bool,
     freezing: bool,

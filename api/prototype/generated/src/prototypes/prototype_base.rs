@@ -1,3 +1,4 @@
+#[derive(serde::Deserialize)]
 pub struct PrototypeBase {
     factoriopedia_description: crate::types::LocalisedString,
     factoriopedia_simulation: crate::types::SimulationDefinition,

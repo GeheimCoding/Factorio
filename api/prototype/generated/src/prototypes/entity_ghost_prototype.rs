@@ -1,3 +1,4 @@
+#[derive(serde::Deserialize)]
 pub struct EntityGhostPrototype {
     base_: crate::prototypes::EntityPrototype,
     huge_build_animated_sound: crate::types::Sound,

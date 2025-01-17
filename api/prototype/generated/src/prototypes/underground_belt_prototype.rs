@@ -1,3 +1,4 @@
+#[derive(serde::Deserialize)]
 pub struct UndergroundBeltPrototype {
     base_: crate::prototypes::TransportBeltConnectablePrototype,
     max_distance: u8,
@@ -8,6 +9,7 @@ pub struct UndergroundBeltPrototype {
     underground_remove_belts_sprite: crate::types::Sprite,
     underground_sprite: crate::types::Sprite,
 }
+#[derive(serde::Deserialize)]
 pub struct UndergroundBeltStructure {
     back_patch: crate::types::Sprite4Way,
     direction_in: crate::types::Sprite4Way,

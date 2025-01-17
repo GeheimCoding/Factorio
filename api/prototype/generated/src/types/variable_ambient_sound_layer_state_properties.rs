@@ -1,3 +1,4 @@
+#[derive(serde::Deserialize)]
 pub struct VariableAmbientSoundLayerStateProperties {
     enabled: bool,
     end_pause: crate::types::RandomRange,

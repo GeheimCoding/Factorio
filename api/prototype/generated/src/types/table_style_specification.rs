@@ -1,3 +1,4 @@
+#[derive(serde::Deserialize)]
 pub struct TableStyleSpecification {
     base_: crate::types::BaseStyleSpecification,
     apply_row_graphical_set_per_column: bool,

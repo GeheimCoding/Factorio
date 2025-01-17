@@ -1,3 +1,4 @@
+#[derive(serde::Deserialize)]
 pub struct RotatedAnimation {
     base_: crate::types::AnimationParameters,
     apply_projection: bool,

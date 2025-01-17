@@ -1,3 +1,4 @@
+#[derive(serde::Deserialize)]
 pub struct RadiusVisualisationSpecification {
     distance: f64,
     draw_in_cursor: bool,

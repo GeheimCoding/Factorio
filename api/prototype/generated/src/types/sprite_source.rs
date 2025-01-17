@@ -1,3 +1,4 @@
+#[derive(serde::Deserialize)]
 pub struct SpriteSource {
     filename: crate::types::FileName,
     height: crate::types::SpriteSizeType,

@@ -1,3 +1,4 @@
+#[derive(serde::Deserialize)]
 pub struct PipeToGroundPrototype {
     base_: crate::prototypes::EntityWithOwnerPrototype,
     disabled_visualization: crate::types::Sprite4Way,

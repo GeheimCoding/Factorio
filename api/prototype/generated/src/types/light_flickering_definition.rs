@@ -1,3 +1,4 @@
+#[derive(serde::Deserialize)]
 pub struct LightFlickeringDefinition {
     border_fix_speed: f32,
     color: crate::types::Color,

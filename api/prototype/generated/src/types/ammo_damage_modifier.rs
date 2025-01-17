@@ -1,3 +1,4 @@
+#[derive(serde::Deserialize)]
 pub struct AmmoDamageModifier {
     base_: crate::types::BaseModifier,
     ammo_category: crate::types::AmmoCategoryID,

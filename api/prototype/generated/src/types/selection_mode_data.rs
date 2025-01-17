@@ -1,3 +1,4 @@
+#[derive(serde::Deserialize)]
 pub struct SelectionModeData {
     border_color: crate::types::Color,
     chart_color: crate::types::Color,

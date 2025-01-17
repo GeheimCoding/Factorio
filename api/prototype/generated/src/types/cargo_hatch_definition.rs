@@ -1,3 +1,4 @@
+#[derive(serde::Deserialize)]
 pub struct CargoHatchDefinition {
     busy_timeout_ticks: u32,
     cargo_unit_entity_to_spawn: crate::types::EntityID,

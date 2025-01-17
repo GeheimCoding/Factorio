@@ -1,3 +1,4 @@
+#[derive(serde::Deserialize)]
 pub struct TileMainPictures {
     base_: crate::types::TileSpriteLayout,
     probability: f64,

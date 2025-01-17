@@ -1,3 +1,4 @@
+#[derive(serde::Deserialize)]
 pub struct StackTransferTipTrigger {
     base_: crate::types::CountBasedTipTrigger,
     transfer: StackTransferTipTriggerTransfer,

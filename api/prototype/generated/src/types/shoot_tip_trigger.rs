@@ -1,3 +1,4 @@
+#[derive(serde::Deserialize)]
 pub struct ShootTipTrigger {
     base_: crate::types::CountBasedTipTrigger,
     target: ShootTipTriggerTarget,

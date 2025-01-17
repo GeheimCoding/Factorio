@@ -1,3 +1,4 @@
+#[derive(serde::Deserialize)]
 pub struct SignalIDConnector {
     name: SignalIDConnectorName,
     type_: SignalIDConnectorType,

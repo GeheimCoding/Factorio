@@ -1,3 +1,4 @@
+#[derive(serde::Deserialize)]
 pub struct PlayerDamagedAchievementPrototype {
     base_: crate::prototypes::AchievementPrototype,
     minimum_damage: f32,

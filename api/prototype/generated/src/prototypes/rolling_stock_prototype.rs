@@ -1,3 +1,4 @@
+#[derive(serde::Deserialize)]
 pub struct RollingStockPrototype {
     base_: crate::prototypes::VehiclePrototype,
     air_resistance: f64,

@@ -1,3 +1,4 @@
+#[derive(serde::Deserialize)]
 pub struct PasteEntitySettingsTipTrigger {
     base_: crate::types::CountBasedTipTrigger,
     match_type_only: bool,

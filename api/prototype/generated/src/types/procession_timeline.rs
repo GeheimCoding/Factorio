@@ -1,3 +1,4 @@
+#[derive(serde::Deserialize)]
 pub struct ProcessionTimeline {
     audio_events: Vec<crate::types::ProcessionAudioEvent>,
     draw_switch_tick: crate::types::MapTick,

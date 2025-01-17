@@ -1,3 +1,4 @@
+#[derive(serde::Deserialize)]
 pub struct TransportBeltConnectorFrame {
     frame_back_patch: crate::types::SpriteVariations,
     frame_front_patch: crate::types::SpriteVariations,

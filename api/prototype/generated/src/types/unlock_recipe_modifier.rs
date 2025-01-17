@@ -1,3 +1,4 @@
+#[derive(serde::Deserialize)]
 pub struct UnlockRecipeModifier {
     base_: crate::types::BaseModifier,
     recipe: crate::types::RecipeID,

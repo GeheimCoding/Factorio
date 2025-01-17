@@ -56,6 +56,9 @@ impl Prototype {
             Type::Complex(Box::new(ComplexType::Struct)).generate(name, context);
         let mut seen: HashSet<String> = HashSet::new();
         additional.retain(|a| seen.insert(a.clone()));
-        format!("pub struct {name}{inner}{}", additional.join(""))
+        format!(
+            "#[derive(serde::Deserialize)]pub struct {name}{inner}{}",
+            additional.join("")
+        )
     }
 }

@@ -1,3 +1,4 @@
+#[derive(serde::Deserialize)]
 pub struct HeatInterfacePrototype {
     base_: crate::prototypes::EntityWithOwnerPrototype,
     gui_mode: HeatInterfacePrototypeGuiMode,

@@ -1,3 +1,4 @@
+#[derive(serde::Deserialize)]
 pub struct TransportBeltAnimationSet {
     alternate: bool,
     animation_set: crate::types::RotatedAnimation,

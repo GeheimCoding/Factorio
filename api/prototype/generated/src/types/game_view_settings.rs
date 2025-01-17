@@ -1,3 +1,4 @@
+#[derive(serde::Deserialize)]
 pub struct GameViewSettings {
     default_show_value: bool,
     show_alert_gui: bool,

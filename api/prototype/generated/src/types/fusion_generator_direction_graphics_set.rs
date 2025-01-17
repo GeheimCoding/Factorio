@@ -1,3 +1,4 @@
+#[derive(serde::Deserialize)]
 pub struct FusionGeneratorDirectionGraphicsSet {
     animation: crate::types::Animation,
     fluid_input_graphics: Vec<crate::types::FusionGeneratorFluidInputGraphics>,

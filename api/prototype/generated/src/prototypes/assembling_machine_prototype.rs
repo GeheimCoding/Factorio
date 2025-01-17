@@ -1,3 +1,4 @@
+#[derive(serde::Deserialize)]
 pub struct AssemblingMachinePrototype {
     base_: crate::prototypes::CraftingMachinePrototype,
     circuit_connector: (

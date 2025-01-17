@@ -1,3 +1,4 @@
+#[derive(serde::Deserialize)]
 pub struct MouseCursor {
     filename: crate::types::FileName,
     hot_pixel_x: i16,

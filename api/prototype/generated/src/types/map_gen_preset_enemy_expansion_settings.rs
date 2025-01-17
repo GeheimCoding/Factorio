@@ -1,3 +1,4 @@
+#[derive(serde::Deserialize)]
 pub struct MapGenPresetEnemyExpansionSettings {
     enabled: bool,
     max_expansion_cooldown: u32,

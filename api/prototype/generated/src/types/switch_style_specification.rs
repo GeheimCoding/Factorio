@@ -1,3 +1,4 @@
+#[derive(serde::Deserialize)]
 pub struct SwitchStyleSpecification {
     base_: crate::types::BaseStyleSpecification,
     active_label: crate::types::LabelStyleSpecification,

@@ -1,3 +1,4 @@
+#[derive(serde::Deserialize)]
 pub struct EquipmentGhostPrototype {
     base_: crate::prototypes::EquipmentPrototype,
     categories: Vec<crate::types::EquipmentCategoryID>,

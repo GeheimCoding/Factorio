@@ -1,3 +1,4 @@
+#[derive(serde::Deserialize)]
 pub struct ConstructionRobotPrototype {
     base_: crate::prototypes::RobotWithLogisticInterfacePrototype,
     collision_box: crate::types::BoundingBox,

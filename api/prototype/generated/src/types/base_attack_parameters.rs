@@ -1,3 +1,4 @@
+#[derive(serde::Deserialize)]
 pub struct BaseAttackParameters {
     activation_type: BaseAttackParametersActivationType,
     ammo_categories: Vec<crate::types::AmmoCategoryID>,

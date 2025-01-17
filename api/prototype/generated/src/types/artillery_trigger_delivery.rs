@@ -1,3 +1,4 @@
+#[derive(serde::Deserialize)]
 pub struct ArtilleryTriggerDelivery {
     base_: crate::types::TriggerDeliveryItem,
     direction_deviation: f32,

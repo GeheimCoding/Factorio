@@ -1,3 +1,4 @@
+#[derive(serde::Deserialize)]
 pub struct EquipmentPrototype {
     base_: crate::prototypes::Prototype,
     background_border_color: crate::types::Color,

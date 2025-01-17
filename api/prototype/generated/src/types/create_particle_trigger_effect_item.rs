@@ -1,3 +1,4 @@
+#[derive(serde::Deserialize)]
 pub struct CreateParticleTriggerEffectItem {
     base_: crate::types::TriggerEffectItem,
     apply_tile_tint: CreateParticleTriggerEffectItemApplyTileTint,

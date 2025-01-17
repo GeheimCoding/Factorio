@@ -1,3 +1,4 @@
+#[derive(serde::Deserialize)]
 pub struct SoundAccent {
     audible_distance_modifier: f32,
     frame: u16,

@@ -1,3 +1,4 @@
+#[derive(serde::Deserialize)]
 pub struct SpritePrototype {
     apply_runtime_tint: bool,
     apply_special_effect: bool,

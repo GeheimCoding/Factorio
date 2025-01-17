@@ -1,3 +1,4 @@
+#[derive(serde::Deserialize)]
 pub struct RailSignalPictureSet {
     circuit_connector: Vec<crate::types::CircuitConnectorDefinition>,
     circuit_connector_render_layer: crate::types::RenderLayer,

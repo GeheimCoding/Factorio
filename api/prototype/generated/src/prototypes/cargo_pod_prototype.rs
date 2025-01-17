@@ -1,3 +1,4 @@
+#[derive(serde::Deserialize)]
 pub struct CargoPodPrototype {
     base_: crate::prototypes::EntityWithOwnerPrototype,
     default_graphic: crate::types::ProcessionGraphic,

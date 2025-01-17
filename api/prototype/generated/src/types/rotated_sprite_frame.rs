@@ -1,3 +1,4 @@
+#[derive(serde::Deserialize)]
 pub struct RotatedSpriteFrame {
     height: crate::types::SpriteSizeType,
     shift: crate::types::Vector,

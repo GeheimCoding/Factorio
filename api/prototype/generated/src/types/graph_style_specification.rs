@@ -1,3 +1,4 @@
+#[derive(serde::Deserialize)]
 pub struct GraphStyleSpecification {
     base_: crate::types::BaseStyleSpecification,
     background_color: crate::types::Color,

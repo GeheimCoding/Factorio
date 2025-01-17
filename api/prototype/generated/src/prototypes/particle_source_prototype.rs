@@ -1,3 +1,4 @@
+#[derive(serde::Deserialize)]
 pub struct ParticleSourcePrototype {
     base_: crate::prototypes::EntityPrototype,
     height: f32,

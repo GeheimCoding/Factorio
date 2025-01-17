@@ -1,3 +1,4 @@
+#[derive(serde::Deserialize)]
 pub struct AutoplaceSettings {
     settings:
         std::collections::HashMap<AutoplaceSettingsSettings, crate::types::FrequencySizeRichness>,

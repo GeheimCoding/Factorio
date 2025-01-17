@@ -1,3 +1,4 @@
+#[derive(serde::Deserialize)]
 pub struct SpiderLegSpecification {
     ground_position: crate::types::Vector,
     leg: crate::types::EntityID,

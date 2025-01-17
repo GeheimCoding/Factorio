@@ -1,3 +1,4 @@
+#[derive(serde::Deserialize)]
 pub struct ProduceAchievementPrototype {
     base_: crate::prototypes::AchievementPrototype,
     amount: crate::types::MaterialAmountType,

@@ -1,3 +1,4 @@
+#[derive(serde::Deserialize)]
 pub struct LandMinePrototype {
     base_: crate::prototypes::EntityWithOwnerPrototype,
     action: crate::types::Trigger,

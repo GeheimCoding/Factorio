@@ -1,3 +1,4 @@
+#[derive(serde::Deserialize)]
 pub struct ChargableGraphics {
     charge_animation: crate::types::Animation,
     charge_animation_is_looped: bool,

@@ -1,3 +1,4 @@
+#[derive(serde::Deserialize)]
 pub struct PipePictures {
     corner_down_left: crate::types::Sprite,
     corner_down_left_disabled_visualization: crate::types::Sprite,

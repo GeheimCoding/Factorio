@@ -1,3 +1,4 @@
+#[derive(serde::Deserialize)]
 pub struct ThrowCapsuleAction {
     attack_parameters: crate::types::AttackParameters,
     type_: String,

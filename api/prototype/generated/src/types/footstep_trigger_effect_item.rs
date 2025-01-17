@@ -1,3 +1,4 @@
+#[derive(serde::Deserialize)]
 pub struct FootstepTriggerEffectItem {
     base_: crate::types::CreateParticleTriggerEffectItem,
     actions: Vec<crate::types::CreateParticleTriggerEffectItem>,

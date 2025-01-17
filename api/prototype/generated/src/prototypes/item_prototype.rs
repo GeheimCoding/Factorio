@@ -1,3 +1,4 @@
+#[derive(serde::Deserialize)]
 pub struct ItemPrototype {
     base_: crate::prototypes::Prototype,
     burnt_result: crate::types::ItemID,
@@ -40,6 +41,7 @@ pub struct ItemPrototype {
     stack_size: crate::types::ItemCountType,
     weight: crate::types::Weight,
 }
+#[derive(serde::Deserialize)]
 pub struct PlaceAsTile {
     condition: crate::types::CollisionMaskConnector,
     condition_size: u32,

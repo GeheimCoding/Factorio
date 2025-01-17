@@ -1,3 +1,4 @@
+#[derive(serde::Deserialize)]
 pub struct OffshorePumpPrototype {
     base_: crate::prototypes::EntityWithOwnerPrototype,
     always_draw_fluid: bool,

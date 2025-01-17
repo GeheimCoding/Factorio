@@ -1,3 +1,4 @@
+#[derive(serde::Deserialize)]
 pub struct SplitterPrototype {
     base_: crate::prototypes::TransportBeltConnectablePrototype,
     frozen_patch: crate::types::Sprite4Way,

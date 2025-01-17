@@ -1,3 +1,4 @@
+#[derive(serde::Deserialize)]
 pub struct RadarPrototype {
     base_: crate::prototypes::EntityWithOwnerPrototype,
     circuit_connector: crate::types::CircuitConnectorDefinition,

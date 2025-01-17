@@ -1,3 +1,4 @@
+#[derive(serde::Deserialize)]
 pub struct BeamGraphicsSet {
     beam: crate::types::BeamAnimationSet,
     desired_segment_length: f32,

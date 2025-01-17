@@ -1,3 +1,4 @@
+#[derive(serde::Deserialize)]
 pub struct SpiderVehiclePrototype {
     base_: crate::prototypes::VehiclePrototype,
     automatic_weapon_cycling: bool,

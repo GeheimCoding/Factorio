@@ -1,3 +1,4 @@
+#[derive(serde::Deserialize)]
 pub struct PowerSwitchPrototype {
     base_: crate::prototypes::EntityWithOwnerPrototype,
     circuit_wire_connection_point: crate::types::WireConnectionPoint,

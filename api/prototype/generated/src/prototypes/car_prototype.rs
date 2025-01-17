@@ -1,3 +1,4 @@
+#[derive(serde::Deserialize)]
 pub struct CarPrototype {
     base_: crate::prototypes::VehiclePrototype,
     animation: crate::types::RotatedAnimation,

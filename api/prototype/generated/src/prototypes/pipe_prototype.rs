@@ -1,3 +1,4 @@
+#[derive(serde::Deserialize)]
 pub struct PipePrototype {
     base_: crate::prototypes::EntityWithOwnerPrototype,
     fluid_box: crate::types::FluidBox,

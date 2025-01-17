@@ -1,3 +1,4 @@
+#[derive(serde::Deserialize)]
 pub struct PlantPrototype {
     base_: crate::prototypes::TreePrototype,
     agricultural_tower_tint: crate::types::RecipeTints,

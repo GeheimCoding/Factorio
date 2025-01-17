@@ -1,3 +1,4 @@
+#[derive(serde::Deserialize)]
 pub struct RocketSiloRocketPrototype {
     base_: crate::prototypes::EntityPrototype,
     cargo_attachment_offset: crate::types::Vector,

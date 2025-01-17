@@ -1,3 +1,4 @@
+#[derive(serde::Deserialize)]
 pub struct FluidBox {
     always_draw_covers: bool,
     draw_only_when_connected: bool,
@@ -29,6 +30,7 @@ pub enum ProductionType {
     #[serde(rename = "output")]
     Output,
 }
+#[derive(serde::Deserialize)]
 pub struct FluidBoxSecondaryDrawOrders {
     east: i8,
     north: i8,

@@ -1,3 +1,4 @@
+#[derive(serde::Deserialize)]
 pub struct EnergyShieldEquipmentPrototype {
     base_: crate::prototypes::EquipmentPrototype,
     energy_per_shield: crate::types::Energy,

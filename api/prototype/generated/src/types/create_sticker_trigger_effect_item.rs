@@ -1,3 +1,4 @@
+#[derive(serde::Deserialize)]
 pub struct CreateStickerTriggerEffectItem {
     base_: crate::types::TriggerEffectItem,
     show_in_tooltip: bool,

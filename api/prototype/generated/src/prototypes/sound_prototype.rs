@@ -1,3 +1,4 @@
+#[derive(serde::Deserialize)]
 pub struct SoundPrototype {
     advanced_volume_control: crate::types::AdvancedVolumeControl,
     aggregation: crate::types::AggregationSpecification,

@@ -1,3 +1,4 @@
+#[derive(serde::Deserialize)]
 pub struct IconDrawSpecification {
     renderLayer: IconDrawSpecificationRenderLayer,
     scale: f32,

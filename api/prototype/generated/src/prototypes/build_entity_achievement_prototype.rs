@@ -1,3 +1,4 @@
+#[derive(serde::Deserialize)]
 pub struct BuildEntityAchievementPrototype {
     base_: crate::prototypes::AchievementPrototype,
     amount: u32,

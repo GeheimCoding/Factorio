@@ -1,3 +1,4 @@
+#[derive(serde::Deserialize)]
 pub struct TilePrototype {
     base_: crate::prototypes::Prototype,
     absorptions_per_second: std::collections::HashMap<crate::types::AirbornePollutantID, f64>,
@@ -79,6 +80,7 @@ pub enum TilePrototypeBuildSound {
     #[serde(untagged)]
     TileBuildSound(Box<TileBuildSound>),
 }
+#[derive(serde::Deserialize)]
 pub struct TileBuildSound {
     animated: crate::types::Sound,
     large: crate::types::Sound,

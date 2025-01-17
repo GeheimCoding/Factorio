@@ -1,3 +1,4 @@
+#[derive(serde::Deserialize)]
 pub struct SpiderTorsoGraphicsSet {
     animation: crate::types::RotatedAnimation,
     base_animation: crate::types::RotatedAnimation,

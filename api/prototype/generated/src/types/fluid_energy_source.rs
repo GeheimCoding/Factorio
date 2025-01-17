@@ -1,3 +1,4 @@
+#[derive(serde::Deserialize)]
 pub struct FluidEnergySource {
     base_: crate::types::BaseEnergySource,
     burns_fluid: bool,

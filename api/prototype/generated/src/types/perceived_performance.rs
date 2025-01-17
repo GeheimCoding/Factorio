@@ -1,3 +1,4 @@
+#[derive(serde::Deserialize)]
 pub struct PerceivedPerformance {
     maximum: f64,
     minimum: f64,

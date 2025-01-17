@@ -1,3 +1,4 @@
+#[derive(serde::Deserialize)]
 pub struct CombinatorPrototype {
     base_: crate::prototypes::EntityWithOwnerPrototype,
     active_energy_usage: crate::types::Energy,

@@ -1,3 +1,4 @@
+#[derive(serde::Deserialize)]
 pub struct ElectricEnergySource {
     base_: crate::types::BaseEnergySource,
     buffer_capacity: crate::types::Energy,

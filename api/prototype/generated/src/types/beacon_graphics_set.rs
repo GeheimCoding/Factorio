@@ -1,3 +1,4 @@
+#[derive(serde::Deserialize)]
 pub struct BeaconGraphicsSet {
     animation_layer: crate::types::RenderLayer,
     animation_list: Vec<crate::types::AnimationElement>,

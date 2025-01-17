@@ -1,3 +1,4 @@
+#[derive(serde::Deserialize)]
 pub struct LaneSplitterPrototype {
     base_: crate::prototypes::TransportBeltConnectablePrototype,
     structure: crate::types::Animation4Way,

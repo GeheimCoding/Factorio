@@ -1,3 +1,4 @@
+#[derive(serde::Deserialize)]
 pub struct TechnologySlotStyleSpecification {
     base_: crate::types::ButtonStyleSpecification,
     clicked_ingredients_background: crate::types::ElementImageSet,

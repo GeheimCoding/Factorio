@@ -1,3 +1,4 @@
+#[derive(serde::Deserialize)]
 pub struct SetRecipeTipTrigger {
     base_: crate::types::CountBasedTipTrigger,
     any_quality: bool,

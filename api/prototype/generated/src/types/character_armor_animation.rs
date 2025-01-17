@@ -1,3 +1,4 @@
+#[derive(serde::Deserialize)]
 pub struct CharacterArmorAnimation {
     armors: Vec<crate::types::ItemID>,
     extra_smoke_cycles_per_tile: f32,

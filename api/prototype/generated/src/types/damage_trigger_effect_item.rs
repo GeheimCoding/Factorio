@@ -1,3 +1,4 @@
+#[derive(serde::Deserialize)]
 pub struct DamageTriggerEffectItem {
     base_: crate::types::TriggerEffectItem,
     apply_damage_to_trees: bool,

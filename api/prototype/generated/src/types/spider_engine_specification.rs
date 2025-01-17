@@ -1,3 +1,4 @@
+#[derive(serde::Deserialize)]
 pub struct SpiderEngineSpecification {
     legs: SpiderEngineSpecificationLegs,
     walking_group_overlap: f32,

@@ -1,3 +1,4 @@
+#[derive(serde::Deserialize)]
 pub struct RailPictureSet {
     back_rail_endings: crate::types::Sprite16Way,
     east: crate::types::RailPieceLayers,
@@ -16,12 +17,14 @@ pub struct RailPictureSet {
     southwest: crate::types::RailPieceLayers,
     west: crate::types::RailPieceLayers,
 }
+#[derive(serde::Deserialize)]
 pub struct RailsFogMaskDefinitions {
     east: crate::types::FogMaskShapeDefinition,
     north: crate::types::FogMaskShapeDefinition,
     south: crate::types::FogMaskShapeDefinition,
     west: crate::types::FogMaskShapeDefinition,
 }
+#[derive(serde::Deserialize)]
 pub struct RailsSliceOffsets {
     east: crate::types::Vector,
     north: crate::types::Vector,

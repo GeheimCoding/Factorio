@@ -1,3 +1,4 @@
+#[derive(serde::Deserialize)]
 pub struct MaterialTextureParameters {
     count: u32,
     line_length: u32,

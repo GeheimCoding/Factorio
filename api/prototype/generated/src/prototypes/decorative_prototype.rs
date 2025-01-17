@@ -1,3 +1,4 @@
+#[derive(serde::Deserialize)]
 pub struct DecorativePrototype {
     base_: crate::prototypes::Prototype,
     autoplace: crate::types::AutoplaceSpecification,

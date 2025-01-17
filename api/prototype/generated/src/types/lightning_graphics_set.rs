@@ -1,3 +1,4 @@
+#[derive(serde::Deserialize)]
 pub struct LightningGraphicsSet {
     attractor_hit_animation: crate::types::Animation,
     bolt_detail_level: u8,
@@ -22,6 +23,7 @@ pub struct LightningGraphicsSet {
     relative_cloud_fork_length: f32,
     shader_configuration: Vec<LightningShaderConfiguration>,
 }
+#[derive(serde::Deserialize)]
 pub struct LightningShaderConfiguration {
     color: crate::types::Color,
     distortion: f32,

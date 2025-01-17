@@ -1,3 +1,4 @@
+#[derive(serde::Deserialize)]
 pub struct GhostShimmerConfig {
     blend_mode: i32,
     distortion: f32,

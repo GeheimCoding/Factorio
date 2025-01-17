@@ -1,3 +1,4 @@
+#[derive(serde::Deserialize)]
 pub struct SpaceTileEffectParameters {
     nebula_brightness: f32,
     nebula_saturation: f32,

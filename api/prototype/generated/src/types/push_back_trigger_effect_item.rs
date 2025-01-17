@@ -1,3 +1,4 @@
+#[derive(serde::Deserialize)]
 pub struct PushBackTriggerEffectItem {
     base_: crate::types::TriggerEffectItem,
     distance: f32,

@@ -1,3 +1,4 @@
+#[derive(serde::Deserialize)]
 pub struct TurretAttackModifier {
     base_: crate::types::BaseModifier,
     infer_icon: bool,

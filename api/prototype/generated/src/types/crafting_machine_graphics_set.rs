@@ -1,3 +1,4 @@
+#[derive(serde::Deserialize)]
 pub struct CraftingMachineGraphicsSet {
     base_: crate::types::WorkingVisualisations,
     animation_progress: f32,

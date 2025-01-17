@@ -1,3 +1,4 @@
+#[derive(serde::Deserialize)]
 pub struct DontUseEntityInEnergyProductionAchievementPrototype {
     base_: crate::prototypes::AchievementPrototypeWithCondition,
     excluded: DontUseEntityInEnergyProductionAchievementPrototypeExcluded,

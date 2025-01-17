@@ -1,3 +1,4 @@
+#[derive(serde::Deserialize)]
 pub struct RecipePrototype {
     base_: crate::prototypes::Prototype,
     allow_as_intermediate: bool,

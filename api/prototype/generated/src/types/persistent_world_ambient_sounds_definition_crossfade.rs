@@ -1,3 +1,4 @@
+#[derive(serde::Deserialize)]
 pub struct PersistentWorldAmbientSoundsDefinitionCrossfade {
     base_: crate::types::Fade,
     order: (

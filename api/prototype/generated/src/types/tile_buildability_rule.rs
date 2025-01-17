@@ -1,3 +1,4 @@
+#[derive(serde::Deserialize)]
 pub struct TileBuildabilityRule {
     area: crate::types::SimpleBoundingBox,
     colliding_tiles: crate::types::CollisionMaskConnector,

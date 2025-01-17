@@ -1,3 +1,4 @@
+#[derive(serde::Deserialize)]
 pub struct ItemWithEntityDataPrototype {
     base_: crate::prototypes::ItemPrototype,
     icon_tintable: crate::types::FileName,

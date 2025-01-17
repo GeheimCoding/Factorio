@@ -1,3 +1,4 @@
+#[derive(serde::Deserialize)]
 pub struct TurretGraphicsSet {
     base_visualisation: TurretGraphicsSetBaseVisualisation,
 }

@@ -1,3 +1,4 @@
+#[derive(serde::Deserialize)]
 pub struct InfinityPipePrototype {
     base_: crate::prototypes::PipePrototype,
     gui_mode: InfinityPipePrototypeGuiMode,

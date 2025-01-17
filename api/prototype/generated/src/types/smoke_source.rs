@@ -1,3 +1,4 @@
+#[derive(serde::Deserialize)]
 pub struct SmokeSource {
     deviation: crate::types::Vector,
     east_position: crate::types::Vector,

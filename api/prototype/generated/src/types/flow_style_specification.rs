@@ -1,3 +1,4 @@
+#[derive(serde::Deserialize)]
 pub struct FlowStyleSpecification {
     base_: crate::types::BaseStyleSpecification,
     horizontal_spacing: i32,
