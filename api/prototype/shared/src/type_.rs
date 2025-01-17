@@ -215,10 +215,15 @@ impl Type {
             }
         }
         union.sort_by(|a, b| a.contains(untagged).cmp(&b.contains(untagged)));
+        let derive_hash = if context.hash_keys.contains(prefix) {
+            ", PartialEq, Eq, Hash"
+        } else {
+            ""
+        };
         others.insert(
             0,
             format!(
-                "#[derive(serde::Deserialize)]pub enum {prefix}{{{}}}",
+                "#[derive(serde::Deserialize{derive_hash})]pub enum {prefix}{{{}}}",
                 union.join("")
             ),
         );

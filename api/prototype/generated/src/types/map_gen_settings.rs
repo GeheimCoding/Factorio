@@ -19,7 +19,7 @@ pub struct MapGenSettings {
     territory_settings: crate::types::TerritorySettings,
     width: u32,
 }
-#[derive(serde::Deserialize)]
+#[derive(serde::Deserialize, PartialEq, Eq, Hash)]
 pub enum MapGenSettingsAutoplaceSettings {
     #[serde(rename = "entity")]
     Entity,

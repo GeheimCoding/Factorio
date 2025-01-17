@@ -4,7 +4,7 @@ pub struct AutoplaceSettings {
         std::collections::HashMap<AutoplaceSettingsSettings, crate::types::FrequencySizeRichness>,
     treat_missing_as_default: bool,
 }
-#[derive(serde::Deserialize)]
+#[derive(serde::Deserialize, PartialEq, Eq, Hash)]
 pub enum AutoplaceSettingsSettings {
     #[serde(untagged)]
     EntityID(crate::types::EntityID),

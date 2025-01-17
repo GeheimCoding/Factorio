@@ -4,9 +4,9 @@ use crate::define::Define;
 use crate::property::Property;
 use crate::prototype::Prototype;
 use crate::transformation::Transformation;
-use crate::type_::Type;
+use crate::type_::{ComplexType, Type};
 use serde::Deserialize;
-use std::collections::HashMap;
+use std::collections::{HashMap, HashSet};
 
 // https://lua-api.factorio.com/stable/auxiliary/json-docs-prototype.html
 #[derive(Debug, Deserialize)]
@@ -32,6 +32,7 @@ pub struct Context<'a> {
     pub context: HashMap<String, (Kind, DataType)>,
     pub inline_types: HashMap<String, &'a Concept>,
     pub metadata: HashMap<String, Metadata<'a>>,
+    pub hash_keys: HashSet<String>,
 }
 
 impl Context<'_> {
@@ -87,6 +88,7 @@ impl Format {
         let mut context = HashMap::new();
         let mut inline_types = HashMap::new();
         let mut metadata = HashMap::new();
+        let mut hash_keys = HashSet::new();
 
         for concept in self.types.iter() {
             let name = concept.rust_name();
@@ -113,6 +115,9 @@ impl Format {
             ) {
                 unreachable!("concept with name {name} already exists in metadata: {found:?}");
             }
+            if let Some(properties) = &concept.properties {
+                hash_keys.extend(Self::extract_hash_keys(properties, name));
+            }
         }
         for prototype in &self.prototypes {
             let name = prototype.rust_name();
@@ -131,11 +136,13 @@ impl Format {
             ) {
                 unreachable!("concept with name {name} already exists in metadata: {found:?}");
             }
+            hash_keys.extend(Self::extract_hash_keys(&prototype.properties, name));
         }
         Context {
             context,
             inline_types,
             metadata,
+            hash_keys,
         }
     }
 
@@ -147,5 +154,32 @@ impl Format {
         } else {
             DataType::NewType
         }
+    }
+
+    fn extract_hash_keys(properties: &Vec<Property>, prefix: &str) -> HashSet<String> {
+        properties
+            .iter()
+            .flat_map(|p| {
+                Self::get_hash_key(
+                    &p.type_,
+                    &format!("{prefix}_{}", p.base.name).to_pascal_case(),
+                )
+            })
+            .collect()
+    }
+
+    fn get_hash_key(type_: &Type, name: &str) -> Option<String> {
+        if let Type::Complex(complex_type) = type_ {
+            if let ComplexType::Dictionary { key, .. } = complex_type.as_ref() {
+                if let Type::Simple(simple) = key {
+                    return Some(String::from(simple));
+                } else {
+                    return Some(String::from(name));
+                }
+            } else if let ComplexType::Type { value, .. } = complex_type.as_ref() {
+                return Self::get_hash_key(value, name);
+            }
+        }
+        None
     }
 }

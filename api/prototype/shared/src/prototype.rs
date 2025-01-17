@@ -56,8 +56,14 @@ impl Prototype {
             Type::Complex(Box::new(ComplexType::Struct)).generate(name, context);
         let mut seen: HashSet<String> = HashSet::new();
         additional.retain(|a| seen.insert(a.clone()));
+
+        let derive_hash = if context.hash_keys.contains(name) {
+            ", PartialEq, Eq, Hash"
+        } else {
+            ""
+        };
         format!(
-            "#[derive(serde::Deserialize)]pub struct {name}{inner}{}",
+            "#[derive(serde::Deserialize{derive_hash})]pub struct {name}{inner}{}",
             additional.join("")
         )
     }

@@ -15,7 +15,7 @@ pub struct PlanetPrototypeMapGenSettings {
         std::collections::HashMap<String, PlanetPrototypeMapGenSettingsPropertyExpressionNames>,
     territory_settings: crate::types::TerritorySettings,
 }
-#[derive(serde::Deserialize)]
+#[derive(serde::Deserialize, PartialEq, Eq, Hash)]
 pub enum PlanetPrototypeMapGenSettingsAutoplaceSettings {
     #[serde(rename = "entity")]
     Entity,
