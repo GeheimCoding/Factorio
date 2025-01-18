@@ -2,6 +2,7 @@
 pub struct StackTransferTipTrigger {
     base_: crate::types::CountBasedTipTrigger,
     transfer: StackTransferTipTriggerTransfer,
+    #[serde(rename = "type")]
     type_: String,
 }
 #[derive(serde::Deserialize)]

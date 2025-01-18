@@ -5,6 +5,7 @@ pub struct DamageTriggerEffectItem {
     damage: crate::types::DamageParameters,
     lower_damage_modifier: f32,
     lower_distance_threshold: u16,
+    #[serde(rename = "type")]
     type_: String,
     upper_damage_modifier: f32,
     upper_distance_threshold: u16,

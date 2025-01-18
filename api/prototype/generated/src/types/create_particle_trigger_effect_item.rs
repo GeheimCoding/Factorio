@@ -22,6 +22,7 @@ pub struct CreateParticleTriggerEffectItem {
     tail_width: f32,
     tile_collision_mask: crate::types::CollisionMaskConnector,
     tint: crate::types::Color,
+    #[serde(rename = "type")]
     type_: String,
 }
 #[derive(serde::Deserialize)]

@@ -10,5 +10,6 @@ pub struct FluidEnergySource {
     maximum_temperature: f32,
     scale_fluid_usage: bool,
     smoke: Vec<crate::types::SmokeSource>,
+    #[serde(rename = "type")]
     type_: String,
 }

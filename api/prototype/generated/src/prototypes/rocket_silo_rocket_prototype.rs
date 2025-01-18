@@ -29,11 +29,16 @@ pub struct RocketSiloRocketPrototype {
     rocket_render_layer_switch_distance: f64,
     rocket_rise_offset: crate::types::Vector,
     rocket_shadow_sprite: crate::types::Sprite,
-    rocket_smoke_bottom1_animation: crate::types::Animation,
-    rocket_smoke_bottom2_animation: crate::types::Animation,
-    rocket_smoke_top1_animation: crate::types::Animation,
-    rocket_smoke_top2_animation: crate::types::Animation,
-    rocket_smoke_top3_animation: crate::types::Animation,
+    #[serde(rename = "rocket_smoke_bottom1_animation")]
+    rocket_smoke_bottom_1_animation: crate::types::Animation,
+    #[serde(rename = "rocket_smoke_bottom2_animation")]
+    rocket_smoke_bottom_2_animation: crate::types::Animation,
+    #[serde(rename = "rocket_smoke_top1_animation")]
+    rocket_smoke_top_1_animation: crate::types::Animation,
+    #[serde(rename = "rocket_smoke_top2_animation")]
+    rocket_smoke_top_2_animation: crate::types::Animation,
+    #[serde(rename = "rocket_smoke_top3_animation")]
+    rocket_smoke_top_3_animation: crate::types::Animation,
     rocket_sprite: crate::types::Sprite,
     rocket_visible_distance_from_center: f32,
     shadow_fade_out_end_ratio: f64,

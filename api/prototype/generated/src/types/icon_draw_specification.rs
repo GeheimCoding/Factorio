@@ -1,6 +1,7 @@
 #[derive(serde::Deserialize)]
 pub struct IconDrawSpecification {
-    renderLayer: IconDrawSpecificationRenderLayer,
+    #[serde(rename = "renderLayer")]
+    render_layer: IconDrawSpecificationRenderLayer,
     scale: f32,
     scale_for_many: f32,
     shift: crate::types::Vector,

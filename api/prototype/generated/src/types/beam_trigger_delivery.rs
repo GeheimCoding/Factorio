@@ -7,5 +7,6 @@ pub struct BeamTriggerDelivery {
     duration: u32,
     max_length: u32,
     source_offset: crate::types::Vector,
+    #[serde(rename = "type")]
     type_: String,
 }

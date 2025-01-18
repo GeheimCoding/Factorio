@@ -9,5 +9,6 @@ pub struct CreateSmokeTriggerEffectItem {
     speed_multiplier_deviation: f32,
     starting_frame: f32,
     starting_frame_deviation: f32,
+    #[serde(rename = "type")]
     type_: String,
 }

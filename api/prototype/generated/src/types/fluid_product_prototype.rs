@@ -10,5 +10,6 @@ pub struct FluidProductPrototype {
     probability: f64,
     show_details_in_recipe_tooltip: bool,
     temperature: f32,
+    #[serde(rename = "type")]
     type_: String,
 }

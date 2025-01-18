@@ -17,6 +17,7 @@ pub struct SoundPrototype {
     priority: u8,
     speed: f32,
     speed_smoothing_window_size: u32,
+    #[serde(rename = "type")]
     type_: String,
     variations: SoundPrototypeVariations,
     volume: f32,

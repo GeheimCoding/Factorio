@@ -2,6 +2,7 @@
 pub struct ShootTipTrigger {
     base_: crate::types::CountBasedTipTrigger,
     target: ShootTipTriggerTarget,
+    #[serde(rename = "type")]
     type_: String,
 }
 #[derive(serde::Deserialize)]

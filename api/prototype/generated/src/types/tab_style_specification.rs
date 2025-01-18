@@ -20,5 +20,6 @@ pub struct TabStyleSpecification {
     selected_badge_font_color: crate::types::Color,
     selected_badge_graphical_set: crate::types::ElementImageSet,
     selected_font_color: crate::types::Color,
+    #[serde(rename = "type")]
     type_: String,
 }

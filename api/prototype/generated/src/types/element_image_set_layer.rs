@@ -50,6 +50,7 @@ pub enum ElementImageSetLayer {
         top_outer_border_shift: i32,
         top_tiling: bool,
         top_width: crate::types::SpriteSizeType,
+        #[serde(rename = "type")]
         type_: ElementImageSetLayerType,
     },
     #[serde(untagged)]

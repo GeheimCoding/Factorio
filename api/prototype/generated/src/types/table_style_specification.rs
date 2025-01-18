@@ -28,6 +28,7 @@ pub struct TableStyleSpecification {
     selected_hovered_graphical_set: crate::types::ElementImageSet,
     selected_row_color: crate::types::Color,
     top_cell_padding: i16,
+    #[serde(rename = "type")]
     type_: String,
     vertical_line_color: crate::types::Color,
     vertical_spacing: i32,

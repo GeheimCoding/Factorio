@@ -2,5 +2,6 @@
 pub struct InvokeTileEffectTriggerEffectItem {
     base_: crate::types::TriggerEffectItem,
     tile_collision_mask: crate::types::CollisionMaskConnector,
+    #[serde(rename = "type")]
     type_: String,
 }

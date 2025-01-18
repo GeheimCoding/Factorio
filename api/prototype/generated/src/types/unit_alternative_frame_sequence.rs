@@ -8,7 +8,8 @@ pub struct UnitAlternativeFrameSequence {
     cooldown_frame_sequence: Vec<u16>,
     prepared_animation_speed: f32,
     prepared_frame_sequence: Vec<u16>,
-    warmup2_frame_sequence: Vec<u16>,
+    #[serde(rename = "warmup2_frame_sequence")]
+    warmup_2_frame_sequence: Vec<u16>,
     warmup_animation_speed: f32,
     warmup_frame_sequence: Vec<u16>,
 }

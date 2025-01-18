@@ -39,6 +39,7 @@ pub struct AnimationPrototype {
     surface: crate::types::SpriteUsageSurfaceHint,
     tint: crate::types::Color,
     tint_as_overlay: bool,
+    #[serde(rename = "type")]
     type_: String,
     usage: crate::types::SpriteUsageHint,
     width: crate::types::SpriteSizeType,

@@ -6,6 +6,7 @@ pub struct AreaTriggerItem {
     show_in_tooltip: bool,
     target_entities: bool,
     trigger_from_target: bool,
+    #[serde(rename = "type")]
     type_: String,
 }
 #[derive(serde::Deserialize)]

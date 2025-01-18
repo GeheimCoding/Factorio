@@ -5,6 +5,8 @@ pub struct RailFenceGraphicsSet {
     front_fence_render_layer: crate::types::RenderLayer,
     front_fence_render_layer_secondary: crate::types::RenderLayer,
     segment_count: u8,
-    side_A: crate::types::RailFencePictureSet,
-    side_B: crate::types::RailFencePictureSet,
+    #[serde(rename = "side_A")]
+    side_a: crate::types::RailFencePictureSet,
+    #[serde(rename = "side_B")]
+    side_b: crate::types::RailFencePictureSet,
 }

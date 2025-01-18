@@ -6,6 +6,7 @@ pub struct PlaySoundTriggerEffectItem {
     min_distance: f32,
     play_on_target_position: bool,
     sound: crate::types::Sound,
+    #[serde(rename = "type")]
     type_: String,
     volume_modifier: f32,
 }

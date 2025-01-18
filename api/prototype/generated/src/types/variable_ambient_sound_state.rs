@@ -10,5 +10,6 @@ pub struct VariableAmbientSoundState {
     number_of_enabled_layers: crate::types::RandomRange,
     start_pause: crate::types::RandomRange,
     state_duration_seconds: u32,
+    #[serde(rename = "type")]
     type_: crate::types::VariableAmbientSoundStateType,
 }

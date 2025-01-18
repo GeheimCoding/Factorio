@@ -8,7 +8,8 @@ pub struct PathFinderSettings {
     direct_distance_to_consider_short_request: u32,
     enemy_with_different_destination_collision_penalty: f64,
     extended_collision_penalty: f64,
-    fwd2bwd_ratio: u32,
+    #[serde(rename = "fwd2bwd_ratio")]
+    fwd_2bwd_ratio: u32,
     general_entity_collision_penalty: f64,
     general_entity_subsequent_collision_penalty: f64,
     goal_pressure_ratio: f64,

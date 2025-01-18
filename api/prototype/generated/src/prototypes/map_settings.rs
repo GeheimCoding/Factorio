@@ -9,6 +9,7 @@ pub struct MapSettings {
     path_finder: crate::types::PathFinderSettings,
     pollution: crate::types::PollutionSettings,
     steering: SteeringSettings,
+    #[serde(rename = "type")]
     type_: String,
     unit_group: crate::types::UnitGroupSettings,
 }

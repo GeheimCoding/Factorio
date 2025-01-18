@@ -109,10 +109,14 @@ pub struct UtilitySprites {
     controller_joycon_black_leftshoulder: crate::types::Sprite,
     controller_joycon_black_leftstick: crate::types::Sprite,
     controller_joycon_black_lefttrigger: crate::types::Sprite,
-    controller_joycon_black_paddle1: crate::types::Sprite,
-    controller_joycon_black_paddle2: crate::types::Sprite,
-    controller_joycon_black_paddle3: crate::types::Sprite,
-    controller_joycon_black_paddle4: crate::types::Sprite,
+    #[serde(rename = "controller_joycon_black_paddle1")]
+    controller_joycon_black_paddle_1: crate::types::Sprite,
+    #[serde(rename = "controller_joycon_black_paddle2")]
+    controller_joycon_black_paddle_2: crate::types::Sprite,
+    #[serde(rename = "controller_joycon_black_paddle3")]
+    controller_joycon_black_paddle_3: crate::types::Sprite,
+    #[serde(rename = "controller_joycon_black_paddle4")]
+    controller_joycon_black_paddle_4: crate::types::Sprite,
     controller_joycon_black_right_stick: crate::types::Sprite,
     controller_joycon_black_rightshoulder: crate::types::Sprite,
     controller_joycon_black_rightstick: crate::types::Sprite,
@@ -128,10 +132,14 @@ pub struct UtilitySprites {
     controller_joycon_leftshoulder: crate::types::Sprite,
     controller_joycon_leftstick: crate::types::Sprite,
     controller_joycon_lefttrigger: crate::types::Sprite,
-    controller_joycon_paddle1: crate::types::Sprite,
-    controller_joycon_paddle2: crate::types::Sprite,
-    controller_joycon_paddle3: crate::types::Sprite,
-    controller_joycon_paddle4: crate::types::Sprite,
+    #[serde(rename = "controller_joycon_paddle1")]
+    controller_joycon_paddle_1: crate::types::Sprite,
+    #[serde(rename = "controller_joycon_paddle2")]
+    controller_joycon_paddle_2: crate::types::Sprite,
+    #[serde(rename = "controller_joycon_paddle3")]
+    controller_joycon_paddle_3: crate::types::Sprite,
+    #[serde(rename = "controller_joycon_paddle4")]
+    controller_joycon_paddle_4: crate::types::Sprite,
     controller_joycon_right_stick: crate::types::Sprite,
     controller_joycon_rightshoulder: crate::types::Sprite,
     controller_joycon_rightstick: crate::types::Sprite,
@@ -189,10 +197,14 @@ pub struct UtilitySprites {
     controller_steamdeck_black_leftshoulder: crate::types::Sprite,
     controller_steamdeck_black_leftstick: crate::types::Sprite,
     controller_steamdeck_black_lefttrigger: crate::types::Sprite,
-    controller_steamdeck_black_paddle1: crate::types::Sprite,
-    controller_steamdeck_black_paddle2: crate::types::Sprite,
-    controller_steamdeck_black_paddle3: crate::types::Sprite,
-    controller_steamdeck_black_paddle4: crate::types::Sprite,
+    #[serde(rename = "controller_steamdeck_black_paddle1")]
+    controller_steamdeck_black_paddle_1: crate::types::Sprite,
+    #[serde(rename = "controller_steamdeck_black_paddle2")]
+    controller_steamdeck_black_paddle_2: crate::types::Sprite,
+    #[serde(rename = "controller_steamdeck_black_paddle3")]
+    controller_steamdeck_black_paddle_3: crate::types::Sprite,
+    #[serde(rename = "controller_steamdeck_black_paddle4")]
+    controller_steamdeck_black_paddle_4: crate::types::Sprite,
     controller_steamdeck_black_right_stick: crate::types::Sprite,
     controller_steamdeck_black_rightshoulder: crate::types::Sprite,
     controller_steamdeck_black_rightstick: crate::types::Sprite,
@@ -208,10 +220,14 @@ pub struct UtilitySprites {
     controller_steamdeck_leftshoulder: crate::types::Sprite,
     controller_steamdeck_leftstick: crate::types::Sprite,
     controller_steamdeck_lefttrigger: crate::types::Sprite,
-    controller_steamdeck_paddle1: crate::types::Sprite,
-    controller_steamdeck_paddle2: crate::types::Sprite,
-    controller_steamdeck_paddle3: crate::types::Sprite,
-    controller_steamdeck_paddle4: crate::types::Sprite,
+    #[serde(rename = "controller_steamdeck_paddle1")]
+    controller_steamdeck_paddle_1: crate::types::Sprite,
+    #[serde(rename = "controller_steamdeck_paddle2")]
+    controller_steamdeck_paddle_2: crate::types::Sprite,
+    #[serde(rename = "controller_steamdeck_paddle3")]
+    controller_steamdeck_paddle_3: crate::types::Sprite,
+    #[serde(rename = "controller_steamdeck_paddle4")]
+    controller_steamdeck_paddle_4: crate::types::Sprite,
     controller_steamdeck_right_stick: crate::types::Sprite,
     controller_steamdeck_rightshoulder: crate::types::Sprite,
     controller_steamdeck_rightstick: crate::types::Sprite,

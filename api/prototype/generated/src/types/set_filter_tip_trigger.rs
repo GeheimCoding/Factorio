@@ -4,5 +4,6 @@ pub struct SetFilterTipTrigger {
     consecutive: bool,
     entity: crate::types::EntityID,
     match_type_only: bool,
+    #[serde(rename = "type")]
     type_: String,
 }

@@ -17,5 +17,6 @@ pub struct ButtonStyleSpecification {
     selected_font_color: crate::types::Color,
     selected_hovered_font_color: crate::types::Color,
     strikethrough_color: crate::types::Color,
+    #[serde(rename = "type")]
     type_: String,
 }

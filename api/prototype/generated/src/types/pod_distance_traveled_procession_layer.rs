@@ -4,6 +4,7 @@ pub struct PodDistanceTraveledProcessionLayer {
     distance_traveled_contribution: f32,
     frames: Vec<PodDistanceTraveledProcessionBezierControlPoint>,
     reference_group: crate::types::ProcessionLayerInheritanceGroupID,
+    #[serde(rename = "type")]
     type_: String,
 }
 #[derive(serde::Deserialize)]

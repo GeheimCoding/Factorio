@@ -7,5 +7,6 @@ pub struct SpeechBubbleStyleSpecification {
     frame_style: crate::types::FrameStyleSpecification,
     label_style: crate::types::LabelStyleSpecification,
     pass_through_mouse: bool,
+    #[serde(rename = "type")]
     type_: String,
 }

@@ -10,5 +10,6 @@ pub struct PrototypeBase {
     order: crate::types::Order,
     parameter: bool,
     subgroup: crate::types::ItemSubGroupID,
+    #[serde(rename = "type")]
     type_: String,
 }

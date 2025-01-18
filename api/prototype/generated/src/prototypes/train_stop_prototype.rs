@@ -20,8 +20,10 @@ pub struct TrainStopPrototype {
     draw_circuit_wires: bool,
     draw_copper_wires: bool,
     drawing_boxes: TrainStopDrawingBoxes,
-    light1: crate::types::TrainStopLight,
-    light2: crate::types::TrainStopLight,
+    #[serde(rename = "light1")]
+    light_1: crate::types::TrainStopLight,
+    #[serde(rename = "light2")]
+    light_2: crate::types::TrainStopLight,
     rail_overlay_animations: crate::types::Animation4Way,
     top_animations: crate::types::Animation4Way,
 }

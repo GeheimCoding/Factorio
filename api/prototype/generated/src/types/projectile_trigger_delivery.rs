@@ -8,5 +8,6 @@ pub struct ProjectileTriggerDelivery {
     range_deviation: f32,
     starting_speed: f32,
     starting_speed_deviation: f32,
+    #[serde(rename = "type")]
     type_: String,
 }

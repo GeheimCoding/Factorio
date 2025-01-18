@@ -2,6 +2,7 @@
 pub struct EntityTransferTipTrigger {
     base_: crate::types::CountBasedTipTrigger,
     transfer: EntityTransferTipTriggerTransfer,
+    #[serde(rename = "type")]
     type_: String,
 }
 #[derive(serde::Deserialize)]

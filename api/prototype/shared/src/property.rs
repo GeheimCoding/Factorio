@@ -32,9 +32,14 @@ impl Property {
         if self.type_.is_literal_value() {
             inner = String::from("String");
         }
-        (
-            format!("{}: {inner}", self.base.name.to_rust_type(context).0),
-            additional,
-        )
+        let (mut name, other) = self.base.name.to_rust_type(context);
+        assert!(other.is_empty());
+        name = name.to_snake_case();
+        let rename = if self.base.name != name {
+            &format!("#[serde(rename = \"{}\")]", self.base.name)
+        } else {
+            ""
+        };
+        (format!("{rename}{name}: {inner}",), additional)
     }
 }

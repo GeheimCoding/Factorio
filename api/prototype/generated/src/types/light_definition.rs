@@ -20,6 +20,7 @@ pub struct LightDefinitionStruct {
     shift: crate::types::Vector,
     size: f32,
     source_orientation_offset: crate::types::RealOrientation,
+    #[serde(rename = "type")]
     type_: LightDefinitionType,
 }
 #[derive(serde::Deserialize)]

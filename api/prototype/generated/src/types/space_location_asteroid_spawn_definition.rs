@@ -2,6 +2,7 @@
 pub struct SpaceLocationAsteroidSpawnDefinition {
     base_: crate::types::AsteroidSpawnPoint,
     asteroid: SpaceLocationAsteroidSpawnDefinitionAsteroid,
+    #[serde(rename = "type")]
     type_: SpaceLocationAsteroidSpawnDefinitionType,
 }
 #[derive(serde::Deserialize)]

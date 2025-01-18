@@ -4,6 +4,7 @@ pub enum SpaceConnectionAsteroidSpawnDefinition {
     SpaceConnectionAsteroidSpawnDefinition {
         asteroid: SpaceConnectionAsteroidSpawnDefinitionAsteroid,
         spawn_points: Vec<crate::types::SpaceConnectionAsteroidSpawnPoint>,
+        #[serde(rename = "type")]
         type_: SpaceConnectionAsteroidSpawnDefinitionType,
     },
     #[serde(untagged)]

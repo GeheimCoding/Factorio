@@ -7,5 +7,6 @@ pub struct FontPrototype {
     name: String,
     size: i32,
     spacing: f32,
+    #[serde(rename = "type")]
     type_: String,
 }

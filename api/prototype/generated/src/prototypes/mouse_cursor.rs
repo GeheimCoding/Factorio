@@ -5,6 +5,7 @@ pub struct MouseCursor {
     hot_pixel_y: i16,
     name: String,
     system_cursor: MouseCursorSystemCursor,
+    #[serde(rename = "type")]
     type_: String,
 }
 #[derive(serde::Deserialize)]

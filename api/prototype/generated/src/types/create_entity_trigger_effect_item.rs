@@ -15,5 +15,6 @@ pub struct CreateEntityTriggerEffectItem {
     show_in_tooltip: bool,
     tile_collision_mask: crate::types::CollisionMaskConnector,
     trigger_created_entity: bool,
+    #[serde(rename = "type")]
     type_: String,
 }

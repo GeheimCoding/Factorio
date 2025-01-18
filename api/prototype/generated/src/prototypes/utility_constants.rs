@@ -126,8 +126,10 @@ pub struct UtilityConstants {
     rail_planner_count_button_color: crate::types::Color,
     rail_segment_colors: Vec<crate::types::Color>,
     recipe_step_limit: u32,
-    remote_view_LPF_max_cutoff_frequency: f32,
-    remote_view_LPF_min_cutoff_frequency: f32,
+    #[serde(rename = "remote_view_LPF_max_cutoff_frequency")]
+    remote_view_lpf_max_cutoff_frequency: f32,
+    #[serde(rename = "remote_view_LPF_min_cutoff_frequency")]
+    remote_view_lpf_min_cutoff_frequency: f32,
     rocket_lift_weight: crate::types::Weight,
     script_command_console_chat_color: crate::types::Color,
     select_group_row_count: u8,

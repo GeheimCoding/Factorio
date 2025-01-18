@@ -1,6 +1,7 @@
 #[derive(serde::Deserialize)]
 pub struct SignalIDConnector {
     name: SignalIDConnectorName,
+    #[serde(rename = "type")]
     type_: SignalIDConnectorType,
 }
 #[derive(serde::Deserialize)]

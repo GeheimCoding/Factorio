@@ -4,5 +4,6 @@ pub struct DeliverImpactCombination {
     impact_category: String,
     name: String,
     trigger_effect_item: crate::types::TriggerEffectItem,
+    #[serde(rename = "type")]
     type_: String,
 }

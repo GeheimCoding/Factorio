@@ -7,5 +7,6 @@ pub struct TurretSpecialEffect {
     falloff: f32,
     max_radius: f32,
     min_radius: f32,
+    #[serde(rename = "type")]
     type_: String,
 }

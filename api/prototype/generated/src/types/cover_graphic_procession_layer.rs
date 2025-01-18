@@ -16,6 +16,7 @@ pub struct CoverGraphicProcessionLayer {
     rotate_with_pod: bool,
     secondary_draw_order: i8,
     texture_relative_to: crate::types::EffectRelativeTo,
+    #[serde(rename = "type")]
     type_: String,
     world_size: crate::types::Vector,
 }

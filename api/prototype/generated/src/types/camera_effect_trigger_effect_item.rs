@@ -8,5 +8,6 @@ pub struct CameraEffectTriggerEffectItem {
     full_strength_max_distance: u16,
     max_distance: u16,
     strength: f32,
+    #[serde(rename = "type")]
     type_: String,
 }

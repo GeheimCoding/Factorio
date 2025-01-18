@@ -9,5 +9,6 @@ pub struct CreateDecorativesTriggerEffectItem {
     spawn_min: u16,
     spawn_min_radius: f32,
     spread_evenly: bool,
+    #[serde(rename = "type")]
     type_: String,
 }

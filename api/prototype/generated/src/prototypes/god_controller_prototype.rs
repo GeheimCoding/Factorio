@@ -8,5 +8,6 @@ pub struct GodControllerPrototype {
     mining_speed: f64,
     movement_speed: f64,
     name: String,
+    #[serde(rename = "type")]
     type_: String,
 }

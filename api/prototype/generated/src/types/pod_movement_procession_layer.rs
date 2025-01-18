@@ -5,6 +5,7 @@ pub struct PodMovementProcessionLayer {
     frames: Vec<PodMovementProcessionBezierControlPoint>,
     inherit_from: crate::types::ProcessionLayerInheritanceGroupID,
     reference_group: crate::types::ProcessionLayerInheritanceGroupID,
+    #[serde(rename = "type")]
     type_: String,
 }
 #[derive(serde::Deserialize)]

@@ -10,5 +10,6 @@ pub struct SwitchStyleSpecification {
     left_button_position: u32,
     middle_button_position: u32,
     right_button_position: u32,
+    #[serde(rename = "type")]
     type_: String,
 }

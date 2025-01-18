@@ -60,7 +60,7 @@ impl Transformation for String {
                 with_underscore = true;
             } else {
                 snake_case.push(c);
-                with_underscore = true;
+                with_underscore = c != '_';
             }
         }
         snake_case

@@ -13,6 +13,7 @@ pub struct LabelStyleSpecification {
     rich_text_highlight_warning_color: crate::types::Color,
     rich_text_setting: crate::types::RichTextSetting,
     single_line: bool,
+    #[serde(rename = "type")]
     type_: String,
     underlined: bool,
 }

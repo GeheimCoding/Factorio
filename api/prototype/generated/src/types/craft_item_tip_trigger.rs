@@ -4,6 +4,7 @@ pub struct CraftItemTipTrigger {
     consecutive: bool,
     event_type: CraftItemTipTriggerEventType,
     item: crate::types::ItemID,
+    #[serde(rename = "type")]
     type_: String,
 }
 #[derive(serde::Deserialize)]

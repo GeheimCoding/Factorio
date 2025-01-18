@@ -4,5 +4,6 @@ pub struct CreateAsteroidChunkEffectItem {
     asteroid_name: crate::types::AsteroidChunkID,
     offset_deviation: crate::types::BoundingBox,
     offsets: Vec<crate::types::Vector>,
+    #[serde(rename = "type")]
     type_: String,
 }

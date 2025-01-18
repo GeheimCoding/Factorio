@@ -2,6 +2,7 @@
 pub struct PodOpacityProcessionLayer {
     frames: Vec<PodOpacityProcessionBezierControlPoint>,
     lut: crate::types::ColorLookupTable,
+    #[serde(rename = "type")]
     type_: String,
 }
 #[derive(serde::Deserialize)]

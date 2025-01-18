@@ -4,6 +4,7 @@ pub struct TileEffectDefinition {
     puddle: crate::types::PuddleTileEffectParameters,
     shader: TileEffectDefinitionShader,
     space: crate::types::SpaceTileEffectParameters,
+    #[serde(rename = "type")]
     type_: String,
     water: crate::types::WaterTileEffectParameters,
 }

@@ -8,5 +8,6 @@ pub struct BurnerEnergySource {
     fuel_inventory_size: crate::types::ItemStackIndex,
     light_flicker: crate::types::LightFlickeringDefinition,
     smoke: Vec<crate::types::SmokeSource>,
+    #[serde(rename = "type")]
     type_: String,
 }
