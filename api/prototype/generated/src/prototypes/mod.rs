@@ -1,3 +1,4 @@
+#![allow(dead_code)]
 pub mod wall_prototype;
 pub use wall_prototype::WallPrototype;
 pub mod virtual_signal_prototype;

@@ -1,3 +1,4 @@
+#![allow(dead_code)]
 pub mod wire_type;
 pub use wire_type::WireType;
 pub mod wire_origin;

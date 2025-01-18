@@ -1,3 +1,4 @@
+#![allow(dead_code)]
 pub mod world_ambient_sound_definition;
 pub use world_ambient_sound_definition::WorldAmbientSoundDefinition;
 pub mod working_visualisations;

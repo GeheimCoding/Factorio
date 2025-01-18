@@ -27,6 +27,7 @@ pub fn main() -> anyhow::Result<()> {
         );
         content.push_str(&format!("{rust_name}(Box<{rust_name}>),",));
     });
+    content.insert_str(0, "#![allow(dead_code)]");
     let mod_path = &path.join("mod").with_extension("rs");
     save_file_if_changed("prototypes", mod_path, &format!("{content}}}"))
 }
