@@ -40,6 +40,11 @@ impl Property {
         } else {
             ""
         };
-        (format!("{rename}{name}: {inner}",), additional)
+        let alias = if let Some(alt_name) = &self.alt_name {
+            &format!("#[serde(alias = \"{alt_name}\")]")
+        } else {
+            ""
+        };
+        (format!("{rename}{alias}{name}: {inner}",), additional)
     }
 }

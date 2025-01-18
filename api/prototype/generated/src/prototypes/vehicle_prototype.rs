@@ -3,11 +3,13 @@ pub struct VehiclePrototype {
     base_: crate::prototypes::EntityWithOwnerPrototype,
     allow_passengers: bool,
     allow_remote_driving: bool,
+    #[serde(alias = "braking_force")]
     braking_power: VehiclePrototypeBrakingPower,
     crash_trigger: crate::types::TriggerEffect,
     deliver_category: String,
     energy_per_hit_point: f64,
     equipment_grid: crate::types::EquipmentGridID,
+    #[serde(alias = "friction_force")]
     friction: f64,
     impact_speed_to_volume_ratio: f64,
     minimap_representation: crate::types::Sprite,
