@@ -74,7 +74,7 @@ impl Context<'_> {
 pub enum DataType {
     Union,
     Struct,
-    NewType,
+    NewType(String),
 }
 
 #[derive(Debug)]
@@ -152,7 +152,10 @@ impl Format {
         } else if type_.is_union() {
             DataType::Union
         } else {
-            DataType::NewType
+            match type_ {
+                Type::Simple(s) => DataType::NewType(String::from(s)),
+                Type::Complex(_) => DataType::NewType(String::from("Complex")),
+            }
         }
     }
 

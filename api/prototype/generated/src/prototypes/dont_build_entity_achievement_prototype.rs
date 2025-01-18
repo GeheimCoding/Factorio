@@ -1,9 +1,13 @@
 #[derive(serde::Deserialize)]
 pub struct DontBuildEntityAchievementPrototype {
     base_: crate::prototypes::AchievementPrototypeWithCondition,
+    #[serde(default = "default_amount")]
     amount: u32,
     dont_build: DontBuildEntityAchievementPrototypeDontBuild,
     research_with: DontBuildEntityAchievementPrototypeResearchWith,
+}
+fn default_amount() -> u32 {
+    0
 }
 #[derive(serde::Deserialize)]
 pub enum DontBuildEntityAchievementPrototypeDontBuild {

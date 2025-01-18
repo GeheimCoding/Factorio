@@ -104,13 +104,17 @@ impl Type {
         }
     }
 
-    pub fn is_literal_value(&self) -> bool {
+    pub fn get_literal_value(&self) -> Option<&str> {
         match self {
-            Type::Simple(_) => false,
+            Type::Simple(_) => None,
             Type::Complex(complex) => match complex.as_ref() {
-                ComplexType::Literal { .. } => true,
-                ComplexType::Type { value, .. } => value.is_literal_value(),
-                _ => false,
+                ComplexType::Literal { value, .. } => match value {
+                    LiteralValue::String(_) => Some("String"),
+                    LiteralValue::Number(_) => Some("f64"),
+                    LiteralValue::Bool(_) => Some("bool"),
+                },
+                ComplexType::Type { value, .. } => value.get_literal_value(),
+                _ => None,
             },
         }
     }
@@ -193,7 +197,7 @@ impl Type {
             let (inner, additional) = option.generate(&option.postfix_variants(prefix), context);
             others.extend(additional);
 
-            if option.is_literal_value() {
+            if let Some(_) = option.get_literal_value() {
                 union.push(format!(
                     "#[serde(rename = \"{}\")]{inner},",
                     inner.to_snake_case()

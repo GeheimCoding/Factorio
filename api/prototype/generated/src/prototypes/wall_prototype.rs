@@ -2,12 +2,16 @@
 pub struct WallPrototype {
     base_: crate::prototypes::EntityWithOwnerPrototype,
     circuit_connector: crate::types::CircuitConnectorDefinition,
+    #[serde(default = "default_circuit_wire_max_distance")]
     circuit_wire_max_distance: f64,
     connected_gate_visualization: crate::types::Sprite,
     default_output_signal: crate::types::SignalIDConnector,
+    #[serde(default = "default_draw_circuit_wires")]
     draw_circuit_wires: bool,
+    #[serde(default = "default_draw_copper_wires")]
     draw_copper_wires: bool,
     pictures: WallPictures,
+    #[serde(default = "default_visual_merge_group")]
     visual_merge_group: u32,
     wall_diode_green: crate::types::Sprite4Way,
     wall_diode_green_light_bottom: crate::types::LightDefinition,
@@ -19,6 +23,15 @@ pub struct WallPrototype {
     wall_diode_red_light_left: crate::types::LightDefinition,
     wall_diode_red_light_right: crate::types::LightDefinition,
     wall_diode_red_light_top: crate::types::LightDefinition,
+}
+fn default_circuit_wire_max_distance() -> f64 {
+    0.0
+}
+fn default_draw_circuit_wires() -> bool {
+    true
+}
+fn default_draw_copper_wires() -> bool {
+    true
 }
 #[derive(serde::Deserialize)]
 pub struct WallPictures {
@@ -33,4 +46,7 @@ pub struct WallPictures {
     straight_vertical: crate::types::SpriteVariations,
     t_up: crate::types::SpriteVariations,
     water_connection_patch: crate::types::Sprite4Way,
+}
+fn default_visual_merge_group() -> u32 {
+    0
 }

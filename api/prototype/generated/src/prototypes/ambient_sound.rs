@@ -7,5 +7,9 @@ pub struct AmbientSound {
     #[serde(rename = "type")]
     type_: String,
     variable_sound: crate::types::VariableAmbientSoundVariableSound,
+    #[serde(default = "default_weight")]
     weight: f64,
+}
+fn default_weight() -> f64 {
+    1.0
 }

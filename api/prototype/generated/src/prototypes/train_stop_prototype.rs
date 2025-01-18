@@ -3,7 +3,9 @@ pub struct TrainStopPrototype {
     base_: crate::prototypes::EntityWithOwnerPrototype,
     animation_ticks_per_frame: u32,
     animations: crate::types::Animation4Way,
-    build_grid_size: String,
+    #[serde(default = "default_build_grid_size")]
+    build_grid_size: f64,
+    #[serde(default = "default_chart_name")]
     chart_name: bool,
     circuit_connector: (
         crate::types::CircuitConnectorDefinition,
@@ -11,13 +13,16 @@ pub struct TrainStopPrototype {
         crate::types::CircuitConnectorDefinition,
         crate::types::CircuitConnectorDefinition,
     ),
+    #[serde(default = "default_circuit_wire_max_distance")]
     circuit_wire_max_distance: f64,
     color: crate::types::Color,
     default_priority_signal: crate::types::SignalIDConnector,
     default_train_stopped_signal: crate::types::SignalIDConnector,
     default_trains_count_signal: crate::types::SignalIDConnector,
     default_trains_limit_signal: crate::types::SignalIDConnector,
+    #[serde(default = "default_draw_circuit_wires")]
     draw_circuit_wires: bool,
+    #[serde(default = "default_draw_copper_wires")]
     draw_copper_wires: bool,
     drawing_boxes: TrainStopDrawingBoxes,
     #[serde(rename = "light1")]
@@ -26,6 +31,21 @@ pub struct TrainStopPrototype {
     light_2: crate::types::TrainStopLight,
     rail_overlay_animations: crate::types::Animation4Way,
     top_animations: crate::types::Animation4Way,
+}
+fn default_build_grid_size() -> f64 {
+    2.0
+}
+fn default_chart_name() -> bool {
+    true
+}
+fn default_circuit_wire_max_distance() -> f64 {
+    0.0
+}
+fn default_draw_circuit_wires() -> bool {
+    true
+}
+fn default_draw_copper_wires() -> bool {
+    true
 }
 #[derive(serde::Deserialize)]
 pub struct TrainStopDrawingBoxes {

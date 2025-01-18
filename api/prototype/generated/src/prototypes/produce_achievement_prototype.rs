@@ -5,5 +5,6 @@ pub struct ProduceAchievementPrototype {
     fluid_product: crate::types::FluidID,
     item_product: crate::types::ItemID,
     limited_to_one_game: bool,
+    // default: All qualities
     quality: crate::types::QualityID,
 }

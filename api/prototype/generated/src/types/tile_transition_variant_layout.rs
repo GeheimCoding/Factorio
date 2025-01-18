@@ -43,6 +43,14 @@ pub struct TileTransitionVariantLayout {
     u_transition_tile_height: u8,
     u_transition_x: crate::types::SpriteSizeType,
     u_transition_y: crate::types::SpriteSizeType,
+    #[serde(default = "default_x_offset")]
     x_offset: crate::types::SpriteSizeType,
+    #[serde(default = "default_y_offset")]
     y_offset: crate::types::SpriteSizeType,
+}
+fn default_x_offset() -> crate::types::SpriteSizeType {
+    0
+}
+fn default_y_offset() -> crate::types::SpriteSizeType {
+    0
 }

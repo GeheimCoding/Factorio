@@ -50,7 +50,7 @@ impl Concept {
             match data_type {
                 DataType::Struct => self.generate_struct(context),
                 DataType::Union => self.generate_enum(context),
-                DataType::NewType => self.generate_new_type(context),
+                DataType::NewType(_) => self.generate_new_type(context),
             }
         } else {
             unreachable!("expected to find context for {}", self.rust_name())

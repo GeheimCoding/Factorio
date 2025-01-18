@@ -3,7 +3,9 @@ pub struct ElectricEnergySource {
     base_: crate::types::BaseEnergySource,
     buffer_capacity: crate::types::Energy,
     drain: crate::types::Energy,
+    // default: Max `double` value
     input_flow_limit: crate::types::Energy,
+    // default: Max `double` value
     output_flow_limit: crate::types::Energy,
     #[serde(rename = "type")]
     type_: String,

@@ -9,6 +9,10 @@ pub struct TreeVariation {
     shadow: crate::types::Animation,
     trunk: crate::types::Animation,
     underwater: crate::types::Animation,
+    #[serde(default = "default_underwater_layer_offset")]
     underwater_layer_offset: i8,
     water_reflection: crate::types::WaterReflectionDefinition,
+}
+fn default_underwater_layer_offset() -> i8 {
+    1
 }

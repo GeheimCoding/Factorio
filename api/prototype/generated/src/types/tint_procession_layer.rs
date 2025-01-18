@@ -1,6 +1,7 @@
 #[derive(serde::Deserialize)]
 pub struct TintProcessionLayer {
     frames: Vec<TintProcessionBezierControlPoint>,
+    #[serde(default = "default_render_layer")]
     render_layer: crate::types::RenderLayer,
     #[serde(rename = "type")]
     type_: String,
@@ -14,4 +15,7 @@ pub struct TintProcessionBezierControlPoint {
     tint_lower_t: crate::types::Color,
     tint_upper: crate::types::Color,
     tint_upper_t: crate::types::Color,
+}
+fn default_render_layer() -> crate::types::RenderLayer {
+    crate::types::RenderLayer::Object
 }

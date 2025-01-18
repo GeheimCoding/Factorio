@@ -8,8 +8,10 @@ pub struct PlanetPrototypeMapGenSettings {
         PlanetPrototypeMapGenSettingsAutoplaceSettings,
         crate::types::AutoplaceSettings,
     >,
+    #[serde(default = "default_aux_climate_control")]
     aux_climate_control: bool,
     cliff_settings: crate::types::CliffPlacementSettings,
+    #[serde(default = "default_moisture_climate_control")]
     moisture_climate_control: bool,
     property_expression_names:
         std::collections::HashMap<String, PlanetPrototypeMapGenSettingsPropertyExpressionNames>,
@@ -23,6 +25,12 @@ pub enum PlanetPrototypeMapGenSettingsAutoplaceSettings {
     Tile,
     #[serde(rename = "decorative")]
     Decorative,
+}
+fn default_aux_climate_control() -> bool {
+    false
+}
+fn default_moisture_climate_control() -> bool {
+    false
 }
 #[derive(serde::Deserialize)]
 pub enum PlanetPrototypeMapGenSettingsPropertyExpressionNames {

@@ -1,14 +1,31 @@
 #[derive(serde::Deserialize)]
 pub struct AmmoType {
     action: crate::types::Trigger,
+    #[serde(default = "default_clamp_position")]
     clamp_position: bool,
+    #[serde(default = "default_consumption_modifier")]
     consumption_modifier: f32,
+    #[serde(default = "default_cooldown_modifier")]
     cooldown_modifier: f64,
     energy_consumption: crate::types::Energy,
+    #[serde(default = "default_range_modifier")]
     range_modifier: f64,
     source_type: crate::types::AmmoSourceType,
     target_filter: Vec<crate::types::EntityID>,
+    #[serde(default = "default_target_type")]
     target_type: AmmoTypeTargetType,
+}
+fn default_clamp_position() -> bool {
+    false
+}
+fn default_consumption_modifier() -> f32 {
+    1.0
+}
+fn default_cooldown_modifier() -> f64 {
+    1.0
+}
+fn default_range_modifier() -> f64 {
+    1.0
 }
 #[derive(serde::Deserialize)]
 pub enum AmmoTypeTargetType {
@@ -18,4 +35,7 @@ pub enum AmmoTypeTargetType {
     Position,
     #[serde(rename = "direction")]
     Direction,
+}
+fn default_target_type() -> AmmoTypeTargetType {
+    AmmoTypeTargetType::Entity
 }

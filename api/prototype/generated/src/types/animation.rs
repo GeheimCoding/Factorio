@@ -5,6 +5,7 @@ pub struct Animation {
     filenames: Vec<crate::types::FileName>,
     layers: Vec<crate::types::Animation>,
     lines_per_file: u32,
+    // default: Value of `frame_count`
     slice: u32,
     stripes: Vec<crate::types::Stripe>,
 }

@@ -1,19 +1,31 @@
 #[derive(serde::Deserialize)]
 pub struct StreamAttackParameters {
     base_: crate::types::BaseAttackParameters,
+    #[serde(default = "default_fluid_consumption")]
     fluid_consumption: crate::types::FluidAmount,
     fluids: Vec<StreamFluidProperties>,
+    #[serde(default = "default_gun_barrel_length")]
     gun_barrel_length: f32,
     gun_center_shift: StreamAttackParametersGunCenterShift,
     projectile_creation_parameters: crate::types::CircularProjectileCreationSpecification,
     #[serde(rename = "type")]
     type_: String,
 }
+fn default_fluid_consumption() -> crate::types::FluidAmount {
+    0.0
+}
 #[derive(serde::Deserialize)]
 pub struct StreamFluidProperties {
+    #[serde(default = "default_damage_modifier")]
     damage_modifier: f64,
     #[serde(rename = "type")]
     type_: crate::types::FluidID,
+}
+fn default_damage_modifier() -> f64 {
+    1.0
+}
+fn default_gun_barrel_length() -> f32 {
+    0.0
 }
 #[derive(serde::Deserialize)]
 pub enum StreamAttackParametersGunCenterShift {

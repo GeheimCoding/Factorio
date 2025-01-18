@@ -8,8 +8,12 @@ pub struct ArmorPrototype {
     inventory_size_bonus: crate::types::ItemStackIndex,
     landing_sound: crate::types::Sound,
     moving_sound: crate::types::Sound,
+    #[serde(default = "default_provides_flight")]
     provides_flight: bool,
     resistances: Vec<crate::types::Resistance>,
     steps_sound: crate::types::Sound,
     takeoff_sound: crate::types::Sound,
+}
+fn default_provides_flight() -> bool {
+    false
 }

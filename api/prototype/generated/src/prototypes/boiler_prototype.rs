@@ -4,13 +4,22 @@ pub struct BoilerPrototype {
     burning_cooldown: u16,
     energy_consumption: crate::types::Energy,
     energy_source: crate::types::EnergySource,
+    #[serde(default = "default_fire_flicker_enabled")]
     fire_flicker_enabled: bool,
+    #[serde(default = "default_fire_glow_flicker_enabled")]
     fire_glow_flicker_enabled: bool,
     fluid_box: crate::types::FluidBox,
+    #[serde(default = "default_mode")]
     mode: BoilerPrototypeMode,
     output_fluid_box: crate::types::FluidBox,
     pictures: BoilerPictureSet,
     target_temperature: f32,
+}
+fn default_fire_flicker_enabled() -> bool {
+    false
+}
+fn default_fire_glow_flicker_enabled() -> bool {
+    false
 }
 #[derive(serde::Deserialize)]
 pub enum BoilerPrototypeMode {
@@ -18,6 +27,9 @@ pub enum BoilerPrototypeMode {
     HeatFluidInside,
     #[serde(rename = "output_to_separate_pipe")]
     OutputToSeparatePipe,
+}
+fn default_mode() -> BoilerPrototypeMode {
+    BoilerPrototypeMode::HeatFluidInside
 }
 #[derive(serde::Deserialize)]
 pub struct BoilerPictureSet {

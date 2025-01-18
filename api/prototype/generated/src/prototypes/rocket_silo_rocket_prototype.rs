@@ -15,13 +15,16 @@ pub struct RocketSiloRocketPrototype {
     glow_light: crate::types::LightDefinition,
     inventory_size: crate::types::ItemStackIndex,
     rising_speed: f64,
+    #[serde(default = "default_rocket_above_wires_slice_offset_from_center")]
     rocket_above_wires_slice_offset_from_center: f32,
+    #[serde(default = "default_rocket_air_object_slice_offset_from_center")]
     rocket_air_object_slice_offset_from_center: f32,
     rocket_flame_animation: crate::types::Animation,
     rocket_flame_left_animation: crate::types::Animation,
     rocket_flame_left_rotation: f32,
     rocket_flame_right_animation: crate::types::Animation,
     rocket_flame_right_rotation: f32,
+    // default: `{rect={{-30, -30}, {30, rocket_above_wires_slice_offset_from_center}}, falloff=1}`
     rocket_fog_mask: crate::types::FogMaskShapeDefinition,
     rocket_glare_overlay_sprite: crate::types::Sprite,
     rocket_initial_offset: crate::types::Vector,
@@ -44,4 +47,10 @@ pub struct RocketSiloRocketPrototype {
     shadow_fade_out_end_ratio: f64,
     shadow_fade_out_start_ratio: f64,
     shadow_slave_entity: crate::types::EntityID,
+}
+fn default_rocket_above_wires_slice_offset_from_center() -> f32 {
+    -3.0
+}
+fn default_rocket_air_object_slice_offset_from_center() -> f32 {
+    -5.5
 }

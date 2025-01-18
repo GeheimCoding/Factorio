@@ -2,8 +2,16 @@
 pub struct EnemySpawnerGraphicsSet {
     animations: crate::types::AnimationVariations,
     integration: crate::types::SpriteVariations,
+    #[serde(default = "default_random_animation_offset")]
     random_animation_offset: bool,
     underwater_animations: crate::types::AnimationVariations,
+    #[serde(default = "default_underwater_layer_offset")]
     underwater_layer_offset: i8,
     water_effect_map_animations: crate::types::AnimationVariations,
+}
+fn default_random_animation_offset() -> bool {
+    true
+}
+fn default_underwater_layer_offset() -> i8 {
+    1
 }

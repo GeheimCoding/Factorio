@@ -20,5 +20,5 @@ pub struct FluidTurretPrototype {
     prepared_muzzle_animation_shift: crate::types::AnimatedVector,
     preparing_muzzle_animation_shift: crate::types::AnimatedVector,
     starting_attack_muzzle_animation_shift: crate::types::AnimatedVector,
-    turret_base_has_direction: String,
+    turret_base_has_direction: bool,
 }

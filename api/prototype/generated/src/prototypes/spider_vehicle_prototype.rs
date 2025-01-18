@@ -11,8 +11,11 @@ pub struct SpiderVehiclePrototype {
     inventory_size: crate::types::ItemStackIndex,
     movement_energy_consumption: crate::types::Energy,
     spider_engine: crate::types::SpiderEngineSpecification,
+    #[serde(default = "default_torso_bob_speed")]
     torso_bob_speed: f32,
+    #[serde(default = "default_torso_rotation_speed")]
     torso_rotation_speed: f32,
+    #[serde(default = "default_trash_inventory_size")]
     trash_inventory_size: crate::types::ItemStackIndex,
 }
 #[derive(serde::Deserialize)]
@@ -21,4 +24,13 @@ pub enum SpiderVehiclePrototypeEnergySource {
     BurnerEnergySource(Box<crate::types::BurnerEnergySource>),
     #[serde(untagged)]
     VoidEnergySource(Box<crate::types::VoidEnergySource>),
+}
+fn default_torso_bob_speed() -> f32 {
+    1.0
+}
+fn default_torso_rotation_speed() -> f32 {
+    1.0
+}
+fn default_trash_inventory_size() -> crate::types::ItemStackIndex {
+    0
 }

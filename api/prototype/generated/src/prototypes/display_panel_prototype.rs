@@ -8,11 +8,27 @@ pub struct DisplayPanelPrototype {
         crate::types::CircuitConnectorDefinition,
         crate::types::CircuitConnectorDefinition,
     ),
+    #[serde(default = "default_circuit_wire_max_distance")]
     circuit_wire_max_distance: f64,
+    #[serde(default = "default_draw_circuit_wires")]
     draw_circuit_wires: bool,
+    #[serde(default = "default_draw_copper_wires")]
     draw_copper_wires: bool,
+    #[serde(default = "default_max_text_width")]
     max_text_width: u32,
     sprites: crate::types::Sprite4Way,
     text_color: crate::types::Color,
     text_shift: crate::types::Vector,
+}
+fn default_circuit_wire_max_distance() -> f64 {
+    0.0
+}
+fn default_draw_circuit_wires() -> bool {
+    true
+}
+fn default_draw_copper_wires() -> bool {
+    true
+}
+fn default_max_text_width() -> u32 {
+    400
 }

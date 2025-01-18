@@ -5,6 +5,7 @@ pub enum SpaceConnectionAsteroidSpawnDefinition {
         asteroid: SpaceConnectionAsteroidSpawnDefinitionAsteroid,
         spawn_points: Vec<crate::types::SpaceConnectionAsteroidSpawnPoint>,
         #[serde(rename = "type")]
+        #[serde(default = "default_type_")]
         type_: SpaceConnectionAsteroidSpawnDefinitionType,
     },
     #[serde(untagged)]
@@ -28,4 +29,7 @@ pub enum SpaceConnectionAsteroidSpawnDefinitionType {
     Entity,
     #[serde(rename = "asteroid_chunk")]
     AsteroidChunk,
+}
+fn default_type_() -> SpaceConnectionAsteroidSpawnDefinitionType {
+    SpaceConnectionAsteroidSpawnDefinitionType::Entity
 }

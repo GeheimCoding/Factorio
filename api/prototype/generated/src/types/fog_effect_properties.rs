@@ -1,10 +1,13 @@
 #[derive(serde::Deserialize)]
 pub struct FogEffectProperties {
     #[serde(rename = "color1")]
+    // default: {1, 1, 1, 1}
     color_1: crate::types::Color,
     #[serde(rename = "color2")]
+    // default: {1, 1, 1, 1}
     color_2: crate::types::Color,
     detail_noise_texture: crate::types::EffectTexture,
+    #[serde(default = "default_fog_type")]
     fog_type: FogEffectPropertiesFogType,
     shape_noise_texture: crate::types::EffectTexture,
 }
@@ -14,4 +17,7 @@ pub enum FogEffectPropertiesFogType {
     Vulcanus,
     #[serde(rename = "gleba")]
     Gleba,
+}
+fn default_fog_type() -> FogEffectPropertiesFogType {
+    FogEffectPropertiesFogType::Vulcanus
 }

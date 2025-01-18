@@ -7,6 +7,7 @@ pub struct MapGenSettings {
     autoplace_settings:
         std::collections::HashMap<MapGenSettingsAutoplaceSettings, crate::types::AutoplaceSettings>,
     cliff_settings: crate::types::CliffPlacementSettings,
+    #[serde(default = "default_default_enable_all_autoplace_controls")]
     default_enable_all_autoplace_controls: bool,
     height: u32,
     no_enemies_mode: bool,
@@ -27,6 +28,9 @@ pub enum MapGenSettingsAutoplaceSettings {
     Tile,
     #[serde(rename = "decorative")]
     Decorative,
+}
+fn default_default_enable_all_autoplace_controls() -> bool {
+    true
 }
 #[derive(serde::Deserialize)]
 pub enum MapGenSettingsPropertyExpressionNames {

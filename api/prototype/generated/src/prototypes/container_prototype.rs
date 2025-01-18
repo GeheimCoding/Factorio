@@ -2,13 +2,30 @@
 pub struct ContainerPrototype {
     base_: crate::prototypes::EntityWithOwnerPrototype,
     circuit_connector: crate::types::CircuitConnectorDefinition,
+    #[serde(default = "default_circuit_wire_max_distance")]
     circuit_wire_max_distance: f64,
+    #[serde(default = "default_default_status")]
     default_status: crate::types::EntityStatus,
+    #[serde(default = "default_draw_circuit_wires")]
     draw_circuit_wires: bool,
+    #[serde(default = "default_draw_copper_wires")]
     draw_copper_wires: bool,
     inventory_size: crate::types::ItemStackIndex,
+    #[serde(default = "default_inventory_type")]
     inventory_type: ContainerPrototypeInventoryType,
     picture: crate::types::Sprite,
+}
+fn default_circuit_wire_max_distance() -> f64 {
+    0.0
+}
+fn default_default_status() -> crate::types::EntityStatus {
+    crate::types::EntityStatus::Normal
+}
+fn default_draw_circuit_wires() -> bool {
+    true
+}
+fn default_draw_copper_wires() -> bool {
+    true
 }
 #[derive(serde::Deserialize)]
 pub enum ContainerPrototypeInventoryType {
@@ -18,4 +35,7 @@ pub enum ContainerPrototypeInventoryType {
     WithBar,
     #[serde(rename = "with_filters_and_bar")]
     WithFiltersAndBar,
+}
+fn default_inventory_type() -> ContainerPrototypeInventoryType {
+    ContainerPrototypeInventoryType::WithBar
 }

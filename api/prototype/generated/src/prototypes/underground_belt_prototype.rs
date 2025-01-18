@@ -5,6 +5,7 @@ pub struct UndergroundBeltPrototype {
     max_distance_tint: crate::types::Color,
     max_distance_underground_remove_belts_sprite: crate::types::Sprite,
     structure: UndergroundBeltStructure,
+    // default: no masks
     underground_collision_mask: crate::types::CollisionMaskConnector,
     underground_remove_belts_sprite: crate::types::Sprite,
     underground_sprite: crate::types::Sprite,

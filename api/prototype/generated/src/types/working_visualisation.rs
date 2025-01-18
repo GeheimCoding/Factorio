@@ -1,29 +1,44 @@
 #[derive(serde::Deserialize)]
 pub struct WorkingVisualisation {
+    #[serde(default = "default_align_to_waypoint")]
     align_to_waypoint: bool,
+    #[serde(default = "default_always_draw")]
     always_draw: bool,
+    #[serde(default = "default_animated_shift")]
     animated_shift: bool,
     animation: crate::types::Animation,
     apply_recipe_tint: WorkingVisualisationApplyRecipeTint,
     apply_tint: WorkingVisualisationApplyTint,
+    #[serde(default = "default_constant_speed")]
     constant_speed: bool,
     draw_in_states: Vec<String>,
+    #[serde(default = "default_draw_when_state_filter_matches")]
     draw_when_state_filter_matches: bool,
     east_animation: crate::types::Animation,
     east_position: crate::types::Vector,
+    // default: Value of `secondary_draw_order`
     east_secondary_draw_order: i8,
     effect: WorkingVisualisationEffect,
+    #[serde(default = "default_enabled_by_name")]
     enabled_by_name: bool,
+    #[serde(default = "default_enabled_in_animated_shift_during_transition")]
     enabled_in_animated_shift_during_transition: bool,
+    #[serde(default = "default_enabled_in_animated_shift_during_waypoint_stop")]
     enabled_in_animated_shift_during_waypoint_stop: bool,
+    #[serde(default = "default_fadeout")]
     fadeout: bool,
+    #[serde(default = "default_frame_based_on_shift_animation_progress")]
     frame_based_on_shift_animation_progress: bool,
     light: crate::types::LightDefinition,
+    #[serde(default = "default_mining_drill_scorch_mark")]
     mining_drill_scorch_mark: bool,
+    #[serde(default = "default_name")]
     name: String,
     north_animation: crate::types::Animation,
     north_position: crate::types::Vector,
+    // default: Value of `secondary_draw_order`
     north_secondary_draw_order: i8,
+    #[serde(default = "default_render_layer")]
     render_layer: crate::types::RenderLayer,
     scorch_mark_fade_in_frames: u8,
     scorch_mark_fade_out_duration: u16,
@@ -31,11 +46,23 @@ pub struct WorkingVisualisation {
     secondary_draw_order: i8,
     south_animation: crate::types::Animation,
     south_position: crate::types::Vector,
+    // default: Value of `secondary_draw_order`
     south_secondary_draw_order: i8,
+    #[serde(default = "default_synced_fadeout")]
     synced_fadeout: bool,
     west_animation: crate::types::Animation,
     west_position: crate::types::Vector,
+    // default: Value of `secondary_draw_order`
     west_secondary_draw_order: i8,
+}
+fn default_align_to_waypoint() -> bool {
+    false
+}
+fn default_always_draw() -> bool {
+    false
+}
+fn default_animated_shift() -> bool {
+    false
 }
 #[derive(serde::Deserialize)]
 pub enum WorkingVisualisationApplyRecipeTint {
@@ -65,6 +92,12 @@ pub enum WorkingVisualisationApplyTint {
     #[serde(rename = "visual_state_color")]
     VisualStateColor,
 }
+fn default_constant_speed() -> bool {
+    false
+}
+fn default_draw_when_state_filter_matches() -> bool {
+    true
+}
 #[derive(serde::Deserialize)]
 pub enum WorkingVisualisationEffect {
     #[serde(rename = "flicker")]
@@ -73,4 +106,31 @@ pub enum WorkingVisualisationEffect {
     UraniumGlow,
     #[serde(rename = "none")]
     None,
+}
+fn default_enabled_by_name() -> bool {
+    false
+}
+fn default_enabled_in_animated_shift_during_transition() -> bool {
+    true
+}
+fn default_enabled_in_animated_shift_during_waypoint_stop() -> bool {
+    true
+}
+fn default_fadeout() -> bool {
+    false
+}
+fn default_frame_based_on_shift_animation_progress() -> bool {
+    false
+}
+fn default_mining_drill_scorch_mark() -> bool {
+    false
+}
+fn default_name() -> String {
+    String::from("")
+}
+fn default_render_layer() -> crate::types::RenderLayer {
+    crate::types::RenderLayer::Object
+}
+fn default_synced_fadeout() -> bool {
+    false
 }

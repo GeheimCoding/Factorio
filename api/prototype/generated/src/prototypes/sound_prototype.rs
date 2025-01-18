@@ -2,25 +2,57 @@
 pub struct SoundPrototype {
     advanced_volume_control: crate::types::AdvancedVolumeControl,
     aggregation: crate::types::AggregationSpecification,
+    #[serde(default = "default_allow_random_repeat")]
     allow_random_repeat: bool,
+    #[serde(default = "default_audible_distance_modifier")]
     audible_distance_modifier: f64,
+    #[serde(default = "default_category")]
     category: crate::types::SoundType,
     filename: crate::types::FileName,
     game_controller_vibration_data: crate::types::GameControllerVibrationData,
+    #[serde(default = "default_max_speed")]
     max_speed: f32,
+    #[serde(default = "default_max_volume")]
     max_volume: f32,
+    #[serde(default = "default_min_speed")]
     min_speed: f32,
+    #[serde(default = "default_min_volume")]
     min_volume: f32,
     modifiers: SoundPrototypeModifiers,
     name: String,
     preload: bool,
+    #[serde(default = "default_priority")]
     priority: u8,
+    #[serde(default = "default_speed")]
     speed: f32,
+    #[serde(default = "default_speed_smoothing_window_size")]
     speed_smoothing_window_size: u32,
     #[serde(rename = "type")]
     type_: String,
     variations: SoundPrototypeVariations,
+    #[serde(default = "default_volume")]
     volume: f32,
+}
+fn default_allow_random_repeat() -> bool {
+    false
+}
+fn default_audible_distance_modifier() -> f64 {
+    1.0
+}
+fn default_category() -> crate::types::SoundType {
+    crate::types::SoundType::GameEffect
+}
+fn default_max_speed() -> f32 {
+    1.0
+}
+fn default_max_volume() -> f32 {
+    1.0
+}
+fn default_min_speed() -> f32 {
+    1.0
+}
+fn default_min_volume() -> f32 {
+    1.0
 }
 #[derive(serde::Deserialize)]
 pub enum SoundPrototypeModifiers {
@@ -29,10 +61,22 @@ pub enum SoundPrototypeModifiers {
     #[serde(untagged)]
     VecSoundModifier(Vec<crate::types::SoundModifier>),
 }
+fn default_priority() -> u8 {
+    127
+}
+fn default_speed() -> f32 {
+    1.0
+}
+fn default_speed_smoothing_window_size() -> u32 {
+    0
+}
 #[derive(serde::Deserialize)]
 pub enum SoundPrototypeVariations {
     #[serde(untagged)]
     SoundDefinition(crate::types::SoundDefinition),
     #[serde(untagged)]
     VecSoundDefinition(Vec<crate::types::SoundDefinition>),
+}
+fn default_volume() -> f32 {
+    1.0
 }

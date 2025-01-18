@@ -11,5 +11,9 @@ pub struct VariableAmbientSoundState {
     start_pause: crate::types::RandomRange,
     state_duration_seconds: u32,
     #[serde(rename = "type")]
+    #[serde(default = "default_type_")]
     type_: crate::types::VariableAmbientSoundStateType,
+}
+fn default_type_() -> crate::types::VariableAmbientSoundStateType {
+    crate::types::VariableAmbientSoundStateType::Regular
 }

@@ -14,7 +14,9 @@ pub struct ChartUtilityConstants {
     chart_train_stop_text_color: crate::types::Color,
     circuit_network_member_color: crate::types::Color,
     copper_wire_color: crate::types::Color,
+    #[serde(default = "default_custom_tag_max_scale")]
     custom_tag_max_scale: f32,
+    #[serde(default = "default_custom_tag_scale")]
     custom_tag_scale: f32,
     custom_tag_selected_overlay_tint: crate::types::Color,
     default_color_by_type: std::collections::HashMap<String, crate::types::Color>,
@@ -48,4 +50,10 @@ pub struct ChartUtilityConstants {
     vehicle_wagon_connection_color: crate::types::Color,
     yellow_signal_color: crate::types::Color,
     zoom_threshold_to_draw_spider_path: f64,
+}
+fn default_custom_tag_max_scale() -> f32 {
+    1.0
+}
+fn default_custom_tag_scale() -> f32 {
+    1.0
 }

@@ -1,14 +1,17 @@
 #[derive(serde::Deserialize)]
 pub struct RailPictureSet {
+    // default: Value of `rail_endings`
     back_rail_endings: crate::types::Sprite16Way,
     east: crate::types::RailPieceLayers,
     fog_mask: RailsFogMaskDefinitions,
+    // default: Value of `rail_endings`
     front_rail_endings: crate::types::Sprite16Way,
     north: crate::types::RailPieceLayers,
     northeast: crate::types::RailPieceLayers,
     northwest: crate::types::RailPieceLayers,
     rail_endings: crate::types::Sprite16Way,
     render_layers: crate::types::RailRenderLayers,
+    // default: Value of `render_layers`
     secondary_render_layers: crate::types::RailRenderLayers,
     segment_visualisation_endings: crate::types::RotatedAnimation,
     slice_origin: RailsSliceOffsets,
