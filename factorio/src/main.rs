@@ -1,6 +1,7 @@
 #![allow(unused)]
 #![deny(clippy::unwrap_used)]
 
+use api::FactorioType;
 use remote_console::RemoteConsole;
 use std::fs;
 

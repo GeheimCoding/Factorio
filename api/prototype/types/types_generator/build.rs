@@ -18,7 +18,8 @@ fn main() -> anyhow::Result<()> {
         .collect::<Vec<_>>();
     results.into_iter().collect::<Result<(), _>>()?;
 
-    let mut content = String::from("pub enum Types {");
+    let mut content =
+        String::from("#[derive(serde::Deserialize)]#[serde(tag = \"serde_tag\")]pub enum Types {");
     format
         .types
         .iter()
