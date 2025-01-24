@@ -80,7 +80,7 @@ impl Property {
             inner = format!("Option<{inner}>");
         }
         (
-            format!("{rename}{alias}{serde_default}{comment}{name}: {inner}",),
+            format!("{comment}{rename}{alias}{serde_default}{name}: {inner}",),
             additional,
         )
     }

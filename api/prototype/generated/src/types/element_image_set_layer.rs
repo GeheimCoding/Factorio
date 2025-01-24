@@ -81,8 +81,8 @@ pub enum ElementImageSetLayer {
         top_tiling: bool,
         #[serde(default = "default_top_width")]
         top_width: crate::types::SpriteSizeType,
-        #[serde(rename = "type")]
         // default: `"none"` if this has no other properties, otherwise `"composition"`
+        #[serde(rename = "type")]
         type_: Option<ElementImageSetLayerType>,
     },
     #[serde(untagged)]
