@@ -1,7 +1,7 @@
 #[derive(serde::Deserialize)]
 pub struct EquipmentShape {
     height: u32,
-    points: Vec<Vec<u32>>,
+    points: Option<Vec<Vec<u32>>>,
     #[serde(rename = "type")]
     type_: EquipmentShapeType,
     width: u32,

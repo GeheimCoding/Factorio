@@ -1,6 +1,6 @@
 #[derive(serde::Deserialize)]
 pub struct ProcessionGraphicCatalogueItem {
-    animation: crate::types::Animation,
+    animation: Option<crate::types::Animation>,
     index: u32,
-    picture: crate::types::Sprite,
+    picture: Option<crate::types::Sprite>,
 }

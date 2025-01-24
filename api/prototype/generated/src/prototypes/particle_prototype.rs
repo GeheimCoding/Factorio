@@ -3,9 +3,9 @@ pub struct ParticlePrototype {
     base_: crate::prototypes::Prototype,
     #[serde(default = "default_draw_shadow_when_on_ground")]
     draw_shadow_when_on_ground: bool,
-    ended_in_water_trigger_effect: crate::types::TriggerEffect,
-    ended_on_ground_trigger_effect: crate::types::TriggerEffect,
-    fade_away_duration: u16,
+    ended_in_water_trigger_effect: Option<crate::types::TriggerEffect>,
+    ended_on_ground_trigger_effect: Option<crate::types::TriggerEffect>,
+    fade_away_duration: Option<u16>,
     life_time: u16,
     #[serde(default = "default_mining_particle_frame_speed")]
     mining_particle_frame_speed: f32,
@@ -13,15 +13,15 @@ pub struct ParticlePrototype {
     movement_modifier: f32,
     #[serde(default = "default_movement_modifier_when_on_ground")]
     movement_modifier_when_on_ground: f32,
-    pictures: crate::types::AnimationVariations,
-    regular_trigger_effect: crate::types::TriggerEffect,
+    pictures: Option<crate::types::AnimationVariations>,
+    regular_trigger_effect: Option<crate::types::TriggerEffect>,
     #[serde(default = "default_regular_trigger_effect_frequency")]
     regular_trigger_effect_frequency: u32,
     #[serde(default = "default_render_layer")]
     render_layer: crate::types::RenderLayer,
     #[serde(default = "default_render_layer_when_on_ground")]
     render_layer_when_on_ground: crate::types::RenderLayer,
-    shadows: crate::types::AnimationVariations,
+    shadows: Option<crate::types::AnimationVariations>,
     #[serde(default = "default_vertical_acceleration")]
     vertical_acceleration: f32,
 }

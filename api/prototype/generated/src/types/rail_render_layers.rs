@@ -1,9 +1,9 @@
 #[derive(serde::Deserialize)]
 pub struct RailRenderLayers {
     // default: Value of `screw`
-    back_end: crate::types::RenderLayer,
+    back_end: Option<crate::types::RenderLayer>,
     // default: Value of `screw`
-    front_end: crate::types::RenderLayer,
+    front_end: Option<crate::types::RenderLayer>,
     #[serde(default = "default_metal")]
     metal: crate::types::RenderLayer,
     #[serde(default = "default_screw")]

@@ -7,7 +7,7 @@ pub struct LinkedBeltPrototype {
     allow_clone_connection: bool,
     #[serde(default = "default_allow_side_loading")]
     allow_side_loading: bool,
-    structure: LinkedBeltStructure,
+    structure: Option<LinkedBeltStructure>,
     #[serde(default = "default_structure_render_layer")]
     structure_render_layer: crate::types::RenderLayer,
 }
@@ -22,12 +22,12 @@ fn default_allow_side_loading() -> bool {
 }
 #[derive(serde::Deserialize)]
 pub struct LinkedBeltStructure {
-    back_patch: crate::types::Sprite4Way,
-    direction_in: crate::types::Sprite4Way,
-    direction_in_side_loading: crate::types::Sprite4Way,
-    direction_out: crate::types::Sprite4Way,
-    direction_out_side_loading: crate::types::Sprite4Way,
-    front_patch: crate::types::Sprite4Way,
+    back_patch: Option<crate::types::Sprite4Way>,
+    direction_in: Option<crate::types::Sprite4Way>,
+    direction_in_side_loading: Option<crate::types::Sprite4Way>,
+    direction_out: Option<crate::types::Sprite4Way>,
+    direction_out_side_loading: Option<crate::types::Sprite4Way>,
+    front_patch: Option<crate::types::Sprite4Way>,
 }
 fn default_structure_render_layer() -> crate::types::RenderLayer {
     crate::types::RenderLayer::Object

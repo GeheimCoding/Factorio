@@ -1,8 +1,8 @@
 #[derive(serde::Deserialize)]
 pub struct SmokeSource {
-    deviation: crate::types::Vector,
+    deviation: Option<crate::types::Vector>,
     // default: Value of `position` rotated east
-    east_position: crate::types::Vector,
+    east_position: Option<crate::types::Vector>,
     frequency: f32,
     #[serde(default = "default_has_8_directions")]
     has_8_directions: bool,
@@ -12,20 +12,20 @@ pub struct SmokeSource {
     height_deviation: f32,
     name: crate::types::TrivialSmokeID,
     // default: Value of `position` rotated north-east
-    north_east_position: crate::types::Vector,
+    north_east_position: Option<crate::types::Vector>,
     // default: Value of `position`
-    north_position: crate::types::Vector,
+    north_position: Option<crate::types::Vector>,
     // default: Value of `position` rotated north-west
-    north_west_position: crate::types::Vector,
+    north_west_position: Option<crate::types::Vector>,
     #[serde(default = "default_offset")]
     offset: f32,
-    position: crate::types::Vector,
+    position: Option<crate::types::Vector>,
     // default: Value of `position` rotated south-east
-    south_east_position: crate::types::Vector,
+    south_east_position: Option<crate::types::Vector>,
     // default: Value of `position` rotated south
-    south_position: crate::types::Vector,
+    south_position: Option<crate::types::Vector>,
     // default: Value of `position` rotated south-west
-    south_west_position: crate::types::Vector,
+    south_west_position: Option<crate::types::Vector>,
     #[serde(default = "default_starting_frame")]
     starting_frame: u16,
     #[serde(default = "default_starting_frame_deviation")]
@@ -37,7 +37,7 @@ pub struct SmokeSource {
     #[serde(default = "default_vertical_speed_slowdown")]
     vertical_speed_slowdown: f32,
     // default: Value of `position` rotated west
-    west_position: crate::types::Vector,
+    west_position: Option<crate::types::Vector>,
 }
 fn default_has_8_directions() -> bool {
     false

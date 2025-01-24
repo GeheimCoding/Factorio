@@ -6,15 +6,15 @@ pub struct QualityPrototype {
     color: crate::types::Color,
     #[serde(default = "default_draw_sprite_by_default")]
     draw_sprite_by_default: bool,
-    icon: crate::types::FileName,
+    icon: Option<crate::types::FileName>,
     #[serde(default = "default_icon_size")]
     icon_size: crate::types::SpriteSizeType,
-    icons: Vec<crate::types::IconData>,
+    icons: Option<Vec<crate::types::IconData>>,
     level: u32,
     #[serde(default = "default_mining_drill_resource_drain_multiplier")]
     mining_drill_resource_drain_multiplier: f32,
     name: String,
-    next: crate::types::QualityID,
+    next: Option<crate::types::QualityID>,
     #[serde(default = "default_next_probability")]
     next_probability: f64,
     #[serde(default = "default_science_pack_drain_multiplier")]

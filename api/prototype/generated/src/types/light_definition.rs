@@ -10,11 +10,11 @@ pub struct LightDefinitionStruct {
     #[serde(default = "default_add_perspective")]
     add_perspective: bool,
     // default: `{r=1, g=1, b=1}`
-    color: crate::types::Color,
+    color: Option<crate::types::Color>,
     #[serde(default = "default_flicker_interval")]
     flicker_interval: u8,
     // default: Value of `flicker_min_modifier`
-    flicker_max_modifier: f32,
+    flicker_max_modifier: Option<f32>,
     #[serde(default = "default_flicker_min_modifier")]
     flicker_min_modifier: f32,
     intensity: f32,
@@ -22,10 +22,10 @@ pub struct LightDefinitionStruct {
     minimum_darkness: f32,
     #[serde(default = "default_offset_flicker")]
     offset_flicker: bool,
-    picture: crate::types::Sprite,
+    picture: Option<crate::types::Sprite>,
     #[serde(default = "default_rotation_shift")]
     rotation_shift: crate::types::RealOrientation,
-    shift: crate::types::Vector,
+    shift: Option<crate::types::Vector>,
     size: f32,
     #[serde(default = "default_source_orientation_offset")]
     source_orientation_offset: crate::types::RealOrientation,

@@ -1,11 +1,11 @@
 #[derive(serde::Deserialize)]
 pub struct Animation {
     base_: crate::types::AnimationParameters,
-    filename: crate::types::FileName,
-    filenames: Vec<crate::types::FileName>,
-    layers: Vec<crate::types::Animation>,
-    lines_per_file: u32,
+    filename: Option<crate::types::FileName>,
+    filenames: Option<Vec<crate::types::FileName>>,
+    layers: Option<Vec<crate::types::Animation>>,
+    lines_per_file: Option<u32>,
     // default: Value of `frame_count`
-    slice: u32,
-    stripes: Vec<crate::types::Stripe>,
+    slice: Option<u32>,
+    stripes: Option<Vec<crate::types::Stripe>>,
 }

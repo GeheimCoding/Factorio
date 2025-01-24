@@ -1,5 +1,5 @@
 #[derive(serde::Deserialize)]
 pub struct TriggerDeliveryItem {
-    source_effects: crate::types::TriggerEffect,
-    target_effects: crate::types::TriggerEffect,
+    source_effects: Option<crate::types::TriggerEffect>,
+    target_effects: Option<crate::types::TriggerEffect>,
 }

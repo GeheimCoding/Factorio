@@ -2,9 +2,9 @@
 pub enum EntityIDFilter {
     #[serde(untagged)]
     EntityIDFilter {
-        comparator: crate::types::ComparatorString,
+        comparator: Option<crate::types::ComparatorString>,
         name: crate::types::EntityID,
-        quality: crate::types::QualityID,
+        quality: Option<crate::types::QualityID>,
     },
     #[serde(untagged)]
     EntityID(crate::types::EntityID),

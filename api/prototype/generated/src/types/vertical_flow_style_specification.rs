@@ -3,5 +3,5 @@ pub struct VerticalFlowStyleSpecification {
     base_: crate::types::BaseStyleSpecification,
     #[serde(rename = "type")]
     type_: String,
-    vertical_spacing: i32,
+    vertical_spacing: Option<i32>,
 }

@@ -1,12 +1,12 @@
 #[derive(serde::Deserialize)]
 pub struct ActivityBarStyleSpecification {
     base_: crate::types::BaseStyleSpecification,
-    bar: crate::types::ElementImageSet,
-    bar_background: crate::types::ElementImageSet,
-    bar_size_ratio: f32,
-    bar_width: u32,
-    color: crate::types::Color,
-    speed: f32,
+    bar: Option<crate::types::ElementImageSet>,
+    bar_background: Option<crate::types::ElementImageSet>,
+    bar_size_ratio: Option<f32>,
+    bar_width: Option<u32>,
+    color: Option<crate::types::Color>,
+    speed: Option<f32>,
     #[serde(rename = "type")]
     type_: String,
 }

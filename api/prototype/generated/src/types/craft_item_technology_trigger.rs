@@ -3,7 +3,7 @@ pub struct CraftItemTechnologyTrigger {
     #[serde(default = "default_count")]
     count: crate::types::ItemCountType,
     item: crate::types::ItemID,
-    item_quality: crate::types::QualityID,
+    item_quality: Option<crate::types::QualityID>,
     #[serde(rename = "type")]
     type_: String,
 }

@@ -1,5 +1,5 @@
 #[derive(serde::Deserialize)]
 pub struct CircuitConnectorDefinition {
-    points: crate::types::WireConnectionPoint,
-    sprites: crate::types::CircuitConnectorSprites,
+    points: Option<crate::types::WireConnectionPoint>,
+    sprites: Option<crate::types::CircuitConnectorSprites>,
 }

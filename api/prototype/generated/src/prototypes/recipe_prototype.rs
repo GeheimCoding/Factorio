@@ -6,7 +6,7 @@ pub struct RecipePrototype {
     #[serde(default = "default_allow_consumption")]
     allow_consumption: bool,
     // default: `{"item-limitation.consumption-effect"}`
-    allow_consumption_message: crate::types::LocalisedString,
+    allow_consumption_message: Option<crate::types::LocalisedString>,
     #[serde(default = "default_allow_decomposition")]
     allow_decomposition: bool,
     #[serde(default = "default_allow_inserter_overload")]
@@ -16,29 +16,29 @@ pub struct RecipePrototype {
     #[serde(default = "default_allow_pollution")]
     allow_pollution: bool,
     // default: `{"item-limitation.pollution-effect"}`
-    allow_pollution_message: crate::types::LocalisedString,
+    allow_pollution_message: Option<crate::types::LocalisedString>,
     #[serde(default = "default_allow_productivity")]
     allow_productivity: bool,
     // default: `{"item-limitation.productivity-effect"}`
-    allow_productivity_message: crate::types::LocalisedString,
+    allow_productivity_message: Option<crate::types::LocalisedString>,
     #[serde(default = "default_allow_quality")]
     allow_quality: bool,
     // default: `{"item-limitation.quality-effect"}`
-    allow_quality_message: crate::types::LocalisedString,
+    allow_quality_message: Option<crate::types::LocalisedString>,
     #[serde(default = "default_allow_speed")]
     allow_speed: bool,
     // default: `{"item-limitation.speed-effect"}`
-    allow_speed_message: crate::types::LocalisedString,
+    allow_speed_message: Option<crate::types::LocalisedString>,
     // default: All module categories are allowed
-    allowed_module_categories: Vec<crate::types::ModuleCategoryID>,
-    alternative_unlock_methods: Vec<crate::types::TechnologyID>,
+    allowed_module_categories: Option<Vec<crate::types::ModuleCategoryID>>,
+    alternative_unlock_methods: Option<Vec<crate::types::TechnologyID>>,
     #[serde(default = "default_always_show_made_in")]
     always_show_made_in: bool,
     #[serde(default = "default_always_show_products")]
     always_show_products: bool,
     #[serde(default = "default_category")]
     category: crate::types::RecipeCategoryID,
-    crafting_machine_tint: crate::types::RecipeTints,
+    crafting_machine_tint: Option<crate::types::RecipeTints>,
     #[serde(default = "default_emissions_multiplier")]
     emissions_multiplier: f64,
     #[serde(default = "default_enabled")]
@@ -48,15 +48,15 @@ pub struct RecipePrototype {
     #[serde(default = "default_hide_from_player_crafting")]
     hide_from_player_crafting: bool,
     // default: unset
-    hide_from_signal_gui: bool,
+    hide_from_signal_gui: Option<bool>,
     #[serde(default = "default_hide_from_stats")]
     hide_from_stats: bool,
-    icon: crate::types::FileName,
+    icon: Option<crate::types::FileName>,
     #[serde(default = "default_icon_size")]
     icon_size: crate::types::SpriteSizeType,
-    icons: Vec<crate::types::IconData>,
-    ingredients: Vec<crate::types::IngredientPrototype>,
-    main_product: String,
+    icons: Option<Vec<crate::types::IconData>>,
+    ingredients: Option<Vec<crate::types::IngredientPrototype>>,
+    main_product: Option<String>,
     #[serde(default = "default_maximum_productivity")]
     maximum_productivity: f64,
     #[serde(default = "default_overload_multiplier")]
@@ -67,10 +67,10 @@ pub struct RecipePrototype {
     requester_paste_multiplier: u32,
     #[serde(default = "default_result_is_always_fresh")]
     result_is_always_fresh: bool,
-    results: Vec<crate::types::ProductPrototype>,
+    results: Option<Vec<crate::types::ProductPrototype>>,
     #[serde(default = "default_show_amount_in_title")]
     show_amount_in_title: bool,
-    surface_conditions: Vec<crate::types::SurfaceCondition>,
+    surface_conditions: Option<Vec<crate::types::SurfaceCondition>>,
     #[serde(default = "default_unlock_results")]
     unlock_results: bool,
 }

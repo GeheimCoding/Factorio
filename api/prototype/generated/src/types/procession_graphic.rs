@@ -1,8 +1,8 @@
 #[derive(serde::Deserialize)]
 pub struct ProcessionGraphic {
-    animation: crate::types::Animation,
-    catalogue_id: u32,
-    sprite: crate::types::Sprite,
+    animation: Option<crate::types::Animation>,
+    catalogue_id: Option<u32>,
+    sprite: Option<crate::types::Sprite>,
     #[serde(rename = "type")]
     type_: crate::types::ProcessionGraphicType,
 }

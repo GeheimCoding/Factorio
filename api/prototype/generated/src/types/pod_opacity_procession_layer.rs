@@ -7,11 +7,11 @@ pub struct PodOpacityProcessionLayer {
 }
 #[derive(serde::Deserialize)]
 pub struct PodOpacityProcessionBezierControlPoint {
-    cutscene_opacity: f64,
-    cutscene_opacity_t: f64,
-    lut_blend: f64,
-    lut_blend_t: f64,
-    outside_opacity: f64,
-    outside_opacity_t: f64,
-    timestamp: crate::types::MapTick,
+    cutscene_opacity: Option<f64>,
+    cutscene_opacity_t: Option<f64>,
+    lut_blend: Option<f64>,
+    lut_blend_t: Option<f64>,
+    outside_opacity: Option<f64>,
+    outside_opacity_t: Option<f64>,
+    timestamp: Option<crate::types::MapTick>,
 }

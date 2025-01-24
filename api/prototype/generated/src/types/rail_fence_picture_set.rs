@@ -6,12 +6,12 @@ pub struct RailFencePictureSet {
         crate::types::RailFenceDirectionSet,
         crate::types::RailFenceDirectionSet,
     ),
-    ends_upper: (
+    ends_upper: Option<(
         crate::types::RailFenceDirectionSet,
         crate::types::RailFenceDirectionSet,
         crate::types::RailFenceDirectionSet,
         crate::types::RailFenceDirectionSet,
-    ),
+    )>,
     fence: crate::types::RailFenceDirectionSet,
-    fence_upper: crate::types::RailFenceDirectionSet,
+    fence_upper: Option<crate::types::RailFenceDirectionSet>,
 }

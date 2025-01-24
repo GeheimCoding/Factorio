@@ -1,15 +1,15 @@
 #[derive(serde::Deserialize)]
 pub struct SoundPrototype {
-    advanced_volume_control: crate::types::AdvancedVolumeControl,
-    aggregation: crate::types::AggregationSpecification,
+    advanced_volume_control: Option<crate::types::AdvancedVolumeControl>,
+    aggregation: Option<crate::types::AggregationSpecification>,
     #[serde(default = "default_allow_random_repeat")]
     allow_random_repeat: bool,
     #[serde(default = "default_audible_distance_modifier")]
     audible_distance_modifier: f64,
     #[serde(default = "default_category")]
     category: crate::types::SoundType,
-    filename: crate::types::FileName,
-    game_controller_vibration_data: crate::types::GameControllerVibrationData,
+    filename: Option<crate::types::FileName>,
+    game_controller_vibration_data: Option<crate::types::GameControllerVibrationData>,
     #[serde(default = "default_max_speed")]
     max_speed: f32,
     #[serde(default = "default_max_volume")]
@@ -18,9 +18,9 @@ pub struct SoundPrototype {
     min_speed: f32,
     #[serde(default = "default_min_volume")]
     min_volume: f32,
-    modifiers: SoundPrototypeModifiers,
+    modifiers: Option<SoundPrototypeModifiers>,
     name: String,
-    preload: bool,
+    preload: Option<bool>,
     #[serde(default = "default_priority")]
     priority: u8,
     #[serde(default = "default_speed")]
@@ -29,7 +29,7 @@ pub struct SoundPrototype {
     speed_smoothing_window_size: u32,
     #[serde(rename = "type")]
     type_: String,
-    variations: SoundPrototypeVariations,
+    variations: Option<SoundPrototypeVariations>,
     #[serde(default = "default_volume")]
     volume: f32,
 }

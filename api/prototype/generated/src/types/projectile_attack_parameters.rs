@@ -4,14 +4,14 @@ pub struct ProjectileAttackParameters {
     #[serde(default = "default_apply_projection_to_projectile_creation_position")]
     apply_projection_to_projectile_creation_position: bool,
     // default: `{0, 0}`
-    projectile_center: crate::types::Vector,
+    projectile_center: Option<crate::types::Vector>,
     #[serde(default = "default_projectile_creation_distance")]
     projectile_creation_distance: f32,
-    projectile_creation_offsets: Vec<crate::types::Vector>,
-    projectile_creation_parameters: crate::types::CircularProjectileCreationSpecification,
+    projectile_creation_offsets: Option<Vec<crate::types::Vector>>,
+    projectile_creation_parameters: Option<crate::types::CircularProjectileCreationSpecification>,
     #[serde(default = "default_projectile_orientation_offset")]
     projectile_orientation_offset: crate::types::RealOrientation,
-    shell_particle: crate::types::CircularParticleCreationSpecification,
+    shell_particle: Option<crate::types::CircularParticleCreationSpecification>,
     #[serde(rename = "type")]
     type_: String,
 }

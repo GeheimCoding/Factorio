@@ -3,8 +3,8 @@ pub struct CharacterPrototype {
     base_: crate::prototypes::EntityWithOwnerPrototype,
     animations: Vec<crate::types::CharacterArmorAnimation>,
     build_distance: u32,
-    character_corpse: crate::types::EntityID,
-    crafting_categories: Vec<crate::types::RecipeCategoryID>,
+    character_corpse: Option<crate::types::EntityID>,
+    crafting_categories: Option<Vec<crate::types::RecipeCategoryID>>,
     damage_hit_tint: crate::types::Color,
     distance_per_frame: f64,
     drop_item_distance: u32,
@@ -13,9 +13,9 @@ pub struct CharacterPrototype {
     enter_vehicle_distance: f64,
     #[serde(default = "default_flying_bob_speed")]
     flying_bob_speed: f32,
-    flying_collision_mask: crate::types::CollisionMaskConnector,
-    footprint_particles: Vec<crate::types::FootprintParticle>,
-    footstep_particle_triggers: crate::types::FootstepTriggerEffectList,
+    flying_collision_mask: Option<crate::types::CollisionMaskConnector>,
+    footprint_particles: Option<Vec<crate::types::FootprintParticle>>,
+    footstep_particle_triggers: Option<crate::types::FootstepTriggerEffectList>,
     #[serde(default = "default_grounded_landing_search_radius")]
     grounded_landing_search_radius: f64,
     #[serde(default = "default_guns_inventory_size")]
@@ -27,12 +27,12 @@ pub struct CharacterPrototype {
     #[serde(default = "default_is_military_target")]
     is_military_target: bool,
     item_pickup_distance: f64,
-    left_footprint_frames: Vec<f32>,
-    left_footprint_offset: crate::types::Vector,
-    light: crate::types::LightDefinition,
+    left_footprint_frames: Option<Vec<f32>>,
+    left_footprint_offset: Option<crate::types::Vector>,
+    light: Option<crate::types::LightDefinition>,
     loot_pickup_distance: f64,
     maximum_corner_sliding_distance: f64,
-    mining_categories: Vec<crate::types::ResourceCategoryID>,
+    mining_categories: Option<Vec<crate::types::ResourceCategoryID>>,
     mining_speed: f64,
     mining_with_tool_particles_animation_positions: Vec<f32>,
     moving_sound_animation_positions: Vec<f32>,
@@ -40,17 +40,17 @@ pub struct CharacterPrototype {
     reach_resource_distance: f64,
     #[serde(default = "default_respawn_time")]
     respawn_time: u32,
-    right_footprint_frames: Vec<f32>,
-    right_footprint_offset: crate::types::Vector,
+    right_footprint_frames: Option<Vec<f32>>,
+    right_footprint_offset: Option<crate::types::Vector>,
     running_sound_animation_positions: Vec<f32>,
     running_speed: f64,
-    synced_footstep_particle_triggers: crate::types::FootstepTriggerEffectList,
+    synced_footstep_particle_triggers: Option<crate::types::FootstepTriggerEffectList>,
     ticks_to_keep_aiming_direction: u32,
     ticks_to_keep_gun: u32,
     ticks_to_stay_in_combat: u32,
     #[serde(default = "default_tool_attack_distance")]
     tool_attack_distance: f64,
-    tool_attack_result: crate::types::Trigger,
+    tool_attack_result: Option<crate::types::Trigger>,
 }
 fn default_enter_vehicle_distance() -> f64 {
     3.0

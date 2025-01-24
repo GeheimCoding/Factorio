@@ -1,13 +1,13 @@
 #[derive(serde::Deserialize)]
 pub struct RailSignalStaticSpriteLayer {
-    align_to_frame_index: Vec<u8>,
+    align_to_frame_index: Option<Vec<u8>>,
     #[serde(default = "default_hide_if_not_connected_to_rails")]
     hide_if_not_connected_to_rails: bool,
     #[serde(default = "default_hide_if_simulation")]
     hide_if_simulation: bool,
     #[serde(default = "default_render_layer")]
     render_layer: crate::types::RenderLayer,
-    shifts: Vec<crate::types::MapPosition>,
+    shifts: Option<Vec<crate::types::MapPosition>>,
     sprites: crate::types::Animation,
 }
 fn default_hide_if_not_connected_to_rails() -> bool {

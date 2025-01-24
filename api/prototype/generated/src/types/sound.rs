@@ -2,15 +2,15 @@
 pub enum Sound {
     #[serde(untagged)]
     Sound {
-        advanced_volume_control: crate::types::AdvancedVolumeControl,
-        aggregation: crate::types::AggregationSpecification,
+        advanced_volume_control: Option<crate::types::AdvancedVolumeControl>,
+        aggregation: Option<crate::types::AggregationSpecification>,
         #[serde(default = "default_allow_random_repeat")]
         allow_random_repeat: bool,
         #[serde(default = "default_audible_distance_modifier")]
         audible_distance_modifier: f64,
-        category: crate::types::SoundType,
-        filename: crate::types::FileName,
-        game_controller_vibration_data: crate::types::GameControllerVibrationData,
+        category: Option<crate::types::SoundType>,
+        filename: Option<crate::types::FileName>,
+        game_controller_vibration_data: Option<crate::types::GameControllerVibrationData>,
         #[serde(default = "default_max_speed")]
         max_speed: f32,
         #[serde(default = "default_max_volume")]
@@ -19,15 +19,15 @@ pub enum Sound {
         min_speed: f32,
         #[serde(default = "default_min_volume")]
         min_volume: f32,
-        modifiers: SoundModifiers,
-        preload: bool,
+        modifiers: Option<SoundModifiers>,
+        preload: Option<bool>,
         #[serde(default = "default_priority")]
         priority: u8,
         #[serde(default = "default_speed")]
         speed: f32,
         #[serde(default = "default_speed_smoothing_window_size")]
         speed_smoothing_window_size: u32,
-        variations: SoundVariations,
+        variations: Option<SoundVariations>,
         #[serde(default = "default_volume")]
         volume: f32,
     },

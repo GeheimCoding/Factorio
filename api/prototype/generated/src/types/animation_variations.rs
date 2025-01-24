@@ -2,8 +2,8 @@
 pub enum AnimationVariations {
     #[serde(untagged)]
     AnimationVariations {
-        sheet: crate::types::AnimationSheet,
-        sheets: Vec<crate::types::AnimationSheet>,
+        sheet: Option<crate::types::AnimationSheet>,
+        sheets: Option<Vec<crate::types::AnimationSheet>>,
     },
     #[serde(untagged)]
     Animation(Box<crate::types::Animation>),

@@ -3,7 +3,7 @@ pub struct ActivityMatchingModifiers {
     #[serde(default = "default_inverted")]
     inverted: bool,
     // default: infinity
-    maximum: f32,
+    maximum: Option<f32>,
     #[serde(default = "default_minimum")]
     minimum: f32,
     #[serde(default = "default_multiplier")]

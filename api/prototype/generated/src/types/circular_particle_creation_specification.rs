@@ -1,7 +1,7 @@
 #[derive(serde::Deserialize)]
 pub struct CircularParticleCreationSpecification {
     // default: `{0, 0}`
-    center: crate::types::Vector,
+    center: Option<crate::types::Vector>,
     #[serde(default = "default_creation_distance")]
     creation_distance: f64,
     #[serde(default = "default_creation_distance_orientation")]

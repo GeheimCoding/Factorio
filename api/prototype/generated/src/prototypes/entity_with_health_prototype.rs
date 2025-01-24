@@ -4,22 +4,22 @@ pub struct EntityWithHealthPrototype {
     #[serde(default = "default_alert_when_damaged")]
     alert_when_damaged: bool,
     // default: Empty
-    attack_reaction: EntityWithHealthPrototypeAttackReaction,
+    attack_reaction: Option<EntityWithHealthPrototypeAttackReaction>,
     // default: Empty
-    corpse: EntityWithHealthPrototypeCorpse,
+    corpse: Option<EntityWithHealthPrototypeCorpse>,
     #[serde(default = "default_create_ghost_on_death")]
     create_ghost_on_death: bool,
-    damaged_trigger_effect: crate::types::TriggerEffect,
-    dying_explosion: EntityWithHealthPrototypeDyingExplosion,
-    dying_trigger_effect: crate::types::TriggerEffect,
+    damaged_trigger_effect: Option<crate::types::TriggerEffect>,
+    dying_explosion: Option<EntityWithHealthPrototypeDyingExplosion>,
+    dying_trigger_effect: Option<crate::types::TriggerEffect>,
     #[serde(default = "default_healing_per_tick")]
     healing_per_tick: f32,
     #[serde(default = "default_hide_resistances")]
     hide_resistances: bool,
-    integration_patch: crate::types::Sprite4Way,
+    integration_patch: Option<crate::types::Sprite4Way>,
     #[serde(default = "default_integration_patch_render_layer")]
     integration_patch_render_layer: crate::types::RenderLayer,
-    loot: Vec<crate::types::LootItem>,
+    loot: Option<Vec<crate::types::LootItem>>,
     #[serde(default = "default_max_health")]
     max_health: f32,
     #[serde(default = "default_overkill_fraction")]
@@ -27,10 +27,10 @@ pub struct EntityWithHealthPrototype {
     #[serde(default = "default_random_corpse_variation")]
     random_corpse_variation: bool,
     // default: Utility sound defaultManualRepair
-    repair_sound: crate::types::Sound,
+    repair_sound: Option<crate::types::Sound>,
     #[serde(default = "default_repair_speed_modifier")]
     repair_speed_modifier: f32,
-    resistances: Vec<crate::types::Resistance>,
+    resistances: Option<Vec<crate::types::Resistance>>,
 }
 fn default_alert_when_damaged() -> bool {
     true

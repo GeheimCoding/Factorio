@@ -1,11 +1,11 @@
 #[derive(serde::Deserialize)]
 pub struct RotatedSpriteFrame {
     // default: inherited height
-    height: crate::types::SpriteSizeType,
+    height: Option<crate::types::SpriteSizeType>,
     // default: `{0, 0}`
-    shift: crate::types::Vector,
+    shift: Option<crate::types::Vector>,
     // default: inherited width
-    width: crate::types::SpriteSizeType,
+    width: Option<crate::types::SpriteSizeType>,
     #[serde(default = "default_x")]
     x: crate::types::SpriteSizeType,
     #[serde(default = "default_y")]

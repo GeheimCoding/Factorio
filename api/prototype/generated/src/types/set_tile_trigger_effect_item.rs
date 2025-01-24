@@ -6,7 +6,7 @@ pub struct SetTileTriggerEffectItem {
     #[serde(default = "default_apply_projection")]
     apply_projection: bool,
     radius: f32,
-    tile_collision_mask: crate::types::CollisionMaskConnector,
+    tile_collision_mask: Option<crate::types::CollisionMaskConnector>,
     tile_name: crate::types::TileID,
     #[serde(rename = "type")]
     type_: String,

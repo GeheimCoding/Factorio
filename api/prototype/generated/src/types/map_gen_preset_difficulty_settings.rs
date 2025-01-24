@@ -1,4 +1,4 @@
 #[derive(serde::Deserialize)]
 pub struct MapGenPresetDifficultySettings {
-    technology_price_multiplier: f64,
+    technology_price_multiplier: Option<f64>,
 }

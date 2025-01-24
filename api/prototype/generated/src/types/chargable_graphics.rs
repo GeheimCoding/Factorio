@@ -1,16 +1,16 @@
 #[derive(serde::Deserialize)]
 pub struct ChargableGraphics {
-    charge_animation: crate::types::Animation,
+    charge_animation: Option<crate::types::Animation>,
     #[serde(default = "default_charge_animation_is_looped")]
     charge_animation_is_looped: bool,
     #[serde(default = "default_charge_cooldown")]
     charge_cooldown: u16,
-    charge_light: crate::types::LightDefinition,
-    discharge_animation: crate::types::Animation,
+    charge_light: Option<crate::types::LightDefinition>,
+    discharge_animation: Option<crate::types::Animation>,
     #[serde(default = "default_discharge_cooldown")]
     discharge_cooldown: u16,
-    discharge_light: crate::types::LightDefinition,
-    picture: crate::types::Sprite,
+    discharge_light: Option<crate::types::LightDefinition>,
+    picture: Option<crate::types::Sprite>,
 }
 fn default_charge_animation_is_looped() -> bool {
     true

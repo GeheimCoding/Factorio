@@ -1,7 +1,7 @@
 #[derive(serde::Deserialize)]
 pub struct ProcessionPrototype {
     base_: crate::prototypes::Prototype,
-    ground_timeline: crate::types::ProcessionTimeline,
+    ground_timeline: Option<crate::types::ProcessionTimeline>,
     procession_style: ProcessionPrototypeProcessionStyle,
     timeline: crate::types::ProcessionTimeline,
     usage: ProcessionPrototypeUsage,

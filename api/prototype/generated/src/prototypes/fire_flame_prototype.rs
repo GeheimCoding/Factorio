@@ -5,10 +5,10 @@ pub struct FireFlamePrototype {
     add_fuel_cooldown: u32,
     #[serde(default = "default_burnt_patch_alpha_default")]
     burnt_patch_alpha_default: f32,
-    burnt_patch_alpha_variations: Vec<TileAndAlpha>,
+    burnt_patch_alpha_variations: Option<Vec<TileAndAlpha>>,
     #[serde(default = "default_burnt_patch_lifetime")]
     burnt_patch_lifetime: u32,
-    burnt_patch_pictures: crate::types::SpriteVariations,
+    burnt_patch_pictures: Option<crate::types::SpriteVariations>,
     #[serde(default = "default_damage_multiplier_decrease_per_tick")]
     damage_multiplier_decrease_per_tick: f32,
     #[serde(default = "default_damage_multiplier_increase_per_added_fuel")]
@@ -34,7 +34,7 @@ pub struct FireFlamePrototype {
     lifetime_increase_by: u32,
     #[serde(default = "default_lifetime_increase_cooldown")]
     lifetime_increase_cooldown: u32,
-    light: crate::types::LightDefinition,
+    light: Option<crate::types::LightDefinition>,
     #[serde(default = "default_light_size_modifier_maximum")]
     light_size_modifier_maximum: f32,
     #[serde(default = "default_light_size_modifier_per_flame")]
@@ -44,35 +44,35 @@ pub struct FireFlamePrototype {
     #[serde(default = "default_maximum_damage_multiplier")]
     maximum_damage_multiplier: f32,
     // default: Max uint32
-    maximum_lifetime: u32,
+    maximum_lifetime: Option<u32>,
     #[serde(default = "default_maximum_spread_count")]
     maximum_spread_count: u16,
-    on_damage_tick_effect: crate::types::Trigger,
-    on_fuel_added_action: crate::types::Trigger,
+    on_damage_tick_effect: Option<crate::types::Trigger>,
+    on_fuel_added_action: Option<crate::types::Trigger>,
     #[serde(default = "default_particle_alpha")]
     particle_alpha: f32,
     #[serde(default = "default_particle_alpha_blend_duration")]
     particle_alpha_blend_duration: u16,
     #[serde(default = "default_particle_alpha_deviation")]
     particle_alpha_deviation: f32,
-    pictures: crate::types::AnimationVariations,
+    pictures: Option<crate::types::AnimationVariations>,
     #[serde(default = "default_render_layer")]
     render_layer: crate::types::RenderLayer,
     #[serde(default = "default_secondary_picture_fade_out_duration")]
     secondary_picture_fade_out_duration: u32,
     #[serde(default = "default_secondary_picture_fade_out_start")]
     secondary_picture_fade_out_start: u32,
-    secondary_pictures: crate::types::AnimationVariations,
+    secondary_pictures: Option<crate::types::AnimationVariations>,
     #[serde(default = "default_secondary_render_layer")]
     secondary_render_layer: crate::types::RenderLayer,
-    small_tree_fire_pictures: crate::types::AnimationVariations,
-    smoke: Vec<crate::types::SmokeSource>,
+    small_tree_fire_pictures: Option<crate::types::AnimationVariations>,
+    smoke: Option<Vec<crate::types::SmokeSource>>,
     #[serde(default = "default_smoke_fade_in_duration")]
     smoke_fade_in_duration: u32,
     #[serde(default = "default_smoke_fade_out_duration")]
     smoke_fade_out_duration: u32,
-    smoke_source_pictures: crate::types::AnimationVariations,
-    spawn_entity: crate::types::EntityID,
+    smoke_source_pictures: Option<crate::types::AnimationVariations>,
+    spawn_entity: Option<crate::types::EntityID>,
     spread_delay: u32,
     spread_delay_deviation: u32,
     #[serde(default = "default_tree_dying_factor")]

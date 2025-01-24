@@ -2,8 +2,8 @@
 pub struct FusionGeneratorGraphicsSet {
     east_graphics_set: crate::types::FusionGeneratorDirectionGraphicsSet,
     // default: `{1, 1, 1}`
-    glow_color: crate::types::Color,
-    light: crate::types::LightDefinition,
+    glow_color: Option<crate::types::Color>,
+    light: Option<crate::types::LightDefinition>,
     north_graphics_set: crate::types::FusionGeneratorDirectionGraphicsSet,
     #[serde(default = "default_render_layer")]
     render_layer: crate::types::RenderLayer,

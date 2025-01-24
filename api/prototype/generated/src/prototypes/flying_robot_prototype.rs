@@ -10,7 +10,7 @@ pub struct FlyingRobotPrototype {
     #[serde(default = "default_max_energy")]
     max_energy: crate::types::Energy,
     // default: max double
-    max_speed: f64,
+    max_speed: Option<f64>,
     #[serde(default = "default_max_to_charge")]
     max_to_charge: f32,
     #[serde(default = "default_min_to_charge")]

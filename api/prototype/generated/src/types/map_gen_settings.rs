@@ -1,24 +1,27 @@
 #[derive(serde::Deserialize)]
 pub struct MapGenSettings {
-    autoplace_controls: std::collections::HashMap<
-        crate::types::AutoplaceControlID,
-        crate::types::FrequencySizeRichness,
+    autoplace_controls: Option<
+        std::collections::HashMap<
+            crate::types::AutoplaceControlID,
+            crate::types::FrequencySizeRichness,
+        >,
     >,
-    autoplace_settings:
+    autoplace_settings: Option<
         std::collections::HashMap<MapGenSettingsAutoplaceSettings, crate::types::AutoplaceSettings>,
-    cliff_settings: crate::types::CliffPlacementSettings,
+    >,
+    cliff_settings: Option<crate::types::CliffPlacementSettings>,
     #[serde(default = "default_default_enable_all_autoplace_controls")]
     default_enable_all_autoplace_controls: bool,
-    height: u32,
-    no_enemies_mode: bool,
-    peaceful_mode: bool,
+    height: Option<u32>,
+    no_enemies_mode: Option<bool>,
+    peaceful_mode: Option<bool>,
     property_expression_names:
-        std::collections::HashMap<String, MapGenSettingsPropertyExpressionNames>,
-    seed: u32,
-    starting_area: crate::types::MapGenSize,
-    starting_points: Vec<crate::types::MapPosition>,
-    territory_settings: crate::types::TerritorySettings,
-    width: u32,
+        Option<std::collections::HashMap<String, MapGenSettingsPropertyExpressionNames>>,
+    seed: Option<u32>,
+    starting_area: Option<crate::types::MapGenSize>,
+    starting_points: Option<Vec<crate::types::MapPosition>>,
+    territory_settings: Option<crate::types::TerritorySettings>,
+    width: Option<u32>,
 }
 #[derive(serde::Deserialize, PartialEq, Eq, Hash)]
 pub enum MapGenSettingsAutoplaceSettings {

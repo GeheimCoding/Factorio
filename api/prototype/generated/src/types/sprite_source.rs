@@ -1,14 +1,14 @@
 #[derive(serde::Deserialize)]
 pub struct SpriteSource {
     filename: crate::types::FileName,
-    height: crate::types::SpriteSizeType,
+    height: Option<crate::types::SpriteSizeType>,
     #[serde(default = "default_load_in_minimal_mode")]
     load_in_minimal_mode: bool,
-    position: (crate::types::SpriteSizeType, crate::types::SpriteSizeType),
+    position: Option<(crate::types::SpriteSizeType, crate::types::SpriteSizeType)>,
     #[serde(default = "default_premul_alpha")]
     premul_alpha: bool,
-    size: SpriteSourceSize,
-    width: crate::types::SpriteSizeType,
+    size: Option<SpriteSourceSize>,
+    width: Option<crate::types::SpriteSizeType>,
     #[serde(default = "default_x")]
     x: crate::types::SpriteSizeType,
     #[serde(default = "default_y")]

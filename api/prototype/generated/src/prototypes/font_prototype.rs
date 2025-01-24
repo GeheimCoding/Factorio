@@ -2,7 +2,7 @@
 pub struct FontPrototype {
     #[serde(default = "default_border")]
     border: bool,
-    border_color: crate::types::Color,
+    border_color: Option<crate::types::Color>,
     #[serde(default = "default_filtered")]
     filtered: bool,
     from: String,

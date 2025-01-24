@@ -4,22 +4,22 @@ pub struct BaseStyleSpecification {
     bottom_margin: i16,
     #[serde(default = "default_bottom_padding")]
     bottom_padding: i16,
-    effect: BaseStyleSpecificationEffect,
+    effect: Option<BaseStyleSpecificationEffect>,
     #[serde(default = "default_effect_opacity")]
     effect_opacity: f32,
-    height: u32,
+    height: Option<u32>,
     #[serde(default = "default_horizontal_align")]
     horizontal_align: crate::types::HorizontalAlign,
     #[serde(default = "default_horizontally_squashable")]
     horizontally_squashable: crate::types::StretchRule,
     #[serde(default = "default_horizontally_stretchable")]
     horizontally_stretchable: crate::types::StretchRule,
-    ignored_by_search: bool,
+    ignored_by_search: Option<bool>,
     #[serde(default = "default_left_margin")]
     left_margin: i16,
     #[serde(default = "default_left_padding")]
     left_padding: i16,
-    margin: i16,
+    margin: Option<i16>,
     #[serde(default = "default_maximal_height")]
     maximal_height: u32,
     #[serde(default = "default_maximal_width")]
@@ -30,18 +30,18 @@ pub struct BaseStyleSpecification {
     minimal_width: u32,
     #[serde(default = "default_natural_height")]
     natural_height: u32,
-    natural_size: BaseStyleSpecificationNaturalSize,
+    natural_size: Option<BaseStyleSpecificationNaturalSize>,
     #[serde(default = "default_natural_width")]
     natural_width: u32,
-    never_hide_by_search: bool,
-    padding: i16,
-    parent: String,
+    never_hide_by_search: Option<bool>,
+    padding: Option<i16>,
+    parent: Option<String>,
     #[serde(default = "default_right_margin")]
     right_margin: i16,
     #[serde(default = "default_right_padding")]
     right_padding: i16,
-    size: BaseStyleSpecificationSize,
-    tooltip: crate::types::LocalisedString,
+    size: Option<BaseStyleSpecificationSize>,
+    tooltip: Option<crate::types::LocalisedString>,
     #[serde(default = "default_top_margin")]
     top_margin: i16,
     #[serde(default = "default_top_padding")]
@@ -52,7 +52,7 @@ pub struct BaseStyleSpecification {
     vertically_squashable: crate::types::StretchRule,
     #[serde(default = "default_vertically_stretchable")]
     vertically_stretchable: crate::types::StretchRule,
-    width: u32,
+    width: Option<u32>,
 }
 fn default_bottom_margin() -> i16 {
     0

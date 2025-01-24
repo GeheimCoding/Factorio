@@ -1,6 +1,6 @@
 #[derive(serde::Deserialize)]
 pub struct FrequencySizeRichness {
-    frequency: crate::types::MapGenSize,
-    richness: crate::types::MapGenSize,
-    size: crate::types::MapGenSize,
+    frequency: Option<crate::types::MapGenSize>,
+    richness: Option<crate::types::MapGenSize>,
+    size: Option<crate::types::MapGenSize>,
 }

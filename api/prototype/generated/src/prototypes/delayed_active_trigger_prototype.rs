@@ -8,7 +8,7 @@ pub struct DelayedActiveTriggerPrototype {
     #[serde(default = "default_repeat_count")]
     repeat_count: u32,
     // default: Value of `delay`
-    repeat_delay: u32,
+    repeat_delay: Option<u32>,
 }
 fn default_cancel_when_source_is_destroyed() -> bool {
     false

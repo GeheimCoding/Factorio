@@ -1,18 +1,18 @@
 #[derive(serde::Deserialize)]
 pub struct SpiderLegPart {
-    bottom_end: crate::types::RotatedSprite,
+    bottom_end: Option<crate::types::RotatedSprite>,
     #[serde(default = "default_bottom_end_length")]
     bottom_end_length: f32,
     #[serde(default = "default_bottom_end_offset")]
     bottom_end_offset: f32,
-    middle: crate::types::RotatedSprite,
+    middle: Option<crate::types::RotatedSprite>,
     #[serde(default = "default_middle_offset_from_bottom")]
     middle_offset_from_bottom: f32,
     #[serde(default = "default_middle_offset_from_top")]
     middle_offset_from_top: f32,
     #[serde(default = "default_render_layer")]
     render_layer: crate::types::RenderLayer,
-    top_end: crate::types::RotatedSprite,
+    top_end: Option<crate::types::RotatedSprite>,
     #[serde(default = "default_top_end_length")]
     top_end_length: f32,
     #[serde(default = "default_top_end_offset")]

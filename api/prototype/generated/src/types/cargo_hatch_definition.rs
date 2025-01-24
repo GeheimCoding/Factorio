@@ -2,22 +2,22 @@
 pub struct CargoHatchDefinition {
     #[serde(default = "default_busy_timeout_ticks")]
     busy_timeout_ticks: u32,
-    cargo_unit_entity_to_spawn: crate::types::EntityID,
-    closing_sound: crate::types::InterruptibleSound,
+    cargo_unit_entity_to_spawn: Option<crate::types::EntityID>,
+    closing_sound: Option<crate::types::InterruptibleSound>,
     #[serde(default = "default_entering_render_layer")]
     entering_render_layer: crate::types::RenderLayer,
-    hatch_graphics: crate::types::Animation,
+    hatch_graphics: Option<crate::types::Animation>,
     #[serde(default = "default_hatch_opening_ticks")]
     hatch_opening_ticks: u32,
     #[serde(default = "default_hatch_render_layer")]
     hatch_render_layer: crate::types::RenderLayer,
-    illumination_graphic_index: u32,
+    illumination_graphic_index: Option<u32>,
     // default: `{0, 0}`
-    offset: crate::types::Vector,
-    opening_sound: crate::types::InterruptibleSound,
+    offset: Option<crate::types::Vector>,
+    opening_sound: Option<crate::types::InterruptibleSound>,
     // default: `{0, 0}`
-    pod_shadow_offset: crate::types::Vector,
-    receiving_cargo_units: Vec<crate::types::EntityID>,
+    pod_shadow_offset: Option<crate::types::Vector>,
+    receiving_cargo_units: Option<Vec<crate::types::EntityID>>,
     #[serde(default = "default_sky_slice_height")]
     sky_slice_height: f32,
     #[serde(default = "default_slice_height")]

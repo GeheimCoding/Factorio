@@ -10,7 +10,7 @@ pub struct MiningDrillGraphicsSet {
         MiningDrillGraphicsSetCircuitConnectorSecondaryDrawOrder,
     #[serde(default = "default_drilling_vertical_movement_duration")]
     drilling_vertical_movement_duration: u16,
-    frozen_patch: crate::types::Sprite4Way,
+    frozen_patch: Option<crate::types::Sprite4Way>,
     #[serde(default = "default_reset_animation_when_frozen")]
     reset_animation_when_frozen: bool,
 }

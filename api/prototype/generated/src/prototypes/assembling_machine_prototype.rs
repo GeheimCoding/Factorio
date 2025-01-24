@@ -1,24 +1,24 @@
 #[derive(serde::Deserialize)]
 pub struct AssemblingMachinePrototype {
     base_: crate::prototypes::CraftingMachinePrototype,
-    circuit_connector: (
+    circuit_connector: Option<(
         crate::types::CircuitConnectorDefinition,
         crate::types::CircuitConnectorDefinition,
         crate::types::CircuitConnectorDefinition,
         crate::types::CircuitConnectorDefinition,
-    ),
+    )>,
     #[serde(default = "default_circuit_wire_max_distance")]
     circuit_wire_max_distance: f64,
-    default_recipe_finished_signal: crate::types::SignalIDConnector,
-    default_working_signal: crate::types::SignalIDConnector,
-    disabled_when_recipe_not_researched: bool,
+    default_recipe_finished_signal: Option<crate::types::SignalIDConnector>,
+    default_working_signal: Option<crate::types::SignalIDConnector>,
+    disabled_when_recipe_not_researched: Option<bool>,
     #[serde(default = "default_draw_circuit_wires")]
     draw_circuit_wires: bool,
     #[serde(default = "default_draw_copper_wires")]
     draw_copper_wires: bool,
     #[serde(default = "default_enable_logistic_control_behavior")]
     enable_logistic_control_behavior: bool,
-    fixed_quality: crate::types::QualityID,
+    fixed_quality: Option<crate::types::QualityID>,
     #[serde(default = "default_fixed_recipe")]
     fixed_recipe: crate::types::RecipeID,
     #[serde(default = "default_fluid_boxes_off_when_no_fluid_recipe")]

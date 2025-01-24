@@ -1,7 +1,7 @@
 #[derive(serde::Deserialize)]
 pub struct CreateParticleTriggerEffectItem {
     base_: crate::types::TriggerEffectItem,
-    apply_tile_tint: CreateParticleTriggerEffectItemApplyTileTint,
+    apply_tile_tint: Option<CreateParticleTriggerEffectItemApplyTileTint>,
     #[serde(default = "default_frame_speed")]
     frame_speed: f32,
     #[serde(default = "default_frame_speed_deviation")]
@@ -15,8 +15,8 @@ pub struct CreateParticleTriggerEffectItem {
     initial_vertical_speed_deviation: f32,
     #[serde(default = "default_movement_multiplier")]
     movement_multiplier: f32,
-    offset_deviation: crate::types::SimpleBoundingBox,
-    offsets: Vec<crate::types::Vector>,
+    offset_deviation: Option<crate::types::SimpleBoundingBox>,
+    offsets: Option<Vec<crate::types::Vector>>,
     #[serde(default = "default_only_when_visible")]
     only_when_visible: bool,
     particle_name: crate::types::ParticleID,
@@ -34,9 +34,9 @@ pub struct CreateParticleTriggerEffectItem {
     tail_length_deviation: u8,
     #[serde(default = "default_tail_width")]
     tail_width: f32,
-    tile_collision_mask: crate::types::CollisionMaskConnector,
+    tile_collision_mask: Option<crate::types::CollisionMaskConnector>,
     // default: `{1, 1, 1, 1} (white)`
-    tint: crate::types::Color,
+    tint: Option<crate::types::Color>,
     #[serde(rename = "type")]
     type_: String,
 }

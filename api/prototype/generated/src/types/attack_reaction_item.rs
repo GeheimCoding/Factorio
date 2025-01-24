@@ -1,7 +1,7 @@
 #[derive(serde::Deserialize)]
 pub struct AttackReactionItem {
-    action: crate::types::Trigger,
-    damage_type: crate::types::DamageTypeID,
+    action: Option<crate::types::Trigger>,
+    damage_type: Option<crate::types::DamageTypeID>,
     range: f32,
     #[serde(default = "default_reaction_modifier")]
     reaction_modifier: f32,

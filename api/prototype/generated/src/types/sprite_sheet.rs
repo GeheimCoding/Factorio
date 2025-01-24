@@ -1,14 +1,14 @@
 #[derive(serde::Deserialize)]
 pub struct SpriteSheet {
     base_: crate::types::SpriteParameters,
-    dice: crate::types::SpriteSizeType,
-    dice_x: crate::types::SpriteSizeType,
-    dice_y: crate::types::SpriteSizeType,
-    filenames: Vec<crate::types::FileName>,
-    layers: Vec<crate::types::SpriteSheet>,
+    dice: Option<crate::types::SpriteSizeType>,
+    dice_x: Option<crate::types::SpriteSizeType>,
+    dice_y: Option<crate::types::SpriteSizeType>,
+    filenames: Option<Vec<crate::types::FileName>>,
+    layers: Option<Vec<crate::types::SpriteSheet>>,
     // default: Value of `variation_count`
-    line_length: u32,
-    lines_per_file: u32,
+    line_length: Option<u32>,
+    lines_per_file: Option<u32>,
     #[serde(default = "default_repeat_count")]
     repeat_count: u32,
     #[serde(default = "default_variation_count")]

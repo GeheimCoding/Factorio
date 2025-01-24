@@ -58,7 +58,7 @@ pub struct UtilitySounds {
     rotated_medium: crate::types::Sound,
     rotated_small: crate::types::Sound,
     scenario_message: crate::types::Sound,
-    segment_dying_sound: crate::types::Sound,
+    segment_dying_sound: Option<crate::types::Sound>,
     smart_pipette: crate::types::Sound,
     switch_gun: crate::types::Sound,
     tutorial_notice: crate::types::Sound,

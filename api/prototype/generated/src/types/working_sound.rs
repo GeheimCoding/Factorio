@@ -3,20 +3,20 @@ pub enum WorkingSound {
     #[serde(untagged)]
     WorkingSound {
         base_: crate::types::MainSound,
-        activate_sound: crate::types::Sound,
+        activate_sound: Option<crate::types::Sound>,
         #[serde(default = "default_apparent_volume")]
         apparent_volume: f32,
         #[serde(default = "default_audible_distance_modifier")]
         audible_distance_modifier: f64,
-        deactivate_sound: crate::types::Sound,
+        deactivate_sound: Option<crate::types::Sound>,
         #[serde(default = "default_extra_sounds_ignore_limit")]
         extra_sounds_ignore_limit: bool,
-        idle_sound: crate::types::Sound,
-        main_sounds: WorkingSoundMainSounds,
-        max_sounds_per_type: u8,
+        idle_sound: Option<crate::types::Sound>,
+        main_sounds: Option<WorkingSoundMainSounds>,
+        max_sounds_per_type: Option<u8>,
         #[serde(default = "default_persistent")]
         persistent: bool,
-        sound_accents: WorkingSoundSoundAccents,
+        sound_accents: Option<WorkingSoundSoundAccents>,
         #[serde(default = "default_use_doppler_shift")]
         use_doppler_shift: bool,
     },

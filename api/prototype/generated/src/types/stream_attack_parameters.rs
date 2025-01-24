@@ -3,11 +3,11 @@ pub struct StreamAttackParameters {
     base_: crate::types::BaseAttackParameters,
     #[serde(default = "default_fluid_consumption")]
     fluid_consumption: crate::types::FluidAmount,
-    fluids: Vec<StreamFluidProperties>,
+    fluids: Option<Vec<StreamFluidProperties>>,
     #[serde(default = "default_gun_barrel_length")]
     gun_barrel_length: f32,
-    gun_center_shift: StreamAttackParametersGunCenterShift,
-    projectile_creation_parameters: crate::types::CircularProjectileCreationSpecification,
+    gun_center_shift: Option<StreamAttackParametersGunCenterShift>,
+    projectile_creation_parameters: Option<crate::types::CircularProjectileCreationSpecification>,
     #[serde(rename = "type")]
     type_: String,
 }
@@ -36,8 +36,8 @@ pub enum StreamAttackParametersGunCenterShift {
 }
 #[derive(serde::Deserialize)]
 pub struct GunShift4Way {
-    east: crate::types::Vector,
+    east: Option<crate::types::Vector>,
     north: crate::types::Vector,
-    south: crate::types::Vector,
-    west: crate::types::Vector,
+    south: Option<crate::types::Vector>,
+    west: Option<crate::types::Vector>,
 }

@@ -5,7 +5,7 @@ pub struct EnterVehicleTipTrigger {
     match_type_only: bool,
     #[serde(rename = "type")]
     type_: String,
-    vehicle: crate::types::EntityID,
+    vehicle: Option<crate::types::EntityID>,
 }
 fn default_match_type_only() -> bool {
     false

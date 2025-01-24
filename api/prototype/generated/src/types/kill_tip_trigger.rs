@@ -1,8 +1,8 @@
 #[derive(serde::Deserialize)]
 pub struct KillTipTrigger {
     base_: crate::types::CountBasedTipTrigger,
-    damage_type: crate::types::DamageTypeID,
-    entity: crate::types::EntityID,
+    damage_type: Option<crate::types::DamageTypeID>,
+    entity: Option<crate::types::EntityID>,
     #[serde(default = "default_match_type_only")]
     match_type_only: bool,
     #[serde(rename = "type")]

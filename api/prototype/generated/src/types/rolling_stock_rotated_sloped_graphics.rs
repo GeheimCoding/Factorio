@@ -5,7 +5,7 @@ pub struct RollingStockRotatedSlopedGraphics {
     slope_angle_between_frames: f64,
     #[serde(default = "default_slope_back_equals_front")]
     slope_back_equals_front: bool,
-    sloped: crate::types::RotatedSprite,
+    sloped: Option<crate::types::RotatedSprite>,
 }
 fn default_slope_angle_between_frames() -> f64 {
     1.3

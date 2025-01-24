@@ -1,17 +1,17 @@
 #[derive(serde::Deserialize)]
 pub struct FrameStyleSpecification {
     base_: crate::types::BaseStyleSpecification,
-    background_graphical_set: crate::types::ElementImageSet,
-    border: crate::types::BorderImageSet,
-    drag_by_title: bool,
-    graphical_set: crate::types::ElementImageSet,
-    header_background: crate::types::ElementImageSet,
-    header_filler_style: crate::types::EmptyWidgetStyleSpecification,
-    header_flow_style: crate::types::HorizontalFlowStyleSpecification,
-    horizontal_flow_style: crate::types::HorizontalFlowStyleSpecification,
-    title_style: crate::types::LabelStyleSpecification,
+    background_graphical_set: Option<crate::types::ElementImageSet>,
+    border: Option<crate::types::BorderImageSet>,
+    drag_by_title: Option<bool>,
+    graphical_set: Option<crate::types::ElementImageSet>,
+    header_background: Option<crate::types::ElementImageSet>,
+    header_filler_style: Option<crate::types::EmptyWidgetStyleSpecification>,
+    header_flow_style: Option<crate::types::HorizontalFlowStyleSpecification>,
+    horizontal_flow_style: Option<crate::types::HorizontalFlowStyleSpecification>,
+    title_style: Option<crate::types::LabelStyleSpecification>,
     #[serde(rename = "type")]
     type_: String,
-    use_header_filler: bool,
-    vertical_flow_style: crate::types::VerticalFlowStyleSpecification,
+    use_header_filler: Option<bool>,
+    vertical_flow_style: Option<crate::types::VerticalFlowStyleSpecification>,
 }

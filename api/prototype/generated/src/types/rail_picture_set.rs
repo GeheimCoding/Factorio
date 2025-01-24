@@ -1,20 +1,20 @@
 #[derive(serde::Deserialize)]
 pub struct RailPictureSet {
     // default: Value of `rail_endings`
-    back_rail_endings: crate::types::Sprite16Way,
+    back_rail_endings: Option<crate::types::Sprite16Way>,
     east: crate::types::RailPieceLayers,
-    fog_mask: RailsFogMaskDefinitions,
+    fog_mask: Option<RailsFogMaskDefinitions>,
     // default: Value of `rail_endings`
-    front_rail_endings: crate::types::Sprite16Way,
+    front_rail_endings: Option<crate::types::Sprite16Way>,
     north: crate::types::RailPieceLayers,
     northeast: crate::types::RailPieceLayers,
     northwest: crate::types::RailPieceLayers,
     rail_endings: crate::types::Sprite16Way,
     render_layers: crate::types::RailRenderLayers,
     // default: Value of `render_layers`
-    secondary_render_layers: crate::types::RailRenderLayers,
-    segment_visualisation_endings: crate::types::RotatedAnimation,
-    slice_origin: RailsSliceOffsets,
+    secondary_render_layers: Option<crate::types::RailRenderLayers>,
+    segment_visualisation_endings: Option<crate::types::RotatedAnimation>,
+    slice_origin: Option<RailsSliceOffsets>,
     south: crate::types::RailPieceLayers,
     southeast: crate::types::RailPieceLayers,
     southwest: crate::types::RailPieceLayers,
@@ -22,15 +22,15 @@ pub struct RailPictureSet {
 }
 #[derive(serde::Deserialize)]
 pub struct RailsFogMaskDefinitions {
-    east: crate::types::FogMaskShapeDefinition,
-    north: crate::types::FogMaskShapeDefinition,
-    south: crate::types::FogMaskShapeDefinition,
-    west: crate::types::FogMaskShapeDefinition,
+    east: Option<crate::types::FogMaskShapeDefinition>,
+    north: Option<crate::types::FogMaskShapeDefinition>,
+    south: Option<crate::types::FogMaskShapeDefinition>,
+    west: Option<crate::types::FogMaskShapeDefinition>,
 }
 #[derive(serde::Deserialize)]
 pub struct RailsSliceOffsets {
-    east: crate::types::Vector,
-    north: crate::types::Vector,
-    south: crate::types::Vector,
-    west: crate::types::Vector,
+    east: Option<crate::types::Vector>,
+    north: Option<crate::types::Vector>,
+    south: Option<crate::types::Vector>,
+    west: Option<crate::types::Vector>,
 }

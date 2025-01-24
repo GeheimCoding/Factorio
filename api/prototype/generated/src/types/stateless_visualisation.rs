@@ -1,49 +1,49 @@
 #[derive(serde::Deserialize)]
 pub struct StatelessVisualisation {
-    acceleration_x: f32,
-    acceleration_y: f32,
-    acceleration_z: f32,
+    acceleration_x: Option<f32>,
+    acceleration_y: Option<f32>,
+    acceleration_z: Option<f32>,
     #[serde(default = "default_adjust_animation_speed_by_base_scale")]
     adjust_animation_speed_by_base_scale: bool,
     #[serde(default = "default_affected_by_wind")]
     affected_by_wind: bool,
-    animation: crate::types::AnimationVariations,
+    animation: Option<crate::types::AnimationVariations>,
     #[serde(default = "default_begin_scale")]
     begin_scale: f32,
     #[serde(default = "default_can_lay_on_the_ground")]
     can_lay_on_the_ground: bool,
-    count: u16,
+    count: Option<u16>,
     #[serde(default = "default_end_scale")]
     end_scale: f32,
     #[serde(default = "default_fade_in_progress_duration")]
     fade_in_progress_duration: f32,
     #[serde(default = "default_fade_out_progress_duration")]
     fade_out_progress_duration: f32,
-    light: crate::types::LightDefinition,
+    light: Option<crate::types::LightDefinition>,
     // default: Value of `min_count`
-    max_count: u16,
+    max_count: Option<u16>,
     #[serde(default = "default_min_count")]
     min_count: u16,
-    movement_slowdown_factor_x: f32,
-    movement_slowdown_factor_y: f32,
-    movement_slowdown_factor_z: f32,
-    nested_visualisations: StatelessVisualisationNestedVisualisations,
-    offset_x: crate::types::RangedValue,
-    offset_y: crate::types::RangedValue,
-    offset_z: crate::types::RangedValue,
+    movement_slowdown_factor_x: Option<f32>,
+    movement_slowdown_factor_y: Option<f32>,
+    movement_slowdown_factor_z: Option<f32>,
+    nested_visualisations: Option<StatelessVisualisationNestedVisualisations>,
+    offset_x: Option<crate::types::RangedValue>,
+    offset_y: Option<crate::types::RangedValue>,
+    offset_z: Option<crate::types::RangedValue>,
     #[serde(default = "default_particle_tick_offset")]
     particle_tick_offset: f32,
-    period: u16,
-    positions: Vec<crate::types::Vector>,
+    period: Option<u16>,
+    positions: Option<Vec<crate::types::Vector>>,
     #[serde(default = "default_probability")]
     probability: f32,
     #[serde(default = "default_render_layer")]
     render_layer: crate::types::RenderLayer,
-    scale: crate::types::RangedValue,
-    shadow: crate::types::AnimationVariations,
-    speed_x: crate::types::RangedValue,
-    speed_y: crate::types::RangedValue,
-    speed_z: crate::types::RangedValue,
+    scale: Option<crate::types::RangedValue>,
+    shadow: Option<crate::types::AnimationVariations>,
+    speed_x: Option<crate::types::RangedValue>,
+    speed_y: Option<crate::types::RangedValue>,
+    speed_z: Option<crate::types::RangedValue>,
     #[serde(default = "default_spread_progress_duration")]
     spread_progress_duration: f32,
 }

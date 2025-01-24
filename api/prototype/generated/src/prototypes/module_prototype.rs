@@ -1,8 +1,8 @@
 #[derive(serde::Deserialize)]
 pub struct ModulePrototype {
     base_: crate::prototypes::ItemPrototype,
-    art_style: String,
-    beacon_tint: BeaconVisualizationTints,
+    art_style: Option<String>,
+    beacon_tint: Option<BeaconVisualizationTints>,
     category: crate::types::ModuleCategoryID,
     effect: crate::types::Effect,
     #[serde(default = "default_requires_beacon_alt_mode")]
@@ -12,13 +12,13 @@ pub struct ModulePrototype {
 #[derive(serde::Deserialize)]
 pub struct BeaconVisualizationTints {
     // default: no color
-    primary: crate::types::Color,
+    primary: Option<crate::types::Color>,
     // default: no color
-    quaternary: crate::types::Color,
+    quaternary: Option<crate::types::Color>,
     // default: no color
-    secondary: crate::types::Color,
+    secondary: Option<crate::types::Color>,
     // default: no color
-    tertiary: crate::types::Color,
+    tertiary: Option<crate::types::Color>,
 }
 fn default_requires_beacon_alt_mode() -> bool {
     true

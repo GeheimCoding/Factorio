@@ -3,11 +3,11 @@ pub struct SmokePrototype {
     base_: crate::prototypes::EntityPrototype,
     #[serde(default = "default_affected_by_wind")]
     affected_by_wind: bool,
-    animation: crate::types::Animation,
+    animation: Option<crate::types::Animation>,
     // default: Empty = `{{0, 0}, {0, 0}}`
-    collision_box: crate::types::BoundingBox,
+    collision_box: Option<crate::types::BoundingBox>,
     // default: `{r=0.375, g=0.375, b=0.375, a=0.375}`
-    color: crate::types::Color,
+    color: Option<crate::types::Color>,
     #[serde(default = "default_cyclic")]
     cyclic: bool,
     #[serde(default = "default_duration")]
@@ -18,9 +18,9 @@ pub struct SmokePrototype {
     fade_away_duration: u32,
     #[serde(default = "default_fade_in_duration")]
     fade_in_duration: u32,
-    glow_animation: crate::types::Animation,
+    glow_animation: Option<crate::types::Animation>,
     // default: The value of `fade_away_duration`
-    glow_fade_away_duration: u32,
+    glow_fade_away_duration: Option<u32>,
     #[serde(default = "default_movement_slow_down_factor")]
     movement_slow_down_factor: f64,
     #[serde(default = "default_render_layer")]

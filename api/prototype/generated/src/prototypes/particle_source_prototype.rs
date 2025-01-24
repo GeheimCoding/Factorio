@@ -7,8 +7,8 @@ pub struct ParticleSourcePrototype {
     horizontal_speed: f32,
     #[serde(default = "default_horizontal_speed_deviation")]
     horizontal_speed_deviation: f32,
-    particle: crate::types::ParticleID,
-    smoke: Vec<crate::types::SmokeSource>,
+    particle: Option<crate::types::ParticleID>,
+    smoke: Option<Vec<crate::types::SmokeSource>>,
     time_before_start: f32,
     #[serde(default = "default_time_before_start_deviation")]
     time_before_start_deviation: f32,

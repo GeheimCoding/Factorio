@@ -10,18 +10,18 @@ pub struct CreateEntityTriggerEffectItem {
     find_non_colliding_position: bool,
     #[serde(default = "default_ignore_no_enemies_mode")]
     ignore_no_enemies_mode: bool,
-    non_colliding_fail_result: crate::types::Trigger,
+    non_colliding_fail_result: Option<crate::types::Trigger>,
     #[serde(default = "default_non_colliding_search_precision")]
     non_colliding_search_precision: f64,
     #[serde(default = "default_non_colliding_search_radius")]
     non_colliding_search_radius: f64,
-    offset_deviation: crate::types::BoundingBox,
-    offsets: Vec<crate::types::Vector>,
+    offset_deviation: Option<crate::types::BoundingBox>,
+    offsets: Option<Vec<crate::types::Vector>>,
     #[serde(default = "default_protected")]
     protected: bool,
     #[serde(default = "default_show_in_tooltip")]
     show_in_tooltip: bool,
-    tile_collision_mask: crate::types::CollisionMaskConnector,
+    tile_collision_mask: Option<crate::types::CollisionMaskConnector>,
     #[serde(default = "default_trigger_created_entity")]
     trigger_created_entity: bool,
     #[serde(rename = "type")]

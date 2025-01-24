@@ -1,28 +1,28 @@
 #[derive(serde::Deserialize)]
 pub struct LightningGraphicsSet {
-    attractor_hit_animation: crate::types::Animation,
+    attractor_hit_animation: Option<crate::types::Animation>,
     #[serde(default = "default_bolt_detail_level")]
     bolt_detail_level: u8,
     #[serde(default = "default_bolt_half_width")]
     bolt_half_width: f32,
     #[serde(default = "default_bolt_midpoint_variance")]
     bolt_midpoint_variance: f32,
-    cloud_background: crate::types::Animation,
+    cloud_background: Option<crate::types::Animation>,
     #[serde(default = "default_cloud_detail_level")]
     cloud_detail_level: u8,
     #[serde(default = "default_cloud_fork_orientation_variance")]
     cloud_fork_orientation_variance: f32,
     #[serde(default = "default_cloud_forks")]
     cloud_forks: u8,
-    explosion: crate::types::AnimationVariations,
+    explosion: Option<crate::types::AnimationVariations>,
     #[serde(default = "default_fork_intensity_multiplier")]
     fork_intensity_multiplier: f32,
     #[serde(default = "default_fork_orientation_variance")]
     fork_orientation_variance: f32,
     #[serde(default = "default_ground_streamer_variance")]
     ground_streamer_variance: f32,
-    ground_streamers: Vec<crate::types::Animation>,
-    light: crate::types::LightDefinition,
+    ground_streamers: Option<Vec<crate::types::Animation>>,
+    light: Option<crate::types::LightDefinition>,
     #[serde(default = "default_max_bolt_offset")]
     max_bolt_offset: f32,
     #[serde(default = "default_max_fork_probability")]
@@ -37,7 +37,7 @@ pub struct LightningGraphicsSet {
     min_relative_fork_length: f32,
     #[serde(default = "default_relative_cloud_fork_length")]
     relative_cloud_fork_length: f32,
-    shader_configuration: Vec<LightningShaderConfiguration>,
+    shader_configuration: Option<Vec<LightningShaderConfiguration>>,
 }
 fn default_bolt_detail_level() -> u8 {
     6

@@ -1,8 +1,8 @@
 #[derive(serde::Deserialize)]
 pub struct ItemProductPrototype {
-    amount: u16,
-    amount_max: u16,
-    amount_min: u16,
+    amount: Option<u16>,
+    amount_max: Option<u16>,
+    amount_min: Option<u16>,
     #[serde(default = "default_extra_count_fraction")]
     extra_count_fraction: f32,
     #[serde(default = "default_ignored_by_productivity")]

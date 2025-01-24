@@ -8,7 +8,7 @@ pub struct UnitAISettings {
     do_separation: bool,
     #[serde(default = "default_path_resolution_modifier")]
     path_resolution_modifier: i8,
-    strafe_settings: crate::types::PrototypeStrafeSettings,
+    strafe_settings: Option<crate::types::PrototypeStrafeSettings>,
 }
 fn default_allow_try_return_to_spawner() -> bool {
     false

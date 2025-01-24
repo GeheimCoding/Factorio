@@ -1,7 +1,7 @@
 #[derive(serde::Deserialize)]
 pub struct ShootAchievementPrototype {
     base_: crate::prototypes::AchievementPrototype,
-    ammo_type: crate::types::ItemID,
+    ammo_type: Option<crate::types::ItemID>,
     #[serde(default = "default_amount")]
     amount: u32,
 }

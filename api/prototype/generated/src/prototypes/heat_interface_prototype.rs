@@ -4,7 +4,7 @@ pub struct HeatInterfacePrototype {
     #[serde(default = "default_gui_mode")]
     gui_mode: HeatInterfacePrototypeGuiMode,
     heat_buffer: crate::types::HeatBuffer,
-    picture: crate::types::Sprite,
+    picture: Option<crate::types::Sprite>,
 }
 #[derive(serde::Deserialize)]
 pub enum HeatInterfacePrototypeGuiMode {

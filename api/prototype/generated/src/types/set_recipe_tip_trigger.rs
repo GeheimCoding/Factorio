@@ -5,12 +5,12 @@ pub struct SetRecipeTipTrigger {
     any_quality: bool,
     #[serde(default = "default_consecutive")]
     consecutive: bool,
-    machine: crate::types::EntityID,
-    recipe: crate::types::RecipeID,
+    machine: Option<crate::types::EntityID>,
+    recipe: Option<crate::types::RecipeID>,
     #[serde(rename = "type")]
     type_: String,
     // default: any
-    uses_fluid: bool,
+    uses_fluid: Option<bool>,
 }
 fn default_any_quality() -> bool {
     false

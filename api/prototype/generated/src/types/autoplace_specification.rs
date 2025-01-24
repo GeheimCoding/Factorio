@@ -1,19 +1,19 @@
 #[derive(serde::Deserialize)]
 pub struct AutoplaceSpecification {
-    control: crate::types::AutoplaceControlID,
+    control: Option<crate::types::AutoplaceControlID>,
     #[serde(default = "default_default_enabled")]
     default_enabled: bool,
     #[serde(default = "default_force")]
     force: AutoplaceSpecificationForce,
-    local_expressions: std::collections::HashMap<String, crate::types::NoiseExpression>,
-    local_functions: std::collections::HashMap<String, crate::types::NoiseFunction>,
+    local_expressions: Option<std::collections::HashMap<String, crate::types::NoiseExpression>>,
+    local_functions: Option<std::collections::HashMap<String, crate::types::NoiseFunction>>,
     #[serde(default = "default_order")]
     order: crate::types::Order,
     #[serde(default = "default_placement_density")]
     placement_density: u32,
     probability_expression: crate::types::NoiseExpression,
-    richness_expression: crate::types::NoiseExpression,
-    tile_restriction: Vec<TileIDRestriction>,
+    richness_expression: Option<crate::types::NoiseExpression>,
+    tile_restriction: Option<Vec<TileIDRestriction>>,
 }
 fn default_default_enabled() -> bool {
     true

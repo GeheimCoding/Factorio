@@ -7,13 +7,13 @@ pub struct DamageTriggerEffectItem {
     #[serde(default = "default_lower_damage_modifier")]
     lower_damage_modifier: f32,
     // default: MAX_UINT16
-    lower_distance_threshold: u16,
+    lower_distance_threshold: Option<u16>,
     #[serde(rename = "type")]
     type_: String,
     #[serde(default = "default_upper_damage_modifier")]
     upper_damage_modifier: f32,
     // default: MAX_UINT16
-    upper_distance_threshold: u16,
+    upper_distance_threshold: Option<u16>,
     #[serde(default = "default_use_substitute")]
     use_substitute: bool,
     #[serde(default = "default_vaporize")]

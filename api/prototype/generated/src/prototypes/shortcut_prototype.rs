@@ -4,20 +4,20 @@ pub struct ShortcutPrototype {
     action: ShortcutPrototypeAction,
     #[serde(default = "default_associated_control_input")]
     associated_control_input: String,
-    icon: crate::types::FileName,
+    icon: Option<crate::types::FileName>,
     #[serde(default = "default_icon_size")]
     icon_size: crate::types::SpriteSizeType,
-    icons: Vec<crate::types::IconData>,
-    item_to_spawn: crate::types::ItemID,
+    icons: Option<Vec<crate::types::IconData>>,
+    item_to_spawn: Option<crate::types::ItemID>,
     #[serde(default = "default_order")]
     order: crate::types::Order,
-    small_icon: crate::types::FileName,
+    small_icon: Option<crate::types::FileName>,
     #[serde(default = "default_small_icon_size")]
     small_icon_size: crate::types::SpriteSizeType,
-    small_icons: Vec<crate::types::IconData>,
+    small_icons: Option<Vec<crate::types::IconData>>,
     #[serde(default = "default_style")]
     style: ShortcutPrototypeStyle,
-    technology_to_unlock: crate::types::TechnologyID,
+    technology_to_unlock: Option<crate::types::TechnologyID>,
     #[serde(default = "default_toggleable")]
     toggleable: bool,
     #[serde(default = "default_unavailable_until_unlocked")]

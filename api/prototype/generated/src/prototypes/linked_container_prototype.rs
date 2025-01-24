@@ -1,7 +1,7 @@
 #[derive(serde::Deserialize)]
 pub struct LinkedContainerPrototype {
     base_: crate::prototypes::EntityWithOwnerPrototype,
-    circuit_connector: crate::types::CircuitConnectorDefinition,
+    circuit_connector: Option<crate::types::CircuitConnectorDefinition>,
     #[serde(default = "default_circuit_wire_max_distance")]
     circuit_wire_max_distance: f64,
     #[serde(default = "default_draw_circuit_wires")]
@@ -13,7 +13,7 @@ pub struct LinkedContainerPrototype {
     inventory_size: crate::types::ItemStackIndex,
     #[serde(default = "default_inventory_type")]
     inventory_type: LinkedContainerPrototypeInventoryType,
-    picture: crate::types::Sprite,
+    picture: Option<crate::types::Sprite>,
 }
 fn default_circuit_wire_max_distance() -> f64 {
     0.0

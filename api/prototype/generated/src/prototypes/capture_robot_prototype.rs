@@ -1,10 +1,10 @@
 #[derive(serde::Deserialize)]
 pub struct CaptureRobotPrototype {
     base_: crate::prototypes::FlyingRobotPrototype,
-    capture_animation: crate::types::Animation,
+    capture_animation: Option<crate::types::Animation>,
     #[serde(default = "default_capture_speed")]
     capture_speed: f64,
-    destroy_action: crate::types::Trigger,
+    destroy_action: Option<crate::types::Trigger>,
     #[serde(default = "default_search_radius")]
     search_radius: f64,
 }

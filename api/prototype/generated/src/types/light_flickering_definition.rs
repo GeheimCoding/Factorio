@@ -3,7 +3,7 @@ pub struct LightFlickeringDefinition {
     #[serde(default = "default_border_fix_speed")]
     border_fix_speed: f32,
     // default: {r=1, g=1, b=1} (White)
-    color: crate::types::Color,
+    color: Option<crate::types::Color>,
     #[serde(default = "default_derivation_change_deviation")]
     derivation_change_deviation: f32,
     #[serde(default = "default_derivation_change_frequency")]

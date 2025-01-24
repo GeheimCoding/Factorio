@@ -1,7 +1,7 @@
 #[derive(serde::Deserialize)]
 pub struct RailSignalLights {
-    blue: crate::types::RailSignalLightDefinition,
-    green: crate::types::RailSignalLightDefinition,
-    red: crate::types::RailSignalLightDefinition,
-    yellow: crate::types::RailSignalLightDefinition,
+    blue: Option<crate::types::RailSignalLightDefinition>,
+    green: Option<crate::types::RailSignalLightDefinition>,
+    red: Option<crate::types::RailSignalLightDefinition>,
+    yellow: Option<crate::types::RailSignalLightDefinition>,
 }

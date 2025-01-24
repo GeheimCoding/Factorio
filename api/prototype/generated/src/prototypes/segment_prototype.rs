@@ -6,7 +6,7 @@ pub struct SegmentPrototype {
     backward_overlap: u8,
     #[serde(default = "default_backward_padding")]
     backward_padding: f64,
-    dying_sound: crate::types::Sound,
+    dying_sound: Option<crate::types::Sound>,
     #[serde(default = "default_dying_sound_volume_modifier")]
     dying_sound_volume_modifier: f32,
     #[serde(default = "default_forward_overlap")]
@@ -15,8 +15,8 @@ pub struct SegmentPrototype {
     forward_padding: f64,
     #[serde(default = "default_render_layer")]
     render_layer: crate::types::RenderLayer,
-    update_effects: Vec<crate::types::TriggerEffectWithCooldown>,
-    update_effects_while_enraged: Vec<crate::types::TriggerEffectWithCooldown>,
+    update_effects: Option<Vec<crate::types::TriggerEffectWithCooldown>>,
+    update_effects_while_enraged: Option<Vec<crate::types::TriggerEffectWithCooldown>>,
 }
 fn default_backward_overlap() -> u8 {
     0

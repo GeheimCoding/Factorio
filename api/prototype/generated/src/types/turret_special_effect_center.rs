@@ -2,15 +2,15 @@
 pub enum TurretSpecialEffectCenter {
     #[serde(untagged)]
     TurretSpecialEffectCenter {
-        default: crate::types::Vector,
-        east: crate::types::Vector,
-        north: crate::types::Vector,
-        north_east: crate::types::Vector,
-        north_west: crate::types::Vector,
-        south: crate::types::Vector,
-        south_east: crate::types::Vector,
-        south_west: crate::types::Vector,
-        west: crate::types::Vector,
+        default: Option<crate::types::Vector>,
+        east: Option<crate::types::Vector>,
+        north: Option<crate::types::Vector>,
+        north_east: Option<crate::types::Vector>,
+        north_west: Option<crate::types::Vector>,
+        south: Option<crate::types::Vector>,
+        south_east: Option<crate::types::Vector>,
+        south_west: Option<crate::types::Vector>,
+        west: Option<crate::types::Vector>,
     },
     #[serde(untagged)]
     Vector(crate::types::Vector),

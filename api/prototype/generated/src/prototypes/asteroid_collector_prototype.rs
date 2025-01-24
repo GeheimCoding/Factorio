@@ -6,29 +6,29 @@ pub struct AsteroidCollectorPrototype {
     #[serde(default = "default_arm_angular_speed_cap_quality_scaling")]
     arm_angular_speed_cap_quality_scaling: f32,
     // default: {{1, 1, 1}}
-    arm_color_gradient: Vec<crate::types::Color>,
+    arm_color_gradient: Option<Vec<crate::types::Color>>,
     #[serde(default = "default_arm_count_base")]
     arm_count_base: u32,
     #[serde(default = "default_arm_count_quality_scaling")]
     arm_count_quality_scaling: u32,
     arm_energy_usage: crate::types::Energy,
-    arm_extend_sound: crate::types::Sound,
+    arm_extend_sound: Option<crate::types::Sound>,
     #[serde(default = "default_arm_inventory_size")]
     arm_inventory_size: crate::types::ItemStackIndex,
     #[serde(default = "default_arm_inventory_size_quality_increase")]
     arm_inventory_size_quality_increase: crate::types::ItemStackIndex,
-    arm_retract_sound: crate::types::Sound,
+    arm_retract_sound: Option<crate::types::Sound>,
     arm_slow_energy_usage: crate::types::Energy,
     #[serde(default = "default_arm_speed_base")]
     arm_speed_base: f32,
     #[serde(default = "default_arm_speed_quality_scaling")]
     arm_speed_quality_scaling: f32,
-    circuit_connector: (
+    circuit_connector: Option<(
         crate::types::CircuitConnectorDefinition,
         crate::types::CircuitConnectorDefinition,
         crate::types::CircuitConnectorDefinition,
         crate::types::CircuitConnectorDefinition,
-    ),
+    )>,
     #[serde(default = "default_circuit_wire_max_distance")]
     circuit_wire_max_distance: f64,
     #[serde(default = "default_collection_box_offset")]
@@ -36,7 +36,7 @@ pub struct AsteroidCollectorPrototype {
     collection_radius: f64,
     #[serde(default = "default_deposit_radius")]
     deposit_radius: f32,
-    deposit_sound: crate::types::Sound,
+    deposit_sound: Option<crate::types::Sound>,
     #[serde(default = "default_draw_circuit_wires")]
     draw_circuit_wires: bool,
     #[serde(default = "default_draw_copper_wires")]
@@ -59,9 +59,9 @@ pub struct AsteroidCollectorPrototype {
     inventory_size_quality_increase: crate::types::ItemStackIndex,
     #[serde(default = "default_minimal_arm_swing_segment_retraction")]
     minimal_arm_swing_segment_retraction: u32,
-    munch_sound: crate::types::Sound,
+    munch_sound: Option<crate::types::Sound>,
     passive_energy_usage: crate::types::Energy,
-    radius_visualisation_picture: crate::types::Sprite,
+    radius_visualisation_picture: Option<crate::types::Sprite>,
     #[serde(default = "default_tether_size")]
     tether_size: f32,
     #[serde(default = "default_unpowered_arm_speed_scale")]
@@ -118,15 +118,15 @@ fn default_energy_usage_quality_scaling() -> f32 {
 }
 #[derive(serde::Deserialize)]
 pub struct AsteroidCollectorGraphicsSet {
-    animation: crate::types::Animation4Way,
-    arm_head_animation: crate::types::RotatedAnimation,
-    arm_head_top_animation: crate::types::RotatedAnimation,
-    arm_link: crate::types::RotatedSprite,
-    below_arm_pictures: crate::types::RotatedSprite,
-    below_ground_pictures: crate::types::RotatedSprite,
-    status_lamp_picture_full: crate::types::RotatedSprite,
-    status_lamp_picture_off: crate::types::RotatedSprite,
-    status_lamp_picture_on: crate::types::RotatedSprite,
+    animation: Option<crate::types::Animation4Way>,
+    arm_head_animation: Option<crate::types::RotatedAnimation>,
+    arm_head_top_animation: Option<crate::types::RotatedAnimation>,
+    arm_link: Option<crate::types::RotatedSprite>,
+    below_arm_pictures: Option<crate::types::RotatedSprite>,
+    below_ground_pictures: Option<crate::types::RotatedSprite>,
+    status_lamp_picture_full: Option<crate::types::RotatedSprite>,
+    status_lamp_picture_off: Option<crate::types::RotatedSprite>,
+    status_lamp_picture_on: Option<crate::types::RotatedSprite>,
 }
 fn default_head_collection_radius() -> f32 {
     0.6

@@ -3,17 +3,17 @@ pub struct LampPrototype {
     base_: crate::prototypes::EntityWithOwnerPrototype,
     #[serde(default = "default_always_on")]
     always_on: bool,
-    circuit_connector: crate::types::CircuitConnectorDefinition,
+    circuit_connector: Option<crate::types::CircuitConnectorDefinition>,
     #[serde(default = "default_circuit_wire_max_distance")]
     circuit_wire_max_distance: f64,
     #[serde(default = "default_darkness_for_all_lamps_off")]
     darkness_for_all_lamps_off: f32,
     #[serde(default = "default_darkness_for_all_lamps_on")]
     darkness_for_all_lamps_on: f32,
-    default_blue_signal: crate::types::SignalIDConnector,
-    default_green_signal: crate::types::SignalIDConnector,
-    default_red_signal: crate::types::SignalIDConnector,
-    default_rgb_signal: crate::types::SignalIDConnector,
+    default_blue_signal: Option<crate::types::SignalIDConnector>,
+    default_green_signal: Option<crate::types::SignalIDConnector>,
+    default_red_signal: Option<crate::types::SignalIDConnector>,
+    default_rgb_signal: Option<crate::types::SignalIDConnector>,
     #[serde(default = "default_draw_circuit_wires")]
     draw_circuit_wires: bool,
     #[serde(default = "default_draw_copper_wires")]
@@ -26,11 +26,11 @@ pub struct LampPrototype {
     glow_render_mode: LampPrototypeGlowRenderMode,
     #[serde(default = "default_glow_size")]
     glow_size: f32,
-    light: crate::types::LightDefinition,
-    light_when_colored: crate::types::LightDefinition,
-    picture_off: crate::types::Sprite,
-    picture_on: crate::types::Sprite,
-    signal_to_color_mapping: Vec<crate::types::SignalColorMapping>,
+    light: Option<crate::types::LightDefinition>,
+    light_when_colored: Option<crate::types::LightDefinition>,
+    picture_off: Option<crate::types::Sprite>,
+    picture_on: Option<crate::types::Sprite>,
+    signal_to_color_mapping: Option<Vec<crate::types::SignalColorMapping>>,
 }
 fn default_always_on() -> bool {
     false

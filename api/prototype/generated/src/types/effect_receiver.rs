@@ -1,6 +1,6 @@
 #[derive(serde::Deserialize)]
 pub struct EffectReceiver {
-    base_effect: crate::types::Effect,
+    base_effect: Option<crate::types::Effect>,
     #[serde(default = "default_uses_beacon_effects")]
     uses_beacon_effects: bool,
     #[serde(default = "default_uses_module_effects")]

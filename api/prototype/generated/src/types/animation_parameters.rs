@@ -3,27 +3,27 @@ pub struct AnimationParameters {
     base_: crate::types::SpriteParameters,
     #[serde(default = "default_animation_speed")]
     animation_speed: f32,
-    dice: u8,
-    dice_x: u8,
-    dice_y: u8,
+    dice: Option<u8>,
+    dice_x: Option<u8>,
+    dice_y: Option<u8>,
     #[serde(default = "default_frame_count")]
     frame_count: u32,
-    frame_sequence: crate::types::AnimationFrameSequence,
+    frame_sequence: Option<crate::types::AnimationFrameSequence>,
     #[serde(default = "default_generate_sdf")]
     generate_sdf: bool,
-    height: crate::types::SpriteSizeType,
+    height: Option<crate::types::SpriteSizeType>,
     #[serde(default = "default_line_length")]
     line_length: u32,
     // default: MAX_FLOAT
-    max_advance: f32,
+    max_advance: Option<f32>,
     #[serde(default = "default_mipmap_count")]
     mipmap_count: u8,
     #[serde(default = "default_repeat_count")]
     repeat_count: u8,
     #[serde(default = "default_run_mode")]
     run_mode: crate::types::AnimationRunMode,
-    size: AnimationParametersSize,
-    width: crate::types::SpriteSizeType,
+    size: Option<AnimationParametersSize>,
+    width: Option<crate::types::SpriteSizeType>,
 }
 fn default_animation_speed() -> f32 {
     1.0

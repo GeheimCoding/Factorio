@@ -1,6 +1,6 @@
 #[derive(serde::Deserialize)]
 pub struct TurretGraphicsSet {
-    base_visualisation: TurretGraphicsSetBaseVisualisation,
+    base_visualisation: Option<TurretGraphicsSetBaseVisualisation>,
 }
 #[derive(serde::Deserialize)]
 pub enum TurretGraphicsSetBaseVisualisation {

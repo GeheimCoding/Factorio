@@ -9,15 +9,15 @@ pub struct InserterPrototype {
     bulk: bool,
     #[serde(default = "default_chases_belt_items")]
     chases_belt_items: bool,
-    circuit_connector: (
+    circuit_connector: Option<(
         crate::types::CircuitConnectorDefinition,
         crate::types::CircuitConnectorDefinition,
         crate::types::CircuitConnectorDefinition,
         crate::types::CircuitConnectorDefinition,
-    ),
+    )>,
     #[serde(default = "default_circuit_wire_max_distance")]
     circuit_wire_max_distance: f64,
-    default_stack_control_input_signal: crate::types::SignalIDConnector,
+    default_stack_control_input_signal: Option<crate::types::SignalIDConnector>,
     #[serde(default = "default_draw_circuit_wires")]
     draw_circuit_wires: bool,
     #[serde(default = "default_draw_copper_wires")]
@@ -38,23 +38,23 @@ pub struct InserterPrototype {
     filter_count: u8,
     #[serde(default = "default_grab_less_to_match_belt_stack")]
     grab_less_to_match_belt_stack: bool,
-    hand_base_frozen: crate::types::Sprite,
-    hand_base_picture: crate::types::Sprite,
-    hand_base_shadow: crate::types::Sprite,
-    hand_closed_frozen: crate::types::Sprite,
-    hand_closed_picture: crate::types::Sprite,
-    hand_closed_shadow: crate::types::Sprite,
-    hand_open_frozen: crate::types::Sprite,
-    hand_open_picture: crate::types::Sprite,
-    hand_open_shadow: crate::types::Sprite,
+    hand_base_frozen: Option<crate::types::Sprite>,
+    hand_base_picture: Option<crate::types::Sprite>,
+    hand_base_shadow: Option<crate::types::Sprite>,
+    hand_closed_frozen: Option<crate::types::Sprite>,
+    hand_closed_picture: Option<crate::types::Sprite>,
+    hand_closed_shadow: Option<crate::types::Sprite>,
+    hand_open_frozen: Option<crate::types::Sprite>,
+    hand_open_picture: Option<crate::types::Sprite>,
+    hand_open_shadow: Option<crate::types::Sprite>,
     #[serde(default = "default_hand_size")]
     hand_size: f64,
     insert_position: crate::types::Vector,
     #[serde(default = "default_max_belt_stack_size")]
     max_belt_stack_size: u8,
     pickup_position: crate::types::Vector,
-    platform_frozen: crate::types::Sprite4Way,
-    platform_picture: crate::types::Sprite4Way,
+    platform_frozen: Option<crate::types::Sprite4Way>,
+    platform_picture: Option<crate::types::Sprite4Way>,
     rotation_speed: f64,
     #[serde(default = "default_stack_size_bonus")]
     stack_size_bonus: u8,

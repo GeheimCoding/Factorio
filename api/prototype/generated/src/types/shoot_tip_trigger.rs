@@ -1,7 +1,7 @@
 #[derive(serde::Deserialize)]
 pub struct ShootTipTrigger {
     base_: crate::types::CountBasedTipTrigger,
-    target: ShootTipTriggerTarget,
+    target: Option<ShootTipTriggerTarget>,
     #[serde(rename = "type")]
     type_: String,
 }

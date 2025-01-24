@@ -3,7 +3,7 @@ pub struct CreateSmokeTriggerEffectItem {
     base_: crate::types::CreateEntityTriggerEffectItem,
     #[serde(default = "default_initial_height")]
     initial_height: f32,
-    speed: crate::types::Vector,
+    speed: Option<crate::types::Vector>,
     #[serde(default = "default_speed_from_center")]
     speed_from_center: f32,
     #[serde(default = "default_speed_from_center_deviation")]

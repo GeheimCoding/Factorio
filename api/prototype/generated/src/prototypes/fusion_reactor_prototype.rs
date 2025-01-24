@@ -8,9 +8,9 @@ pub struct FusionReactorPrototype {
     max_fluid_usage: crate::types::FluidAmount,
     #[serde(default = "default_neighbour_bonus")]
     neighbour_bonus: f32,
-    neighbour_connectable: crate::types::NeighbourConnectable,
+    neighbour_connectable: Option<crate::types::NeighbourConnectable>,
     output_fluid_box: crate::types::FluidBox,
-    perceived_performance: crate::types::PerceivedPerformance,
+    perceived_performance: Option<crate::types::PerceivedPerformance>,
     power_input: crate::types::Energy,
     #[serde(default = "default_two_direction_only")]
     two_direction_only: bool,

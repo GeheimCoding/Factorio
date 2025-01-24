@@ -1,14 +1,14 @@
 #[derive(serde::Deserialize)]
 pub struct SimpleEntityPrototype {
     base_: crate::prototypes::EntityWithHealthPrototype,
-    animations: crate::types::AnimationVariations,
+    animations: Option<crate::types::AnimationVariations>,
     #[serde(default = "default_count_as_rock_for_filtered_deconstruction")]
     count_as_rock_for_filtered_deconstruction: bool,
-    lower_pictures: crate::types::SpriteVariations,
+    lower_pictures: Option<crate::types::SpriteVariations>,
     #[serde(default = "default_lower_render_layer")]
     lower_render_layer: crate::types::RenderLayer,
-    picture: crate::types::Sprite4Way,
-    pictures: crate::types::SpriteVariations,
+    picture: Option<crate::types::Sprite4Way>,
+    pictures: Option<crate::types::SpriteVariations>,
     #[serde(default = "default_random_animation_offset")]
     random_animation_offset: bool,
     #[serde(default = "default_random_variation_on_create")]
@@ -17,7 +17,7 @@ pub struct SimpleEntityPrototype {
     render_layer: crate::types::RenderLayer,
     #[serde(default = "default_secondary_draw_order")]
     secondary_draw_order: i8,
-    stateless_visualisation_variations: Vec<crate::types::StatelessVisualisations>,
+    stateless_visualisation_variations: Option<Vec<crate::types::StatelessVisualisations>>,
 }
 fn default_count_as_rock_for_filtered_deconstruction() -> bool {
     false

@@ -7,7 +7,7 @@ pub struct ResourceEntityPrototype {
     cliff_removal_probability: f64,
     #[serde(default = "default_draw_stateless_visualisation_under_building")]
     draw_stateless_visualisation_under_building: bool,
-    driving_sound: crate::types::InterruptibleSound,
+    driving_sound: Option<crate::types::InterruptibleSound>,
     #[serde(default = "default_effect_animation_period")]
     effect_animation_period: f32,
     #[serde(default = "default_effect_animation_period_deviation")]
@@ -28,7 +28,7 @@ pub struct ResourceEntityPrototype {
     min_effect_alpha: f32,
     #[serde(default = "default_minimum")]
     minimum: u32,
-    mining_visualisation_tint: crate::types::Color,
+    mining_visualisation_tint: Option<crate::types::Color>,
     #[serde(default = "default_normal")]
     normal: u32,
     #[serde(default = "default_randomize_visual_position")]
@@ -36,13 +36,13 @@ pub struct ResourceEntityPrototype {
     #[serde(default = "default_resource_patch_search_radius")]
     resource_patch_search_radius: u32,
     stage_counts: Vec<u32>,
-    stages: crate::types::AnimationVariations,
-    stages_effect: crate::types::AnimationVariations,
+    stages: Option<crate::types::AnimationVariations>,
+    stages_effect: Option<crate::types::AnimationVariations>,
     #[serde(default = "default_tree_removal_max_distance")]
     tree_removal_max_distance: f64,
     #[serde(default = "default_tree_removal_probability")]
     tree_removal_probability: f64,
-    walking_sound: crate::types::Sound,
+    walking_sound: Option<crate::types::Sound>,
 }
 fn default_category() -> crate::types::ResourceCategoryID {
     String::from("basic-solid")

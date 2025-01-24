@@ -4,13 +4,13 @@ pub struct CloudsEffectProperties {
     #[serde(default = "default_density")]
     density: f32,
     // default: Value of `density`
-    density_at_night: f32,
+    density_at_night: Option<f32>,
     #[serde(default = "default_detail_exponent")]
     detail_exponent: f32,
     #[serde(default = "default_detail_factor")]
     detail_factor: f32,
     // default: Value of `detail_factor`
-    detail_factor_at_night: f32,
+    detail_factor_at_night: Option<f32>,
     detail_noise_texture: crate::types::EffectTexture,
     detail_sample_1: crate::types::CloudsTextureCoordinateTransformation,
     detail_sample_2: crate::types::CloudsTextureCoordinateTransformation,

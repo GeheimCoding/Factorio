@@ -2,22 +2,22 @@
 pub struct SelectionModeData {
     border_color: crate::types::Color,
     // default: Value of border_color
-    chart_color: crate::types::Color,
+    chart_color: Option<crate::types::Color>,
     // default: Value of border_color
-    count_button_color: crate::types::Color,
+    count_button_color: Option<crate::types::Color>,
     cursor_box_type: crate::types::CursorBoxType,
-    ended_sound: crate::types::Sound,
+    ended_sound: Option<crate::types::Sound>,
     #[serde(default = "default_entity_filter_mode")]
     entity_filter_mode: SelectionModeDataEntityFilterMode,
-    entity_filters: Vec<crate::types::EntityID>,
-    entity_type_filters: Vec<String>,
+    entity_filters: Option<Vec<crate::types::EntityID>>,
+    entity_type_filters: Option<Vec<String>>,
     mode: crate::types::SelectionModeFlags,
     #[serde(default = "default_play_ended_sound_when_nothing_selected")]
     play_ended_sound_when_nothing_selected: bool,
-    started_sound: crate::types::Sound,
+    started_sound: Option<crate::types::Sound>,
     #[serde(default = "default_tile_filter_mode")]
     tile_filter_mode: SelectionModeDataTileFilterMode,
-    tile_filters: Vec<crate::types::TileID>,
+    tile_filters: Option<Vec<crate::types::TileID>>,
 }
 #[derive(serde::Deserialize)]
 pub enum SelectionModeDataEntityFilterMode {

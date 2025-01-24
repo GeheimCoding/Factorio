@@ -12,7 +12,7 @@ pub enum WorldAmbientSoundDefinition {
         min_entity_count: u32,
         #[serde(default = "default_radius")]
         radius: f64,
-        sound: crate::types::Sound,
+        sound: Option<crate::types::Sound>,
     },
     #[serde(untagged)]
     Sound(crate::types::Sound),

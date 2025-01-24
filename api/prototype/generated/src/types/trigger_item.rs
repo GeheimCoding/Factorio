@@ -1,12 +1,12 @@
 #[derive(serde::Deserialize)]
 pub struct TriggerItem {
-    action_delivery: TriggerItemActionDelivery,
+    action_delivery: Option<TriggerItemActionDelivery>,
     // default: All masks
-    collision_mask: crate::types::CollisionMaskConnector,
+    collision_mask: Option<crate::types::CollisionMaskConnector>,
     // default: All flags
-    entity_flags: crate::types::EntityPrototypeFlags,
+    entity_flags: Option<crate::types::EntityPrototypeFlags>,
     // default: All forces
-    force: crate::types::ForceCondition,
+    force: Option<crate::types::ForceCondition>,
     #[serde(default = "default_ignore_collision_condition")]
     ignore_collision_condition: bool,
     #[serde(default = "default_probability")]
@@ -14,7 +14,7 @@ pub struct TriggerItem {
     #[serde(default = "default_repeat_count")]
     repeat_count: u32,
     // default: Everything
-    trigger_target_mask: crate::types::TriggerTargetMask,
+    trigger_target_mask: Option<crate::types::TriggerTargetMask>,
 }
 #[derive(serde::Deserialize)]
 pub enum TriggerItemActionDelivery {

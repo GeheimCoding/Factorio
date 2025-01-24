@@ -8,38 +8,38 @@ pub struct AnimationPrototype {
     apply_special_effect: bool,
     #[serde(default = "default_blend_mode")]
     blend_mode: crate::types::BlendMode,
-    dice: u8,
-    dice_x: u8,
-    dice_y: u8,
+    dice: Option<u8>,
+    dice_x: Option<u8>,
+    dice_y: Option<u8>,
     #[serde(default = "default_draw_as_glow")]
     draw_as_glow: bool,
     #[serde(default = "default_draw_as_light")]
     draw_as_light: bool,
     #[serde(default = "default_draw_as_shadow")]
     draw_as_shadow: bool,
-    filename: crate::types::FileName,
-    filenames: Vec<crate::types::FileName>,
-    flags: crate::types::SpriteFlags,
+    filename: Option<crate::types::FileName>,
+    filenames: Option<Vec<crate::types::FileName>>,
+    flags: Option<crate::types::SpriteFlags>,
     #[serde(default = "default_frame_count")]
     frame_count: u32,
-    frame_sequence: crate::types::AnimationFrameSequence,
+    frame_sequence: Option<crate::types::AnimationFrameSequence>,
     #[serde(default = "default_generate_sdf")]
     generate_sdf: bool,
-    height: crate::types::SpriteSizeType,
+    height: Option<crate::types::SpriteSizeType>,
     #[serde(default = "default_invert_colors")]
     invert_colors: bool,
-    layers: Vec<crate::types::Animation>,
+    layers: Option<Vec<crate::types::Animation>>,
     #[serde(default = "default_line_length")]
     line_length: u32,
-    lines_per_file: u32,
+    lines_per_file: Option<u32>,
     #[serde(default = "default_load_in_minimal_mode")]
     load_in_minimal_mode: bool,
     // default: MAX_FLOAT
-    max_advance: f32,
+    max_advance: Option<f32>,
     #[serde(default = "default_mipmap_count")]
     mipmap_count: u8,
     name: String,
-    position: (crate::types::SpriteSizeType, crate::types::SpriteSizeType),
+    position: Option<(crate::types::SpriteSizeType, crate::types::SpriteSizeType)>,
     #[serde(default = "default_premul_alpha")]
     premul_alpha: bool,
     #[serde(default = "default_priority")]
@@ -53,22 +53,22 @@ pub struct AnimationPrototype {
     #[serde(default = "default_scale")]
     scale: f64,
     // default: `{0, 0}`
-    shift: crate::types::Vector,
-    size: AnimationPrototypeSize,
+    shift: Option<crate::types::Vector>,
+    size: Option<AnimationPrototypeSize>,
     // default: Value of `frame_count`
-    slice: u32,
-    stripes: Vec<crate::types::Stripe>,
+    slice: Option<u32>,
+    stripes: Option<Vec<crate::types::Stripe>>,
     #[serde(default = "default_surface")]
     surface: crate::types::SpriteUsageSurfaceHint,
     // default: `{r=1, g=1, b=1, a=1}`
-    tint: crate::types::Color,
+    tint: Option<crate::types::Color>,
     #[serde(default = "default_tint_as_overlay")]
     tint_as_overlay: bool,
     #[serde(rename = "type")]
     type_: String,
     #[serde(default = "default_usage")]
     usage: crate::types::SpriteUsageHint,
-    width: crate::types::SpriteSizeType,
+    width: Option<crate::types::SpriteSizeType>,
     #[serde(default = "default_x")]
     x: crate::types::SpriteSizeType,
     #[serde(default = "default_y")]

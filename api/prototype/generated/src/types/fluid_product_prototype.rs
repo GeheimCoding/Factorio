@@ -1,8 +1,8 @@
 #[derive(serde::Deserialize)]
 pub struct FluidProductPrototype {
-    amount: crate::types::FluidAmount,
-    amount_max: crate::types::FluidAmount,
-    amount_min: crate::types::FluidAmount,
+    amount: Option<crate::types::FluidAmount>,
+    amount_max: Option<crate::types::FluidAmount>,
+    amount_min: Option<crate::types::FluidAmount>,
     #[serde(default = "default_fluidbox_index")]
     fluidbox_index: u32,
     #[serde(default = "default_ignored_by_productivity")]
@@ -14,7 +14,7 @@ pub struct FluidProductPrototype {
     probability: f64,
     #[serde(default = "default_show_details_in_recipe_tooltip")]
     show_details_in_recipe_tooltip: bool,
-    temperature: f32,
+    temperature: Option<f32>,
     #[serde(rename = "type")]
     type_: String,
 }

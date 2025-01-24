@@ -1,19 +1,19 @@
 #[derive(serde::Deserialize)]
 pub struct PrototypeBase {
-    factoriopedia_description: crate::types::LocalisedString,
-    factoriopedia_simulation: crate::types::SimulationDefinition,
+    factoriopedia_description: Option<crate::types::LocalisedString>,
+    factoriopedia_simulation: Option<crate::types::SimulationDefinition>,
     #[serde(default = "default_hidden")]
     hidden: bool,
     // default: Value of `hidden`
-    hidden_in_factoriopedia: bool,
-    localised_description: crate::types::LocalisedString,
-    localised_name: crate::types::LocalisedString,
+    hidden_in_factoriopedia: Option<bool>,
+    localised_description: Option<crate::types::LocalisedString>,
+    localised_name: Option<crate::types::LocalisedString>,
     name: String,
     #[serde(default = "default_order")]
     order: crate::types::Order,
     #[serde(default = "default_parameter")]
     parameter: bool,
-    subgroup: crate::types::ItemSubGroupID,
+    subgroup: Option<crate::types::ItemSubGroupID>,
     #[serde(rename = "type")]
     type_: String,
 }

@@ -7,18 +7,18 @@ pub struct VehiclePrototype {
     allow_remote_driving: bool,
     #[serde(alias = "braking_force")]
     braking_power: VehiclePrototypeBrakingPower,
-    crash_trigger: crate::types::TriggerEffect,
+    crash_trigger: Option<crate::types::TriggerEffect>,
     #[serde(default = "default_deliver_category")]
     deliver_category: String,
     energy_per_hit_point: f64,
-    equipment_grid: crate::types::EquipmentGridID,
+    equipment_grid: Option<crate::types::EquipmentGridID>,
     #[serde(alias = "friction_force")]
     friction: f64,
     #[serde(default = "default_impact_speed_to_volume_ratio")]
     impact_speed_to_volume_ratio: f64,
-    minimap_representation: crate::types::Sprite,
-    selected_minimap_representation: crate::types::Sprite,
-    stop_trigger: crate::types::TriggerEffect,
+    minimap_representation: Option<crate::types::Sprite>,
+    selected_minimap_representation: Option<crate::types::Sprite>,
+    stop_trigger: Option<crate::types::TriggerEffect>,
     #[serde(default = "default_stop_trigger_speed")]
     stop_trigger_speed: f64,
     #[serde(default = "default_terrain_friction_modifier")]

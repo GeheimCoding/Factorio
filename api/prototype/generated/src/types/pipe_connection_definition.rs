@@ -2,22 +2,22 @@
 pub struct PipeConnectionDefinition {
     #[serde(default = "default_connection_category")]
     connection_category: PipeConnectionDefinitionConnectionCategory,
-    connection_type: PipeConnectionType,
-    direction: crate::types::Direction,
-    enable_working_visualisations: Vec<String>,
-    flow_direction: PipeConnectionDefinitionFlowDirection,
-    linked_connection_id: crate::types::FluidBoxLinkedConnectionID,
-    max_distance_tint: crate::types::Color,
+    connection_type: Option<PipeConnectionType>,
+    direction: Option<crate::types::Direction>,
+    enable_working_visualisations: Option<Vec<String>>,
+    flow_direction: Option<PipeConnectionDefinitionFlowDirection>,
+    linked_connection_id: Option<crate::types::FluidBoxLinkedConnectionID>,
+    max_distance_tint: Option<crate::types::Color>,
     #[serde(default = "default_max_underground_distance")]
     max_underground_distance: u8,
-    position: crate::types::MapPosition,
-    positions: (
+    position: Option<crate::types::MapPosition>,
+    positions: Option<(
         crate::types::MapPosition,
         crate::types::MapPosition,
         crate::types::MapPosition,
         crate::types::MapPosition,
-    ),
-    underground_collision_mask: crate::types::CollisionMaskConnector,
+    )>,
+    underground_collision_mask: Option<crate::types::CollisionMaskConnector>,
 }
 #[derive(serde::Deserialize)]
 pub enum PipeConnectionDefinitionConnectionCategory {

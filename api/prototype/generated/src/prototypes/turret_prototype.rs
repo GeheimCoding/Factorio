@@ -9,61 +9,61 @@ pub struct TurretPrototype {
     attack_from_start_frame: bool,
     attack_parameters: crate::types::AttackParameters,
     // default: all masks
-    attack_target_mask: crate::types::TriggerTargetMask,
-    attacking_animation: crate::types::RotatedAnimation8Way,
+    attack_target_mask: Option<crate::types::TriggerTargetMask>,
+    attacking_animation: Option<crate::types::RotatedAnimation8Way>,
     #[serde(default = "default_attacking_speed")]
     attacking_speed: f32,
     call_for_help_radius: f64,
-    circuit_connector: Vec<crate::types::CircuitConnectorDefinition>,
+    circuit_connector: Option<Vec<crate::types::CircuitConnectorDefinition>>,
     #[serde(default = "default_circuit_wire_max_distance")]
     circuit_wire_max_distance: f64,
     #[serde(default = "default_default_speed")]
     default_speed: f32,
     // default: Value of `default_speed`
-    default_speed_secondary: f32,
+    default_speed_secondary: Option<f32>,
     // default: Value of `default_speed`
-    default_speed_when_killed: f32,
+    default_speed_when_killed: Option<f32>,
     #[serde(default = "default_default_starting_progress_when_killed")]
     default_starting_progress_when_killed: f32,
     #[serde(default = "default_draw_circuit_wires")]
     draw_circuit_wires: bool,
     #[serde(default = "default_draw_copper_wires")]
     draw_copper_wires: bool,
-    dying_sound: crate::types::Sound,
-    ending_attack_animation: crate::types::RotatedAnimation8Way,
+    dying_sound: Option<crate::types::Sound>,
+    ending_attack_animation: Option<crate::types::RotatedAnimation8Way>,
     // default: Value of `default_speed`
-    ending_attack_speed: f32,
+    ending_attack_speed: Option<f32>,
     // default: Value of `default_speed_secondary`
-    ending_attack_speed_secondary: f32,
+    ending_attack_speed_secondary: Option<f32>,
     // default: Value of `default_speed_when_killed`
-    ending_attack_speed_when_killed: f32,
+    ending_attack_speed_when_killed: Option<f32>,
     // default: Value of `default_starting_progress_when_killed`
-    ending_attack_starting_progress_when_killed: f32,
-    energy_glow_animation: crate::types::RotatedAnimation8Way,
+    ending_attack_starting_progress_when_killed: Option<f32>,
+    energy_glow_animation: Option<crate::types::RotatedAnimation8Way>,
     #[serde(default = "default_energy_glow_animation_flicker_strength")]
     energy_glow_animation_flicker_strength: f32,
     folded_animation: crate::types::RotatedAnimation8Way,
     #[serde(default = "default_folded_animation_is_stateless")]
     folded_animation_is_stateless: bool,
     // default: Value of `default_speed`
-    folded_speed: f32,
+    folded_speed: Option<f32>,
     // default: Value of `default_speed_secondary`
-    folded_speed_secondary: f32,
+    folded_speed_secondary: Option<f32>,
     // default: Value of `default_speed_when_killed`
-    folded_speed_when_killed: f32,
+    folded_speed_when_killed: Option<f32>,
     // default: Value of `default_starting_progress_when_killed`
-    folded_starting_progress_when_killed: f32,
-    folded_state_corpse: TurretPrototypeFoldedStateCorpse,
-    folding_animation: crate::types::RotatedAnimation8Way,
-    folding_sound: crate::types::Sound,
+    folded_starting_progress_when_killed: Option<f32>,
+    folded_state_corpse: Option<TurretPrototypeFoldedStateCorpse>,
+    folding_animation: Option<crate::types::RotatedAnimation8Way>,
+    folding_sound: Option<crate::types::Sound>,
     // default: Value of `default_speed`
-    folding_speed: f32,
+    folding_speed: Option<f32>,
     // default: Value of `default_speed_secondary`
-    folding_speed_secondary: f32,
+    folding_speed_secondary: Option<f32>,
     // default: Value of `default_speed_when_killed`
-    folding_speed_when_killed: f32,
+    folding_speed_when_killed: Option<f32>,
     // default: Value of `default_starting_progress_when_killed`
-    folding_starting_progress_when_killed: f32,
+    folding_starting_progress_when_killed: Option<f32>,
     #[serde(default = "default_glow_light_intensity")]
     glow_light_intensity: f32,
     graphics_set: crate::types::TurretGraphicsSet,
@@ -72,74 +72,74 @@ pub struct TurretPrototype {
     #[serde(default = "default_gun_animation_secondary_draw_order")]
     gun_animation_secondary_draw_order: u8,
     // default: no masks
-    ignore_target_mask: crate::types::TriggerTargetMask,
-    integration: crate::types::Sprite,
+    ignore_target_mask: Option<crate::types::TriggerTargetMask>,
+    integration: Option<crate::types::Sprite>,
     #[serde(default = "default_is_military_target")]
     is_military_target: bool,
     // default: The range defined in the `attack_parameters`
-    prepare_range: f64,
-    prepared_alternative_animation: crate::types::RotatedAnimation8Way,
+    prepare_range: Option<f64>,
+    prepared_alternative_animation: Option<crate::types::RotatedAnimation8Way>,
     #[serde(default = "default_prepared_alternative_chance")]
     prepared_alternative_chance: f32,
-    prepared_alternative_sound: crate::types::Sound,
+    prepared_alternative_sound: Option<crate::types::Sound>,
     // default: Value of `default_speed`
-    prepared_alternative_speed: f32,
+    prepared_alternative_speed: Option<f32>,
     // default: Value of `default_speed_secondary`
-    prepared_alternative_speed_secondary: f32,
+    prepared_alternative_speed_secondary: Option<f32>,
     // default: Value of `default_speed_when_killed`
-    prepared_alternative_speed_when_killed: f32,
+    prepared_alternative_speed_when_killed: Option<f32>,
     // default: Value of `default_starting_progress_when_killed`
-    prepared_alternative_starting_progress_when_killed: f32,
-    prepared_animation: crate::types::RotatedAnimation8Way,
-    prepared_sound: crate::types::Sound,
+    prepared_alternative_starting_progress_when_killed: Option<f32>,
+    prepared_animation: Option<crate::types::RotatedAnimation8Way>,
+    prepared_sound: Option<crate::types::Sound>,
     // default: Value of `default_speed`
-    prepared_speed: f32,
+    prepared_speed: Option<f32>,
     // default: Value of `default_speed_secondary`
-    prepared_speed_secondary: f32,
+    prepared_speed_secondary: Option<f32>,
     // default: Value of `default_speed_when_killed`
-    prepared_speed_when_killed: f32,
+    prepared_speed_when_killed: Option<f32>,
     // default: Value of `default_starting_progress_when_killed`
-    prepared_starting_progress_when_killed: f32,
-    preparing_animation: crate::types::RotatedAnimation8Way,
-    preparing_sound: crate::types::Sound,
+    prepared_starting_progress_when_killed: Option<f32>,
+    preparing_animation: Option<crate::types::RotatedAnimation8Way>,
+    preparing_sound: Option<crate::types::Sound>,
     // default: Value of `default_speed`
-    preparing_speed: f32,
+    preparing_speed: Option<f32>,
     // default: Value of `default_speed_secondary`
-    preparing_speed_secondary: f32,
+    preparing_speed_secondary: Option<f32>,
     // default: Value of `default_speed_when_killed`
-    preparing_speed_when_killed: f32,
+    preparing_speed_when_killed: Option<f32>,
     // default: Value of `default_starting_progress_when_killed`
-    preparing_starting_progress_when_killed: f32,
+    preparing_starting_progress_when_killed: Option<f32>,
     #[serde(default = "default_random_animation_offset")]
     random_animation_offset: bool,
-    resource_indicator_animation: crate::types::RotatedAnimation8Way,
-    rotating_sound: crate::types::InterruptibleSound,
+    resource_indicator_animation: Option<crate::types::RotatedAnimation8Way>,
+    rotating_sound: Option<crate::types::InterruptibleSound>,
     // default: Value of `default_speed`
-    rotation_speed: f32,
+    rotation_speed: Option<f32>,
     // default: Value of `default_speed_secondary`
-    rotation_speed_secondary: f32,
+    rotation_speed_secondary: Option<f32>,
     // default: Value of `default_speed_when_killed`
-    rotation_speed_when_killed: f32,
+    rotation_speed_when_killed: Option<f32>,
     // default: Value of `default_starting_progress_when_killed`
-    rotation_starting_progress_when_killed: f32,
+    rotation_starting_progress_when_killed: Option<f32>,
     #[serde(default = "default_shoot_in_prepare_state")]
     shoot_in_prepare_state: bool,
-    spawn_decoration: Vec<crate::types::CreateDecorativesTriggerEffectItem>,
+    spawn_decoration: Option<Vec<crate::types::CreateDecorativesTriggerEffectItem>>,
     #[serde(default = "default_spawn_decorations_on_expansion")]
     spawn_decorations_on_expansion: bool,
-    special_effect: crate::types::TurretSpecialEffect,
+    special_effect: Option<crate::types::TurretSpecialEffect>,
     #[serde(default = "default_start_attacking_only_when_can_shoot")]
     start_attacking_only_when_can_shoot: bool,
-    starting_attack_animation: crate::types::RotatedAnimation8Way,
-    starting_attack_sound: crate::types::Sound,
+    starting_attack_animation: Option<crate::types::RotatedAnimation8Way>,
+    starting_attack_sound: Option<crate::types::Sound>,
     // default: Value of `default_speed`
-    starting_attack_speed: f32,
+    starting_attack_speed: Option<f32>,
     // default: Value of `default_speed_secondary`
-    starting_attack_speed_secondary: f32,
+    starting_attack_speed_secondary: Option<f32>,
     // default: Value of `default_speed_when_killed`
-    starting_attack_speed_when_killed: f32,
+    starting_attack_speed_when_killed: Option<f32>,
     // default: Value of `default_starting_progress_when_killed`
-    starting_attack_starting_progress_when_killed: f32,
+    starting_attack_starting_progress_when_killed: Option<f32>,
     #[serde(default = "default_turret_base_has_direction")]
     turret_base_has_direction: bool,
     #[serde(default = "default_unfolds_before_dying")]

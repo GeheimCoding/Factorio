@@ -3,12 +3,12 @@ pub struct OffshorePumpPrototype {
     base_: crate::prototypes::EntityWithOwnerPrototype,
     #[serde(default = "default_always_draw_fluid")]
     always_draw_fluid: bool,
-    circuit_connector: (
+    circuit_connector: Option<(
         crate::types::CircuitConnectorDefinition,
         crate::types::CircuitConnectorDefinition,
         crate::types::CircuitConnectorDefinition,
         crate::types::CircuitConnectorDefinition,
-    ),
+    )>,
     #[serde(default = "default_circuit_wire_max_distance")]
     circuit_wire_max_distance: f64,
     #[serde(default = "default_draw_circuit_wires")]
@@ -19,8 +19,8 @@ pub struct OffshorePumpPrototype {
     energy_usage: crate::types::Energy,
     fluid_box: crate::types::FluidBox,
     fluid_source_offset: crate::types::Vector,
-    graphics_set: crate::types::OffshorePumpGraphicsSet,
-    perceived_performance: crate::types::PerceivedPerformance,
+    graphics_set: Option<crate::types::OffshorePumpGraphicsSet>,
+    perceived_performance: Option<crate::types::PerceivedPerformance>,
     pumping_speed: crate::types::FluidAmount,
     #[serde(default = "default_remove_on_tile_collision")]
     remove_on_tile_collision: bool,

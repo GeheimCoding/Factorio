@@ -2,9 +2,9 @@
 pub struct IconSequencePositioning {
     inventory_index: crate::defines::Inventory,
     // default: width of entity selection box / 1.5
-    max_icon_rows: u8,
+    max_icon_rows: Option<u8>,
     // default: width of entity selection box / 0.75
-    max_icons_per_row: u8,
+    max_icons_per_row: Option<u8>,
     #[serde(default = "default_multi_row_initial_height_modifier")]
     multi_row_initial_height_modifier: f32,
     #[serde(default = "default_scale")]
@@ -12,7 +12,7 @@ pub struct IconSequencePositioning {
     #[serde(default = "default_separation_multiplier")]
     separation_multiplier: f32,
     // default: {0, 0.7}
-    shift: crate::types::Vector,
+    shift: Option<crate::types::Vector>,
 }
 fn default_multi_row_initial_height_modifier() -> f32 {
     -0.1

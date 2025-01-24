@@ -8,7 +8,7 @@ pub struct PlumesSpecification {
     min_probability: f32,
     #[serde(default = "default_min_y_offset")]
     min_y_offset: f32,
-    stateless_visualisations: PlumesSpecificationStatelessVisualisations,
+    stateless_visualisations: Option<PlumesSpecificationStatelessVisualisations>,
 }
 fn default_max_probability() -> f32 {
     1.0

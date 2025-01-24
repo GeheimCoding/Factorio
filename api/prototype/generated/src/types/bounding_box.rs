@@ -3,7 +3,7 @@ pub enum BoundingBox {
     #[serde(untagged)]
     BoundingBox {
         left_top: crate::types::MapPosition,
-        orientation: crate::types::RealOrientation,
+        orientation: Option<crate::types::RealOrientation>,
         right_bottom: crate::types::MapPosition,
     },
     #[serde(untagged)]

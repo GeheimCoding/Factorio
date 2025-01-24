@@ -1,12 +1,12 @@
 #[derive(serde::Deserialize)]
 pub struct SpaceConnectionPrototype {
     base_: crate::prototypes::Prototype,
-    asteroid_spawn_definitions: Vec<crate::types::SpaceConnectionAsteroidSpawnDefinition>,
+    asteroid_spawn_definitions: Option<Vec<crate::types::SpaceConnectionAsteroidSpawnDefinition>>,
     from: crate::types::SpaceLocationID,
-    icon: crate::types::FileName,
+    icon: Option<crate::types::FileName>,
     #[serde(default = "default_icon_size")]
     icon_size: crate::types::SpriteSizeType,
-    icons: Vec<crate::types::IconData>,
+    icons: Option<Vec<crate::types::IconData>>,
     #[serde(default = "default_length")]
     length: u32,
     to: crate::types::SpaceLocationID,

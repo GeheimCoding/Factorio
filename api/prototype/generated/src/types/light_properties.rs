@@ -1,7 +1,7 @@
 #[derive(serde::Deserialize)]
 pub struct LightProperties {
     // default: {1, 1, 1, 1}
-    color: crate::types::Color,
+    color: Option<crate::types::Color>,
     // default: {1, 1, 1}
-    direction: crate::types::Vector3D,
+    direction: Option<crate::types::Vector3D>,
 }

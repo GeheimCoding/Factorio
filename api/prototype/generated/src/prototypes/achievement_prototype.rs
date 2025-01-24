@@ -3,10 +3,10 @@ pub struct AchievementPrototype {
     base_: crate::prototypes::Prototype,
     #[serde(default = "default_allowed_without_fight")]
     allowed_without_fight: bool,
-    icon: crate::types::FileName,
+    icon: Option<crate::types::FileName>,
     #[serde(default = "default_icon_size")]
     icon_size: crate::types::SpriteSizeType,
-    icons: Vec<crate::types::IconData>,
+    icons: Option<Vec<crate::types::IconData>>,
     #[serde(default = "default_steam_stats_name")]
     steam_stats_name: String,
 }

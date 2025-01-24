@@ -1,12 +1,12 @@
 #[derive(serde::Deserialize)]
 pub struct FluidStreamPrototype {
     base_: crate::prototypes::EntityPrototype,
-    action: crate::types::Trigger,
-    ground_light: crate::types::LightDefinition,
-    initial_action: crate::types::Trigger,
+    action: Option<crate::types::Trigger>,
+    ground_light: Option<crate::types::LightDefinition>,
+    initial_action: Option<crate::types::Trigger>,
     #[serde(default = "default_oriented_particle")]
     oriented_particle: bool,
-    particle: crate::types::Animation,
+    particle: Option<crate::types::Animation>,
     #[serde(default = "default_particle_alpha_per_part")]
     particle_alpha_per_part: f32,
     #[serde(default = "default_particle_buffer_size")]
@@ -27,7 +27,7 @@ pub struct FluidStreamPrototype {
     particle_scale_per_part: f32,
     particle_spawn_interval: u16,
     // default: 4 * `particle_spawn_interval`
-    particle_spawn_timeout: u16,
+    particle_spawn_timeout: Option<u16>,
     #[serde(default = "default_particle_start_alpha")]
     particle_start_alpha: f32,
     #[serde(default = "default_particle_start_scale")]
@@ -35,13 +35,13 @@ pub struct FluidStreamPrototype {
     particle_vertical_acceleration: f32,
     #[serde(default = "default_progress_to_create_smoke")]
     progress_to_create_smoke: f32,
-    shadow: crate::types::Animation,
+    shadow: Option<crate::types::Animation>,
     #[serde(default = "default_shadow_scale_enabled")]
     shadow_scale_enabled: bool,
-    smoke_sources: Vec<crate::types::SmokeSource>,
-    special_neutral_target_damage: crate::types::DamageParameters,
-    spine_animation: crate::types::Animation,
-    stream_light: crate::types::LightDefinition,
+    smoke_sources: Option<Vec<crate::types::SmokeSource>>,
+    special_neutral_target_damage: Option<crate::types::DamageParameters>,
+    spine_animation: Option<crate::types::Animation>,
+    stream_light: Option<crate::types::LightDefinition>,
     #[serde(default = "default_target_position_deviation")]
     target_position_deviation: f64,
     #[serde(default = "default_width")]

@@ -5,10 +5,10 @@ pub struct CreateTrivialSmokeEffectItem {
     initial_height: f32,
     #[serde(default = "default_max_radius")]
     max_radius: f32,
-    offset_deviation: crate::types::BoundingBox,
-    offsets: Vec<crate::types::Vector>,
+    offset_deviation: Option<crate::types::BoundingBox>,
+    offsets: Option<Vec<crate::types::Vector>>,
     smoke_name: crate::types::TrivialSmokeID,
-    speed: crate::types::Vector,
+    speed: Option<crate::types::Vector>,
     #[serde(default = "default_speed_from_center")]
     speed_from_center: f32,
     #[serde(default = "default_speed_from_center_deviation")]

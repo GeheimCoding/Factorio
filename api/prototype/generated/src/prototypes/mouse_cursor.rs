@@ -1,10 +1,10 @@
 #[derive(serde::Deserialize)]
 pub struct MouseCursor {
-    filename: crate::types::FileName,
-    hot_pixel_x: i16,
-    hot_pixel_y: i16,
+    filename: Option<crate::types::FileName>,
+    hot_pixel_x: Option<i16>,
+    hot_pixel_y: Option<i16>,
     name: String,
-    system_cursor: MouseCursorSystemCursor,
+    system_cursor: Option<MouseCursorSystemCursor>,
     #[serde(rename = "type")]
     type_: String,
 }

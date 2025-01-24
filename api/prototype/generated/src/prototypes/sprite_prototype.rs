@@ -6,29 +6,29 @@ pub struct SpritePrototype {
     apply_special_effect: bool,
     #[serde(default = "default_blend_mode")]
     blend_mode: crate::types::BlendMode,
-    dice: crate::types::SpriteSizeType,
-    dice_x: crate::types::SpriteSizeType,
-    dice_y: crate::types::SpriteSizeType,
+    dice: Option<crate::types::SpriteSizeType>,
+    dice_x: Option<crate::types::SpriteSizeType>,
+    dice_y: Option<crate::types::SpriteSizeType>,
     #[serde(default = "default_draw_as_glow")]
     draw_as_glow: bool,
     #[serde(default = "default_draw_as_light")]
     draw_as_light: bool,
     #[serde(default = "default_draw_as_shadow")]
     draw_as_shadow: bool,
-    filename: crate::types::FileName,
-    flags: crate::types::SpriteFlags,
+    filename: Option<crate::types::FileName>,
+    flags: Option<crate::types::SpriteFlags>,
     #[serde(default = "default_generate_sdf")]
     generate_sdf: bool,
-    height: crate::types::SpriteSizeType,
+    height: Option<crate::types::SpriteSizeType>,
     #[serde(default = "default_invert_colors")]
     invert_colors: bool,
-    layers: Vec<crate::types::Sprite>,
+    layers: Option<Vec<crate::types::Sprite>>,
     #[serde(default = "default_load_in_minimal_mode")]
     load_in_minimal_mode: bool,
     #[serde(default = "default_mipmap_count")]
     mipmap_count: u8,
     name: String,
-    position: (crate::types::SpriteSizeType, crate::types::SpriteSizeType),
+    position: Option<(crate::types::SpriteSizeType, crate::types::SpriteSizeType)>,
     #[serde(default = "default_premul_alpha")]
     premul_alpha: bool,
     #[serde(default = "default_priority")]
@@ -38,19 +38,19 @@ pub struct SpritePrototype {
     #[serde(default = "default_scale")]
     scale: f64,
     // default: `{0, 0}`
-    shift: crate::types::Vector,
-    size: SpritePrototypeSize,
+    shift: Option<crate::types::Vector>,
+    size: Option<SpritePrototypeSize>,
     #[serde(default = "default_surface")]
     surface: crate::types::SpriteUsageSurfaceHint,
     // default: `{r=1, g=1, b=1, a=1}`
-    tint: crate::types::Color,
+    tint: Option<crate::types::Color>,
     #[serde(default = "default_tint_as_overlay")]
     tint_as_overlay: bool,
     #[serde(rename = "type")]
     type_: String,
     #[serde(default = "default_usage")]
     usage: crate::types::SpriteUsageHint,
-    width: crate::types::SpriteSizeType,
+    width: Option<crate::types::SpriteSizeType>,
     #[serde(default = "default_x")]
     x: crate::types::SpriteSizeType,
     #[serde(default = "default_y")]

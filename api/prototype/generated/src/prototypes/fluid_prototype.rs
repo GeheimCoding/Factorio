@@ -11,16 +11,16 @@ pub struct FluidPrototype {
     #[serde(default = "default_fuel_value")]
     fuel_value: crate::types::Energy,
     // default: max value of float
-    gas_temperature: f32,
+    gas_temperature: Option<f32>,
     #[serde(default = "default_heat_capacity")]
     heat_capacity: crate::types::Energy,
-    icon: crate::types::FileName,
+    icon: Option<crate::types::FileName>,
     #[serde(default = "default_icon_size")]
     icon_size: crate::types::SpriteSizeType,
-    icons: Vec<crate::types::IconData>,
+    icons: Option<Vec<crate::types::IconData>>,
     // default: value of `default_temperature`
-    max_temperature: f32,
-    visualization_color: crate::types::Color,
+    max_temperature: Option<f32>,
+    visualization_color: Option<crate::types::Color>,
 }
 fn default_auto_barrel() -> bool {
     true

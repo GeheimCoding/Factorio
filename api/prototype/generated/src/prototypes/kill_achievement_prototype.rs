@@ -3,14 +3,14 @@ pub struct KillAchievementPrototype {
     base_: crate::prototypes::AchievementPrototype,
     #[serde(default = "default_amount")]
     amount: u32,
-    damage_dealer: KillAchievementPrototypeDamageDealer,
-    damage_type: crate::types::DamageTypeID,
+    damage_dealer: Option<KillAchievementPrototypeDamageDealer>,
+    damage_type: Option<crate::types::DamageTypeID>,
     #[serde(default = "default_in_vehicle")]
     in_vehicle: bool,
     #[serde(default = "default_personally")]
     personally: bool,
-    to_kill: KillAchievementPrototypeToKill,
-    type_to_kill: String,
+    to_kill: Option<KillAchievementPrototypeToKill>,
+    type_to_kill: Option<String>,
 }
 fn default_amount() -> u32 {
     1

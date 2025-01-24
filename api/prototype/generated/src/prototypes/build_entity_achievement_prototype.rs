@@ -7,7 +7,7 @@ pub struct BuildEntityAchievementPrototype {
     limited_to_one_game: bool,
     to_build: crate::types::EntityID,
     // default: `math.huge`
-    within: crate::types::MapTick,
+    within: Option<crate::types::MapTick>,
 }
 fn default_amount() -> u32 {
     1

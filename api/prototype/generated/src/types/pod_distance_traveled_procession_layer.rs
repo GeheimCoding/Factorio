@@ -5,7 +5,7 @@ pub struct PodDistanceTraveledProcessionLayer {
     #[serde(default = "default_distance_traveled_contribution")]
     distance_traveled_contribution: f32,
     frames: Vec<PodDistanceTraveledProcessionBezierControlPoint>,
-    reference_group: crate::types::ProcessionLayerInheritanceGroupID,
+    reference_group: Option<crate::types::ProcessionLayerInheritanceGroupID>,
     #[serde(rename = "type")]
     type_: String,
 }
@@ -17,7 +17,7 @@ fn default_distance_traveled_contribution() -> f32 {
 }
 #[derive(serde::Deserialize)]
 pub struct PodDistanceTraveledProcessionBezierControlPoint {
-    distance: f64,
-    distance_t: f64,
-    timestamp: crate::types::MapTick,
+    distance: Option<f64>,
+    distance_t: Option<f64>,
+    timestamp: Option<crate::types::MapTick>,
 }

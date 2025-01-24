@@ -5,17 +5,17 @@ pub enum ElementImageSetLayer {
         #[serde(default = "default_background_blur")]
         background_blur: bool,
         // default: `4` if `background_blur` is `true`
-        background_blur_sigma: f32,
-        border: i32,
-        bottom: crate::types::Sprite,
-        bottom_border: i32,
+        background_blur_sigma: Option<f32>,
+        border: Option<i32>,
+        bottom: Option<crate::types::Sprite>,
+        bottom_border: Option<i32>,
         #[serde(default = "default_bottom_outer_border_shift")]
         bottom_outer_border_shift: i32,
         #[serde(default = "default_bottom_tiling")]
         bottom_tiling: bool,
         #[serde(default = "default_bottom_width")]
         bottom_width: crate::types::SpriteSizeType,
-        center: crate::types::Sprite,
+        center: Option<crate::types::Sprite>,
         #[serde(default = "default_center_height")]
         center_height: crate::types::SpriteSizeType,
         #[serde(default = "default_center_tiling_horizontal")]
@@ -24,22 +24,22 @@ pub enum ElementImageSetLayer {
         center_tiling_vertical: bool,
         #[serde(default = "default_center_width")]
         center_width: crate::types::SpriteSizeType,
-        corner_size: ElementImageSetLayerCornerSize,
-        custom_horizontal_tiling_sizes: Vec<u32>,
+        corner_size: Option<ElementImageSetLayerCornerSize>,
+        custom_horizontal_tiling_sizes: Option<Vec<u32>>,
         #[serde(default = "default_draw_type")]
         draw_type: ElementImageSetLayerDrawType,
         // default: The `default_tileset` set in GuiStyle
-        filename: crate::types::FileName,
-        left: crate::types::Sprite,
-        left_border: i32,
-        left_bottom: crate::types::Sprite,
+        filename: Option<crate::types::FileName>,
+        left: Option<crate::types::Sprite>,
+        left_border: Option<i32>,
+        left_bottom: Option<crate::types::Sprite>,
         #[serde(default = "default_left_height")]
         left_height: crate::types::SpriteSizeType,
         #[serde(default = "default_left_outer_border_shift")]
         left_outer_border_shift: i32,
         #[serde(default = "default_left_tiling")]
         left_tiling: bool,
-        left_top: crate::types::Sprite,
+        left_top: Option<crate::types::Sprite>,
         #[serde(default = "default_load_in_minimal_mode")]
         load_in_minimal_mode: bool,
         #[serde(default = "default_opacity")]
@@ -56,25 +56,25 @@ pub enum ElementImageSetLayer {
         overall_tiling_vertical_size: u16,
         #[serde(default = "default_overall_tiling_vertical_spacing")]
         overall_tiling_vertical_spacing: u16,
-        position: crate::types::MapPosition,
-        right: crate::types::Sprite,
-        right_border: i32,
-        right_bottom: crate::types::Sprite,
+        position: Option<crate::types::MapPosition>,
+        right: Option<crate::types::Sprite>,
+        right_border: Option<i32>,
+        right_bottom: Option<crate::types::Sprite>,
         #[serde(default = "default_right_height")]
         right_height: crate::types::SpriteSizeType,
         #[serde(default = "default_right_outer_border_shift")]
         right_outer_border_shift: i32,
         #[serde(default = "default_right_tiling")]
         right_tiling: bool,
-        right_top: crate::types::Sprite,
+        right_top: Option<crate::types::Sprite>,
         #[serde(default = "default_scale")]
         scale: f64,
         #[serde(default = "default_stretch_monolith_image_to_size")]
         stretch_monolith_image_to_size: bool,
         // default: `{r=1, g=1, b=1, a=1}`
-        tint: crate::types::Color,
-        top: crate::types::Sprite,
-        top_border: i32,
+        tint: Option<crate::types::Color>,
+        top: Option<crate::types::Sprite>,
+        top_border: Option<i32>,
         #[serde(default = "default_top_outer_border_shift")]
         top_outer_border_shift: i32,
         #[serde(default = "default_top_tiling")]
@@ -83,7 +83,7 @@ pub enum ElementImageSetLayer {
         top_width: crate::types::SpriteSizeType,
         #[serde(rename = "type")]
         // default: `"none"` if this has no other properties, otherwise `"composition"`
-        type_: ElementImageSetLayerType,
+        type_: Option<ElementImageSetLayerType>,
     },
     #[serde(untagged)]
     Sprite(Box<crate::types::Sprite>),

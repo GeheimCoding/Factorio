@@ -1,11 +1,11 @@
 #[derive(serde::Deserialize)]
 pub struct LightningAttractorPrototype {
     base_: crate::prototypes::EntityWithOwnerPrototype,
-    chargable_graphics: crate::types::ChargableGraphics,
+    chargable_graphics: Option<crate::types::ChargableGraphics>,
     #[serde(default = "default_efficiency")]
     efficiency: f64,
-    energy_source: crate::types::ElectricEnergySource,
-    lightning_strike_offset: crate::types::MapPosition,
+    energy_source: Option<crate::types::ElectricEnergySource>,
+    lightning_strike_offset: Option<crate::types::MapPosition>,
     #[serde(default = "default_range_elongation")]
     range_elongation: f64,
 }

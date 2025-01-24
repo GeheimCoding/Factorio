@@ -1,9 +1,9 @@
 #[derive(serde::Deserialize)]
 pub struct BeamGraphicsSet {
-    beam: crate::types::BeamAnimationSet,
+    beam: Option<crate::types::BeamAnimationSet>,
     #[serde(default = "default_desired_segment_length")]
     desired_segment_length: f32,
-    ground: crate::types::BeamAnimationSet,
+    ground: Option<crate::types::BeamAnimationSet>,
     #[serde(default = "default_random_end_animation_rotation")]
     random_end_animation_rotation: bool,
     #[serde(default = "default_randomize_animation_per_segment")]

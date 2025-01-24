@@ -1,8 +1,8 @@
 #[derive(serde::Deserialize)]
 pub struct Effect {
-    consumption: crate::types::EffectValue,
-    pollution: crate::types::EffectValue,
-    productivity: crate::types::EffectValue,
-    quality: crate::types::EffectValue,
-    speed: crate::types::EffectValue,
+    consumption: Option<crate::types::EffectValue>,
+    pollution: Option<crate::types::EffectValue>,
+    productivity: Option<crate::types::EffectValue>,
+    quality: Option<crate::types::EffectValue>,
+    speed: Option<crate::types::EffectValue>,
 }

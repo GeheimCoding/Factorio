@@ -3,22 +3,22 @@ pub struct TechnologyPrototype {
     base_: crate::prototypes::Prototype,
     #[serde(default = "default_allows_productivity")]
     allows_productivity: bool,
-    effects: Vec<crate::types::Modifier>,
+    effects: Option<Vec<crate::types::Modifier>>,
     #[serde(default = "default_enabled")]
     enabled: bool,
     #[serde(default = "default_essential")]
     essential: bool,
-    icon: crate::types::FileName,
+    icon: Option<crate::types::FileName>,
     #[serde(default = "default_icon_size")]
     icon_size: crate::types::SpriteSizeType,
-    icons: Vec<crate::types::IconData>,
+    icons: Option<Vec<crate::types::IconData>>,
     #[serde(default = "default_ignore_tech_cost_multiplier")]
     ignore_tech_cost_multiplier: bool,
-    max_level: TechnologyPrototypeMaxLevel,
+    max_level: Option<TechnologyPrototypeMaxLevel>,
     name: String,
-    prerequisites: Vec<crate::types::TechnologyID>,
-    research_trigger: crate::types::TechnologyTrigger,
-    unit: crate::types::TechnologyUnit,
+    prerequisites: Option<Vec<crate::types::TechnologyID>>,
+    research_trigger: Option<crate::types::TechnologyTrigger>,
+    unit: Option<crate::types::TechnologyUnit>,
     #[serde(default = "default_upgrade")]
     upgrade: bool,
     #[serde(default = "default_visible_when_disabled")]

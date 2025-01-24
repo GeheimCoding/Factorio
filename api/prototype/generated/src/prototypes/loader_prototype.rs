@@ -7,7 +7,7 @@ pub struct LoaderPrototype {
     allow_rail_interaction: bool,
     #[serde(default = "default_belt_length")]
     belt_length: f64,
-    circuit_connector: Vec<crate::types::CircuitConnectorDefinition>,
+    circuit_connector: Option<Vec<crate::types::CircuitConnectorDefinition>>,
     #[serde(default = "default_circuit_connector_layer")]
     circuit_connector_layer: crate::types::RenderLayer,
     #[serde(default = "default_circuit_wire_max_distance")]
@@ -20,11 +20,11 @@ pub struct LoaderPrototype {
     draw_copper_wires: bool,
     #[serde(default = "default_energy_per_item")]
     energy_per_item: crate::types::Energy,
-    energy_source: LoaderPrototypeEnergySource,
+    energy_source: Option<LoaderPrototypeEnergySource>,
     filter_count: u8,
     #[serde(default = "default_max_belt_stack_size")]
     max_belt_stack_size: u8,
-    structure: crate::types::LoaderStructure,
+    structure: Option<crate::types::LoaderStructure>,
     #[serde(default = "default_structure_render_layer")]
     structure_render_layer: crate::types::RenderLayer,
 }

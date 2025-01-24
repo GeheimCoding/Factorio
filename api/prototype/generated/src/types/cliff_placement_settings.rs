@@ -6,9 +6,9 @@ pub struct CliffPlacementSettings {
     cliff_elevation_interval: f32,
     #[serde(default = "default_cliff_smoothing")]
     cliff_smoothing: f32,
-    control: crate::types::AutoplaceControlID,
-    name: crate::types::EntityID,
-    richness: f32,
+    control: Option<crate::types::AutoplaceControlID>,
+    name: Option<crate::types::EntityID>,
+    richness: Option<f32>,
 }
 fn default_cliff_elevation_0() -> f32 {
     10.0

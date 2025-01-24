@@ -4,7 +4,7 @@ pub struct DontBuildEntityAchievementPrototype {
     #[serde(default = "default_amount")]
     amount: u32,
     dont_build: DontBuildEntityAchievementPrototypeDontBuild,
-    research_with: DontBuildEntityAchievementPrototypeResearchWith,
+    research_with: Option<DontBuildEntityAchievementPrototypeResearchWith>,
 }
 fn default_amount() -> u32 {
     0

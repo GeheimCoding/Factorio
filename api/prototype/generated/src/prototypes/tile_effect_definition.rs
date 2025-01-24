@@ -1,12 +1,12 @@
 #[derive(serde::Deserialize)]
 pub struct TileEffectDefinition {
     name: String,
-    puddle: crate::types::PuddleTileEffectParameters,
+    puddle: Option<crate::types::PuddleTileEffectParameters>,
     shader: TileEffectDefinitionShader,
-    space: crate::types::SpaceTileEffectParameters,
+    space: Option<crate::types::SpaceTileEffectParameters>,
     #[serde(rename = "type")]
     type_: String,
-    water: crate::types::WaterTileEffectParameters,
+    water: Option<crate::types::WaterTileEffectParameters>,
 }
 #[derive(serde::Deserialize)]
 pub enum TileEffectDefinitionShader {

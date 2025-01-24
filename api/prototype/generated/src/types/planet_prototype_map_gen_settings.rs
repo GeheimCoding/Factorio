@@ -1,21 +1,26 @@
 #[derive(serde::Deserialize)]
 pub struct PlanetPrototypeMapGenSettings {
-    autoplace_controls: std::collections::HashMap<
-        crate::types::AutoplaceControlID,
-        crate::types::FrequencySizeRichness,
+    autoplace_controls: Option<
+        std::collections::HashMap<
+            crate::types::AutoplaceControlID,
+            crate::types::FrequencySizeRichness,
+        >,
     >,
-    autoplace_settings: std::collections::HashMap<
-        PlanetPrototypeMapGenSettingsAutoplaceSettings,
-        crate::types::AutoplaceSettings,
+    autoplace_settings: Option<
+        std::collections::HashMap<
+            PlanetPrototypeMapGenSettingsAutoplaceSettings,
+            crate::types::AutoplaceSettings,
+        >,
     >,
     #[serde(default = "default_aux_climate_control")]
     aux_climate_control: bool,
-    cliff_settings: crate::types::CliffPlacementSettings,
+    cliff_settings: Option<crate::types::CliffPlacementSettings>,
     #[serde(default = "default_moisture_climate_control")]
     moisture_climate_control: bool,
-    property_expression_names:
+    property_expression_names: Option<
         std::collections::HashMap<String, PlanetPrototypeMapGenSettingsPropertyExpressionNames>,
-    territory_settings: crate::types::TerritorySettings,
+    >,
+    territory_settings: Option<crate::types::TerritorySettings>,
 }
 #[derive(serde::Deserialize, PartialEq, Eq, Hash)]
 pub enum PlanetPrototypeMapGenSettingsAutoplaceSettings {

@@ -1,7 +1,7 @@
 #[derive(serde::Deserialize)]
 pub struct BoilerPictures {
-    fire: crate::types::Animation,
-    fire_glow: crate::types::Animation,
-    patch: crate::types::Sprite,
+    fire: Option<crate::types::Animation>,
+    fire_glow: Option<crate::types::Animation>,
+    patch: Option<crate::types::Sprite>,
     structure: crate::types::Animation,
 }

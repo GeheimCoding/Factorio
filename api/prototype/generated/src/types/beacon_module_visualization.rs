@@ -4,7 +4,7 @@ pub struct BeaconModuleVisualization {
     apply_module_tint: crate::types::ModuleTint,
     #[serde(default = "default_has_empty_slot")]
     has_empty_slot: bool,
-    pictures: crate::types::SpriteVariations,
+    pictures: Option<crate::types::SpriteVariations>,
     #[serde(default = "default_render_layer")]
     render_layer: crate::types::RenderLayer,
     #[serde(default = "default_secondary_draw_order")]

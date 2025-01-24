@@ -7,12 +7,12 @@ pub struct LightningPrototype {
     damage: f64,
     effect_duration: u16,
     // default: Max double
-    energy: crate::types::Energy,
-    graphics_set: crate::types::LightningGraphicsSet,
-    sound: crate::types::Sound,
-    source_offset: crate::types::Vector,
-    source_variance: crate::types::Vector,
-    strike_effect: crate::types::Trigger,
+    energy: Option<crate::types::Energy>,
+    graphics_set: Option<crate::types::LightningGraphicsSet>,
+    sound: Option<crate::types::Sound>,
+    source_offset: Option<crate::types::Vector>,
+    source_variance: Option<crate::types::Vector>,
+    strike_effect: Option<crate::types::Trigger>,
     #[serde(default = "default_time_to_damage")]
     time_to_damage: u16,
 }

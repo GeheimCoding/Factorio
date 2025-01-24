@@ -2,10 +2,10 @@
 pub struct FogEffectProperties {
     #[serde(rename = "color1")]
     // default: {1, 1, 1, 1}
-    color_1: crate::types::Color,
+    color_1: Option<crate::types::Color>,
     #[serde(rename = "color2")]
     // default: {1, 1, 1, 1}
-    color_2: crate::types::Color,
+    color_2: Option<crate::types::Color>,
     detail_noise_texture: crate::types::EffectTexture,
     #[serde(default = "default_fog_type")]
     fog_type: FogEffectPropertiesFogType,

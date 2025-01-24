@@ -35,19 +35,19 @@ fn default_compensated_pivot() -> bool {
 #[derive(serde::Deserialize)]
 pub struct SingleGraphicLayerProcessionBezierControlPoint {
     frame: f32,
-    opacity: f64,
-    opacity_t: f64,
-    rotation: f64,
-    rotation_t: f64,
-    scale: f64,
-    scale_t: f64,
-    shift: crate::types::Vector,
-    shift_rate: f64,
-    shift_rate_t: f64,
-    shift_t: crate::types::Vector,
-    timestamp: crate::types::MapTick,
-    tint: crate::types::Color,
-    tint_t: crate::types::Color,
+    opacity: Option<f64>,
+    opacity_t: Option<f64>,
+    rotation: Option<f64>,
+    rotation_t: Option<f64>,
+    scale: Option<f64>,
+    scale_t: Option<f64>,
+    shift: Option<crate::types::Vector>,
+    shift_rate: Option<f64>,
+    shift_rate_t: Option<f64>,
+    shift_t: Option<crate::types::Vector>,
+    timestamp: Option<crate::types::MapTick>,
+    tint: Option<crate::types::Color>,
+    tint_t: Option<crate::types::Color>,
 }
 fn default_is_passenger_only() -> bool {
     false

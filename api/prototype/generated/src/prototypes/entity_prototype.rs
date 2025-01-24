@@ -1,86 +1,86 @@
 #[derive(serde::Deserialize)]
 pub struct EntityPrototype {
     base_: crate::prototypes::Prototype,
-    additional_pastable_entities: Vec<crate::types::EntityID>,
-    alert_icon_scale: f32,
-    alert_icon_shift: crate::types::Vector,
+    additional_pastable_entities: Option<Vec<crate::types::EntityID>>,
+    alert_icon_scale: Option<f32>,
+    alert_icon_shift: Option<crate::types::Vector>,
     #[serde(default = "default_allow_copy_paste")]
     allow_copy_paste: bool,
-    ambient_sounds: EntityPrototypeAmbientSounds,
-    ambient_sounds_group: crate::types::EntityID,
+    ambient_sounds: Option<EntityPrototypeAmbientSounds>,
+    ambient_sounds_group: Option<crate::types::EntityID>,
     // default: nil (entity is not autoplacable)
-    autoplace: crate::types::AutoplaceSpecification,
+    autoplace: Option<crate::types::AutoplaceSpecification>,
     #[serde(default = "default_build_base_evolution_requirement")]
     build_base_evolution_requirement: f64,
     #[serde(default = "default_build_grid_size")]
     build_grid_size: u8,
-    build_sound: crate::types::Sound,
-    close_sound: crate::types::Sound,
+    build_sound: Option<crate::types::Sound>,
+    close_sound: Option<crate::types::Sound>,
     // default: Empty = `{{0, 0}, {0, 0}}`
-    collision_box: crate::types::BoundingBox,
-    collision_mask: crate::types::CollisionMaskConnector,
-    created_effect: crate::types::Trigger,
+    collision_box: Option<crate::types::BoundingBox>,
+    collision_mask: Option<crate::types::CollisionMaskConnector>,
+    created_effect: Option<crate::types::Trigger>,
     // default: The "smoke-building"-smoke
-    created_smoke: crate::types::CreateTrivialSmokeEffectItem,
-    deconstruction_alternative: crate::types::EntityID,
-    diagonal_tile_grid_size: crate::types::TilePosition,
+    created_smoke: Option<crate::types::CreateTrivialSmokeEffectItem>,
+    deconstruction_alternative: Option<crate::types::EntityID>,
+    diagonal_tile_grid_size: Option<crate::types::TilePosition>,
     #[serde(default = "default_drawing_box_vertical_extension")]
     drawing_box_vertical_extension: f64,
-    emissions_per_second: std::collections::HashMap<crate::types::AirbornePollutantID, f64>,
-    enemy_map_color: crate::types::Color,
+    emissions_per_second: Option<std::collections::HashMap<crate::types::AirbornePollutantID, f64>>,
+    enemy_map_color: Option<crate::types::Color>,
     #[serde(default = "default_fast_replaceable_group")]
     fast_replaceable_group: String,
-    flags: crate::types::EntityPrototypeFlags,
-    friendly_map_color: crate::types::Color,
-    heating_energy: crate::types::Energy,
+    flags: Option<crate::types::EntityPrototypeFlags>,
+    friendly_map_color: Option<crate::types::Color>,
+    heating_energy: Option<crate::types::Energy>,
     // default: Empty = `{{0, 0}, {0, 0}}`
-    hit_visualization_box: crate::types::BoundingBox,
-    icon: crate::types::FileName,
-    icon_draw_specification: crate::types::IconDrawSpecification,
+    hit_visualization_box: Option<crate::types::BoundingBox>,
+    icon: Option<crate::types::FileName>,
+    icon_draw_specification: Option<crate::types::IconDrawSpecification>,
     #[serde(default = "default_icon_size")]
     icon_size: crate::types::SpriteSizeType,
-    icons: Vec<crate::types::IconData>,
-    icons_positioning: Vec<crate::types::IconSequencePositioning>,
+    icons: Option<Vec<crate::types::IconData>>,
+    icons_positioning: Option<Vec<crate::types::IconSequencePositioning>>,
     #[serde(default = "default_impact_category")]
     impact_category: String,
-    map_color: crate::types::Color,
+    map_color: Option<crate::types::Color>,
     // default: The value of collision_box.
-    map_generator_bounding_box: crate::types::BoundingBox,
+    map_generator_bounding_box: Option<crate::types::BoundingBox>,
     // default: not minable
-    minable: crate::types::MinableProperties,
-    mined_sound: crate::types::Sound,
-    mining_sound: crate::types::Sound,
-    next_upgrade: crate::types::EntityID,
-    open_sound: crate::types::Sound,
-    order: crate::types::Order,
-    placeable_by: EntityPrototypePlaceableBy,
-    placeable_position_visualization: crate::types::Sprite,
+    minable: Option<crate::types::MinableProperties>,
+    mined_sound: Option<crate::types::Sound>,
+    mining_sound: Option<crate::types::Sound>,
+    next_upgrade: Option<crate::types::EntityID>,
+    open_sound: Option<crate::types::Sound>,
+    order: Option<crate::types::Order>,
+    placeable_by: Option<EntityPrototypePlaceableBy>,
+    placeable_position_visualization: Option<crate::types::Sprite>,
     #[serde(default = "default_protected_from_tile_building")]
     protected_from_tile_building: bool,
-    radius_visualisation_specification: crate::types::RadiusVisualisationSpecification,
-    remains_when_mined: EntityPrototypeRemainsWhenMined,
+    radius_visualisation_specification: Option<crate::types::RadiusVisualisationSpecification>,
+    remains_when_mined: Option<EntityPrototypeRemainsWhenMined>,
     #[serde(default = "default_remove_decoratives")]
     remove_decoratives: EntityPrototypeRemoveDecoratives,
-    rotated_sound: crate::types::Sound,
+    rotated_sound: Option<crate::types::Sound>,
     #[serde(default = "default_selectable_in_game")]
     selectable_in_game: bool,
     // default: Empty = `{{0, 0}, {0, 0}}`
-    selection_box: crate::types::BoundingBox,
+    selection_box: Option<crate::types::BoundingBox>,
     #[serde(default = "default_selection_priority")]
     selection_priority: u8,
-    shooting_cursor_size: f64,
-    stateless_visualisation: crate::types::StatelessVisualisations,
+    shooting_cursor_size: Option<f64>,
+    stateless_visualisation: Option<crate::types::StatelessVisualisations>,
     // default: The value of collision_box.
-    sticker_box: crate::types::BoundingBox,
-    surface_conditions: Vec<crate::types::SurfaceCondition>,
-    tile_buildability_rules: Vec<crate::types::TileBuildabilityRule>,
+    sticker_box: Option<crate::types::BoundingBox>,
+    surface_conditions: Option<Vec<crate::types::SurfaceCondition>>,
+    tile_buildability_rules: Option<Vec<crate::types::TileBuildabilityRule>>,
     // default: calculated by the collision box height rounded up.
-    tile_height: i32,
+    tile_height: Option<i32>,
     // default: calculated by the collision box width rounded up.
-    tile_width: i32,
-    trigger_target_mask: crate::types::TriggerTargetMask,
-    water_reflection: crate::types::WaterReflectionDefinition,
-    working_sound: crate::types::WorkingSound,
+    tile_width: Option<i32>,
+    trigger_target_mask: Option<crate::types::TriggerTargetMask>,
+    water_reflection: Option<crate::types::WaterReflectionDefinition>,
+    working_sound: Option<crate::types::WorkingSound>,
 }
 fn default_allow_copy_paste() -> bool {
     true

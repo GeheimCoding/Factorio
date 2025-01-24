@@ -1,7 +1,7 @@
 #[derive(serde::Deserialize)]
 pub struct PodAnimationProcessionLayer {
     frames: Vec<PodAnimationProcessionBezierControlPoint>,
-    graphic: crate::types::ProcessionGraphic,
+    graphic: Option<crate::types::ProcessionGraphic>,
     #[serde(rename = "type")]
     type_: String,
 }

@@ -2,7 +2,7 @@
 pub struct NeighbourConnectableConnectionDefinition {
     category: crate::types::NeighbourConnectableConnectionCategory,
     location: MapLocation,
-    neighbour_category: Vec<crate::types::NeighbourConnectableConnectionCategory>,
+    neighbour_category: Option<Vec<crate::types::NeighbourConnectableConnectionCategory>>,
 }
 #[derive(serde::Deserialize)]
 pub struct MapLocation {

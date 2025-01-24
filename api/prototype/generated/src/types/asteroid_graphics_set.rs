@@ -1,12 +1,12 @@
 #[derive(serde::Deserialize)]
 pub struct AsteroidGraphicsSet {
     // default: `{0.05, 0.05, 0.05, 1.0}`
-    ambient_light: crate::types::Color,
+    ambient_light: Option<crate::types::Color>,
     #[serde(default = "default_brightness")]
     brightness: f32,
     #[serde(default = "default_light_width")]
     light_width: f32,
-    lights: AsteroidGraphicsSetLights,
+    lights: Option<AsteroidGraphicsSetLights>,
     #[serde(default = "default_normal_strength")]
     normal_strength: f32,
     #[serde(default = "default_rotation_speed")]
@@ -17,12 +17,12 @@ pub struct AsteroidGraphicsSet {
     specular_purity: f32,
     #[serde(default = "default_specular_strength")]
     specular_strength: f32,
-    sprite: crate::types::Sprite,
+    sprite: Option<crate::types::Sprite>,
     #[serde(default = "default_sss_amount")]
     sss_amount: f32,
     #[serde(default = "default_sss_contrast")]
     sss_contrast: f32,
-    variations: AsteroidGraphicsSetVariations,
+    variations: Option<AsteroidGraphicsSetVariations>,
 }
 fn default_brightness() -> f32 {
     1.0

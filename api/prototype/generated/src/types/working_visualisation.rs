@@ -6,19 +6,19 @@ pub struct WorkingVisualisation {
     always_draw: bool,
     #[serde(default = "default_animated_shift")]
     animated_shift: bool,
-    animation: crate::types::Animation,
-    apply_recipe_tint: WorkingVisualisationApplyRecipeTint,
-    apply_tint: WorkingVisualisationApplyTint,
+    animation: Option<crate::types::Animation>,
+    apply_recipe_tint: Option<WorkingVisualisationApplyRecipeTint>,
+    apply_tint: Option<WorkingVisualisationApplyTint>,
     #[serde(default = "default_constant_speed")]
     constant_speed: bool,
-    draw_in_states: Vec<String>,
+    draw_in_states: Option<Vec<String>>,
     #[serde(default = "default_draw_when_state_filter_matches")]
     draw_when_state_filter_matches: bool,
-    east_animation: crate::types::Animation,
-    east_position: crate::types::Vector,
+    east_animation: Option<crate::types::Animation>,
+    east_position: Option<crate::types::Vector>,
     // default: Value of `secondary_draw_order`
-    east_secondary_draw_order: i8,
-    effect: WorkingVisualisationEffect,
+    east_secondary_draw_order: Option<i8>,
+    effect: Option<WorkingVisualisationEffect>,
     #[serde(default = "default_enabled_by_name")]
     enabled_by_name: bool,
     #[serde(default = "default_enabled_in_animated_shift_during_transition")]
@@ -29,31 +29,31 @@ pub struct WorkingVisualisation {
     fadeout: bool,
     #[serde(default = "default_frame_based_on_shift_animation_progress")]
     frame_based_on_shift_animation_progress: bool,
-    light: crate::types::LightDefinition,
+    light: Option<crate::types::LightDefinition>,
     #[serde(default = "default_mining_drill_scorch_mark")]
     mining_drill_scorch_mark: bool,
     #[serde(default = "default_name")]
     name: String,
-    north_animation: crate::types::Animation,
-    north_position: crate::types::Vector,
+    north_animation: Option<crate::types::Animation>,
+    north_position: Option<crate::types::Vector>,
     // default: Value of `secondary_draw_order`
-    north_secondary_draw_order: i8,
+    north_secondary_draw_order: Option<i8>,
     #[serde(default = "default_render_layer")]
     render_layer: crate::types::RenderLayer,
-    scorch_mark_fade_in_frames: u8,
-    scorch_mark_fade_out_duration: u16,
-    scorch_mark_lifetime: u16,
-    secondary_draw_order: i8,
-    south_animation: crate::types::Animation,
-    south_position: crate::types::Vector,
+    scorch_mark_fade_in_frames: Option<u8>,
+    scorch_mark_fade_out_duration: Option<u16>,
+    scorch_mark_lifetime: Option<u16>,
+    secondary_draw_order: Option<i8>,
+    south_animation: Option<crate::types::Animation>,
+    south_position: Option<crate::types::Vector>,
     // default: Value of `secondary_draw_order`
-    south_secondary_draw_order: i8,
+    south_secondary_draw_order: Option<i8>,
     #[serde(default = "default_synced_fadeout")]
     synced_fadeout: bool,
-    west_animation: crate::types::Animation,
-    west_position: crate::types::Vector,
+    west_animation: Option<crate::types::Animation>,
+    west_position: Option<crate::types::Vector>,
     // default: Value of `secondary_draw_order`
-    west_secondary_draw_order: i8,
+    west_secondary_draw_order: Option<i8>,
 }
 fn default_align_to_waypoint() -> bool {
     false

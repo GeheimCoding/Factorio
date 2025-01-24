@@ -2,13 +2,13 @@
 pub struct TipsAndTricksItem {
     base_: crate::prototypes::PrototypeBase,
     // default: the `name` of this prototype
-    category: String,
+    category: Option<String>,
     // default: none
-    dependencies: Vec<String>,
-    icon: crate::types::FileName,
+    dependencies: Option<Vec<String>>,
+    icon: Option<crate::types::FileName>,
     #[serde(default = "default_icon_size")]
     icon_size: crate::types::SpriteSizeType,
-    icons: Vec<crate::types::IconData>,
+    icons: Option<Vec<crate::types::IconData>>,
     #[serde(default = "default_image")]
     image: crate::types::FileName,
     #[serde(default = "default_indent")]
@@ -16,16 +16,16 @@ pub struct TipsAndTricksItem {
     #[serde(default = "default_is_title")]
     is_title: bool,
     // default: Value of `name`
-    order: crate::types::Order,
+    order: Option<crate::types::Order>,
     #[serde(default = "default_player_input_method_filter")]
     player_input_method_filter: crate::types::PlayerInputMethodFilter,
-    simulation: crate::types::SimulationDefinition,
-    skip_trigger: crate::types::TipTrigger,
+    simulation: Option<crate::types::SimulationDefinition>,
+    skip_trigger: Option<crate::types::TipTrigger>,
     #[serde(default = "default_starting_status")]
     starting_status: crate::types::TipStatus,
     #[serde(default = "default_tag")]
     tag: String,
-    trigger: crate::types::TipTrigger,
+    trigger: Option<crate::types::TipTrigger>,
     #[serde(default = "default_tutorial")]
     tutorial: String,
 }

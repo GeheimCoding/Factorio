@@ -1,11 +1,11 @@
 #[derive(serde::Deserialize)]
 pub struct LogisticContainerPrototype {
     base_: crate::prototypes::ContainerPrototype,
-    animation: crate::types::Animation,
-    animation_sound: crate::types::Sound,
-    landing_location_offset: crate::types::Vector,
+    animation: Option<crate::types::Animation>,
+    animation_sound: Option<crate::types::Sound>,
+    landing_location_offset: Option<crate::types::Vector>,
     logistic_mode: LogisticContainerPrototypeLogisticMode,
-    max_logistic_slots: u16,
+    max_logistic_slots: Option<u16>,
     #[serde(default = "default_opened_duration")]
     opened_duration: u8,
     #[serde(default = "default_render_not_in_network_icon")]

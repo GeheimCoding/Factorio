@@ -10,12 +10,12 @@ pub struct FluidEnergySource {
     fluid_box: crate::types::FluidBox,
     #[serde(default = "default_fluid_usage_per_tick")]
     fluid_usage_per_tick: crate::types::FluidAmount,
-    light_flicker: crate::types::LightFlickeringDefinition,
+    light_flicker: Option<crate::types::LightFlickeringDefinition>,
     #[serde(default = "default_maximum_temperature")]
     maximum_temperature: f32,
     #[serde(default = "default_scale_fluid_usage")]
     scale_fluid_usage: bool,
-    smoke: Vec<crate::types::SmokeSource>,
+    smoke: Option<Vec<crate::types::SmokeSource>>,
     #[serde(rename = "type")]
     type_: String,
 }

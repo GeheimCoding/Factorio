@@ -10,7 +10,7 @@ pub struct BeamTriggerDelivery {
     duration: u32,
     #[serde(default = "default_max_length")]
     max_length: u32,
-    source_offset: crate::types::Vector,
+    source_offset: Option<crate::types::Vector>,
     #[serde(rename = "type")]
     type_: String,
 }

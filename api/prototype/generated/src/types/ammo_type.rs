@@ -1,17 +1,17 @@
 #[derive(serde::Deserialize)]
 pub struct AmmoType {
-    action: crate::types::Trigger,
+    action: Option<crate::types::Trigger>,
     #[serde(default = "default_clamp_position")]
     clamp_position: bool,
     #[serde(default = "default_consumption_modifier")]
     consumption_modifier: f32,
     #[serde(default = "default_cooldown_modifier")]
     cooldown_modifier: f64,
-    energy_consumption: crate::types::Energy,
+    energy_consumption: Option<crate::types::Energy>,
     #[serde(default = "default_range_modifier")]
     range_modifier: f64,
-    source_type: crate::types::AmmoSourceType,
-    target_filter: Vec<crate::types::EntityID>,
+    source_type: Option<crate::types::AmmoSourceType>,
+    target_filter: Option<Vec<crate::types::EntityID>>,
     #[serde(default = "default_target_type")]
     target_type: AmmoTypeTargetType,
 }

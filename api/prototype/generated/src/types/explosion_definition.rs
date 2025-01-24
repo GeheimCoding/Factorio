@@ -5,6 +5,6 @@ pub enum ExplosionDefinition {
     #[serde(untagged)]
     ExplosionDefinition {
         name: crate::types::EntityID,
-        offset: crate::types::Vector,
+        offset: Option<crate::types::Vector>,
     },
 }

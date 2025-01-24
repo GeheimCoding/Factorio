@@ -2,7 +2,7 @@
 pub struct WaterReflectionDefinition {
     #[serde(default = "default_orientation_to_variation")]
     orientation_to_variation: bool,
-    pictures: crate::types::SpriteVariations,
+    pictures: Option<crate::types::SpriteVariations>,
     #[serde(default = "default_rotate")]
     rotate: bool,
 }

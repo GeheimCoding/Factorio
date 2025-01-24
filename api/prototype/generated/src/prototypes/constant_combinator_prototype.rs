@@ -1,14 +1,14 @@
 #[derive(serde::Deserialize)]
 pub struct ConstantCombinatorPrototype {
     base_: crate::prototypes::EntityWithOwnerPrototype,
-    activity_led_light: crate::types::LightDefinition,
+    activity_led_light: Option<crate::types::LightDefinition>,
     activity_led_light_offsets: (
         crate::types::Vector,
         crate::types::Vector,
         crate::types::Vector,
         crate::types::Vector,
     ),
-    activity_led_sprites: crate::types::Sprite4Way,
+    activity_led_sprites: Option<crate::types::Sprite4Way>,
     circuit_wire_connection_points: (
         crate::types::WireConnectionPoint,
         crate::types::WireConnectionPoint,
@@ -21,7 +21,7 @@ pub struct ConstantCombinatorPrototype {
     draw_circuit_wires: bool,
     #[serde(default = "default_draw_copper_wires")]
     draw_copper_wires: bool,
-    sprites: crate::types::Sprite4Way,
+    sprites: Option<crate::types::Sprite4Way>,
 }
 fn default_circuit_wire_max_distance() -> f64 {
     0.0

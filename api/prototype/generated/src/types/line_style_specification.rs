@@ -1,7 +1,7 @@
 #[derive(serde::Deserialize)]
 pub struct LineStyleSpecification {
     base_: crate::types::BaseStyleSpecification,
-    border: crate::types::BorderImageSet,
+    border: Option<crate::types::BorderImageSet>,
     #[serde(rename = "type")]
     type_: String,
 }

@@ -3,7 +3,7 @@ pub struct ProgrammableSpeakerPrototype {
     base_: crate::prototypes::EntityWithOwnerPrototype,
     #[serde(default = "default_audible_distance_modifier")]
     audible_distance_modifier: f32,
-    circuit_connector: crate::types::CircuitConnectorDefinition,
+    circuit_connector: Option<crate::types::CircuitConnectorDefinition>,
     #[serde(default = "default_circuit_wire_max_distance")]
     circuit_wire_max_distance: f64,
     #[serde(default = "default_draw_circuit_wires")]
@@ -14,7 +14,7 @@ pub struct ProgrammableSpeakerPrototype {
     energy_usage_per_tick: crate::types::Energy,
     instruments: Vec<ProgrammableSpeakerInstrument>,
     maximum_polyphony: u32,
-    sprite: crate::types::Sprite,
+    sprite: Option<crate::types::Sprite>,
 }
 fn default_audible_distance_modifier() -> f32 {
     1.0

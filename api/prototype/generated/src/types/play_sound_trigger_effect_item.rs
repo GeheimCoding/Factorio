@@ -4,7 +4,7 @@ pub struct PlaySoundTriggerEffectItem {
     #[serde(default = "default_audible_distance_modifier")]
     audible_distance_modifier: f32,
     // default: 1e21
-    max_distance: f32,
+    max_distance: Option<f32>,
     #[serde(default = "default_min_distance")]
     min_distance: f32,
     #[serde(default = "default_play_on_target_position")]

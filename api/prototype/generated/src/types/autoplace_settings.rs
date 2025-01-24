@@ -1,8 +1,9 @@
 #[derive(serde::Deserialize)]
 pub struct AutoplaceSettings {
-    settings:
+    settings: Option<
         std::collections::HashMap<AutoplaceSettingsSettings, crate::types::FrequencySizeRichness>,
-    treat_missing_as_default: bool,
+    >,
+    treat_missing_as_default: Option<bool>,
 }
 #[derive(serde::Deserialize, PartialEq, Eq, Hash)]
 pub enum AutoplaceSettingsSettings {

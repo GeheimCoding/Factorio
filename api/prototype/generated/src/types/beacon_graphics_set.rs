@@ -2,7 +2,7 @@
 pub struct BeaconGraphicsSet {
     #[serde(default = "default_animation_layer")]
     animation_layer: crate::types::RenderLayer,
-    animation_list: Vec<crate::types::AnimationElement>,
+    animation_list: Option<Vec<crate::types::AnimationElement>>,
     #[serde(default = "default_animation_progress")]
     animation_progress: f32,
     #[serde(default = "default_apply_module_tint")]
@@ -13,15 +13,15 @@ pub struct BeaconGraphicsSet {
     draw_animation_when_idle: bool,
     #[serde(default = "default_draw_light_when_idle")]
     draw_light_when_idle: bool,
-    frozen_patch: crate::types::Sprite,
-    light: crate::types::LightDefinition,
+    frozen_patch: Option<crate::types::Sprite>,
+    light: Option<crate::types::LightDefinition>,
     #[serde(default = "default_module_icons_suppressed")]
     module_icons_suppressed: bool,
     #[serde(default = "default_module_tint_mode")]
     module_tint_mode: BeaconGraphicsSetModuleTintMode,
-    module_visualisations: Vec<crate::types::BeaconModuleVisualizations>,
+    module_visualisations: Option<Vec<crate::types::BeaconModuleVisualizations>>,
     // default: no color
-    no_modules_tint: crate::types::Color,
+    no_modules_tint: Option<crate::types::Color>,
     #[serde(default = "default_random_animation_offset")]
     random_animation_offset: bool,
     #[serde(default = "default_reset_animation_when_frozen")]

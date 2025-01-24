@@ -12,8 +12,8 @@ pub struct BoilerPrototype {
     #[serde(default = "default_mode")]
     mode: BoilerPrototypeMode,
     output_fluid_box: crate::types::FluidBox,
-    pictures: BoilerPictureSet,
-    target_temperature: f32,
+    pictures: Option<BoilerPictureSet>,
+    target_temperature: Option<f32>,
 }
 fn default_fire_flicker_enabled() -> bool {
     false

@@ -76,6 +76,9 @@ impl Property {
                 }
             }
         }
+        if self.optional && serde_default.is_empty() {
+            inner = format!("Option<{inner}>");
+        }
         (
             format!("{rename}{alias}{serde_default}{comment}{name}: {inner}",),
             additional,

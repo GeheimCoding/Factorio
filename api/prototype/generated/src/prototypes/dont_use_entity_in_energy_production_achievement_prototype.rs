@@ -2,7 +2,7 @@
 pub struct DontUseEntityInEnergyProductionAchievementPrototype {
     base_: crate::prototypes::AchievementPrototypeWithCondition,
     excluded: DontUseEntityInEnergyProductionAchievementPrototypeExcluded,
-    included: DontUseEntityInEnergyProductionAchievementPrototypeIncluded,
+    included: Option<DontUseEntityInEnergyProductionAchievementPrototypeIncluded>,
     #[serde(default = "default_last_hour_only")]
     last_hour_only: bool,
     #[serde(default = "default_minimum_energy_produced")]

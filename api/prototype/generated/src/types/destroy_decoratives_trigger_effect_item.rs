@@ -4,7 +4,7 @@ pub struct DestroyDecorativesTriggerEffectItem {
     #[serde(default = "default_decoratives_with_trigger_only")]
     decoratives_with_trigger_only: bool,
     // default: first layer
-    from_render_layer: crate::types::RenderLayer,
+    from_render_layer: Option<crate::types::RenderLayer>,
     #[serde(default = "default_include_decals")]
     include_decals: bool,
     #[serde(default = "default_include_soft_decoratives")]
@@ -13,7 +13,7 @@ pub struct DestroyDecorativesTriggerEffectItem {
     invoke_decorative_trigger: bool,
     radius: f32,
     // default: last layer
-    to_render_layer: crate::types::RenderLayer,
+    to_render_layer: Option<crate::types::RenderLayer>,
     #[serde(rename = "type")]
     type_: String,
 }

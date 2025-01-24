@@ -8,10 +8,10 @@ pub struct BurnerEnergySource {
     #[serde(default = "default_effectivity")]
     effectivity: f64,
     // default: `{"chemical"}`
-    fuel_categories: Vec<crate::types::FuelCategoryID>,
+    fuel_categories: Option<Vec<crate::types::FuelCategoryID>>,
     fuel_inventory_size: crate::types::ItemStackIndex,
-    light_flicker: crate::types::LightFlickeringDefinition,
-    smoke: Vec<crate::types::SmokeSource>,
+    light_flicker: Option<crate::types::LightFlickeringDefinition>,
+    smoke: Option<Vec<crate::types::SmokeSource>>,
     #[serde(rename = "type")]
     type_: String,
 }

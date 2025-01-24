@@ -5,7 +5,7 @@ pub struct InfinityContainerPrototype {
     #[serde(default = "default_gui_mode")]
     gui_mode: InfinityContainerPrototypeGuiMode,
     inventory_size: crate::types::ItemStackIndex,
-    logistic_mode: InfinityContainerPrototypeLogisticMode,
+    logistic_mode: Option<InfinityContainerPrototypeLogisticMode>,
     #[serde(default = "default_render_not_in_network_icon")]
     render_not_in_network_icon: bool,
 }

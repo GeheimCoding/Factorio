@@ -6,8 +6,8 @@ pub struct RadiusVisualisationSpecification {
     draw_in_cursor: bool,
     #[serde(default = "default_draw_on_selection")]
     draw_on_selection: bool,
-    offset: crate::types::Vector,
-    sprite: crate::types::Sprite,
+    offset: Option<crate::types::Vector>,
+    sprite: Option<crate::types::Sprite>,
 }
 fn default_distance() -> f64 {
     0.0

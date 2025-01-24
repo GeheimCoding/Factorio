@@ -1,7 +1,7 @@
 #[derive(serde::Deserialize)]
 pub struct SpaceLocationPrototype {
     base_: crate::prototypes::Prototype,
-    asteroid_spawn_definitions: Vec<crate::types::SpaceLocationAsteroidSpawnDefinition>,
+    asteroid_spawn_definitions: Option<Vec<crate::types::SpaceLocationAsteroidSpawnDefinition>>,
     #[serde(default = "default_asteroid_spawn_influence")]
     asteroid_spawn_influence: f64,
     #[serde(default = "default_auto_save_on_first_trip")]
@@ -12,27 +12,27 @@ pub struct SpaceLocationPrototype {
     #[serde(default = "default_fly_condition")]
     fly_condition: bool,
     gravity_pull: f64,
-    icon: crate::types::FileName,
+    icon: Option<crate::types::FileName>,
     #[serde(default = "default_icon_size")]
     icon_size: crate::types::SpriteSizeType,
-    icons: Vec<crate::types::IconData>,
+    icons: Option<Vec<crate::types::IconData>>,
     #[serde(default = "default_label_orientation")]
     label_orientation: crate::types::RealOrientation,
     #[serde(default = "default_magnitude")]
     magnitude: f64,
     orientation: crate::types::RealOrientation,
     // default: same as orientation
-    parked_platforms_orientation: crate::types::RealOrientation,
-    planet_procession_set: crate::types::ProcessionSet,
-    platform_procession_set: crate::types::ProcessionSet,
-    procession_audio_catalogue: crate::types::ProcessionAudioCatalogue,
-    procession_graphic_catalogue: crate::types::ProcessionGraphicCatalogue,
+    parked_platforms_orientation: Option<crate::types::RealOrientation>,
+    planet_procession_set: Option<crate::types::ProcessionSet>,
+    platform_procession_set: Option<crate::types::ProcessionSet>,
+    procession_audio_catalogue: Option<crate::types::ProcessionAudioCatalogue>,
+    procession_graphic_catalogue: Option<crate::types::ProcessionGraphicCatalogue>,
     #[serde(default = "default_solar_power_in_space")]
     solar_power_in_space: f64,
-    starmap_icon: crate::types::FileName,
+    starmap_icon: Option<crate::types::FileName>,
     #[serde(default = "default_starmap_icon_size")]
     starmap_icon_size: crate::types::SpriteSizeType,
-    starmap_icons: Vec<crate::types::IconData>,
+    starmap_icons: Option<Vec<crate::types::IconData>>,
 }
 fn default_asteroid_spawn_influence() -> f64 {
     0.1

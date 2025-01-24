@@ -1,12 +1,13 @@
 #[derive(serde::Deserialize)]
 pub struct SpiderUnitPrototype {
     base_: crate::prototypes::EntityWithOwnerPrototype,
-    absorptions_to_join_attack: std::collections::HashMap<crate::types::AirbornePollutantID, f32>,
-    ai_settings: crate::types::UnitAISettings,
+    absorptions_to_join_attack:
+        Option<std::collections::HashMap<crate::types::AirbornePollutantID, f32>>,
+    ai_settings: Option<crate::types::UnitAISettings>,
     attack_parameters: crate::types::AttackParameters,
     distraction_cooldown: u32,
-    dying_sound: crate::types::Sound,
-    graphics_set: crate::types::SpiderTorsoGraphicsSet,
+    dying_sound: Option<crate::types::Sound>,
+    graphics_set: Option<crate::types::SpiderTorsoGraphicsSet>,
     height: f32,
     #[serde(default = "default_max_pursue_distance")]
     max_pursue_distance: f64,
@@ -22,7 +23,7 @@ pub struct SpiderUnitPrototype {
     #[serde(default = "default_torso_rotation_speed")]
     torso_rotation_speed: f32,
     vision_distance: f64,
-    warcry: crate::types::Sound,
+    warcry: Option<crate::types::Sound>,
 }
 fn default_max_pursue_distance() -> f64 {
     50.0

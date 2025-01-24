@@ -5,7 +5,7 @@ pub struct SurfacePropertyPrototype {
     #[serde(default = "default_is_time")]
     is_time: bool,
     // default: surface-property-unit.[prototype name]
-    localised_unit_key: String,
+    localised_unit_key: Option<String>,
 }
 fn default_is_time() -> bool {
     false

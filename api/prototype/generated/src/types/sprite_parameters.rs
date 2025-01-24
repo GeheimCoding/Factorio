@@ -13,7 +13,7 @@ pub struct SpriteParameters {
     draw_as_light: bool,
     #[serde(default = "default_draw_as_shadow")]
     draw_as_shadow: bool,
-    flags: crate::types::SpriteFlags,
+    flags: Option<crate::types::SpriteFlags>,
     #[serde(default = "default_generate_sdf")]
     generate_sdf: bool,
     #[serde(default = "default_invert_colors")]
@@ -27,11 +27,11 @@ pub struct SpriteParameters {
     #[serde(default = "default_scale")]
     scale: f64,
     // default: `{0, 0}`
-    shift: crate::types::Vector,
+    shift: Option<crate::types::Vector>,
     #[serde(default = "default_surface")]
     surface: crate::types::SpriteUsageSurfaceHint,
     // default: `{r=1, g=1, b=1, a=1}`
-    tint: crate::types::Color,
+    tint: Option<crate::types::Color>,
     #[serde(default = "default_tint_as_overlay")]
     tint_as_overlay: bool,
     #[serde(default = "default_usage")]

@@ -8,7 +8,7 @@ pub struct IconDrawSpecification {
     #[serde(default = "default_scale_for_many")]
     scale_for_many: f32,
     // default: `{0, 0}`
-    shift: crate::types::Vector,
+    shift: Option<crate::types::Vector>,
 }
 #[derive(serde::Deserialize)]
 pub enum IconDrawSpecificationRenderLayer {

@@ -1,7 +1,7 @@
 #[derive(serde::Deserialize)]
 pub struct TransportBeltConnectorFrame {
-    frame_back_patch: crate::types::SpriteVariations,
-    frame_front_patch: crate::types::SpriteVariations,
+    frame_back_patch: Option<crate::types::SpriteVariations>,
+    frame_front_patch: Option<crate::types::SpriteVariations>,
     frame_main: crate::types::AnimationVariations,
     frame_main_scanner: crate::types::Animation,
     frame_main_scanner_cross_horizontal_end_shift: crate::types::Vector,

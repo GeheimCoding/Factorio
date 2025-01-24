@@ -11,8 +11,8 @@ pub enum SoundDefinition {
         min_speed: f32,
         #[serde(default = "default_min_volume")]
         min_volume: f32,
-        modifiers: SoundDefinitionModifiers,
-        preload: bool,
+        modifiers: Option<SoundDefinitionModifiers>,
+        preload: Option<bool>,
         #[serde(default = "default_speed")]
         speed: f32,
         #[serde(default = "default_volume")]

@@ -1,11 +1,11 @@
 #[derive(serde::Deserialize)]
 pub struct AccumulatorPrototype {
     base_: crate::prototypes::EntityWithOwnerPrototype,
-    chargable_graphics: crate::types::ChargableGraphics,
-    circuit_connector: crate::types::CircuitConnectorDefinition,
+    chargable_graphics: Option<crate::types::ChargableGraphics>,
+    circuit_connector: Option<crate::types::CircuitConnectorDefinition>,
     #[serde(default = "default_circuit_wire_max_distance")]
     circuit_wire_max_distance: f64,
-    default_output_signal: crate::types::SignalIDConnector,
+    default_output_signal: Option<crate::types::SignalIDConnector>,
     #[serde(default = "default_draw_circuit_wires")]
     draw_circuit_wires: bool,
     #[serde(default = "default_draw_copper_wires")]

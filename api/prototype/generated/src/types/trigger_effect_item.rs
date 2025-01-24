@@ -2,7 +2,7 @@
 pub struct TriggerEffectItem {
     #[serde(default = "default_affects_target")]
     affects_target: bool,
-    damage_type_filters: crate::types::DamageTypeFilters,
+    damage_type_filters: Option<crate::types::DamageTypeFilters>,
     #[serde(default = "default_probability")]
     probability: f32,
     #[serde(default = "default_repeat_count")]

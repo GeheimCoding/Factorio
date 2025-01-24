@@ -9,18 +9,18 @@ pub struct RotatedAnimation {
     counterclockwise: bool,
     #[serde(default = "default_direction_count")]
     direction_count: u32,
-    filename: crate::types::FileName,
-    filenames: Vec<crate::types::FileName>,
-    layers: Vec<crate::types::RotatedAnimation>,
-    lines_per_file: u32,
+    filename: Option<crate::types::FileName>,
+    filenames: Option<Vec<crate::types::FileName>>,
+    layers: Option<Vec<crate::types::RotatedAnimation>>,
+    lines_per_file: Option<u32>,
     #[serde(default = "default_middle_orientation")]
     middle_orientation: crate::types::RealOrientation,
     #[serde(default = "default_orientation_range")]
     orientation_range: f32,
-    slice: u32,
+    slice: Option<u32>,
     #[serde(default = "default_still_frame")]
     still_frame: u32,
-    stripes: Vec<crate::types::Stripe>,
+    stripes: Option<Vec<crate::types::Stripe>>,
 }
 fn default_apply_projection() -> bool {
     true

@@ -7,10 +7,10 @@ pub struct FluidIngredientPrototype {
     fluidbox_multiplier: u8,
     #[serde(default = "default_ignored_by_stats")]
     ignored_by_stats: crate::types::FluidAmount,
-    maximum_temperature: f32,
-    minimum_temperature: f32,
+    maximum_temperature: Option<f32>,
+    minimum_temperature: Option<f32>,
     name: crate::types::FluidID,
-    temperature: f32,
+    temperature: Option<f32>,
     #[serde(rename = "type")]
     type_: String,
 }

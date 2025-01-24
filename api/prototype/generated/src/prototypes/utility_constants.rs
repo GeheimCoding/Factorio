@@ -26,13 +26,14 @@ pub struct UtilityConstants {
     checkerboard_white: crate::types::Color,
     clear_cursor_volume_modifier: f32,
     clipboard_history_size: u32,
-    color_filters: Vec<ColorFilterData>,
+    color_filters: Option<Vec<ColorFilterData>>,
     count_button_size: i32,
     daytime_color_lookup: crate::types::DaytimeColorLookupTable,
     deconstruct_mark_tint: crate::types::Color,
     default_alert_icon_scale: f32,
-    default_alert_icon_scale_by_type: std::collections::HashMap<String, f32>,
-    default_alert_icon_shift_by_type: std::collections::HashMap<String, crate::types::Vector>,
+    default_alert_icon_scale_by_type: Option<std::collections::HashMap<String, f32>>,
+    default_alert_icon_shift_by_type:
+        Option<std::collections::HashMap<String, crate::types::Vector>>,
     default_collision_masks:
         std::collections::HashMap<String, crate::types::CollisionMaskConnector>,
     default_enemy_force_color: crate::types::Color,
@@ -44,7 +45,7 @@ pub struct UtilityConstants {
     default_player_force_color: crate::types::Color,
     default_scorch_mark_color: crate::types::Color,
     default_trigger_target_mask_by_type:
-        std::collections::HashMap<String, crate::types::TriggerTargetMask>,
+        Option<std::collections::HashMap<String, crate::types::TriggerTargetMask>>,
     disabled_recipe_slot_background_tint: crate::types::Color,
     disabled_recipe_slot_tint: crate::types::Color,
     drop_item_radius: f32,
@@ -102,7 +103,8 @@ pub struct UtilityConstants {
     main_menu_background_image_location: crate::types::FileName,
     main_menu_background_vignette_intensity: f32,
     main_menu_background_vignette_sharpness: f32,
-    main_menu_simulations: std::collections::HashMap<String, crate::types::SimulationDefinition>,
+    main_menu_simulations:
+        Option<std::collections::HashMap<String, crate::types::SimulationDefinition>>,
     manual_rail_building_reach_modifier: f64,
     map_editor: MapEditorConstants,
     max_belt_stack_size: u8,

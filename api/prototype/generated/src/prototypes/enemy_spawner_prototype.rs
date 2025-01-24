@@ -1,15 +1,17 @@
 #[derive(serde::Deserialize)]
 pub struct EnemySpawnerPrototype {
     base_: crate::prototypes::EntityWithOwnerPrototype,
-    absorptions_per_second: std::collections::HashMap<
-        crate::types::AirbornePollutantID,
-        crate::types::EnemySpawnerAbsorption,
+    absorptions_per_second: Option<
+        std::collections::HashMap<
+            crate::types::AirbornePollutantID,
+            crate::types::EnemySpawnerAbsorption,
+        >,
     >,
     #[serde(default = "default_allow_run_time_change_of_is_military_target")]
     allow_run_time_change_of_is_military_target: bool,
     call_for_help_radius: f64,
-    captured_spawner_entity: crate::types::EntityID,
-    dying_sound: crate::types::Sound,
+    captured_spawner_entity: Option<crate::types::EntityID>,
+    dying_sound: Option<crate::types::Sound>,
     graphics_set: crate::types::EnemySpawnerGraphicsSet,
     #[serde(default = "default_is_military_target")]
     is_military_target: bool,
@@ -22,7 +24,7 @@ pub struct EnemySpawnerPrototype {
     #[serde(default = "default_min_darkness_to_spawn")]
     min_darkness_to_spawn: f32,
     result_units: Vec<crate::types::UnitSpawnDefinition>,
-    spawn_decoration: Vec<crate::types::CreateDecorativesTriggerEffectItem>,
+    spawn_decoration: Option<Vec<crate::types::CreateDecorativesTriggerEffectItem>>,
     #[serde(default = "default_spawn_decorations_on_expansion")]
     spawn_decorations_on_expansion: bool,
     spawning_cooldown: (f64, f64),

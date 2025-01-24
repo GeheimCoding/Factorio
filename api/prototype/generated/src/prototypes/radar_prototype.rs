@@ -1,7 +1,7 @@
 #[derive(serde::Deserialize)]
 pub struct RadarPrototype {
     base_: crate::prototypes::EntityWithOwnerPrototype,
-    circuit_connector: crate::types::CircuitConnectorDefinition,
+    circuit_connector: Option<crate::types::CircuitConnectorDefinition>,
     #[serde(default = "default_circuit_wire_max_distance")]
     circuit_wire_max_distance: f64,
     #[serde(default = "default_connects_to_other_radars")]
@@ -18,13 +18,13 @@ pub struct RadarPrototype {
     energy_per_sector: crate::types::Energy,
     energy_source: crate::types::EnergySource,
     energy_usage: crate::types::Energy,
-    frozen_patch: crate::types::Sprite,
+    frozen_patch: Option<crate::types::Sprite>,
     #[serde(default = "default_is_military_target")]
     is_military_target: bool,
     max_distance_of_nearby_sector_revealed: u32,
     max_distance_of_sector_revealed: u32,
-    pictures: crate::types::RotatedSprite,
-    radius_minimap_visualisation_color: crate::types::Color,
+    pictures: Option<crate::types::RotatedSprite>,
+    radius_minimap_visualisation_color: Option<crate::types::Color>,
     #[serde(default = "default_reset_orientation_when_frozen")]
     reset_orientation_when_frozen: bool,
     #[serde(default = "default_rotation_speed")]

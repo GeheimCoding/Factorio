@@ -2,35 +2,35 @@
 pub struct TrainStopPrototype {
     base_: crate::prototypes::EntityWithOwnerPrototype,
     animation_ticks_per_frame: u32,
-    animations: crate::types::Animation4Way,
+    animations: Option<crate::types::Animation4Way>,
     #[serde(default = "default_build_grid_size")]
     build_grid_size: f64,
     #[serde(default = "default_chart_name")]
     chart_name: bool,
-    circuit_connector: (
+    circuit_connector: Option<(
         crate::types::CircuitConnectorDefinition,
         crate::types::CircuitConnectorDefinition,
         crate::types::CircuitConnectorDefinition,
         crate::types::CircuitConnectorDefinition,
-    ),
+    )>,
     #[serde(default = "default_circuit_wire_max_distance")]
     circuit_wire_max_distance: f64,
-    color: crate::types::Color,
-    default_priority_signal: crate::types::SignalIDConnector,
-    default_train_stopped_signal: crate::types::SignalIDConnector,
-    default_trains_count_signal: crate::types::SignalIDConnector,
-    default_trains_limit_signal: crate::types::SignalIDConnector,
+    color: Option<crate::types::Color>,
+    default_priority_signal: Option<crate::types::SignalIDConnector>,
+    default_train_stopped_signal: Option<crate::types::SignalIDConnector>,
+    default_trains_count_signal: Option<crate::types::SignalIDConnector>,
+    default_trains_limit_signal: Option<crate::types::SignalIDConnector>,
     #[serde(default = "default_draw_circuit_wires")]
     draw_circuit_wires: bool,
     #[serde(default = "default_draw_copper_wires")]
     draw_copper_wires: bool,
-    drawing_boxes: TrainStopDrawingBoxes,
+    drawing_boxes: Option<TrainStopDrawingBoxes>,
     #[serde(rename = "light1")]
-    light_1: crate::types::TrainStopLight,
+    light_1: Option<crate::types::TrainStopLight>,
     #[serde(rename = "light2")]
-    light_2: crate::types::TrainStopLight,
-    rail_overlay_animations: crate::types::Animation4Way,
-    top_animations: crate::types::Animation4Way,
+    light_2: Option<crate::types::TrainStopLight>,
+    rail_overlay_animations: Option<crate::types::Animation4Way>,
+    top_animations: Option<crate::types::Animation4Way>,
 }
 fn default_build_grid_size() -> f64 {
     2.0

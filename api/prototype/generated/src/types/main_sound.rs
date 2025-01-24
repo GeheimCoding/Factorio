@@ -1,7 +1,7 @@
 #[derive(serde::Deserialize)]
 pub struct MainSound {
-    activity_to_speed_modifiers: crate::types::ActivityMatchingModifiers,
-    activity_to_volume_modifiers: crate::types::ActivityMatchingModifiers,
+    activity_to_speed_modifiers: Option<crate::types::ActivityMatchingModifiers>,
+    activity_to_volume_modifiers: Option<crate::types::ActivityMatchingModifiers>,
     #[serde(default = "default_audible_distance_modifier")]
     audible_distance_modifier: f64,
     #[serde(default = "default_fade_in_ticks")]
@@ -14,10 +14,10 @@ pub struct MainSound {
     match_speed_to_activity: bool,
     #[serde(default = "default_match_volume_to_activity")]
     match_volume_to_activity: bool,
-    play_for_working_visualisations: Vec<String>,
+    play_for_working_visualisations: Option<Vec<String>>,
     #[serde(default = "default_probability")]
     probability: f64,
-    sound: crate::types::Sound,
+    sound: Option<crate::types::Sound>,
     #[serde(default = "default_volume_smoothing_window_size")]
     volume_smoothing_window_size: u32,
 }

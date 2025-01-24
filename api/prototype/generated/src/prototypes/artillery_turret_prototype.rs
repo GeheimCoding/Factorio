@@ -5,22 +5,22 @@ pub struct ArtilleryTurretPrototype {
     alert_when_attacking: bool,
     ammo_stack_limit: crate::types::ItemCountType,
     automated_ammo_count: crate::types::ItemCountType,
-    base_picture: crate::types::Animation4Way,
+    base_picture: Option<crate::types::Animation4Way>,
     #[serde(default = "default_base_picture_render_layer")]
     base_picture_render_layer: crate::types::RenderLayer,
     #[serde(default = "default_base_picture_secondary_draw_order")]
     base_picture_secondary_draw_order: u8,
-    cannon_barrel_light_direction: crate::types::Vector3D,
-    cannon_barrel_pictures: crate::types::RotatedSprite,
-    cannon_barrel_recoil_shiftings: Vec<crate::types::Vector3D>,
-    cannon_barrel_recoil_shiftings_load_correction_matrix: Vec<crate::types::Vector3D>,
-    cannon_base_pictures: crate::types::RotatedSprite,
+    cannon_barrel_light_direction: Option<crate::types::Vector3D>,
+    cannon_barrel_pictures: Option<crate::types::RotatedSprite>,
+    cannon_barrel_recoil_shiftings: Option<Vec<crate::types::Vector3D>>,
+    cannon_barrel_recoil_shiftings_load_correction_matrix: Option<Vec<crate::types::Vector3D>>,
+    cannon_base_pictures: Option<crate::types::RotatedSprite>,
     cannon_base_shift: crate::types::Vector3D,
     #[serde(default = "default_cannon_parking_frame_count")]
     cannon_parking_frame_count: u16,
     #[serde(default = "default_cannon_parking_speed")]
     cannon_parking_speed: f32,
-    circuit_connector: crate::types::CircuitConnectorDefinition,
+    circuit_connector: Option<crate::types::CircuitConnectorDefinition>,
     #[serde(default = "default_circuit_wire_max_distance")]
     circuit_wire_max_distance: f64,
     #[serde(default = "default_disable_automatic_firing")]
@@ -34,7 +34,7 @@ pub struct ArtilleryTurretPrototype {
     #[serde(default = "default_is_military_target")]
     is_military_target: bool,
     manual_range_modifier: f64,
-    rotating_sound: crate::types::InterruptibleSound,
+    rotating_sound: Option<crate::types::InterruptibleSound>,
     #[serde(default = "default_turn_after_shooting_cooldown")]
     turn_after_shooting_cooldown: u16,
     turret_rotation_speed: f64,

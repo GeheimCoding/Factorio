@@ -1,11 +1,11 @@
 #[derive(serde::Deserialize)]
 pub struct RailFenceDirectionSet {
-    east: crate::types::SpriteVariations,
-    north: crate::types::SpriteVariations,
-    northeast: crate::types::SpriteVariations,
-    northwest: crate::types::SpriteVariations,
-    south: crate::types::SpriteVariations,
-    southeast: crate::types::SpriteVariations,
-    southwest: crate::types::SpriteVariations,
-    west: crate::types::SpriteVariations,
+    east: Option<crate::types::SpriteVariations>,
+    north: Option<crate::types::SpriteVariations>,
+    northeast: Option<crate::types::SpriteVariations>,
+    northwest: Option<crate::types::SpriteVariations>,
+    south: Option<crate::types::SpriteVariations>,
+    southeast: Option<crate::types::SpriteVariations>,
+    southwest: Option<crate::types::SpriteVariations>,
+    west: Option<crate::types::SpriteVariations>,
 }

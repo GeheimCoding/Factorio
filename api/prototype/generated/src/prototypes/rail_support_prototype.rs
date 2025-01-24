@@ -3,8 +3,8 @@ pub struct RailSupportPrototype {
     base_: crate::prototypes::EntityWithOwnerPrototype,
     #[serde(default = "default_build_grid_size")]
     build_grid_size: f64,
-    collision_mask_allow_on_deep_oil_ocean: crate::types::CollisionMaskConnector,
-    elevated_selection_boxes: Vec<crate::types::BoundingBox>,
+    collision_mask_allow_on_deep_oil_ocean: Option<crate::types::CollisionMaskConnector>,
+    elevated_selection_boxes: Option<Vec<crate::types::BoundingBox>>,
     graphics_set: RailSupportGraphicsSet,
     #[serde(default = "default_not_buildable_if_no_rails")]
     not_buildable_if_no_rails: bool,
@@ -23,7 +23,7 @@ pub struct RailSupportGraphicsSet {
     structure: crate::types::RotatedSprite,
     #[serde(default = "default_underwater_layer_offset")]
     underwater_layer_offset: i8,
-    underwater_structure: crate::types::RotatedSprite,
+    underwater_structure: Option<crate::types::RotatedSprite>,
 }
 fn default_render_layer() -> crate::types::RenderLayer {
     crate::types::RenderLayer::Object

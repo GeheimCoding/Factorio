@@ -12,7 +12,7 @@ pub struct ExplosionPrototype {
     fade_out_duration: u8,
     #[serde(default = "default_height")]
     height: f32,
-    light: crate::types::LightDefinition,
+    light: Option<crate::types::LightDefinition>,
     #[serde(default = "default_light_intensity_factor_final")]
     light_intensity_factor_final: f32,
     #[serde(default = "default_light_intensity_factor_initial")]
@@ -51,12 +51,12 @@ pub struct ExplosionPrototype {
     scale_initial_deviation: f32,
     #[serde(default = "default_scale_out_duration")]
     scale_out_duration: u8,
-    smoke: crate::types::TrivialSmokeID,
+    smoke: Option<crate::types::TrivialSmokeID>,
     #[serde(default = "default_smoke_count")]
     smoke_count: u16,
     #[serde(default = "default_smoke_slow_down_factor")]
     smoke_slow_down_factor: f32,
-    sound: crate::types::Sound,
+    sound: Option<crate::types::Sound>,
 }
 fn default_beam() -> bool {
     false

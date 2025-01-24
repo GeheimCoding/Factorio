@@ -2,9 +2,9 @@
 pub struct ProduceAchievementPrototype {
     base_: crate::prototypes::AchievementPrototype,
     amount: crate::types::MaterialAmountType,
-    fluid_product: crate::types::FluidID,
-    item_product: crate::types::ItemID,
+    fluid_product: Option<crate::types::FluidID>,
+    item_product: Option<crate::types::ItemID>,
     limited_to_one_game: bool,
     // default: All qualities
-    quality: crate::types::QualityID,
+    quality: Option<crate::types::QualityID>,
 }

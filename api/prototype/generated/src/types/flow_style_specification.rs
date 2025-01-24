@@ -1,9 +1,9 @@
 #[derive(serde::Deserialize)]
 pub struct FlowStyleSpecification {
     base_: crate::types::BaseStyleSpecification,
-    horizontal_spacing: i32,
-    max_on_row: i32,
+    horizontal_spacing: Option<i32>,
+    max_on_row: Option<i32>,
     #[serde(rename = "type")]
     type_: String,
-    vertical_spacing: i32,
+    vertical_spacing: Option<i32>,
 }

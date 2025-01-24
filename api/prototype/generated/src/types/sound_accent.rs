@@ -4,8 +4,8 @@ pub struct SoundAccent {
     audible_distance_modifier: f32,
     #[serde(default = "default_frame")]
     frame: u16,
-    play_for_working_visualisations: Vec<String>,
-    sound: crate::types::Sound,
+    play_for_working_visualisations: Option<Vec<String>>,
+    sound: Option<crate::types::Sound>,
 }
 fn default_audible_distance_modifier() -> f32 {
     1.0
