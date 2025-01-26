@@ -1,4 +1,4 @@
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub struct LegacyStraightRailPrototype {
     base_: crate::prototypes::RailPrototype,
     // default: `{{-0.7, -0.99}, {0.7, 0.99}}`

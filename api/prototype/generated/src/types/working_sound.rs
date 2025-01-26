@@ -1,4 +1,4 @@
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub enum WorkingSound {
     #[serde(untagged)]
     WorkingSound {
@@ -32,7 +32,7 @@ fn default_audible_distance_modifier() -> f64 {
 fn default_extra_sounds_ignore_limit() -> bool {
     false
 }
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub enum WorkingSoundMainSounds {
     #[serde(untagged)]
     MainSound(Box<crate::types::MainSound>),
@@ -42,7 +42,7 @@ pub enum WorkingSoundMainSounds {
 fn default_persistent() -> bool {
     false
 }
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub enum WorkingSoundSoundAccents {
     #[serde(untagged)]
     SoundAccent(Box<crate::types::SoundAccent>),

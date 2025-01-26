@@ -1,4 +1,4 @@
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub struct CombatRobotPrototype {
     base_: crate::prototypes::FlyingRobotPrototype,
     attack_parameters: crate::types::AttackParameters,

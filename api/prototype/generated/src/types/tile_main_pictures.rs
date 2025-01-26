@@ -1,4 +1,4 @@
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub struct TileMainPictures {
     base_: crate::types::TileSpriteLayout,
     #[serde(default = "default_probability")]

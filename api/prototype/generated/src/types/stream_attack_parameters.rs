@@ -1,4 +1,4 @@
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub struct StreamAttackParameters {
     base_: crate::types::BaseAttackParameters,
     #[serde(default = "default_fluid_consumption")]
@@ -14,7 +14,7 @@ pub struct StreamAttackParameters {
 fn default_fluid_consumption() -> crate::types::FluidAmount {
     0.0
 }
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub struct StreamFluidProperties {
     #[serde(default = "default_damage_modifier")]
     damage_modifier: f64,
@@ -27,14 +27,14 @@ fn default_damage_modifier() -> f64 {
 fn default_gun_barrel_length() -> f32 {
     0.0
 }
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub enum StreamAttackParametersGunCenterShift {
     #[serde(untagged)]
     Vector(crate::types::Vector),
     #[serde(untagged)]
     GunShift4Way(Box<GunShift4Way>),
 }
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub struct GunShift4Way {
     east: Option<crate::types::Vector>,
     north: crate::types::Vector,

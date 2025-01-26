@@ -1,4 +1,4 @@
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub struct AreaTriggerItem {
     base_: crate::types::TriggerItem,
     #[serde(default = "default_collision_mode")]
@@ -13,7 +13,7 @@ pub struct AreaTriggerItem {
     #[serde(rename = "type")]
     type_: String,
 }
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub enum AreaTriggerItemCollisionMode {
     #[serde(rename = "distance_from_collision_box")]
     DistanceFromCollisionBox,

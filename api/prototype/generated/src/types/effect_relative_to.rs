@@ -1,4 +1,4 @@
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub enum EffectRelativeTo {
     #[serde(rename = "ground_origin")]
     GroundOrigin,

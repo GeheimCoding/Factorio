@@ -1,4 +1,4 @@
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub struct WaterReflectionDefinition {
     #[serde(default = "default_orientation_to_variation")]
     orientation_to_variation: bool,

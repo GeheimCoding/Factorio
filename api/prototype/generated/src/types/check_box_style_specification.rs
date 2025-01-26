@@ -1,4 +1,4 @@
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub struct CheckBoxStyleSpecification {
     base_: crate::types::StyleWithClickableGraphicalSetSpecification,
     checkmark: Option<crate::types::Sprite>,

@@ -1,4 +1,4 @@
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub struct IconDrawSpecification {
     #[serde(rename = "renderLayer")]
     #[serde(default = "default_render_layer")]
@@ -10,7 +10,7 @@ pub struct IconDrawSpecification {
     // default: `{0, 0}`
     shift: Option<crate::types::Vector>,
 }
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub enum IconDrawSpecificationRenderLayer {
     #[serde(rename = "entity_info_icon_below")]
     EntityInfoIconBelow,

@@ -1,4 +1,4 @@
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub struct ModulePrototype {
     base_: crate::prototypes::ItemPrototype,
     art_style: Option<String>,
@@ -9,7 +9,7 @@ pub struct ModulePrototype {
     requires_beacon_alt_mode: bool,
     tier: u32,
 }
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub struct BeaconVisualizationTints {
     // default: no color
     primary: Option<crate::types::Color>,

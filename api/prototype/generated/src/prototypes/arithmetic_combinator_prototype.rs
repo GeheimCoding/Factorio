@@ -1,4 +1,4 @@
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub struct ArithmeticCombinatorPrototype {
     base_: crate::prototypes::CombinatorPrototype,
     and_symbol_sprites: Option<crate::types::Sprite4Way>,

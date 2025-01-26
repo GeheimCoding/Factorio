@@ -1,4 +1,4 @@
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub struct CreateParticleTriggerEffectItem {
     base_: crate::types::TriggerEffectItem,
     apply_tile_tint: Option<CreateParticleTriggerEffectItemApplyTileTint>,
@@ -40,7 +40,7 @@ pub struct CreateParticleTriggerEffectItem {
     #[serde(rename = "type")]
     type_: String,
 }
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub enum CreateParticleTriggerEffectItemApplyTileTint {
     #[serde(rename = "primary")]
     Primary,

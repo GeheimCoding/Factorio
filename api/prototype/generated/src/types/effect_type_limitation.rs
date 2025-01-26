@@ -1,11 +1,11 @@
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub enum EffectTypeLimitation {
     #[serde(untagged)]
     EffectTypeLimitationVariants(EffectTypeLimitationVariants),
     #[serde(untagged)]
     VecEffectTypeLimitationVariants(Vec<EffectTypeLimitationVariants>),
 }
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub enum EffectTypeLimitationVariants {
     #[serde(rename = "speed")]
     Speed,

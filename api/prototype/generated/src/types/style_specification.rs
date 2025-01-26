@@ -1,4 +1,4 @@
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub enum StyleSpecification {
     #[serde(untagged)]
     ActivityBarStyleSpecification(Box<crate::types::ActivityBarStyleSpecification>),

@@ -1,4 +1,4 @@
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub struct CliffPlacementSettings {
     #[serde(default = "default_cliff_elevation_0")]
     cliff_elevation_0: f32,

@@ -1,4 +1,4 @@
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub struct DontUseEntityInEnergyProductionAchievementPrototype {
     base_: crate::prototypes::AchievementPrototypeWithCondition,
     excluded: DontUseEntityInEnergyProductionAchievementPrototypeExcluded,
@@ -8,14 +8,14 @@ pub struct DontUseEntityInEnergyProductionAchievementPrototype {
     #[serde(default = "default_minimum_energy_produced")]
     minimum_energy_produced: crate::types::Energy,
 }
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub enum DontUseEntityInEnergyProductionAchievementPrototypeExcluded {
     #[serde(untagged)]
     EntityID(crate::types::EntityID),
     #[serde(untagged)]
     VecEntityID(Vec<crate::types::EntityID>),
 }
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub enum DontUseEntityInEnergyProductionAchievementPrototypeIncluded {
     #[serde(untagged)]
     EntityID(crate::types::EntityID),

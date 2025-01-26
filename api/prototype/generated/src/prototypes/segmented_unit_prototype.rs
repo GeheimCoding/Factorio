@@ -1,4 +1,4 @@
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub struct SegmentedUnitPrototype {
     base_: crate::prototypes::SegmentPrototype,
     acceleration_rate: f64,

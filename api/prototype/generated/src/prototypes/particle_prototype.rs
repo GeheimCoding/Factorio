@@ -1,4 +1,4 @@
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub struct ParticlePrototype {
     base_: crate::prototypes::Prototype,
     #[serde(default = "default_draw_shadow_when_on_ground")]

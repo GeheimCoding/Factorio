@@ -1,4 +1,4 @@
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub struct RoboportEquipmentPrototype {
     base_: crate::prototypes::EquipmentPrototype,
     burner: Option<crate::types::BurnerEnergySource>,

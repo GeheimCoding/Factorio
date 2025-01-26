@@ -1,4 +1,4 @@
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub struct SoundPrototype {
     advanced_volume_control: Option<crate::types::AdvancedVolumeControl>,
     aggregation: Option<crate::types::AggregationSpecification>,
@@ -54,7 +54,7 @@ fn default_min_speed() -> f32 {
 fn default_min_volume() -> f32 {
     1.0
 }
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub enum SoundPrototypeModifiers {
     #[serde(untagged)]
     SoundModifier(Box<crate::types::SoundModifier>),
@@ -70,7 +70,7 @@ fn default_speed() -> f32 {
 fn default_speed_smoothing_window_size() -> u32 {
     0
 }
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub enum SoundPrototypeVariations {
     #[serde(untagged)]
     SoundDefinition(crate::types::SoundDefinition),

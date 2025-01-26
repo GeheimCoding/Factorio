@@ -1,4 +1,4 @@
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub struct DisplayPanelPrototype {
     base_: crate::prototypes::EntityWithOwnerPrototype,
     background_color: Option<crate::types::Color>,

@@ -1,4 +1,4 @@
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub struct ConstantCombinatorPrototype {
     base_: crate::prototypes::EntityWithOwnerPrototype,
     activity_led_light: Option<crate::types::LightDefinition>,

@@ -1,4 +1,4 @@
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub struct MaxSuccessfulAttemptsPerTickPerConstructionQueueModifier {
     base_: crate::types::SimpleModifier,
     #[serde(rename = "type")]

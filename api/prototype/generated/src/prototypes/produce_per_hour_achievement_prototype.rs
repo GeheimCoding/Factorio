@@ -1,4 +1,4 @@
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub struct ProducePerHourAchievementPrototype {
     base_: crate::prototypes::AchievementPrototype,
     amount: crate::types::MaterialAmountType,

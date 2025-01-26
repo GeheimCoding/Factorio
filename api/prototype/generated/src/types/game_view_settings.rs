@@ -1,4 +1,4 @@
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub struct GameViewSettings {
     default_show_value: Option<bool>,
     #[serde(default = "default_show_alert_gui")]

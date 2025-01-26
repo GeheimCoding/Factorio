@@ -1,4 +1,4 @@
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub struct ScrollPaneStyleSpecification {
     base_: crate::types::BaseStyleSpecification,
     always_draw_borders: Option<bool>,

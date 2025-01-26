@@ -1,4 +1,4 @@
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub struct PipePictures {
     corner_down_left: Option<crate::types::Sprite>,
     corner_down_left_disabled_visualization: Option<crate::types::Sprite>,

@@ -1,4 +1,4 @@
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub struct EntityWithHealthPrototype {
     base_: crate::prototypes::EntityPrototype,
     #[serde(default = "default_alert_when_damaged")]
@@ -35,14 +35,14 @@ pub struct EntityWithHealthPrototype {
 fn default_alert_when_damaged() -> bool {
     true
 }
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub enum EntityWithHealthPrototypeAttackReaction {
     #[serde(untagged)]
     AttackReactionItem(Box<crate::types::AttackReactionItem>),
     #[serde(untagged)]
     VecAttackReactionItem(Vec<crate::types::AttackReactionItem>),
 }
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub enum EntityWithHealthPrototypeCorpse {
     #[serde(untagged)]
     EntityID(crate::types::EntityID),
@@ -52,7 +52,7 @@ pub enum EntityWithHealthPrototypeCorpse {
 fn default_create_ghost_on_death() -> bool {
     true
 }
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub enum EntityWithHealthPrototypeDyingExplosion {
     #[serde(untagged)]
     ExplosionDefinition(crate::types::ExplosionDefinition),

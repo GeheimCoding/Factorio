@@ -1,4 +1,4 @@
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub struct SwitchStyleSpecification {
     base_: crate::types::BaseStyleSpecification,
     active_label: Option<crate::types::LabelStyleSpecification>,

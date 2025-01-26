@@ -1,4 +1,4 @@
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub struct ShiftAnimationWaypoints {
     east: Vec<crate::types::Vector>,
     north: Vec<crate::types::Vector>,

@@ -1,4 +1,4 @@
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub struct MapGenSettings {
     autoplace_controls: Option<
         std::collections::HashMap<
@@ -23,7 +23,7 @@ pub struct MapGenSettings {
     territory_settings: Option<crate::types::TerritorySettings>,
     width: Option<u32>,
 }
-#[derive(serde::Deserialize, PartialEq, Eq, Hash)]
+#[derive(Debug, serde::Deserialize, PartialEq, Eq, Hash)]
 pub enum MapGenSettingsAutoplaceSettings {
     #[serde(rename = "entity")]
     Entity,
@@ -35,7 +35,7 @@ pub enum MapGenSettingsAutoplaceSettings {
 fn default_default_enable_all_autoplace_controls() -> bool {
     true
 }
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub enum MapGenSettingsPropertyExpressionNames {
     #[serde(untagged)]
     String(String),

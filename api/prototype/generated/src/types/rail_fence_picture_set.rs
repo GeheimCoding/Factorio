@@ -1,4 +1,4 @@
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub struct RailFencePictureSet {
     ends: (
         crate::types::RailFenceDirectionSet,

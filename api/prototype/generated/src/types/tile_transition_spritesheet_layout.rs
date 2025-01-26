@@ -1,4 +1,4 @@
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub struct TileTransitionSpritesheetLayout {
     base_: crate::types::TileSpriteLayoutVariant,
     auxiliary_effect_mask: Option<crate::types::TileTransitionVariantLayout>,

@@ -1,4 +1,4 @@
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub struct SpeechBubbleStyleSpecification {
     base_: crate::types::BaseStyleSpecification,
     arrow_graphical_set: Option<crate::types::ElementImageSet>,

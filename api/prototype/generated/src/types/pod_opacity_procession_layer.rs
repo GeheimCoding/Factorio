@@ -1,11 +1,11 @@
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub struct PodOpacityProcessionLayer {
     frames: Vec<PodOpacityProcessionBezierControlPoint>,
     lut: crate::types::ColorLookupTable,
     #[serde(rename = "type")]
     type_: String,
 }
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub struct PodOpacityProcessionBezierControlPoint {
     cutscene_opacity: Option<f64>,
     cutscene_opacity_t: Option<f64>,

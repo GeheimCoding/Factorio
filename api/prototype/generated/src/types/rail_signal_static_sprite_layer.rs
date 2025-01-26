@@ -1,4 +1,4 @@
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub struct RailSignalStaticSpriteLayer {
     align_to_frame_index: Option<Vec<u8>>,
     #[serde(default = "default_hide_if_not_connected_to_rails")]

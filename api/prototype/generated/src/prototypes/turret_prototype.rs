@@ -1,4 +1,4 @@
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub struct TurretPrototype {
     base_: crate::prototypes::EntityWithOwnerPrototype,
     #[serde(default = "default_alert_when_attacking")]
@@ -178,7 +178,7 @@ fn default_energy_glow_animation_flicker_strength() -> f32 {
 fn default_folded_animation_is_stateless() -> bool {
     false
 }
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub enum TurretPrototypeFoldedStateCorpse {
     #[serde(untagged)]
     EntityID(crate::types::EntityID),

@@ -1,4 +1,4 @@
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub struct ActiveDefenseEquipmentPrototype {
     base_: crate::prototypes::EquipmentPrototype,
     attack_parameters: crate::types::AttackParameters,

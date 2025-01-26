@@ -1,4 +1,4 @@
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub struct PlantPrototype {
     base_: crate::prototypes::TreePrototype,
     agricultural_tower_tint: Option<crate::types::RecipeTints>,

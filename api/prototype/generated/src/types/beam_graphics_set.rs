@@ -1,4 +1,4 @@
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub struct BeamGraphicsSet {
     beam: Option<crate::types::BeamAnimationSet>,
     #[serde(default = "default_desired_segment_length")]

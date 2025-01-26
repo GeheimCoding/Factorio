@@ -1,4 +1,4 @@
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub struct FusionGeneratorGraphicsSet {
     east_graphics_set: crate::types::FusionGeneratorDirectionGraphicsSet,
     // default: `{1, 1, 1}`

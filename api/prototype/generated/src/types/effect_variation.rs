@@ -1,4 +1,4 @@
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub enum EffectVariation {
     #[serde(rename = "lava")]
     Lava,

@@ -1,4 +1,4 @@
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub struct VirtualSignalPrototype {
     base_: crate::prototypes::Prototype,
     icon: Option<crate::types::FileName>,

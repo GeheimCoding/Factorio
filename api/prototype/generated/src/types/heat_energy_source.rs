@@ -1,4 +1,4 @@
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub struct HeatEnergySource {
     base_: crate::types::BaseEnergySource,
     connections: Option<Vec<crate::types::HeatConnection>>,

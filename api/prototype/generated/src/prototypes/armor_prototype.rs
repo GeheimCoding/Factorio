@@ -1,4 +1,4 @@
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub struct ArmorPrototype {
     base_: crate::prototypes::ToolPrototype,
     collision_box: Option<crate::types::BoundingBox>,

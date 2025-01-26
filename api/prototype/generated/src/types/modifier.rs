@@ -1,4 +1,4 @@
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub enum Modifier {
     #[serde(untagged)]
     InserterStackSizeBonusModifier(Box<crate::types::InserterStackSizeBonusModifier>),

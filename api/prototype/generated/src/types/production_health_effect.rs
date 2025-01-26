@@ -1,4 +1,4 @@
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub struct ProductionHealthEffect {
     #[serde(default = "default_not_producing")]
     not_producing: f32,

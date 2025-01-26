@@ -1,4 +1,4 @@
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub struct StorageTankPrototype {
     base_: crate::prototypes::EntityWithOwnerPrototype,
     circuit_connector: Option<(
@@ -31,7 +31,7 @@ fn default_draw_circuit_wires() -> bool {
 fn default_draw_copper_wires() -> bool {
     true
 }
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub struct StorageTankPictures {
     flow_sprite: Option<crate::types::Sprite>,
     fluid_background: Option<crate::types::Sprite>,

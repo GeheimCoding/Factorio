@@ -1,4 +1,4 @@
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub enum ProcessionAudioEventType {
     #[serde(rename = "play_sound")]
     PlaySound,

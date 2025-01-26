@@ -1,4 +1,4 @@
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub struct SingleGraphicProcessionLayer {
     #[serde(default = "default_animation_driven_by_curve")]
     animation_driven_by_curve: bool,
@@ -32,7 +32,7 @@ fn default_clip_with_hatches() -> bool {
 fn default_compensated_pivot() -> bool {
     true
 }
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub struct SingleGraphicLayerProcessionBezierControlPoint {
     frame: f32,
     opacity: Option<f64>,

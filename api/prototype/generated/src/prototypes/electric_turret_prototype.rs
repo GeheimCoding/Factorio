@@ -1,9 +1,9 @@
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub struct ElectricTurretPrototype {
     base_: crate::prototypes::TurretPrototype,
     energy_source: ElectricTurretPrototypeEnergySource,
 }
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub enum ElectricTurretPrototypeEnergySource {
     #[serde(untagged)]
     ElectricEnergySource(Box<crate::types::ElectricEnergySource>),

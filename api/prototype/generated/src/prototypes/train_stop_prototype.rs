@@ -1,4 +1,4 @@
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub struct TrainStopPrototype {
     base_: crate::prototypes::EntityWithOwnerPrototype,
     animation_ticks_per_frame: u32,
@@ -47,7 +47,7 @@ fn default_draw_circuit_wires() -> bool {
 fn default_draw_copper_wires() -> bool {
     true
 }
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub struct TrainStopDrawingBoxes {
     east: crate::types::BoundingBox,
     north: crate::types::BoundingBox,

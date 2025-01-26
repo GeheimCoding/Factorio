@@ -547,7 +547,7 @@ pub mod achievement_prototype;
 pub use achievement_prototype::AchievementPrototype;
 pub mod accumulator_prototype;
 pub use accumulator_prototype::AccumulatorPrototype;
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 #[serde(tag = "serde_tag")]
 pub enum Prototypes {
     AccumulatorPrototype(Box<AccumulatorPrototype>),

@@ -1,10 +1,10 @@
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub struct SignalIDConnector {
     name: SignalIDConnectorName,
     #[serde(rename = "type")]
     type_: SignalIDConnectorType,
 }
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub enum SignalIDConnectorName {
     #[serde(untagged)]
     VirtualSignalID(crate::types::VirtualSignalID),
@@ -23,7 +23,7 @@ pub enum SignalIDConnectorName {
     #[serde(untagged)]
     QualityID(crate::types::QualityID),
 }
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub enum SignalIDConnectorType {
     #[serde(rename = "virtual")]
     Virtual,

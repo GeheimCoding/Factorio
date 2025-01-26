@@ -1,4 +1,4 @@
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub struct ShootAchievementPrototype {
     base_: crate::prototypes::AchievementPrototype,
     ammo_type: Option<crate::types::ItemID>,

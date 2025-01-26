@@ -1,4 +1,4 @@
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub struct TriggerEffectItem {
     #[serde(default = "default_affects_target")]
     affects_target: bool,

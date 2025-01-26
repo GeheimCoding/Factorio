@@ -1,8 +1,8 @@
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub struct ModSetting {
     value: ModSettingValue,
 }
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub enum ModSettingValue {
     #[serde(untagged)]
     I32(i32),

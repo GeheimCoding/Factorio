@@ -1,4 +1,4 @@
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub struct TransportBeltConnectablePrototype {
     base_: crate::prototypes::EntityWithOwnerPrototype,
     #[serde(default = "default_animation_speed_coefficient")]

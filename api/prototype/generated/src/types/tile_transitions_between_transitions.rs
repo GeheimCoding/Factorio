@@ -1,4 +1,4 @@
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub struct TileTransitionsBetweenTransitions {
     base_: crate::types::TileTransitions,
     #[serde(rename = "transition_group1")]

@@ -70,7 +70,7 @@ impl Concept {
             ""
         };
         format!(
-            "#[derive(serde::Deserialize{derive_hash})]pub struct {name}{inner}{}",
+            "#[derive(Debug, serde::Deserialize{derive_hash})]pub struct {name}{inner}{}",
             additional.join("")
         )
     }
@@ -108,7 +108,9 @@ impl Concept {
                 matches!(&self.type_, Type::Simple(simple) if simple == &String::from("builtin")),
                 "expected builtin type"
             );
-            return String::from("#[derive(serde::Deserialize)]pub struct DataExtendMethod;");
+            return String::from(
+                "#[derive(Debug, serde::Deserialize)]pub struct DataExtendMethod;",
+            );
         }
         // README: Adjustment [3]
         let (generated, additional) = self.type_.generate(name, context);
@@ -148,7 +150,7 @@ impl Concept {
     // README: Adjustment [5]
     fn generate_comparator_string() -> String {
         String::from(
-            r#"#[derive(serde::Deserialize)]
+            r#"#[derive(Debug, serde::Deserialize)]
             pub enum ComparatorString {
                 #[serde(rename = "=")]
                 EqualTo,

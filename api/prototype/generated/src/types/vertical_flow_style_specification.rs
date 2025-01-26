@@ -1,4 +1,4 @@
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub struct VerticalFlowStyleSpecification {
     base_: crate::types::BaseStyleSpecification,
     #[serde(rename = "type")]

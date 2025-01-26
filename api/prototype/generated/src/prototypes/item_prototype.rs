@@ -1,4 +1,4 @@
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub struct ItemPrototype {
     base_: crate::prototypes::Prototype,
     #[serde(default = "default_burnt_result")]
@@ -93,7 +93,7 @@ fn default_ingredient_to_weight_coefficient() -> f64 {
 fn default_place_as_equipment_result() -> crate::types::EquipmentID {
     String::from("")
 }
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub struct PlaceAsTile {
     condition: crate::types::CollisionMaskConnector,
     condition_size: u32,

@@ -1,4 +1,4 @@
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub struct RotatedSpriteFrame {
     // default: inherited height
     height: Option<crate::types::SpriteSizeType>,

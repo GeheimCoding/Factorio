@@ -1,4 +1,4 @@
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub struct TerritorySettings {
     #[serde(default = "default_minimum_territory_size")]
     minimum_territory_size: u32,

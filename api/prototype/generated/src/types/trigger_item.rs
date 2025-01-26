@@ -1,4 +1,4 @@
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub struct TriggerItem {
     action_delivery: Option<TriggerItemActionDelivery>,
     // default: All masks
@@ -16,7 +16,7 @@ pub struct TriggerItem {
     // default: Everything
     trigger_target_mask: Option<crate::types::TriggerTargetMask>,
 }
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub enum TriggerItemActionDelivery {
     #[serde(untagged)]
     TriggerDelivery(crate::types::TriggerDelivery),

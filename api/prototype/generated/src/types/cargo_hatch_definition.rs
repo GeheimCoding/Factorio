@@ -1,4 +1,4 @@
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub struct CargoHatchDefinition {
     #[serde(default = "default_busy_timeout_ticks")]
     busy_timeout_ticks: u32,

@@ -1,4 +1,4 @@
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub struct LaboratoryProductivityModifier {
     base_: crate::types::SimpleModifier,
     #[serde(default = "default_infer_icon")]

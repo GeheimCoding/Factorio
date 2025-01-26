@@ -1,4 +1,4 @@
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub struct AnimationElement {
     #[serde(default = "default_always_draw")]
     always_draw: bool,

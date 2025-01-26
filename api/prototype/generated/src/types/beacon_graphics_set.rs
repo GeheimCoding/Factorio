@@ -1,4 +1,4 @@
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub struct BeaconGraphicsSet {
     #[serde(default = "default_animation_layer")]
     animation_layer: crate::types::RenderLayer,
@@ -50,7 +50,7 @@ fn default_draw_light_when_idle() -> bool {
 fn default_module_icons_suppressed() -> bool {
     false
 }
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub enum BeaconGraphicsSetModuleTintMode {
     #[serde(rename = "single_module")]
     SingleModule,

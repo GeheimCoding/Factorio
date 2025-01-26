@@ -1,4 +1,4 @@
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub struct CombatRobotCountAchievementPrototype {
     base_: crate::prototypes::AchievementPrototype,
     #[serde(default = "default_count")]

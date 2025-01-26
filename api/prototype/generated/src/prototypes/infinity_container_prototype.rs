@@ -1,4 +1,4 @@
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub struct InfinityContainerPrototype {
     base_: crate::prototypes::LogisticContainerPrototype,
     erase_contents_when_mined: bool,
@@ -9,7 +9,7 @@ pub struct InfinityContainerPrototype {
     #[serde(default = "default_render_not_in_network_icon")]
     render_not_in_network_icon: bool,
 }
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub enum InfinityContainerPrototypeGuiMode {
     #[serde(rename = "all")]
     All,
@@ -21,7 +21,7 @@ pub enum InfinityContainerPrototypeGuiMode {
 fn default_gui_mode() -> InfinityContainerPrototypeGuiMode {
     InfinityContainerPrototypeGuiMode::All
 }
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub enum InfinityContainerPrototypeLogisticMode {
     #[serde(rename = "active_provider")]
     ActiveProvider,

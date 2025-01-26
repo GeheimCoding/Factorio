@@ -1,4 +1,4 @@
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub struct CargoStationParameters {
     giga_hatch_definitions: Option<Vec<crate::types::GigaCargoHatchDefinition>>,
     hatch_definitions: Option<Vec<crate::types::CargoHatchDefinition>>,

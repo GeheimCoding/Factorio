@@ -1,4 +1,4 @@
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub struct SimulationDefinition {
     #[serde(default = "default_checkboard")]
     checkboard: bool,

@@ -1,4 +1,4 @@
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub struct CharacterCorpsePrototype {
     base_: crate::prototypes::EntityPrototype,
     armor_picture_mapping: Option<std::collections::HashMap<crate::types::ItemID, i32>>,

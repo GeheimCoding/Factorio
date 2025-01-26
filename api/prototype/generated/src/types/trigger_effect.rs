@@ -1,11 +1,11 @@
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub enum TriggerEffect {
     #[serde(untagged)]
     TriggerEffectVariants(TriggerEffectVariants),
     #[serde(untagged)]
     VecTriggerEffectVariants(Vec<TriggerEffectVariants>),
 }
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub enum TriggerEffectVariants {
     #[serde(untagged)]
     DamageTriggerEffectItem(Box<crate::types::DamageTriggerEffectItem>),

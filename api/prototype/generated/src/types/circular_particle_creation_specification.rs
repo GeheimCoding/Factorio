@@ -1,4 +1,4 @@
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub struct CircularParticleCreationSpecification {
     // default: `{0, 0}`
     center: Option<crate::types::Vector>,

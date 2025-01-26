@@ -1,4 +1,4 @@
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub struct Loader1x2Prototype {
     base_: crate::prototypes::LoaderPrototype,
 }

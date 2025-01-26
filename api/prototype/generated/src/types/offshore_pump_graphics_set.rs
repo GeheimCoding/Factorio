@@ -1,4 +1,4 @@
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub struct OffshorePumpGraphicsSet {
     animation: Option<crate::types::Animation4Way>,
     base_pictures: Option<crate::types::Sprite4Way>,

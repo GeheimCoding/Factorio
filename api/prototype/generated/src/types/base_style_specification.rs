@@ -1,4 +1,4 @@
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub struct BaseStyleSpecification {
     #[serde(default = "default_bottom_margin")]
     bottom_margin: i16,
@@ -60,7 +60,7 @@ fn default_bottom_margin() -> i16 {
 fn default_bottom_padding() -> i16 {
     0
 }
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub enum BaseStyleSpecificationEffect {
     #[serde(rename = "compilatron_hologram")]
     CompilatronHologram,
@@ -98,7 +98,7 @@ fn default_minimal_width() -> u32 {
 fn default_natural_height() -> u32 {
     0
 }
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub enum BaseStyleSpecificationNaturalSize {
     #[serde(untagged)]
     U32(u32),
@@ -114,7 +114,7 @@ fn default_right_margin() -> i16 {
 fn default_right_padding() -> i16 {
     0
 }
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub enum BaseStyleSpecificationSize {
     #[serde(untagged)]
     U32(u32),

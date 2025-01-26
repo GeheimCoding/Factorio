@@ -1,4 +1,4 @@
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub struct EquipmentShape {
     height: u32,
     points: Option<Vec<Vec<u32>>>,
@@ -6,7 +6,7 @@ pub struct EquipmentShape {
     type_: EquipmentShapeType,
     width: u32,
 }
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub enum EquipmentShapeType {
     #[serde(rename = "full")]
     Full,

@@ -1,4 +1,4 @@
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub struct SmokeWithTriggerPrototype {
     base_: crate::prototypes::SmokePrototype,
     action: Option<crate::types::Trigger>,

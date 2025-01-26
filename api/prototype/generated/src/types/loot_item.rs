@@ -1,4 +1,4 @@
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub struct LootItem {
     #[serde(default = "default_count_max")]
     count_max: f64,

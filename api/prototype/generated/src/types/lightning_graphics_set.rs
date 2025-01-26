@@ -1,4 +1,4 @@
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub struct LightningGraphicsSet {
     attractor_hit_animation: Option<crate::types::Animation>,
     #[serde(default = "default_bolt_detail_level")]
@@ -87,7 +87,7 @@ fn default_min_relative_fork_length() -> f32 {
 fn default_relative_cloud_fork_length() -> f32 {
     0.2
 }
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub struct LightningShaderConfiguration {
     color: crate::types::Color,
     distortion: f32,

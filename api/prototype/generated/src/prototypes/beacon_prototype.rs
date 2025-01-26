@@ -1,4 +1,4 @@
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub struct BeaconPrototype {
     base_: crate::prototypes::EntityWithOwnerPrototype,
     // default: No effects are allowed
@@ -20,7 +20,7 @@ pub struct BeaconPrototype {
     radius_visualisation_picture: Option<crate::types::Sprite>,
     supply_area_distance: f64,
 }
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub enum BeaconPrototypeBeaconCounter {
     #[serde(rename = "total")]
     Total,
@@ -30,7 +30,7 @@ pub enum BeaconPrototypeBeaconCounter {
 fn default_beacon_counter() -> BeaconPrototypeBeaconCounter {
     BeaconPrototypeBeaconCounter::Total
 }
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub enum BeaconPrototypeEnergySource {
     #[serde(untagged)]
     ElectricEnergySource(Box<crate::types::ElectricEnergySource>),

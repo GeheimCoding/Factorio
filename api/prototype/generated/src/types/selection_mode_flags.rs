@@ -1,11 +1,11 @@
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub enum SelectionModeFlags {
     #[serde(untagged)]
     SelectionModeFlagsVariants(SelectionModeFlagsVariants),
     #[serde(untagged)]
     VecSelectionModeFlagsVariants(Vec<SelectionModeFlagsVariants>),
 }
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub enum SelectionModeFlagsVariants {
     #[serde(rename = "blueprint")]
     Blueprint,

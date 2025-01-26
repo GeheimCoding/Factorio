@@ -1,4 +1,4 @@
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub struct TriggerEffectWithCooldown {
     #[serde(default = "default_distance_cooldown")]
     distance_cooldown: f64,

@@ -1,4 +1,4 @@
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub struct SpaceConnectionAsteroidSpawnPoint {
     base_: crate::types::AsteroidSpawnPoint,
     distance: f64,

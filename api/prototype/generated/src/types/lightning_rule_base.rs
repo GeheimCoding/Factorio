@@ -1,10 +1,10 @@
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub struct LightningRuleBase {
     string: String,
     #[serde(rename = "type")]
     type_: LightningRuleBaseType,
 }
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub enum LightningRuleBaseType {
     #[serde(rename = "impact_soundset")]
     ImpactSoundset,

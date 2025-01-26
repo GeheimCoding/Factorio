@@ -1,4 +1,4 @@
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub struct ItemIngredientPrototype {
     amount: u16,
     #[serde(default = "default_ignored_by_stats")]

@@ -1,4 +1,4 @@
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub struct OrientedCliffPrototype {
     collision_bounding_box: crate::types::BoundingBox,
     pictures: Option<crate::types::SpriteVariations>,

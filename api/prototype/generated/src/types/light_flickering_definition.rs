@@ -1,4 +1,4 @@
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub struct LightFlickeringDefinition {
     #[serde(default = "default_border_fix_speed")]
     border_fix_speed: f32,

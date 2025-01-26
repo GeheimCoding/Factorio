@@ -1,4 +1,4 @@
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub struct AdvancedVolumeControl {
     attenuation: Option<crate::types::Fade>,
     #[serde(default = "default_darkness_threshold")]

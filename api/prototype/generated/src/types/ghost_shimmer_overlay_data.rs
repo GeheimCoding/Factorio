@@ -1,4 +1,4 @@
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub struct GhostShimmerOverlayData {
     blend_mode: i32,
     cutoff: f32,

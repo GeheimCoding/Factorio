@@ -63,7 +63,7 @@ impl Prototype {
             ""
         };
         format!(
-            "#[derive(serde::Deserialize{derive_hash})]pub struct {name}{inner}{}",
+            "#[derive(Debug, serde::Deserialize{derive_hash})]pub struct {name}{inner}{}",
             additional.join("")
         )
     }

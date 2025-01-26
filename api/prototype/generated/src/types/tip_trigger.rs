@@ -1,4 +1,4 @@
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub enum TipTrigger {
     #[serde(untagged)]
     OrTipTrigger(Box<crate::types::OrTipTrigger>),

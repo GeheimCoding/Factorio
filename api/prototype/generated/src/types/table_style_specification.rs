@@ -1,4 +1,4 @@
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub struct TableStyleSpecification {
     base_: crate::types::BaseStyleSpecification,
     apply_row_graphical_set_per_column: Option<bool>,
@@ -35,7 +35,7 @@ pub struct TableStyleSpecification {
     vertical_spacing: Option<i32>,
     wide_as_column_count: Option<bool>,
 }
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub enum TableStyleSpecificationColumnWidths {
     #[serde(untagged)]
     ColumnWidthItem(Box<crate::types::ColumnWidthItem>),

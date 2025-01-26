@@ -1,4 +1,4 @@
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub struct AmmoItemPrototype {
     base_: crate::prototypes::ItemPrototype,
     ammo_category: crate::types::AmmoCategoryID,
@@ -10,7 +10,7 @@ pub struct AmmoItemPrototype {
     #[serde(default = "default_shoot_protected")]
     shoot_protected: bool,
 }
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub enum AmmoItemPrototypeAmmoType {
     #[serde(untagged)]
     AmmoType(Box<crate::types::AmmoType>),

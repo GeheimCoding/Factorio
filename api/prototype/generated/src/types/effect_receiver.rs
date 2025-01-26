@@ -1,4 +1,4 @@
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub struct EffectReceiver {
     base_effect: Option<crate::types::Effect>,
     #[serde(default = "default_uses_beacon_effects")]

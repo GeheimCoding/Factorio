@@ -1,4 +1,4 @@
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub struct PrototypeStrafeSettings {
     #[serde(default = "default_clockwise_chance")]
     clockwise_chance: f32,

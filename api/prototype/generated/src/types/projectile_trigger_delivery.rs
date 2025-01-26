@@ -1,4 +1,4 @@
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub struct ProjectileTriggerDelivery {
     base_: crate::types::TriggerDeliveryItem,
     #[serde(default = "default_direction_deviation")]

@@ -1,4 +1,4 @@
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub struct ListBoxStyleSpecification {
     base_: crate::types::BaseStyleSpecification,
     item_style: Option<crate::types::ButtonStyleSpecification>,

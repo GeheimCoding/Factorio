@@ -1,4 +1,4 @@
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub struct CoverGraphicEffectData {
     // default: {0,0}
     distance_traveled_strength: Option<crate::types::Vector>,

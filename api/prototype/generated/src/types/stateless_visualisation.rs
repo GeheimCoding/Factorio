@@ -1,4 +1,4 @@
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub struct StatelessVisualisation {
     acceleration_x: Option<f32>,
     acceleration_y: Option<f32>,
@@ -71,7 +71,7 @@ fn default_fade_out_progress_duration() -> f32 {
 fn default_min_count() -> u16 {
     1
 }
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub enum StatelessVisualisationNestedVisualisations {
     #[serde(untagged)]
     StatelessVisualisation(Box<crate::types::StatelessVisualisation>),

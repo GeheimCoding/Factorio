@@ -227,7 +227,7 @@ impl Type {
         others.insert(
             0,
             format!(
-                "#[derive(serde::Deserialize{derive_hash})]pub enum {prefix}{{{}}}",
+                "#[derive(Debug, serde::Deserialize{derive_hash})]pub enum {prefix}{{{}}}",
                 union.join("")
             ),
         );
@@ -295,7 +295,7 @@ impl Type {
                 others.insert(
                     0,
                     format!(
-                        "#[derive(serde::Deserialize)]pub struct LightDefinitionStruct{result}}}"
+                        "#[derive(Debug, serde::Deserialize)]pub struct LightDefinitionStruct{result}}}"
                     ),
                 );
                 return (String::from("LightDefinitionStruct"), others);

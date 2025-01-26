@@ -1,4 +1,4 @@
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub struct LabPrototype {
     base_: crate::prototypes::EntityWithOwnerPrototype,
     // default: All effects except quality are allowed

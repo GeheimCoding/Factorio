@@ -1,4 +1,4 @@
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub struct WorkingVisualisation {
     #[serde(default = "default_align_to_waypoint")]
     align_to_waypoint: bool,
@@ -64,7 +64,7 @@ fn default_always_draw() -> bool {
 fn default_animated_shift() -> bool {
     false
 }
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub enum WorkingVisualisationApplyRecipeTint {
     #[serde(rename = "primary")]
     Primary,
@@ -77,7 +77,7 @@ pub enum WorkingVisualisationApplyRecipeTint {
     #[serde(rename = "none")]
     None,
 }
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub enum WorkingVisualisationApplyTint {
     #[serde(rename = "resource_color")]
     ResourceColor,
@@ -98,7 +98,7 @@ fn default_constant_speed() -> bool {
 fn default_draw_when_state_filter_matches() -> bool {
     true
 }
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub enum WorkingVisualisationEffect {
     #[serde(rename = "flicker")]
     Flicker,

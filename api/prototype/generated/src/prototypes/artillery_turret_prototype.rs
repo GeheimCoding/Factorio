@@ -1,4 +1,4 @@
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub struct ArtilleryTurretPrototype {
     base_: crate::prototypes::EntityWithOwnerPrototype,
     #[serde(default = "default_alert_when_attacking")]

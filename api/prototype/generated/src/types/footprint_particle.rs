@@ -1,4 +1,4 @@
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub struct FootprintParticle {
     particle_name: Option<crate::types::ParticleID>,
     tiles: Vec<crate::types::TileID>,

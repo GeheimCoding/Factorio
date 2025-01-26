@@ -1,4 +1,4 @@
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub struct MaterialTextureParameters {
     count: u32,
     #[serde(default = "default_line_length")]

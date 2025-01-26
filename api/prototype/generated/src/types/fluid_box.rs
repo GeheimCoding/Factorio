@@ -1,4 +1,4 @@
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub struct FluidBox {
     always_draw_covers: Option<bool>,
     #[serde(default = "default_draw_only_when_connected")]
@@ -31,7 +31,7 @@ fn default_draw_only_when_connected() -> bool {
 fn default_hide_connection_info() -> bool {
     false
 }
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub enum ProductionType {
     #[serde(rename = "none")]
     None,
@@ -51,7 +51,7 @@ fn default_render_layer() -> crate::types::RenderLayer {
 fn default_secondary_draw_order() -> i8 {
     1
 }
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub struct FluidBoxSecondaryDrawOrders {
     east: Option<i8>,
     north: Option<i8>,

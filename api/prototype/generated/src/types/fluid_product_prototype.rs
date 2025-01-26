@@ -1,4 +1,4 @@
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub struct FluidProductPrototype {
     amount: Option<crate::types::FluidAmount>,
     amount_max: Option<crate::types::FluidAmount>,

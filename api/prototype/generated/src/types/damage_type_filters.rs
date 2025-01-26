@@ -1,4 +1,4 @@
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub enum DamageTypeFilters {
     #[serde(untagged)]
     DamageTypeFilters {
@@ -11,7 +11,7 @@ pub enum DamageTypeFilters {
     #[serde(untagged)]
     VecDamageTypeID(Vec<crate::types::DamageTypeID>),
 }
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub enum DamageTypeFiltersTypes {
     #[serde(untagged)]
     DamageTypeID(crate::types::DamageTypeID),

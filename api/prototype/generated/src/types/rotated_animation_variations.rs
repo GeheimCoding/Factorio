@@ -1,4 +1,4 @@
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub enum RotatedAnimationVariations {
     #[serde(untagged)]
     RotatedAnimation(Box<crate::types::RotatedAnimation>),

@@ -1,4 +1,4 @@
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub struct PlanTrainPathTipTrigger {
     distance: f64,
     #[serde(rename = "type")]

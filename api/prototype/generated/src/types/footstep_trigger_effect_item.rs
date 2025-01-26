@@ -1,4 +1,4 @@
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub struct FootstepTriggerEffectItem {
     base_: crate::types::CreateParticleTriggerEffectItem,
     actions: Option<Vec<crate::types::CreateParticleTriggerEffectItem>>,

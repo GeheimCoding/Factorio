@@ -1,4 +1,4 @@
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub struct CreateFireTriggerEffectItem {
     base_: crate::types::CreateEntityTriggerEffectItem,
     // default: MAX_UINT8

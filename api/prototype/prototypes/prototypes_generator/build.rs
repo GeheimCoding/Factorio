@@ -18,7 +18,7 @@ pub fn main() -> anyhow::Result<()> {
     results.into_iter().collect::<Result<(), _>>()?;
 
     let mut content = String::from(
-        "#[derive(serde::Deserialize)]#[serde(tag = \"serde_tag\")]pub enum Prototypes {",
+        "#[derive(Debug, serde::Deserialize)]#[serde(tag = \"serde_tag\")]pub enum Prototypes {",
     );
     format.prototypes.iter().for_each(|prototype| {
         let rust_name = &prototype.rust_name();

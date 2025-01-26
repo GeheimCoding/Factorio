@@ -1,4 +1,4 @@
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub struct LoaderPrototype {
     base_: crate::prototypes::TransportBeltConnectablePrototype,
     #[serde(default = "default_allow_container_interaction")]
@@ -55,7 +55,7 @@ fn default_draw_copper_wires() -> bool {
 fn default_energy_per_item() -> crate::types::Energy {
     String::from("0")
 }
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub enum LoaderPrototypeEnergySource {
     #[serde(untagged)]
     ElectricEnergySource(Box<crate::types::ElectricEnergySource>),

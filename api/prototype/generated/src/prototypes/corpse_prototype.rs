@@ -1,4 +1,4 @@
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub struct CorpsePrototype {
     base_: crate::prototypes::EntityPrototype,
     animation: Option<crate::types::RotatedAnimationVariations>,

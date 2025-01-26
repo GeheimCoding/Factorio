@@ -1,4 +1,4 @@
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub struct RecipeTints {
     // default: no tint
     primary: Option<crate::types::Color>,

@@ -1,4 +1,4 @@
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub struct AgriculturalCraneProperties {
     #[serde(default = "default_min_arm_extent")]
     min_arm_extent: f64,

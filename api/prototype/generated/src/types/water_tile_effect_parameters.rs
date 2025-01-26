@@ -1,4 +1,4 @@
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub struct WaterTileEffectParameters {
     animation_scale: WaterTileEffectParametersAnimationScale,
     animation_speed: f32,
@@ -25,14 +25,14 @@ pub struct WaterTileEffectParameters {
     textures: Vec<crate::types::EffectTexture>,
     tick_scale: f32,
 }
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub enum WaterTileEffectParametersAnimationScale {
     #[serde(untagged)]
     F32(f32),
     #[serde(untagged)]
     F32F32((f32, f32)),
 }
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub enum WaterTileEffectParametersDarkThreshold {
     #[serde(untagged)]
     F32(f32),
@@ -45,7 +45,7 @@ fn default_far_zoom() -> f32 {
 fn default_near_zoom() -> f32 {
     2.0
 }
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub enum WaterTileEffectParametersReflectionThreshold {
     #[serde(untagged)]
     F32(f32),
@@ -61,7 +61,7 @@ fn default_secondary_texture_variations_rows() -> u8 {
 fn default_shader_variation() -> crate::types::EffectVariation {
     crate::types::EffectVariation::Water
 }
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub enum WaterTileEffectParametersSpecularThreshold {
     #[serde(untagged)]
     F32(f32),

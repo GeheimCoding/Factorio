@@ -1,4 +1,4 @@
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub struct BeltReaderLayer {
     #[serde(default = "default_render_layer")]
     render_layer: crate::types::RenderLayer,

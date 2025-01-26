@@ -1,4 +1,4 @@
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub enum ElementImageSetLayer {
     #[serde(untagged)]
     ElementImageSetLayer {
@@ -112,14 +112,14 @@ fn default_center_tiling_vertical() -> bool {
 fn default_center_width() -> crate::types::SpriteSizeType {
     1
 }
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub enum ElementImageSetLayerCornerSize {
     #[serde(untagged)]
     U16(u16),
     #[serde(untagged)]
     U16U16((u16, u16)),
 }
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub enum ElementImageSetLayerDrawType {
     #[serde(rename = "inner")]
     Inner,
@@ -186,7 +186,7 @@ fn default_top_tiling() -> bool {
 fn default_top_width() -> crate::types::SpriteSizeType {
     1
 }
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub enum ElementImageSetLayerType {
     #[serde(rename = "none")]
     None,

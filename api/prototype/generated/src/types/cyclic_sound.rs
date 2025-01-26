@@ -1,4 +1,4 @@
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub struct CyclicSound {
     begin_sound: Option<crate::types::Sound>,
     end_sound: Option<crate::types::Sound>,

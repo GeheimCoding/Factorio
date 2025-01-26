@@ -1,9 +1,9 @@
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub struct ColumnAlignment {
     alignment: ColumnAlignmentAlignment,
     column: u32,
 }
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub enum ColumnAlignmentAlignment {
     #[serde(rename = "center")]
     Center,

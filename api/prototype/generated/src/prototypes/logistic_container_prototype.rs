@@ -1,4 +1,4 @@
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub struct LogisticContainerPrototype {
     base_: crate::prototypes::ContainerPrototype,
     animation: Option<crate::types::Animation>,
@@ -15,7 +15,7 @@ pub struct LogisticContainerPrototype {
     #[serde(default = "default_use_exact_mode")]
     use_exact_mode: bool,
 }
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub enum LogisticContainerPrototypeLogisticMode {
     #[serde(rename = "active_provider")]
     ActiveProvider,

@@ -1,4 +1,4 @@
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub struct CargoBayConnections {
     bottom_left_inner_corner: Option<crate::types::LayeredSpriteVariations>,
     bottom_left_outer_corner: Option<crate::types::LayeredSpriteVariations>,

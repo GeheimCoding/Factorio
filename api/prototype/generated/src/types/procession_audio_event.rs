@@ -1,4 +1,4 @@
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub struct ProcessionAudioEvent {
     audio: Option<crate::types::ProcessionAudio>,
     loop_id: Option<u32>,

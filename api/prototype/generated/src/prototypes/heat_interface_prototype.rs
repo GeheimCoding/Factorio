@@ -1,4 +1,4 @@
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub struct HeatInterfacePrototype {
     base_: crate::prototypes::EntityWithOwnerPrototype,
     #[serde(default = "default_gui_mode")]
@@ -6,7 +6,7 @@ pub struct HeatInterfacePrototype {
     heat_buffer: crate::types::HeatBuffer,
     picture: Option<crate::types::Sprite>,
 }
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub enum HeatInterfacePrototypeGuiMode {
     #[serde(rename = "all")]
     All,

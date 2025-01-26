@@ -1,4 +1,4 @@
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub struct TileTransitionsVariants {
     #[serde(default = "default_empty_transitions")]
     empty_transitions: bool,

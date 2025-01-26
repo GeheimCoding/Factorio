@@ -1,4 +1,4 @@
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub struct SpiderLegPrototype {
     base_: crate::prototypes::EntityWithOwnerPrototype,
     #[serde(default = "default_ankle_height")]
@@ -26,7 +26,7 @@ pub struct SpiderLegPrototype {
 fn default_ankle_height() -> f64 {
     0.0
 }
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub struct SpiderLegGraphicsSet {
     foot: Option<crate::types::RotatedSprite>,
     foot_shadow: Option<crate::types::RotatedSprite>,

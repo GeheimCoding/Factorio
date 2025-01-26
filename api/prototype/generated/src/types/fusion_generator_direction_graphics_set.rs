@@ -1,4 +1,4 @@
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub struct FusionGeneratorDirectionGraphicsSet {
     animation: Option<crate::types::Animation>,
     fluid_input_graphics: Option<Vec<crate::types::FusionGeneratorFluidInputGraphics>>,

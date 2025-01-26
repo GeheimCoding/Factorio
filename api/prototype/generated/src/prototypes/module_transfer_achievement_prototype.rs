@@ -1,4 +1,4 @@
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub struct ModuleTransferAchievementPrototype {
     base_: crate::prototypes::AchievementPrototype,
     #[serde(default = "default_amount")]
@@ -13,7 +13,7 @@ fn default_amount() -> u32 {
 fn default_limited_to_one_game() -> bool {
     false
 }
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub enum ModuleTransferAchievementPrototypeModule {
     #[serde(untagged)]
     ItemID(crate::types::ItemID),

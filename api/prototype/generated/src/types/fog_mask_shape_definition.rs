@@ -1,4 +1,4 @@
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub struct FogMaskShapeDefinition {
     #[serde(default = "default_falloff")]
     falloff: f32,

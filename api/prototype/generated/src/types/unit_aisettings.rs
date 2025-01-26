@@ -1,4 +1,4 @@
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub struct UnitAISettings {
     #[serde(default = "default_allow_try_return_to_spawner")]
     allow_try_return_to_spawner: bool,

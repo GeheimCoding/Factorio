@@ -1,4 +1,4 @@
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub struct EnterVehicleTipTrigger {
     base_: crate::types::CountBasedTipTrigger,
     #[serde(default = "default_match_type_only")]

@@ -1,4 +1,4 @@
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub struct AmmoType {
     action: Option<crate::types::Trigger>,
     #[serde(default = "default_clamp_position")]
@@ -27,7 +27,7 @@ fn default_cooldown_modifier() -> f64 {
 fn default_range_modifier() -> f64 {
     1.0
 }
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub enum AmmoTypeTargetType {
     #[serde(rename = "entity")]
     Entity,

@@ -1,4 +1,4 @@
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub struct AgriculturalCraneSpeedArm {
     #[serde(default = "default_extension_speed")]
     extension_speed: f64,

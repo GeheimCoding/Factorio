@@ -1,4 +1,4 @@
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub struct VariableAmbientSoundLayer {
     composition_mode: crate::types::VariableAmbientSoundCompositionMode,
     control_layer: Option<String>,
@@ -24,14 +24,14 @@ fn default_has_start_sample() -> bool {
 fn default_number_of_sublayers() -> u8 {
     1
 }
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub enum VariableAmbientSoundLayerSublayerOffset {
     #[serde(untagged)]
     RandomRange(crate::types::RandomRange),
     #[serde(untagged)]
     ProbabilityTable(crate::types::ProbabilityTable),
 }
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub enum VariableAmbientSoundLayerSublayerStartingOffset {
     #[serde(untagged)]
     RandomRange(crate::types::RandomRange),

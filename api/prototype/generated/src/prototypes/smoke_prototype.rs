@@ -1,4 +1,4 @@
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub struct SmokePrototype {
     base_: crate::prototypes::EntityPrototype,
     #[serde(default = "default_affected_by_wind")]

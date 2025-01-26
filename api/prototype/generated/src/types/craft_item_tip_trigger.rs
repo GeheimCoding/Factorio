@@ -1,4 +1,4 @@
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub struct CraftItemTipTrigger {
     base_: crate::types::CountBasedTipTrigger,
     #[serde(default = "default_consecutive")]
@@ -11,7 +11,7 @@ pub struct CraftItemTipTrigger {
 fn default_consecutive() -> bool {
     false
 }
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub enum CraftItemTipTriggerEventType {
     #[serde(rename = "crafting_of_single_item_ordered")]
     CraftingOfSingleItemOrdered,

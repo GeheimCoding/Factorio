@@ -1,4 +1,4 @@
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub struct NothingModifier {
     base_: crate::types::BaseModifier,
     effect_description: Option<crate::types::LocalisedString>,

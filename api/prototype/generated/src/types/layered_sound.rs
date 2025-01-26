@@ -1,4 +1,4 @@
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub enum LayeredSound {
     #[serde(untagged)]
     LayeredSound { layers: Vec<crate::types::Sound> },

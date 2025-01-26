@@ -1,4 +1,4 @@
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub struct RoboportPrototype {
     base_: crate::prototypes::EntityWithOwnerPrototype,
     base: Option<crate::types::Sprite>,
@@ -91,7 +91,7 @@ fn default_draw_copper_wires() -> bool {
 fn default_draw_logistic_radius_visualization() -> bool {
     true
 }
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub enum RoboportPrototypeEnergySource {
     #[serde(untagged)]
     ElectricEnergySource(Box<crate::types::ElectricEnergySource>),

@@ -1,4 +1,4 @@
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub struct LinkedBeltPrototype {
     base_: crate::prototypes::TransportBeltConnectablePrototype,
     #[serde(default = "default_allow_blueprint_connection")]
@@ -20,7 +20,7 @@ fn default_allow_clone_connection() -> bool {
 fn default_allow_side_loading() -> bool {
     false
 }
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub struct LinkedBeltStructure {
     back_patch: Option<crate::types::Sprite4Way>,
     direction_in: Option<crate::types::Sprite4Way>,

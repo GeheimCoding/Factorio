@@ -1,4 +1,4 @@
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub struct TreeVariation {
     branch_generation: crate::types::CreateParticleTriggerEffectItem,
     disable_shadow_distortion_beginning_at_frame: Option<u32>,

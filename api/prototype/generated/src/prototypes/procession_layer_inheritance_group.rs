@@ -1,4 +1,4 @@
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub struct ProcessionLayerInheritanceGroup {
     base_: crate::prototypes::Prototype,
     arrival_application: Option<crate::types::TransitionApplication>,

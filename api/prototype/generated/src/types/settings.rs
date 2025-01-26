@@ -1,4 +1,4 @@
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub struct Settings {
     startup: std::collections::HashMap<String, crate::types::ModSetting>,
 }

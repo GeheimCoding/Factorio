@@ -1,4 +1,4 @@
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub struct SpiderVehiclePrototype {
     base_: crate::prototypes::VehiclePrototype,
     automatic_weapon_cycling: bool,
@@ -18,7 +18,7 @@ pub struct SpiderVehiclePrototype {
     #[serde(default = "default_trash_inventory_size")]
     trash_inventory_size: crate::types::ItemStackIndex,
 }
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub enum SpiderVehiclePrototypeEnergySource {
     #[serde(untagged)]
     BurnerEnergySource(Box<crate::types::BurnerEnergySource>),

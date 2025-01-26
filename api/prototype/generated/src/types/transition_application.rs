@@ -1,4 +1,4 @@
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub struct TransitionApplication {
     #[serde(default = "default_offset")]
     offset: bool,

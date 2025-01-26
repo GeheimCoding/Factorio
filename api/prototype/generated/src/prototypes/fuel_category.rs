@@ -1,4 +1,4 @@
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub struct FuelCategory {
     base_: crate::prototypes::Prototype,
     // default: `{"description.fuel-value"}`

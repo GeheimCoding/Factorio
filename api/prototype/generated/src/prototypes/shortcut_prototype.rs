@@ -1,4 +1,4 @@
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub struct ShortcutPrototype {
     base_: crate::prototypes::Prototype,
     action: ShortcutPrototypeAction,
@@ -23,7 +23,7 @@ pub struct ShortcutPrototype {
     #[serde(default = "default_unavailable_until_unlocked")]
     unavailable_until_unlocked: bool,
 }
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub enum ShortcutPrototypeAction {
     #[serde(rename = "toggle_alt_mode")]
     ToggleAltMode,
@@ -58,7 +58,7 @@ fn default_order() -> crate::types::Order {
 fn default_small_icon_size() -> crate::types::SpriteSizeType {
     64
 }
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub enum ShortcutPrototypeStyle {
     #[serde(rename = "default")]
     Default,

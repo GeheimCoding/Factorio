@@ -1,4 +1,4 @@
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub struct CraftFluidTechnologyTrigger {
     #[serde(default = "default_amount")]
     amount: f64,

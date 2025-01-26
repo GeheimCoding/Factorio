@@ -1,4 +1,4 @@
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub struct VariableAmbientSoundVariableSound {
     #[serde(default = "default_alignment_samples")]
     alignment_samples: u32,

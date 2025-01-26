@@ -1,4 +1,4 @@
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub struct GuiStyle {
     base_: crate::prototypes::PrototypeBase,
     #[serde(default = "default_default_sprite_priority")]

@@ -1,4 +1,4 @@
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub struct RailPieceLayers {
     backplates: Option<crate::types::SpriteVariations>,
     metals: Option<crate::types::SpriteVariations>,

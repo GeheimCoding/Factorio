@@ -1,4 +1,4 @@
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub struct BurnerGeneratorPrototype {
     base_: crate::prototypes::EntityWithOwnerPrototype,
     #[serde(default = "default_always_draw_idle_animation")]

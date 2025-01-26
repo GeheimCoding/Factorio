@@ -1,4 +1,4 @@
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub struct BorderImageSet {
     #[serde(default = "default_border_width")]
     border_width: i32,

@@ -1,4 +1,4 @@
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub struct BaseModifier {
     #[serde(default = "default_hidden")]
     hidden: bool,

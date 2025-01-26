@@ -1,4 +1,4 @@
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub struct BaseAttackParameters {
     #[serde(default = "default_activation_type")]
     activation_type: BaseAttackParametersActivationType,
@@ -43,7 +43,7 @@ pub struct BaseAttackParameters {
     #[serde(default = "default_warmup")]
     warmup: u32,
 }
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub enum BaseAttackParametersActivationType {
     #[serde(rename = "shoot")]
     Shoot,

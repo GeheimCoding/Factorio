@@ -1,4 +1,4 @@
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub struct RocketSiloPrototype {
     base_: crate::prototypes::AssemblingMachinePrototype,
     active_energy_usage: crate::types::Energy,

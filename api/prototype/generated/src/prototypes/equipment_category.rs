@@ -1,4 +1,4 @@
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub struct EquipmentCategory {
     base_: crate::prototypes::Prototype,
 }

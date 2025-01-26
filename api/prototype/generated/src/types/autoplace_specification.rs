@@ -1,4 +1,4 @@
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub struct AutoplaceSpecification {
     control: Option<crate::types::AutoplaceControlID>,
     #[serde(default = "default_default_enabled")]
@@ -18,7 +18,7 @@ pub struct AutoplaceSpecification {
 fn default_default_enabled() -> bool {
     true
 }
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub enum AutoplaceSpecificationForce {
     #[serde(rename = "enemy")]
     Enemy,
@@ -38,7 +38,7 @@ fn default_order() -> crate::types::Order {
 fn default_placement_density() -> u32 {
     1
 }
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub enum TileIDRestriction {
     #[serde(untagged)]
     TileID(crate::types::TileID),

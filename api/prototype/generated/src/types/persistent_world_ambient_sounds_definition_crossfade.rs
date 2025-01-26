@@ -1,4 +1,4 @@
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub struct PersistentWorldAmbientSoundsDefinitionCrossfade {
     base_: crate::types::Fade,
     order: (
@@ -6,7 +6,7 @@ pub struct PersistentWorldAmbientSoundsDefinitionCrossfade {
         PersistentWorldAmbientSoundsDefinitionCrossfadeOrder,
     ),
 }
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub enum PersistentWorldAmbientSoundsDefinitionCrossfadeOrder {
     #[serde(rename = "wind")]
     Wind,

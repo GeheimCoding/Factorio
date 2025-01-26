@@ -1,4 +1,4 @@
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub struct NoiseFunction {
     expression: crate::types::NoiseExpression,
     local_expressions: Option<std::collections::HashMap<String, crate::types::NoiseExpression>>,

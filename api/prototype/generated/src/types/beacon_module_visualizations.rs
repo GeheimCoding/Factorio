@@ -1,4 +1,4 @@
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub struct BeaconModuleVisualizations {
     art_style: String,
     slots: Option<Vec<Vec<crate::types::BeaconModuleVisualization>>>,

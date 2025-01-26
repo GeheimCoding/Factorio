@@ -1,4 +1,4 @@
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub struct SpeechBubblePrototype {
     base_: crate::prototypes::EntityPrototype,
     #[serde(default = "default_fade_in_out_ticks")]

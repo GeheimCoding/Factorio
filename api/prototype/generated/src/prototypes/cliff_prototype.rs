@@ -1,4 +1,4 @@
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub struct CliffPrototype {
     base_: crate::prototypes::EntityPrototype,
     cliff_explosive: Option<crate::types::ItemID>,
@@ -7,7 +7,7 @@ pub struct CliffPrototype {
     orientations: OrientedCliffPrototypeSet,
     place_as_crater: Option<crate::types::CraterPlacementDefinition>,
 }
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub struct OrientedCliffPrototypeSet {
     east_to_none: crate::types::OrientedCliffPrototype,
     east_to_north: crate::types::OrientedCliffPrototype,

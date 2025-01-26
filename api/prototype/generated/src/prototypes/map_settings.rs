@@ -1,4 +1,4 @@
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub struct MapSettings {
     asteroids: crate::types::AsteroidSettings,
     difficulty_settings: crate::types::DifficultySettings,
@@ -13,7 +13,7 @@ pub struct MapSettings {
     type_: String,
     unit_group: crate::types::UnitGroupSettings,
 }
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub struct SteeringSettings {
     default: crate::types::StateSteeringSettings,
     moving: crate::types::StateSteeringSettings,

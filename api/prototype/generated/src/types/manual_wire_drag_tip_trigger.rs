@@ -1,4 +1,4 @@
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub struct ManualWireDragTipTrigger {
     base_: crate::types::CountBasedTipTrigger,
     #[serde(default = "default_match_type_only")]
@@ -12,7 +12,7 @@ pub struct ManualWireDragTipTrigger {
 fn default_match_type_only() -> bool {
     false
 }
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub enum ManualWireDragTipTriggerWireType {
     #[serde(rename = "red")]
     Red,

@@ -1,4 +1,4 @@
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub struct Attenuation {
     curve_type: crate::types::AttenuationType,
     #[serde(default = "default_tuning_parameter")]

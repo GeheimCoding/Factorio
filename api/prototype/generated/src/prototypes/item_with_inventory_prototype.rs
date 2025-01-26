@@ -1,4 +1,4 @@
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub struct ItemWithInventoryPrototype {
     base_: crate::prototypes::ItemWithLabelPrototype,
     #[serde(default = "default_filter_message_key")]
@@ -14,7 +14,7 @@ pub struct ItemWithInventoryPrototype {
 fn default_filter_message_key() -> String {
     String::from("item-limitation.item-not-allowed-in-this-container-item")
 }
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub enum ItemWithInventoryPrototypeFilterMode {
     #[serde(rename = "blacklist")]
     Blacklist,

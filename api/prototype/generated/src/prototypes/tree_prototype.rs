@@ -1,4 +1,4 @@
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub struct TreePrototype {
     base_: crate::prototypes::EntityWithHealthPrototype,
     colors: Option<Vec<crate::types::Color>>,

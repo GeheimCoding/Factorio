@@ -1,4 +1,4 @@
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub struct MouseCursor {
     filename: Option<crate::types::FileName>,
     hot_pixel_x: Option<i16>,
@@ -8,7 +8,7 @@ pub struct MouseCursor {
     #[serde(rename = "type")]
     type_: String,
 }
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub enum MouseCursorSystemCursor {
     #[serde(rename = "arrow")]
     Arrow,

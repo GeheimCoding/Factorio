@@ -1,4 +1,4 @@
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub struct GodControllerPrototype {
     crafting_categories: Option<Vec<crate::types::RecipeCategoryID>>,
     inventory_size: crate::types::ItemStackIndex,

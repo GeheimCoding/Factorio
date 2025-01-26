@@ -1,4 +1,4 @@
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub struct ProgrammableSpeakerPrototype {
     base_: crate::prototypes::EntityWithOwnerPrototype,
     #[serde(default = "default_audible_distance_modifier")]
@@ -28,14 +28,14 @@ fn default_draw_circuit_wires() -> bool {
 fn default_draw_copper_wires() -> bool {
     true
 }
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub enum ProgrammableSpeakerPrototypeEnergySource {
     #[serde(untagged)]
     ElectricEnergySource(Box<crate::types::ElectricEnergySource>),
     #[serde(untagged)]
     VoidEnergySource(Box<crate::types::VoidEnergySource>),
 }
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub struct ProgrammableSpeakerInstrument {
     name: String,
     notes: Vec<crate::types::ProgrammableSpeakerNote>,

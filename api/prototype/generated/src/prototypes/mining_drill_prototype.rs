@@ -1,4 +1,4 @@
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub struct MiningDrillPrototype {
     base_: crate::prototypes::EntityWithOwnerPrototype,
     // default: All effects are allowed

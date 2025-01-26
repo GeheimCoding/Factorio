@@ -1,4 +1,4 @@
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub struct AggregationSpecification {
     #[serde(default = "default_count_already_playing")]
     count_already_playing: bool,
@@ -14,7 +14,7 @@ pub struct AggregationSpecification {
 fn default_count_already_playing() -> bool {
     false
 }
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub enum AggregationSpecificationPriority {
     #[serde(rename = "closest")]
     Closest,

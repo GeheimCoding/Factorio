@@ -1,4 +1,4 @@
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub struct LightningProperties {
     exemption_rules: Vec<crate::types::LightningRuleBase>,
     lightning_types: Vec<crate::types::EntityID>,

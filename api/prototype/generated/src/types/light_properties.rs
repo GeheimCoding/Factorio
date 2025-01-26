@@ -1,4 +1,4 @@
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub struct LightProperties {
     // default: {1, 1, 1, 1}
     color: Option<crate::types::Color>,

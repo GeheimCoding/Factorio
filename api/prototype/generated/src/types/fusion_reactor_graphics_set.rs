@@ -1,4 +1,4 @@
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub struct FusionReactorGraphicsSet {
     connections_graphics: Option<Vec<crate::types::FusionReactorConnectionGraphics>>,
     // default: `{1, 1, 1}`

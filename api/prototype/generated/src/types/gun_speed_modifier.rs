@@ -1,4 +1,4 @@
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub struct GunSpeedModifier {
     base_: crate::types::BaseModifier,
     ammo_category: crate::types::AmmoCategoryID,

@@ -1,4 +1,4 @@
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub struct AmbientSound {
     name: String,
     planet: Option<crate::types::SpaceLocationID>,

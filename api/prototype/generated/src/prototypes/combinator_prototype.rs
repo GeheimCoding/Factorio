@@ -1,4 +1,4 @@
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub struct CombinatorPrototype {
     base_: crate::prototypes::EntityWithOwnerPrototype,
     active_energy_usage: crate::types::Energy,
@@ -56,7 +56,7 @@ fn default_draw_circuit_wires() -> bool {
 fn default_draw_copper_wires() -> bool {
     true
 }
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub enum CombinatorPrototypeEnergySource {
     #[serde(untagged)]
     ElectricEnergySource(Box<crate::types::ElectricEnergySource>),

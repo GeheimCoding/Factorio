@@ -1,4 +1,4 @@
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub enum SpritePriority {
     #[serde(rename = "extra_high_no_scale")]
     ExtraHighNoScale,

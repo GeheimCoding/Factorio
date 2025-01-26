@@ -1,4 +1,4 @@
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub struct AmmoTurretPrototype {
     base_: crate::prototypes::TurretPrototype,
     automated_ammo_count: crate::types::ItemCountType,

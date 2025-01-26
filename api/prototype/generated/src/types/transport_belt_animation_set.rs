@@ -1,4 +1,4 @@
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub struct TransportBeltAnimationSet {
     #[serde(default = "default_alternate")]
     alternate: bool,

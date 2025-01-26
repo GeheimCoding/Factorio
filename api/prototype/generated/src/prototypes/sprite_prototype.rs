@@ -1,4 +1,4 @@
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub struct SpritePrototype {
     #[serde(default = "default_apply_runtime_tint")]
     apply_runtime_tint: bool,
@@ -98,7 +98,7 @@ fn default_rotate_shift() -> bool {
 fn default_scale() -> f64 {
     1.0
 }
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub enum SpritePrototypeSize {
     #[serde(untagged)]
     SpriteSizeType(crate::types::SpriteSizeType),

@@ -1,4 +1,4 @@
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub struct CloudsEffectProperties {
     additional_density_sample: crate::types::CloudsTextureCoordinateTransformation,
     #[serde(default = "default_density")]

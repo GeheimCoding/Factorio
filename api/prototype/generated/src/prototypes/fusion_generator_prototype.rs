@@ -1,4 +1,4 @@
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub struct FusionGeneratorPrototype {
     base_: crate::prototypes::EntityWithOwnerPrototype,
     energy_source: crate::types::ElectricEnergySource,

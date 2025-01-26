@@ -4,6 +4,7 @@ pub use defines::*;
 pub use prototypes::*;
 pub use types::*;
 
+#[derive(Debug)]
 pub enum FactorioType {
     Prototype(Prototypes),
     Type(Types),

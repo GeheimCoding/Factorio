@@ -1,4 +1,4 @@
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub struct DontKillManuallyAchievementPrototype {
     base_: crate::prototypes::AchievementPrototypeWithCondition,
     to_kill: Option<crate::types::EntityID>,

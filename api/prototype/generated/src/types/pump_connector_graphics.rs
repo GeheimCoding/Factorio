@@ -1,4 +1,4 @@
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub struct PumpConnectorGraphics {
     east: Vec<crate::types::PumpConnectorGraphicsAnimation>,
     north: Vec<crate::types::PumpConnectorGraphicsAnimation>,

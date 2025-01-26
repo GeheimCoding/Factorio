@@ -1,4 +1,4 @@
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub struct ItemEntityPrototype {
     base_: crate::prototypes::EntityPrototype,
     // default: Empty = `{{0, 0}, {0, 0}}`

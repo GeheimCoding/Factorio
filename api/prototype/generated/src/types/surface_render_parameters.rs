@@ -1,4 +1,4 @@
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub struct SurfaceRenderParameters {
     clouds: Option<crate::types::CloudsEffectProperties>,
     day_night_cycle_color_lookup: Option<crate::types::DaytimeColorLookupTable>,

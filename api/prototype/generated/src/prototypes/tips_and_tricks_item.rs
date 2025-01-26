@@ -1,4 +1,4 @@
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub struct TipsAndTricksItem {
     base_: crate::prototypes::PrototypeBase,
     // default: the `name` of this prototype

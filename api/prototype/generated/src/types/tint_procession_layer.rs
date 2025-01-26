@@ -1,4 +1,4 @@
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub struct TintProcessionLayer {
     frames: Vec<TintProcessionBezierControlPoint>,
     #[serde(default = "default_render_layer")]
@@ -6,7 +6,7 @@ pub struct TintProcessionLayer {
     #[serde(rename = "type")]
     type_: String,
 }
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub struct TintProcessionBezierControlPoint {
     opacity: Option<f64>,
     opacity_t: Option<f64>,

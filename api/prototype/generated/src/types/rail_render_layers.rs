@@ -1,4 +1,4 @@
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub struct RailRenderLayers {
     // default: Value of `screw`
     back_end: Option<crate::types::RenderLayer>,

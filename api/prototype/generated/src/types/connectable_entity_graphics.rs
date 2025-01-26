@@ -1,4 +1,4 @@
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub struct ConnectableEntityGraphics {
     corner_left_down: crate::types::SpriteVariations,
     corner_left_up: crate::types::SpriteVariations,

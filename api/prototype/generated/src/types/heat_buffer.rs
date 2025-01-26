@@ -1,4 +1,4 @@
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub struct HeatBuffer {
     connections: Option<Vec<crate::types::HeatConnection>>,
     #[serde(default = "default_default_temperature")]

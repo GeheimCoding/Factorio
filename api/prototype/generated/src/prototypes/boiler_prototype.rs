@@ -1,4 +1,4 @@
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub struct BoilerPrototype {
     base_: crate::prototypes::EntityWithOwnerPrototype,
     burning_cooldown: u16,
@@ -21,7 +21,7 @@ fn default_fire_flicker_enabled() -> bool {
 fn default_fire_glow_flicker_enabled() -> bool {
     false
 }
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub enum BoilerPrototypeMode {
     #[serde(rename = "heat_fluid_inside")]
     HeatFluidInside,
@@ -31,7 +31,7 @@ pub enum BoilerPrototypeMode {
 fn default_mode() -> BoilerPrototypeMode {
     BoilerPrototypeMode::HeatFluidInside
 }
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub struct BoilerPictureSet {
     east: crate::types::BoilerPictures,
     north: crate::types::BoilerPictures,

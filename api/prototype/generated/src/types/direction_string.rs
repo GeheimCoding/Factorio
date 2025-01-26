@@ -1,4 +1,4 @@
-#[derive(serde::Deserialize, PartialEq, Eq, Hash)]
+#[derive(Debug, serde::Deserialize, PartialEq, Eq, Hash)]
 pub enum DirectionString {
     #[serde(rename = "north")]
     North,

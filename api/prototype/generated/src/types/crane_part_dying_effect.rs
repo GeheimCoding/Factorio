@@ -1,4 +1,4 @@
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub struct CranePartDyingEffect {
     explosion: Option<crate::types::ExplosionDefinition>,
     #[serde(default = "default_explosion_linear_distance_step")]

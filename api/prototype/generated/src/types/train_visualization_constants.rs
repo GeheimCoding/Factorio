@@ -1,4 +1,4 @@
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub struct TrainVisualizationConstants {
     box_length: f32,
     box_width: f32,

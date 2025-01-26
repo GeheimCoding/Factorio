@@ -1,4 +1,4 @@
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub struct CharacterArmorAnimation {
     armors: Option<Vec<crate::types::ItemID>>,
     #[serde(default = "default_extra_smoke_cycles_per_tile")]

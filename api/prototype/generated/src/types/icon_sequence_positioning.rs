@@ -1,4 +1,4 @@
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub struct IconSequencePositioning {
     inventory_index: crate::defines::Inventory,
     // default: width of entity selection box / 1.5

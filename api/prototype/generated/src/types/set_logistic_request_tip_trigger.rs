@@ -1,4 +1,4 @@
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub struct SetLogisticRequestTipTrigger {
     base_: crate::types::CountBasedTipTrigger,
     entity: Option<crate::types::EntityID>,

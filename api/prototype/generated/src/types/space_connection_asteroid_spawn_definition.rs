@@ -1,4 +1,4 @@
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub enum SpaceConnectionAsteroidSpawnDefinition {
     #[serde(untagged)]
     SpaceConnectionAsteroidSpawnDefinition {
@@ -16,14 +16,14 @@ pub enum SpaceConnectionAsteroidSpawnDefinition {
         ),
     ),
 }
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub enum SpaceConnectionAsteroidSpawnDefinitionAsteroid {
     #[serde(untagged)]
     EntityID(crate::types::EntityID),
     #[serde(untagged)]
     AsteroidChunkID(crate::types::AsteroidChunkID),
 }
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub enum SpaceConnectionAsteroidSpawnDefinitionType {
     #[serde(rename = "entity")]
     Entity,

@@ -1,4 +1,4 @@
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub struct TabbedPaneStyleSpecification {
     base_: crate::types::BaseStyleSpecification,
     tab_container: Option<crate::types::TableStyleSpecification>,

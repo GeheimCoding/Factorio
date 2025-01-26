@@ -1233,7 +1233,7 @@ pub mod activate_impact_trigger_effect_item;
 pub use activate_impact_trigger_effect_item::ActivateImpactTriggerEffectItem;
 pub mod activate_equipment_capsule_action;
 pub use activate_equipment_capsule_action::ActivateEquipmentCapsuleAction;
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 #[serde(tag = "serde_tag")]
 pub enum Types {
     ActivateEquipmentCapsuleAction(Box<ActivateEquipmentCapsuleAction>),

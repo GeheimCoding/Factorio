@@ -1,4 +1,4 @@
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub struct AsteroidCollectorPrototype {
     base_: crate::prototypes::EntityWithOwnerPrototype,
     #[serde(default = "default_arm_angular_speed_cap_base")]
@@ -106,7 +106,7 @@ fn default_draw_circuit_wires() -> bool {
 fn default_draw_copper_wires() -> bool {
     true
 }
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub enum AsteroidCollectorPrototypeEnergySource {
     #[serde(untagged)]
     ElectricEnergySource(Box<crate::types::ElectricEnergySource>),
@@ -116,7 +116,7 @@ pub enum AsteroidCollectorPrototypeEnergySource {
 fn default_energy_usage_quality_scaling() -> f32 {
     0.1
 }
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub struct AsteroidCollectorGraphicsSet {
     animation: Option<crate::types::Animation4Way>,
     arm_head_animation: Option<crate::types::RotatedAnimation>,

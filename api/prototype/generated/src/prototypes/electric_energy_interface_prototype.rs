@@ -1,4 +1,4 @@
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub struct ElectricEnergyInterfacePrototype {
     base_: crate::prototypes::EntityWithOwnerPrototype,
     #[serde(default = "default_allow_copy_paste")]
@@ -32,7 +32,7 @@ fn default_energy_production() -> crate::types::Energy {
 fn default_energy_usage() -> crate::types::Energy {
     String::from("0")
 }
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub enum ElectricEnergyInterfacePrototypeGuiMode {
     #[serde(rename = "all")]
     All,

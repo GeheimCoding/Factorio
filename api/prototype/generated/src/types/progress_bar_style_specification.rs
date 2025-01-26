@@ -1,4 +1,4 @@
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub struct ProgressBarStyleSpecification {
     base_: crate::types::BaseStyleSpecification,
     bar: Option<crate::types::ElementImageSet>,
@@ -14,7 +14,7 @@ pub struct ProgressBarStyleSpecification {
     #[serde(rename = "type")]
     type_: String,
 }
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub struct OtherColors {
     bar: Option<crate::types::ElementImageSet>,
     color: Option<crate::types::Color>,

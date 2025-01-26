@@ -1,4 +1,4 @@
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub struct RailPlannerPrototype {
     base_: crate::prototypes::ItemPrototype,
     // default: 8 * 2 + 1.41 + 0.5

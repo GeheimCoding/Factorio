@@ -1,4 +1,4 @@
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub struct BoxSpecification {
     #[serde(default = "default_is_whole_box")]
     is_whole_box: bool,

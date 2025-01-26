@@ -1,4 +1,4 @@
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub struct CreateEntityTriggerEffectItem {
     base_: crate::types::TriggerEffectItem,
     #[serde(default = "default_as_enemy")]

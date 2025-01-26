@@ -1,4 +1,4 @@
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub struct GatePrototype {
     base_: crate::prototypes::EntityWithOwnerPrototype,
     activation_distance: f64,

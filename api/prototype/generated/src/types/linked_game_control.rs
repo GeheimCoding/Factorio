@@ -1,4 +1,4 @@
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub enum LinkedGameControl {
     #[serde(rename = "move_up")]
     MoveUp,

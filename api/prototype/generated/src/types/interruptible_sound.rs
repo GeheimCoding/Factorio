@@ -1,4 +1,4 @@
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub struct InterruptibleSound {
     #[serde(default = "default_fade_ticks")]
     fade_ticks: u32,

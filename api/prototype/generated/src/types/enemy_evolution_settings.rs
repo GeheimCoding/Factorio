@@ -1,4 +1,4 @@
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub struct EnemyEvolutionSettings {
     destroy_factor: f64,
     enabled: bool,

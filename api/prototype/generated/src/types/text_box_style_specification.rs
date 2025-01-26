@@ -1,4 +1,4 @@
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub struct TextBoxStyleSpecification {
     base_: crate::types::BaseStyleSpecification,
     active_background: Option<crate::types::ElementImageSet>,

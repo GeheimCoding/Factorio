@@ -1,4 +1,4 @@
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub struct StreamTriggerDelivery {
     base_: crate::types::TriggerDeliveryItem,
     source_offset: Option<crate::types::Vector>,

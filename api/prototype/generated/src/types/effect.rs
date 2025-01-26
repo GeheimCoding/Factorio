@@ -1,4 +1,4 @@
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub struct Effect {
     consumption: Option<crate::types::EffectValue>,
     pollution: Option<crate::types::EffectValue>,

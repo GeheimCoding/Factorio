@@ -1,4 +1,4 @@
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub struct NightVisionEquipmentPrototype {
     base_: crate::prototypes::EquipmentPrototype,
     activate_sound: Option<crate::types::Sound>,

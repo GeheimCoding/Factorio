@@ -1,4 +1,4 @@
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub struct RollingStockRotatedSlopedGraphics {
     rotated: crate::types::RotatedSprite,
     #[serde(default = "default_slope_angle_between_frames")]

@@ -1,4 +1,4 @@
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub struct AnimationSheet {
     base_: crate::types::AnimationParameters,
     filename: Option<crate::types::FileName>,

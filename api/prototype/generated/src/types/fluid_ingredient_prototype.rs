@@ -1,4 +1,4 @@
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub struct FluidIngredientPrototype {
     amount: crate::types::FluidAmount,
     #[serde(default = "default_fluidbox_index")]

@@ -1,4 +1,4 @@
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub enum Vector3D {
     #[serde(untagged)]
     Vector3D { x: f32, y: f32, z: f32 },

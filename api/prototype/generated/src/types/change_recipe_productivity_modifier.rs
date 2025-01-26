@@ -1,4 +1,4 @@
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub struct ChangeRecipeProductivityModifier {
     base_: crate::types::BaseModifier,
     change: crate::types::EffectValue,

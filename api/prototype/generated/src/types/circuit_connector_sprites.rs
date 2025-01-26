@@ -1,4 +1,4 @@
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub struct CircuitConnectorSprites {
     blue_led_light_offset: Option<crate::types::Vector>,
     connector_main: Option<crate::types::Sprite>,

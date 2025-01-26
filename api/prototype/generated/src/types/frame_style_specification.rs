@@ -1,4 +1,4 @@
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub struct FrameStyleSpecification {
     base_: crate::types::BaseStyleSpecification,
     background_graphical_set: Option<crate::types::ElementImageSet>,

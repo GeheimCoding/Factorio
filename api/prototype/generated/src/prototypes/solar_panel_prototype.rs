@@ -1,4 +1,4 @@
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub struct SolarPanelPrototype {
     base_: crate::prototypes::EntityWithOwnerPrototype,
     energy_source: crate::types::ElectricEnergySource,

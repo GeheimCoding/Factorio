@@ -1,4 +1,4 @@
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub struct CloudsTextureCoordinateTransformation {
     scale: f32,
     #[serde(default = "default_wind_speed_factor")]

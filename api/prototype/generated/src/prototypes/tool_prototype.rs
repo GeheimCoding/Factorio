@@ -1,4 +1,4 @@
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub struct ToolPrototype {
     base_: crate::prototypes::ItemPrototype,
     durability: Option<f64>,

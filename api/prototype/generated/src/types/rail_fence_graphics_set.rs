@@ -1,4 +1,4 @@
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub struct RailFenceGraphicsSet {
     #[serde(default = "default_back_fence_render_layer")]
     back_fence_render_layer: crate::types::RenderLayer,

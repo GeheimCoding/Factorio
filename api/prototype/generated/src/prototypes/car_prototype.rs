@@ -1,4 +1,4 @@
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub struct CarPrototype {
     base_: crate::prototypes::VehiclePrototype,
     animation: Option<crate::types::RotatedAnimation>,
@@ -42,7 +42,7 @@ fn default_auto_sort_inventory() -> bool {
 fn default_darkness_to_render_light_animation() -> f32 {
     0.3
 }
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub enum CarPrototypeEnergySource {
     #[serde(untagged)]
     BurnerEnergySource(Box<crate::types::BurnerEnergySource>),

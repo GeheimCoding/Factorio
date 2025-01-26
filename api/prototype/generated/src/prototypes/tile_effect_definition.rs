@@ -1,4 +1,4 @@
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub struct TileEffectDefinition {
     name: String,
     puddle: Option<crate::types::PuddleTileEffectParameters>,
@@ -8,7 +8,7 @@ pub struct TileEffectDefinition {
     type_: String,
     water: Option<crate::types::WaterTileEffectParameters>,
 }
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub enum TileEffectDefinitionShader {
     #[serde(rename = "water")]
     Water,

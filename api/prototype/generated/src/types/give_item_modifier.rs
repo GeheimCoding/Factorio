@@ -1,4 +1,4 @@
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub struct GiveItemModifier {
     base_: crate::types::BaseModifier,
     #[serde(default = "default_count")]

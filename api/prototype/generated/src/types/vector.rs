@@ -1,4 +1,4 @@
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub enum Vector {
     #[serde(untagged)]
     Vector { x: f64, y: f64 },

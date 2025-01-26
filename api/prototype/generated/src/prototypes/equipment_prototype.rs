@@ -1,4 +1,4 @@
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub struct EquipmentPrototype {
     base_: crate::prototypes::Prototype,
     // default: equipment_default_background_border_color in utility constants

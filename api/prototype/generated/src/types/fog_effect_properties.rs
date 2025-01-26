@@ -1,4 +1,4 @@
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub struct FogEffectProperties {
     // default: {1, 1, 1, 1}
     #[serde(rename = "color1")]
@@ -11,7 +11,7 @@ pub struct FogEffectProperties {
     fog_type: FogEffectPropertiesFogType,
     shape_noise_texture: crate::types::EffectTexture,
 }
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub enum FogEffectPropertiesFogType {
     #[serde(rename = "vulcanus")]
     Vulcanus,

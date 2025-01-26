@@ -1,4 +1,4 @@
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub struct VariableAmbientSoundLayerStateProperties {
     enabled: Option<bool>,
     end_pause: Option<crate::types::RandomRange>,
@@ -11,7 +11,7 @@ pub struct VariableAmbientSoundLayerStateProperties {
     start_pause: Option<crate::types::RandomRange>,
     variant: Option<u8>,
 }
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub enum VariableAmbientSoundLayerStatePropertiesNumberOfRepetitions {
     #[serde(untagged)]
     RandomRange(crate::types::RandomRange),

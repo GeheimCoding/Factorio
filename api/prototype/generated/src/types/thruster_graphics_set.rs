@@ -1,4 +1,4 @@
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub struct ThrusterGraphicsSet {
     base_: crate::types::WorkingVisualisations,
     flame: Option<crate::types::Sprite>,

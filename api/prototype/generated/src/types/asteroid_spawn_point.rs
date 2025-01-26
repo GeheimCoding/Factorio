@@ -1,4 +1,4 @@
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub struct AsteroidSpawnPoint {
     #[serde(default = "default_angle_when_stopped")]
     angle_when_stopped: f64,

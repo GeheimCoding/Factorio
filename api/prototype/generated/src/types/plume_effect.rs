@@ -1,4 +1,4 @@
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub struct PlumeEffect {
     base_: crate::types::StatelessVisualisation,
     #[serde(default = "default_age_discrimination")]

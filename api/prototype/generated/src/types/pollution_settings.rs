@@ -1,4 +1,4 @@
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub struct PollutionSettings {
     ageing: f64,
     diffusion_ratio: f64,

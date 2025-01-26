@@ -1,4 +1,4 @@
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub struct FontPrototype {
     #[serde(default = "default_border")]
     border: bool,

@@ -1,4 +1,4 @@
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub struct TileSpriteLayout {
     #[serde(default = "default_count")]
     count: u8,

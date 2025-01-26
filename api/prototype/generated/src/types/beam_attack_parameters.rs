@@ -1,4 +1,4 @@
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub struct BeamAttackParameters {
     base_: crate::types::BaseAttackParameters,
     #[serde(default = "default_source_direction_count")]

@@ -1,4 +1,4 @@
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub struct BeamAnimationSet {
     body: Option<crate::types::AnimationVariations>,
     ending: Option<crate::types::Animation>,

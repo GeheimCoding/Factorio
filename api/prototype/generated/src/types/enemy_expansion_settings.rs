@@ -1,4 +1,4 @@
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub struct EnemyExpansionSettings {
     building_coefficient: f64,
     enabled: bool,

@@ -1,4 +1,4 @@
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub struct TilePrototype {
     base_: crate::prototypes::Prototype,
     absorptions_per_second:
@@ -84,28 +84,28 @@ pub struct TilePrototype {
 fn default_allows_being_covered() -> bool {
     true
 }
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub enum TilePrototypeAmbientSounds {
     #[serde(untagged)]
     WorldAmbientSoundDefinition(crate::types::WorldAmbientSoundDefinition),
     #[serde(untagged)]
     VecWorldAmbientSoundDefinition(Vec<crate::types::WorldAmbientSoundDefinition>),
 }
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub enum TilePrototypeBoundDecoratives {
     #[serde(untagged)]
     DecorativeID(crate::types::DecorativeID),
     #[serde(untagged)]
     VecDecorativeID(Vec<crate::types::DecorativeID>),
 }
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub enum TilePrototypeBuildSound {
     #[serde(untagged)]
     Sound(crate::types::Sound),
     #[serde(untagged)]
     TileBuildSound(Box<TileBuildSound>),
 }
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub struct TileBuildSound {
     animated: Option<crate::types::Sound>,
     large: Option<crate::types::Sound>,
@@ -124,7 +124,7 @@ fn default_decorative_removal_probability() -> f32 {
 fn default_destroys_dropped_items() -> bool {
     false
 }
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub enum TilePrototypeDyingExplosion {
     #[serde(untagged)]
     ExplosionDefinition(crate::types::ExplosionDefinition),
@@ -149,7 +149,7 @@ fn default_max_health() -> f32 {
 fn default_needs_correction() -> bool {
     false
 }
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub enum TilePrototypePlaceableBy {
     #[serde(untagged)]
     ItemToPlace(Box<crate::types::ItemToPlace>),

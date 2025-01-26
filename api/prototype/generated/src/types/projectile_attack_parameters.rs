@@ -1,4 +1,4 @@
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub struct ProjectileAttackParameters {
     base_: crate::types::BaseAttackParameters,
     #[serde(default = "default_apply_projection_to_projectile_creation_position")]

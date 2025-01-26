@@ -1,4 +1,4 @@
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub struct ScrollBarStyleSpecification {
     base_: crate::types::BaseStyleSpecification,
     background_graphical_set: Option<crate::types::ElementImageSet>,

@@ -1,4 +1,4 @@
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub struct AnimationPrototype {
     #[serde(default = "default_animation_speed")]
     animation_speed: f32,
@@ -131,7 +131,7 @@ fn default_run_mode() -> crate::types::AnimationRunMode {
 fn default_scale() -> f64 {
     1.0
 }
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub enum AnimationPrototypeSize {
     #[serde(untagged)]
     SpriteSizeType(crate::types::SpriteSizeType),

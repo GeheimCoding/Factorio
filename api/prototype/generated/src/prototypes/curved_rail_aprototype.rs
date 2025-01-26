@@ -1,4 +1,4 @@
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub struct CurvedRailAPrototype {
     base_: crate::prototypes::RailPrototype,
     // default: `{{-0.7, -2.516}, {0.7, 2.516}}`

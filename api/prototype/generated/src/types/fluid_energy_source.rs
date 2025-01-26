@@ -1,4 +1,4 @@
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub struct FluidEnergySource {
     base_: crate::types::BaseEnergySource,
     #[serde(default = "default_burns_fluid")]

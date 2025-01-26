@@ -1,11 +1,11 @@
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub enum Trigger {
     #[serde(untagged)]
     TriggerVariants(TriggerVariants),
     #[serde(untagged)]
     VecTriggerVariants(Vec<TriggerVariants>),
 }
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub enum TriggerVariants {
     #[serde(untagged)]
     DirectTriggerItem(Box<crate::types::DirectTriggerItem>),

@@ -1,4 +1,4 @@
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub struct DestroyCliffsCapsuleAction {
     attack_parameters: crate::types::AttackParameters,
     #[serde(default = "default_play_sound_on_failure")]

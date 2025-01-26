@@ -1,4 +1,4 @@
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub struct DontBuildEntityAchievementPrototype {
     base_: crate::prototypes::AchievementPrototypeWithCondition,
     #[serde(default = "default_amount")]
@@ -9,14 +9,14 @@ pub struct DontBuildEntityAchievementPrototype {
 fn default_amount() -> u32 {
     0
 }
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub enum DontBuildEntityAchievementPrototypeDontBuild {
     #[serde(untagged)]
     EntityID(crate::types::EntityID),
     #[serde(untagged)]
     VecEntityID(Vec<crate::types::EntityID>),
 }
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub enum DontBuildEntityAchievementPrototypeResearchWith {
     #[serde(untagged)]
     ItemID(crate::types::ItemID),

@@ -1,4 +1,4 @@
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub struct EditorControllerPrototype {
     adjust_speed_based_off_zoom: bool,
     enable_flash_light: bool,

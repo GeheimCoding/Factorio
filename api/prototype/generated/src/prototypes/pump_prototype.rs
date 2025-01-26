@@ -1,4 +1,4 @@
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub struct PumpPrototype {
     base_: crate::prototypes::EntityWithOwnerPrototype,
     animations: Option<crate::types::Animation4Way>,
@@ -41,7 +41,7 @@ fn default_draw_copper_wires() -> bool {
 fn default_fluid_wagon_connector_frame_count() -> u8 {
     1
 }
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub struct FluidWagonConnectorGraphics {
     load_animations: crate::types::PumpConnectorGraphics,
     unload_animations: crate::types::PumpConnectorGraphics,

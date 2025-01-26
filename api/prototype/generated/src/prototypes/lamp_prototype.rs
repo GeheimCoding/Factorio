@@ -1,4 +1,4 @@
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub struct LampPrototype {
     base_: crate::prototypes::EntityWithOwnerPrototype,
     #[serde(default = "default_always_on")]
@@ -50,7 +50,7 @@ fn default_draw_circuit_wires() -> bool {
 fn default_draw_copper_wires() -> bool {
     true
 }
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub enum LampPrototypeEnergySource {
     #[serde(untagged)]
     ElectricEnergySource(Box<crate::types::ElectricEnergySource>),
@@ -60,7 +60,7 @@ pub enum LampPrototypeEnergySource {
 fn default_glow_color_intensity() -> f32 {
     0.0
 }
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub enum LampPrototypeGlowRenderMode {
     #[serde(rename = "additive")]
     Additive,

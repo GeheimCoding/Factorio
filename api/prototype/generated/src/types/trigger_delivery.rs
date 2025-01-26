@@ -1,4 +1,4 @@
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub enum TriggerDelivery {
     #[serde(untagged)]
     InstantTriggerDelivery(Box<crate::types::InstantTriggerDelivery>),

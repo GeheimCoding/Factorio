@@ -1,4 +1,4 @@
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub struct SimpleEntityWithOwnerPrototype {
     base_: crate::prototypes::EntityWithOwnerPrototype,
     animations: Option<crate::types::AnimationVariations>,

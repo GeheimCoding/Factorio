@@ -1,4 +1,4 @@
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub struct DifficultySettings {
     #[serde(default = "default_spoil_time_modifier")]
     spoil_time_modifier: f64,

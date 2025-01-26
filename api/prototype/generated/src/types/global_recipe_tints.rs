@@ -1,4 +1,4 @@
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub struct GlobalRecipeTints {
     // default: `{1, 1, 1, 1}`
     primary: Option<crate::types::Color>,

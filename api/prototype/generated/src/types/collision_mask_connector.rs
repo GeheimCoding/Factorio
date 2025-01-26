@@ -1,4 +1,4 @@
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub struct CollisionMaskConnector {
     #[serde(default = "default_colliding_with_tiles_only")]
     colliding_with_tiles_only: bool,

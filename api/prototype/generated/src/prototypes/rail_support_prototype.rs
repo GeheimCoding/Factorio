@@ -1,4 +1,4 @@
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub struct RailSupportPrototype {
     base_: crate::prototypes::EntityWithOwnerPrototype,
     #[serde(default = "default_build_grid_size")]
@@ -16,7 +16,7 @@ pub struct RailSupportPrototype {
 fn default_build_grid_size() -> f64 {
     2.0
 }
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub struct RailSupportGraphicsSet {
     #[serde(default = "default_render_layer")]
     render_layer: crate::types::RenderLayer,

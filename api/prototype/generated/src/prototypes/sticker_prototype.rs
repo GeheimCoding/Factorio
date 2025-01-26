@@ -1,4 +1,4 @@
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub struct StickerPrototype {
     base_: crate::prototypes::EntityPrototype,
     animation: Option<crate::types::Animation>,

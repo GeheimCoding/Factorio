@@ -1,4 +1,4 @@
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub struct SmokeSource {
     deviation: Option<crate::types::Vector>,
     // default: Value of `position` rotated east

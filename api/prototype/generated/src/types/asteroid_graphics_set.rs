@@ -1,4 +1,4 @@
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub struct AsteroidGraphicsSet {
     // default: `{0.05, 0.05, 0.05, 1.0}`
     ambient_light: Option<crate::types::Color>,
@@ -30,7 +30,7 @@ fn default_brightness() -> f32 {
 fn default_light_width() -> f32 {
     0.0
 }
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub enum AsteroidGraphicsSetLights {
     #[serde(untagged)]
     LightProperties(Box<crate::types::LightProperties>),
@@ -58,7 +58,7 @@ fn default_sss_amount() -> f32 {
 fn default_sss_contrast() -> f32 {
     1.0
 }
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub enum AsteroidGraphicsSetVariations {
     #[serde(untagged)]
     AsteroidVariation(Box<crate::types::AsteroidVariation>),

@@ -1,4 +1,4 @@
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub struct CraftingMachinePrototype {
     base_: crate::prototypes::EntityWithOwnerPrototype,
     // default: No effects are allowed

@@ -1,4 +1,4 @@
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub struct RailSignalColorToFrameIndex {
     #[serde(default = "default_blue")]
     blue: u8,

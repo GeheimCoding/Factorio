@@ -1,4 +1,4 @@
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub struct PlumesSpecification {
     #[serde(default = "default_max_probability")]
     max_probability: f32,
@@ -22,7 +22,7 @@ fn default_min_probability() -> f32 {
 fn default_min_y_offset() -> f32 {
     0.0
 }
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub enum PlumesSpecificationStatelessVisualisations {
     #[serde(untagged)]
     PlumeEffect(Box<crate::types::PlumeEffect>),

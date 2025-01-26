@@ -1,4 +1,4 @@
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub struct GameControllerVibrationData {
     #[serde(default = "default_duration")]
     duration: u32,
@@ -18,7 +18,7 @@ fn default_high_frequency_vibration_intensity() -> f32 {
 fn default_low_frequency_vibration_intensity() -> f32 {
     0.0
 }
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub enum PlayFor {
     #[serde(rename = "character_actions")]
     CharacterActions,

@@ -1,4 +1,4 @@
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub struct SoundModifier {
     #[serde(rename = "type")]
     type_: crate::types::SoundModifierType,

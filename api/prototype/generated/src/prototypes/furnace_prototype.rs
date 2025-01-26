@@ -1,4 +1,4 @@
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub struct FurnacePrototype {
     base_: crate::prototypes::CraftingMachinePrototype,
     #[serde(default = "default_cant_insert_at_source_message_key")]

@@ -1,4 +1,4 @@
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub struct StackTransferTipTrigger {
     base_: crate::types::CountBasedTipTrigger,
     // default: any transfer
@@ -6,7 +6,7 @@ pub struct StackTransferTipTrigger {
     #[serde(rename = "type")]
     type_: String,
 }
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub enum StackTransferTipTriggerTransfer {
     #[serde(rename = "stack")]
     Stack,

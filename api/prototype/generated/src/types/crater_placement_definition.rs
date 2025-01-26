@@ -1,4 +1,4 @@
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub struct CraterPlacementDefinition {
     #[serde(default = "default_minimum_segments_to_place")]
     minimum_segments_to_place: u32,
@@ -12,7 +12,7 @@ fn default_minimum_segments_to_place() -> u32 {
 fn default_segment_probability() -> f32 {
     1.0
 }
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub struct CraterSegment {
     offset: crate::types::Vector,
     orientation: f32,

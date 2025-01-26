@@ -1,4 +1,4 @@
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub struct AgriculturalCraneSpeedGrappler {
     #[serde(default = "default_allow_transpolar_movement")]
     allow_transpolar_movement: bool,

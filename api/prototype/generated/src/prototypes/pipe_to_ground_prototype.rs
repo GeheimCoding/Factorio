@@ -1,4 +1,4 @@
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub struct PipeToGroundPrototype {
     base_: crate::prototypes::EntityWithOwnerPrototype,
     disabled_visualization: Option<crate::types::Sprite4Way>,

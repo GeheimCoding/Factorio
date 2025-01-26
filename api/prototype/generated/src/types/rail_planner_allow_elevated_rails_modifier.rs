@@ -1,4 +1,4 @@
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub struct RailPlannerAllowElevatedRailsModifier {
     base_: crate::types::BoolModifier,
     #[serde(rename = "type")]

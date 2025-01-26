@@ -1,4 +1,4 @@
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub struct HalfDiagonalRailPrototype {
     base_: crate::prototypes::RailPrototype,
     // default: `{{-0.75, -1.9}, {0.75, 1.9}}`

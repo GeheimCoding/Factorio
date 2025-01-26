@@ -1,4 +1,4 @@
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub struct RailRampPrototype {
     base_: crate::prototypes::RailPrototype,
     // default: `{{-1.6, -7.6}, {1.6, 7.6}}`

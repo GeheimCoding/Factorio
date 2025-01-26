@@ -1,4 +1,4 @@
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub struct CranePart {
     #[serde(default = "default_allow_sprite_rotation")]
     allow_sprite_rotation: bool,

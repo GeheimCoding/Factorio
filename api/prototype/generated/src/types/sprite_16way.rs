@@ -1,4 +1,4 @@
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub struct Sprite16Way {
     east: Option<crate::types::Sprite>,
     east_north_east: Option<crate::types::Sprite>,

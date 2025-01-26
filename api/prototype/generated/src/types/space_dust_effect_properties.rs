@@ -1,4 +1,4 @@
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub struct SpaceDustEffectProperties {
     #[serde(default = "default_animation_speed")]
     animation_speed: f32,

@@ -1,4 +1,4 @@
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub struct BaseEnergySource {
     emissions_per_minute: Option<std::collections::HashMap<crate::types::AirbornePollutantID, f64>>,
     #[serde(default = "default_render_no_network_icon")]

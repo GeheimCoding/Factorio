@@ -1,4 +1,4 @@
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub struct StatusColors {
     // default: idle
     disabled: Option<crate::types::Color>,

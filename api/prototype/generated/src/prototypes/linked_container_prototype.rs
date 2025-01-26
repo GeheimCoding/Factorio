@@ -1,4 +1,4 @@
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub struct LinkedContainerPrototype {
     base_: crate::prototypes::EntityWithOwnerPrototype,
     circuit_connector: Option<crate::types::CircuitConnectorDefinition>,
@@ -24,7 +24,7 @@ fn default_draw_circuit_wires() -> bool {
 fn default_draw_copper_wires() -> bool {
     true
 }
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub enum LinkedContainerPrototypeGuiMode {
     #[serde(rename = "all")]
     All,
@@ -36,7 +36,7 @@ pub enum LinkedContainerPrototypeGuiMode {
 fn default_gui_mode() -> LinkedContainerPrototypeGuiMode {
     LinkedContainerPrototypeGuiMode::All
 }
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub enum LinkedContainerPrototypeInventoryType {
     #[serde(rename = "normal")]
     Normal,

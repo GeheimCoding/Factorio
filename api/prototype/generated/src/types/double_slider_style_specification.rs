@@ -1,4 +1,4 @@
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub struct DoubleSliderStyleSpecification {
     base_: crate::types::SliderStyleSpecification,
     #[serde(rename = "type")]

@@ -1,4 +1,4 @@
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub struct EntityPrototype {
     base_: crate::prototypes::Prototype,
     additional_pastable_entities: Option<Vec<crate::types::EntityID>>,
@@ -85,7 +85,7 @@ pub struct EntityPrototype {
 fn default_allow_copy_paste() -> bool {
     true
 }
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub enum EntityPrototypeAmbientSounds {
     #[serde(untagged)]
     WorldAmbientSoundDefinition(crate::types::WorldAmbientSoundDefinition),
@@ -110,7 +110,7 @@ fn default_icon_size() -> crate::types::SpriteSizeType {
 fn default_impact_category() -> String {
     String::from("default")
 }
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub enum EntityPrototypePlaceableBy {
     #[serde(untagged)]
     ItemToPlace(Box<crate::types::ItemToPlace>),
@@ -120,14 +120,14 @@ pub enum EntityPrototypePlaceableBy {
 fn default_protected_from_tile_building() -> bool {
     true
 }
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub enum EntityPrototypeRemainsWhenMined {
     #[serde(untagged)]
     EntityID(crate::types::EntityID),
     #[serde(untagged)]
     VecEntityID(Vec<crate::types::EntityID>),
 }
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub enum EntityPrototypeRemoveDecoratives {
     #[serde(rename = "automatic")]
     Automatic,

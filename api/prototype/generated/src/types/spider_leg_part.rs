@@ -1,4 +1,4 @@
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub struct SpiderLegPart {
     bottom_end: Option<crate::types::RotatedSprite>,
     #[serde(default = "default_bottom_end_length")]

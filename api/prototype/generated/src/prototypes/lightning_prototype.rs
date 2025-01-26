@@ -1,4 +1,4 @@
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub struct LightningPrototype {
     base_: crate::prototypes::EntityPrototype,
     #[serde(default = "default_attracted_volume_modifier")]

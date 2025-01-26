@@ -1,11 +1,11 @@
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub struct PersistentWorldAmbientSoundsDefinition {
     base_ambience: Option<PersistentWorldAmbientSoundsDefinitionBaseAmbience>,
     crossfade: Option<crate::types::PersistentWorldAmbientSoundsDefinitionCrossfade>,
     semi_persistent: Option<PersistentWorldAmbientSoundsDefinitionSemiPersistent>,
     wind: Option<PersistentWorldAmbientSoundsDefinitionWind>,
 }
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub enum PersistentWorldAmbientSoundsDefinitionBaseAmbience {
     #[serde(untagged)]
     PersistentWorldAmbientSoundDefinition(crate::types::PersistentWorldAmbientSoundDefinition),
@@ -14,7 +14,7 @@ pub enum PersistentWorldAmbientSoundsDefinitionBaseAmbience {
         Vec<crate::types::PersistentWorldAmbientSoundDefinition>,
     ),
 }
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub enum PersistentWorldAmbientSoundsDefinitionSemiPersistent {
     #[serde(untagged)]
     SemiPersistentWorldAmbientSoundDefinition(
@@ -25,7 +25,7 @@ pub enum PersistentWorldAmbientSoundsDefinitionSemiPersistent {
         Vec<crate::types::SemiPersistentWorldAmbientSoundDefinition>,
     ),
 }
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub enum PersistentWorldAmbientSoundsDefinitionWind {
     #[serde(untagged)]
     PersistentWorldAmbientSoundDefinition(crate::types::PersistentWorldAmbientSoundDefinition),

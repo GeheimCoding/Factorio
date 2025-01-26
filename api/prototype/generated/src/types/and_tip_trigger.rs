@@ -1,4 +1,4 @@
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub struct AndTipTrigger {
     triggers: Vec<crate::types::TipTrigger>,
     #[serde(rename = "type")]

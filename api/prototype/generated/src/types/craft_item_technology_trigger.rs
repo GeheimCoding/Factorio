@@ -1,4 +1,4 @@
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub struct CraftItemTechnologyTrigger {
     #[serde(default = "default_count")]
     count: crate::types::ItemCountType,

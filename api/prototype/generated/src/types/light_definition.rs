@@ -1,11 +1,11 @@
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub enum LightDefinition {
     #[serde(untagged)]
     LightDefinitionStruct(LightDefinitionStruct),
     #[serde(untagged)]
     VecLightDefinitionStruct(Vec<LightDefinitionStruct>),
 }
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub struct LightDefinitionStruct {
     #[serde(default = "default_add_perspective")]
     add_perspective: bool,
@@ -54,7 +54,7 @@ fn default_rotation_shift() -> crate::types::RealOrientation {
 fn default_source_orientation_offset() -> crate::types::RealOrientation {
     0.0
 }
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub enum LightDefinitionType {
     #[serde(rename = "basic")]
     Basic,

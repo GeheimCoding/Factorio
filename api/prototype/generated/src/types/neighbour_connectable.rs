@@ -1,4 +1,4 @@
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub struct NeighbourConnectable {
     #[serde(default = "default_affected_by_direction")]
     affected_by_direction: bool,

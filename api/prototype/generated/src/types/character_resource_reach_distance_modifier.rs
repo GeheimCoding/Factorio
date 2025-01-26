@@ -1,4 +1,4 @@
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub struct CharacterResourceReachDistanceModifier {
     base_: crate::types::SimpleModifier,
     #[serde(rename = "type")]

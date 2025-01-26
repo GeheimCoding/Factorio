@@ -1,4 +1,4 @@
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub struct CircuitConnectorLayer {
     #[serde(default = "default_east")]
     east: crate::types::RenderLayer,

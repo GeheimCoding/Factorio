@@ -1,4 +1,4 @@
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub struct ThrowCapsuleAction {
     attack_parameters: crate::types::AttackParameters,
     #[serde(rename = "type")]

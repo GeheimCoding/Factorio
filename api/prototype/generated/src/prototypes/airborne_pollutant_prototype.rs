@@ -1,4 +1,4 @@
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub struct AirbornePollutantPrototype {
     base_: crate::prototypes::Prototype,
     affects_evolution: bool,

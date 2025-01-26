@@ -1,4 +1,4 @@
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub struct PlanetPrototypeMapGenSettings {
     autoplace_controls: Option<
         std::collections::HashMap<
@@ -22,7 +22,7 @@ pub struct PlanetPrototypeMapGenSettings {
     >,
     territory_settings: Option<crate::types::TerritorySettings>,
 }
-#[derive(serde::Deserialize, PartialEq, Eq, Hash)]
+#[derive(Debug, serde::Deserialize, PartialEq, Eq, Hash)]
 pub enum PlanetPrototypeMapGenSettingsAutoplaceSettings {
     #[serde(rename = "entity")]
     Entity,
@@ -37,7 +37,7 @@ fn default_aux_climate_control() -> bool {
 fn default_moisture_climate_control() -> bool {
     false
 }
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub enum PlanetPrototypeMapGenSettingsPropertyExpressionNames {
     #[serde(untagged)]
     String(String),

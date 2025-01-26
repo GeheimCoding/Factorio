@@ -1,4 +1,4 @@
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub struct MiningDrillGraphicsSet {
     base_: crate::types::WorkingVisualisations,
     #[serde(default = "default_animation_progress")]
@@ -17,7 +17,7 @@ pub struct MiningDrillGraphicsSet {
 fn default_animation_progress() -> f32 {
     1.0
 }
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub enum MiningDrillGraphicsSetCircuitConnectorLayer {
     #[serde(untagged)]
     RenderLayer(crate::types::RenderLayer),
@@ -27,7 +27,7 @@ pub enum MiningDrillGraphicsSetCircuitConnectorLayer {
 fn default_circuit_connector_layer() -> MiningDrillGraphicsSetCircuitConnectorLayer {
     MiningDrillGraphicsSetCircuitConnectorLayer::RenderLayer(crate::types::RenderLayer::Object)
 }
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub enum MiningDrillGraphicsSetCircuitConnectorSecondaryDrawOrder {
     #[serde(untagged)]
     I8(i8),

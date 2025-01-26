@@ -1,4 +1,4 @@
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub struct LocomotivePrototype {
     base_: crate::prototypes::RollingStockPrototype,
     #[serde(default = "default_darkness_to_render_light_animation")]
@@ -14,7 +14,7 @@ pub struct LocomotivePrototype {
 fn default_darkness_to_render_light_animation() -> f32 {
     0.3
 }
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub enum LocomotivePrototypeEnergySource {
     #[serde(untagged)]
     BurnerEnergySource(Box<crate::types::BurnerEnergySource>),

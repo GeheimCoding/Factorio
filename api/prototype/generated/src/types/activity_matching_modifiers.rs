@@ -1,4 +1,4 @@
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub struct ActivityMatchingModifiers {
     #[serde(default = "default_inverted")]
     inverted: bool,

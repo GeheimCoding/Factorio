@@ -1,4 +1,4 @@
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub struct Resistance {
     #[serde(default = "default_decrease")]
     decrease: f32,

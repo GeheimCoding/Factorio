@@ -1,4 +1,4 @@
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub struct ChainActiveTriggerPrototype {
     base_: crate::prototypes::ActiveTriggerPrototype,
     action: Option<crate::types::Trigger>,

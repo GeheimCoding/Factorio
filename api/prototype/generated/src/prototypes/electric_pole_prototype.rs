@@ -1,4 +1,4 @@
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub struct ElectricPolePrototype {
     base_: crate::prototypes::EntityWithOwnerPrototype,
     active_picture: Option<crate::types::Sprite>,

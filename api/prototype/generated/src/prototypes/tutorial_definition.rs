@@ -1,4 +1,4 @@
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub struct TutorialDefinition {
     base_: crate::prototypes::PrototypeBase,
     // default: Value of `name`

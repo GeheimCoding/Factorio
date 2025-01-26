@@ -1,4 +1,4 @@
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub struct AnimationParameters {
     base_: crate::types::SpriteParameters,
     #[serde(default = "default_animation_speed")]
@@ -46,7 +46,7 @@ fn default_repeat_count() -> u8 {
 fn default_run_mode() -> crate::types::AnimationRunMode {
     crate::types::AnimationRunMode::Forward
 }
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub enum AnimationParametersSize {
     #[serde(untagged)]
     SpriteSizeType(crate::types::SpriteSizeType),

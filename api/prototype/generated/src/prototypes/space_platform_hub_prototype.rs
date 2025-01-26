@@ -1,4 +1,4 @@
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub struct SpacePlatformHubPrototype {
     base_: crate::prototypes::EntityWithOwnerPrototype,
     #[serde(default = "default_build_grid_size")]

@@ -1,4 +1,4 @@
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub struct KillTipTrigger {
     base_: crate::types::CountBasedTipTrigger,
     damage_type: Option<crate::types::DamageTypeID>,

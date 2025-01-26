@@ -1,4 +1,4 @@
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub struct ArtilleryRemoteCapsuleAction {
     flare: crate::types::EntityID,
     #[serde(default = "default_play_sound_on_failure")]

@@ -1,4 +1,4 @@
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub struct EnemySpawnerGraphicsSet {
     animations: Option<crate::types::AnimationVariations>,
     integration: Option<crate::types::SpriteVariations>,

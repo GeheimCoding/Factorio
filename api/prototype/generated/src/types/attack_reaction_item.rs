@@ -1,4 +1,4 @@
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub struct AttackReactionItem {
     action: Option<crate::types::Trigger>,
     damage_type: Option<crate::types::DamageTypeID>,

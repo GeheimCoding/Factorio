@@ -1,4 +1,4 @@
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub struct ColorHintSpecification {
     #[serde(default = "default_text")]
     text: String,

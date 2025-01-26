@@ -1,4 +1,4 @@
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub struct BlueprintBookPrototype {
     base_: crate::prototypes::ItemWithInventoryPrototype,
     #[serde(default = "default_draw_label_for_cursor_render")]
@@ -9,7 +9,7 @@ pub struct BlueprintBookPrototype {
 fn default_draw_label_for_cursor_render() -> bool {
     true
 }
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub enum BlueprintBookPrototypeInventorySize {
     #[serde(rename = "dynamic")]
     Dynamic,

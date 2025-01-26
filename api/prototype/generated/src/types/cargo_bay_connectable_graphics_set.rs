@@ -1,4 +1,4 @@
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub struct CargoBayConnectableGraphicsSet {
     animation: Option<crate::types::Animation>,
     // default: object

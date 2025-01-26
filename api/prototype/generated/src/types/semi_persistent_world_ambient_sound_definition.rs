@@ -1,4 +1,4 @@
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub enum SemiPersistentWorldAmbientSoundDefinition {
     #[serde(untagged)]
     SemiPersistentWorldAmbientSoundDefinition {

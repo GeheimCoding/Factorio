@@ -1,4 +1,4 @@
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub struct ColumnWidthItem {
     #[serde(default = "default_maximal_width")]
     maximal_width: i32,

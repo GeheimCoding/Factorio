@@ -1,4 +1,4 @@
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub struct AutoplaceControl {
     base_: crate::prototypes::Prototype,
     #[serde(default = "default_can_be_disabled")]
@@ -10,7 +10,7 @@ pub struct AutoplaceControl {
 fn default_can_be_disabled() -> bool {
     true
 }
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub enum AutoplaceControlCategory {
     #[serde(rename = "resource")]
     Resource,

@@ -1,4 +1,4 @@
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub struct DestroyCliffsTriggerEffectItem {
     base_: crate::types::TriggerEffectItem,
     explosion_at_cliff: Option<crate::types::EntityID>,

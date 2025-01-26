@@ -1,4 +1,4 @@
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub struct TurretSpecialEffect {
     attacking_falloff: Option<f32>,
     attacking_max_radius: Option<f32>,

@@ -1,4 +1,4 @@
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub enum MapPosition {
     #[serde(untagged)]
     MapPosition { x: f64, y: f64 },

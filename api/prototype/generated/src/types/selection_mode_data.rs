@@ -1,4 +1,4 @@
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub struct SelectionModeData {
     border_color: crate::types::Color,
     // default: Value of border_color
@@ -19,7 +19,7 @@ pub struct SelectionModeData {
     tile_filter_mode: SelectionModeDataTileFilterMode,
     tile_filters: Option<Vec<crate::types::TileID>>,
 }
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub enum SelectionModeDataEntityFilterMode {
     #[serde(rename = "whitelist")]
     Whitelist,
@@ -32,7 +32,7 @@ fn default_entity_filter_mode() -> SelectionModeDataEntityFilterMode {
 fn default_play_ended_sound_when_nothing_selected() -> bool {
     false
 }
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub enum SelectionModeDataTileFilterMode {
     #[serde(rename = "whitelist")]
     Whitelist,

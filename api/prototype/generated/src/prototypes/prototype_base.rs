@@ -1,4 +1,4 @@
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub struct PrototypeBase {
     factoriopedia_description: Option<crate::types::LocalisedString>,
     factoriopedia_simulation: Option<crate::types::SimulationDefinition>,

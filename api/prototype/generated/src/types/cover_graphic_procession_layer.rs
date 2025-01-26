@@ -1,4 +1,4 @@
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub struct CoverGraphicProcessionLayer {
     alt_effect: Option<crate::types::CoverGraphicEffectData>,
     // default: {0,0}
@@ -29,7 +29,7 @@ pub struct CoverGraphicProcessionLayer {
     // default: {512, 512}
     world_size: Option<crate::types::Vector>,
 }
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub struct CoverGraphicProcessionLayerBezierControlPoint {
     alt_effect_scale_max: Option<f64>,
     alt_effect_scale_max_t: Option<f64>,

@@ -1,4 +1,4 @@
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub struct RailFenceDirectionSet {
     east: Option<crate::types::SpriteVariations>,
     north: Option<crate::types::SpriteVariations>,

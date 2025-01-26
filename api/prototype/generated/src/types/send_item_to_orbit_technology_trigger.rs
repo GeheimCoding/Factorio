@@ -1,4 +1,4 @@
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub struct SendItemToOrbitTechnologyTrigger {
     item: crate::types::ItemIDFilter,
     #[serde(rename = "type")]

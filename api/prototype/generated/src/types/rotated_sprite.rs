@@ -1,4 +1,4 @@
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub struct RotatedSprite {
     base_: crate::types::SpriteParameters,
     #[serde(default = "default_allow_low_quality_rotation")]

@@ -1,4 +1,4 @@
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub enum SoundDefinition {
     #[serde(untagged)]
     SoundDefinition {
@@ -33,7 +33,7 @@ fn default_min_speed() -> f32 {
 fn default_min_volume() -> f32 {
     1.0
 }
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub enum SoundDefinitionModifiers {
     #[serde(untagged)]
     SoundModifier(Box<crate::types::SoundModifier>),

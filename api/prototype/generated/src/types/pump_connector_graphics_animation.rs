@@ -1,4 +1,4 @@
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub struct PumpConnectorGraphicsAnimation {
     connector: Option<crate::types::Animation>,
     connector_shadow: Option<crate::types::Animation>,

@@ -1,4 +1,4 @@
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub struct TileTransitions {
     #[serde(default = "default_apply_effect_color_to_overlay")]
     apply_effect_color_to_overlay: bool,

@@ -1,4 +1,4 @@
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub struct StyleWithClickableGraphicalSetSpecification {
     base_: crate::types::BaseStyleSpecification,
     clicked_graphical_set: Option<crate::types::ElementImageSet>,

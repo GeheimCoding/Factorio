@@ -1,4 +1,4 @@
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub struct SelectorCombinatorPrototype {
     base_: crate::prototypes::CombinatorPrototype,
     count_symbol_sprites: Option<crate::types::Sprite4Way>,

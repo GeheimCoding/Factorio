@@ -1,4 +1,4 @@
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub struct MapGenPresetEnemyEvolutionSettings {
     destroy_factor: Option<f64>,
     enabled: Option<bool>,

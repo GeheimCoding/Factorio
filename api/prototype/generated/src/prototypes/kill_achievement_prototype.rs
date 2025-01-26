@@ -1,4 +1,4 @@
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub struct KillAchievementPrototype {
     base_: crate::prototypes::AchievementPrototype,
     #[serde(default = "default_amount")]
@@ -15,7 +15,7 @@ pub struct KillAchievementPrototype {
 fn default_amount() -> u32 {
     1
 }
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub enum KillAchievementPrototypeDamageDealer {
     #[serde(untagged)]
     EntityID(crate::types::EntityID),
@@ -28,7 +28,7 @@ fn default_in_vehicle() -> bool {
 fn default_personally() -> bool {
     false
 }
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub enum KillAchievementPrototypeToKill {
     #[serde(untagged)]
     EntityID(crate::types::EntityID),

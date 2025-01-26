@@ -1,4 +1,4 @@
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub struct TransportBeltPrototype {
     base_: crate::prototypes::TransportBeltConnectablePrototype,
     belt_animation_set: Option<crate::types::TransportBeltAnimationSetWithCorners>,

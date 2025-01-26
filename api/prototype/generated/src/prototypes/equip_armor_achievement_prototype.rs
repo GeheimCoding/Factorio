@@ -1,4 +1,4 @@
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub struct EquipArmorAchievementPrototype {
     base_: crate::prototypes::AchievementPrototype,
     alternative_armor: crate::types::ItemID,

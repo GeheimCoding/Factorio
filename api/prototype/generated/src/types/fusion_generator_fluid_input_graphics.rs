@@ -1,4 +1,4 @@
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub struct FusionGeneratorFluidInputGraphics {
     fusion_effect_uv_map: Option<crate::types::Sprite>,
     sprite: Option<crate::types::Sprite>,

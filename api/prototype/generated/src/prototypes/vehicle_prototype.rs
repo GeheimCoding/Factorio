@@ -1,4 +1,4 @@
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub struct VehiclePrototype {
     base_: crate::prototypes::EntityWithOwnerPrototype,
     #[serde(default = "default_allow_passengers")]
@@ -31,7 +31,7 @@ fn default_allow_passengers() -> bool {
 fn default_allow_remote_driving() -> bool {
     false
 }
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub enum VehiclePrototypeBrakingPower {
     #[serde(untagged)]
     Energy(crate::types::Energy),

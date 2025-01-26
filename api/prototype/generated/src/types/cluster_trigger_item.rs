@@ -1,4 +1,4 @@
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub struct ClusterTriggerItem {
     base_: crate::types::TriggerItem,
     cluster_count: u32,

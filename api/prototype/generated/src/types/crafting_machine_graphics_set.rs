@@ -1,4 +1,4 @@
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub struct CraftingMachineGraphicsSet {
     base_: crate::types::WorkingVisualisations,
     #[serde(default = "default_animation_progress")]
@@ -15,7 +15,7 @@ pub struct CraftingMachineGraphicsSet {
 fn default_animation_progress() -> f32 {
     0.5
 }
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub enum CraftingMachineGraphicsSetCircuitConnectorLayer {
     #[serde(untagged)]
     RenderLayer(crate::types::RenderLayer),
@@ -25,7 +25,7 @@ pub enum CraftingMachineGraphicsSetCircuitConnectorLayer {
 fn default_circuit_connector_layer() -> CraftingMachineGraphicsSetCircuitConnectorLayer {
     CraftingMachineGraphicsSetCircuitConnectorLayer::RenderLayer(crate::types::RenderLayer::Object)
 }
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub enum CraftingMachineGraphicsSetCircuitConnectorSecondaryDrawOrder {
     #[serde(untagged)]
     I8(i8),

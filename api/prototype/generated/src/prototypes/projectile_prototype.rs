@@ -1,4 +1,4 @@
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub struct ProjectilePrototype {
     base_: crate::prototypes::EntityPrototype,
     acceleration: f64,

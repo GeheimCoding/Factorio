@@ -1,4 +1,4 @@
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub struct SpiderUnitPrototype {
     base_: crate::prototypes::EntityWithOwnerPrototype,
     absorptions_to_join_attack:

@@ -1,4 +1,4 @@
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub struct VisualState {
     color: Option<crate::types::Color>,
     duration: u8,

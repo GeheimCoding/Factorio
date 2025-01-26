@@ -1,4 +1,4 @@
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub enum AnyPrototype {
     #[serde(untagged)]
     AccumulatorPrototype(Box<crate::prototypes::AccumulatorPrototype>),

@@ -1,4 +1,4 @@
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub struct SpriteSource {
     filename: crate::types::FileName,
     height: Option<crate::types::SpriteSizeType>,
@@ -20,7 +20,7 @@ fn default_load_in_minimal_mode() -> bool {
 fn default_premul_alpha() -> bool {
     true
 }
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub enum SpriteSourceSize {
     #[serde(untagged)]
     SpriteSizeType(crate::types::SpriteSizeType),

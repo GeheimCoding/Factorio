@@ -1,4 +1,4 @@
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub struct TileBasedParticleTints {
     // default: {1,1,1,1} (white)
     primary: Option<crate::types::Color>,

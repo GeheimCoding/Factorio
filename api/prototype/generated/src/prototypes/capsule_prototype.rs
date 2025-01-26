@@ -1,4 +1,4 @@
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub struct CapsulePrototype {
     base_: crate::prototypes::ItemPrototype,
     capsule_action: crate::types::CapsuleAction,

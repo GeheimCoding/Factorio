@@ -1,4 +1,4 @@
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub struct DeliverImpactCombination {
     deliver_category: String,
     impact_category: String,

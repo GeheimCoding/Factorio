@@ -1,10 +1,10 @@
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub struct InfinityPipePrototype {
     base_: crate::prototypes::PipePrototype,
     #[serde(default = "default_gui_mode")]
     gui_mode: InfinityPipePrototypeGuiMode,
 }
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub enum InfinityPipePrototypeGuiMode {
     #[serde(rename = "all")]
     All,

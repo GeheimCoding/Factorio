@@ -1,4 +1,4 @@
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub struct ChargableGraphics {
     charge_animation: Option<crate::types::Animation>,
     #[serde(default = "default_charge_animation_is_looped")]

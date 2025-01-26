@@ -1,4 +1,4 @@
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub struct BeaconModuleVisualization {
     #[serde(default = "default_apply_module_tint")]
     apply_module_tint: crate::types::ModuleTint,

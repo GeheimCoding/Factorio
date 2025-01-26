@@ -1,4 +1,4 @@
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub struct SpacePlatformStarterPackPrototype {
     base_: crate::prototypes::ItemPrototype,
     #[serde(default = "default_create_electric_network")]

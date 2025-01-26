@@ -1,4 +1,4 @@
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub enum RangeMode {
     #[serde(rename = "center_to_center")]
     CenterToCenter,

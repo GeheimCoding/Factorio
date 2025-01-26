@@ -1,4 +1,4 @@
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub struct TabStyleSpecification {
     base_: crate::types::StyleWithClickableGraphicalSetSpecification,
     badge_font: Option<String>,

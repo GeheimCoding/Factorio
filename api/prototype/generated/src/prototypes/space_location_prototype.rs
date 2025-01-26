@@ -1,4 +1,4 @@
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub struct SpaceLocationPrototype {
     base_: crate::prototypes::Prototype,
     asteroid_spawn_definitions: Option<Vec<crate::types::SpaceLocationAsteroidSpawnDefinition>>,

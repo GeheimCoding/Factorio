@@ -1,4 +1,4 @@
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub struct RailPictureSet {
     // default: Value of `rail_endings`
     back_rail_endings: Option<crate::types::Sprite16Way>,
@@ -20,14 +20,14 @@ pub struct RailPictureSet {
     southwest: crate::types::RailPieceLayers,
     west: crate::types::RailPieceLayers,
 }
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub struct RailsFogMaskDefinitions {
     east: Option<crate::types::FogMaskShapeDefinition>,
     north: Option<crate::types::FogMaskShapeDefinition>,
     south: Option<crate::types::FogMaskShapeDefinition>,
     west: Option<crate::types::FogMaskShapeDefinition>,
 }
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub struct RailsSliceOffsets {
     east: Option<crate::types::Vector>,
     north: Option<crate::types::Vector>,

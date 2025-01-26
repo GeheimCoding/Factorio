@@ -1,4 +1,4 @@
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub struct FireFlamePrototype {
     base_: crate::prototypes::EntityPrototype,
     #[serde(default = "default_add_fuel_cooldown")]
@@ -86,7 +86,7 @@ fn default_add_fuel_cooldown() -> u32 {
 fn default_burnt_patch_alpha_default() -> f32 {
     1.0
 }
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub struct TileAndAlpha {
     alpha: f32,
     tile: crate::types::TileID,

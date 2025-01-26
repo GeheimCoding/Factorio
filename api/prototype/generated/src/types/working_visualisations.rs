@@ -1,4 +1,4 @@
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub struct WorkingVisualisations {
     #[serde(default = "default_always_draw_idle_animation")]
     always_draw_idle_animation: bool,

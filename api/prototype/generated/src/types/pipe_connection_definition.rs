@@ -1,4 +1,4 @@
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub struct PipeConnectionDefinition {
     #[serde(default = "default_connection_category")]
     connection_category: PipeConnectionDefinitionConnectionCategory,
@@ -19,7 +19,7 @@ pub struct PipeConnectionDefinition {
     )>,
     underground_collision_mask: Option<crate::types::CollisionMaskConnector>,
 }
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub enum PipeConnectionDefinitionConnectionCategory {
     #[serde(untagged)]
     String(String),
@@ -29,7 +29,7 @@ pub enum PipeConnectionDefinitionConnectionCategory {
 fn default_connection_category() -> PipeConnectionDefinitionConnectionCategory {
     PipeConnectionDefinitionConnectionCategory::String(String::from("default"))
 }
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub enum PipeConnectionType {
     #[serde(rename = "normal")]
     Normal,
@@ -38,7 +38,7 @@ pub enum PipeConnectionType {
     #[serde(rename = "linked")]
     Linked,
 }
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub enum PipeConnectionDefinitionFlowDirection {
     #[serde(rename = "input_output")]
     InputOutput,

@@ -1,4 +1,4 @@
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub struct AccumulatorPrototype {
     base_: crate::prototypes::EntityWithOwnerPrototype,
     chargable_graphics: Option<crate::types::ChargableGraphics>,

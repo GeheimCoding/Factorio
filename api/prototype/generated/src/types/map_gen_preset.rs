@@ -1,4 +1,4 @@
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub struct MapGenPreset {
     advanced_settings: Option<AdvancedMapGenSettings>,
     basic_settings: Option<crate::types::MapGenSettings>,
@@ -6,7 +6,7 @@ pub struct MapGenPreset {
     default: bool,
     order: crate::types::Order,
 }
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub struct AdvancedMapGenSettings {
     asteroids: Option<crate::types::MapGenPresetAsteroidSettings>,
     difficulty_settings: Option<crate::types::MapGenPresetDifficultySettings>,

@@ -1,4 +1,4 @@
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub struct CircuitConnectorSecondaryDrawOrder {
     #[serde(default = "default_east")]
     east: i8,

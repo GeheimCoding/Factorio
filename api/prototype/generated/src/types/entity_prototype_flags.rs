@@ -1,5 +1,5 @@
 pub type EntityPrototypeFlags = Vec<EntityPrototypeFlagsVariants>;
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub enum EntityPrototypeFlagsVariants {
     #[serde(rename = "not_rotatable")]
     NotRotatable,

@@ -1,4 +1,4 @@
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub struct WallPrototype {
     base_: crate::prototypes::EntityWithOwnerPrototype,
     circuit_connector: Option<crate::types::CircuitConnectorDefinition>,
@@ -33,7 +33,7 @@ fn default_draw_circuit_wires() -> bool {
 fn default_draw_copper_wires() -> bool {
     true
 }
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub struct WallPictures {
     corner_left_down: Option<crate::types::SpriteVariations>,
     corner_right_down: Option<crate::types::SpriteVariations>,

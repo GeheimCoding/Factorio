@@ -1,4 +1,4 @@
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub struct VariableAmbientSoundState {
     end_pause: Option<crate::types::RandomRange>,
     layers_properties: Option<Vec<crate::types::VariableAmbientSoundLayerStateProperties>>,

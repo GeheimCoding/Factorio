@@ -1,4 +1,4 @@
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub struct AsteroidVariation {
     color_texture: crate::types::Sprite,
     normal_map: crate::types::Sprite,

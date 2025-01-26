@@ -1,4 +1,4 @@
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub struct RadiusVisualisationSpecification {
     #[serde(default = "default_distance")]
     distance: f64,

@@ -1,4 +1,4 @@
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub struct TechnologyUnit {
     count: Option<u64>,
     count_formula: Option<crate::types::MathExpression>,

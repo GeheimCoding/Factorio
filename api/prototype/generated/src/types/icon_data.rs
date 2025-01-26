@@ -1,4 +1,4 @@
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub struct IconData {
     // default: `true` for the first layer, `false` otherwise
     draw_background: Option<bool>,

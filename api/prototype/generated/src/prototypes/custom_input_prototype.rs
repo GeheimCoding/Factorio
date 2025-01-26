@@ -1,4 +1,4 @@
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub struct CustomInputPrototype {
     base_: crate::prototypes::Prototype,
     #[serde(default = "default_action")]
@@ -23,7 +23,7 @@ pub struct CustomInputPrototype {
     linked_game_control: Option<crate::types::LinkedGameControl>,
     name: String,
 }
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub enum CustomInputPrototypeAction {
     #[serde(rename = "lua")]
     Lua,

@@ -1,4 +1,4 @@
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub struct ArtilleryWagonPrototype {
     base_: crate::prototypes::RollingStockPrototype,
     ammo_stack_limit: crate::types::ItemCountType,

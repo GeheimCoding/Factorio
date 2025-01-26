@@ -1,4 +1,4 @@
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub struct ProcessionTimeline {
     audio_events: Vec<crate::types::ProcessionAudioEvent>,
     // default: 1/2 of duration

@@ -1,4 +1,4 @@
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub struct InserterPrototype {
     base_: crate::prototypes::EntityWithOwnerPrototype,
     #[serde(default = "default_allow_burner_leech")]

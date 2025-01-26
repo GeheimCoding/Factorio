@@ -1,4 +1,4 @@
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub struct FlyingRobotPrototype {
     base_: crate::prototypes::EntityWithOwnerPrototype,
     #[serde(default = "default_energy_per_move")]

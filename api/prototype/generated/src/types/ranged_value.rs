@@ -1,4 +1,4 @@
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub enum RangedValue {
     #[serde(untagged)]
     F32F32((f32, f32)),

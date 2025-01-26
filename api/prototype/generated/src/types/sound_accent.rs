@@ -1,4 +1,4 @@
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub struct SoundAccent {
     #[serde(default = "default_audible_distance_modifier")]
     audible_distance_modifier: f32,

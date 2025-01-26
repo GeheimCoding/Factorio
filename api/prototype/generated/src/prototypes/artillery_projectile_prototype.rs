@@ -1,4 +1,4 @@
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub struct ArtilleryProjectilePrototype {
     base_: crate::prototypes::EntityPrototype,
     action: Option<crate::types::Trigger>,

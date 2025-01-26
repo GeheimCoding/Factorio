@@ -1,4 +1,4 @@
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub struct EnemySpawnerPrototype {
     base_: crate::prototypes::EntityWithOwnerPrototype,
     absorptions_per_second: Option<

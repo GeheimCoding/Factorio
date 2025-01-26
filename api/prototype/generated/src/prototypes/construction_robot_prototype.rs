@@ -1,4 +1,4 @@
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub struct ConstructionRobotPrototype {
     base_: crate::prototypes::RobotWithLogisticInterfacePrototype,
     // default: Empty = `{{0, 0}, {0, 0}}`

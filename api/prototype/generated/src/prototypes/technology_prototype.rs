@@ -1,4 +1,4 @@
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub struct TechnologyPrototype {
     base_: crate::prototypes::Prototype,
     #[serde(default = "default_allows_productivity")]
@@ -39,7 +39,7 @@ fn default_icon_size() -> crate::types::SpriteSizeType {
 fn default_ignore_tech_cost_multiplier() -> bool {
     false
 }
-#[derive(serde::Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 pub enum TechnologyPrototypeMaxLevel {
     #[serde(rename = "infinite")]
     Infinite,
