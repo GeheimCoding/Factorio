@@ -1,12 +1,15 @@
 #![allow(unused)]
 #![deny(clippy::unwrap_used)]
 
-use api::FactorioType;
+use api::{load_data_dump, FactorioType};
 use remote_console::RemoteConsole;
 use std::fs;
 
 fn main() -> anyhow::Result<()> {
     // remote_console()?;
+
+    let data = load_data_dump()?;
+    println!("{:#?}", data);
 
     Ok(())
 }

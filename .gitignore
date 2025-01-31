@@ -16,3 +16,6 @@ Cargo.lock
 
 # Offline docs
 /lua_api_docs
+
+# Output files
+/output
