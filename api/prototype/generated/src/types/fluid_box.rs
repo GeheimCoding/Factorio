@@ -37,7 +37,7 @@ pub enum ProductionType {
     None,
     #[serde(rename = "input")]
     Input,
-    #[serde(rename = "input_output")]
+    #[serde(rename = "input-output")]
     InputOutput,
     #[serde(rename = "output")]
     Output,

@@ -40,7 +40,7 @@ pub enum PipeConnectionType {
 }
 #[derive(Debug, serde::Deserialize)]
 pub enum PipeConnectionDefinitionFlowDirection {
-    #[serde(rename = "input_output")]
+    #[serde(rename = "input-output")]
     InputOutput,
     #[serde(rename = "input")]
     Input,

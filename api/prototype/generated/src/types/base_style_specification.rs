@@ -62,7 +62,7 @@ fn default_bottom_padding() -> i16 {
 }
 #[derive(Debug, serde::Deserialize)]
 pub enum BaseStyleSpecificationEffect {
-    #[serde(rename = "compilatron_hologram")]
+    #[serde(rename = "compilatron-hologram")]
     CompilatronHologram,
 }
 fn default_effect_opacity() -> f32 {

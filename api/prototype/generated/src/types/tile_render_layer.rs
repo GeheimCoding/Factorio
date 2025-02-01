@@ -4,11 +4,11 @@ pub enum TileRenderLayer {
     Zero,
     #[serde(rename = "water")]
     Water,
-    #[serde(rename = "water_overlay")]
+    #[serde(rename = "water-overlay")]
     WaterOverlay,
-    #[serde(rename = "ground_natural")]
+    #[serde(rename = "ground-natural")]
     GroundNatural,
-    #[serde(rename = "ground_artificial")]
+    #[serde(rename = "ground-artificial")]
     GroundArtificial,
     #[serde(rename = "top")]
     Top,

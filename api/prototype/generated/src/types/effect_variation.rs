@@ -2,7 +2,7 @@
 pub enum EffectVariation {
     #[serde(rename = "lava")]
     Lava,
-    #[serde(rename = "wetland_water")]
+    #[serde(rename = "wetland-water")]
     WetlandWater,
     #[serde(rename = "oil")]
     Oil,

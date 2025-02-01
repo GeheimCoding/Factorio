@@ -11,25 +11,25 @@ pub enum SelectionModeFlagsVariants {
     Blueprint,
     #[serde(rename = "deconstruct")]
     Deconstruct,
-    #[serde(rename = "cancel_deconstruct")]
+    #[serde(rename = "cancel-deconstruct")]
     CancelDeconstruct,
     #[serde(rename = "items")]
     Items,
     #[serde(rename = "trees")]
     Trees,
-    #[serde(rename = "buildable_type")]
+    #[serde(rename = "buildable-type")]
     BuildableType,
     #[serde(rename = "nothing")]
     Nothing,
-    #[serde(rename = "items_to_place")]
+    #[serde(rename = "items-to-place")]
     ItemsToPlace,
-    #[serde(rename = "any_entity")]
+    #[serde(rename = "any-entity")]
     AnyEntity,
-    #[serde(rename = "any_tile")]
+    #[serde(rename = "any-tile")]
     AnyTile,
-    #[serde(rename = "same_force")]
+    #[serde(rename = "same-force")]
     SameForce,
-    #[serde(rename = "not_same_force")]
+    #[serde(rename = "not-same-force")]
     NotSameForce,
     #[serde(rename = "friend")]
     Friend,
@@ -37,28 +37,28 @@ pub enum SelectionModeFlagsVariants {
     Enemy,
     #[serde(rename = "upgrade")]
     Upgrade,
-    #[serde(rename = "cancel_upgrade")]
+    #[serde(rename = "cancel-upgrade")]
     CancelUpgrade,
     #[serde(rename = "downgrade")]
     Downgrade,
-    #[serde(rename = "entity_with_health")]
+    #[serde(rename = "entity-with-health")]
     EntityWithHealth,
-    #[serde(rename = "is_military_target")]
+    #[serde(rename = "is-military-target")]
     IsMilitaryTarget,
-    #[serde(rename = "entity_with_owner")]
+    #[serde(rename = "entity-with-owner")]
     EntityWithOwner,
-    #[serde(rename = "avoid_rolling_stock")]
+    #[serde(rename = "avoid-rolling-stock")]
     AvoidRollingStock,
-    #[serde(rename = "avoid_vehicle")]
+    #[serde(rename = "avoid-vehicle")]
     AvoidVehicle,
     #[serde(rename = "controllable")]
     Controllable,
-    #[serde(rename = "controllable_add")]
+    #[serde(rename = "controllable-add")]
     ControllableAdd,
-    #[serde(rename = "controllable_remove")]
+    #[serde(rename = "controllable-remove")]
     ControllableRemove,
-    #[serde(rename = "entity_ghost")]
+    #[serde(rename = "entity-ghost")]
     EntityGhost,
-    #[serde(rename = "tile_ghost")]
+    #[serde(rename = "tile-ghost")]
     TileGhost,
 }

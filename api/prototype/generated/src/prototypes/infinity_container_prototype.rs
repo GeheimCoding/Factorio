@@ -23,9 +23,9 @@ fn default_gui_mode() -> InfinityContainerPrototypeGuiMode {
 }
 #[derive(Debug, serde::Deserialize)]
 pub enum InfinityContainerPrototypeLogisticMode {
-    #[serde(rename = "active_provider")]
+    #[serde(rename = "active-provider")]
     ActiveProvider,
-    #[serde(rename = "passive_provider")]
+    #[serde(rename = "passive-provider")]
     PassiveProvider,
     #[serde(rename = "requester")]
     Requester,

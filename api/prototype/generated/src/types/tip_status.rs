@@ -4,15 +4,15 @@ pub enum TipStatus {
     Locked,
     #[serde(rename = "optional")]
     Optional,
-    #[serde(rename = "dependencies_not_met")]
+    #[serde(rename = "dependencies-not-met")]
     DependenciesNotMet,
     #[serde(rename = "unlocked")]
     Unlocked,
     #[serde(rename = "suggested")]
     Suggested,
-    #[serde(rename = "not_to_be_suggested")]
+    #[serde(rename = "not-to-be-suggested")]
     NotToBeSuggested,
-    #[serde(rename = "completed_without_tutorial")]
+    #[serde(rename = "completed-without-tutorial")]
     CompletedWithoutTutorial,
     #[serde(rename = "completed")]
     Completed,

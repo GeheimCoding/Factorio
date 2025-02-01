@@ -1,8 +1,8 @@
 #[derive(Debug, serde::Deserialize)]
 pub enum SoundType {
-    #[serde(rename = "game_effect")]
+    #[serde(rename = "game-effect")]
     GameEffect,
-    #[serde(rename = "gui_effect")]
+    #[serde(rename = "gui-effect")]
     GuiEffect,
     #[serde(rename = "ambient")]
     Ambient,
@@ -14,7 +14,7 @@ pub enum SoundType {
     Alert,
     #[serde(rename = "wind")]
     Wind,
-    #[serde(rename = "world_ambient")]
+    #[serde(rename = "world-ambient")]
     WorldAmbient,
     #[serde(rename = "weapon")]
     Weapon,

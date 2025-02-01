@@ -23,9 +23,9 @@ fn default_fire_glow_flicker_enabled() -> bool {
 }
 #[derive(Debug, serde::Deserialize)]
 pub enum BoilerPrototypeMode {
-    #[serde(rename = "heat_fluid_inside")]
+    #[serde(rename = "heat-fluid-inside")]
     HeatFluidInside,
-    #[serde(rename = "output_to_separate_pipe")]
+    #[serde(rename = "output-to-separate-pipe")]
     OutputToSeparatePipe,
 }
 fn default_mode() -> BoilerPrototypeMode {

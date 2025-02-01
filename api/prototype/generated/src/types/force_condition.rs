@@ -8,10 +8,10 @@ pub enum ForceCondition {
     Ally,
     #[serde(rename = "friend")]
     Friend,
-    #[serde(rename = "not_friend")]
+    #[serde(rename = "not-friend")]
     NotFriend,
     #[serde(rename = "same")]
     Same,
-    #[serde(rename = "not_same")]
+    #[serde(rename = "not-same")]
     NotSame,
 }

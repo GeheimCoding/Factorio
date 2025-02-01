@@ -79,17 +79,17 @@ pub enum WorkingVisualisationApplyRecipeTint {
 }
 #[derive(Debug, serde::Deserialize)]
 pub enum WorkingVisualisationApplyTint {
-    #[serde(rename = "resource_color")]
+    #[serde(rename = "resource-color")]
     ResourceColor,
-    #[serde(rename = "input_fluid_base_color")]
+    #[serde(rename = "input-fluid-base-color")]
     InputFluidBaseColor,
-    #[serde(rename = "input_fluid_flow_color")]
+    #[serde(rename = "input-fluid-flow-color")]
     InputFluidFlowColor,
     #[serde(rename = "status")]
     Status,
     #[serde(rename = "none")]
     None,
-    #[serde(rename = "visual_state_color")]
+    #[serde(rename = "visual-state-color")]
     VisualStateColor,
 }
 fn default_constant_speed() -> bool {
@@ -102,7 +102,7 @@ fn default_draw_when_state_filter_matches() -> bool {
 pub enum WorkingVisualisationEffect {
     #[serde(rename = "flicker")]
     Flicker,
-    #[serde(rename = "uranium_glow")]
+    #[serde(rename = "uranium-glow")]
     UraniumGlow,
     #[serde(rename = "none")]
     None,

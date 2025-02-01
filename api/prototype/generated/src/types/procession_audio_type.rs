@@ -4,10 +4,10 @@ pub enum ProcessionAudioType {
     None,
     #[serde(rename = "sound")]
     Sound,
-    #[serde(rename = "looped_sound")]
+    #[serde(rename = "looped-sound")]
     LoopedSound,
-    #[serde(rename = "pod_catalogue")]
+    #[serde(rename = "pod-catalogue")]
     PodCatalogue,
-    #[serde(rename = "location_catalogue")]
+    #[serde(rename = "location-catalogue")]
     LocationCatalogue,
 }

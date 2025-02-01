@@ -1,23 +1,23 @@
 pub type SpriteFlags = Vec<SpriteFlagsVariants>;
 #[derive(Debug, serde::Deserialize)]
 pub enum SpriteFlagsVariants {
-    #[serde(rename = "no_crop")]
+    #[serde(rename = "no-crop")]
     NoCrop,
-    #[serde(rename = "not_compressed")]
+    #[serde(rename = "not-compressed")]
     NotCompressed,
-    #[serde(rename = "always_compressed")]
+    #[serde(rename = "always-compressed")]
     AlwaysCompressed,
     #[serde(rename = "mipmap")]
     Mipmap,
-    #[serde(rename = "linear_minification")]
+    #[serde(rename = "linear-minification")]
     LinearMinification,
-    #[serde(rename = "linear_magnification")]
+    #[serde(rename = "linear-magnification")]
     LinearMagnification,
-    #[serde(rename = "linear_mip_level")]
+    #[serde(rename = "linear-mip-level")]
     LinearMipLevel,
-    #[serde(rename = "alpha_mask")]
+    #[serde(rename = "alpha-mask")]
     AlphaMask,
-    #[serde(rename = "no_scale")]
+    #[serde(rename = "no-scale")]
     NoScale,
     #[serde(rename = "mask")]
     Mask,
@@ -25,15 +25,15 @@ pub enum SpriteFlagsVariants {
     Icon,
     #[serde(rename = "gui")]
     Gui,
-    #[serde(rename = "gui_icon")]
+    #[serde(rename = "gui-icon")]
     GuiIcon,
     #[serde(rename = "light")]
     Light,
     #[serde(rename = "terrain")]
     Terrain,
-    #[serde(rename = "terrain_effect_map")]
+    #[serde(rename = "terrain-effect-map")]
     TerrainEffectMap,
-    #[serde(rename = "reflection_effect_map")]
+    #[serde(rename = "reflection-effect-map")]
     ReflectionEffectMap,
     #[serde(rename = "shadow")]
     Shadow,
@@ -41,30 +41,30 @@ pub enum SpriteFlagsVariants {
     Smoke,
     #[serde(rename = "decal")]
     Decal,
-    #[serde(rename = "low_object")]
+    #[serde(rename = "low-object")]
     LowObject,
-    #[serde(rename = "corpse_decay")]
+    #[serde(rename = "corpse-decay")]
     CorpseDecay,
-    #[serde(rename = "trilinear_filtering")]
+    #[serde(rename = "trilinear-filtering")]
     TrilinearFiltering,
-    #[serde(rename = "group_none")]
+    #[serde(rename = "group=none")]
     GroupNone,
-    #[serde(rename = "group_terrain")]
+    #[serde(rename = "group=terrain")]
     GroupTerrain,
-    #[serde(rename = "group_shadow")]
+    #[serde(rename = "group=shadow")]
     GroupShadow,
-    #[serde(rename = "group_smoke")]
+    #[serde(rename = "group=smoke")]
     GroupSmoke,
-    #[serde(rename = "group_decal")]
+    #[serde(rename = "group=decal")]
     GroupDecal,
-    #[serde(rename = "group_low_object")]
+    #[serde(rename = "group=low-object")]
     GroupLowObject,
-    #[serde(rename = "group_gui")]
+    #[serde(rename = "group=gui")]
     GroupGui,
-    #[serde(rename = "group_icon")]
+    #[serde(rename = "group=icon")]
     GroupIcon,
-    #[serde(rename = "group_icon_background")]
+    #[serde(rename = "group=icon-background")]
     GroupIconBackground,
-    #[serde(rename = "group_effect_texture")]
+    #[serde(rename = "group=effect-texture")]
     GroupEffectTexture,
 }

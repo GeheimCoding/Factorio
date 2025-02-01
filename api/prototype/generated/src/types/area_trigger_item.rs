@@ -13,9 +13,9 @@ pub struct AreaTriggerItem {
 }
 #[derive(Debug, serde::Deserialize)]
 pub enum AreaTriggerItemCollisionMode {
-    #[serde(rename = "distance_from_collision_box")]
+    #[serde(rename = "distance-from-collision-box")]
     DistanceFromCollisionBox,
-    #[serde(rename = "distance_from_center")]
+    #[serde(rename = "distance-from-center")]
     DistanceFromCenter,
 }
 fn default_collision_mode() -> AreaTriggerItemCollisionMode {

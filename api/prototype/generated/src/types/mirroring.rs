@@ -4,8 +4,8 @@ pub enum Mirroring {
     Horizontal,
     #[serde(rename = "vertical")]
     Vertical,
-    #[serde(rename = "diagonal_pos")]
+    #[serde(rename = "diagonal-pos")]
     DiagonalPos,
-    #[serde(rename = "diagonal_neg")]
+    #[serde(rename = "diagonal-neg")]
     DiagonalNeg,
 }

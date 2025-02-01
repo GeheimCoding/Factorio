@@ -35,9 +35,9 @@ pub enum SignalIDConnectorType {
     Recipe,
     #[serde(rename = "entity")]
     Entity,
-    #[serde(rename = "space_location")]
+    #[serde(rename = "space-location")]
     SpaceLocation,
-    #[serde(rename = "asteroid_chunk")]
+    #[serde(rename = "asteroid-chunk")]
     AsteroidChunk,
     #[serde(rename = "quality")]
     Quality,

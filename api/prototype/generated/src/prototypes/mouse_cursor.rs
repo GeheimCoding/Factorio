@@ -10,13 +10,13 @@ pub struct MouseCursor {
 pub enum MouseCursorSystemCursor {
     #[serde(rename = "arrow")]
     Arrow,
-    #[serde(rename = "i_beam")]
+    #[serde(rename = "i-beam")]
     IBeam,
     #[serde(rename = "crosshair")]
     Crosshair,
-    #[serde(rename = "wait_arrow")]
+    #[serde(rename = "wait-arrow")]
     WaitArrow,
-    #[serde(rename = "size_all")]
+    #[serde(rename = "size-all")]
     SizeAll,
     #[serde(rename = "no")]
     No,

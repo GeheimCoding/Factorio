@@ -6,107 +6,107 @@ pub enum EntityStatus {
     Normal,
     #[serde(rename = "ghost")]
     Ghost,
-    #[serde(rename = "not_plugged_in_electric_network")]
+    #[serde(rename = "not-plugged-in-electric-network")]
     NotPluggedInElectricNetwork,
-    #[serde(rename = "networks_connected")]
+    #[serde(rename = "networks-connected")]
     NetworksConnected,
-    #[serde(rename = "networks_disconnected")]
+    #[serde(rename = "networks-disconnected")]
     NetworksDisconnected,
-    #[serde(rename = "no_ammo")]
+    #[serde(rename = "no-ammo")]
     NoAmmo,
-    #[serde(rename = "waiting_for_target_to_be_built")]
+    #[serde(rename = "waiting-for-target-to-be-built")]
     WaitingForTargetToBeBuilt,
-    #[serde(rename = "waiting_for_train")]
+    #[serde(rename = "waiting-for-train")]
     WaitingForTrain,
-    #[serde(rename = "no_power")]
+    #[serde(rename = "no-power")]
     NoPower,
-    #[serde(rename = "low_temperature")]
+    #[serde(rename = "low-temperature")]
     LowTemperature,
     #[serde(rename = "charging")]
     Charging,
     #[serde(rename = "discharging")]
     Discharging,
-    #[serde(rename = "fully_charged")]
+    #[serde(rename = "fully-charged")]
     FullyCharged,
-    #[serde(rename = "no_fuel")]
+    #[serde(rename = "no-fuel")]
     NoFuel,
-    #[serde(rename = "no_food")]
+    #[serde(rename = "no-food")]
     NoFood,
-    #[serde(rename = "out_of_logistic_network")]
+    #[serde(rename = "out-of-logistic-network")]
     OutOfLogisticNetwork,
-    #[serde(rename = "no_recipe")]
+    #[serde(rename = "no-recipe")]
     NoRecipe,
-    #[serde(rename = "no_ingredients")]
+    #[serde(rename = "no-ingredients")]
     NoIngredients,
-    #[serde(rename = "no_input_fluid")]
+    #[serde(rename = "no-input-fluid")]
     NoInputFluid,
-    #[serde(rename = "no_research_in_progress")]
+    #[serde(rename = "no-research-in-progress")]
     NoResearchInProgress,
-    #[serde(rename = "no_minable_resources")]
+    #[serde(rename = "no-minable-resources")]
     NoMinableResources,
-    #[serde(rename = "low_input_fluid")]
+    #[serde(rename = "low-input-fluid")]
     LowInputFluid,
-    #[serde(rename = "low_power")]
+    #[serde(rename = "low-power")]
     LowPower,
-    #[serde(rename = "not_connected_to_rail")]
+    #[serde(rename = "not-connected-to-rail")]
     NotConnectedToRail,
-    #[serde(rename = "cant_divide_segments")]
+    #[serde(rename = "cant-divide-segments")]
     CantDivideSegments,
-    #[serde(rename = "recharging_after_power_outage")]
+    #[serde(rename = "recharging-after-power-outage")]
     RechargingAfterPowerOutage,
-    #[serde(rename = "no_modules_to_transmit")]
+    #[serde(rename = "no-modules-to-transmit")]
     NoModulesToTransmit,
-    #[serde(rename = "disabled_by_control_behavior")]
+    #[serde(rename = "disabled-by-control-behavior")]
     DisabledByControlBehavior,
-    #[serde(rename = "opened_by_circuit_network")]
+    #[serde(rename = "opened-by-circuit-network")]
     OpenedByCircuitNetwork,
-    #[serde(rename = "closed_by_circuit_network")]
+    #[serde(rename = "closed-by-circuit-network")]
     ClosedByCircuitNetwork,
-    #[serde(rename = "disabled_by_script")]
+    #[serde(rename = "disabled-by-script")]
     DisabledByScript,
     #[serde(rename = "disabled")]
     Disabled,
-    #[serde(rename = "turned_off_during_daytime")]
+    #[serde(rename = "turned-off-during-daytime")]
     TurnedOffDuringDaytime,
-    #[serde(rename = "fluid_ingredient_shortage")]
+    #[serde(rename = "fluid-ingredient-shortage")]
     FluidIngredientShortage,
-    #[serde(rename = "item_ingredient_shortage")]
+    #[serde(rename = "item-ingredient-shortage")]
     ItemIngredientShortage,
-    #[serde(rename = "full_output")]
+    #[serde(rename = "full-output")]
     FullOutput,
-    #[serde(rename = "not_enough_space_in_output")]
+    #[serde(rename = "not-enough-space-in-output")]
     NotEnoughSpaceInOutput,
-    #[serde(rename = "full_burnt_result_output")]
+    #[serde(rename = "full-burnt-result-output")]
     FullBurntResultOutput,
-    #[serde(rename = "marked_for_deconstruction")]
+    #[serde(rename = "marked-for-deconstruction")]
     MarkedForDeconstruction,
-    #[serde(rename = "missing_required_fluid")]
+    #[serde(rename = "missing-required-fluid")]
     MissingRequiredFluid,
-    #[serde(rename = "missing_science_packs")]
+    #[serde(rename = "missing-science-packs")]
     MissingSciencePacks,
-    #[serde(rename = "waiting_for_source_items")]
+    #[serde(rename = "waiting-for-source-items")]
     WaitingForSourceItems,
-    #[serde(rename = "waiting_for_space_in_destination")]
+    #[serde(rename = "waiting-for-space-in-destination")]
     WaitingForSpaceInDestination,
-    #[serde(rename = "preparing_rocket_for_launch")]
+    #[serde(rename = "preparing-rocket-for-launch")]
     PreparingRocketForLaunch,
-    #[serde(rename = "waiting_to_launch_rocket")]
+    #[serde(rename = "waiting-to-launch-rocket")]
     WaitingToLaunchRocket,
-    #[serde(rename = "waiting_for_space_in_platform_hub")]
+    #[serde(rename = "waiting-for-space-in-platform-hub")]
     WaitingForSpaceInPlatformHub,
-    #[serde(rename = "launching_rocket")]
+    #[serde(rename = "launching-rocket")]
     LaunchingRocket,
-    #[serde(rename = "thrust_not_required")]
+    #[serde(rename = "thrust-not-required")]
     ThrustNotRequired,
-    #[serde(rename = "not_enough_thrust")]
+    #[serde(rename = "not-enough-thrust")]
     NotEnoughThrust,
-    #[serde(rename = "on_the_way")]
+    #[serde(rename = "on-the-way")]
     OnTheWay,
-    #[serde(rename = "waiting_in_orbit")]
+    #[serde(rename = "waiting-in-orbit")]
     WaitingInOrbit,
-    #[serde(rename = "waiting_for_rocket_to_arrive")]
+    #[serde(rename = "waiting-for-rocket-to-arrive")]
     WaitingForRocketToArrive,
-    #[serde(rename = "no_path")]
+    #[serde(rename = "no-path")]
     NoPath,
     #[serde(rename = "broken")]
     Broken,
@@ -116,22 +116,22 @@ pub enum EntityStatus {
     Frozen,
     #[serde(rename = "paused")]
     Paused,
-    #[serde(rename = "not_connected_to_hub_or_pad")]
+    #[serde(rename = "not-connected-to-hub-or-pad")]
     NotConnectedToHubOrPad,
-    #[serde(rename = "computing_navigation")]
+    #[serde(rename = "computing-navigation")]
     ComputingNavigation,
-    #[serde(rename = "no_filter")]
+    #[serde(rename = "no-filter")]
     NoFilter,
-    #[serde(rename = "waiting_at_stop")]
+    #[serde(rename = "waiting-at-stop")]
     WaitingAtStop,
-    #[serde(rename = "destination_stop_full")]
+    #[serde(rename = "destination-stop-full")]
     DestinationStopFull,
-    #[serde(rename = "pipeline_overextended")]
+    #[serde(rename = "pipeline-overextended")]
     PipelineOverextended,
-    #[serde(rename = "no_spot_seedable_by_inputs")]
+    #[serde(rename = "no-spot-seedable-by-inputs")]
     NoSpotSeedableByInputs,
-    #[serde(rename = "waiting_for_plants_to_grow")]
+    #[serde(rename = "waiting-for-plants-to-grow")]
     WaitingForPlantsToGrow,
-    #[serde(rename = "recipe_not_researched")]
+    #[serde(rename = "recipe-not-researched")]
     RecipeNotResearched,
 }

@@ -1,28 +1,28 @@
 pub type ItemPrototypeFlags = Vec<ItemPrototypeFlagsVariants>;
 #[derive(Debug, serde::Deserialize)]
 pub enum ItemPrototypeFlagsVariants {
-    #[serde(rename = "draw_logistic_overlay")]
+    #[serde(rename = "draw-logistic-overlay")]
     DrawLogisticOverlay,
-    #[serde(rename = "excluded_from_trash_unrequested")]
+    #[serde(rename = "excluded-from-trash-unrequested")]
     ExcludedFromTrashUnrequested,
-    #[serde(rename = "always_show")]
+    #[serde(rename = "always-show")]
     AlwaysShow,
-    #[serde(rename = "hide_from_bonus_gui")]
+    #[serde(rename = "hide-from-bonus-gui")]
     HideFromBonusGui,
-    #[serde(rename = "hide_from_fuel_tooltip")]
+    #[serde(rename = "hide-from-fuel-tooltip")]
     HideFromFuelTooltip,
-    #[serde(rename = "not_stackable")]
+    #[serde(rename = "not-stackable")]
     NotStackable,
-    #[serde(rename = "primary_place_result")]
+    #[serde(rename = "primary-place-result")]
     PrimaryPlaceResult,
-    #[serde(rename = "mod_openable")]
+    #[serde(rename = "mod-openable")]
     ModOpenable,
-    #[serde(rename = "only_in_cursor")]
+    #[serde(rename = "only-in-cursor")]
     OnlyInCursor,
     #[serde(rename = "spawnable")]
     Spawnable,
-    #[serde(rename = "spoil_result")]
+    #[serde(rename = "spoil-result")]
     SpoilResult,
-    #[serde(rename = "ignore_spoil_time_modifier")]
+    #[serde(rename = "ignore-spoil-time-modifier")]
     IgnoreSpoilTimeModifier,
 }

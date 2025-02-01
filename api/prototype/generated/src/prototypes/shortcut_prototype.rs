@@ -25,7 +25,7 @@ pub struct ShortcutPrototype {
 }
 #[derive(Debug, serde::Deserialize)]
 pub enum ShortcutPrototypeAction {
-    #[serde(rename = "toggle_alt_mode")]
+    #[serde(rename = "toggle-alt-mode")]
     ToggleAltMode,
     #[serde(rename = "undo")]
     Undo,
@@ -35,13 +35,13 @@ pub enum ShortcutPrototypeAction {
     Cut,
     #[serde(rename = "paste")]
     Paste,
-    #[serde(rename = "import_string")]
+    #[serde(rename = "import-string")]
     ImportString,
-    #[serde(rename = "toggle_personal_roboport")]
+    #[serde(rename = "toggle-personal-roboport")]
     TogglePersonalRoboport,
-    #[serde(rename = "toggle_equipment_movement_bonus")]
+    #[serde(rename = "toggle-equipment-movement-bonus")]
     ToggleEquipmentMovementBonus,
-    #[serde(rename = "spawn_item")]
+    #[serde(rename = "spawn-item")]
     SpawnItem,
     #[serde(rename = "lua")]
     Lua,

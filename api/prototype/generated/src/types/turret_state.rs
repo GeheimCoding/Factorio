@@ -6,13 +6,13 @@ pub enum TurretState {
     Preparing,
     #[serde(rename = "prepared")]
     Prepared,
-    #[serde(rename = "starting_attack")]
+    #[serde(rename = "starting-attack")]
     StartingAttack,
     #[serde(rename = "attacking")]
     Attacking,
-    #[serde(rename = "ending_attack")]
+    #[serde(rename = "ending-attack")]
     EndingAttack,
-    #[serde(rename = "rotate_for_folding")]
+    #[serde(rename = "rotate-for-folding")]
     RotateForFolding,
     #[serde(rename = "folding")]
     Folding,

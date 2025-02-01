@@ -6,14 +6,14 @@ pub enum CloudEffectStyle {
     Euclidean,
     #[serde(rename = "manhattan")]
     Manhattan,
-    #[serde(rename = "euclidean_outside")]
+    #[serde(rename = "euclidean-outside")]
     EuclideanOutside,
-    #[serde(rename = "manhattan_outside")]
+    #[serde(rename = "manhattan-outside")]
     ManhattanOutside,
-    #[serde(rename = "horizontal_stripe")]
+    #[serde(rename = "horizontal-stripe")]
     HorizontalStripe,
     #[serde(rename = "texture")]
     Texture,
-    #[serde(rename = "texture_outside")]
+    #[serde(rename = "texture-outside")]
     TextureOutside,
 }

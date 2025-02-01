@@ -27,13 +27,13 @@ pub struct CustomInputPrototype {
 pub enum CustomInputPrototypeAction {
     #[serde(rename = "lua")]
     Lua,
-    #[serde(rename = "spawn_item")]
+    #[serde(rename = "spawn-item")]
     SpawnItem,
-    #[serde(rename = "toggle_personal_roboport")]
+    #[serde(rename = "toggle-personal-roboport")]
     TogglePersonalRoboport,
-    #[serde(rename = "toggle_personal_logistic_requests")]
+    #[serde(rename = "toggle-personal-logistic-requests")]
     TogglePersonalLogisticRequests,
-    #[serde(rename = "toggle_equipment_movement_bonus")]
+    #[serde(rename = "toggle-equipment-movement-bonus")]
     ToggleEquipmentMovementBonus,
 }
 fn default_action() -> CustomInputPrototypeAction {

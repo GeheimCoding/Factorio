@@ -27,7 +27,7 @@ pub enum SpaceConnectionAsteroidSpawnDefinitionAsteroid {
 pub enum SpaceConnectionAsteroidSpawnDefinitionType {
     #[serde(rename = "entity")]
     Entity,
-    #[serde(rename = "asteroid_chunk")]
+    #[serde(rename = "asteroid-chunk")]
     AsteroidChunk,
 }
 fn default_type_() -> SpaceConnectionAsteroidSpawnDefinitionType {

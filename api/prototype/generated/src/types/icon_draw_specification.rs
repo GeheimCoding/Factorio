@@ -12,11 +12,11 @@ pub struct IconDrawSpecification {
 }
 #[derive(Debug, serde::Deserialize)]
 pub enum IconDrawSpecificationRenderLayer {
-    #[serde(rename = "entity_info_icon_below")]
+    #[serde(rename = "entity-info-icon-below")]
     EntityInfoIconBelow,
-    #[serde(rename = "entity_info_icon_above")]
+    #[serde(rename = "entity-info-icon-above")]
     EntityInfoIconAbove,
-    #[serde(rename = "air_entity_info_icon")]
+    #[serde(rename = "air-entity-info-icon")]
     AirEntityInfoIcon,
 }
 fn default_render_layer() -> IconDrawSpecificationRenderLayer {

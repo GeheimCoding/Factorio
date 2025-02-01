@@ -2,123 +2,123 @@
 pub enum RenderLayer {
     #[serde(rename = "zero")]
     Zero,
-    #[serde(rename = "background_transitions")]
+    #[serde(rename = "background-transitions")]
     BackgroundTransitions,
-    #[serde(rename = "under_tiles")]
+    #[serde(rename = "under-tiles")]
     UnderTiles,
     #[serde(rename = "decals")]
     Decals,
-    #[serde(rename = "above_tiles")]
+    #[serde(rename = "above-tiles")]
     AboveTiles,
-    #[serde(rename = "ground_layer_1")]
+    #[serde(rename = "ground-layer-1")]
     GroundLayer1,
-    #[serde(rename = "ground_layer_2")]
+    #[serde(rename = "ground-layer-2")]
     GroundLayer2,
-    #[serde(rename = "ground_layer_3")]
+    #[serde(rename = "ground-layer-3")]
     GroundLayer3,
-    #[serde(rename = "ground_layer_4")]
+    #[serde(rename = "ground-layer-4")]
     GroundLayer4,
-    #[serde(rename = "ground_layer_5")]
+    #[serde(rename = "ground-layer-5")]
     GroundLayer5,
-    #[serde(rename = "lower_radius_visualization")]
+    #[serde(rename = "lower-radius-visualization")]
     LowerRadiusVisualization,
-    #[serde(rename = "radius_visualization")]
+    #[serde(rename = "radius-visualization")]
     RadiusVisualization,
-    #[serde(rename = "transport_belt_integration")]
+    #[serde(rename = "transport-belt-integration")]
     TransportBeltIntegration,
     #[serde(rename = "resource")]
     Resource,
-    #[serde(rename = "building_smoke")]
+    #[serde(rename = "building-smoke")]
     BuildingSmoke,
-    #[serde(rename = "rail_stone_path_lower")]
+    #[serde(rename = "rail-stone-path-lower")]
     RailStonePathLower,
-    #[serde(rename = "rail_stone_path")]
+    #[serde(rename = "rail-stone-path")]
     RailStonePath,
-    #[serde(rename = "rail_tie")]
+    #[serde(rename = "rail-tie")]
     RailTie,
     #[serde(rename = "decorative")]
     Decorative,
-    #[serde(rename = "ground_patch")]
+    #[serde(rename = "ground-patch")]
     GroundPatch,
-    #[serde(rename = "ground_patch_higher")]
+    #[serde(rename = "ground-patch-higher")]
     GroundPatchHigher,
-    #[serde(rename = "ground_patch_higher_2")]
+    #[serde(rename = "ground-patch-higher2")]
     GroundPatchHigher2,
-    #[serde(rename = "rail_chain_signal_metal")]
+    #[serde(rename = "rail-chain-signal-metal")]
     RailChainSignalMetal,
-    #[serde(rename = "rail_screw")]
+    #[serde(rename = "rail-screw")]
     RailScrew,
-    #[serde(rename = "rail_metal")]
+    #[serde(rename = "rail-metal")]
     RailMetal,
     #[serde(rename = "remnants")]
     Remnants,
     #[serde(rename = "floor")]
     Floor,
-    #[serde(rename = "transport_belt")]
+    #[serde(rename = "transport-belt")]
     TransportBelt,
-    #[serde(rename = "transport_belt_endings")]
+    #[serde(rename = "transport-belt-endings")]
     TransportBeltEndings,
-    #[serde(rename = "floor_mechanics_under_corpse")]
+    #[serde(rename = "floor-mechanics-under-corpse")]
     FloorMechanicsUnderCorpse,
     #[serde(rename = "corpse")]
     Corpse,
-    #[serde(rename = "floor_mechanics")]
+    #[serde(rename = "floor-mechanics")]
     FloorMechanics,
     #[serde(rename = "item")]
     Item,
-    #[serde(rename = "transport_belt_reader")]
+    #[serde(rename = "transport-belt-reader")]
     TransportBeltReader,
-    #[serde(rename = "lower_object")]
+    #[serde(rename = "lower-object")]
     LowerObject,
-    #[serde(rename = "transport_belt_circuit_connector")]
+    #[serde(rename = "transport-belt-circuit-connector")]
     TransportBeltCircuitConnector,
-    #[serde(rename = "lower_object_above_shadow")]
+    #[serde(rename = "lower-object-above-shadow")]
     LowerObjectAboveShadow,
-    #[serde(rename = "lower_object_overlay")]
+    #[serde(rename = "lower-object-overlay")]
     LowerObjectOverlay,
-    #[serde(rename = "object_under")]
+    #[serde(rename = "object-under")]
     ObjectUnder,
     #[serde(rename = "object")]
     Object,
-    #[serde(rename = "cargo_hatch")]
+    #[serde(rename = "cargo-hatch")]
     CargoHatch,
-    #[serde(rename = "higher_object_under")]
+    #[serde(rename = "higher-object-under")]
     HigherObjectUnder,
-    #[serde(rename = "higher_object_above")]
+    #[serde(rename = "higher-object-above")]
     HigherObjectAbove,
-    #[serde(rename = "train_stop_top")]
+    #[serde(rename = "train-stop-top")]
     TrainStopTop,
-    #[serde(rename = "item_in_inserter_hand")]
+    #[serde(rename = "item-in-inserter-hand")]
     ItemInInserterHand,
-    #[serde(rename = "above_inserter")]
+    #[serde(rename = "above-inserter")]
     AboveInserter,
     #[serde(rename = "wires")]
     Wires,
-    #[serde(rename = "under_elevated")]
+    #[serde(rename = "under-elevated")]
     UnderElevated,
-    #[serde(rename = "elevated_rail_stone_path_lower")]
+    #[serde(rename = "elevated-rail-stone-path-lower")]
     ElevatedRailStonePathLower,
-    #[serde(rename = "elevated_rail_stone_path")]
+    #[serde(rename = "elevated-rail-stone-path")]
     ElevatedRailStonePath,
-    #[serde(rename = "elevated_rail_tie")]
+    #[serde(rename = "elevated-rail-tie")]
     ElevatedRailTie,
-    #[serde(rename = "elevated_rail_screw")]
+    #[serde(rename = "elevated-rail-screw")]
     ElevatedRailScrew,
-    #[serde(rename = "elevated_rail_metal")]
+    #[serde(rename = "elevated-rail-metal")]
     ElevatedRailMetal,
-    #[serde(rename = "elevated_lower_object")]
+    #[serde(rename = "elevated-lower-object")]
     ElevatedLowerObject,
-    #[serde(rename = "elevated_object")]
+    #[serde(rename = "elevated-object")]
     ElevatedObject,
-    #[serde(rename = "elevated_higher_object")]
+    #[serde(rename = "elevated-higher-object")]
     ElevatedHigherObject,
-    #[serde(rename = "fluid_visualization")]
+    #[serde(rename = "fluid-visualization")]
     FluidVisualization,
-    #[serde(rename = "wires_above")]
+    #[serde(rename = "wires-above")]
     WiresAbove,
-    #[serde(rename = "entity_info_icon")]
+    #[serde(rename = "entity-info-icon")]
     EntityInfoIcon,
-    #[serde(rename = "entity_info_icon_above")]
+    #[serde(rename = "entity-info-icon-above")]
     EntityInfoIconAbove,
     #[serde(rename = "explosion")]
     Explosion,
@@ -126,17 +126,17 @@ pub enum RenderLayer {
     Projectile,
     #[serde(rename = "smoke")]
     Smoke,
-    #[serde(rename = "air_object")]
+    #[serde(rename = "air-object")]
     AirObject,
-    #[serde(rename = "air_entity_info_icon")]
+    #[serde(rename = "air-entity-info-icon")]
     AirEntityInfoIcon,
-    #[serde(rename = "light_effect")]
+    #[serde(rename = "light-effect")]
     LightEffect,
-    #[serde(rename = "selection_box")]
+    #[serde(rename = "selection-box")]
     SelectionBox,
-    #[serde(rename = "higher_selection_box")]
+    #[serde(rename = "higher-selection-box")]
     HigherSelectionBox,
-    #[serde(rename = "collision_selection_box")]
+    #[serde(rename = "collision-selection-box")]
     CollisionSelectionBox,
     #[serde(rename = "arrow")]
     Arrow,

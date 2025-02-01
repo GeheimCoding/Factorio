@@ -1,56 +1,56 @@
 pub type EntityPrototypeFlags = Vec<EntityPrototypeFlagsVariants>;
 #[derive(Debug, serde::Deserialize)]
 pub enum EntityPrototypeFlagsVariants {
-    #[serde(rename = "not_rotatable")]
+    #[serde(rename = "not-rotatable")]
     NotRotatable,
-    #[serde(rename = "placeable_neutral")]
+    #[serde(rename = "placeable-neutral")]
     PlaceableNeutral,
-    #[serde(rename = "placeable_player")]
+    #[serde(rename = "placeable-player")]
     PlaceablePlayer,
-    #[serde(rename = "placeable_enemy")]
+    #[serde(rename = "placeable-enemy")]
     PlaceableEnemy,
-    #[serde(rename = "placeable_off_grid")]
+    #[serde(rename = "placeable-off-grid")]
     PlaceableOffGrid,
-    #[serde(rename = "player_creation")]
+    #[serde(rename = "player-creation")]
     PlayerCreation,
-    #[serde(rename = "building_direction_8way")]
+    #[serde(rename = "building-direction-8-way")]
     BuildingDirection8Way,
-    #[serde(rename = "filter_directions")]
+    #[serde(rename = "filter-directions")]
     FilterDirections,
-    #[serde(rename = "get_by_unit_number")]
+    #[serde(rename = "get-by-unit-number")]
     GetByUnitNumber,
-    #[serde(rename = "breaths_air")]
+    #[serde(rename = "breaths-air")]
     BreathsAir,
-    #[serde(rename = "not_repairable")]
+    #[serde(rename = "not-repairable")]
     NotRepairable,
-    #[serde(rename = "not_on_map")]
+    #[serde(rename = "not-on-map")]
     NotOnMap,
-    #[serde(rename = "not_deconstructable")]
+    #[serde(rename = "not-deconstructable")]
     NotDeconstructable,
-    #[serde(rename = "not_blueprintable")]
+    #[serde(rename = "not-blueprintable")]
     NotBlueprintable,
-    #[serde(rename = "hide_alt_info")]
+    #[serde(rename = "hide-alt-info")]
     HideAltInfo,
-    #[serde(rename = "no_gap_fill_while_building")]
+    #[serde(rename = "no-gap-fill-while-building")]
     NoGapFillWhileBuilding,
-    #[serde(rename = "not_flammable")]
+    #[serde(rename = "not-flammable")]
     NotFlammable,
-    #[serde(rename = "no_automated_item_removal")]
+    #[serde(rename = "no-automated-item-removal")]
     NoAutomatedItemRemoval,
-    #[serde(rename = "no_automated_item_insertion")]
+    #[serde(rename = "no-automated-item-insertion")]
     NoAutomatedItemInsertion,
-    #[serde(rename = "no_copy_paste")]
+    #[serde(rename = "no-copy-paste")]
     NoCopyPaste,
-    #[serde(rename = "not_selectable_in_game")]
+    #[serde(rename = "not-selectable-in-game")]
     NotSelectableInGame,
-    #[serde(rename = "not_upgradable")]
+    #[serde(rename = "not-upgradable")]
     NotUpgradable,
-    #[serde(rename = "not_in_kill_statistics")]
+    #[serde(rename = "not-in-kill-statistics")]
     NotInKillStatistics,
-    #[serde(rename = "building_direction_16way")]
+    #[serde(rename = "building-direction-16-way")]
     BuildingDirection16Way,
-    #[serde(rename = "snap_to_rail_support_spot")]
+    #[serde(rename = "snap-to-rail-support-spot")]
     SnapToRailSupportSpot,
-    #[serde(rename = "not_in_made_in")]
+    #[serde(rename = "not-in-made-in")]
     NotInMadeIn,
 }

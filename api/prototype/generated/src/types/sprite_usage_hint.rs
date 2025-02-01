@@ -4,9 +4,9 @@ pub enum SpriteUsageHint {
     Any,
     #[serde(rename = "mining")]
     Mining,
-    #[serde(rename = "tile_artifical")]
+    #[serde(rename = "tile-artifical")]
     TileArtifical,
-    #[serde(rename = "corpse_decay")]
+    #[serde(rename = "corpse-decay")]
     CorpseDecay,
     #[serde(rename = "enemy")]
     Enemy,
@@ -20,7 +20,7 @@ pub enum SpriteUsageHint {
     Explosion,
     #[serde(rename = "rail")]
     Rail,
-    #[serde(rename = "elevated_rail")]
+    #[serde(rename = "elevated-rail")]
     ElevatedRail,
     #[serde(rename = "air")]
     Air,

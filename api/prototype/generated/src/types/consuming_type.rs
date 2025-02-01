@@ -2,6 +2,6 @@
 pub enum ConsumingType {
     #[serde(rename = "none")]
     None,
-    #[serde(rename = "game_only")]
+    #[serde(rename = "game-only")]
     GameOnly,
 }

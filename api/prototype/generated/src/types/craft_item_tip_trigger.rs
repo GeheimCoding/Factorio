@@ -11,10 +11,10 @@ fn default_consecutive() -> bool {
 }
 #[derive(Debug, serde::Deserialize)]
 pub enum CraftItemTipTriggerEventType {
-    #[serde(rename = "crafting_of_single_item_ordered")]
+    #[serde(rename = "crafting-of-single-item-ordered")]
     CraftingOfSingleItemOrdered,
-    #[serde(rename = "crafting_of_multiple_items_ordered")]
+    #[serde(rename = "crafting-of-multiple-items-ordered")]
     CraftingOfMultipleItemsOrdered,
-    #[serde(rename = "crafting_finished")]
+    #[serde(rename = "crafting-finished")]
     CraftingFinished,
 }

@@ -1,9 +1,9 @@
 #[derive(Debug, serde::Deserialize)]
 pub enum EffectRelativeTo {
-    #[serde(rename = "ground_origin")]
+    #[serde(rename = "ground-origin")]
     GroundOrigin,
     #[serde(rename = "pod")]
     Pod,
-    #[serde(rename = "spawn_origin")]
+    #[serde(rename = "spawn-origin")]
     SpawnOrigin,
 }

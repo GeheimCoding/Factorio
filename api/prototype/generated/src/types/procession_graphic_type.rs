@@ -6,10 +6,10 @@ pub enum ProcessionGraphicType {
     Sprite,
     #[serde(rename = "animation")]
     Animation,
-    #[serde(rename = "pod_catalogue")]
+    #[serde(rename = "pod-catalogue")]
     PodCatalogue,
-    #[serde(rename = "location_catalogue")]
+    #[serde(rename = "location-catalogue")]
     LocationCatalogue,
-    #[serde(rename = "hatch_location_catalogue_index")]
+    #[serde(rename = "hatch-location-catalogue-index")]
     HatchLocationCatalogueIndex,
 }

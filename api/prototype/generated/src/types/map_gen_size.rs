@@ -2,11 +2,11 @@
 pub enum MapGenSize {
     #[serde(rename = "none")]
     None,
-    #[serde(rename = "very_low")]
+    #[serde(rename = "very-low")]
     VeryLow,
-    #[serde(rename = "very_small")]
+    #[serde(rename = "very-small")]
     VerySmall,
-    #[serde(rename = "very_poor")]
+    #[serde(rename = "very-poor")]
     VeryPoor,
     #[serde(rename = "low")]
     Low,
@@ -26,11 +26,11 @@ pub enum MapGenSize {
     Big,
     #[serde(rename = "good")]
     Good,
-    #[serde(rename = "very_high")]
+    #[serde(rename = "very-high")]
     VeryHigh,
-    #[serde(rename = "very_big")]
+    #[serde(rename = "very-big")]
     VeryBig,
-    #[serde(rename = "very_good")]
+    #[serde(rename = "very-good")]
     VeryGood,
     #[serde(untagged)]
     F32(f32),

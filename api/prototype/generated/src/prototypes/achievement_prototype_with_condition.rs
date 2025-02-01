@@ -5,8 +5,8 @@ pub struct AchievementPrototypeWithCondition {
 }
 #[derive(Debug, serde::Deserialize)]
 pub enum AchievementPrototypeWithConditionObjectiveCondition {
-    #[serde(rename = "game_finished")]
+    #[serde(rename = "game-finished")]
     GameFinished,
-    #[serde(rename = "rocket_launched")]
+    #[serde(rename = "rocket-launched")]
     RocketLaunched,
 }

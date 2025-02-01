@@ -194,11 +194,8 @@ impl Type {
             let (inner, additional) = option.generate(&option.postfix_variants(prefix), context);
             others.extend(additional);
 
-            if option.get_literal_value().is_some() {
-                union.push(format!(
-                    "#[serde(rename = \"{}\")]{inner},",
-                    inner.to_snake_case()
-                ));
+            if let Some(LiteralValue::String(value)) = option.get_literal_value() {
+                union.push(format!("#[serde(rename = \"{value}\")]{inner},",));
             } else if option.is_struct()
             /* // README: Adjustment [TODO] */
                 && prefix != "LightDefinition"

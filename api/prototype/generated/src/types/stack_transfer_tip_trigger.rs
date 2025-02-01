@@ -10,6 +10,6 @@ pub enum StackTransferTipTriggerTransfer {
     Stack,
     #[serde(rename = "inventory")]
     Inventory,
-    #[serde(rename = "whole_inventory")]
+    #[serde(rename = "whole-inventory")]
     WholeInventory,
 }

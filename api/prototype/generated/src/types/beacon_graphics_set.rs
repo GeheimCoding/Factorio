@@ -52,7 +52,7 @@ fn default_module_icons_suppressed() -> bool {
 }
 #[derive(Debug, serde::Deserialize)]
 pub enum BeaconGraphicsSetModuleTintMode {
-    #[serde(rename = "single_module")]
+    #[serde(rename = "single-module")]
     SingleModule,
     #[serde(rename = "mix")]
     Mix,

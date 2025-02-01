@@ -4,6 +4,6 @@ pub enum AnimationRunMode {
     Forward,
     #[serde(rename = "backward")]
     Backward,
-    #[serde(rename = "forward_then_backward")]
+    #[serde(rename = "forward-then-backward")]
     ForwardThenBackward,
 }

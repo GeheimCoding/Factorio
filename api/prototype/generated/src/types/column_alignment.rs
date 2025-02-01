@@ -11,22 +11,22 @@ pub enum ColumnAlignmentAlignment {
     Left,
     #[serde(rename = "right")]
     Right,
-    #[serde(rename = "top_left")]
+    #[serde(rename = "top-left")]
     TopLeft,
-    #[serde(rename = "middle_left")]
+    #[serde(rename = "middle-left")]
     MiddleLeft,
-    #[serde(rename = "bottom_left")]
+    #[serde(rename = "bottom-left")]
     BottomLeft,
-    #[serde(rename = "top_center")]
+    #[serde(rename = "top-center")]
     TopCenter,
-    #[serde(rename = "middle_center")]
+    #[serde(rename = "middle-center")]
     MiddleCenter,
-    #[serde(rename = "bottom_center")]
+    #[serde(rename = "bottom-center")]
     BottomCenter,
-    #[serde(rename = "top_right")]
+    #[serde(rename = "top-right")]
     TopRight,
-    #[serde(rename = "middle_right")]
+    #[serde(rename = "middle-right")]
     MiddleRight,
-    #[serde(rename = "bottom_right")]
+    #[serde(rename = "bottom-right")]
     BottomRight,
 }

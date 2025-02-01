@@ -1,242 +1,242 @@
 #[derive(Debug, serde::Deserialize)]
 pub enum LinkedGameControl {
-    #[serde(rename = "move_up")]
+    #[serde(rename = "move-up")]
     MoveUp,
-    #[serde(rename = "move_down")]
+    #[serde(rename = "move-down")]
     MoveDown,
-    #[serde(rename = "move_left")]
+    #[serde(rename = "move-left")]
     MoveLeft,
-    #[serde(rename = "move_right")]
+    #[serde(rename = "move-right")]
     MoveRight,
-    #[serde(rename = "open_character_gui")]
+    #[serde(rename = "open-character-gui")]
     OpenCharacterGui,
-    #[serde(rename = "open_gui")]
+    #[serde(rename = "open-gui")]
     OpenGui,
-    #[serde(rename = "confirm_gui")]
+    #[serde(rename = "confirm-gui")]
     ConfirmGui,
-    #[serde(rename = "toggle_free_cursor")]
+    #[serde(rename = "toggle-free-cursor")]
     ToggleFreeCursor,
     #[serde(rename = "mine")]
     Mine,
     #[serde(rename = "build")]
     Build,
-    #[serde(rename = "build_ghost")]
+    #[serde(rename = "build-ghost")]
     BuildGhost,
-    #[serde(rename = "super_forced_build")]
+    #[serde(rename = "super-forced-build")]
     SuperForcedBuild,
-    #[serde(rename = "clear_cursor")]
+    #[serde(rename = "clear-cursor")]
     ClearCursor,
     #[serde(rename = "pipette")]
     Pipette,
     #[serde(rename = "rotate")]
     Rotate,
-    #[serde(rename = "reverse_rotate")]
+    #[serde(rename = "reverse-rotate")]
     ReverseRotate,
-    #[serde(rename = "flip_horizontal")]
+    #[serde(rename = "flip-horizontal")]
     FlipHorizontal,
-    #[serde(rename = "flip_vertical")]
+    #[serde(rename = "flip-vertical")]
     FlipVertical,
-    #[serde(rename = "pick_items")]
+    #[serde(rename = "pick-items")]
     PickItems,
-    #[serde(rename = "drop_cursor")]
+    #[serde(rename = "drop-cursor")]
     DropCursor,
-    #[serde(rename = "show_info")]
+    #[serde(rename = "show-info")]
     ShowInfo,
-    #[serde(rename = "shoot_enemy")]
+    #[serde(rename = "shoot-enemy")]
     ShootEnemy,
-    #[serde(rename = "shoot_selected")]
+    #[serde(rename = "shoot-selected")]
     ShootSelected,
-    #[serde(rename = "next_weapon")]
+    #[serde(rename = "next-weapon")]
     NextWeapon,
-    #[serde(rename = "toggle_driving")]
+    #[serde(rename = "toggle-driving")]
     ToggleDriving,
-    #[serde(rename = "zoom_in")]
+    #[serde(rename = "zoom-in")]
     ZoomIn,
-    #[serde(rename = "zoom_out")]
+    #[serde(rename = "zoom-out")]
     ZoomOut,
-    #[serde(rename = "use_item")]
+    #[serde(rename = "use-item")]
     UseItem,
-    #[serde(rename = "alternative_use_item")]
+    #[serde(rename = "alternative-use-item")]
     AlternativeUseItem,
-    #[serde(rename = "toggle_console")]
+    #[serde(rename = "toggle-console")]
     ToggleConsole,
-    #[serde(rename = "copy_entity_settings")]
+    #[serde(rename = "copy-entity-settings")]
     CopyEntitySettings,
-    #[serde(rename = "paste_entity_settings")]
+    #[serde(rename = "paste-entity-settings")]
     PasteEntitySettings,
-    #[serde(rename = "controller_gui_logistics_tab")]
+    #[serde(rename = "controller-gui-logistics-tab")]
     ControllerGuiLogisticsTab,
-    #[serde(rename = "controller_gui_character_tab")]
+    #[serde(rename = "controller-gui-character-tab")]
     ControllerGuiCharacterTab,
-    #[serde(rename = "controller_gui_crafting_tab")]
+    #[serde(rename = "controller-gui-crafting-tab")]
     ControllerGuiCraftingTab,
-    #[serde(rename = "toggle_rail_layer")]
+    #[serde(rename = "toggle-rail-layer")]
     ToggleRailLayer,
-    #[serde(rename = "select_for_blueprint")]
+    #[serde(rename = "select-for-blueprint")]
     SelectForBlueprint,
-    #[serde(rename = "select_for_cancel_deconstruct")]
+    #[serde(rename = "select-for-cancel-deconstruct")]
     SelectForCancelDeconstruct,
-    #[serde(rename = "select_for_super_forced_deconstruct")]
+    #[serde(rename = "select-for-super-forced-deconstruct")]
     SelectForSuperForcedDeconstruct,
-    #[serde(rename = "reverse_select")]
+    #[serde(rename = "reverse-select")]
     ReverseSelect,
-    #[serde(rename = "alt_reverse_select")]
+    #[serde(rename = "alt-reverse-select")]
     AltReverseSelect,
     #[serde(rename = "deselect")]
     Deselect,
-    #[serde(rename = "cycle_blueprint_forwards")]
+    #[serde(rename = "cycle-blueprint-forwards")]
     CycleBlueprintForwards,
-    #[serde(rename = "cycle_blueprint_backwards")]
+    #[serde(rename = "cycle-blueprint-backwards")]
     CycleBlueprintBackwards,
-    #[serde(rename = "focus_search")]
+    #[serde(rename = "focus-search")]
     FocusSearch,
-    #[serde(rename = "larger_terrain_building_area")]
+    #[serde(rename = "larger-terrain-building-area")]
     LargerTerrainBuildingArea,
-    #[serde(rename = "smaller_terrain_building_area")]
+    #[serde(rename = "smaller-terrain-building-area")]
     SmallerTerrainBuildingArea,
-    #[serde(rename = "remove_pole_cables")]
+    #[serde(rename = "remove-pole-cables")]
     RemovePoleCables,
-    #[serde(rename = "build_with_obstacle_avoidance")]
+    #[serde(rename = "build-with-obstacle-avoidance")]
     BuildWithObstacleAvoidance,
-    #[serde(rename = "add_station")]
+    #[serde(rename = "add-station")]
     AddStation,
-    #[serde(rename = "add_temporary_station")]
+    #[serde(rename = "add-temporary-station")]
     AddTemporaryStation,
-    #[serde(rename = "rename_all")]
+    #[serde(rename = "rename-all")]
     RenameAll,
-    #[serde(rename = "fast_wait_condition")]
+    #[serde(rename = "fast-wait-condition")]
     FastWaitCondition,
-    #[serde(rename = "drag_map")]
+    #[serde(rename = "drag-map")]
     DragMap,
-    #[serde(rename = "move_tag")]
+    #[serde(rename = "move-tag")]
     MoveTag,
-    #[serde(rename = "place_in_chat")]
+    #[serde(rename = "place-in-chat")]
     PlaceInChat,
-    #[serde(rename = "place_ping")]
+    #[serde(rename = "place-ping")]
     PlacePing,
     #[serde(rename = "pin")]
     Pin,
-    #[serde(rename = "activate_tooltip")]
+    #[serde(rename = "activate-tooltip")]
     ActivateTooltip,
-    #[serde(rename = "next_surface")]
+    #[serde(rename = "next-surface")]
     NextSurface,
-    #[serde(rename = "previous_surface")]
+    #[serde(rename = "previous-surface")]
     PreviousSurface,
-    #[serde(rename = "cycle_quality_up")]
+    #[serde(rename = "cycle-quality-up")]
     CycleQualityUp,
-    #[serde(rename = "cycle_quality_down")]
+    #[serde(rename = "cycle-quality-down")]
     CycleQualityDown,
     #[serde(rename = "craft")]
     Craft,
-    #[serde(rename = "craft_5")]
+    #[serde(rename = "craft-5")]
     Craft5,
-    #[serde(rename = "craft_all")]
+    #[serde(rename = "craft-all")]
     CraftAll,
-    #[serde(rename = "cancel_craft")]
+    #[serde(rename = "cancel-craft")]
     CancelCraft,
-    #[serde(rename = "cancel_craft_5")]
+    #[serde(rename = "cancel-craft-5")]
     CancelCraft5,
-    #[serde(rename = "cancel_craft_all")]
+    #[serde(rename = "cancel-craft-all")]
     CancelCraftAll,
-    #[serde(rename = "pick_item")]
+    #[serde(rename = "pick-item")]
     PickItem,
-    #[serde(rename = "stack_transfer")]
+    #[serde(rename = "stack-transfer")]
     StackTransfer,
-    #[serde(rename = "inventory_transfer")]
+    #[serde(rename = "inventory-transfer")]
     InventoryTransfer,
-    #[serde(rename = "fast_entity_transfer")]
+    #[serde(rename = "fast-entity-transfer")]
     FastEntityTransfer,
-    #[serde(rename = "cursor_split")]
+    #[serde(rename = "cursor-split")]
     CursorSplit,
-    #[serde(rename = "stack_split")]
+    #[serde(rename = "stack-split")]
     StackSplit,
-    #[serde(rename = "inventory_split")]
+    #[serde(rename = "inventory-split")]
     InventorySplit,
-    #[serde(rename = "fast_entity_split")]
+    #[serde(rename = "fast-entity-split")]
     FastEntitySplit,
-    #[serde(rename = "toggle_filter")]
+    #[serde(rename = "toggle-filter")]
     ToggleFilter,
-    #[serde(rename = "open_item")]
+    #[serde(rename = "open-item")]
     OpenItem,
-    #[serde(rename = "copy_inventory_filter")]
+    #[serde(rename = "copy-inventory-filter")]
     CopyInventoryFilter,
-    #[serde(rename = "paste_inventory_filter")]
+    #[serde(rename = "paste-inventory-filter")]
     PasteInventoryFilter,
-    #[serde(rename = "show_quick_panel")]
+    #[serde(rename = "show-quick-panel")]
     ShowQuickPanel,
-    #[serde(rename = "next_quick_panel_page")]
+    #[serde(rename = "next-quick-panel-page")]
     NextQuickPanelPage,
-    #[serde(rename = "previous_quick_panel_page")]
+    #[serde(rename = "previous-quick-panel-page")]
     PreviousQuickPanelPage,
-    #[serde(rename = "next_quick_panel_tab")]
+    #[serde(rename = "next-quick-panel-tab")]
     NextQuickPanelTab,
-    #[serde(rename = "previous_quick_panel_tab")]
+    #[serde(rename = "previous-quick-panel-tab")]
     PreviousQuickPanelTab,
-    #[serde(rename = "rotate_active_quick_bars")]
+    #[serde(rename = "rotate-active-quick-bars")]
     RotateActiveQuickBars,
-    #[serde(rename = "next_active_quick_bar")]
+    #[serde(rename = "next-active-quick-bar")]
     NextActiveQuickBar,
-    #[serde(rename = "previous_active_quick_bar")]
+    #[serde(rename = "previous-active-quick-bar")]
     PreviousActiveQuickBar,
-    #[serde(rename = "quick_bar_button_1")]
+    #[serde(rename = "quick-bar-button-1")]
     QuickBarButton1,
-    #[serde(rename = "quick_bar_button_2")]
+    #[serde(rename = "quick-bar-button-2")]
     QuickBarButton2,
-    #[serde(rename = "quick_bar_button_3")]
+    #[serde(rename = "quick-bar-button-3")]
     QuickBarButton3,
-    #[serde(rename = "quick_bar_button_4")]
+    #[serde(rename = "quick-bar-button-4")]
     QuickBarButton4,
-    #[serde(rename = "quick_bar_button_5")]
+    #[serde(rename = "quick-bar-button-5")]
     QuickBarButton5,
-    #[serde(rename = "quick_bar_button_6")]
+    #[serde(rename = "quick-bar-button-6")]
     QuickBarButton6,
-    #[serde(rename = "quick_bar_button_7")]
+    #[serde(rename = "quick-bar-button-7")]
     QuickBarButton7,
-    #[serde(rename = "quick_bar_button_8")]
+    #[serde(rename = "quick-bar-button-8")]
     QuickBarButton8,
-    #[serde(rename = "quick_bar_button_9")]
+    #[serde(rename = "quick-bar-button-9")]
     QuickBarButton9,
-    #[serde(rename = "quick_bar_button_10")]
+    #[serde(rename = "quick-bar-button-10")]
     QuickBarButton10,
-    #[serde(rename = "quick_bar_button_1secondary")]
+    #[serde(rename = "quick-bar-button-1-secondary")]
     QuickBarButton1Secondary,
-    #[serde(rename = "quick_bar_button_2secondary")]
+    #[serde(rename = "quick-bar-button-2-secondary")]
     QuickBarButton2Secondary,
-    #[serde(rename = "quick_bar_button_3secondary")]
+    #[serde(rename = "quick-bar-button-3-secondary")]
     QuickBarButton3Secondary,
-    #[serde(rename = "quick_bar_button_4secondary")]
+    #[serde(rename = "quick-bar-button-4-secondary")]
     QuickBarButton4Secondary,
-    #[serde(rename = "quick_bar_button_5secondary")]
+    #[serde(rename = "quick-bar-button-5-secondary")]
     QuickBarButton5Secondary,
-    #[serde(rename = "quick_bar_button_6secondary")]
+    #[serde(rename = "quick-bar-button-6-secondary")]
     QuickBarButton6Secondary,
-    #[serde(rename = "quick_bar_button_7secondary")]
+    #[serde(rename = "quick-bar-button-7-secondary")]
     QuickBarButton7Secondary,
-    #[serde(rename = "quick_bar_button_8secondary")]
+    #[serde(rename = "quick-bar-button-8-secondary")]
     QuickBarButton8Secondary,
-    #[serde(rename = "quick_bar_button_9secondary")]
+    #[serde(rename = "quick-bar-button-9-secondary")]
     QuickBarButton9Secondary,
-    #[serde(rename = "quick_bar_button_10secondary")]
+    #[serde(rename = "quick-bar-button-10-secondary")]
     QuickBarButton10Secondary,
-    #[serde(rename = "action_bar_select_page_1")]
+    #[serde(rename = "action-bar-select-page-1")]
     ActionBarSelectPage1,
-    #[serde(rename = "action_bar_select_page_2")]
+    #[serde(rename = "action-bar-select-page-2")]
     ActionBarSelectPage2,
-    #[serde(rename = "action_bar_select_page_3")]
+    #[serde(rename = "action-bar-select-page-3")]
     ActionBarSelectPage3,
-    #[serde(rename = "action_bar_select_page_4")]
+    #[serde(rename = "action-bar-select-page-4")]
     ActionBarSelectPage4,
-    #[serde(rename = "action_bar_select_page_5")]
+    #[serde(rename = "action-bar-select-page-5")]
     ActionBarSelectPage5,
-    #[serde(rename = "action_bar_select_page_6")]
+    #[serde(rename = "action-bar-select-page-6")]
     ActionBarSelectPage6,
-    #[serde(rename = "action_bar_select_page_7")]
+    #[serde(rename = "action-bar-select-page-7")]
     ActionBarSelectPage7,
-    #[serde(rename = "action_bar_select_page_8")]
+    #[serde(rename = "action-bar-select-page-8")]
     ActionBarSelectPage8,
-    #[serde(rename = "action_bar_select_page_9")]
+    #[serde(rename = "action-bar-select-page-9")]
     ActionBarSelectPage9,
-    #[serde(rename = "action_bar_select_page_10")]
+    #[serde(rename = "action-bar-select-page-10")]
     ActionBarSelectPage10,
     #[serde(rename = "copy")]
     Copy,
@@ -244,132 +244,132 @@ pub enum LinkedGameControl {
     Cut,
     #[serde(rename = "paste")]
     Paste,
-    #[serde(rename = "cycle_clipboard_forwards")]
+    #[serde(rename = "cycle-clipboard-forwards")]
     CycleClipboardForwards,
-    #[serde(rename = "cycle_clipboard_backwards")]
+    #[serde(rename = "cycle-clipboard-backwards")]
     CycleClipboardBackwards,
     #[serde(rename = "undo")]
     Undo,
     #[serde(rename = "redo")]
     Redo,
-    #[serde(rename = "toggle_menu")]
+    #[serde(rename = "toggle-menu")]
     ToggleMenu,
-    #[serde(rename = "toggle_map")]
+    #[serde(rename = "toggle-map")]
     ToggleMap,
-    #[serde(rename = "close_menu")]
+    #[serde(rename = "close-menu")]
     CloseMenu,
-    #[serde(rename = "open_technology_gui")]
+    #[serde(rename = "open-technology-gui")]
     OpenTechnologyGui,
-    #[serde(rename = "production_statistics")]
+    #[serde(rename = "production-statistics")]
     ProductionStatistics,
-    #[serde(rename = "logistic_networks")]
+    #[serde(rename = "logistic-networks")]
     LogisticNetworks,
-    #[serde(rename = "toggle_blueprint_library")]
+    #[serde(rename = "toggle-blueprint-library")]
     ToggleBlueprintLibrary,
-    #[serde(rename = "open_trains_gui")]
+    #[serde(rename = "open-trains-gui")]
     OpenTrainsGui,
-    #[serde(rename = "open_factoriopedia")]
+    #[serde(rename = "open-factoriopedia")]
     OpenFactoriopedia,
     #[serde(rename = "back")]
     Back,
     #[serde(rename = "forward")]
     Forward,
-    #[serde(rename = "pause_game")]
+    #[serde(rename = "pause-game")]
     PauseGame,
-    #[serde(rename = "confirm_message")]
+    #[serde(rename = "confirm-message")]
     ConfirmMessage,
-    #[serde(rename = "previous_technology")]
+    #[serde(rename = "previous-technology")]
     PreviousTechnology,
-    #[serde(rename = "previous_mod")]
+    #[serde(rename = "previous-mod")]
     PreviousMod,
-    #[serde(rename = "connect_train")]
+    #[serde(rename = "connect-train")]
     ConnectTrain,
-    #[serde(rename = "disconnect_train")]
+    #[serde(rename = "disconnect-train")]
     DisconnectTrain,
-    #[serde(rename = "submit_feedback")]
+    #[serde(rename = "submit-feedback")]
     SubmitFeedback,
-    #[serde(rename = "editor_next_variation")]
+    #[serde(rename = "editor-next-variation")]
     EditorNextVariation,
-    #[serde(rename = "editor_previous_variation")]
+    #[serde(rename = "editor-previous-variation")]
     EditorPreviousVariation,
-    #[serde(rename = "editor_clone_item")]
+    #[serde(rename = "editor-clone-item")]
     EditorCloneItem,
-    #[serde(rename = "editor_delete_item")]
+    #[serde(rename = "editor-delete-item")]
     EditorDeleteItem,
-    #[serde(rename = "editor_toggle_pause")]
+    #[serde(rename = "editor-toggle-pause")]
     EditorTogglePause,
-    #[serde(rename = "editor_tick_once")]
+    #[serde(rename = "editor-tick-once")]
     EditorTickOnce,
-    #[serde(rename = "editor_speed_up")]
+    #[serde(rename = "editor-speed-up")]
     EditorSpeedUp,
-    #[serde(rename = "editor_speed_down")]
+    #[serde(rename = "editor-speed-down")]
     EditorSpeedDown,
-    #[serde(rename = "editor_reset_speed")]
+    #[serde(rename = "editor-reset-speed")]
     EditorResetSpeed,
-    #[serde(rename = "editor_set_clone_brush_source")]
+    #[serde(rename = "editor-set-clone-brush-source")]
     EditorSetCloneBrushSource,
-    #[serde(rename = "editor_set_clone_brush_destination")]
+    #[serde(rename = "editor-set-clone-brush-destination")]
     EditorSetCloneBrushDestination,
-    #[serde(rename = "editor_switch_to_surface")]
+    #[serde(rename = "editor-switch-to-surface")]
     EditorSwitchToSurface,
-    #[serde(rename = "editor_remove_scripting_object")]
+    #[serde(rename = "editor-remove-scripting-object")]
     EditorRemoveScriptingObject,
-    #[serde(rename = "debug_toggle_atlas_gui")]
+    #[serde(rename = "debug-toggle-atlas-gui")]
     DebugToggleAtlasGui,
-    #[serde(rename = "debug_toggle_gui_visibility")]
+    #[serde(rename = "debug-toggle-gui-visibility")]
     DebugToggleGuiVisibility,
-    #[serde(rename = "debug_toggle_debug_settings")]
+    #[serde(rename = "debug-toggle-debug-settings")]
     DebugToggleDebugSettings,
-    #[serde(rename = "debug_toggle_basic")]
+    #[serde(rename = "debug-toggle-basic")]
     DebugToggleBasic,
-    #[serde(rename = "debug_reset_zoom")]
+    #[serde(rename = "debug-reset-zoom")]
     DebugResetZoom,
-    #[serde(rename = "debug_reset_zoom_2x")]
+    #[serde(rename = "debug-reset-zoom-2x")]
     DebugResetZoom2x,
-    #[serde(rename = "toggle_gui_debug")]
+    #[serde(rename = "toggle-gui-debug")]
     ToggleGuiDebug,
-    #[serde(rename = "toggle_gui_style_view")]
+    #[serde(rename = "toggle-gui-style-view")]
     ToggleGuiStyleView,
-    #[serde(rename = "toggle_gui_shadows")]
+    #[serde(rename = "toggle-gui-shadows")]
     ToggleGuiShadows,
-    #[serde(rename = "toggle_gui_glows")]
+    #[serde(rename = "toggle-gui-glows")]
     ToggleGuiGlows,
-    #[serde(rename = "open_prototypes_gui")]
+    #[serde(rename = "open-prototypes-gui")]
     OpenPrototypesGui,
-    #[serde(rename = "open_prototype_explorer_gui")]
+    #[serde(rename = "open-prototype-explorer-gui")]
     OpenPrototypeExplorerGui,
-    #[serde(rename = "increase_ui_scale")]
+    #[serde(rename = "increase-ui-scale")]
     IncreaseUiScale,
-    #[serde(rename = "decrease_ui_scale")]
+    #[serde(rename = "decrease-ui-scale")]
     DecreaseUiScale,
-    #[serde(rename = "reset_ui_scale")]
+    #[serde(rename = "reset-ui-scale")]
     ResetUiScale,
-    #[serde(rename = "slash_editor")]
+    #[serde(rename = "slash-editor")]
     SlashEditor,
-    #[serde(rename = "toggle_entity")]
+    #[serde(rename = "toggle-entity")]
     ToggleEntity,
-    #[serde(rename = "next_player_in_replay")]
+    #[serde(rename = "next-player-in-replay")]
     NextPlayerInReplay,
-    #[serde(rename = "move_blueprint_absolute_grid_up")]
+    #[serde(rename = "move-blueprint-absolute-grid-up")]
     MoveBlueprintAbsoluteGridUp,
-    #[serde(rename = "move_blueprint_absolute_grid_down")]
+    #[serde(rename = "move-blueprint-absolute-grid-down")]
     MoveBlueprintAbsoluteGridDown,
-    #[serde(rename = "move_blueprint_absolute_grid_left")]
+    #[serde(rename = "move-blueprint-absolute-grid-left")]
     MoveBlueprintAbsoluteGridLeft,
-    #[serde(rename = "move_blueprint_absolute_grid_right")]
+    #[serde(rename = "move-blueprint-absolute-grid-right")]
     MoveBlueprintAbsoluteGridRight,
-    #[serde(rename = "move_blueprint_entities_up")]
+    #[serde(rename = "move-blueprint-entities-up")]
     MoveBlueprintEntitiesUp,
-    #[serde(rename = "move_blueprint_entities_down")]
+    #[serde(rename = "move-blueprint-entities-down")]
     MoveBlueprintEntitiesDown,
-    #[serde(rename = "move_blueprint_entities_left")]
+    #[serde(rename = "move-blueprint-entities-left")]
     MoveBlueprintEntitiesLeft,
-    #[serde(rename = "move_blueprint_entities_right")]
+    #[serde(rename = "move-blueprint-entities-right")]
     MoveBlueprintEntitiesRight,
-    #[serde(rename = "play_next_track")]
+    #[serde(rename = "play-next-track")]
     PlayNextTrack,
-    #[serde(rename = "play_previous_track")]
+    #[serde(rename = "play-previous-track")]
     PlayPreviousTrack,
-    #[serde(rename = "pause_resume_music")]
+    #[serde(rename = "pause-resume-music")]
     PauseResumeMusic,
 }

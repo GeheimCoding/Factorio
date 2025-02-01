@@ -1,9 +1,9 @@
 #[derive(Debug, serde::Deserialize)]
 pub enum RangeMode {
-    #[serde(rename = "center_to_center")]
+    #[serde(rename = "center-to-center")]
     CenterToCenter,
-    #[serde(rename = "bounding_box_to_bounding_box")]
+    #[serde(rename = "bounding-box-to-bounding-box")]
     BoundingBoxToBoundingBox,
-    #[serde(rename = "center_to_bounding_box")]
+    #[serde(rename = "center-to-bounding-box")]
     CenterToBoundingBox,
 }

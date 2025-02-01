@@ -2,14 +2,14 @@
 pub enum SoundModifierType {
     #[serde(rename = "game")]
     Game,
-    #[serde(rename = "main_menu")]
+    #[serde(rename = "main-menu")]
     MainMenu,
-    #[serde(rename = "tips_and_tricks")]
+    #[serde(rename = "tips-and-tricks")]
     TipsAndTricks,
     #[serde(rename = "driving")]
     Driving,
     #[serde(rename = "elevation")]
     Elevation,
-    #[serde(rename = "space_platform")]
+    #[serde(rename = "space-platform")]
     SpacePlatform,
 }

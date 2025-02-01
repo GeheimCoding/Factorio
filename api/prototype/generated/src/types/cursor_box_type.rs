@@ -2,24 +2,24 @@
 pub enum CursorBoxType {
     #[serde(rename = "entity")]
     Entity,
-    #[serde(rename = "multiplayer_entity")]
+    #[serde(rename = "multiplayer-entity")]
     MultiplayerEntity,
     #[serde(rename = "electricity")]
     Electricity,
     #[serde(rename = "copy")]
     Copy,
-    #[serde(rename = "not_allowed")]
+    #[serde(rename = "not-allowed")]
     NotAllowed,
     #[serde(rename = "pair")]
     Pair,
     #[serde(rename = "logistics")]
     Logistics,
-    #[serde(rename = "train_visualization")]
+    #[serde(rename = "train-visualization")]
     TrainVisualization,
-    #[serde(rename = "blueprint_snap_rectangle")]
+    #[serde(rename = "blueprint-snap-rectangle")]
     BlueprintSnapRectangle,
-    #[serde(rename = "spidertron_remote_selected")]
+    #[serde(rename = "spidertron-remote-selected")]
     SpidertronRemoteSelected,
-    #[serde(rename = "spidertron_remote_to_be_selected")]
+    #[serde(rename = "spidertron-remote-to-be-selected")]
     SpidertronRemoteToBeSelected,
 }

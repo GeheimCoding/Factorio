@@ -6,12 +6,12 @@ pub struct LightningRuleBase {
 }
 #[derive(Debug, serde::Deserialize)]
 pub enum LightningRuleBaseType {
-    #[serde(rename = "impact_soundset")]
+    #[serde(rename = "impact-soundset")]
     ImpactSoundset,
     #[serde(rename = "prototype")]
     Prototype,
     #[serde(rename = "id")]
     Id,
-    #[serde(rename = "count_as_rock_for_filtered_deconstruction")]
+    #[serde(rename = "countAsRockForFilteredDeconstruction")]
     CountAsRockForFilteredDeconstruction,
 }

@@ -1,12 +1,12 @@
 #[derive(Debug, serde::Deserialize)]
 pub enum ElectricUsagePriority {
-    #[serde(rename = "primary_input")]
+    #[serde(rename = "primary-input")]
     PrimaryInput,
-    #[serde(rename = "primary_output")]
+    #[serde(rename = "primary-output")]
     PrimaryOutput,
-    #[serde(rename = "secondary_input")]
+    #[serde(rename = "secondary-input")]
     SecondaryInput,
-    #[serde(rename = "secondary_output")]
+    #[serde(rename = "secondary-output")]
     SecondaryOutput,
     #[serde(rename = "tertiary")]
     Tertiary,

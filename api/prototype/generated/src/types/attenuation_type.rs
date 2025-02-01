@@ -10,6 +10,6 @@ pub enum AttenuationType {
     Exponential,
     #[serde(rename = "cosine")]
     Cosine,
-    #[serde(rename = "s_curve")]
+    #[serde(rename = "S-curve")]
     SCurve,
 }

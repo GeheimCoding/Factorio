@@ -4,11 +4,11 @@ pub enum BlendMode {
     Normal,
     #[serde(rename = "additive")]
     Additive,
-    #[serde(rename = "additive_soft")]
+    #[serde(rename = "additive-soft")]
     AdditiveSoft,
     #[serde(rename = "multiplicative")]
     Multiplicative,
-    #[serde(rename = "multiplicative_with_alpha")]
+    #[serde(rename = "multiplicative-with-alpha")]
     MultiplicativeWithAlpha,
     #[serde(rename = "overwrite")]
     Overwrite,
