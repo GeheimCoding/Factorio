@@ -11,8 +11,6 @@ pub struct FluidIngredientPrototype {
     minimum_temperature: Option<f32>,
     name: crate::types::FluidID,
     temperature: Option<f32>,
-    #[serde(rename = "type")]
-    type_: String,
 }
 fn default_fluidbox_index() -> u32 {
     0

@@ -18,8 +18,6 @@ pub struct HeatEnergySource {
     minimum_glow_temperature: f32,
     pipe_covers: Option<crate::types::Sprite4Way>,
     specific_heat: crate::types::Energy,
-    #[serde(rename = "type")]
-    type_: String,
 }
 fn default_default_temperature() -> f64 {
     15.0

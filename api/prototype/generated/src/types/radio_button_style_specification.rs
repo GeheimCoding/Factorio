@@ -5,6 +5,4 @@ pub struct RadioButtonStyleSpecification {
     font: Option<String>,
     font_color: Option<crate::types::Color>,
     text_padding: Option<u32>,
-    #[serde(rename = "type")]
-    type_: String,
 }

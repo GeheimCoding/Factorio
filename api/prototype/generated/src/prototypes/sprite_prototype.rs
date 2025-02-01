@@ -46,8 +46,6 @@ pub struct SpritePrototype {
     tint: Option<crate::types::Color>,
     #[serde(default = "default_tint_as_overlay")]
     tint_as_overlay: bool,
-    #[serde(rename = "type")]
-    type_: String,
     #[serde(default = "default_usage")]
     usage: crate::types::SpriteUsageHint,
     width: Option<crate::types::SpriteSizeType>,

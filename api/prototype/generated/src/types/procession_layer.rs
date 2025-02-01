@@ -1,17 +1,18 @@
 #[derive(Debug, serde::Deserialize)]
+#[serde(tag = "type")]
 pub enum ProcessionLayer {
-    #[serde(untagged)]
+    #[serde(rename = "pod-distance-traveled")]
     PodDistanceTraveledProcessionLayer(Box<crate::types::PodDistanceTraveledProcessionLayer>),
-    #[serde(untagged)]
+    #[serde(rename = "pod-movement")]
     PodMovementProcessionLayer(Box<crate::types::PodMovementProcessionLayer>),
-    #[serde(untagged)]
+    #[serde(rename = "pod-opacity")]
     PodOpacityProcessionLayer(Box<crate::types::PodOpacityProcessionLayer>),
-    #[serde(untagged)]
+    #[serde(rename = "single-graphic")]
     SingleGraphicProcessionLayer(Box<crate::types::SingleGraphicProcessionLayer>),
-    #[serde(untagged)]
+    #[serde(rename = "cover-graphic")]
     CoverGraphicProcessionLayer(Box<crate::types::CoverGraphicProcessionLayer>),
-    #[serde(untagged)]
+    #[serde(rename = "tint")]
     TintProcessionLayer(Box<crate::types::TintProcessionLayer>),
-    #[serde(untagged)]
+    #[serde(rename = "pod-animation")]
     PodAnimationProcessionLayer(Box<crate::types::PodAnimationProcessionLayer>),
 }

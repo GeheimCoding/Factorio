@@ -6,49 +6,50 @@ pub enum TriggerEffect {
     VecTriggerEffectVariants(Vec<TriggerEffectVariants>),
 }
 #[derive(Debug, serde::Deserialize)]
+#[serde(tag = "type")]
 pub enum TriggerEffectVariants {
-    #[serde(untagged)]
+    #[serde(rename = "damage")]
     DamageTriggerEffectItem(Box<crate::types::DamageTriggerEffectItem>),
-    #[serde(untagged)]
+    #[serde(rename = "create-entity")]
     CreateEntityTriggerEffectItem(Box<crate::types::CreateEntityTriggerEffectItem>),
-    #[serde(untagged)]
+    #[serde(rename = "create-explosion")]
     CreateExplosionTriggerEffectItem(Box<crate::types::CreateExplosionTriggerEffectItem>),
-    #[serde(untagged)]
+    #[serde(rename = "create-fire")]
     CreateFireTriggerEffectItem(Box<crate::types::CreateFireTriggerEffectItem>),
-    #[serde(untagged)]
+    #[serde(rename = "create-smoke")]
     CreateSmokeTriggerEffectItem(Box<crate::types::CreateSmokeTriggerEffectItem>),
-    #[serde(untagged)]
+    #[serde(rename = "create-trivial-smoke")]
     CreateTrivialSmokeEffectItem(Box<crate::types::CreateTrivialSmokeEffectItem>),
-    #[serde(untagged)]
+    #[serde(rename = "create-asteroid-chunk")]
     CreateAsteroidChunkEffectItem(Box<crate::types::CreateAsteroidChunkEffectItem>),
-    #[serde(untagged)]
+    #[serde(rename = "create-particle")]
     CreateParticleTriggerEffectItem(Box<crate::types::CreateParticleTriggerEffectItem>),
-    #[serde(untagged)]
+    #[serde(rename = "create-sticker")]
     CreateStickerTriggerEffectItem(Box<crate::types::CreateStickerTriggerEffectItem>),
-    #[serde(untagged)]
+    #[serde(rename = "create-decorative")]
     CreateDecorativesTriggerEffectItem(Box<crate::types::CreateDecorativesTriggerEffectItem>),
-    #[serde(untagged)]
+    #[serde(rename = "nested-result")]
     NestedTriggerEffectItem(Box<crate::types::NestedTriggerEffectItem>),
-    #[serde(untagged)]
+    #[serde(rename = "play-sound")]
     PlaySoundTriggerEffectItem(Box<crate::types::PlaySoundTriggerEffectItem>),
-    #[serde(untagged)]
+    #[serde(rename = "push-back")]
     PushBackTriggerEffectItem(Box<crate::types::PushBackTriggerEffectItem>),
-    #[serde(untagged)]
+    #[serde(rename = "destroy-cliffs")]
     DestroyCliffsTriggerEffectItem(Box<crate::types::DestroyCliffsTriggerEffectItem>),
-    #[serde(untagged)]
+    #[serde(rename = "show-explosion-on-chart")]
     ShowExplosionOnChartTriggerEffectItem(Box<crate::types::ShowExplosionOnChartTriggerEffectItem>),
-    #[serde(untagged)]
+    #[serde(rename = "insert-item")]
     InsertItemTriggerEffectItem(Box<crate::types::InsertItemTriggerEffectItem>),
-    #[serde(untagged)]
+    #[serde(rename = "script")]
     ScriptTriggerEffectItem(Box<crate::types::ScriptTriggerEffectItem>),
-    #[serde(untagged)]
+    #[serde(rename = "set-tile")]
     SetTileTriggerEffectItem(Box<crate::types::SetTileTriggerEffectItem>),
-    #[serde(untagged)]
+    #[serde(rename = "invoke-tile-trigger")]
     InvokeTileEffectTriggerEffectItem(Box<crate::types::InvokeTileEffectTriggerEffectItem>),
-    #[serde(untagged)]
+    #[serde(rename = "destroy-decoratives")]
     DestroyDecorativesTriggerEffectItem(Box<crate::types::DestroyDecorativesTriggerEffectItem>),
-    #[serde(untagged)]
+    #[serde(rename = "camera-effect")]
     CameraEffectTriggerEffectItem(Box<crate::types::CameraEffectTriggerEffectItem>),
-    #[serde(untagged)]
+    #[serde(rename = "activate-impact")]
     ActivateImpactTriggerEffectItem(Box<crate::types::ActivateImpactTriggerEffectItem>),
 }

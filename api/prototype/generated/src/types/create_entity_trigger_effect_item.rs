@@ -24,8 +24,6 @@ pub struct CreateEntityTriggerEffectItem {
     tile_collision_mask: Option<crate::types::CollisionMaskConnector>,
     #[serde(default = "default_trigger_created_entity")]
     trigger_created_entity: bool,
-    #[serde(rename = "type")]
-    type_: String,
 }
 fn default_as_enemy() -> bool {
     false

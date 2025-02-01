@@ -7,7 +7,5 @@ pub struct ElectricEnergySource {
     input_flow_limit: Option<crate::types::Energy>,
     // default: Max `double` value
     output_flow_limit: Option<crate::types::Energy>,
-    #[serde(rename = "type")]
-    type_: String,
     usage_priority: crate::types::ElectricUsagePriority,
 }

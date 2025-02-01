@@ -5,8 +5,6 @@ pub struct MouseCursor {
     hot_pixel_y: Option<i16>,
     name: String,
     system_cursor: Option<MouseCursorSystemCursor>,
-    #[serde(rename = "type")]
-    type_: String,
 }
 #[derive(Debug, serde::Deserialize)]
 pub enum MouseCursorSystemCursor {

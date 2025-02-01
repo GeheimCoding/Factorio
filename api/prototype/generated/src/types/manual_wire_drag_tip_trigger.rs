@@ -5,8 +5,6 @@ pub struct ManualWireDragTipTrigger {
     match_type_only: bool,
     source: Option<crate::types::EntityID>,
     target: Option<crate::types::EntityID>,
-    #[serde(rename = "type")]
-    type_: String,
     wire_type: Option<ManualWireDragTipTriggerWireType>,
 }
 fn default_match_type_only() -> bool {

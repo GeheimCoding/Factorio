@@ -8,8 +8,6 @@ pub struct StreamAttackParameters {
     gun_barrel_length: f32,
     gun_center_shift: Option<StreamAttackParametersGunCenterShift>,
     projectile_creation_parameters: Option<crate::types::CircularProjectileCreationSpecification>,
-    #[serde(rename = "type")]
-    type_: String,
 }
 fn default_fluid_consumption() -> crate::types::FluidAmount {
     0.0

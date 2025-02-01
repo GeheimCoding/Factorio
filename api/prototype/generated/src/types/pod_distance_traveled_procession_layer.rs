@@ -6,8 +6,6 @@ pub struct PodDistanceTraveledProcessionLayer {
     distance_traveled_contribution: f32,
     frames: Vec<PodDistanceTraveledProcessionBezierControlPoint>,
     reference_group: Option<crate::types::ProcessionLayerInheritanceGroupID>,
-    #[serde(rename = "type")]
-    type_: String,
 }
 fn default_contribute_to_distance_traveled() -> bool {
     true

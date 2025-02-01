@@ -6,13 +6,14 @@ pub enum Trigger {
     VecTriggerVariants(Vec<TriggerVariants>),
 }
 #[derive(Debug, serde::Deserialize)]
+#[serde(tag = "type")]
 pub enum TriggerVariants {
-    #[serde(untagged)]
+    #[serde(rename = "direct")]
     DirectTriggerItem(Box<crate::types::DirectTriggerItem>),
-    #[serde(untagged)]
+    #[serde(rename = "area")]
     AreaTriggerItem(Box<crate::types::AreaTriggerItem>),
-    #[serde(untagged)]
+    #[serde(rename = "line")]
     LineTriggerItem(Box<crate::types::LineTriggerItem>),
-    #[serde(untagged)]
+    #[serde(rename = "cluster")]
     ClusterTriggerItem(Box<crate::types::ClusterTriggerItem>),
 }

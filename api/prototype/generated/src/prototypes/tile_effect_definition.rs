@@ -4,8 +4,6 @@ pub struct TileEffectDefinition {
     puddle: Option<crate::types::PuddleTileEffectParameters>,
     shader: TileEffectDefinitionShader,
     space: Option<crate::types::SpaceTileEffectParameters>,
-    #[serde(rename = "type")]
-    type_: String,
     water: Option<crate::types::WaterTileEffectParameters>,
 }
 #[derive(Debug, serde::Deserialize)]

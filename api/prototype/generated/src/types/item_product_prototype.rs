@@ -16,8 +16,6 @@ pub struct ItemProductPrototype {
     probability: f64,
     #[serde(default = "default_show_details_in_recipe_tooltip")]
     show_details_in_recipe_tooltip: bool,
-    #[serde(rename = "type")]
-    type_: String,
 }
 fn default_extra_count_fraction() -> f32 {
     0.0

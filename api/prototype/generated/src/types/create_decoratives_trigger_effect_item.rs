@@ -13,8 +13,6 @@ pub struct CreateDecorativesTriggerEffectItem {
     spawn_min_radius: f32,
     #[serde(default = "default_spread_evenly")]
     spread_evenly: bool,
-    #[serde(rename = "type")]
-    type_: String,
 }
 fn default_apply_projection() -> bool {
     false

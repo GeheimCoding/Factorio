@@ -17,8 +17,6 @@ pub struct ScrollPaneStyleSpecification {
     graphical_set: Option<crate::types::ElementImageSet>,
     horizontal_scrollbar_style: Option<crate::types::HorizontalScrollBarStyleSpecification>,
     scrollbars_go_outside: Option<bool>,
-    #[serde(rename = "type")]
-    type_: String,
     vertical_flow_style: Option<crate::types::VerticalFlowStyleSpecification>,
     vertical_scrollbar_style: Option<crate::types::VerticalScrollBarStyleSpecification>,
 }

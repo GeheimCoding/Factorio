@@ -1,17 +1,18 @@
 #[derive(Debug, serde::Deserialize)]
+#[serde(tag = "type")]
 pub enum TriggerDelivery {
-    #[serde(untagged)]
+    #[serde(rename = "instant")]
     InstantTriggerDelivery(Box<crate::types::InstantTriggerDelivery>),
-    #[serde(untagged)]
+    #[serde(rename = "projectile")]
     ProjectileTriggerDelivery(Box<crate::types::ProjectileTriggerDelivery>),
-    #[serde(untagged)]
+    #[serde(rename = "beam")]
     BeamTriggerDelivery(Box<crate::types::BeamTriggerDelivery>),
-    #[serde(untagged)]
+    #[serde(rename = "stream")]
     StreamTriggerDelivery(Box<crate::types::StreamTriggerDelivery>),
-    #[serde(untagged)]
+    #[serde(rename = "artillery")]
     ArtilleryTriggerDelivery(Box<crate::types::ArtilleryTriggerDelivery>),
-    #[serde(untagged)]
+    #[serde(rename = "chain")]
     ChainTriggerDelivery(Box<crate::types::ChainTriggerDelivery>),
-    #[serde(untagged)]
+    #[serde(rename = "delayed")]
     DelayedTriggerDelivery(Box<crate::types::DelayedTriggerDelivery>),
 }

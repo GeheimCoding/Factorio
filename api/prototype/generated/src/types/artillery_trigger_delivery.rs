@@ -11,8 +11,6 @@ pub struct ArtilleryTriggerDelivery {
     starting_speed_deviation: f32,
     #[serde(default = "default_trigger_fired_artillery")]
     trigger_fired_artillery: bool,
-    #[serde(rename = "type")]
-    type_: String,
 }
 fn default_direction_deviation() -> f32 {
     0.0

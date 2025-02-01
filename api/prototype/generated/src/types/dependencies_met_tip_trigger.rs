@@ -1,5 +1,2 @@
 #[derive(Debug, serde::Deserialize)]
-pub struct DependenciesMetTipTrigger {
-    #[serde(rename = "type")]
-    type_: String,
-}
+pub struct DependenciesMetTipTrigger {}

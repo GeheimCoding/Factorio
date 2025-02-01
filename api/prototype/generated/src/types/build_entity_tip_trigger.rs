@@ -12,8 +12,6 @@ pub struct BuildEntityTipTrigger {
     #[serde(default = "default_match_type_only")]
     match_type_only: bool,
     quality: Option<crate::types::QualityID>,
-    #[serde(rename = "type")]
-    type_: String,
 }
 fn default_build_in_line() -> bool {
     false

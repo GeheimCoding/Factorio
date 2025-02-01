@@ -16,6 +16,4 @@ pub struct TextBoxStyleSpecification {
     selected_rich_text_highlight_ok_color: Option<crate::types::Color>,
     selected_rich_text_highlight_warning_color: Option<crate::types::Color>,
     selection_background_color: Option<crate::types::Color>,
-    #[serde(rename = "type")]
-    type_: String,
 }

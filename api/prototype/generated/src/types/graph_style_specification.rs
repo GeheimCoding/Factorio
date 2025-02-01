@@ -14,8 +14,6 @@ pub struct GraphStyleSpecification {
     minimal_horizontal_label_spacing: Option<u32>,
     minimal_vertical_label_spacing: Option<u32>,
     selection_dot_radius: Option<u32>,
-    #[serde(rename = "type")]
-    type_: String,
     vertical_label_style: Option<crate::types::LabelStyleSpecification>,
     vertical_labels_margin: Option<u32>,
 }

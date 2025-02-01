@@ -8,6 +8,4 @@ pub struct CheckBoxStyleSpecification {
     font_color: Option<crate::types::Color>,
     intermediate_mark: Option<crate::types::Sprite>,
     text_padding: Option<u32>,
-    #[serde(rename = "type")]
-    type_: String,
 }

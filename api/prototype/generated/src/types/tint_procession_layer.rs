@@ -3,8 +3,6 @@ pub struct TintProcessionLayer {
     frames: Vec<TintProcessionBezierControlPoint>,
     #[serde(default = "default_render_layer")]
     render_layer: crate::types::RenderLayer,
-    #[serde(rename = "type")]
-    type_: String,
 }
 #[derive(Debug, serde::Deserialize)]
 pub struct TintProcessionBezierControlPoint {

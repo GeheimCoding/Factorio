@@ -11,8 +11,6 @@ pub struct BeamTriggerDelivery {
     #[serde(default = "default_max_length")]
     max_length: u32,
     source_offset: Option<crate::types::Vector>,
-    #[serde(rename = "type")]
-    type_: String,
 }
 fn default_add_to_shooter() -> bool {
     true

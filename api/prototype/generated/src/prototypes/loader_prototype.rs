@@ -56,14 +56,15 @@ fn default_energy_per_item() -> crate::types::Energy {
     String::from("0")
 }
 #[derive(Debug, serde::Deserialize)]
+#[serde(tag = "type")]
 pub enum LoaderPrototypeEnergySource {
-    #[serde(untagged)]
+    #[serde(rename = "electric")]
     ElectricEnergySource(Box<crate::types::ElectricEnergySource>),
-    #[serde(untagged)]
+    #[serde(rename = "heat")]
     HeatEnergySource(Box<crate::types::HeatEnergySource>),
-    #[serde(untagged)]
+    #[serde(rename = "fluid")]
     FluidEnergySource(Box<crate::types::FluidEnergySource>),
-    #[serde(untagged)]
+    #[serde(rename = "void")]
     VoidEnergySource(Box<crate::types::VoidEnergySource>),
 }
 fn default_max_belt_stack_size() -> u8 {

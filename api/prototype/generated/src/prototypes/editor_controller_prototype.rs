@@ -25,6 +25,4 @@ pub struct EditorControllerPrototype {
     show_hidden_entities: bool,
     show_infinity_filters_in_controller_gui: bool,
     show_status_icons: bool,
-    #[serde(rename = "type")]
-    type_: String,
 }

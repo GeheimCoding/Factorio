@@ -5,8 +5,6 @@ pub struct CraftItemTipTrigger {
     consecutive: bool,
     event_type: CraftItemTipTriggerEventType,
     item: Option<crate::types::ItemID>,
-    #[serde(rename = "type")]
-    type_: String,
 }
 fn default_consecutive() -> bool {
     false

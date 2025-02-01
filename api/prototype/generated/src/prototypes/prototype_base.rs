@@ -14,8 +14,6 @@ pub struct PrototypeBase {
     #[serde(default = "default_parameter")]
     parameter: bool,
     subgroup: Option<crate::types::ItemSubGroupID>,
-    #[serde(rename = "type")]
-    type_: String,
 }
 fn default_hidden() -> bool {
     false

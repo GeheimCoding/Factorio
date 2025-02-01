@@ -1,105 +1,106 @@
 #[derive(Debug, serde::Deserialize)]
+#[serde(tag = "type")]
 pub enum Modifier {
-    #[serde(untagged)]
+    #[serde(rename = "inserter-stack-size-bonus")]
     InserterStackSizeBonusModifier(Box<crate::types::InserterStackSizeBonusModifier>),
-    #[serde(untagged)]
+    #[serde(rename = "bulk-inserter-capacity-bonus")]
     BulkInserterCapacityBonusModifier(Box<crate::types::BulkInserterCapacityBonusModifier>),
-    #[serde(untagged)]
+    #[serde(rename = "laboratory-speed")]
     LaboratorySpeedModifier(Box<crate::types::LaboratorySpeedModifier>),
-    #[serde(untagged)]
+    #[serde(rename = "character-logistic-trash-slots")]
     CharacterLogisticTrashSlotsModifier(Box<crate::types::CharacterLogisticTrashSlotsModifier>),
-    #[serde(untagged)]
+    #[serde(rename = "maximum-following-robots-count")]
     MaximumFollowingRobotsCountModifier(Box<crate::types::MaximumFollowingRobotsCountModifier>),
-    #[serde(untagged)]
+    #[serde(rename = "worker-robot-speed")]
     WorkerRobotSpeedModifier(Box<crate::types::WorkerRobotSpeedModifier>),
-    #[serde(untagged)]
+    #[serde(rename = "worker-robot-storage")]
     WorkerRobotStorageModifier(Box<crate::types::WorkerRobotStorageModifier>),
-    #[serde(untagged)]
+    #[serde(rename = "turret-attack")]
     TurretAttackModifier(Box<crate::types::TurretAttackModifier>),
-    #[serde(untagged)]
+    #[serde(rename = "ammo-damage")]
     AmmoDamageModifier(Box<crate::types::AmmoDamageModifier>),
-    #[serde(untagged)]
+    #[serde(rename = "give-item")]
     GiveItemModifier(Box<crate::types::GiveItemModifier>),
-    #[serde(untagged)]
+    #[serde(rename = "gun-speed")]
     GunSpeedModifier(Box<crate::types::GunSpeedModifier>),
-    #[serde(untagged)]
+    #[serde(rename = "unlock-recipe")]
     UnlockRecipeModifier(Box<crate::types::UnlockRecipeModifier>),
-    #[serde(untagged)]
+    #[serde(rename = "character-crafting-speed")]
     CharacterCraftingSpeedModifier(Box<crate::types::CharacterCraftingSpeedModifier>),
-    #[serde(untagged)]
+    #[serde(rename = "character-mining-speed")]
     CharacterMiningSpeedModifier(Box<crate::types::CharacterMiningSpeedModifier>),
-    #[serde(untagged)]
+    #[serde(rename = "character-running-speed")]
     CharacterRunningSpeedModifier(Box<crate::types::CharacterRunningSpeedModifier>),
-    #[serde(untagged)]
+    #[serde(rename = "character-build-distance")]
     CharacterBuildDistanceModifier(Box<crate::types::CharacterBuildDistanceModifier>),
-    #[serde(untagged)]
+    #[serde(rename = "character-item-drop-distance")]
     CharacterItemDropDistanceModifier(Box<crate::types::CharacterItemDropDistanceModifier>),
-    #[serde(untagged)]
+    #[serde(rename = "character-reach-distance")]
     CharacterReachDistanceModifier(Box<crate::types::CharacterReachDistanceModifier>),
-    #[serde(untagged)]
+    #[serde(rename = "character-resource-reach-distance")]
     CharacterResourceReachDistanceModifier(
         Box<crate::types::CharacterResourceReachDistanceModifier>,
     ),
-    #[serde(untagged)]
+    #[serde(rename = "character-item-pickup-distance")]
     CharacterItemPickupDistanceModifier(Box<crate::types::CharacterItemPickupDistanceModifier>),
-    #[serde(untagged)]
+    #[serde(rename = "character-loot-pickup-distance")]
     CharacterLootPickupDistanceModifier(Box<crate::types::CharacterLootPickupDistanceModifier>),
-    #[serde(untagged)]
+    #[serde(rename = "character-inventory-slots-bonus")]
     CharacterInventorySlotsBonusModifier(Box<crate::types::CharacterInventorySlotsBonusModifier>),
-    #[serde(untagged)]
+    #[serde(rename = "deconstruction-time-to-live")]
     DeconstructionTimeToLiveModifier(Box<crate::types::DeconstructionTimeToLiveModifier>),
-    #[serde(untagged)]
+    #[serde(rename = "max-failed-attempts-per-tick-per-construction-queue")]
     MaxFailedAttemptsPerTickPerConstructionQueueModifier(
         Box<crate::types::MaxFailedAttemptsPerTickPerConstructionQueueModifier>,
     ),
-    #[serde(untagged)]
+    #[serde(rename = "max-successful-attempts-per-tick-per-construction-queue")]
     MaxSuccessfulAttemptsPerTickPerConstructionQueueModifier(
         Box<crate::types::MaxSuccessfulAttemptsPerTickPerConstructionQueueModifier>,
     ),
-    #[serde(untagged)]
+    #[serde(rename = "character-health-bonus")]
     CharacterHealthBonusModifier(Box<crate::types::CharacterHealthBonusModifier>),
-    #[serde(untagged)]
+    #[serde(rename = "mining-drill-productivity-bonus")]
     MiningDrillProductivityBonusModifier(Box<crate::types::MiningDrillProductivityBonusModifier>),
-    #[serde(untagged)]
+    #[serde(rename = "train-braking-force-bonus")]
     TrainBrakingForceBonusModifier(Box<crate::types::TrainBrakingForceBonusModifier>),
-    #[serde(untagged)]
+    #[serde(rename = "worker-robot-battery")]
     WorkerRobotBatteryModifier(Box<crate::types::WorkerRobotBatteryModifier>),
-    #[serde(untagged)]
+    #[serde(rename = "laboratory-productivity")]
     LaboratoryProductivityModifier(Box<crate::types::LaboratoryProductivityModifier>),
-    #[serde(untagged)]
+    #[serde(rename = "follower-robot-lifetime")]
     FollowerRobotLifetimeModifier(Box<crate::types::FollowerRobotLifetimeModifier>),
-    #[serde(untagged)]
+    #[serde(rename = "artillery-range")]
     ArtilleryRangeModifier(Box<crate::types::ArtilleryRangeModifier>),
-    #[serde(untagged)]
+    #[serde(rename = "nothing")]
     NothingModifier(Box<crate::types::NothingModifier>),
-    #[serde(untagged)]
+    #[serde(rename = "character-logistic-requests")]
     CharacterLogisticRequestsModifier(Box<crate::types::CharacterLogisticRequestsModifier>),
-    #[serde(untagged)]
+    #[serde(rename = "vehicle-logistics")]
     VehicleLogisticsModifier(Box<crate::types::VehicleLogisticsModifier>),
-    #[serde(untagged)]
+    #[serde(rename = "unlock-space-location")]
     UnlockSpaceLocationModifier(Box<crate::types::UnlockSpaceLocationModifier>),
-    #[serde(untagged)]
+    #[serde(rename = "unlock-quality")]
     UnlockQualityModifier(Box<crate::types::UnlockQualityModifier>),
-    #[serde(untagged)]
+    #[serde(rename = "unlock-space-platforms")]
     SpacePlatformsModifier(Box<crate::types::SpacePlatformsModifier>),
-    #[serde(untagged)]
+    #[serde(rename = "unlock-circuit-network")]
     CircuitNetworkModifier(Box<crate::types::CircuitNetworkModifier>),
-    #[serde(untagged)]
+    #[serde(rename = "cargo-landing-pad-count")]
     CargoLandingPadLimitModifier(Box<crate::types::CargoLandingPadLimitModifier>),
-    #[serde(untagged)]
+    #[serde(rename = "change-recipe-productivity")]
     ChangeRecipeProductivityModifier(Box<crate::types::ChangeRecipeProductivityModifier>),
-    #[serde(untagged)]
+    #[serde(rename = "cliff-deconstruction-enabled")]
     CliffDeconstructionEnabledModifier(Box<crate::types::CliffDeconstructionEnabledModifier>),
-    #[serde(untagged)]
+    #[serde(rename = "mining-with-fluid")]
     MiningWithFluidModifier(Box<crate::types::MiningWithFluidModifier>),
-    #[serde(untagged)]
+    #[serde(rename = "rail-support-on-deep-oil-ocean")]
     RailSupportOnDeepOilOceanModifier(Box<crate::types::RailSupportOnDeepOilOceanModifier>),
-    #[serde(untagged)]
+    #[serde(rename = "rail-planner-allow-elevated-rails")]
     RailPlannerAllowElevatedRailsModifier(Box<crate::types::RailPlannerAllowElevatedRailsModifier>),
-    #[serde(untagged)]
+    #[serde(rename = "beacon-distribution")]
     BeaconDistributionModifier(Box<crate::types::BeaconDistributionModifier>),
-    #[serde(untagged)]
+    #[serde(rename = "create-ghost-on-entity-death")]
     CreateGhostOnEntityDeathModifier(Box<crate::types::CreateGhostOnEntityDeathModifier>),
-    #[serde(untagged)]
+    #[serde(rename = "belt-stack-size-bonus")]
     BeltStackSizeBonusModifier(Box<crate::types::BeltStackSizeBonusModifier>),
 }

@@ -9,8 +9,6 @@ pub struct TurretSpecialEffect {
     max_radius: Option<f32>,
     #[serde(default = "default_min_radius")]
     min_radius: f32,
-    #[serde(rename = "type")]
-    type_: String,
 }
 fn default_falloff() -> f32 {
     0.0

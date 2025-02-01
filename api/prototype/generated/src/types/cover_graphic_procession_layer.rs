@@ -24,8 +24,6 @@ pub struct CoverGraphicProcessionLayer {
     secondary_draw_order: i8,
     #[serde(default = "default_texture_relative_to")]
     texture_relative_to: crate::types::EffectRelativeTo,
-    #[serde(rename = "type")]
-    type_: String,
     // default: {512, 512}
     world_size: Option<crate::types::Vector>,
 }

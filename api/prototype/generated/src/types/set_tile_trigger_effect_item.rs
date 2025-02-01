@@ -8,8 +8,6 @@ pub struct SetTileTriggerEffectItem {
     radius: f32,
     tile_collision_mask: Option<crate::types::CollisionMaskConnector>,
     tile_name: crate::types::TileID,
-    #[serde(rename = "type")]
-    type_: String,
 }
 fn default_apply_on_space_platform() -> bool {
     false

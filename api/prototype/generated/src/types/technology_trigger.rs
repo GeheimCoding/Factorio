@@ -1,17 +1,18 @@
 #[derive(Debug, serde::Deserialize)]
+#[serde(tag = "type")]
 pub enum TechnologyTrigger {
-    #[serde(untagged)]
+    #[serde(rename = "mine-entity")]
     MineEntityTechnologyTrigger(Box<crate::types::MineEntityTechnologyTrigger>),
-    #[serde(untagged)]
+    #[serde(rename = "craft-item")]
     CraftItemTechnologyTrigger(Box<crate::types::CraftItemTechnologyTrigger>),
-    #[serde(untagged)]
+    #[serde(rename = "craft-fluid")]
     CraftFluidTechnologyTrigger(Box<crate::types::CraftFluidTechnologyTrigger>),
-    #[serde(untagged)]
+    #[serde(rename = "send-item-to-orbit")]
     SendItemToOrbitTechnologyTrigger(Box<crate::types::SendItemToOrbitTechnologyTrigger>),
-    #[serde(untagged)]
+    #[serde(rename = "capture-spawner")]
     CaptureSpawnerTechnologyTrigger(Box<crate::types::CaptureSpawnerTechnologyTrigger>),
-    #[serde(untagged)]
+    #[serde(rename = "build-entity")]
     BuildEntityTechnologyTrigger(Box<crate::types::BuildEntityTechnologyTrigger>),
-    #[serde(untagged)]
+    #[serde(rename = "create-space-platform")]
     CreateSpacePlatformTechnologyTrigger(Box<crate::types::CreateSpacePlatformTechnologyTrigger>),
 }

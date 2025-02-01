@@ -12,8 +12,6 @@ pub struct ProjectileAttackParameters {
     #[serde(default = "default_projectile_orientation_offset")]
     projectile_orientation_offset: crate::types::RealOrientation,
     shell_particle: Option<crate::types::CircularParticleCreationSpecification>,
-    #[serde(rename = "type")]
-    type_: String,
 }
 fn default_apply_projection_to_projectile_creation_position() -> bool {
     true

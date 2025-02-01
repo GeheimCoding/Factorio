@@ -1,13 +1,14 @@
 #[derive(Debug, serde::Deserialize)]
+#[serde(tag = "type")]
 pub enum CapsuleAction {
-    #[serde(untagged)]
+    #[serde(rename = "throw")]
     ThrowCapsuleAction(Box<crate::types::ThrowCapsuleAction>),
-    #[serde(untagged)]
+    #[serde(rename = "equipment-remote")]
     ActivateEquipmentCapsuleAction(Box<crate::types::ActivateEquipmentCapsuleAction>),
-    #[serde(untagged)]
+    #[serde(rename = "use-on-self")]
     UseOnSelfCapsuleAction(Box<crate::types::UseOnSelfCapsuleAction>),
-    #[serde(untagged)]
+    #[serde(rename = "destroy-cliffs")]
     DestroyCliffsCapsuleAction(Box<crate::types::DestroyCliffsCapsuleAction>),
-    #[serde(untagged)]
+    #[serde(rename = "artillery-remote")]
     ArtilleryRemoteCapsuleAction(Box<crate::types::ArtilleryRemoteCapsuleAction>),
 }

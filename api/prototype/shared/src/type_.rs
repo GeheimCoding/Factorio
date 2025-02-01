@@ -104,15 +104,11 @@ impl Type {
         }
     }
 
-    pub fn get_literal_value(&self) -> Option<&str> {
+    pub fn get_literal_value(&self) -> Option<&LiteralValue> {
         match self {
             Type::Simple(_) => None,
             Type::Complex(complex) => match complex.as_ref() {
-                ComplexType::Literal { value, .. } => match value {
-                    LiteralValue::String(_) => Some("String"),
-                    LiteralValue::Number(_) => Some("f64"),
-                    LiteralValue::Bool(_) => Some("bool"),
-                },
+                ComplexType::Literal { value, .. } => Some(value),
                 ComplexType::Type { value, .. } => value.get_literal_value(),
                 _ => None,
             },
@@ -193,11 +189,12 @@ impl Type {
         let untagged = "#[serde(untagged)]";
         let mut others = vec![];
         let mut union = vec![];
+        let mut is_tagged = false;
         for option in options {
             let (inner, additional) = option.generate(&option.postfix_variants(prefix), context);
             others.extend(additional);
 
-            if let Some(_) = option.get_literal_value() {
+            if option.get_literal_value().is_some() {
                 union.push(format!(
                     "#[serde(rename = \"{}\")]{inner},",
                     inner.to_snake_case()
@@ -215,7 +212,18 @@ impl Type {
                 } else {
                     inner
                 };
-                union.push(format!("{untagged}{name}({inner}),"));
+                if let Some(Some(tagged_key)) = context
+                    .metadata
+                    .get(&name)
+                    .map(|metadata| metadata.tagged_key.as_ref())
+                {
+                    is_tagged = true;
+                    union.push(format!(
+                        "#[serde(rename = \"{tagged_key}\")]{name}({inner}),",
+                    ));
+                } else {
+                    union.push(format!("{untagged}{name}({inner}),"));
+                }
             }
         }
         union.sort_by(|a, b| a.contains(untagged).cmp(&b.contains(untagged)));
@@ -224,10 +232,15 @@ impl Type {
         } else {
             ""
         };
+        let tag = if is_tagged {
+            "#[serde(tag = \"type\")]"
+        } else {
+            ""
+        };
         others.insert(
             0,
             format!(
-                "#[derive(Debug, serde::Deserialize{derive_hash})]pub enum {prefix}{{{}}}",
+                "#[derive(Debug, serde::Deserialize{derive_hash})]{tag}pub enum {prefix}{{{}}}",
                 union.join("")
             ),
         );
@@ -274,9 +287,10 @@ impl Type {
                 result.push_str(&format!("base_: {},", parent.to_rust_type(context).0));
             }
             for property in properties {
-                let (inner, additional) = property.generate(prefix, context);
-                result.push_str(&format!("{inner},"));
-                others.extend(additional);
+                if let Some((inner, additional)) = property.generate(prefix, context) {
+                    result.push_str(&format!("{inner},"));
+                    others.extend(additional);
+                }
             }
             if let Some(custom_properties) = metadata.custom_properties {
                 result.push_str(&format!(
@@ -314,6 +328,14 @@ impl LiteralValue {
             LiteralValue::String(s) => format!("{}", s.to_pascal_case()),
             LiteralValue::Number(n) => format!("{n}"),
             LiteralValue::Bool(b) => format!("{b}"),
+        }
+    }
+
+    pub fn to_rust_type(&self) -> &str {
+        match self {
+            LiteralValue::String(_) => "String",
+            LiteralValue::Number(_) => "f64",
+            LiteralValue::Bool(_) => "bool",
         }
     }
 }

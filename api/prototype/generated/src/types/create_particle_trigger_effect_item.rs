@@ -37,8 +37,6 @@ pub struct CreateParticleTriggerEffectItem {
     tile_collision_mask: Option<crate::types::CollisionMaskConnector>,
     // default: `{1, 1, 1, 1} (white)`
     tint: Option<crate::types::Color>,
-    #[serde(rename = "type")]
-    type_: String,
 }
 #[derive(Debug, serde::Deserialize)]
 pub enum CreateParticleTriggerEffectItemApplyTileTint {

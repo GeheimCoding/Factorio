@@ -6,8 +6,6 @@ pub struct DestroyCliffsCapsuleAction {
     radius: f32,
     #[serde(default = "default_timeout")]
     timeout: u32,
-    #[serde(rename = "type")]
-    type_: String,
     #[serde(default = "default_uses_stack")]
     uses_stack: bool,
 }

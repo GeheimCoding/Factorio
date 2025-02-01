@@ -14,8 +14,6 @@ pub struct CameraEffectTriggerEffectItem {
     max_distance: u16,
     #[serde(default = "default_strength")]
     strength: f32,
-    #[serde(rename = "type")]
-    type_: String,
 }
 fn default_delay() -> u8 {
     0

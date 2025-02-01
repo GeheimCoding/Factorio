@@ -3,8 +3,6 @@ pub struct StackTransferTipTrigger {
     base_: crate::types::CountBasedTipTrigger,
     // default: any transfer
     transfer: Option<StackTransferTipTriggerTransfer>,
-    #[serde(rename = "type")]
-    type_: String,
 }
 #[derive(Debug, serde::Deserialize)]
 pub enum StackTransferTipTriggerTransfer {

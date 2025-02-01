@@ -27,8 +27,6 @@ pub struct SoundPrototype {
     speed: f32,
     #[serde(default = "default_speed_smoothing_window_size")]
     speed_smoothing_window_size: u32,
-    #[serde(rename = "type")]
-    type_: String,
     variations: Option<SoundPrototypeVariations>,
     #[serde(default = "default_volume")]
     volume: f32,

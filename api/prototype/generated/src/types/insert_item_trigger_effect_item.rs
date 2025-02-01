@@ -6,8 +6,6 @@ pub struct InsertItemTriggerEffectItem {
     item: crate::types::ItemID,
     #[serde(default = "default_quality")]
     quality: crate::types::QualityID,
-    #[serde(rename = "type")]
-    type_: String,
 }
 fn default_count() -> crate::types::ItemCountType {
     1

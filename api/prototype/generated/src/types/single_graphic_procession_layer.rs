@@ -20,8 +20,6 @@ pub struct SingleGraphicProcessionLayer {
     secondary_draw_order: i8,
     #[serde(default = "default_shift_rotates_with_pod")]
     shift_rotates_with_pod: bool,
-    #[serde(rename = "type")]
-    type_: String,
 }
 fn default_animation_driven_by_curve() -> bool {
     false

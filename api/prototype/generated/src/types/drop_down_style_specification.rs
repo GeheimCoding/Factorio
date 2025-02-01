@@ -6,6 +6,4 @@ pub struct DropDownStyleSpecification {
     list_box_style: Option<crate::types::ListBoxStyleSpecification>,
     opened_sound: Option<crate::types::Sound>,
     selector_and_title_spacing: Option<i16>,
-    #[serde(rename = "type")]
-    type_: String,
 }

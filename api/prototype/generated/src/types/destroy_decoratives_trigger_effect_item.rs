@@ -14,8 +14,6 @@ pub struct DestroyDecorativesTriggerEffectItem {
     radius: f32,
     // default: last layer
     to_render_layer: Option<crate::types::RenderLayer>,
-    #[serde(rename = "type")]
-    type_: String,
 }
 fn default_decoratives_with_trigger_only() -> bool {
     false

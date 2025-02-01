@@ -4,9 +4,10 @@ pub struct ElectricTurretPrototype {
     energy_source: ElectricTurretPrototypeEnergySource,
 }
 #[derive(Debug, serde::Deserialize)]
+#[serde(tag = "type")]
 pub enum ElectricTurretPrototypeEnergySource {
-    #[serde(untagged)]
+    #[serde(rename = "electric")]
     ElectricEnergySource(Box<crate::types::ElectricEnergySource>),
-    #[serde(untagged)]
+    #[serde(rename = "void")]
     VoidEnergySource(Box<crate::types::VoidEnergySource>),
 }

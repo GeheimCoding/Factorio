@@ -29,10 +29,11 @@ fn default_draw_copper_wires() -> bool {
     true
 }
 #[derive(Debug, serde::Deserialize)]
+#[serde(tag = "type")]
 pub enum ProgrammableSpeakerPrototypeEnergySource {
-    #[serde(untagged)]
+    #[serde(rename = "electric")]
     ElectricEnergySource(Box<crate::types::ElectricEnergySource>),
-    #[serde(untagged)]
+    #[serde(rename = "void")]
     VoidEnergySource(Box<crate::types::VoidEnergySource>),
 }
 #[derive(Debug, serde::Deserialize)]

@@ -43,10 +43,11 @@ fn default_darkness_to_render_light_animation() -> f32 {
     0.3
 }
 #[derive(Debug, serde::Deserialize)]
+#[serde(tag = "type")]
 pub enum CarPrototypeEnergySource {
-    #[serde(untagged)]
+    #[serde(rename = "burner")]
     BurnerEnergySource(Box<crate::types::BurnerEnergySource>),
-    #[serde(untagged)]
+    #[serde(rename = "void")]
     VoidEnergySource(Box<crate::types::VoidEnergySource>),
 }
 fn default_has_belt_immunity() -> bool {

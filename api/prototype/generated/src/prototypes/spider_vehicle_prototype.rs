@@ -19,10 +19,11 @@ pub struct SpiderVehiclePrototype {
     trash_inventory_size: crate::types::ItemStackIndex,
 }
 #[derive(Debug, serde::Deserialize)]
+#[serde(tag = "type")]
 pub enum SpiderVehiclePrototypeEnergySource {
-    #[serde(untagged)]
+    #[serde(rename = "burner")]
     BurnerEnergySource(Box<crate::types::BurnerEnergySource>),
-    #[serde(untagged)]
+    #[serde(rename = "void")]
     VoidEnergySource(Box<crate::types::VoidEnergySource>),
 }
 fn default_torso_bob_speed() -> f32 {

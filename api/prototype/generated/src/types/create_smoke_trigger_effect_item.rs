@@ -16,8 +16,6 @@ pub struct CreateSmokeTriggerEffectItem {
     starting_frame: f32,
     #[serde(default = "default_starting_frame_deviation")]
     starting_frame_deviation: f32,
-    #[serde(rename = "type")]
-    type_: String,
 }
 fn default_initial_height() -> f32 {
     0.0

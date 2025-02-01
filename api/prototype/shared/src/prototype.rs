@@ -39,6 +39,10 @@ impl Prototype {
         &self.base.name
     }
 
+    pub fn get_tagged_key(&self) -> Option<&String> {
+        self.typename.as_ref()
+    }
+
     fn generate_internal(&self, context: &Context) -> String {
         if let Some((_, DataType::Struct)) = context.context.get(self.rust_name()) {
             self.generate_struct(context)

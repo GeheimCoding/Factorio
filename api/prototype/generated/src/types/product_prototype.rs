@@ -1,9 +1,10 @@
 #[derive(Debug, serde::Deserialize)]
+#[serde(tag = "type")]
 pub enum ProductPrototype {
-    #[serde(untagged)]
+    #[serde(rename = "item")]
     ItemProductPrototype(Box<crate::types::ItemProductPrototype>),
-    #[serde(untagged)]
+    #[serde(rename = "fluid")]
     FluidProductPrototype(Box<crate::types::FluidProductPrototype>),
-    #[serde(untagged)]
+    #[serde(rename = "research-progress")]
     ResearchProgressProductPrototype(Box<crate::types::ResearchProgressProductPrototype>),
 }

@@ -34,6 +34,4 @@ pub struct TechnologySlotStyleSpecification {
     progress_bar_color: Option<crate::types::Color>,
     progress_bar_height: Option<u32>,
     progress_bar_shadow: Option<crate::types::ElementImageSet>,
-    #[serde(rename = "type")]
-    type_: String,
 }

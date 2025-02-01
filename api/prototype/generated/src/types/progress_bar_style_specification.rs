@@ -11,8 +11,6 @@ pub struct ProgressBarStyleSpecification {
     font_color: Option<crate::types::Color>,
     other_colors: Option<Vec<OtherColors>>,
     side_text_padding: Option<i16>,
-    #[serde(rename = "type")]
-    type_: String,
 }
 #[derive(Debug, serde::Deserialize)]
 pub struct OtherColors {

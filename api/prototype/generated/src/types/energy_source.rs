@@ -1,13 +1,14 @@
 #[derive(Debug, serde::Deserialize)]
+#[serde(tag = "type")]
 pub enum EnergySource {
-    #[serde(untagged)]
+    #[serde(rename = "electric")]
     ElectricEnergySource(Box<crate::types::ElectricEnergySource>),
-    #[serde(untagged)]
+    #[serde(rename = "burner")]
     BurnerEnergySource(Box<crate::types::BurnerEnergySource>),
-    #[serde(untagged)]
+    #[serde(rename = "heat")]
     HeatEnergySource(Box<crate::types::HeatEnergySource>),
-    #[serde(untagged)]
+    #[serde(rename = "fluid")]
     FluidEnergySource(Box<crate::types::FluidEnergySource>),
-    #[serde(untagged)]
+    #[serde(rename = "void")]
     VoidEnergySource(Box<crate::types::VoidEnergySource>),
 }

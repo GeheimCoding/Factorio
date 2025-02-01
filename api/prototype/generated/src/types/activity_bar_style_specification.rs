@@ -7,6 +7,4 @@ pub struct ActivityBarStyleSpecification {
     bar_width: Option<u32>,
     color: Option<crate::types::Color>,
     speed: Option<f32>,
-    #[serde(rename = "type")]
-    type_: String,
 }

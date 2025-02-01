@@ -7,8 +7,6 @@ pub struct SetRecipeTipTrigger {
     consecutive: bool,
     machine: Option<crate::types::EntityID>,
     recipe: Option<crate::types::RecipeID>,
-    #[serde(rename = "type")]
-    type_: String,
     // default: any
     uses_fluid: Option<bool>,
 }

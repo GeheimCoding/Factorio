@@ -51,10 +51,11 @@ fn default_draw_copper_wires() -> bool {
     true
 }
 #[derive(Debug, serde::Deserialize)]
+#[serde(tag = "type")]
 pub enum LampPrototypeEnergySource {
-    #[serde(untagged)]
+    #[serde(rename = "electric")]
     ElectricEnergySource(Box<crate::types::ElectricEnergySource>),
-    #[serde(untagged)]
+    #[serde(rename = "void")]
     VoidEnergySource(Box<crate::types::VoidEnergySource>),
 }
 fn default_glow_color_intensity() -> f32 {

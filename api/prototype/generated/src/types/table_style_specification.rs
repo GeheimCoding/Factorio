@@ -29,8 +29,6 @@ pub struct TableStyleSpecification {
     selected_hovered_graphical_set: Option<crate::types::ElementImageSet>,
     selected_row_color: Option<crate::types::Color>,
     top_cell_padding: Option<i16>,
-    #[serde(rename = "type")]
-    type_: String,
     vertical_line_color: Option<crate::types::Color>,
     vertical_spacing: Option<i32>,
     wide_as_column_count: Option<bool>,

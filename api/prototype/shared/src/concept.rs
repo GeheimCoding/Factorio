@@ -3,7 +3,7 @@ use crate::file_utils::save_file_if_changed;
 use crate::format::{Context, DataType};
 use crate::property::Property;
 use crate::transformation::Transformation;
-use crate::type_::Type;
+use crate::type_::{LiteralValue, Type};
 use serde::Deserialize;
 use std::collections::HashSet;
 use std::path::Path;
@@ -55,6 +55,25 @@ impl Concept {
         } else {
             unreachable!("expected to find context for {}", self.rust_name())
         }
+    }
+
+    pub fn get_tagged_key(&self) -> Option<&String> {
+        self.properties
+            .as_ref()
+            .map(|properties| {
+                for property in properties
+                    .iter()
+                    .filter(|property| property.base.name == "type")
+                {
+                    if let Some(value) = property.type_.get_literal_value() {
+                        if let LiteralValue::String(value) = value {
+                            return Some(value);
+                        }
+                    }
+                }
+                None
+            })
+            .flatten()
     }
 
     fn generate_struct(&self, context: &Context) -> String {

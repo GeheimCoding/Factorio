@@ -1,9 +1,10 @@
 #[derive(Debug, serde::Deserialize)]
+#[serde(tag = "type")]
 pub enum AttackParameters {
-    #[serde(untagged)]
+    #[serde(rename = "projectile")]
     ProjectileAttackParameters(Box<crate::types::ProjectileAttackParameters>),
-    #[serde(untagged)]
+    #[serde(rename = "beam")]
     BeamAttackParameters(Box<crate::types::BeamAttackParameters>),
-    #[serde(untagged)]
+    #[serde(rename = "stream")]
     StreamAttackParameters(Box<crate::types::StreamAttackParameters>),
 }

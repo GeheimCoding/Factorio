@@ -26,11 +26,19 @@ pub enum PropertyDefault {
 }
 
 impl Property {
-    pub fn generate(&self, prefix: &str, context: &Context) -> (String, Vec<String>) {
+    pub fn generate(&self, prefix: &str, context: &Context) -> Option<(String, Vec<String>)> {
+        // README: Adjustment [TODO]
+        if prefix == "PrototypeBase" && self.base.name == "type" {
+            return None;
+        }
+        // README: Adjustment [TODO]
         let prefix = format!("{prefix}{}", self.base.name.to_pascal_case());
         let (mut inner, mut additional) = self.type_.generate(&prefix, context);
         if let Some(literal) = self.type_.get_literal_value() {
-            inner = String::from(literal);
+            if matches!(literal, LiteralValue::String(_)) && self.base.name == "type" {
+                return None;
+            }
+            inner = String::from(literal.to_rust_type());
         }
         let (mut name, other) = self.base.name.to_rust_type(context);
         assert!(other.is_empty());
@@ -79,10 +87,10 @@ impl Property {
         if self.optional && serde_default.is_empty() {
             inner = format!("Option<{inner}>");
         }
-        (
+        Some((
             format!("{comment}{rename}{alias}{serde_default}{name}: {inner}",),
             additional,
-        )
+        ))
     }
 
     fn get_default_fn(

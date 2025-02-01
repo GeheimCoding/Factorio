@@ -1,65 +1,66 @@
 #[derive(Debug, serde::Deserialize)]
+#[serde(tag = "type")]
 pub enum StyleSpecification {
-    #[serde(untagged)]
+    #[serde(rename = "activity_bar_style")]
     ActivityBarStyleSpecification(Box<crate::types::ActivityBarStyleSpecification>),
-    #[serde(untagged)]
+    #[serde(rename = "button_style")]
     ButtonStyleSpecification(Box<crate::types::ButtonStyleSpecification>),
-    #[serde(untagged)]
+    #[serde(rename = "camera_style")]
     CameraStyleSpecification(Box<crate::types::CameraStyleSpecification>),
-    #[serde(untagged)]
+    #[serde(rename = "checkbox_style")]
     CheckBoxStyleSpecification(Box<crate::types::CheckBoxStyleSpecification>),
-    #[serde(untagged)]
+    #[serde(rename = "dropdown_style")]
     DropDownStyleSpecification(Box<crate::types::DropDownStyleSpecification>),
-    #[serde(untagged)]
+    #[serde(rename = "flow_style")]
     FlowStyleSpecification(Box<crate::types::FlowStyleSpecification>),
-    #[serde(untagged)]
+    #[serde(rename = "frame_style")]
     FrameStyleSpecification(Box<crate::types::FrameStyleSpecification>),
-    #[serde(untagged)]
+    #[serde(rename = "graph_style")]
     GraphStyleSpecification(Box<crate::types::GraphStyleSpecification>),
-    #[serde(untagged)]
+    #[serde(rename = "horizontal_flow_style")]
     HorizontalFlowStyleSpecification(Box<crate::types::HorizontalFlowStyleSpecification>),
-    #[serde(untagged)]
+    #[serde(rename = "line_style")]
     LineStyleSpecification(Box<crate::types::LineStyleSpecification>),
-    #[serde(untagged)]
+    #[serde(rename = "image_style")]
     ImageStyleSpecification(Box<crate::types::ImageStyleSpecification>),
-    #[serde(untagged)]
+    #[serde(rename = "label_style")]
     LabelStyleSpecification(Box<crate::types::LabelStyleSpecification>),
-    #[serde(untagged)]
+    #[serde(rename = "list_box_style")]
     ListBoxStyleSpecification(Box<crate::types::ListBoxStyleSpecification>),
-    #[serde(untagged)]
+    #[serde(rename = "progressbar_style")]
     ProgressBarStyleSpecification(Box<crate::types::ProgressBarStyleSpecification>),
-    #[serde(untagged)]
+    #[serde(rename = "radiobutton_style")]
     RadioButtonStyleSpecification(Box<crate::types::RadioButtonStyleSpecification>),
-    #[serde(untagged)]
+    #[serde(rename = "horizontal_scrollbar_style")]
     HorizontalScrollBarStyleSpecification(Box<crate::types::HorizontalScrollBarStyleSpecification>),
-    #[serde(untagged)]
+    #[serde(rename = "vertical_scrollbar_style")]
     VerticalScrollBarStyleSpecification(Box<crate::types::VerticalScrollBarStyleSpecification>),
-    #[serde(untagged)]
+    #[serde(rename = "scroll_pane_style")]
     ScrollPaneStyleSpecification(Box<crate::types::ScrollPaneStyleSpecification>),
-    #[serde(untagged)]
+    #[serde(rename = "slider_style")]
     SliderStyleSpecification(Box<crate::types::SliderStyleSpecification>),
-    #[serde(untagged)]
+    #[serde(rename = "switch_style")]
     SwitchStyleSpecification(Box<crate::types::SwitchStyleSpecification>),
-    #[serde(untagged)]
+    #[serde(rename = "table_style")]
     TableStyleSpecification(Box<crate::types::TableStyleSpecification>),
-    #[serde(untagged)]
+    #[serde(rename = "tab_style")]
     TabStyleSpecification(Box<crate::types::TabStyleSpecification>),
-    #[serde(untagged)]
+    #[serde(rename = "textbox_style")]
     TextBoxStyleSpecification(Box<crate::types::TextBoxStyleSpecification>),
-    #[serde(untagged)]
+    #[serde(rename = "vertical_flow_style")]
     VerticalFlowStyleSpecification(Box<crate::types::VerticalFlowStyleSpecification>),
-    #[serde(untagged)]
+    #[serde(rename = "tabbed_pane_style")]
     TabbedPaneStyleSpecification(Box<crate::types::TabbedPaneStyleSpecification>),
-    #[serde(untagged)]
+    #[serde(rename = "empty_widget_style")]
     EmptyWidgetStyleSpecification(Box<crate::types::EmptyWidgetStyleSpecification>),
-    #[serde(untagged)]
+    #[serde(rename = "minimap_style")]
     MinimapStyleSpecification(Box<crate::types::MinimapStyleSpecification>),
-    #[serde(untagged)]
+    #[serde(rename = "technology_slot_style")]
     TechnologySlotStyleSpecification(Box<crate::types::TechnologySlotStyleSpecification>),
-    #[serde(untagged)]
+    #[serde(rename = "glow_style")]
     GlowStyleSpecification(Box<crate::types::GlowStyleSpecification>),
-    #[serde(untagged)]
+    #[serde(rename = "speech_bubble_style")]
     SpeechBubbleStyleSpecification(Box<crate::types::SpeechBubbleStyleSpecification>),
-    #[serde(untagged)]
+    #[serde(rename = "double_slider_style")]
     DoubleSliderStyleSpecification(Box<crate::types::DoubleSliderStyleSpecification>),
 }

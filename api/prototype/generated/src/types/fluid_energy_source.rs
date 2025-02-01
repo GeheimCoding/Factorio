@@ -16,8 +16,6 @@ pub struct FluidEnergySource {
     #[serde(default = "default_scale_fluid_usage")]
     scale_fluid_usage: bool,
     smoke: Option<Vec<crate::types::SmokeSource>>,
-    #[serde(rename = "type")]
-    type_: String,
 }
 fn default_burns_fluid() -> bool {
     false

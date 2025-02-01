@@ -10,8 +10,6 @@ pub struct FrameStyleSpecification {
     header_flow_style: Option<crate::types::HorizontalFlowStyleSpecification>,
     horizontal_flow_style: Option<crate::types::HorizontalFlowStyleSpecification>,
     title_style: Option<crate::types::LabelStyleSpecification>,
-    #[serde(rename = "type")]
-    type_: String,
     use_header_filler: Option<bool>,
     vertical_flow_style: Option<crate::types::VerticalFlowStyleSpecification>,
 }

@@ -25,6 +25,7 @@ pub struct Metadata<'a> {
     pub parent: &'a Option<String>,
     pub properties: Option<&'a Vec<Property>>,
     pub custom_properties: Option<&'a CustomProperties>,
+    pub tagged_key: Option<&'a String>,
 }
 
 #[derive(Debug)]
@@ -111,6 +112,7 @@ impl Format {
                     parent: &concept.parent,
                     properties: concept.properties.as_ref(),
                     custom_properties: None,
+                    tagged_key: concept.get_tagged_key(),
                 },
             ) {
                 unreachable!("concept with name {name} already exists in metadata: {found:?}");
@@ -132,6 +134,7 @@ impl Format {
                     parent: &prototype.parent,
                     properties: Some(prototype.properties.as_ref()),
                     custom_properties: prototype.custom_properties.as_ref(),
+                    tagged_key: prototype.get_tagged_key(),
                 },
             ) {
                 unreachable!("concept with name {name} already exists in metadata: {found:?}");

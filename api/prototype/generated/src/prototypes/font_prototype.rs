@@ -10,8 +10,6 @@ pub struct FontPrototype {
     size: i32,
     #[serde(default = "default_spacing")]
     spacing: f32,
-    #[serde(rename = "type")]
-    type_: String,
 }
 fn default_border() -> bool {
     false

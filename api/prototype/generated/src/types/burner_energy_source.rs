@@ -12,8 +12,6 @@ pub struct BurnerEnergySource {
     fuel_inventory_size: crate::types::ItemStackIndex,
     light_flicker: Option<crate::types::LightFlickeringDefinition>,
     smoke: Option<Vec<crate::types::SmokeSource>>,
-    #[serde(rename = "type")]
-    type_: String,
 }
 fn default_burner_usage() -> crate::types::BurnerUsageID {
     String::from("fuel")

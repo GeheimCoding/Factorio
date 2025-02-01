@@ -8,8 +8,6 @@ pub struct DamageTriggerEffectItem {
     lower_damage_modifier: f32,
     // default: MAX_UINT16
     lower_distance_threshold: Option<u16>,
-    #[serde(rename = "type")]
-    type_: String,
     #[serde(default = "default_upper_damage_modifier")]
     upper_damage_modifier: f32,
     // default: MAX_UINT16

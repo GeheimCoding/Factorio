@@ -10,8 +10,6 @@ pub struct AreaTriggerItem {
     target_entities: bool,
     #[serde(default = "default_trigger_from_target")]
     trigger_from_target: bool,
-    #[serde(rename = "type")]
-    type_: String,
 }
 #[derive(Debug, serde::Deserialize)]
 pub enum AreaTriggerItemCollisionMode {

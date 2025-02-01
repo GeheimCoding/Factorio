@@ -15,8 +15,6 @@ pub struct FluidProductPrototype {
     #[serde(default = "default_show_details_in_recipe_tooltip")]
     show_details_in_recipe_tooltip: bool,
     temperature: Option<f32>,
-    #[serde(rename = "type")]
-    type_: String,
 }
 fn default_fluidbox_index() -> u32 {
     0

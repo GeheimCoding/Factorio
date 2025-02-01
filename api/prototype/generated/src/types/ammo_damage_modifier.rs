@@ -5,8 +5,6 @@ pub struct AmmoDamageModifier {
     #[serde(default = "default_infer_icon")]
     infer_icon: bool,
     modifier: f64,
-    #[serde(rename = "type")]
-    type_: String,
     #[serde(default = "default_use_icon_overlay_constant")]
     use_icon_overlay_constant: bool,
 }

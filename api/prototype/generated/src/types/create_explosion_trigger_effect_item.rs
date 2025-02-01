@@ -9,8 +9,6 @@ pub struct CreateExplosionTriggerEffectItem {
     max_movement_distance: f32,
     #[serde(default = "default_max_movement_distance_deviation")]
     max_movement_distance_deviation: f32,
-    #[serde(rename = "type")]
-    type_: String,
 }
 fn default_cycle_while_moving() -> bool {
     false

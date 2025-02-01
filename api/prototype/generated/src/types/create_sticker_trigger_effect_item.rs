@@ -6,8 +6,6 @@ pub struct CreateStickerTriggerEffectItem {
     sticker: crate::types::EntityID,
     #[serde(default = "default_trigger_created_entity")]
     trigger_created_entity: bool,
-    #[serde(rename = "type")]
-    type_: String,
 }
 fn default_show_in_tooltip() -> bool {
     false

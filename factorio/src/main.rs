@@ -9,7 +9,6 @@ fn main() -> anyhow::Result<()> {
     // remote_console()?;
 
     let data = load_data_dump()?;
-    println!("{:#?}", data);
 
     Ok(())
 }

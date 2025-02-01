@@ -9,6 +9,4 @@ pub struct SliderStyleSpecification {
     full_bar_disabled: Option<crate::types::ElementImageSet>,
     high_button: Option<crate::types::ButtonStyleSpecification>,
     notch: Option<crate::types::ElementImageSet>,
-    #[serde(rename = "type")]
-    type_: String,
 }

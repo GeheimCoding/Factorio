@@ -10,8 +10,6 @@ pub struct PlaySoundTriggerEffectItem {
     #[serde(default = "default_play_on_target_position")]
     play_on_target_position: bool,
     sound: crate::types::Sound,
-    #[serde(rename = "type")]
-    type_: String,
     #[serde(default = "default_volume_modifier")]
     volume_modifier: f32,
 }
