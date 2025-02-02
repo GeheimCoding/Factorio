@@ -11,6 +11,10 @@ pub struct BurnerEnergySource {
     // default: `{"chemical"}`
     fuel_categories: Option<crate::vec::Vec<crate::types::FuelCategoryID>>,
     fuel_inventory_size: crate::types::ItemStackIndex,
+    #[serde(default = "default_initial_fuel")]
+    initial_fuel: crate::types::ItemID,
+    #[serde(default = "default_initial_fuel_percent")]
+    initial_fuel_percent: f64,
     light_flicker: Option<crate::types::LightFlickeringDefinition>,
     smoke: Option<crate::vec::Vec<crate::types::SmokeSource>>,
 }
@@ -22,4 +26,10 @@ fn default_burnt_inventory_size() -> crate::types::ItemStackIndex {
 }
 fn default_effectivity() -> f64 {
     1.0
+}
+fn default_initial_fuel() -> crate::types::ItemID {
+    String::from("")
+}
+fn default_initial_fuel_percent() -> f64 {
+    0.2
 }

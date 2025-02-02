@@ -20,6 +20,8 @@ pub struct ReactorPrototype {
     heat_connection_patches_connected: Option<crate::types::SpriteVariations>,
     heat_connection_patches_disconnected: Option<crate::types::SpriteVariations>,
     heat_lower_layer_picture: Option<crate::types::Sprite>,
+    #[serde(default = "default_heating_radius")]
+    heating_radius: f64,
     light: Option<crate::types::LightDefinition>,
     lower_layer_picture: Option<crate::types::Sprite>,
     meltdown_action: Option<crate::types::Trigger>,
@@ -40,6 +42,9 @@ fn default_draw_circuit_wires() -> bool {
 }
 fn default_draw_copper_wires() -> bool {
     true
+}
+fn default_heating_radius() -> f64 {
+    1.0
 }
 fn default_neighbour_bonus() -> f64 {
     1.0

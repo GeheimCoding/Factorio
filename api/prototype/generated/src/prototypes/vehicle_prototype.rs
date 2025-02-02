@@ -8,6 +8,8 @@ pub struct VehiclePrototype {
     allow_remote_driving: bool,
     #[serde(alias = "braking_force")]
     braking_power: VehiclePrototypeBrakingPower,
+    #[serde(default = "default_chunk_exploration_radius")]
+    chunk_exploration_radius: u32,
     crash_trigger: Option<crate::types::TriggerEffect>,
     #[serde(default = "default_deliver_category")]
     deliver_category: String,
@@ -38,6 +40,9 @@ pub enum VehiclePrototypeBrakingPower {
     Energy(crate::types::Energy),
     #[serde(untagged)]
     F64(f64),
+}
+fn default_chunk_exploration_radius() -> u32 {
+    0
 }
 fn default_deliver_category() -> String {
     String::from("")

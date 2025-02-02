@@ -53,5 +53,5 @@ fn default_rocket_above_wires_slice_offset_from_center() -> f32 {
     -3.0
 }
 fn default_rocket_air_object_slice_offset_from_center() -> f32 {
-    -5.5
+    -6.0
 }

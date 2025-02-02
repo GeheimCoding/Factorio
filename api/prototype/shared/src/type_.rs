@@ -215,9 +215,9 @@ impl Type {
             if let Some(LiteralValue::String(value)) = option.get_literal_value() {
                 union.push(format!("#[serde(rename = \"{value}\")]{inner},",));
             } else if option.is_struct()
-            /* // README: Adjustment [TODO] */
+            // README: Adjustment [TODO]
                 && prefix != "LightDefinition"
-            /* // README: Adjustment [TODO] */
+            // README: Adjustment [TODO]
             {
                 union.push(format!("{untagged}{prefix}{inner},"));
             } else {
@@ -232,6 +232,13 @@ impl Type {
                     .get(&name)
                     .map(|metadata| metadata.tagged_key.as_ref())
                 {
+                    // README: Adjustment [TODO]
+                    let tagged_key = if name == "DamageTileTriggerEffectItem" {
+                        &String::from("damage-tile")
+                    } else {
+                        tagged_key
+                    };
+                    // README: Adjustment [TODO]
                     is_tagged = true;
                     union.push(format!(
                         "#[serde(rename = \"{tagged_key}\")]{name}({inner}),",

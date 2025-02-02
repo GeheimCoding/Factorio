@@ -27,6 +27,8 @@ pub struct GameViewSettings {
     show_shortcut_bar: bool,
     #[serde(default = "default_show_side_menu")]
     show_side_menu: bool,
+    #[serde(default = "default_show_surface_list")]
+    show_surface_list: bool,
     #[serde(default = "default_show_tool_bar")]
     show_tool_bar: bool,
     #[serde(default = "default_update_entity_selection")]
@@ -69,6 +71,9 @@ fn default_show_shortcut_bar() -> bool {
     true
 }
 fn default_show_side_menu() -> bool {
+    true
+}
+fn default_show_surface_list() -> bool {
     true
 }
 fn default_show_tool_bar() -> bool {

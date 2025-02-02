@@ -7,6 +7,8 @@ pub struct InfinityContainerPrototype {
     gui_mode: InfinityContainerPrototypeGuiMode,
     inventory_size: crate::types::ItemStackIndex,
     logistic_mode: Option<InfinityContainerPrototypeLogisticMode>,
+    #[serde(default = "default_preserve_contents_when_created")]
+    preserve_contents_when_created: bool,
     #[serde(default = "default_render_not_in_network_icon")]
     render_not_in_network_icon: bool,
 }
@@ -34,6 +36,9 @@ pub enum InfinityContainerPrototypeLogisticMode {
     Storage,
     #[serde(rename = "buffer")]
     Buffer,
+}
+fn default_preserve_contents_when_created() -> bool {
+    true
 }
 fn default_render_not_in_network_icon() -> bool {
     false

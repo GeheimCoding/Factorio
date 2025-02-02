@@ -15,6 +15,8 @@ pub struct TurretPrototype {
     #[serde(default = "default_attacking_speed")]
     attacking_speed: f32,
     call_for_help_radius: f64,
+    #[serde(default = "default_can_retarget_while_starting_attack")]
+    can_retarget_while_starting_attack: bool,
     circuit_connector: Option<crate::vec::Vec<crate::types::CircuitConnectorDefinition>>,
     #[serde(default = "default_circuit_wire_max_distance")]
     circuit_wire_max_distance: f64,
@@ -157,6 +159,9 @@ fn default_attack_from_start_frame() -> bool {
 }
 fn default_attacking_speed() -> f32 {
     1.0
+}
+fn default_can_retarget_while_starting_attack() -> bool {
+    false
 }
 fn default_circuit_wire_max_distance() -> f64 {
     0.0

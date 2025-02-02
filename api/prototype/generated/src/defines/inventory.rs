@@ -60,6 +60,7 @@ pub enum Value3 {
 #[derive(Debug, Clone, PartialEq, Eq, Hash)]
 pub enum Value4 {
     AssemblingMachineModules,
+    CarTrash,
     CharacterAmmo,
     EditorAmmo,
     FurnaceModules,
@@ -128,6 +129,7 @@ impl<'de> serde::Deserialize<'de> for Inventory {
             ]))),
             4 => Ok(Inventory::Value4(std::collections::HashSet::from([
                 Value4::AssemblingMachineModules,
+                Value4::CarTrash,
                 Value4::CharacterAmmo,
                 Value4::EditorAmmo,
                 Value4::FurnaceModules,

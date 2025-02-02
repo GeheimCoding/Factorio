@@ -10,6 +10,8 @@ pub struct FogEffectProperties {
     #[serde(default = "default_fog_type")]
     fog_type: FogEffectPropertiesFogType,
     shape_noise_texture: crate::types::EffectTexture,
+    #[serde(default = "default_tick_factor")]
+    tick_factor: f32,
 }
 #[derive(Debug, serde::Deserialize)]
 pub enum FogEffectPropertiesFogType {
@@ -20,4 +22,7 @@ pub enum FogEffectPropertiesFogType {
 }
 fn default_fog_type() -> FogEffectPropertiesFogType {
     FogEffectPropertiesFogType::Vulcanus
+}
+fn default_tick_factor() -> f32 {
+    0.0
 }

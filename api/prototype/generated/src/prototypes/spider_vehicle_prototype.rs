@@ -4,7 +4,6 @@ pub struct SpiderVehiclePrototype {
     base_: crate::prototypes::VehiclePrototype,
     automatic_weapon_cycling: bool,
     chain_shooting_cooldown_modifier: f32,
-    chunk_exploration_radius: u32,
     energy_source: SpiderVehiclePrototypeEnergySource,
     graphics_set: Option<crate::types::SpiderVehicleGraphicsSet>,
     guns: Option<crate::vec::Vec<crate::types::ItemID>>,

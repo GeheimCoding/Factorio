@@ -43,6 +43,8 @@ pub struct FluidStreamPrototype {
     special_neutral_target_damage: Option<crate::types::DamageParameters>,
     spine_animation: Option<crate::types::Animation>,
     stream_light: Option<crate::types::LightDefinition>,
+    #[serde(default = "default_target_initial_position_only")]
+    target_initial_position_only: bool,
     #[serde(default = "default_target_position_deviation")]
     target_position_deviation: f64,
     #[serde(default = "default_width")]
@@ -85,6 +87,9 @@ fn default_progress_to_create_smoke() -> f32 {
     0.5
 }
 fn default_shadow_scale_enabled() -> bool {
+    false
+}
+fn default_target_initial_position_only() -> bool {
     false
 }
 fn default_target_position_deviation() -> f64 {

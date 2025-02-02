@@ -1,5 +1,7 @@
 #[derive(Debug, serde::Deserialize)]
 pub struct AnimationPrototype {
+    #[serde(default = "default_allow_forced_downscale")]
+    allow_forced_downscale: bool,
     #[serde(default = "default_animation_speed")]
     animation_speed: f32,
     #[serde(default = "default_apply_runtime_tint")]
@@ -71,6 +73,9 @@ pub struct AnimationPrototype {
     x: crate::types::SpriteSizeType,
     #[serde(default = "default_y")]
     y: crate::types::SpriteSizeType,
+}
+fn default_allow_forced_downscale() -> bool {
+    false
 }
 fn default_animation_speed() -> f32 {
     1.0

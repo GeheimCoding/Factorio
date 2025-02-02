@@ -3,6 +3,7 @@ pub struct ArtilleryWagonPrototype {
     #[serde(flatten)]
     base_: crate::prototypes::RollingStockPrototype,
     ammo_stack_limit: crate::types::ItemCountType,
+    automated_ammo_count: Option<crate::types::ItemCountType>,
     cannon_barrel_light_direction: Option<crate::types::Vector3D>,
     cannon_barrel_pictures: Option<crate::types::RollingStockRotatedSlopedGraphics>,
     cannon_barrel_recoil_shiftings: Option<crate::vec::Vec<crate::types::Vector3D>>,

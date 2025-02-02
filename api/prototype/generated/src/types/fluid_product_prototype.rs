@@ -5,8 +5,8 @@ pub struct FluidProductPrototype {
     amount_min: Option<crate::types::FluidAmount>,
     #[serde(default = "default_fluidbox_index")]
     fluidbox_index: u32,
-    #[serde(default = "default_ignored_by_productivity")]
-    ignored_by_productivity: crate::types::FluidAmount,
+    // default: Value of `ignored_by_stats`
+    ignored_by_productivity: Option<crate::types::FluidAmount>,
     #[serde(default = "default_ignored_by_stats")]
     ignored_by_stats: crate::types::FluidAmount,
     name: crate::types::FluidID,
@@ -18,9 +18,6 @@ pub struct FluidProductPrototype {
 }
 fn default_fluidbox_index() -> u32 {
     0
-}
-fn default_ignored_by_productivity() -> crate::types::FluidAmount {
-    0.0
 }
 fn default_ignored_by_stats() -> crate::types::FluidAmount {
     0.0

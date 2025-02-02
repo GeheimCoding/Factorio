@@ -2,7 +2,6 @@
 pub struct AsteroidChunkPrototype {
     #[serde(flatten)]
     base_: crate::prototypes::Prototype,
-    collision_box: Option<crate::types::SimpleBoundingBox>,
     dying_trigger_effect: Option<crate::types::TriggerEffect>,
     graphics_set: Option<crate::types::AsteroidGraphicsSet>,
     // default: unset

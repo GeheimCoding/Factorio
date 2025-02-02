@@ -11,6 +11,7 @@ pub struct CargoHatchDefinition {
     hatch_opening_ticks: u32,
     #[serde(default = "default_hatch_render_layer")]
     hatch_render_layer: crate::types::RenderLayer,
+    // default: MAX_UINT32
     illumination_graphic_index: Option<u32>,
     // default: `{0, 0}`
     offset: Option<crate::types::Vector>,

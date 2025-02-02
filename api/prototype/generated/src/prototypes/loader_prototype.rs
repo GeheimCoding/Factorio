@@ -25,6 +25,8 @@ pub struct LoaderPrototype {
     filter_count: u8,
     #[serde(default = "default_max_belt_stack_size")]
     max_belt_stack_size: u8,
+    #[serde(default = "default_per_lane_filters")]
+    per_lane_filters: bool,
     structure: Option<crate::types::LoaderStructure>,
     #[serde(default = "default_structure_render_layer")]
     structure_render_layer: crate::types::RenderLayer,
@@ -70,6 +72,9 @@ pub enum LoaderPrototypeEnergySource {
 }
 fn default_max_belt_stack_size() -> u8 {
     1
+}
+fn default_per_lane_filters() -> bool {
+    false
 }
 fn default_structure_render_layer() -> crate::types::RenderLayer {
     crate::types::RenderLayer::Object

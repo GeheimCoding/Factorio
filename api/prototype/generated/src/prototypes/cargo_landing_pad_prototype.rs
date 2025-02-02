@@ -14,6 +14,7 @@ pub struct CargoLandingPadPrototype {
     inventory_size: crate::types::ItemStackIndex,
     #[serde(default = "default_radar_range")]
     radar_range: u32,
+    radar_visualisation_color: Option<crate::types::Color>,
     robot_animation: Option<crate::types::Animation>,
     robot_animation_sound: Option<crate::types::Sound>,
     robot_landing_location_offset: Option<crate::types::Vector>,

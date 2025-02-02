@@ -11,6 +11,8 @@ pub struct FluidBox {
     max_pipeline_extent: Option<u32>,
     maximum_temperature: Option<f32>,
     minimum_temperature: Option<f32>,
+    mirrored_pipe_picture: Option<crate::types::Sprite4Way>,
+    mirrored_pipe_picture_frozen: Option<crate::types::Sprite4Way>,
     pipe_connections: crate::vec::Vec<crate::types::PipeConnectionDefinition>,
     pipe_covers: Option<crate::types::Sprite4Way>,
     pipe_covers_frozen: Option<crate::types::Sprite4Way>,

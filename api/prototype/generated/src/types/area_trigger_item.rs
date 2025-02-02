@@ -7,6 +7,8 @@ pub struct AreaTriggerItem {
     radius: f64,
     #[serde(default = "default_show_in_tooltip")]
     show_in_tooltip: bool,
+    #[serde(default = "default_target_enemies")]
+    target_enemies: bool,
     #[serde(default = "default_target_entities")]
     target_entities: bool,
     #[serde(default = "default_trigger_from_target")]
@@ -24,6 +26,9 @@ fn default_collision_mode() -> AreaTriggerItemCollisionMode {
 }
 fn default_show_in_tooltip() -> bool {
     true
+}
+fn default_target_enemies() -> bool {
+    false
 }
 fn default_target_entities() -> bool {
     true

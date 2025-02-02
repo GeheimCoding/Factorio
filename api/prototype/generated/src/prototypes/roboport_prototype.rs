@@ -47,6 +47,7 @@ pub struct RoboportPrototype {
     max_logistic_slots: Option<crate::types::LogisticFilterIndex>,
     open_door_trigger_effect: Option<crate::types::TriggerEffect>,
     radar_range: Option<u32>,
+    radar_visualisation_color: Option<crate::types::Color>,
     recharge_minimum: crate::types::Energy,
     recharging_animation: Option<crate::types::Animation>,
     recharging_light: Option<crate::types::LightDefinition>,

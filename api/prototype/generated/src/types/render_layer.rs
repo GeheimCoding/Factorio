@@ -90,8 +90,8 @@ pub enum RenderLayer {
     TrainStopTop,
     #[serde(rename = "item-in-inserter-hand")]
     ItemInInserterHand,
-    #[serde(rename = "above-inserter")]
-    AboveInserter,
+    #[serde(rename = "above-inserters")]
+    AboveInserters,
     #[serde(rename = "wires")]
     Wires,
     #[serde(rename = "under-elevated")]

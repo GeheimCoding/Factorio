@@ -15,6 +15,8 @@ pub struct ContainerPrototype {
     #[serde(default = "default_inventory_type")]
     inventory_type: ContainerPrototypeInventoryType,
     picture: Option<crate::types::Sprite>,
+    #[serde(default = "default_quality_affects_inventory_size")]
+    quality_affects_inventory_size: bool,
 }
 fn default_circuit_wire_max_distance() -> f64 {
     0.0
@@ -39,4 +41,7 @@ pub enum ContainerPrototypeInventoryType {
 }
 fn default_inventory_type() -> ContainerPrototypeInventoryType {
     ContainerPrototypeInventoryType::WithBar
+}
+fn default_quality_affects_inventory_size() -> bool {
+    true
 }

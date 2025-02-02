@@ -5,7 +5,7 @@ pub struct ArtilleryTurretPrototype {
     #[serde(default = "default_alert_when_attacking")]
     alert_when_attacking: bool,
     ammo_stack_limit: crate::types::ItemCountType,
-    automated_ammo_count: crate::types::ItemCountType,
+    automated_ammo_count: Option<crate::types::ItemCountType>,
     base_picture: Option<crate::types::Animation4Way>,
     #[serde(default = "default_base_picture_render_layer")]
     base_picture_render_layer: crate::types::RenderLayer,

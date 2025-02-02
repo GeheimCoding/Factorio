@@ -16,7 +16,7 @@ pub struct TableStyleSpecification {
     default_row_graphical_set: Option<crate::types::ElementImageSet>,
     even_row_graphical_set: Option<crate::types::ElementImageSet>,
     horizontal_line_color: Option<crate::types::Color>,
-    horizontal_spacing: Option<i32>,
+    horizontal_spacing: Option<TableStyleSpecificationHorizontalSpacing>,
     hovered_graphical_set: Option<crate::types::ElementImageSet>,
     hovered_row_color: Option<crate::types::Color>,
     inactive_column_ordering_ascending_button_style: Option<crate::types::ButtonStyleSpecification>,
@@ -31,7 +31,7 @@ pub struct TableStyleSpecification {
     selected_row_color: Option<crate::types::Color>,
     top_cell_padding: Option<i16>,
     vertical_line_color: Option<crate::types::Color>,
-    vertical_spacing: Option<i32>,
+    vertical_spacing: Option<TableStyleSpecificationVerticalSpacing>,
     wide_as_column_count: Option<bool>,
 }
 #[derive(Debug, serde::Deserialize)]
@@ -40,4 +40,18 @@ pub enum TableStyleSpecificationColumnWidths {
     ColumnWidthItem(Box<crate::types::ColumnWidthItem>),
     #[serde(untagged)]
     VecColumnWidth(crate::vec::Vec<crate::types::ColumnWidth>),
+}
+#[derive(Debug, serde::Deserialize)]
+pub enum TableStyleSpecificationHorizontalSpacing {
+    #[serde(untagged)]
+    I32(i32),
+    #[serde(untagged)]
+    VecSpacingItem(crate::vec::Vec<crate::types::SpacingItem>),
+}
+#[derive(Debug, serde::Deserialize)]
+pub enum TableStyleSpecificationVerticalSpacing {
+    #[serde(untagged)]
+    I32(i32),
+    #[serde(untagged)]
+    VecSpacingItem(crate::vec::Vec<crate::types::SpacingItem>),
 }

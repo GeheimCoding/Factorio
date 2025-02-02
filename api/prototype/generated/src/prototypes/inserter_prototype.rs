@@ -59,6 +59,8 @@ pub struct InserterPrototype {
     rotation_speed: f64,
     #[serde(default = "default_stack_size_bonus")]
     stack_size_bonus: u8,
+    #[serde(default = "default_starting_distance")]
+    starting_distance: f64,
     #[serde(default = "default_use_easter_egg")]
     use_easter_egg: bool,
     #[serde(default = "default_wait_for_full_hand")]
@@ -114,6 +116,9 @@ fn default_max_belt_stack_size() -> u8 {
 }
 fn default_stack_size_bonus() -> u8 {
     0
+}
+fn default_starting_distance() -> f64 {
+    0.7
 }
 fn default_use_easter_egg() -> bool {
     true

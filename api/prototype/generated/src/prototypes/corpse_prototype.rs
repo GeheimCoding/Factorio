@@ -10,6 +10,8 @@ pub struct CorpsePrototype {
     animation_overlay_render_layer: crate::types::RenderLayer,
     #[serde(default = "default_animation_render_layer")]
     animation_render_layer: crate::types::RenderLayer,
+    #[serde(default = "default_auto_setup_collision_box")]
+    auto_setup_collision_box: bool,
     decay_animation: Option<crate::types::RotatedAnimationVariations>,
     #[serde(default = "default_decay_frame_transition_duration")]
     decay_frame_transition_duration: f32,
@@ -64,6 +66,9 @@ fn default_animation_overlay_render_layer() -> crate::types::RenderLayer {
 }
 fn default_animation_render_layer() -> crate::types::RenderLayer {
     crate::types::RenderLayer::Object
+}
+fn default_auto_setup_collision_box() -> bool {
+    true
 }
 fn default_decay_frame_transition_duration() -> f32 {
     0.0

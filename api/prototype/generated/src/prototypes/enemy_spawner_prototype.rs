@@ -16,9 +16,13 @@ pub struct EnemySpawnerPrototype {
     graphics_set: crate::types::EnemySpawnerGraphicsSet,
     #[serde(default = "default_is_military_target")]
     is_military_target: bool,
+    // default: Value of `max_count_of_owned_units`
+    max_count_of_owned_defensive_units: Option<u32>,
     max_count_of_owned_units: u32,
     #[serde(default = "default_max_darkness_to_spawn")]
     max_darkness_to_spawn: f32,
+    // default: Value of `max_friends_around_to_spawn`
+    max_defensive_friends_around_to_spawn: Option<u32>,
     max_friends_around_to_spawn: u32,
     max_richness_for_spawn_shift: f64,
     max_spawn_shift: f64,

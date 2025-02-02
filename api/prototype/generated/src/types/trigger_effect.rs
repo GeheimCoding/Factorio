@@ -9,7 +9,9 @@ pub enum TriggerEffect {
 #[serde(tag = "type")]
 pub enum TriggerEffectVariants {
     #[serde(rename = "damage")]
-    DamageTriggerEffectItem(Box<crate::types::DamageTriggerEffectItem>),
+    DamageTriggerEffectItem(crate::types::DamageTriggerEffectItem),
+    #[serde(rename = "damage-tile")]
+    DamageTileTriggerEffectItem(Box<crate::types::DamageTileTriggerEffectItem>),
     #[serde(rename = "create-entity")]
     CreateEntityTriggerEffectItem(Box<crate::types::CreateEntityTriggerEffectItem>),
     #[serde(rename = "create-explosion")]

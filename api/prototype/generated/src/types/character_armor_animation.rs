@@ -12,6 +12,7 @@ pub struct CharacterArmorAnimation {
     idle_with_gun_in_air: Option<crate::types::RotatedAnimation>,
     landing: Option<crate::types::RotatedAnimation>,
     mining_with_tool: crate::types::RotatedAnimation,
+    mining_with_tool_particles_animation_positions: Option<crate::vec::Vec<f32>>,
     running: Option<crate::types::RotatedAnimation>,
     running_with_gun: crate::types::RotatedAnimation,
     #[serde(default = "default_smoke_cycles_per_tick")]

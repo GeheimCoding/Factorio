@@ -5,8 +5,8 @@ pub struct ItemProductPrototype {
     amount_min: Option<u16>,
     #[serde(default = "default_extra_count_fraction")]
     extra_count_fraction: f32,
-    #[serde(default = "default_ignored_by_productivity")]
-    ignored_by_productivity: u16,
+    // default: Value of `ignored_by_stats`
+    ignored_by_productivity: Option<u16>,
     #[serde(default = "default_ignored_by_stats")]
     ignored_by_stats: u16,
     name: crate::types::ItemID,
@@ -19,9 +19,6 @@ pub struct ItemProductPrototype {
 }
 fn default_extra_count_fraction() -> f32 {
     0.0
-}
-fn default_ignored_by_productivity() -> u16 {
-    0
 }
 fn default_ignored_by_stats() -> u16 {
     0

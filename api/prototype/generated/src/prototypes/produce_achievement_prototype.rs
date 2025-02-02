@@ -4,8 +4,6 @@ pub struct ProduceAchievementPrototype {
     base_: crate::prototypes::AchievementPrototype,
     amount: crate::types::MaterialAmountType,
     fluid_product: Option<crate::types::FluidID>,
-    item_product: Option<crate::types::ItemID>,
+    item_product: Option<crate::types::ItemIDFilter>,
     limited_to_one_game: bool,
-    // default: All qualities
-    quality: Option<crate::types::QualityID>,
 }

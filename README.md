@@ -1,6 +1,6 @@
 # Factorio
 
-The aim of this project is to automatically play factorio. This readme is referring to the stable version `2.0.13`, but
+The aim of this project is to automatically play Factorio. This README is referring to the stable version `2.0.32`, but
 can be used as a reference for other versions as well.
 
 ## Remote Console

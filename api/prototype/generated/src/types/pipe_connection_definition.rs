@@ -2,10 +2,12 @@
 pub struct PipeConnectionDefinition {
     #[serde(default = "default_connection_category")]
     connection_category: PipeConnectionDefinitionConnectionCategory,
-    connection_type: Option<PipeConnectionType>,
+    #[serde(default = "default_connection_type")]
+    connection_type: PipeConnectionType,
     direction: Option<crate::types::Direction>,
     enable_working_visualisations: Option<crate::vec::Vec<String>>,
-    flow_direction: Option<PipeConnectionDefinitionFlowDirection>,
+    #[serde(default = "default_flow_direction")]
+    flow_direction: PipeConnectionDefinitionFlowDirection,
     linked_connection_id: Option<crate::types::FluidBoxLinkedConnectionID>,
     max_distance_tint: Option<crate::types::Color>,
     #[serde(default = "default_max_underground_distance")]
@@ -38,6 +40,9 @@ pub enum PipeConnectionType {
     #[serde(rename = "linked")]
     Linked,
 }
+fn default_connection_type() -> PipeConnectionType {
+    PipeConnectionType::Normal
+}
 #[derive(Debug, serde::Deserialize)]
 pub enum PipeConnectionDefinitionFlowDirection {
     #[serde(rename = "input-output")]
@@ -46,6 +51,9 @@ pub enum PipeConnectionDefinitionFlowDirection {
     Input,
     #[serde(rename = "output")]
     Output,
+}
+fn default_flow_direction() -> PipeConnectionDefinitionFlowDirection {
+    PipeConnectionDefinitionFlowDirection::InputOutput
 }
 fn default_max_underground_distance() -> u8 {
     0

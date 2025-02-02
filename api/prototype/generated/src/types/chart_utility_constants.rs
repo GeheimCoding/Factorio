@@ -3,6 +3,7 @@ pub struct ChartUtilityConstants {
     artillery_range_color: crate::types::Color,
     blue_signal_color: crate::types::Color,
     chart_construction_robot_color: crate::types::Color,
+    chart_deconstruct_active_color: crate::types::Color,
     chart_deconstruct_tint: crate::types::Color,
     chart_delivery_to_me_logistic_robot_color: crate::types::Color,
     chart_logistic_robot_color: crate::types::Color,

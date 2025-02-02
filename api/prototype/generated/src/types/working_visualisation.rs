@@ -15,6 +15,7 @@ pub struct WorkingVisualisation {
     #[serde(default = "default_draw_when_state_filter_matches")]
     draw_when_state_filter_matches: bool,
     east_animation: Option<crate::types::Animation>,
+    east_fog_mask: Option<crate::types::FogMaskShapeDefinition>,
     east_position: Option<crate::types::Vector>,
     // default: Value of `secondary_draw_order`
     east_secondary_draw_order: Option<i8>,
@@ -27,6 +28,7 @@ pub struct WorkingVisualisation {
     enabled_in_animated_shift_during_waypoint_stop: bool,
     #[serde(default = "default_fadeout")]
     fadeout: bool,
+    fog_mask: Option<crate::types::FogMaskShapeDefinition>,
     #[serde(default = "default_frame_based_on_shift_animation_progress")]
     frame_based_on_shift_animation_progress: bool,
     light: Option<crate::types::LightDefinition>,
@@ -35,6 +37,7 @@ pub struct WorkingVisualisation {
     #[serde(default = "default_name")]
     name: String,
     north_animation: Option<crate::types::Animation>,
+    north_fog_mask: Option<crate::types::FogMaskShapeDefinition>,
     north_position: Option<crate::types::Vector>,
     // default: Value of `secondary_draw_order`
     north_secondary_draw_order: Option<i8>,
@@ -45,12 +48,14 @@ pub struct WorkingVisualisation {
     scorch_mark_lifetime: Option<u16>,
     secondary_draw_order: Option<i8>,
     south_animation: Option<crate::types::Animation>,
+    south_fog_mask: Option<crate::types::FogMaskShapeDefinition>,
     south_position: Option<crate::types::Vector>,
     // default: Value of `secondary_draw_order`
     south_secondary_draw_order: Option<i8>,
     #[serde(default = "default_synced_fadeout")]
     synced_fadeout: bool,
     west_animation: Option<crate::types::Animation>,
+    west_fog_mask: Option<crate::types::FogMaskShapeDefinition>,
     west_position: Option<crate::types::Vector>,
     // default: Value of `secondary_draw_order`
     west_secondary_draw_order: Option<i8>,

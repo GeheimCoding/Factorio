@@ -244,6 +244,7 @@ pub enum InputAction {
     SwitchConnectToLogisticNetwork = 253,
     SwitchConstantCombinatorState = 247,
     SwitchInserterFilterModeState = 249,
+    SwitchLoaderFilterMode = 251,
     SwitchMiningDrillFilterModeState = 252,
     SwitchPowerSwitchState = 248,
     TakeEquipment = 116,

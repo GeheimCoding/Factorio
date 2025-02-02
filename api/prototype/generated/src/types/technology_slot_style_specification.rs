@@ -7,6 +7,7 @@ pub struct TechnologySlotStyleSpecification {
     default_background_shadow: Option<crate::types::ElementImageSet>,
     default_ingredients_background: Option<crate::types::ElementImageSet>,
     disabled_ingredients_background: Option<crate::types::ElementImageSet>,
+    drag_handle_style: Option<crate::types::EmptyWidgetStyleSpecification>,
     highlighted_graphical_set: Option<crate::types::ElementImageSet>,
     highlighted_ingredients_background: Option<crate::types::ElementImageSet>,
     hovered_ingredients_background: Option<crate::types::ElementImageSet>,

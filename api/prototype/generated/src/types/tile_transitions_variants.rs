@@ -3,7 +3,7 @@ pub struct TileTransitionsVariants {
     #[serde(default = "default_empty_transitions")]
     empty_transitions: bool,
     light: Option<crate::vec::Vec<crate::types::TileLightPictures>>,
-    main: crate::vec::Vec<crate::types::TileMainPictures>,
+    main: Option<crate::vec::Vec<crate::types::TileMainPictures>>,
     material_background: Option<crate::types::MaterialTextureParameters>,
     material_light: Option<crate::types::MaterialTextureParameters>,
     #[serde(default = "default_material_texture_height_in_tiles")]

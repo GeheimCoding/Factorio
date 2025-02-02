@@ -51,6 +51,8 @@ pub struct ItemPrototype {
     rocket_launch_products: Option<crate::vec::Vec<crate::types::ItemProductPrototype>>,
     #[serde(default = "default_send_to_orbit_mode")]
     send_to_orbit_mode: crate::types::SendToOrbitMode,
+    #[serde(default = "default_spoil_level")]
+    spoil_level: u8,
     spoil_result: Option<crate::types::ItemID>,
     #[serde(default = "default_spoil_ticks")]
     spoil_ticks: u32,
@@ -111,6 +113,9 @@ fn default_place_result() -> crate::types::EntityID {
 }
 fn default_send_to_orbit_mode() -> crate::types::SendToOrbitMode {
     crate::types::SendToOrbitMode::NotSendable
+}
+fn default_spoil_level() -> u8 {
+    0
 }
 fn default_spoil_ticks() -> u32 {
     0

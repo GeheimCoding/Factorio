@@ -1,5 +1,7 @@
 #[derive(Debug, serde::Deserialize)]
 pub struct SpritePrototype {
+    #[serde(default = "default_allow_forced_downscale")]
+    allow_forced_downscale: bool,
     #[serde(default = "default_apply_runtime_tint")]
     apply_runtime_tint: bool,
     #[serde(default = "default_apply_special_effect")]
@@ -53,6 +55,9 @@ pub struct SpritePrototype {
     x: crate::types::SpriteSizeType,
     #[serde(default = "default_y")]
     y: crate::types::SpriteSizeType,
+}
+fn default_allow_forced_downscale() -> bool {
+    false
 }
 fn default_apply_runtime_tint() -> bool {
     false

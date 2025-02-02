@@ -22,6 +22,8 @@ pub struct ConstantCombinatorPrototype {
     draw_circuit_wires: bool,
     #[serde(default = "default_draw_copper_wires")]
     draw_copper_wires: bool,
+    #[serde(default = "default_pulse_duration")]
+    pulse_duration: u32,
     sprites: Option<crate::types::Sprite4Way>,
 }
 fn default_circuit_wire_max_distance() -> f64 {
@@ -32,4 +34,7 @@ fn default_draw_circuit_wires() -> bool {
 }
 fn default_draw_copper_wires() -> bool {
     true
+}
+fn default_pulse_duration() -> u32 {
+    0
 }

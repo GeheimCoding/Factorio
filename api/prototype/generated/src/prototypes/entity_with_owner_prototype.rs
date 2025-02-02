@@ -6,7 +6,7 @@ pub struct EntityWithOwnerPrototype {
     allow_run_time_change_of_is_military_target: bool,
     #[serde(default = "default_is_military_target")]
     is_military_target: bool,
-    // default: Calculated based on bounding box
+    // default: Calculated based on entity tile_width and height
     quality_indicator_scale: Option<f64>,
 }
 fn default_allow_run_time_change_of_is_military_target() -> bool {

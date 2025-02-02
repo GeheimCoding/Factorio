@@ -1,5 +1,7 @@
 #[derive(Debug, serde::Deserialize)]
 pub struct SpriteSource {
+    #[serde(default = "default_allow_forced_downscale")]
+    allow_forced_downscale: bool,
     filename: Option<crate::types::FileName>,
     height: Option<crate::types::SpriteSizeType>,
     #[serde(default = "default_load_in_minimal_mode")]
@@ -13,6 +15,9 @@ pub struct SpriteSource {
     x: crate::types::SpriteSizeType,
     #[serde(default = "default_y")]
     y: crate::types::SpriteSizeType,
+}
+fn default_allow_forced_downscale() -> bool {
+    false
 }
 fn default_load_in_minimal_mode() -> bool {
     false

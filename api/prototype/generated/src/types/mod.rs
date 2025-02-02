@@ -279,6 +279,8 @@ pub mod speech_bubble_style_specification;
 pub use speech_bubble_style_specification::SpeechBubbleStyleSpecification;
 pub mod spawn_point;
 pub use spawn_point::SpawnPoint;
+pub mod spacing_item;
+pub use spacing_item::SpacingItem;
 pub mod space_tile_effect_parameters;
 pub use space_tile_effect_parameters::SpaceTileEffectParameters;
 pub mod space_platforms_modifier;
@@ -749,6 +751,8 @@ pub mod give_item_modifier;
 pub use give_item_modifier::GiveItemModifier;
 pub mod giga_cargo_hatch_definition;
 pub use giga_cargo_hatch_definition::GigaCargoHatchDefinition;
+pub mod ghost_tint_set;
+pub use ghost_tint_set::GhostTintSet;
 pub mod ghost_shimmer_overlay_data;
 pub use ghost_shimmer_overlay_data::GhostShimmerOverlayData;
 pub mod ghost_shimmer_distortion_data;
@@ -923,6 +927,8 @@ pub mod damage_type_filters;
 pub use damage_type_filters::DamageTypeFilters;
 pub mod damage_trigger_effect_item;
 pub use damage_trigger_effect_item::DamageTriggerEffectItem;
+pub mod damage_tile_trigger_effect_item;
+pub use damage_tile_trigger_effect_item::DamageTileTriggerEffectItem;
 pub mod damage_parameters;
 pub use damage_parameters::DamageParameters;
 pub mod cyclic_sound;
@@ -1391,6 +1397,7 @@ pub enum Types {
     CursorBoxType(Box<CursorBoxType>),
     CyclicSound(Box<CyclicSound>),
     DamageParameters(Box<DamageParameters>),
+    DamageTileTriggerEffectItem(Box<DamageTileTriggerEffectItem>),
     DamageTriggerEffectItem(Box<DamageTriggerEffectItem>),
     DamageTypeFilters(Box<DamageTypeFilters>),
     DamageTypeID(Box<DamageTypeID>),
@@ -1478,6 +1485,7 @@ pub enum Types {
     GhostShimmerConfig(Box<GhostShimmerConfig>),
     GhostShimmerDistortionData(Box<GhostShimmerDistortionData>),
     GhostShimmerOverlayData(Box<GhostShimmerOverlayData>),
+    GhostTintSet(Box<GhostTintSet>),
     GigaCargoHatchDefinition(Box<GigaCargoHatchDefinition>),
     GiveItemModifier(Box<GiveItemModifier>),
     GlobalRecipeTints(Box<GlobalRecipeTints>),
@@ -1719,6 +1727,7 @@ pub enum Types {
     SpacePlatformTileDefinition(Box<SpacePlatformTileDefinition>),
     SpacePlatformsModifier(Box<SpacePlatformsModifier>),
     SpaceTileEffectParameters(Box<SpaceTileEffectParameters>),
+    SpacingItem(Box<SpacingItem>),
     SpawnPoint(Box<SpawnPoint>),
     SpeechBubbleStyleSpecification(Box<SpeechBubbleStyleSpecification>),
     SpiderEngineSpecification(Box<SpiderEngineSpecification>),
