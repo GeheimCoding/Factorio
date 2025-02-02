@@ -5,10 +5,10 @@ pub struct OffshorePumpPrototype {
     #[serde(default = "default_always_draw_fluid")]
     always_draw_fluid: bool,
     circuit_connector: Option<(
-        crate::types::CircuitConnectorDefinition,
-        crate::types::CircuitConnectorDefinition,
-        crate::types::CircuitConnectorDefinition,
-        crate::types::CircuitConnectorDefinition,
+        Box<crate::types::CircuitConnectorDefinition>,
+        Box<crate::types::CircuitConnectorDefinition>,
+        Box<crate::types::CircuitConnectorDefinition>,
+        Box<crate::types::CircuitConnectorDefinition>,
     )>,
     #[serde(default = "default_circuit_wire_max_distance")]
     circuit_wire_max_distance: f64,

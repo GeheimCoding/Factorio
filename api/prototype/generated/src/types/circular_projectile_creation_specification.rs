@@ -1,2 +1,2 @@
 pub type CircularProjectileCreationSpecification =
-    Vec<(crate::types::RealOrientation, crate::types::Vector)>;
+    Vec<(crate::types::RealOrientation, Box<crate::types::Vector>)>;

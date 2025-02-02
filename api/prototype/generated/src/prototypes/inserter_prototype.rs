@@ -11,10 +11,10 @@ pub struct InserterPrototype {
     #[serde(default = "default_chases_belt_items")]
     chases_belt_items: bool,
     circuit_connector: Option<(
-        crate::types::CircuitConnectorDefinition,
-        crate::types::CircuitConnectorDefinition,
-        crate::types::CircuitConnectorDefinition,
-        crate::types::CircuitConnectorDefinition,
+        Box<crate::types::CircuitConnectorDefinition>,
+        Box<crate::types::CircuitConnectorDefinition>,
+        Box<crate::types::CircuitConnectorDefinition>,
+        Box<crate::types::CircuitConnectorDefinition>,
     )>,
     #[serde(default = "default_circuit_wire_max_distance")]
     circuit_wire_max_distance: f64,

@@ -115,10 +115,22 @@ impl Type {
         }
     }
 
-    fn should_be_boxed(&self, context: &Context) -> bool {
+    pub fn should_be_boxed(&self, context: &Context) -> bool {
         match self {
             Type::Simple(simple) => {
-                matches!(context.context.get(simple), Some((_, DataType::Struct)))
+                if let Some((_, datatype)) = context.context.get(simple) {
+                    match datatype {
+                        DataType::Union => context
+                            .metadata
+                            .get(simple)
+                            .map(|metadata| metadata.properties.is_some())
+                            .unwrap_or(false),
+                        DataType::Struct => true,
+                        DataType::NewType(_) => false,
+                    }
+                } else {
+                    false
+                }
             }
             Type::Complex(complex) => match complex.as_ref() {
                 ComplexType::Type { value, .. } => value.should_be_boxed(context),
@@ -166,7 +178,13 @@ impl Type {
     ) -> (String, Vec<String>) {
         let (inner, additional): (Vec<String>, Vec<Vec<String>>) = values
             .iter()
-            .map(|value| value.generate(prefix, context))
+            .map(|value| {
+                let (mut inner, additional) = value.generate(prefix, context);
+                if value.should_be_boxed(&context) {
+                    inner = format!("Box<{inner}>");
+                }
+                (inner, additional)
+            })
             .unzip();
         let additional = additional
             .into_iter()
@@ -234,6 +252,11 @@ impl Type {
         } else {
             ""
         };
+        // README: Adjustment [TODO]
+        if prefix == "Sound" {
+            union.push(format!("{untagged}FileName(crate::types::FileName),"));
+        }
+        // README: Adjustment [TODO]
         others.insert(
             0,
             format!(

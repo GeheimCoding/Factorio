@@ -2,10 +2,15 @@
 pub enum BoundingBox {
     #[serde(untagged)]
     BoundingBox {
-        left_top: crate::types::MapPosition,
+        left_top: Box<crate::types::MapPosition>,
         orientation: Option<crate::types::RealOrientation>,
-        right_bottom: crate::types::MapPosition,
+        right_bottom: Box<crate::types::MapPosition>,
     },
     #[serde(untagged)]
-    MapPositionMapPosition((crate::types::MapPosition, crate::types::MapPosition)),
+    BoxMapPositionBoxMapPosition(
+        (
+            Box<crate::types::MapPosition>,
+            Box<crate::types::MapPosition>,
+        ),
+    ),
 }

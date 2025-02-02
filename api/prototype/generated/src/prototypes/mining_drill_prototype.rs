@@ -10,10 +10,10 @@ pub struct MiningDrillPrototype {
     #[serde(default = "default_base_render_layer")]
     base_render_layer: crate::types::RenderLayer,
     circuit_connector: Option<(
-        crate::types::CircuitConnectorDefinition,
-        crate::types::CircuitConnectorDefinition,
-        crate::types::CircuitConnectorDefinition,
-        crate::types::CircuitConnectorDefinition,
+        Box<crate::types::CircuitConnectorDefinition>,
+        Box<crate::types::CircuitConnectorDefinition>,
+        Box<crate::types::CircuitConnectorDefinition>,
+        Box<crate::types::CircuitConnectorDefinition>,
     )>,
     #[serde(default = "default_circuit_wire_max_distance")]
     circuit_wire_max_distance: f64,

@@ -1,6 +1,6 @@
 #[derive(Debug, serde::Deserialize)]
 pub struct SpriteSource {
-    filename: crate::types::FileName,
+    filename: Option<crate::types::FileName>,
     height: Option<crate::types::SpriteSizeType>,
     #[serde(default = "default_load_in_minimal_mode")]
     load_in_minimal_mode: bool,

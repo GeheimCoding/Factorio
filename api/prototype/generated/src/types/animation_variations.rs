@@ -2,7 +2,7 @@
 pub enum AnimationVariations {
     #[serde(untagged)]
     AnimationVariations {
-        sheet: Option<crate::types::AnimationSheet>,
+        sheet: Option<Box<crate::types::AnimationSheet>>,
         sheets: Option<Vec<crate::types::AnimationSheet>>,
     },
     #[serde(untagged)]

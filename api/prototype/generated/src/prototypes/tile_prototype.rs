@@ -88,7 +88,7 @@ fn default_allows_being_covered() -> bool {
 #[derive(Debug, serde::Deserialize)]
 pub enum TilePrototypeAmbientSounds {
     #[serde(untagged)]
-    WorldAmbientSoundDefinition(crate::types::WorldAmbientSoundDefinition),
+    WorldAmbientSoundDefinition(Box<crate::types::WorldAmbientSoundDefinition>),
     #[serde(untagged)]
     VecWorldAmbientSoundDefinition(Vec<crate::types::WorldAmbientSoundDefinition>),
 }
@@ -102,7 +102,7 @@ pub enum TilePrototypeBoundDecoratives {
 #[derive(Debug, serde::Deserialize)]
 pub enum TilePrototypeBuildSound {
     #[serde(untagged)]
-    Sound(crate::types::Sound),
+    Sound(Box<crate::types::Sound>),
     #[serde(untagged)]
     TileBuildSound(Box<TileBuildSound>),
 }
@@ -128,7 +128,7 @@ fn default_destroys_dropped_items() -> bool {
 #[derive(Debug, serde::Deserialize)]
 pub enum TilePrototypeDyingExplosion {
     #[serde(untagged)]
-    ExplosionDefinition(crate::types::ExplosionDefinition),
+    ExplosionDefinition(Box<crate::types::ExplosionDefinition>),
     #[serde(untagged)]
     VecExplosionDefinition(Vec<crate::types::ExplosionDefinition>),
 }

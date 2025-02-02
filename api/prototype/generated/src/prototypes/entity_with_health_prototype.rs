@@ -56,7 +56,7 @@ fn default_create_ghost_on_death() -> bool {
 #[derive(Debug, serde::Deserialize)]
 pub enum EntityWithHealthPrototypeDyingExplosion {
     #[serde(untagged)]
-    ExplosionDefinition(crate::types::ExplosionDefinition),
+    ExplosionDefinition(Box<crate::types::ExplosionDefinition>),
     #[serde(untagged)]
     VecExplosionDefinition(Vec<crate::types::ExplosionDefinition>),
 }

@@ -9,10 +9,10 @@ pub struct TrainStopPrototype {
     #[serde(default = "default_chart_name")]
     chart_name: bool,
     circuit_connector: Option<(
-        crate::types::CircuitConnectorDefinition,
-        crate::types::CircuitConnectorDefinition,
-        crate::types::CircuitConnectorDefinition,
-        crate::types::CircuitConnectorDefinition,
+        Box<crate::types::CircuitConnectorDefinition>,
+        Box<crate::types::CircuitConnectorDefinition>,
+        Box<crate::types::CircuitConnectorDefinition>,
+        Box<crate::types::CircuitConnectorDefinition>,
     )>,
     #[serde(default = "default_circuit_wire_max_distance")]
     circuit_wire_max_distance: f64,

@@ -1,7 +1,7 @@
 #[derive(Debug, serde::Deserialize)]
 pub enum PersistentWorldAmbientSoundDefinition {
     #[serde(untagged)]
-    PersistentWorldAmbientSoundDefinition { sound: crate::types::Sound },
+    PersistentWorldAmbientSoundDefinition { sound: Box<crate::types::Sound> },
     #[serde(untagged)]
-    Sound(crate::types::Sound),
+    Sound(Box<crate::types::Sound>),
 }

@@ -13,5 +13,5 @@ pub enum ModSettingValue {
     #[serde(untagged)]
     String(String),
     #[serde(untagged)]
-    Color(crate::types::Color),
+    Color(Box<crate::types::Color>),
 }

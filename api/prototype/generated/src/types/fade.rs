@@ -4,8 +4,8 @@ pub enum Fade {
     Fade {
         #[serde(flatten)]
         base_: crate::types::Attenuation,
-        from: Option<crate::types::ControlPoint>,
-        to: Option<crate::types::ControlPoint>,
+        from: Option<Box<crate::types::ControlPoint>>,
+        to: Option<Box<crate::types::ControlPoint>>,
     },
     #[serde(untagged)]
     AttenuationType(crate::types::AttenuationType),

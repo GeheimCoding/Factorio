@@ -12,10 +12,10 @@ pub struct PipeConnectionDefinition {
     max_underground_distance: u8,
     position: Option<crate::types::MapPosition>,
     positions: Option<(
-        crate::types::MapPosition,
-        crate::types::MapPosition,
-        crate::types::MapPosition,
-        crate::types::MapPosition,
+        Box<crate::types::MapPosition>,
+        Box<crate::types::MapPosition>,
+        Box<crate::types::MapPosition>,
+        Box<crate::types::MapPosition>,
     )>,
     underground_collision_mask: Option<crate::types::CollisionMaskConnector>,
 }

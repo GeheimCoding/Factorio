@@ -7,7 +7,7 @@ pub enum ElementImageSetLayer {
         // default: `4` if `background_blur` is `true`
         background_blur_sigma: Option<f32>,
         border: Option<i32>,
-        bottom: Option<crate::types::Sprite>,
+        bottom: Option<Box<crate::types::Sprite>>,
         bottom_border: Option<i32>,
         #[serde(default = "default_bottom_outer_border_shift")]
         bottom_outer_border_shift: i32,
@@ -15,7 +15,7 @@ pub enum ElementImageSetLayer {
         bottom_tiling: bool,
         #[serde(default = "default_bottom_width")]
         bottom_width: crate::types::SpriteSizeType,
-        center: Option<crate::types::Sprite>,
+        center: Option<Box<crate::types::Sprite>>,
         #[serde(default = "default_center_height")]
         center_height: crate::types::SpriteSizeType,
         #[serde(default = "default_center_tiling_horizontal")]
@@ -30,16 +30,16 @@ pub enum ElementImageSetLayer {
         draw_type: ElementImageSetLayerDrawType,
         // default: The `default_tileset` set in GuiStyle
         filename: Option<crate::types::FileName>,
-        left: Option<crate::types::Sprite>,
+        left: Option<Box<crate::types::Sprite>>,
         left_border: Option<i32>,
-        left_bottom: Option<crate::types::Sprite>,
+        left_bottom: Option<Box<crate::types::Sprite>>,
         #[serde(default = "default_left_height")]
         left_height: crate::types::SpriteSizeType,
         #[serde(default = "default_left_outer_border_shift")]
         left_outer_border_shift: i32,
         #[serde(default = "default_left_tiling")]
         left_tiling: bool,
-        left_top: Option<crate::types::Sprite>,
+        left_top: Option<Box<crate::types::Sprite>>,
         #[serde(default = "default_load_in_minimal_mode")]
         load_in_minimal_mode: bool,
         #[serde(default = "default_opacity")]
@@ -56,24 +56,24 @@ pub enum ElementImageSetLayer {
         overall_tiling_vertical_size: u16,
         #[serde(default = "default_overall_tiling_vertical_spacing")]
         overall_tiling_vertical_spacing: u16,
-        position: Option<crate::types::MapPosition>,
-        right: Option<crate::types::Sprite>,
+        position: Option<Box<crate::types::MapPosition>>,
+        right: Option<Box<crate::types::Sprite>>,
         right_border: Option<i32>,
-        right_bottom: Option<crate::types::Sprite>,
+        right_bottom: Option<Box<crate::types::Sprite>>,
         #[serde(default = "default_right_height")]
         right_height: crate::types::SpriteSizeType,
         #[serde(default = "default_right_outer_border_shift")]
         right_outer_border_shift: i32,
         #[serde(default = "default_right_tiling")]
         right_tiling: bool,
-        right_top: Option<crate::types::Sprite>,
+        right_top: Option<Box<crate::types::Sprite>>,
         #[serde(default = "default_scale")]
         scale: f64,
         #[serde(default = "default_stretch_monolith_image_to_size")]
         stretch_monolith_image_to_size: bool,
         // default: `{r=1, g=1, b=1, a=1}`
-        tint: Option<crate::types::Color>,
-        top: Option<crate::types::Sprite>,
+        tint: Option<Box<crate::types::Color>>,
+        top: Option<Box<crate::types::Sprite>>,
         top_border: Option<i32>,
         #[serde(default = "default_top_outer_border_shift")]
         top_outer_border_shift: i32,

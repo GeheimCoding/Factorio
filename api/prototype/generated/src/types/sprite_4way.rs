@@ -2,12 +2,12 @@
 pub enum Sprite4Way {
     #[serde(untagged)]
     Sprite4Way {
-        east: Option<crate::types::Sprite>,
-        north: Option<crate::types::Sprite>,
-        sheet: Option<crate::types::SpriteNWaySheet>,
+        east: Option<Box<crate::types::Sprite>>,
+        north: Option<Box<crate::types::Sprite>>,
+        sheet: Option<Box<crate::types::SpriteNWaySheet>>,
         sheets: Option<Vec<crate::types::SpriteNWaySheet>>,
-        south: Option<crate::types::Sprite>,
-        west: Option<crate::types::Sprite>,
+        south: Option<Box<crate::types::Sprite>>,
+        west: Option<Box<crate::types::Sprite>>,
     },
     #[serde(untagged)]
     Sprite(Box<crate::types::Sprite>),

@@ -12,10 +12,10 @@ pub enum WorldAmbientSoundDefinition {
         min_entity_count: u32,
         #[serde(default = "default_radius")]
         radius: f64,
-        sound: Option<crate::types::Sound>,
+        sound: Option<Box<crate::types::Sound>>,
     },
     #[serde(untagged)]
-    Sound(crate::types::Sound),
+    Sound(Box<crate::types::Sound>),
 }
 fn default_average_pause_seconds() -> f64 {
     0.0

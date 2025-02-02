@@ -27,6 +27,7 @@ pub enum PropertyDefault {
 
 impl Property {
     pub fn generate(&self, prefix: &str, context: &Context) -> Option<(String, Vec<String>)> {
+        let is_union_property = matches!(context.context.get(prefix), Some((_, DataType::Union)));
         // README: Adjustment [TODO]
         if prefix == "PrototypeBase" && self.base.name == "type" {
             return None;
@@ -41,6 +42,11 @@ impl Property {
             inner = String::from(literal.to_rust_type());
         }
         let (mut name, other) = self.base.name.to_rust_type(context);
+        // README: Adjustment [TODO]
+        if prefix.starts_with("TechnologySlotStyleSpecification") && name.contains("offset") {
+            inner = String::from("f32");
+        }
+        // README: Adjustment [TODO]
         assert!(other.is_empty());
         name = name.to_snake_case();
         let rename = if self.base.name != name {
@@ -84,7 +90,14 @@ impl Property {
                 }
             }
         }
-        if self.optional && serde_default.is_empty() {
+        if is_union_property && self.type_.should_be_boxed(context) {
+            inner = format!("Box<{inner}>");
+        }
+        if (self.optional && serde_default.is_empty())
+        // README: Adjustment [TODO] (e.g. CheckBoxStyleSpecification::disabled_checkmark
+            || (name == "filename" && prefix.starts_with("SpriteSource"))
+        // README: Adjustment [TODO]
+        {
             inner = format!("Option<{inner}>");
         }
         Some((

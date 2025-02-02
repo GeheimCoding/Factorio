@@ -25,10 +25,10 @@ pub struct AsteroidCollectorPrototype {
     #[serde(default = "default_arm_speed_quality_scaling")]
     arm_speed_quality_scaling: f32,
     circuit_connector: Option<(
-        crate::types::CircuitConnectorDefinition,
-        crate::types::CircuitConnectorDefinition,
-        crate::types::CircuitConnectorDefinition,
-        crate::types::CircuitConnectorDefinition,
+        Box<crate::types::CircuitConnectorDefinition>,
+        Box<crate::types::CircuitConnectorDefinition>,
+        Box<crate::types::CircuitConnectorDefinition>,
+        Box<crate::types::CircuitConnectorDefinition>,
     )>,
     #[serde(default = "default_circuit_wire_max_distance")]
     circuit_wire_max_distance: f64,

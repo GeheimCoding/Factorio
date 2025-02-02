@@ -2,15 +2,15 @@
 pub enum Sound {
     #[serde(untagged)]
     Sound {
-        advanced_volume_control: Option<crate::types::AdvancedVolumeControl>,
-        aggregation: Option<crate::types::AggregationSpecification>,
+        advanced_volume_control: Option<Box<crate::types::AdvancedVolumeControl>>,
+        aggregation: Option<Box<crate::types::AggregationSpecification>>,
         #[serde(default = "default_allow_random_repeat")]
         allow_random_repeat: bool,
         #[serde(default = "default_audible_distance_modifier")]
         audible_distance_modifier: f64,
         category: Option<crate::types::SoundType>,
         filename: Option<crate::types::FileName>,
-        game_controller_vibration_data: Option<crate::types::GameControllerVibrationData>,
+        game_controller_vibration_data: Option<Box<crate::types::GameControllerVibrationData>>,
         #[serde(default = "default_max_speed")]
         max_speed: f32,
         #[serde(default = "default_max_volume")]
@@ -33,6 +33,8 @@ pub enum Sound {
     },
     #[serde(untagged)]
     VecSoundDefinition(Vec<crate::types::SoundDefinition>),
+    #[serde(untagged)]
+    FileName(crate::types::FileName),
 }
 fn default_allow_random_repeat() -> bool {
     false
@@ -71,7 +73,7 @@ fn default_speed_smoothing_window_size() -> u32 {
 #[derive(Debug, serde::Deserialize)]
 pub enum SoundVariations {
     #[serde(untagged)]
-    SoundDefinition(crate::types::SoundDefinition),
+    SoundDefinition(Box<crate::types::SoundDefinition>),
     #[serde(untagged)]
     VecSoundDefinition(Vec<crate::types::SoundDefinition>),
 }

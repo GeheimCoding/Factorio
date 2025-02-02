@@ -29,7 +29,7 @@ fn default_gun_barrel_length() -> f32 {
 #[derive(Debug, serde::Deserialize)]
 pub enum StreamAttackParametersGunCenterShift {
     #[serde(untagged)]
-    Vector(crate::types::Vector),
+    Vector(Box<crate::types::Vector>),
     #[serde(untagged)]
     GunShift4Way(Box<GunShift4Way>),
 }

@@ -71,7 +71,7 @@ fn default_speed_smoothing_window_size() -> u32 {
 #[derive(Debug, serde::Deserialize)]
 pub enum SoundPrototypeVariations {
     #[serde(untagged)]
-    SoundDefinition(crate::types::SoundDefinition),
+    SoundDefinition(Box<crate::types::SoundDefinition>),
     #[serde(untagged)]
     VecSoundDefinition(Vec<crate::types::SoundDefinition>),
 }

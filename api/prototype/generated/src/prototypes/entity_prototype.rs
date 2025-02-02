@@ -89,7 +89,7 @@ fn default_allow_copy_paste() -> bool {
 #[derive(Debug, serde::Deserialize)]
 pub enum EntityPrototypeAmbientSounds {
     #[serde(untagged)]
-    WorldAmbientSoundDefinition(crate::types::WorldAmbientSoundDefinition),
+    WorldAmbientSoundDefinition(Box<crate::types::WorldAmbientSoundDefinition>),
     #[serde(untagged)]
     VecWorldAmbientSoundDefinition(Vec<crate::types::WorldAmbientSoundDefinition>),
 }
