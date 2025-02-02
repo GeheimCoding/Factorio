@@ -8,7 +8,7 @@ pub struct PrototypeBase {
     hidden_in_factoriopedia: Option<bool>,
     localised_description: Option<crate::types::LocalisedString>,
     localised_name: Option<crate::types::LocalisedString>,
-    name: String,
+    name: Option<String>,
     #[serde(default = "default_order")]
     order: crate::types::Order,
     #[serde(default = "default_parameter")]

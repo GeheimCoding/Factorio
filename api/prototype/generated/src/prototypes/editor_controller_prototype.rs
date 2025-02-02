@@ -5,7 +5,7 @@ pub struct EditorControllerPrototype {
     fill_built_entity_energy_buffers: bool,
     generate_neighbor_chunks: bool,
     gun_inventory_size: crate::types::ItemStackIndex,
-    ignore_surface_conditions: bool,
+    ignore_surface_conditions: Option<bool>,
     ignore_tile_conditions: bool,
     instant_blueprint_building: bool,
     instant_deconstruction: bool,

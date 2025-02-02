@@ -19,7 +19,7 @@ pub struct BaseAttackParameters {
     #[serde(default = "default_health_penalty")]
     health_penalty: f32,
     #[serde(default = "default_lead_target_for_projectile_delay")]
-    lead_target_for_projectile_delay: u32,
+    lead_target_for_projectile_delay: f32,
     #[serde(default = "default_lead_target_for_projectile_speed")]
     lead_target_for_projectile_speed: f32,
     // default: equal to `range` property
@@ -72,8 +72,8 @@ fn default_fire_penalty() -> f32 {
 fn default_health_penalty() -> f32 {
     0.0
 }
-fn default_lead_target_for_projectile_delay() -> u32 {
-    0
+fn default_lead_target_for_projectile_delay() -> f32 {
+    0.0
 }
 fn default_lead_target_for_projectile_speed() -> f32 {
     0.0

@@ -2,13 +2,10 @@
 pub struct DeconstructionItemPrototype {
     #[serde(flatten)]
     base_: crate::prototypes::SelectionToolPrototype,
-    alt_select: crate::types::SelectionModeData,
     #[serde(default = "default_always_include_tiles")]
     always_include_tiles: bool,
     #[serde(default = "default_entity_filter_count")]
     entity_filter_count: crate::types::ItemStackIndex,
-    select: crate::types::SelectionModeData,
-    stack_size: f64,
     #[serde(default = "default_tile_filter_count")]
     tile_filter_count: crate::types::ItemStackIndex,
 }

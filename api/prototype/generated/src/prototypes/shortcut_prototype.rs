@@ -46,6 +46,8 @@ pub enum ShortcutPrototypeAction {
     SpawnItem,
     #[serde(rename = "lua")]
     Lua,
+    #[serde(rename = "redo")]
+    Redo,
 }
 fn default_associated_control_input() -> String {
     String::from("")

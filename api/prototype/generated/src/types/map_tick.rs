@@ -1,1 +1,1 @@
-pub type MapTick = u64;
+pub type MapTick = f64;

@@ -32,7 +32,7 @@ fn default_compensated_pivot() -> bool {
 }
 #[derive(Debug, serde::Deserialize)]
 pub struct SingleGraphicLayerProcessionBezierControlPoint {
-    frame: f32,
+    frame: Option<f32>,
     opacity: Option<f64>,
     opacity_t: Option<f64>,
     rotation: Option<f64>,

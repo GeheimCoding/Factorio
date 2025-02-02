@@ -22,7 +22,6 @@ pub struct CustomInputPrototype {
     item_to_spawn: Option<crate::types::ItemID>,
     key_sequence: String,
     linked_game_control: Option<crate::types::LinkedGameControl>,
-    name: String,
 }
 #[derive(Debug, serde::Deserialize)]
 pub enum CustomInputPrototypeAction {

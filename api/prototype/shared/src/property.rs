@@ -29,7 +29,26 @@ impl Property {
     pub fn generate(&self, prefix: &str, context: &Context) -> Option<(String, Vec<String>)> {
         let is_union_property = matches!(context.context.get(prefix), Some((_, DataType::Union)));
         // README: Adjustment [TODO]
-        if prefix == "PrototypeBase" && self.base.name == "type" {
+        if (prefix == "PrototypeBase" && self.base.name == "type")
+            || (prefix == "QualityPrototype" && self.base.name == "name")
+            || (prefix == "InfinityContainerPrototype"
+                && (self.base.name == "logistic_mode" || self.base.name == "inventory_size"))
+            || (prefix == "CustomInputPrototype" && self.base.name == "name")
+            || ((prefix == "CopyPasteToolPrototype"
+                || prefix == "BlueprintItemPrototype"
+                || prefix == "UpgradeItemPrototype"
+                || prefix == "DeconstructionItemPrototype")
+                && (self.base.name.ends_with("select") || self.base.name == "stack_size"))
+            || (prefix == "BlueprintBookPrototype" && self.base.name == "stack_size")
+            || ((prefix == "ItemWithInventoryPrototype" || prefix == "SpidertronRemotePrototype")
+                && (self.base.name == "inventory_size" || self.base.name == "stack_size"))
+            || (prefix == "FluidTurretPrototype" && self.base.name == "attack_parameters")
+            || (prefix == "EquipmentGhostPrototype"
+                && (self.base.name == "categories"
+                    || self.base.name == "energy_source"
+                    || self.base.name == "shape"
+                    || self.base.name == "take_result"))
+        {
             return None;
         }
         // README: Adjustment [TODO]
@@ -43,7 +62,16 @@ impl Property {
         }
         let (mut name, other) = self.base.name.to_rust_type(context);
         // README: Adjustment [TODO]
-        if prefix.starts_with("TechnologySlotStyleSpecification") && name.contains("offset") {
+        if (prefix.starts_with("TechnologySlotStyleSpecification") && name.contains("offset"))
+            || (prefix.starts_with("ItemProductPrototype") && name.starts_with("amount"))
+            || (prefix.starts_with("CreateParticleTriggerEffectItem")
+                && name.starts_with("tail_length"))
+            || (prefix.starts_with("WorkingVisualisations")
+                && name == "shift_animation_waypoint_stop_duration")
+            || (prefix.starts_with("BaseAttackParameters")
+                && name == "lead_target_for_projectile_delay")
+            || prefix.starts_with("TriggerEffectItem") && name.starts_with("repeat")
+        {
             inner = String::from("f32");
         }
         // README: Adjustment [TODO]
@@ -94,12 +122,31 @@ impl Property {
             inner = format!("Box<{inner}>");
         }
         if (self.optional && serde_default.is_empty())
-        // README: Adjustment [TODO] (e.g. CheckBoxStyleSpecification::disabled_checkmark
+        // README: Adjustment [TODO]
             || (name == "filename" && prefix.starts_with("SpriteSource"))
+            || (name == "space_platform_default_speed_formula" && prefix.starts_with("UtilityConstants"))
+            || (name.starts_with("rts") && prefix.starts_with("CursorBoxSpecification"))
+            || (name == "ignore_surface_conditions" && prefix.starts_with("EditorControllerPrototype"))
+            || (name == "gravity_pull" && prefix.starts_with("SpaceLocationPrototype"))
+            || ((name == "idle_with_gun" || name == "mining_with_tool" || name == "running_with_gun") && prefix.starts_with("CharacterArmorAnimation"))
+            || ((name == "initial_height" || name == "particle_name") &&  prefix.starts_with("CreateParticleTriggerEffectItem"))
+            || (name == "rail_endings" && prefix.starts_with("RailPictureSet"))
+            || (name == "objective_condition" && prefix.starts_with("AchievementPrototypeWithCondition"))
+            || (name == "audio_events" && prefix.starts_with("ProcessionTimeline"))
+            || (name == "frame" && prefix.starts_with("SingleGraphicLayerProcessionBezierControlPoint"))
         // README: Adjustment [TODO]
         {
             inner = format!("Option<{inner}>");
         }
+        // README: Adjustment [TODO]
+        if (name == "logistic_mode" && prefix.starts_with("LogisticContainerPrototype"))
+            || (name == "name" && prefix.starts_with("PrototypeBase"))
+            || ((name == "categories" || name == "energy_source" || name == "shape")
+                && prefix.starts_with("EquipmentPrototype"))
+        {
+            inner = format!("Option<{inner}>");
+        }
+        // README: Adjustment [TODO]
         Some((
             format!("{comment}{rename}{alias}{serde_default}{name}: {inner}",),
             additional,
@@ -161,6 +208,9 @@ impl Property {
                         if return_type == "f32"
                             || return_type == "f64"
                             || matches!(r, Some((_, DataType::NewType(s))) if s == "float" || s == "double")
+                        // README: Adjustment [TODO]
+                            || return_type.ends_with("MapTick")
+                        // README: Adjustment [TODO]
                         {
                             format!("{:.1}", n)
                         } else if matches!(r, Some((_, DataType::NewType(s))) if s == "string") {

@@ -19,5 +19,5 @@ fn default_entities_require_heating() -> bool {
     false
 }
 fn default_ticks_between_player_effects() -> crate::types::MapTick {
-    0
+    0.0
 }

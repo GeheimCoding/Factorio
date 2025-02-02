@@ -143,7 +143,7 @@ pub struct UtilityConstants {
     space_lpf_max_cutoff_frequency: f32,
     #[serde(rename = "space_LPF_min_cutoff_frequency")]
     space_lpf_min_cutoff_frequency: f32,
-    space_platform_default_speed_formula: crate::types::MathExpression,
+    space_platform_default_speed_formula: Option<crate::types::MathExpression>,
     space_platform_dump_cooldown: u32,
     space_platform_max_size: crate::types::SimpleBoundingBox,
     space_platform_relative_speed_factor: f64,

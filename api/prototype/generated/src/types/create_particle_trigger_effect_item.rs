@@ -7,7 +7,7 @@ pub struct CreateParticleTriggerEffectItem {
     frame_speed: f32,
     #[serde(default = "default_frame_speed_deviation")]
     frame_speed_deviation: f32,
-    initial_height: f32,
+    initial_height: Option<f32>,
     #[serde(default = "default_initial_height_deviation")]
     initial_height_deviation: f32,
     #[serde(default = "default_initial_vertical_speed")]
@@ -20,7 +20,7 @@ pub struct CreateParticleTriggerEffectItem {
     offsets: Option<crate::vec::Vec<crate::types::Vector>>,
     #[serde(default = "default_only_when_visible")]
     only_when_visible: bool,
-    particle_name: crate::types::ParticleID,
+    particle_name: Option<crate::types::ParticleID>,
     #[serde(default = "default_rotate_offsets")]
     rotate_offsets: bool,
     #[serde(default = "default_show_in_tooltip")]
@@ -30,9 +30,9 @@ pub struct CreateParticleTriggerEffectItem {
     #[serde(default = "default_speed_from_center_deviation")]
     speed_from_center_deviation: f32,
     #[serde(default = "default_tail_length")]
-    tail_length: u8,
+    tail_length: f32,
     #[serde(default = "default_tail_length_deviation")]
-    tail_length_deviation: u8,
+    tail_length_deviation: f32,
     #[serde(default = "default_tail_width")]
     tail_width: f32,
     tile_collision_mask: Option<crate::types::CollisionMaskConnector>,
@@ -79,11 +79,11 @@ fn default_speed_from_center() -> f32 {
 fn default_speed_from_center_deviation() -> f32 {
     0.0
 }
-fn default_tail_length() -> u8 {
-    0
+fn default_tail_length() -> f32 {
+    0.0
 }
-fn default_tail_length_deviation() -> u8 {
-    0
+fn default_tail_length_deviation() -> f32 {
+    0.0
 }
 fn default_tail_width() -> f32 {
     1.0

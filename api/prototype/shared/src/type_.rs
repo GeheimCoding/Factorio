@@ -264,6 +264,36 @@ impl Type {
             union.push(format!("{untagged}FileName(crate::types::FileName),"));
         }
         // README: Adjustment [TODO]
+        // README: Adjustment [TODO]
+        if prefix == "BoundingBox" {
+            union.push(format!(
+                "{untagged}BoxMapPositionBoxMapPositionF32(
+                    (
+                        Box<crate::types::MapPosition>,
+                        Box<crate::types::MapPosition>,
+                        f32
+                    ),
+                ),"
+            ));
+        }
+        // README: Adjustment [TODO]
+        // README: Adjustment [TODO]
+        if prefix == "ShortcutPrototypeAction" {
+            union.push(String::from("#[serde(rename = \"redo\")]Redo,"));
+        }
+        // README: Adjustment [TODO]
+        // README: Adjustment [TODO]
+        if prefix == "AchievementPrototypeWithConditionObjectiveCondition" {
+            union.push(String::from(
+                "#[serde(rename = \"late-research\")]LateResearch,",
+            ));
+        }
+        // README: Adjustment [TODO]
+        // README: Adjustment [TODO]
+        if prefix == "MapPosition" {
+            union.push(String::from("#[serde(untagged)]F64(f64),"));
+        }
+        // README: Adjustment [TODO]
         others.insert(
             0,
             format!(

@@ -13,7 +13,7 @@ pub struct SpaceLocationPrototype {
     draw_orbit: bool,
     #[serde(default = "default_fly_condition")]
     fly_condition: bool,
-    gravity_pull: f64,
+    gravity_pull: Option<f64>,
     icon: Option<crate::types::FileName>,
     #[serde(default = "default_icon_size")]
     icon_size: crate::types::SpriteSizeType,

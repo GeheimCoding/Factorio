@@ -5,7 +5,7 @@ pub struct LogisticContainerPrototype {
     animation: Option<crate::types::Animation>,
     animation_sound: Option<crate::types::Sound>,
     landing_location_offset: Option<crate::types::Vector>,
-    logistic_mode: LogisticContainerPrototypeLogisticMode,
+    logistic_mode: Option<LogisticContainerPrototypeLogisticMode>,
     max_logistic_slots: Option<u16>,
     #[serde(default = "default_opened_duration")]
     opened_duration: u8,

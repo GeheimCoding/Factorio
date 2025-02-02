@@ -9,7 +9,7 @@ pub struct RailPictureSet {
     north: crate::types::RailPieceLayers,
     northeast: crate::types::RailPieceLayers,
     northwest: crate::types::RailPieceLayers,
-    rail_endings: crate::types::Sprite16Way,
+    rail_endings: Option<crate::types::Sprite16Way>,
     render_layers: crate::types::RailRenderLayers,
     // default: Value of `render_layers`
     secondary_render_layers: Option<crate::types::RailRenderLayers>,

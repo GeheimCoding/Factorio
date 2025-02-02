@@ -27,7 +27,7 @@ fn default_fork_chance_increase_per_quality_level() -> f64 {
     0.1
 }
 fn default_jump_delay_ticks() -> crate::types::MapTick {
-    0
+    0.0
 }
 fn default_max_forks_per_jump() -> u32 {
     1

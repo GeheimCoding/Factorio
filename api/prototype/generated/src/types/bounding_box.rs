@@ -13,4 +13,12 @@ pub enum BoundingBox {
             Box<crate::types::MapPosition>,
         ),
     ),
+    #[serde(untagged)]
+    BoxMapPositionBoxMapPositionF32(
+        (
+            Box<crate::types::MapPosition>,
+            Box<crate::types::MapPosition>,
+            f32,
+        ),
+    ),
 }

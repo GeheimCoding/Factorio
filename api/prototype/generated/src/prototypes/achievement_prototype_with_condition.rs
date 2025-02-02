@@ -2,7 +2,7 @@
 pub struct AchievementPrototypeWithCondition {
     #[serde(flatten)]
     base_: crate::prototypes::AchievementPrototype,
-    objective_condition: AchievementPrototypeWithConditionObjectiveCondition,
+    objective_condition: Option<AchievementPrototypeWithConditionObjectiveCondition>,
 }
 #[derive(Debug, serde::Deserialize)]
 pub enum AchievementPrototypeWithConditionObjectiveCondition {
@@ -10,4 +10,6 @@ pub enum AchievementPrototypeWithConditionObjectiveCondition {
     GameFinished,
     #[serde(rename = "rocket-launched")]
     RocketLaunched,
+    #[serde(rename = "late-research")]
+    LateResearch,
 }

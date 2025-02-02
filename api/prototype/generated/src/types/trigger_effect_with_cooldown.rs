@@ -17,8 +17,8 @@ fn default_initial_distance_cooldown() -> f64 {
     0.0
 }
 fn default_initial_time_cooldown() -> crate::types::MapTick {
-    0
+    0.0
 }
 fn default_time_cooldown() -> crate::types::MapTick {
-    0
+    0.0
 }

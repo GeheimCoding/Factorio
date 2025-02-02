@@ -4,4 +4,6 @@ pub enum MapPosition {
     MapPosition { x: f64, y: f64 },
     #[serde(untagged)]
     F64F64((f64, f64)),
+    #[serde(untagged)]
+    F64(f64),
 }
