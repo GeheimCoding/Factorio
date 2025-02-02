@@ -21,7 +21,7 @@ pub enum TriggerItemActionDelivery {
     #[serde(untagged)]
     TriggerDelivery(crate::types::TriggerDelivery),
     #[serde(untagged)]
-    VecTriggerDelivery(Vec<crate::types::TriggerDelivery>),
+    VecTriggerDelivery(crate::vec::Vec<crate::types::TriggerDelivery>),
 }
 fn default_ignore_collision_condition() -> bool {
     false

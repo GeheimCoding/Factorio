@@ -40,7 +40,7 @@ pub struct StickerPrototype {
     target_movement_modifier_from: Option<f32>,
     // default: Value of `target_movement_modifier`
     target_movement_modifier_to: Option<f32>,
-    update_effects: Option<Vec<crate::types::TriggerEffectWithCooldown>>,
+    update_effects: Option<crate::vec::Vec<crate::types::TriggerEffectWithCooldown>>,
     #[serde(default = "default_vehicle_friction_modifier")]
     vehicle_friction_modifier: f32,
     // default: Value of `vehicle_friction_modifier`

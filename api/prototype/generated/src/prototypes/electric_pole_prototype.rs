@@ -5,7 +5,7 @@ pub struct ElectricPolePrototype {
     active_picture: Option<crate::types::Sprite>,
     #[serde(default = "default_auto_connect_up_to_n_wires")]
     auto_connect_up_to_n_wires: u8,
-    connection_points: Vec<crate::types::WireConnectionPoint>,
+    connection_points: crate::vec::Vec<crate::types::WireConnectionPoint>,
     #[serde(default = "default_draw_circuit_wires")]
     draw_circuit_wires: bool,
     #[serde(default = "default_draw_copper_wires")]

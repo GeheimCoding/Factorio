@@ -57,7 +57,7 @@ pub enum SoundPrototypeModifiers {
     #[serde(untagged)]
     SoundModifier(Box<crate::types::SoundModifier>),
     #[serde(untagged)]
-    VecSoundModifier(Vec<crate::types::SoundModifier>),
+    VecSoundModifier(crate::vec::Vec<crate::types::SoundModifier>),
 }
 fn default_priority() -> u8 {
     127
@@ -73,7 +73,7 @@ pub enum SoundPrototypeVariations {
     #[serde(untagged)]
     SoundDefinition(Box<crate::types::SoundDefinition>),
     #[serde(untagged)]
-    VecSoundDefinition(Vec<crate::types::SoundDefinition>),
+    VecSoundDefinition(crate::vec::Vec<crate::types::SoundDefinition>),
 }
 fn default_volume() -> f32 {
     1.0

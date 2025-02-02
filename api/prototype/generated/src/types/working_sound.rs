@@ -38,7 +38,7 @@ pub enum WorkingSoundMainSounds {
     #[serde(untagged)]
     MainSound(Box<crate::types::MainSound>),
     #[serde(untagged)]
-    VecMainSound(Vec<crate::types::MainSound>),
+    VecMainSound(crate::vec::Vec<crate::types::MainSound>),
 }
 fn default_persistent() -> bool {
     false
@@ -48,7 +48,7 @@ pub enum WorkingSoundSoundAccents {
     #[serde(untagged)]
     SoundAccent(Box<crate::types::SoundAccent>),
     #[serde(untagged)]
-    VecSoundAccent(Vec<crate::types::SoundAccent>),
+    VecSoundAccent(crate::vec::Vec<crate::types::SoundAccent>),
 }
 fn default_use_doppler_shift() -> bool {
     true

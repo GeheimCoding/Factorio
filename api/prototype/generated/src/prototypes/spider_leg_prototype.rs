@@ -11,14 +11,14 @@ pub struct SpiderLegPrototype {
     initial_movement_speed: f64,
     knee_distance_factor: f64,
     knee_height: f64,
-    lower_leg_dying_trigger_effects: Option<Vec<crate::types::SpiderLegTriggerEffect>>,
+    lower_leg_dying_trigger_effects: Option<crate::vec::Vec<crate::types::SpiderLegTriggerEffect>>,
     minimal_step_size: f64,
     movement_acceleration: f64,
     movement_based_position_selection_distance: f64,
     #[serde(default = "default_stretch_force_scalar")]
     stretch_force_scalar: f64,
     target_position_randomisation_distance: f64,
-    upper_leg_dying_trigger_effects: Option<Vec<crate::types::SpiderLegTriggerEffect>>,
+    upper_leg_dying_trigger_effects: Option<crate::vec::Vec<crate::types::SpiderLegTriggerEffect>>,
     #[serde(default = "default_walking_sound_speed_modifier")]
     walking_sound_speed_modifier: f32,
     #[serde(default = "default_walking_sound_volume_modifier")]

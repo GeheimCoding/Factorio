@@ -9,7 +9,7 @@ pub struct ItemPrototype {
     dark_background_icon: Option<crate::types::FileName>,
     #[serde(default = "default_dark_background_icon_size")]
     dark_background_icon_size: crate::types::SpriteSizeType,
-    dark_background_icons: Option<Vec<crate::types::IconData>>,
+    dark_background_icons: Option<crate::vec::Vec<crate::types::IconData>>,
     #[serde(default = "default_default_import_location")]
     default_import_location: crate::types::SpaceLocationID,
     destroyed_by_dropping_trigger: Option<crate::types::Trigger>,
@@ -33,7 +33,7 @@ pub struct ItemPrototype {
     icon: Option<crate::types::FileName>,
     #[serde(default = "default_icon_size")]
     icon_size: crate::types::SpriteSizeType,
-    icons: Option<Vec<crate::types::IconData>>,
+    icons: Option<crate::vec::Vec<crate::types::IconData>>,
     #[serde(default = "default_ingredient_to_weight_coefficient")]
     ingredient_to_weight_coefficient: f64,
     inventory_move_sound: Option<crate::types::Sound>,
@@ -48,7 +48,7 @@ pub struct ItemPrototype {
     plant_result: Option<crate::types::EntityID>,
     // default: Value of UtilityConstants::item_default_random_tint_strength
     random_tint_color: Option<crate::types::Color>,
-    rocket_launch_products: Option<Vec<crate::types::ItemProductPrototype>>,
+    rocket_launch_products: Option<crate::vec::Vec<crate::types::ItemProductPrototype>>,
     #[serde(default = "default_send_to_orbit_mode")]
     send_to_orbit_mode: crate::types::SendToOrbitMode,
     spoil_result: Option<crate::types::ItemID>,
@@ -101,7 +101,7 @@ pub struct PlaceAsTile {
     #[serde(default = "default_invert")]
     invert: bool,
     result: crate::types::TileID,
-    tile_condition: Option<Vec<crate::types::TileID>>,
+    tile_condition: Option<crate::vec::Vec<crate::types::TileID>>,
 }
 fn default_invert() -> bool {
     false

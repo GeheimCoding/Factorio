@@ -13,8 +13,9 @@ pub struct ArtilleryTurretPrototype {
     base_picture_secondary_draw_order: u8,
     cannon_barrel_light_direction: Option<crate::types::Vector3D>,
     cannon_barrel_pictures: Option<crate::types::RotatedSprite>,
-    cannon_barrel_recoil_shiftings: Option<Vec<crate::types::Vector3D>>,
-    cannon_barrel_recoil_shiftings_load_correction_matrix: Option<Vec<crate::types::Vector3D>>,
+    cannon_barrel_recoil_shiftings: Option<crate::vec::Vec<crate::types::Vector3D>>,
+    cannon_barrel_recoil_shiftings_load_correction_matrix:
+        Option<crate::vec::Vec<crate::types::Vector3D>>,
     cannon_base_pictures: Option<crate::types::RotatedSprite>,
     cannon_base_shift: crate::types::Vector3D,
     #[serde(default = "default_cannon_parking_frame_count")]

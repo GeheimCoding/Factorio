@@ -12,7 +12,7 @@ pub enum ProcessionPrototypeProcessionStyle {
     #[serde(untagged)]
     U32(u32),
     #[serde(untagged)]
-    VecU32(Vec<u32>),
+    VecU32(crate::vec::Vec<u32>),
 }
 #[derive(Debug, serde::Deserialize)]
 pub enum ProcessionPrototypeUsage {

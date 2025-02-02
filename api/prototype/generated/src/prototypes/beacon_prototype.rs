@@ -5,7 +5,7 @@ pub struct BeaconPrototype {
     // default: No effects are allowed
     allowed_effects: Option<crate::types::EffectTypeLimitation>,
     // default: All module categories are allowed
-    allowed_module_categories: Option<Vec<crate::types::ModuleCategoryID>>,
+    allowed_module_categories: Option<crate::vec::Vec<crate::types::ModuleCategoryID>>,
     animation: Option<crate::types::Animation>,
     base_picture: Option<crate::types::Animation>,
     #[serde(default = "default_beacon_counter")]
@@ -17,7 +17,7 @@ pub struct BeaconPrototype {
     graphics_set: Option<crate::types::BeaconGraphicsSet>,
     module_slots: crate::types::ItemStackIndex,
     perceived_performance: Option<crate::types::PerceivedPerformance>,
-    profile: Option<Vec<f64>>,
+    profile: Option<crate::vec::Vec<f64>>,
     radius_visualisation_picture: Option<crate::types::Sprite>,
     supply_area_distance: f64,
 }

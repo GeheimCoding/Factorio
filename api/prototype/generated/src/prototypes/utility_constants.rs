@@ -27,7 +27,7 @@ pub struct UtilityConstants {
     checkerboard_white: crate::types::Color,
     clear_cursor_volume_modifier: f32,
     clipboard_history_size: u32,
-    color_filters: Option<Vec<ColorFilterData>>,
+    color_filters: Option<crate::vec::Vec<ColorFilterData>>,
     count_button_size: i32,
     daytime_color_lookup: crate::types::DaytimeColorLookupTable,
     deconstruct_mark_tint: crate::types::Color,
@@ -85,7 +85,7 @@ pub struct UtilityConstants {
     inventory_width: u32,
     item_ammo_magazine_left_bar_color: crate::types::Color,
     item_default_random_tint_strength: crate::types::Color,
-    item_health_bar_colors: Vec<ItemHealthColorData>,
+    item_health_bar_colors: crate::vec::Vec<ItemHealthColorData>,
     item_outline_color: crate::types::Color,
     item_outline_inset: f32,
     item_outline_radius: f32,
@@ -124,10 +124,10 @@ pub struct UtilityConstants {
     music_transition_fade_in_ticks: u32,
     music_transition_fade_out_ticks: u32,
     music_transition_pause_ticks: u32,
-    player_colors: Vec<PlayerColorData>,
+    player_colors: crate::vec::Vec<PlayerColorData>,
     probability_product_count_tint: crate::types::Color,
     rail_planner_count_button_color: crate::types::Color,
-    rail_segment_colors: Vec<crate::types::Color>,
+    rail_segment_colors: crate::vec::Vec<crate::types::Color>,
     recipe_step_limit: u32,
     #[serde(rename = "remote_view_LPF_max_cutoff_frequency")]
     remote_view_lpf_max_cutoff_frequency: f32,
@@ -199,7 +199,7 @@ pub struct BonusGuiOrdering {
 #[derive(Debug, serde::Deserialize)]
 pub struct ColorFilterData {
     localised_name: crate::types::LocalisedString,
-    matrix: Vec<Vec<f32>>,
+    matrix: crate::vec::Vec<crate::vec::Vec<f32>>,
     name: String,
 }
 #[derive(Debug, serde::Deserialize)]

@@ -9,7 +9,7 @@ pub struct RoboportPrototype {
     #[serde(default = "default_charging_distance")]
     charging_distance: f32,
     charging_energy: crate::types::Energy,
-    charging_offsets: Option<Vec<crate::types::Vector>>,
+    charging_offsets: Option<crate::vec::Vec<crate::types::Vector>>,
     #[serde(default = "default_charging_station_count")]
     charging_station_count: u32,
     #[serde(default = "default_charging_station_count_affected_by_quality")]

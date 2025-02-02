@@ -25,7 +25,7 @@ pub enum ElementImageSetLayer {
         #[serde(default = "default_center_width")]
         center_width: crate::types::SpriteSizeType,
         corner_size: Option<ElementImageSetLayerCornerSize>,
-        custom_horizontal_tiling_sizes: Option<Vec<u32>>,
+        custom_horizontal_tiling_sizes: Option<crate::vec::Vec<u32>>,
         #[serde(default = "default_draw_type")]
         draw_type: ElementImageSetLayerDrawType,
         // default: The `default_tileset` set in GuiStyle

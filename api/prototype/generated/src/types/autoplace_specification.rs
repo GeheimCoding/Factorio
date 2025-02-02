@@ -13,7 +13,7 @@ pub struct AutoplaceSpecification {
     placement_density: u32,
     probability_expression: crate::types::NoiseExpression,
     richness_expression: Option<crate::types::NoiseExpression>,
-    tile_restriction: Option<Vec<TileIDRestriction>>,
+    tile_restriction: Option<crate::vec::Vec<TileIDRestriction>>,
 }
 fn default_default_enabled() -> bool {
     true

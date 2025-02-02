@@ -19,7 +19,7 @@ pub struct MapGenSettings {
         Option<std::collections::HashMap<String, MapGenSettingsPropertyExpressionNames>>,
     seed: Option<u32>,
     starting_area: Option<crate::types::MapGenSize>,
-    starting_points: Option<Vec<crate::types::MapPosition>>,
+    starting_points: Option<crate::vec::Vec<crate::types::MapPosition>>,
     territory_settings: Option<crate::types::TerritorySettings>,
     width: Option<u32>,
 }

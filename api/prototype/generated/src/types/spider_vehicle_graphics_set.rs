@@ -14,7 +14,7 @@ pub struct SpiderVehicleGraphicsSet {
     autopilot_path_visualisation_on_map_line_width: f32,
     eye_light: Option<crate::types::LightDefinition>,
     light: Option<crate::types::LightDefinition>,
-    light_positions: Option<Vec<Vec<crate::types::Vector>>>,
+    light_positions: Option<crate::vec::Vec<crate::vec::Vec<crate::types::Vector>>>,
 }
 fn default_autopilot_destination_visualisation_render_layer() -> crate::types::RenderLayer {
     crate::types::RenderLayer::Object

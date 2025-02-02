@@ -11,9 +11,9 @@ pub struct WorkingVisualisations {
     #[serde(default = "default_shift_animation_waypoint_stop_duration")]
     shift_animation_waypoint_stop_duration: u16,
     shift_animation_waypoints: Option<crate::types::ShiftAnimationWaypoints>,
-    states: Option<Vec<crate::types::VisualState>>,
+    states: Option<crate::vec::Vec<crate::types::VisualState>>,
     status_colors: Option<crate::types::StatusColors>,
-    working_visualisations: Option<Vec<crate::types::WorkingVisualisation>>,
+    working_visualisations: Option<crate::vec::Vec<crate::types::WorkingVisualisation>>,
 }
 fn default_always_draw_idle_animation() -> bool {
     false

@@ -8,7 +8,7 @@ pub struct SegmentedUnitPrototype {
     enraged_duration: u32,
     enraged_speed: f64,
     hurt_roar: Option<crate::types::Sound>,
-    hurt_thresholds: Option<Vec<f32>>,
+    hurt_thresholds: Option<crate::vec::Vec<f32>>,
     investigating_speed: f64,
     patrolling_speed: f64,
     // default: Value of `turn_radius`

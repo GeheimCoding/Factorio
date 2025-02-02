@@ -4,8 +4,8 @@ pub struct RailPrototype {
     base_: crate::prototypes::EntityWithOwnerPrototype,
     #[serde(default = "default_build_grid_size")]
     build_grid_size: f64,
-    deconstruction_marker_positions: Option<Vec<crate::types::Vector>>,
-    ending_shifts: Option<Vec<crate::types::Vector>>,
+    deconstruction_marker_positions: Option<crate::vec::Vec<crate::types::Vector>>,
+    ending_shifts: Option<crate::vec::Vec<crate::types::Vector>>,
     #[serde(default = "default_extra_planner_goal_penalty")]
     extra_planner_goal_penalty: f64,
     #[serde(default = "default_extra_planner_penalty")]

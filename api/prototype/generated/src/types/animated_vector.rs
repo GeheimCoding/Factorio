@@ -2,7 +2,7 @@
 pub struct AnimatedVector {
     direction_shift: Option<DirectionShift>,
     render_layer: Option<crate::types::RenderLayer>,
-    rotations: Vec<VectorRotation>,
+    rotations: crate::vec::Vec<VectorRotation>,
 }
 #[derive(Debug, serde::Deserialize)]
 pub struct DirectionShift {
@@ -13,6 +13,6 @@ pub struct DirectionShift {
 }
 #[derive(Debug, serde::Deserialize)]
 pub struct VectorRotation {
-    frames: Vec<crate::types::Vector>,
+    frames: crate::vec::Vec<crate::types::Vector>,
     render_layer: Option<crate::types::RenderLayer>,
 }

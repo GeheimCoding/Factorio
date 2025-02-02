@@ -31,8 +31,8 @@ pub struct RecipePrototype {
     // default: `{"item-limitation.speed-effect"}`
     allow_speed_message: Option<crate::types::LocalisedString>,
     // default: All module categories are allowed
-    allowed_module_categories: Option<Vec<crate::types::ModuleCategoryID>>,
-    alternative_unlock_methods: Option<Vec<crate::types::TechnologyID>>,
+    allowed_module_categories: Option<crate::vec::Vec<crate::types::ModuleCategoryID>>,
+    alternative_unlock_methods: Option<crate::vec::Vec<crate::types::TechnologyID>>,
     #[serde(default = "default_always_show_made_in")]
     always_show_made_in: bool,
     #[serde(default = "default_always_show_products")]
@@ -55,8 +55,8 @@ pub struct RecipePrototype {
     icon: Option<crate::types::FileName>,
     #[serde(default = "default_icon_size")]
     icon_size: crate::types::SpriteSizeType,
-    icons: Option<Vec<crate::types::IconData>>,
-    ingredients: Option<Vec<crate::types::IngredientPrototype>>,
+    icons: Option<crate::vec::Vec<crate::types::IconData>>,
+    ingredients: Option<crate::vec::Vec<crate::types::IngredientPrototype>>,
     main_product: Option<String>,
     #[serde(default = "default_maximum_productivity")]
     maximum_productivity: f64,
@@ -68,10 +68,10 @@ pub struct RecipePrototype {
     requester_paste_multiplier: u32,
     #[serde(default = "default_result_is_always_fresh")]
     result_is_always_fresh: bool,
-    results: Option<Vec<crate::types::ProductPrototype>>,
+    results: Option<crate::vec::Vec<crate::types::ProductPrototype>>,
     #[serde(default = "default_show_amount_in_title")]
     show_amount_in_title: bool,
-    surface_conditions: Option<Vec<crate::types::SurfaceCondition>>,
+    surface_conditions: Option<crate::vec::Vec<crate::types::SurfaceCondition>>,
     #[serde(default = "default_unlock_results")]
     unlock_results: bool,
 }

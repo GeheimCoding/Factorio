@@ -2,7 +2,7 @@
 pub struct HeatEnergySource {
     #[serde(flatten)]
     base_: crate::types::BaseEnergySource,
-    connections: Option<Vec<crate::types::HeatConnection>>,
+    connections: Option<crate::vec::Vec<crate::types::HeatConnection>>,
     #[serde(default = "default_default_temperature")]
     default_temperature: f64,
     emissions_per_minute: Option<std::collections::HashMap<crate::types::AirbornePollutantID, f64>>,

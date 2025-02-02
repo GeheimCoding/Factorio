@@ -1,6 +1,6 @@
 #[derive(Debug, serde::Deserialize)]
 pub struct PodAnimationProcessionLayer {
-    frames: Vec<PodAnimationProcessionBezierControlPoint>,
+    frames: crate::vec::Vec<PodAnimationProcessionBezierControlPoint>,
     graphic: Option<crate::types::ProcessionGraphic>,
 }
 #[derive(Debug, serde::Deserialize)]

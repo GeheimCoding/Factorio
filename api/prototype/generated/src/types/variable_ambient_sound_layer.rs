@@ -2,7 +2,7 @@
 pub struct VariableAmbientSoundLayer {
     composition_mode: crate::types::VariableAmbientSoundCompositionMode,
     control_layer: Option<String>,
-    control_layer_sample_mapping: Option<Vec<Vec<u8>>>,
+    control_layer_sample_mapping: Option<crate::vec::Vec<crate::vec::Vec<u8>>>,
     #[serde(default = "default_has_end_sample")]
     has_end_sample: bool,
     #[serde(default = "default_has_start_sample")]
@@ -13,7 +13,7 @@ pub struct VariableAmbientSoundLayer {
     sample_length: Option<crate::types::RandomRange>,
     sublayer_offset: Option<VariableAmbientSoundLayerSublayerOffset>,
     sublayer_starting_offset: Option<VariableAmbientSoundLayerSublayerStartingOffset>,
-    variants: Vec<crate::types::Sound>,
+    variants: crate::vec::Vec<crate::types::Sound>,
 }
 fn default_has_end_sample() -> bool {
     false

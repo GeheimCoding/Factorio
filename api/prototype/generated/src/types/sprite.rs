@@ -6,5 +6,5 @@ pub struct Sprite {
     dice_x: Option<crate::types::SpriteSizeType>,
     dice_y: Option<crate::types::SpriteSizeType>,
     filename: Option<crate::types::FileName>,
-    layers: Option<Vec<crate::types::Sprite>>,
+    layers: Option<crate::vec::Vec<crate::types::Sprite>>,
 }

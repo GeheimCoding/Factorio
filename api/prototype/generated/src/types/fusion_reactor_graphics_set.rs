@@ -1,10 +1,10 @@
 #[derive(Debug, serde::Deserialize)]
 pub struct FusionReactorGraphicsSet {
-    connections_graphics: Option<Vec<crate::types::FusionReactorConnectionGraphics>>,
+    connections_graphics: Option<crate::vec::Vec<crate::types::FusionReactorConnectionGraphics>>,
     // default: `{1, 1, 1}`
     default_fuel_glow_color: Option<crate::types::Color>,
     direction_to_connections_graphics:
-        Option<std::collections::HashMap<crate::types::DirectionString, Vec<u8>>>,
+        Option<std::collections::HashMap<crate::types::DirectionString, crate::vec::Vec<u8>>>,
     fusion_effect_uv_map: Option<crate::types::Sprite>,
     light: Option<crate::types::LightDefinition>,
     plasma_category: crate::types::NeighbourConnectableConnectionCategory,

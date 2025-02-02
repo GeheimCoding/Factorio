@@ -35,7 +35,7 @@ pub enum AsteroidGraphicsSetLights {
     #[serde(untagged)]
     LightProperties(Box<crate::types::LightProperties>),
     #[serde(untagged)]
-    VecLightProperties(Vec<crate::types::LightProperties>),
+    VecLightProperties(crate::vec::Vec<crate::types::LightProperties>),
 }
 fn default_normal_strength() -> f32 {
     1.0
@@ -63,5 +63,5 @@ pub enum AsteroidGraphicsSetVariations {
     #[serde(untagged)]
     AsteroidVariation(Box<crate::types::AsteroidVariation>),
     #[serde(untagged)]
-    VecAsteroidVariation(Vec<crate::types::AsteroidVariation>),
+    VecAsteroidVariation(crate::vec::Vec<crate::types::AsteroidVariation>),
 }

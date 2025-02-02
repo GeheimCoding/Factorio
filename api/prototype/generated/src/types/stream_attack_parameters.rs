@@ -4,7 +4,7 @@ pub struct StreamAttackParameters {
     base_: crate::types::BaseAttackParameters,
     #[serde(default = "default_fluid_consumption")]
     fluid_consumption: crate::types::FluidAmount,
-    fluids: Option<Vec<StreamFluidProperties>>,
+    fluids: Option<crate::vec::Vec<StreamFluidProperties>>,
     #[serde(default = "default_gun_barrel_length")]
     gun_barrel_length: f32,
     gun_center_shift: Option<StreamAttackParametersGunCenterShift>,

@@ -1,6 +1,6 @@
 #[derive(Debug, serde::Deserialize)]
 pub struct HeatBuffer {
-    connections: Option<Vec<crate::types::HeatConnection>>,
+    connections: Option<crate::vec::Vec<crate::types::HeatConnection>>,
     #[serde(default = "default_default_temperature")]
     default_temperature: f64,
     heat_glow: Option<crate::types::Sprite4Way>,

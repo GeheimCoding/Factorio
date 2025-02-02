@@ -16,7 +16,7 @@ pub enum AmmoItemPrototypeAmmoType {
     #[serde(untagged)]
     AmmoType(Box<crate::types::AmmoType>),
     #[serde(untagged)]
-    VecAmmoType(Vec<crate::types::AmmoType>),
+    VecAmmoType(crate::vec::Vec<crate::types::AmmoType>),
 }
 fn default_magazine_size() -> f32 {
     1.0

@@ -3,7 +3,7 @@ pub enum LightDefinition {
     #[serde(untagged)]
     LightDefinitionStruct(LightDefinitionStruct),
     #[serde(untagged)]
-    VecLightDefinitionStruct(Vec<LightDefinitionStruct>),
+    VecLightDefinitionStruct(crate::vec::Vec<LightDefinitionStruct>),
 }
 #[derive(Debug, serde::Deserialize)]
 pub struct LightDefinitionStruct {

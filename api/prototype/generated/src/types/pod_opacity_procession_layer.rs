@@ -1,6 +1,6 @@
 #[derive(Debug, serde::Deserialize)]
 pub struct PodOpacityProcessionLayer {
-    frames: Vec<PodOpacityProcessionBezierControlPoint>,
+    frames: crate::vec::Vec<PodOpacityProcessionBezierControlPoint>,
     lut: crate::types::ColorLookupTable,
 }
 #[derive(Debug, serde::Deserialize)]

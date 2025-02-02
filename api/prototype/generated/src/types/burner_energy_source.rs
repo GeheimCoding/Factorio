@@ -9,10 +9,10 @@ pub struct BurnerEnergySource {
     #[serde(default = "default_effectivity")]
     effectivity: f64,
     // default: `{"chemical"}`
-    fuel_categories: Option<Vec<crate::types::FuelCategoryID>>,
+    fuel_categories: Option<crate::vec::Vec<crate::types::FuelCategoryID>>,
     fuel_inventory_size: crate::types::ItemStackIndex,
     light_flicker: Option<crate::types::LightFlickeringDefinition>,
-    smoke: Option<Vec<crate::types::SmokeSource>>,
+    smoke: Option<crate::vec::Vec<crate::types::SmokeSource>>,
 }
 fn default_burner_usage() -> crate::types::BurnerUsageID {
     String::from("fuel")

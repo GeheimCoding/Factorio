@@ -14,14 +14,14 @@ pub enum DontUseEntityInEnergyProductionAchievementPrototypeExcluded {
     #[serde(untagged)]
     EntityID(crate::types::EntityID),
     #[serde(untagged)]
-    VecEntityID(Vec<crate::types::EntityID>),
+    VecEntityID(crate::vec::Vec<crate::types::EntityID>),
 }
 #[derive(Debug, serde::Deserialize)]
 pub enum DontUseEntityInEnergyProductionAchievementPrototypeIncluded {
     #[serde(untagged)]
     EntityID(crate::types::EntityID),
     #[serde(untagged)]
-    VecEntityID(Vec<crate::types::EntityID>),
+    VecEntityID(crate::vec::Vec<crate::types::EntityID>),
 }
 fn default_last_hour_only() -> bool {
     false

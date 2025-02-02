@@ -21,7 +21,7 @@ pub struct LightningGraphicsSet {
     fork_orientation_variance: f32,
     #[serde(default = "default_ground_streamer_variance")]
     ground_streamer_variance: f32,
-    ground_streamers: Option<Vec<crate::types::Animation>>,
+    ground_streamers: Option<crate::vec::Vec<crate::types::Animation>>,
     light: Option<crate::types::LightDefinition>,
     #[serde(default = "default_max_bolt_offset")]
     max_bolt_offset: f32,
@@ -37,7 +37,7 @@ pub struct LightningGraphicsSet {
     min_relative_fork_length: f32,
     #[serde(default = "default_relative_cloud_fork_length")]
     relative_cloud_fork_length: f32,
-    shader_configuration: Option<Vec<LightningShaderConfiguration>>,
+    shader_configuration: Option<crate::vec::Vec<LightningShaderConfiguration>>,
 }
 fn default_bolt_detail_level() -> u8 {
     6

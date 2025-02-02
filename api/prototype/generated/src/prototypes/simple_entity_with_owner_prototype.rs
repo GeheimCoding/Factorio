@@ -18,7 +18,8 @@ pub struct SimpleEntityWithOwnerPrototype {
     render_layer: crate::types::RenderLayer,
     #[serde(default = "default_secondary_draw_order")]
     secondary_draw_order: i8,
-    stateless_visualisation_variations: Option<Vec<crate::types::StatelessVisualisations>>,
+    stateless_visualisation_variations:
+        Option<crate::vec::Vec<crate::types::StatelessVisualisations>>,
 }
 fn default_force_visibility() -> crate::types::ForceCondition {
     crate::types::ForceCondition::All

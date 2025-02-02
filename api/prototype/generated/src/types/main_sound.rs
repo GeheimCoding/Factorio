@@ -14,7 +14,7 @@ pub struct MainSound {
     match_speed_to_activity: bool,
     #[serde(default = "default_match_volume_to_activity")]
     match_volume_to_activity: bool,
-    play_for_working_visualisations: Option<Vec<String>>,
+    play_for_working_visualisations: Option<crate::vec::Vec<String>>,
     #[serde(default = "default_probability")]
     probability: f64,
     sound: Option<crate::types::Sound>,

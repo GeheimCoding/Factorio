@@ -7,5 +7,5 @@ pub enum LayeredSprite {
         render_layer: crate::types::RenderLayer,
     },
     #[serde(untagged)]
-    VecLayeredSprite(Vec<crate::types::LayeredSprite>),
+    VecLayeredSprite(crate::vec::Vec<crate::types::LayeredSprite>),
 }

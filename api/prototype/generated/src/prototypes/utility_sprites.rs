@@ -603,17 +603,17 @@ pub struct UtilitySprites {
 }
 #[derive(Debug, serde::Deserialize)]
 pub struct CursorBoxSpecification {
-    blueprint_snap_rectangle: Vec<crate::types::BoxSpecification>,
-    copy: Vec<crate::types::BoxSpecification>,
-    electricity: Vec<crate::types::BoxSpecification>,
-    logistics: Vec<crate::types::BoxSpecification>,
-    multiplayer_selection: Vec<crate::types::BoxSpecification>,
-    not_allowed: Vec<crate::types::BoxSpecification>,
-    pair: Vec<crate::types::BoxSpecification>,
-    regular: Vec<crate::types::BoxSpecification>,
-    rts_selected: Vec<crate::types::BoxSpecification>,
-    rts_to_be_selected: Vec<crate::types::BoxSpecification>,
-    train_visualization: Vec<crate::types::BoxSpecification>,
+    blueprint_snap_rectangle: crate::vec::Vec<crate::types::BoxSpecification>,
+    copy: crate::vec::Vec<crate::types::BoxSpecification>,
+    electricity: crate::vec::Vec<crate::types::BoxSpecification>,
+    logistics: crate::vec::Vec<crate::types::BoxSpecification>,
+    multiplayer_selection: crate::vec::Vec<crate::types::BoxSpecification>,
+    not_allowed: crate::vec::Vec<crate::types::BoxSpecification>,
+    pair: crate::vec::Vec<crate::types::BoxSpecification>,
+    regular: crate::vec::Vec<crate::types::BoxSpecification>,
+    rts_selected: crate::vec::Vec<crate::types::BoxSpecification>,
+    rts_to_be_selected: crate::vec::Vec<crate::types::BoxSpecification>,
+    train_visualization: crate::vec::Vec<crate::types::BoxSpecification>,
 }
 #[derive(Debug, serde::Deserialize)]
 pub struct EntityBuildAnimations {

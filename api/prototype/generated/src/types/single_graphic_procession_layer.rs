@@ -6,7 +6,7 @@ pub struct SingleGraphicProcessionLayer {
     clip_with_hatches: bool,
     #[serde(default = "default_compensated_pivot")]
     compensated_pivot: bool,
-    frames: Vec<SingleGraphicLayerProcessionBezierControlPoint>,
+    frames: crate::vec::Vec<SingleGraphicLayerProcessionBezierControlPoint>,
     graphic: crate::types::ProcessionGraphic,
     #[serde(default = "default_is_passenger_only")]
     is_passenger_only: bool,

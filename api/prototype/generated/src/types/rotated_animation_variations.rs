@@ -3,5 +3,5 @@ pub enum RotatedAnimationVariations {
     #[serde(untagged)]
     RotatedAnimation(Box<crate::types::RotatedAnimation>),
     #[serde(untagged)]
-    VecRotatedAnimation(Vec<crate::types::RotatedAnimation>),
+    VecRotatedAnimation(crate::vec::Vec<crate::types::RotatedAnimation>),
 }

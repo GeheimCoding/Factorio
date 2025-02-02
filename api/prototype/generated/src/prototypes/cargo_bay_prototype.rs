@@ -5,7 +5,7 @@ pub struct CargoBayPrototype {
     #[serde(default = "default_build_grid_size")]
     build_grid_size: f64,
     graphics_set: Option<crate::types::CargoBayConnectableGraphicsSet>,
-    hatch_definitions: Option<Vec<crate::types::CargoHatchDefinition>>,
+    hatch_definitions: Option<crate::vec::Vec<crate::types::CargoHatchDefinition>>,
     inventory_size_bonus: crate::types::ItemStackIndex,
     platform_graphics_set: Option<crate::types::CargoBayConnectableGraphicsSet>,
 }

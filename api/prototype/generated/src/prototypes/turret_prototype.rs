@@ -15,7 +15,7 @@ pub struct TurretPrototype {
     #[serde(default = "default_attacking_speed")]
     attacking_speed: f32,
     call_for_help_radius: f64,
-    circuit_connector: Option<Vec<crate::types::CircuitConnectorDefinition>>,
+    circuit_connector: Option<crate::vec::Vec<crate::types::CircuitConnectorDefinition>>,
     #[serde(default = "default_circuit_wire_max_distance")]
     circuit_wire_max_distance: f64,
     #[serde(default = "default_default_speed")]
@@ -125,7 +125,7 @@ pub struct TurretPrototype {
     rotation_starting_progress_when_killed: Option<f32>,
     #[serde(default = "default_shoot_in_prepare_state")]
     shoot_in_prepare_state: bool,
-    spawn_decoration: Option<Vec<crate::types::CreateDecorativesTriggerEffectItem>>,
+    spawn_decoration: Option<crate::vec::Vec<crate::types::CreateDecorativesTriggerEffectItem>>,
     #[serde(default = "default_spawn_decorations_on_expansion")]
     spawn_decorations_on_expansion: bool,
     special_effect: Option<crate::types::TurretSpecialEffect>,
@@ -184,7 +184,7 @@ pub enum TurretPrototypeFoldedStateCorpse {
     #[serde(untagged)]
     EntityID(crate::types::EntityID),
     #[serde(untagged)]
-    VecEntityID(Vec<crate::types::EntityID>),
+    VecEntityID(crate::vec::Vec<crate::types::EntityID>),
 }
 fn default_glow_light_intensity() -> f32 {
     0.0

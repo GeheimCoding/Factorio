@@ -1,1 +1,1 @@
-pub type TriggerTargetMask = Vec<String>;
+pub type TriggerTargetMask = crate::vec::Vec<String>;

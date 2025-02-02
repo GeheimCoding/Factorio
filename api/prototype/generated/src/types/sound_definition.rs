@@ -38,7 +38,7 @@ pub enum SoundDefinitionModifiers {
     #[serde(untagged)]
     SoundModifier(Box<crate::types::SoundModifier>),
     #[serde(untagged)]
-    VecSoundModifier(Vec<crate::types::SoundModifier>),
+    VecSoundModifier(crate::vec::Vec<crate::types::SoundModifier>),
 }
 fn default_speed() -> f32 {
     1.0

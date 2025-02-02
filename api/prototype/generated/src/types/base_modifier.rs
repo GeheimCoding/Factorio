@@ -5,7 +5,7 @@ pub struct BaseModifier {
     icon: Option<crate::types::FileName>,
     #[serde(default = "default_icon_size")]
     icon_size: crate::types::SpriteSizeType,
-    icons: Option<Vec<crate::types::IconData>>,
+    icons: Option<crate::vec::Vec<crate::types::IconData>>,
 }
 fn default_hidden() -> bool {
     false

@@ -16,8 +16,8 @@ pub struct SegmentPrototype {
     forward_padding: f64,
     #[serde(default = "default_render_layer")]
     render_layer: crate::types::RenderLayer,
-    update_effects: Option<Vec<crate::types::TriggerEffectWithCooldown>>,
-    update_effects_while_enraged: Option<Vec<crate::types::TriggerEffectWithCooldown>>,
+    update_effects: Option<crate::vec::Vec<crate::types::TriggerEffectWithCooldown>>,
+    update_effects_while_enraged: Option<crate::vec::Vec<crate::types::TriggerEffectWithCooldown>>,
 }
 fn default_backward_overlap() -> u8 {
     0

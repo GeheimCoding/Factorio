@@ -35,7 +35,7 @@ pub struct UnitPrototype {
     #[serde(default = "default_rotation_speed")]
     rotation_speed: f32,
     run_animation: crate::types::RotatedAnimation,
-    running_sound_animation_positions: Option<Vec<f32>>,
+    running_sound_animation_positions: Option<crate::vec::Vec<f32>>,
     #[serde(default = "default_spawning_time_modifier")]
     spawning_time_modifier: f64,
     vision_distance: f64,

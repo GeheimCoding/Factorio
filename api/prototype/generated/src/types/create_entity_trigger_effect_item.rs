@@ -17,7 +17,7 @@ pub struct CreateEntityTriggerEffectItem {
     #[serde(default = "default_non_colliding_search_radius")]
     non_colliding_search_radius: f64,
     offset_deviation: Option<crate::types::BoundingBox>,
-    offsets: Option<Vec<crate::types::Vector>>,
+    offsets: Option<crate::vec::Vec<crate::types::Vector>>,
     #[serde(default = "default_protected")]
     protected: bool,
     #[serde(default = "default_show_in_tooltip")]

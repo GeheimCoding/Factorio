@@ -9,7 +9,7 @@ pub struct MinableProperties {
     mining_trigger: Option<crate::types::Trigger>,
     required_fluid: Option<crate::types::FluidID>,
     result: Option<crate::types::ItemID>,
-    results: Option<Vec<crate::types::ProductPrototype>>,
+    results: Option<crate::vec::Vec<crate::types::ProductPrototype>>,
 }
 fn default_count() -> u16 {
     1

@@ -1,1 +1,1 @@
-pub type AnimationFrameSequence = Vec<u16>;
+pub type AnimationFrameSequence = crate::vec::Vec<u16>;

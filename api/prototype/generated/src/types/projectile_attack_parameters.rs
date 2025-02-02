@@ -8,7 +8,7 @@ pub struct ProjectileAttackParameters {
     projectile_center: Option<crate::types::Vector>,
     #[serde(default = "default_projectile_creation_distance")]
     projectile_creation_distance: f32,
-    projectile_creation_offsets: Option<Vec<crate::types::Vector>>,
+    projectile_creation_offsets: Option<crate::vec::Vec<crate::types::Vector>>,
     projectile_creation_parameters: Option<crate::types::CircularProjectileCreationSpecification>,
     #[serde(default = "default_projectile_orientation_offset")]
     projectile_orientation_offset: crate::types::RealOrientation,

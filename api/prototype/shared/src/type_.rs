@@ -149,7 +149,7 @@ impl Type {
 
     fn generate_array(value: &Type, prefix: &str, context: &Context) -> (String, Vec<String>) {
         let (inner, additional) = value.generate(&value.postfix_variants(prefix), context);
-        (format!("Vec<{inner}>"), additional)
+        (format!("crate::vec::Vec<{inner}>"), additional)
     }
 
     fn generate_dictionary(

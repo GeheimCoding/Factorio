@@ -13,7 +13,7 @@ pub struct ProgrammableSpeakerPrototype {
     draw_copper_wires: bool,
     energy_source: ProgrammableSpeakerPrototypeEnergySource,
     energy_usage_per_tick: crate::types::Energy,
-    instruments: Vec<ProgrammableSpeakerInstrument>,
+    instruments: crate::vec::Vec<ProgrammableSpeakerInstrument>,
     maximum_polyphony: u32,
     sprite: Option<crate::types::Sprite>,
 }
@@ -40,5 +40,5 @@ pub enum ProgrammableSpeakerPrototypeEnergySource {
 #[derive(Debug, serde::Deserialize)]
 pub struct ProgrammableSpeakerInstrument {
     name: String,
-    notes: Vec<crate::types::ProgrammableSpeakerNote>,
+    notes: crate::vec::Vec<crate::types::ProgrammableSpeakerNote>,
 }

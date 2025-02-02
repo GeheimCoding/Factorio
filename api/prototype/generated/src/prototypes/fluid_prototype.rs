@@ -18,7 +18,7 @@ pub struct FluidPrototype {
     icon: Option<crate::types::FileName>,
     #[serde(default = "default_icon_size")]
     icon_size: crate::types::SpriteSizeType,
-    icons: Option<Vec<crate::types::IconData>>,
+    icons: Option<crate::vec::Vec<crate::types::IconData>>,
     // default: value of `default_temperature`
     max_temperature: Option<f32>,
     visualization_color: Option<crate::types::Color>,

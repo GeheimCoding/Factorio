@@ -36,7 +36,7 @@ pub struct ResourceEntityPrototype {
     randomize_visual_position: bool,
     #[serde(default = "default_resource_patch_search_radius")]
     resource_patch_search_radius: u32,
-    stage_counts: Vec<u32>,
+    stage_counts: crate::vec::Vec<u32>,
     stages: Option<crate::types::AnimationVariations>,
     stages_effect: Option<crate::types::AnimationVariations>,
     #[serde(default = "default_tree_removal_max_distance")]

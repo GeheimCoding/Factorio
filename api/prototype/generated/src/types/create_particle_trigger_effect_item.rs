@@ -17,7 +17,7 @@ pub struct CreateParticleTriggerEffectItem {
     #[serde(default = "default_movement_multiplier")]
     movement_multiplier: f32,
     offset_deviation: Option<crate::types::SimpleBoundingBox>,
-    offsets: Option<Vec<crate::types::Vector>>,
+    offsets: Option<crate::vec::Vec<crate::types::Vector>>,
     #[serde(default = "default_only_when_visible")]
     only_when_visible: bool,
     particle_name: crate::types::ParticleID,

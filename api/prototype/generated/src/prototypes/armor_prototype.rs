@@ -11,7 +11,7 @@ pub struct ArmorPrototype {
     moving_sound: Option<crate::types::Sound>,
     #[serde(default = "default_provides_flight")]
     provides_flight: bool,
-    resistances: Option<Vec<crate::types::Resistance>>,
+    resistances: Option<crate::vec::Vec<crate::types::Resistance>>,
     steps_sound: Option<crate::types::Sound>,
     takeoff_sound: Option<crate::types::Sound>,
 }

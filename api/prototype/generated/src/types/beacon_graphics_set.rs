@@ -2,7 +2,7 @@
 pub struct BeaconGraphicsSet {
     #[serde(default = "default_animation_layer")]
     animation_layer: crate::types::RenderLayer,
-    animation_list: Option<Vec<crate::types::AnimationElement>>,
+    animation_list: Option<crate::vec::Vec<crate::types::AnimationElement>>,
     #[serde(default = "default_animation_progress")]
     animation_progress: f32,
     #[serde(default = "default_apply_module_tint")]
@@ -19,7 +19,7 @@ pub struct BeaconGraphicsSet {
     module_icons_suppressed: bool,
     #[serde(default = "default_module_tint_mode")]
     module_tint_mode: BeaconGraphicsSetModuleTintMode,
-    module_visualisations: Option<Vec<crate::types::BeaconModuleVisualizations>>,
+    module_visualisations: Option<crate::vec::Vec<crate::types::BeaconModuleVisualizations>>,
     // default: no color
     no_modules_tint: Option<crate::types::Color>,
     #[serde(default = "default_random_animation_offset")]

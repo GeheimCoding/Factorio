@@ -8,7 +8,7 @@ pub struct LoaderPrototype {
     allow_rail_interaction: bool,
     #[serde(default = "default_belt_length")]
     belt_length: f64,
-    circuit_connector: Option<Vec<crate::types::CircuitConnectorDefinition>>,
+    circuit_connector: Option<crate::vec::Vec<crate::types::CircuitConnectorDefinition>>,
     #[serde(default = "default_circuit_connector_layer")]
     circuit_connector_layer: crate::types::RenderLayer,
     #[serde(default = "default_circuit_wire_max_distance")]

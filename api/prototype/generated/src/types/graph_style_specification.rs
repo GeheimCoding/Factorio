@@ -11,7 +11,7 @@ pub struct GraphStyleSpecification {
     guide_lines_color: Option<crate::types::Color>,
     horizontal_label_style: Option<crate::types::LabelStyleSpecification>,
     horizontal_labels_margin: Option<u32>,
-    line_colors: Option<Vec<crate::types::Color>>,
+    line_colors: Option<crate::vec::Vec<crate::types::Color>>,
     minimal_horizontal_label_spacing: Option<u32>,
     minimal_vertical_label_spacing: Option<u32>,
     selection_dot_radius: Option<u32>,

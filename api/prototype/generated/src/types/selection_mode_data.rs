@@ -9,15 +9,15 @@ pub struct SelectionModeData {
     ended_sound: Option<crate::types::Sound>,
     #[serde(default = "default_entity_filter_mode")]
     entity_filter_mode: SelectionModeDataEntityFilterMode,
-    entity_filters: Option<Vec<crate::types::EntityID>>,
-    entity_type_filters: Option<Vec<String>>,
+    entity_filters: Option<crate::vec::Vec<crate::types::EntityID>>,
+    entity_type_filters: Option<crate::vec::Vec<String>>,
     mode: crate::types::SelectionModeFlags,
     #[serde(default = "default_play_ended_sound_when_nothing_selected")]
     play_ended_sound_when_nothing_selected: bool,
     started_sound: Option<crate::types::Sound>,
     #[serde(default = "default_tile_filter_mode")]
     tile_filter_mode: SelectionModeDataTileFilterMode,
-    tile_filters: Option<Vec<crate::types::TileID>>,
+    tile_filters: Option<crate::vec::Vec<crate::types::TileID>>,
 }
 #[derive(Debug, serde::Deserialize)]
 pub enum SelectionModeDataEntityFilterMode {

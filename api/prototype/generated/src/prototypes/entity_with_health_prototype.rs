@@ -20,7 +20,7 @@ pub struct EntityWithHealthPrototype {
     integration_patch: Option<crate::types::Sprite4Way>,
     #[serde(default = "default_integration_patch_render_layer")]
     integration_patch_render_layer: crate::types::RenderLayer,
-    loot: Option<Vec<crate::types::LootItem>>,
+    loot: Option<crate::vec::Vec<crate::types::LootItem>>,
     #[serde(default = "default_max_health")]
     max_health: f32,
     #[serde(default = "default_overkill_fraction")]
@@ -31,7 +31,7 @@ pub struct EntityWithHealthPrototype {
     repair_sound: Option<crate::types::Sound>,
     #[serde(default = "default_repair_speed_modifier")]
     repair_speed_modifier: f32,
-    resistances: Option<Vec<crate::types::Resistance>>,
+    resistances: Option<crate::vec::Vec<crate::types::Resistance>>,
 }
 fn default_alert_when_damaged() -> bool {
     true
@@ -41,14 +41,14 @@ pub enum EntityWithHealthPrototypeAttackReaction {
     #[serde(untagged)]
     AttackReactionItem(Box<crate::types::AttackReactionItem>),
     #[serde(untagged)]
-    VecAttackReactionItem(Vec<crate::types::AttackReactionItem>),
+    VecAttackReactionItem(crate::vec::Vec<crate::types::AttackReactionItem>),
 }
 #[derive(Debug, serde::Deserialize)]
 pub enum EntityWithHealthPrototypeCorpse {
     #[serde(untagged)]
     EntityID(crate::types::EntityID),
     #[serde(untagged)]
-    VecEntityID(Vec<crate::types::EntityID>),
+    VecEntityID(crate::vec::Vec<crate::types::EntityID>),
 }
 fn default_create_ghost_on_death() -> bool {
     true
@@ -58,7 +58,7 @@ pub enum EntityWithHealthPrototypeDyingExplosion {
     #[serde(untagged)]
     ExplosionDefinition(Box<crate::types::ExplosionDefinition>),
     #[serde(untagged)]
-    VecExplosionDefinition(Vec<crate::types::ExplosionDefinition>),
+    VecExplosionDefinition(crate::vec::Vec<crate::types::ExplosionDefinition>),
 }
 fn default_healing_per_tick() -> f32 {
     0.0

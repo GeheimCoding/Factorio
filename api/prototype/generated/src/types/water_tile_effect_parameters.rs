@@ -22,7 +22,7 @@ pub struct WaterTileEffectParameters {
     texture_variations_columns: u8,
     #[serde(default = "default_texture_variations_rows")]
     texture_variations_rows: u8,
-    textures: Vec<crate::types::EffectTexture>,
+    textures: crate::vec::Vec<crate::types::EffectTexture>,
     tick_scale: f32,
 }
 #[derive(Debug, serde::Deserialize)]

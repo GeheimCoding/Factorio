@@ -3,7 +3,7 @@ pub enum Trigger {
     #[serde(untagged)]
     TriggerVariants(TriggerVariants),
     #[serde(untagged)]
-    VecTriggerVariants(Vec<TriggerVariants>),
+    VecTriggerVariants(crate::vec::Vec<TriggerVariants>),
 }
 #[derive(Debug, serde::Deserialize)]
 #[serde(tag = "type")]

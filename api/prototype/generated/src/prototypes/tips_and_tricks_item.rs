@@ -5,11 +5,11 @@ pub struct TipsAndTricksItem {
     // default: the `name` of this prototype
     category: Option<String>,
     // default: none
-    dependencies: Option<Vec<String>>,
+    dependencies: Option<crate::vec::Vec<String>>,
     icon: Option<crate::types::FileName>,
     #[serde(default = "default_icon_size")]
     icon_size: crate::types::SpriteSizeType,
-    icons: Option<Vec<crate::types::IconData>>,
+    icons: Option<crate::vec::Vec<crate::types::IconData>>,
     #[serde(default = "default_image")]
     image: crate::types::FileName,
     #[serde(default = "default_indent")]

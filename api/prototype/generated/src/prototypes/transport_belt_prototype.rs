@@ -3,7 +3,7 @@ pub struct TransportBeltPrototype {
     #[serde(flatten)]
     base_: crate::prototypes::TransportBeltConnectablePrototype,
     belt_animation_set: Option<crate::types::TransportBeltAnimationSetWithCorners>,
-    circuit_connector: Option<Vec<crate::types::CircuitConnectorDefinition>>,
+    circuit_connector: Option<crate::vec::Vec<crate::types::CircuitConnectorDefinition>>,
     #[serde(default = "default_circuit_wire_max_distance")]
     circuit_wire_max_distance: f64,
     connector_frame_sprites: Option<crate::types::TransportBeltConnectorFrame>,

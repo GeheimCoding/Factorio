@@ -6,7 +6,7 @@ pub struct FireFlamePrototype {
     add_fuel_cooldown: u32,
     #[serde(default = "default_burnt_patch_alpha_default")]
     burnt_patch_alpha_default: f32,
-    burnt_patch_alpha_variations: Option<Vec<TileAndAlpha>>,
+    burnt_patch_alpha_variations: Option<crate::vec::Vec<TileAndAlpha>>,
     #[serde(default = "default_burnt_patch_lifetime")]
     burnt_patch_lifetime: u32,
     burnt_patch_pictures: Option<crate::types::SpriteVariations>,
@@ -67,7 +67,7 @@ pub struct FireFlamePrototype {
     #[serde(default = "default_secondary_render_layer")]
     secondary_render_layer: crate::types::RenderLayer,
     small_tree_fire_pictures: Option<crate::types::AnimationVariations>,
-    smoke: Option<Vec<crate::types::SmokeSource>>,
+    smoke: Option<crate::vec::Vec<crate::types::SmokeSource>>,
     #[serde(default = "default_smoke_fade_in_duration")]
     smoke_fade_in_duration: u32,
     #[serde(default = "default_smoke_fade_out_duration")]

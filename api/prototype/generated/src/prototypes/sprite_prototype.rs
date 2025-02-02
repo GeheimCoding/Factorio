@@ -22,7 +22,7 @@ pub struct SpritePrototype {
     height: Option<crate::types::SpriteSizeType>,
     #[serde(default = "default_invert_colors")]
     invert_colors: bool,
-    layers: Option<Vec<crate::types::Sprite>>,
+    layers: Option<crate::vec::Vec<crate::types::Sprite>>,
     #[serde(default = "default_load_in_minimal_mode")]
     load_in_minimal_mode: bool,
     #[serde(default = "default_mipmap_count")]

@@ -39,7 +39,7 @@ pub struct FluidStreamPrototype {
     shadow: Option<crate::types::Animation>,
     #[serde(default = "default_shadow_scale_enabled")]
     shadow_scale_enabled: bool,
-    smoke_sources: Option<Vec<crate::types::SmokeSource>>,
+    smoke_sources: Option<crate::vec::Vec<crate::types::SmokeSource>>,
     special_neutral_target_damage: Option<crate::types::DamageParameters>,
     spine_animation: Option<crate::types::Animation>,
     stream_light: Option<crate::types::LightDefinition>,

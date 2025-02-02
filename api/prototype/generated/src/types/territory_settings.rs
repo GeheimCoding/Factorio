@@ -5,7 +5,7 @@ pub struct TerritorySettings {
     territory_index_expression: Option<String>,
     // default: 0
     territory_variation_expression: Option<String>,
-    units: Option<Vec<crate::types::EntityID>>,
+    units: Option<crate::vec::Vec<crate::types::EntityID>>,
 }
 fn default_minimum_territory_size() -> u32 {
     0

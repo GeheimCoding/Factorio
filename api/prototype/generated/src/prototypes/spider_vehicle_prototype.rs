@@ -7,7 +7,7 @@ pub struct SpiderVehiclePrototype {
     chunk_exploration_radius: u32,
     energy_source: SpiderVehiclePrototypeEnergySource,
     graphics_set: Option<crate::types::SpiderVehicleGraphicsSet>,
-    guns: Option<Vec<crate::types::ItemID>>,
+    guns: Option<crate::vec::Vec<crate::types::ItemID>>,
     height: f32,
     inventory_size: crate::types::ItemStackIndex,
     movement_energy_consumption: crate::types::Energy,

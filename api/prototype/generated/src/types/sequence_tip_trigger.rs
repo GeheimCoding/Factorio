@@ -1,4 +1,4 @@
 #[derive(Debug, serde::Deserialize)]
 pub struct SequenceTipTrigger {
-    triggers: Vec<crate::types::TipTrigger>,
+    triggers: crate::vec::Vec<crate::types::TipTrigger>,
 }

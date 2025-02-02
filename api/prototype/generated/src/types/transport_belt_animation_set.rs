@@ -3,7 +3,7 @@ pub struct TransportBeltAnimationSet {
     #[serde(default = "default_alternate")]
     alternate: bool,
     animation_set: crate::types::RotatedAnimation,
-    belt_reader: Option<Vec<crate::types::BeltReaderLayer>>,
+    belt_reader: Option<crate::vec::Vec<crate::types::BeltReaderLayer>>,
     #[serde(default = "default_east_index")]
     east_index: u8,
     #[serde(default = "default_east_index_frozen")]

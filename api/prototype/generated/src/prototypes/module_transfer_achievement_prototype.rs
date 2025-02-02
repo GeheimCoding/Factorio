@@ -19,5 +19,5 @@ pub enum ModuleTransferAchievementPrototypeModule {
     #[serde(untagged)]
     ItemID(crate::types::ItemID),
     #[serde(untagged)]
-    VecItemID(Vec<crate::types::ItemID>),
+    VecItemID(crate::vec::Vec<crate::types::ItemID>),
 }

@@ -1,1 +1,1 @@
-pub type ProcessionAudioCatalogue = Vec<crate::types::ProcessionAudioCatalogueItem>;
+pub type ProcessionAudioCatalogue = crate::vec::Vec<crate::types::ProcessionAudioCatalogueItem>;

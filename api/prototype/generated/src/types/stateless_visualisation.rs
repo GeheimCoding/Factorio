@@ -34,7 +34,7 @@ pub struct StatelessVisualisation {
     #[serde(default = "default_particle_tick_offset")]
     particle_tick_offset: f32,
     period: Option<u16>,
-    positions: Option<Vec<crate::types::Vector>>,
+    positions: Option<crate::vec::Vec<crate::types::Vector>>,
     #[serde(default = "default_probability")]
     probability: f32,
     #[serde(default = "default_render_layer")]
@@ -76,7 +76,7 @@ pub enum StatelessVisualisationNestedVisualisations {
     #[serde(untagged)]
     StatelessVisualisation(Box<crate::types::StatelessVisualisation>),
     #[serde(untagged)]
-    VecStatelessVisualisation(Vec<crate::types::StatelessVisualisation>),
+    VecStatelessVisualisation(crate::vec::Vec<crate::types::StatelessVisualisation>),
 }
 fn default_particle_tick_offset() -> f32 {
     0.0

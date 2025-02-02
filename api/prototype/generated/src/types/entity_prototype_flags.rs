@@ -1,4 +1,4 @@
-pub type EntityPrototypeFlags = Vec<EntityPrototypeFlagsVariants>;
+pub type EntityPrototypeFlags = crate::vec::Vec<EntityPrototypeFlagsVariants>;
 #[derive(Debug, serde::Deserialize)]
 pub enum EntityPrototypeFlagsVariants {
     #[serde(rename = "not-rotatable")]

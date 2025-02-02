@@ -24,8 +24,8 @@ pub struct EnemySpawnerPrototype {
     max_spawn_shift: f64,
     #[serde(default = "default_min_darkness_to_spawn")]
     min_darkness_to_spawn: f32,
-    result_units: Vec<crate::types::UnitSpawnDefinition>,
-    spawn_decoration: Option<Vec<crate::types::CreateDecorativesTriggerEffectItem>>,
+    result_units: crate::vec::Vec<crate::types::UnitSpawnDefinition>,
+    spawn_decoration: Option<crate::vec::Vec<crate::types::CreateDecorativesTriggerEffectItem>>,
     #[serde(default = "default_spawn_decorations_on_expansion")]
     spawn_decorations_on_expansion: bool,
     spawning_cooldown: (f64, f64),

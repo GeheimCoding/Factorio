@@ -7,7 +7,7 @@ pub struct AgriculturalCraneProperties {
     #[serde(default = "default_operation_angle")]
     operation_angle: f32,
     origin: crate::types::Vector3D,
-    parts: Vec<crate::types::CranePart>,
+    parts: crate::vec::Vec<crate::types::CranePart>,
     shadow_direction: crate::types::Vector3D,
     speed: crate::types::AgriculturalCraneSpeed,
     #[serde(default = "default_telescope_default_extention")]

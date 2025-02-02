@@ -11,8 +11,8 @@ pub struct RotatedAnimation {
     #[serde(default = "default_direction_count")]
     direction_count: u32,
     filename: Option<crate::types::FileName>,
-    filenames: Option<Vec<crate::types::FileName>>,
-    layers: Option<Vec<crate::types::RotatedAnimation>>,
+    filenames: Option<crate::vec::Vec<crate::types::FileName>>,
+    layers: Option<crate::vec::Vec<crate::types::RotatedAnimation>>,
     lines_per_file: Option<u32>,
     #[serde(default = "default_middle_orientation")]
     middle_orientation: crate::types::RealOrientation,
@@ -21,7 +21,7 @@ pub struct RotatedAnimation {
     slice: Option<u32>,
     #[serde(default = "default_still_frame")]
     still_frame: u32,
-    stripes: Option<Vec<crate::types::Stripe>>,
+    stripes: Option<crate::vec::Vec<crate::types::Stripe>>,
 }
 fn default_apply_projection() -> bool {
     true

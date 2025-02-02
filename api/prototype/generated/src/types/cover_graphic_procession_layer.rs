@@ -5,7 +5,7 @@ pub struct CoverGraphicProcessionLayer {
     distance_traveled_strength: Option<crate::types::Vector>,
     effect: Option<crate::types::CoverGraphicEffectData>,
     effect_graphic: Option<crate::types::ProcessionGraphic>,
-    frames: Vec<CoverGraphicProcessionLayerBezierControlPoint>,
+    frames: crate::vec::Vec<CoverGraphicProcessionLayerBezierControlPoint>,
     graphic: Option<crate::types::ProcessionGraphic>,
     inherit_from: Option<crate::types::ProcessionLayerInheritanceGroupID>,
     #[serde(default = "default_is_cloud_effect_advanced")]

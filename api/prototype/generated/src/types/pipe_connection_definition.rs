@@ -4,7 +4,7 @@ pub struct PipeConnectionDefinition {
     connection_category: PipeConnectionDefinitionConnectionCategory,
     connection_type: Option<PipeConnectionType>,
     direction: Option<crate::types::Direction>,
-    enable_working_visualisations: Option<Vec<String>>,
+    enable_working_visualisations: Option<crate::vec::Vec<String>>,
     flow_direction: Option<PipeConnectionDefinitionFlowDirection>,
     linked_connection_id: Option<crate::types::FluidBoxLinkedConnectionID>,
     max_distance_tint: Option<crate::types::Color>,
@@ -24,7 +24,7 @@ pub enum PipeConnectionDefinitionConnectionCategory {
     #[serde(untagged)]
     String(String),
     #[serde(untagged)]
-    VecString(Vec<String>),
+    VecString(crate::vec::Vec<String>),
 }
 fn default_connection_category() -> PipeConnectionDefinitionConnectionCategory {
     PipeConnectionDefinitionConnectionCategory::String(String::from("default"))

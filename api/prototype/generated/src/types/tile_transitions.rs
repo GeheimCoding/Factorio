@@ -25,7 +25,7 @@ pub struct TileTransitions {
     // default: Value of `spritesheet`
     background_spritesheet: Option<crate::types::FileName>,
     double_side_variations_in_group: Option<u8>,
-    double_side_weights: Option<Vec<f32>>,
+    double_side_weights: Option<crate::vec::Vec<f32>>,
     #[serde(default = "default_draw_background_layer_under_tiles")]
     draw_background_layer_under_tiles: bool,
     #[serde(default = "default_draw_simple_outer_corner_over_diagonal")]
@@ -35,7 +35,7 @@ pub struct TileTransitions {
     effect_map_layout: Option<crate::types::TileTransitionVariantLayout>,
     // default: Value of `spritesheet`
     effect_map_spritesheet: Option<crate::types::FileName>,
-    inner_corner_weights: Option<Vec<f32>>,
+    inner_corner_weights: Option<crate::vec::Vec<f32>>,
     layout: Option<crate::types::TileTransitionSpritesheetLayout>,
     #[serde(default = "default_lightmap_enabled")]
     lightmap_enabled: bool,
@@ -53,16 +53,16 @@ pub struct TileTransitions {
     masked_overlay_layer_offset: i8,
     #[serde(default = "default_offset_background_layer_by_tile_layer")]
     offset_background_layer_by_tile_layer: bool,
-    outer_corner_weights: Option<Vec<f32>>,
+    outer_corner_weights: Option<crate::vec::Vec<f32>>,
     #[serde(default = "default_overlay_enabled")]
     overlay_enabled: bool,
     overlay_layer_group: Option<crate::types::TileRenderLayer>,
     overlay_layer_offset: Option<i8>,
     overlay_layout: Option<crate::types::TileTransitionVariantLayout>,
     side_variations_in_group: Option<u8>,
-    side_weights: Option<Vec<f32>>,
+    side_weights: Option<crate::vec::Vec<f32>>,
     spritesheet: Option<crate::types::FileName>,
-    u_transition_weights: Option<Vec<f32>>,
+    u_transition_weights: Option<crate::vec::Vec<f32>>,
     water_patch: Option<crate::types::Sprite>,
     #[serde(default = "default_waving_effect_time_scale")]
     waving_effect_time_scale: f32,

@@ -3,10 +3,10 @@ pub enum AnimationVariations {
     #[serde(untagged)]
     AnimationVariations {
         sheet: Option<Box<crate::types::AnimationSheet>>,
-        sheets: Option<Vec<crate::types::AnimationSheet>>,
+        sheets: Option<crate::vec::Vec<crate::types::AnimationSheet>>,
     },
     #[serde(untagged)]
     Animation(Box<crate::types::Animation>),
     #[serde(untagged)]
-    VecAnimation(Vec<crate::types::Animation>),
+    VecAnimation(crate::vec::Vec<crate::types::Animation>),
 }

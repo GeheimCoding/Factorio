@@ -25,7 +25,7 @@ pub struct ProjectilePrototype {
     #[serde(default = "default_rotatable")]
     rotatable: bool,
     shadow: Option<crate::types::RotatedAnimationVariations>,
-    smoke: Option<Vec<crate::types::SmokeSource>>,
+    smoke: Option<crate::vec::Vec<crate::types::SmokeSource>>,
     // default: `{1, 1}`
     speed_modifier: Option<crate::types::Vector>,
     #[serde(default = "default_turn_speed")]

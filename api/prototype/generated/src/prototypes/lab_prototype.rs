@@ -5,12 +5,12 @@ pub struct LabPrototype {
     // default: All effects except quality are allowed
     allowed_effects: Option<crate::types::EffectTypeLimitation>,
     // default: All module categories are allowed
-    allowed_module_categories: Option<Vec<crate::types::ModuleCategoryID>>,
+    allowed_module_categories: Option<crate::vec::Vec<crate::types::ModuleCategoryID>>,
     effect_receiver: Option<crate::types::EffectReceiver>,
     energy_source: crate::types::EnergySource,
     energy_usage: crate::types::Energy,
     frozen_patch: Option<crate::types::Sprite>,
-    inputs: Vec<crate::types::ItemID>,
+    inputs: crate::vec::Vec<crate::types::ItemID>,
     light: Option<crate::types::LightDefinition>,
     module_slots: Option<crate::types::ItemStackIndex>,
     off_animation: Option<crate::types::Animation>,

@@ -2,7 +2,7 @@
 pub struct NeighbourConnectable {
     #[serde(default = "default_affected_by_direction")]
     affected_by_direction: bool,
-    connections: Vec<crate::types::NeighbourConnectableConnectionDefinition>,
+    connections: crate::vec::Vec<crate::types::NeighbourConnectableConnectionDefinition>,
     #[serde(default = "default_neighbour_search_distance")]
     neighbour_search_distance: f32,
 }

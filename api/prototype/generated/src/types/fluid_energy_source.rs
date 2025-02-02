@@ -16,7 +16,7 @@ pub struct FluidEnergySource {
     maximum_temperature: f32,
     #[serde(default = "default_scale_fluid_usage")]
     scale_fluid_usage: bool,
-    smoke: Option<Vec<crate::types::SmokeSource>>,
+    smoke: Option<crate::vec::Vec<crate::types::SmokeSource>>,
 }
 fn default_burns_fluid() -> bool {
     false

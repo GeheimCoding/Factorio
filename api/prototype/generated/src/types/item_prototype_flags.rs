@@ -1,4 +1,4 @@
-pub type ItemPrototypeFlags = Vec<ItemPrototypeFlagsVariants>;
+pub type ItemPrototypeFlags = crate::vec::Vec<ItemPrototypeFlagsVariants>;
 #[derive(Debug, serde::Deserialize)]
 pub enum ItemPrototypeFlagsVariants {
     #[serde(rename = "draw-logistic-overlay")]

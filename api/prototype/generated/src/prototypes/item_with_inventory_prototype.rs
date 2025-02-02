@@ -7,9 +7,9 @@ pub struct ItemWithInventoryPrototype {
     #[serde(default = "default_filter_mode")]
     filter_mode: ItemWithInventoryPrototypeFilterMode,
     inventory_size: crate::types::ItemStackIndex,
-    item_filters: Option<Vec<crate::types::ItemID>>,
-    item_group_filters: Option<Vec<crate::types::ItemGroupID>>,
-    item_subgroup_filters: Option<Vec<crate::types::ItemSubGroupID>>,
+    item_filters: Option<crate::vec::Vec<crate::types::ItemID>>,
+    item_group_filters: Option<crate::vec::Vec<crate::types::ItemGroupID>>,
+    item_subgroup_filters: Option<crate::vec::Vec<crate::types::ItemSubGroupID>>,
     stack_size: f64,
 }
 fn default_filter_message_key() -> String {

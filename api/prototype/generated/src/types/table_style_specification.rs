@@ -8,7 +8,7 @@ pub struct TableStyleSpecification {
     bottom_cell_padding: Option<i16>,
     cell_padding: Option<i16>,
     clicked_graphical_set: Option<crate::types::ElementImageSet>,
-    column_alignments: Option<Vec<crate::types::ColumnAlignment>>,
+    column_alignments: Option<crate::vec::Vec<crate::types::ColumnAlignment>>,
     column_graphical_set: Option<crate::types::ElementImageSet>,
     column_ordering_ascending_button_style: Option<crate::types::ButtonStyleSpecification>,
     column_ordering_descending_button_style: Option<crate::types::ButtonStyleSpecification>,
@@ -39,5 +39,5 @@ pub enum TableStyleSpecificationColumnWidths {
     #[serde(untagged)]
     ColumnWidthItem(Box<crate::types::ColumnWidthItem>),
     #[serde(untagged)]
-    VecColumnWidth(Vec<crate::types::ColumnWidth>),
+    VecColumnWidth(crate::vec::Vec<crate::types::ColumnWidth>),
 }

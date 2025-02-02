@@ -2,7 +2,8 @@
 pub struct SpaceLocationPrototype {
     #[serde(flatten)]
     base_: crate::prototypes::Prototype,
-    asteroid_spawn_definitions: Option<Vec<crate::types::SpaceLocationAsteroidSpawnDefinition>>,
+    asteroid_spawn_definitions:
+        Option<crate::vec::Vec<crate::types::SpaceLocationAsteroidSpawnDefinition>>,
     #[serde(default = "default_asteroid_spawn_influence")]
     asteroid_spawn_influence: f64,
     #[serde(default = "default_auto_save_on_first_trip")]
@@ -16,7 +17,7 @@ pub struct SpaceLocationPrototype {
     icon: Option<crate::types::FileName>,
     #[serde(default = "default_icon_size")]
     icon_size: crate::types::SpriteSizeType,
-    icons: Option<Vec<crate::types::IconData>>,
+    icons: Option<crate::vec::Vec<crate::types::IconData>>,
     #[serde(default = "default_label_orientation")]
     label_orientation: crate::types::RealOrientation,
     #[serde(default = "default_magnitude")]
@@ -33,7 +34,7 @@ pub struct SpaceLocationPrototype {
     starmap_icon: Option<crate::types::FileName>,
     #[serde(default = "default_starmap_icon_size")]
     starmap_icon_size: crate::types::SpriteSizeType,
-    starmap_icons: Option<Vec<crate::types::IconData>>,
+    starmap_icons: Option<crate::vec::Vec<crate::types::IconData>>,
 }
 fn default_asteroid_spawn_influence() -> f64 {
     0.1

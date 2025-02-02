@@ -11,7 +11,7 @@ pub enum PersistentWorldAmbientSoundsDefinitionBaseAmbience {
     PersistentWorldAmbientSoundDefinition(Box<crate::types::PersistentWorldAmbientSoundDefinition>),
     #[serde(untagged)]
     VecPersistentWorldAmbientSoundDefinition(
-        Vec<crate::types::PersistentWorldAmbientSoundDefinition>,
+        crate::vec::Vec<crate::types::PersistentWorldAmbientSoundDefinition>,
     ),
 }
 #[derive(Debug, serde::Deserialize)]
@@ -22,7 +22,7 @@ pub enum PersistentWorldAmbientSoundsDefinitionSemiPersistent {
     ),
     #[serde(untagged)]
     VecSemiPersistentWorldAmbientSoundDefinition(
-        Vec<crate::types::SemiPersistentWorldAmbientSoundDefinition>,
+        crate::vec::Vec<crate::types::SemiPersistentWorldAmbientSoundDefinition>,
     ),
 }
 #[derive(Debug, serde::Deserialize)]
@@ -31,6 +31,6 @@ pub enum PersistentWorldAmbientSoundsDefinitionWind {
     PersistentWorldAmbientSoundDefinition(Box<crate::types::PersistentWorldAmbientSoundDefinition>),
     #[serde(untagged)]
     VecPersistentWorldAmbientSoundDefinition(
-        Vec<crate::types::PersistentWorldAmbientSoundDefinition>,
+        crate::vec::Vec<crate::types::PersistentWorldAmbientSoundDefinition>,
     ),
 }

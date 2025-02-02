@@ -10,7 +10,7 @@ pub struct CarPrototype {
     darkness_to_render_light_animation: f32,
     effectivity: f64,
     energy_source: CarPrototypeEnergySource,
-    guns: Option<Vec<crate::types::ItemID>>,
+    guns: Option<crate::vec::Vec<crate::types::ItemID>>,
     #[serde(default = "default_has_belt_immunity")]
     has_belt_immunity: bool,
     #[serde(default = "default_immune_to_cliff_impacts")]

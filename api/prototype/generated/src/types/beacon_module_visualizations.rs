@@ -1,7 +1,7 @@
 #[derive(Debug, serde::Deserialize)]
 pub struct BeaconModuleVisualizations {
     art_style: String,
-    slots: Option<Vec<Vec<crate::types::BeaconModuleVisualization>>>,
+    slots: Option<crate::vec::Vec<crate::vec::Vec<crate::types::BeaconModuleVisualization>>>,
     #[serde(default = "default_tier_offset")]
     tier_offset: i32,
     #[serde(default = "default_use_for_empty_slots")]

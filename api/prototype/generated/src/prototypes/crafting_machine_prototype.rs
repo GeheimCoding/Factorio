@@ -5,8 +5,8 @@ pub struct CraftingMachinePrototype {
     // default: No effects are allowed
     allowed_effects: Option<crate::types::EffectTypeLimitation>,
     // default: All module categories are allowed
-    allowed_module_categories: Option<Vec<crate::types::ModuleCategoryID>>,
-    crafting_categories: Vec<crate::types::RecipeCategoryID>,
+    allowed_module_categories: Option<crate::vec::Vec<crate::types::ModuleCategoryID>>,
+    crafting_categories: crate::vec::Vec<crate::types::RecipeCategoryID>,
     crafting_speed: f64,
     #[serde(default = "default_draw_entity_info_icon_background")]
     draw_entity_info_icon_background: bool,
@@ -15,7 +15,7 @@ pub struct CraftingMachinePrototype {
     energy_usage: crate::types::Energy,
     #[serde(default = "default_fast_transfer_modules_into_module_slots_only")]
     fast_transfer_modules_into_module_slots_only: bool,
-    fluid_boxes: Option<Vec<crate::types::FluidBox>>,
+    fluid_boxes: Option<crate::vec::Vec<crate::types::FluidBox>>,
     // default: none
     forced_symmetry: Option<crate::types::Mirroring>,
     graphics_set: Option<crate::types::CraftingMachineGraphicsSet>,

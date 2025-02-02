@@ -4,7 +4,7 @@ pub struct CraterPlacementDefinition {
     minimum_segments_to_place: u32,
     #[serde(default = "default_segment_probability")]
     segment_probability: f32,
-    segments: Vec<CraterSegment>,
+    segments: crate::vec::Vec<CraterSegment>,
 }
 fn default_minimum_segments_to_place() -> u32 {
     1

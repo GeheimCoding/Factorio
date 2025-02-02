@@ -2,12 +2,13 @@
 pub struct SpaceConnectionPrototype {
     #[serde(flatten)]
     base_: crate::prototypes::Prototype,
-    asteroid_spawn_definitions: Option<Vec<crate::types::SpaceConnectionAsteroidSpawnDefinition>>,
+    asteroid_spawn_definitions:
+        Option<crate::vec::Vec<crate::types::SpaceConnectionAsteroidSpawnDefinition>>,
     from: crate::types::SpaceLocationID,
     icon: Option<crate::types::FileName>,
     #[serde(default = "default_icon_size")]
     icon_size: crate::types::SpriteSizeType,
-    icons: Option<Vec<crate::types::IconData>>,
+    icons: Option<crate::vec::Vec<crate::types::IconData>>,
     #[serde(default = "default_length")]
     length: u32,
     to: crate::types::SpaceLocationID,

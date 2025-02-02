@@ -8,14 +8,14 @@ pub struct ShortcutPrototype {
     icon: Option<crate::types::FileName>,
     #[serde(default = "default_icon_size")]
     icon_size: crate::types::SpriteSizeType,
-    icons: Option<Vec<crate::types::IconData>>,
+    icons: Option<crate::vec::Vec<crate::types::IconData>>,
     item_to_spawn: Option<crate::types::ItemID>,
     #[serde(default = "default_order")]
     order: crate::types::Order,
     small_icon: Option<crate::types::FileName>,
     #[serde(default = "default_small_icon_size")]
     small_icon_size: crate::types::SpriteSizeType,
-    small_icons: Option<Vec<crate::types::IconData>>,
+    small_icons: Option<crate::vec::Vec<crate::types::IconData>>,
     #[serde(default = "default_style")]
     style: ShortcutPrototypeStyle,
     technology_to_unlock: Option<crate::types::TechnologyID>,

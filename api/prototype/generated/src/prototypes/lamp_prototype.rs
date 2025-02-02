@@ -31,7 +31,7 @@ pub struct LampPrototype {
     light_when_colored: Option<crate::types::LightDefinition>,
     picture_off: Option<crate::types::Sprite>,
     picture_on: Option<crate::types::Sprite>,
-    signal_to_color_mapping: Option<Vec<crate::types::SignalColorMapping>>,
+    signal_to_color_mapping: Option<crate::vec::Vec<crate::types::SignalColorMapping>>,
 }
 fn default_always_on() -> bool {
     false

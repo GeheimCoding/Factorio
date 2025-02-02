@@ -21,7 +21,7 @@ pub enum KillAchievementPrototypeDamageDealer {
     #[serde(untagged)]
     EntityID(crate::types::EntityID),
     #[serde(untagged)]
-    VecEntityID(Vec<crate::types::EntityID>),
+    VecEntityID(crate::vec::Vec<crate::types::EntityID>),
 }
 fn default_in_vehicle() -> bool {
     false
@@ -34,5 +34,5 @@ pub enum KillAchievementPrototypeToKill {
     #[serde(untagged)]
     EntityID(crate::types::EntityID),
     #[serde(untagged)]
-    VecEntityID(Vec<crate::types::EntityID>),
+    VecEntityID(crate::vec::Vec<crate::types::EntityID>),
 }

@@ -17,7 +17,7 @@ pub struct CargoHatchDefinition {
     opening_sound: Option<crate::types::InterruptibleSound>,
     // default: `{0, 0}`
     pod_shadow_offset: Option<crate::types::Vector>,
-    receiving_cargo_units: Option<Vec<crate::types::EntityID>>,
+    receiving_cargo_units: Option<crate::vec::Vec<crate::types::EntityID>>,
     #[serde(default = "default_sky_slice_height")]
     sky_slice_height: f32,
     #[serde(default = "default_slice_height")]

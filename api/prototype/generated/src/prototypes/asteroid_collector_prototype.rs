@@ -7,7 +7,7 @@ pub struct AsteroidCollectorPrototype {
     #[serde(default = "default_arm_angular_speed_cap_quality_scaling")]
     arm_angular_speed_cap_quality_scaling: f32,
     // default: {{1, 1, 1}}
-    arm_color_gradient: Option<Vec<crate::types::Color>>,
+    arm_color_gradient: Option<crate::vec::Vec<crate::types::Color>>,
     #[serde(default = "default_arm_count_base")]
     arm_count_base: u32,
     #[serde(default = "default_arm_count_quality_scaling")]

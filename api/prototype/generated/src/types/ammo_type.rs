@@ -11,7 +11,7 @@ pub struct AmmoType {
     #[serde(default = "default_range_modifier")]
     range_modifier: f64,
     source_type: Option<crate::types::AmmoSourceType>,
-    target_filter: Option<Vec<crate::types::EntityID>>,
+    target_filter: Option<crate::vec::Vec<crate::types::EntityID>>,
     #[serde(default = "default_target_type")]
     target_type: AmmoTypeTargetType,
 }

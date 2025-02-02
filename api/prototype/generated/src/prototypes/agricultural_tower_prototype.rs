@@ -24,12 +24,12 @@ pub struct AgriculturalTowerPrototype {
     grappler_orienting_sound_source: Option<String>,
     #[serde(default = "default_growth_grid_tile_size")]
     growth_grid_tile_size: u32,
-    harvesting_procedure_points: Option<Vec<crate::types::Vector3D>>,
+    harvesting_procedure_points: Option<crate::vec::Vec<crate::types::Vector3D>>,
     harvesting_sound: Option<crate::types::Sound>,
     input_inventory_size: crate::types::ItemStackIndex,
     #[serde(default = "default_output_inventory_size")]
     output_inventory_size: crate::types::ItemStackIndex,
-    planting_procedure_points: Option<Vec<crate::types::Vector3D>>,
+    planting_procedure_points: Option<crate::vec::Vec<crate::types::Vector3D>>,
     planting_sound: Option<crate::types::Sound>,
     radius: f64,
     radius_visualisation_picture: Option<crate::types::Sprite>,

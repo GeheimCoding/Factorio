@@ -15,7 +15,7 @@ pub struct SimulationDefinition {
     init_update_count: u32,
     #[serde(default = "default_length")]
     length: u32,
-    mods: Option<Vec<String>>,
+    mods: Option<crate::vec::Vec<String>>,
     #[serde(default = "default_mute_alert_sounds")]
     mute_alert_sounds: bool,
     #[serde(default = "default_mute_technology_finished_sound")]

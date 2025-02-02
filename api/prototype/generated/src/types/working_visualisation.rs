@@ -11,7 +11,7 @@ pub struct WorkingVisualisation {
     apply_tint: Option<WorkingVisualisationApplyTint>,
     #[serde(default = "default_constant_speed")]
     constant_speed: bool,
-    draw_in_states: Option<Vec<String>>,
+    draw_in_states: Option<crate::vec::Vec<String>>,
     #[serde(default = "default_draw_when_state_filter_matches")]
     draw_when_state_filter_matches: bool,
     east_animation: Option<crate::types::Animation>,

@@ -5,8 +5,8 @@ pub struct SpriteSheet {
     dice: Option<crate::types::SpriteSizeType>,
     dice_x: Option<crate::types::SpriteSizeType>,
     dice_y: Option<crate::types::SpriteSizeType>,
-    filenames: Option<Vec<crate::types::FileName>>,
-    layers: Option<Vec<crate::types::SpriteSheet>>,
+    filenames: Option<crate::vec::Vec<crate::types::FileName>>,
+    layers: Option<crate::vec::Vec<crate::types::SpriteSheet>>,
     // default: Value of `variation_count`
     line_length: Option<u32>,
     lines_per_file: Option<u32>,

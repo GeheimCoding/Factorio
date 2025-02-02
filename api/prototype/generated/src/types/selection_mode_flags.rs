@@ -3,7 +3,7 @@ pub enum SelectionModeFlags {
     #[serde(untagged)]
     SelectionModeFlagsVariants(SelectionModeFlagsVariants),
     #[serde(untagged)]
-    VecSelectionModeFlagsVariants(Vec<SelectionModeFlagsVariants>),
+    VecSelectionModeFlagsVariants(crate::vec::Vec<SelectionModeFlagsVariants>),
 }
 #[derive(Debug, serde::Deserialize)]
 pub enum SelectionModeFlagsVariants {

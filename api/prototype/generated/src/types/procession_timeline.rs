@@ -1,6 +1,6 @@
 #[derive(Debug, serde::Deserialize)]
 pub struct ProcessionTimeline {
-    audio_events: Vec<crate::types::ProcessionAudioEvent>,
+    audio_events: crate::vec::Vec<crate::types::ProcessionAudioEvent>,
     // default: 1/2 of duration
     draw_switch_tick: Option<crate::types::MapTick>,
     duration: crate::types::MapTick,
@@ -8,7 +8,7 @@ pub struct ProcessionTimeline {
     intermezzo_max_duration: crate::types::MapTick,
     #[serde(default = "default_intermezzo_min_duration")]
     intermezzo_min_duration: crate::types::MapTick,
-    layers: Vec<crate::types::ProcessionLayer>,
+    layers: crate::vec::Vec<crate::types::ProcessionLayer>,
     // default: 1/2 of duration
     special_action_tick: Option<crate::types::MapTick>,
 }

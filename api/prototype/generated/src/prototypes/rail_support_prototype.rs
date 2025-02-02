@@ -5,7 +5,7 @@ pub struct RailSupportPrototype {
     #[serde(default = "default_build_grid_size")]
     build_grid_size: f64,
     collision_mask_allow_on_deep_oil_ocean: Option<crate::types::CollisionMaskConnector>,
-    elevated_selection_boxes: Option<Vec<crate::types::BoundingBox>>,
+    elevated_selection_boxes: Option<crate::vec::Vec<crate::types::BoundingBox>>,
     graphics_set: RailSupportGraphicsSet,
     #[serde(default = "default_not_buildable_if_no_rails")]
     not_buildable_if_no_rails: bool,

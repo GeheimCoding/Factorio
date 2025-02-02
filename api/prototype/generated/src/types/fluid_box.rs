@@ -3,7 +3,7 @@ pub struct FluidBox {
     always_draw_covers: Option<bool>,
     #[serde(default = "default_draw_only_when_connected")]
     draw_only_when_connected: bool,
-    enable_working_visualisations: Option<Vec<String>>,
+    enable_working_visualisations: Option<crate::vec::Vec<String>>,
     filter: Option<crate::types::FluidID>,
     #[serde(default = "default_hide_connection_info")]
     hide_connection_info: bool,
@@ -11,7 +11,7 @@ pub struct FluidBox {
     max_pipeline_extent: Option<u32>,
     maximum_temperature: Option<f32>,
     minimum_temperature: Option<f32>,
-    pipe_connections: Vec<crate::types::PipeConnectionDefinition>,
+    pipe_connections: crate::vec::Vec<crate::types::PipeConnectionDefinition>,
     pipe_covers: Option<crate::types::Sprite4Way>,
     pipe_covers_frozen: Option<crate::types::Sprite4Way>,
     pipe_picture: Option<crate::types::Sprite4Way>,

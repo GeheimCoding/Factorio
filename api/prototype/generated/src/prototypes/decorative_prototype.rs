@@ -16,7 +16,8 @@ pub struct DecorativePrototype {
     #[serde(default = "default_render_layer")]
     render_layer: crate::types::RenderLayer,
     stateless_visualisation: Option<crate::types::StatelessVisualisations>,
-    stateless_visualisation_variations: Option<Vec<crate::types::StatelessVisualisations>>,
+    stateless_visualisation_variations:
+        Option<crate::vec::Vec<crate::types::StatelessVisualisations>>,
     #[serde(default = "default_target_count")]
     target_count: u16,
     #[serde(default = "default_tile_layer")]

@@ -1,7 +1,7 @@
 #[derive(Debug, serde::Deserialize)]
 pub struct PumpConnectorGraphics {
-    east: Vec<crate::types::PumpConnectorGraphicsAnimation>,
-    north: Vec<crate::types::PumpConnectorGraphicsAnimation>,
-    south: Vec<crate::types::PumpConnectorGraphicsAnimation>,
-    west: Vec<crate::types::PumpConnectorGraphicsAnimation>,
+    east: crate::vec::Vec<crate::types::PumpConnectorGraphicsAnimation>,
+    north: crate::vec::Vec<crate::types::PumpConnectorGraphicsAnimation>,
+    south: crate::vec::Vec<crate::types::PumpConnectorGraphicsAnimation>,
+    west: crate::vec::Vec<crate::types::PumpConnectorGraphicsAnimation>,
 }

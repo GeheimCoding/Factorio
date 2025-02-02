@@ -5,8 +5,9 @@ pub struct ArtilleryWagonPrototype {
     ammo_stack_limit: crate::types::ItemCountType,
     cannon_barrel_light_direction: Option<crate::types::Vector3D>,
     cannon_barrel_pictures: Option<crate::types::RollingStockRotatedSlopedGraphics>,
-    cannon_barrel_recoil_shiftings: Option<Vec<crate::types::Vector3D>>,
-    cannon_barrel_recoil_shiftings_load_correction_matrix: Option<Vec<crate::types::Vector3D>>,
+    cannon_barrel_recoil_shiftings: Option<crate::vec::Vec<crate::types::Vector3D>>,
+    cannon_barrel_recoil_shiftings_load_correction_matrix:
+        Option<crate::vec::Vec<crate::types::Vector3D>>,
     #[serde(default = "default_cannon_base_height")]
     cannon_base_height: f64,
     cannon_base_pictures: Option<crate::types::RollingStockRotatedSlopedGraphics>,

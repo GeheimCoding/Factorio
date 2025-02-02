@@ -5,7 +5,7 @@ pub struct TilePrototype {
     absorptions_per_second:
         Option<std::collections::HashMap<crate::types::AirbornePollutantID, f64>>,
     // default: All tiles
-    allowed_neighbors: Option<Vec<crate::types::TileID>>,
+    allowed_neighbors: Option<crate::vec::Vec<crate::types::TileID>>,
     #[serde(default = "default_allows_being_covered")]
     allows_being_covered: bool,
     ambient_sounds: Option<TilePrototypeAmbientSounds>,
@@ -40,7 +40,7 @@ pub struct TilePrototype {
     icon: Option<crate::types::FileName>,
     #[serde(default = "default_icon_size")]
     icon_size: crate::types::SpriteSizeType,
-    icons: Option<Vec<crate::types::IconData>>,
+    icons: Option<crate::vec::Vec<crate::types::IconData>>,
     #[serde(default = "default_is_foundation")]
     is_foundation: bool,
     landing_steps_sound: Option<crate::types::Sound>,
@@ -70,8 +70,9 @@ pub struct TilePrototype {
     transition_merges_with_tile: Option<crate::types::TileID>,
     #[serde(default = "default_transition_overlay_layer_offset")]
     transition_overlay_layer_offset: i8,
-    transitions: Option<Vec<crate::types::TileTransitionsToTiles>>,
-    transitions_between_transitions: Option<Vec<crate::types::TileTransitionsBetweenTransitions>>,
+    transitions: Option<crate::vec::Vec<crate::types::TileTransitionsToTiles>>,
+    transitions_between_transitions:
+        Option<crate::vec::Vec<crate::types::TileTransitionsBetweenTransitions>>,
     trigger_effect: Option<crate::types::TriggerEffect>,
     variants: crate::types::TileTransitionsVariants,
     #[serde(default = "default_vehicle_friction_modifier")]
@@ -90,14 +91,14 @@ pub enum TilePrototypeAmbientSounds {
     #[serde(untagged)]
     WorldAmbientSoundDefinition(Box<crate::types::WorldAmbientSoundDefinition>),
     #[serde(untagged)]
-    VecWorldAmbientSoundDefinition(Vec<crate::types::WorldAmbientSoundDefinition>),
+    VecWorldAmbientSoundDefinition(crate::vec::Vec<crate::types::WorldAmbientSoundDefinition>),
 }
 #[derive(Debug, serde::Deserialize)]
 pub enum TilePrototypeBoundDecoratives {
     #[serde(untagged)]
     DecorativeID(crate::types::DecorativeID),
     #[serde(untagged)]
-    VecDecorativeID(Vec<crate::types::DecorativeID>),
+    VecDecorativeID(crate::vec::Vec<crate::types::DecorativeID>),
 }
 #[derive(Debug, serde::Deserialize)]
 pub enum TilePrototypeBuildSound {
@@ -130,7 +131,7 @@ pub enum TilePrototypeDyingExplosion {
     #[serde(untagged)]
     ExplosionDefinition(Box<crate::types::ExplosionDefinition>),
     #[serde(untagged)]
-    VecExplosionDefinition(Vec<crate::types::ExplosionDefinition>),
+    VecExplosionDefinition(crate::vec::Vec<crate::types::ExplosionDefinition>),
 }
 fn default_icon_size() -> crate::types::SpriteSizeType {
     64
@@ -155,7 +156,7 @@ pub enum TilePrototypePlaceableBy {
     #[serde(untagged)]
     ItemToPlace(Box<crate::types::ItemToPlace>),
     #[serde(untagged)]
-    VecItemToPlace(Vec<crate::types::ItemToPlace>),
+    VecItemToPlace(crate::vec::Vec<crate::types::ItemToPlace>),
 }
 fn default_searchable() -> bool {
     false

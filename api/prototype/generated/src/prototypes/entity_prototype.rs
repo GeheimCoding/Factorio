@@ -2,7 +2,7 @@
 pub struct EntityPrototype {
     #[serde(flatten)]
     base_: crate::prototypes::Prototype,
-    additional_pastable_entities: Option<Vec<crate::types::EntityID>>,
+    additional_pastable_entities: Option<crate::vec::Vec<crate::types::EntityID>>,
     alert_icon_scale: Option<f32>,
     alert_icon_shift: Option<crate::types::Vector>,
     #[serde(default = "default_allow_copy_paste")]
@@ -40,8 +40,8 @@ pub struct EntityPrototype {
     icon_draw_specification: Option<crate::types::IconDrawSpecification>,
     #[serde(default = "default_icon_size")]
     icon_size: crate::types::SpriteSizeType,
-    icons: Option<Vec<crate::types::IconData>>,
-    icons_positioning: Option<Vec<crate::types::IconSequencePositioning>>,
+    icons: Option<crate::vec::Vec<crate::types::IconData>>,
+    icons_positioning: Option<crate::vec::Vec<crate::types::IconSequencePositioning>>,
     #[serde(default = "default_impact_category")]
     impact_category: String,
     map_color: Option<crate::types::Color>,
@@ -73,8 +73,8 @@ pub struct EntityPrototype {
     stateless_visualisation: Option<crate::types::StatelessVisualisations>,
     // default: The value of collision_box.
     sticker_box: Option<crate::types::BoundingBox>,
-    surface_conditions: Option<Vec<crate::types::SurfaceCondition>>,
-    tile_buildability_rules: Option<Vec<crate::types::TileBuildabilityRule>>,
+    surface_conditions: Option<crate::vec::Vec<crate::types::SurfaceCondition>>,
+    tile_buildability_rules: Option<crate::vec::Vec<crate::types::TileBuildabilityRule>>,
     // default: calculated by the collision box height rounded up.
     tile_height: Option<i32>,
     // default: calculated by the collision box width rounded up.
@@ -91,7 +91,7 @@ pub enum EntityPrototypeAmbientSounds {
     #[serde(untagged)]
     WorldAmbientSoundDefinition(Box<crate::types::WorldAmbientSoundDefinition>),
     #[serde(untagged)]
-    VecWorldAmbientSoundDefinition(Vec<crate::types::WorldAmbientSoundDefinition>),
+    VecWorldAmbientSoundDefinition(crate::vec::Vec<crate::types::WorldAmbientSoundDefinition>),
 }
 fn default_build_base_evolution_requirement() -> f64 {
     0.0
@@ -116,7 +116,7 @@ pub enum EntityPrototypePlaceableBy {
     #[serde(untagged)]
     ItemToPlace(Box<crate::types::ItemToPlace>),
     #[serde(untagged)]
-    VecItemToPlace(Vec<crate::types::ItemToPlace>),
+    VecItemToPlace(crate::vec::Vec<crate::types::ItemToPlace>),
 }
 fn default_protected_from_tile_building() -> bool {
     true
@@ -126,7 +126,7 @@ pub enum EntityPrototypeRemainsWhenMined {
     #[serde(untagged)]
     EntityID(crate::types::EntityID),
     #[serde(untagged)]
-    VecEntityID(Vec<crate::types::EntityID>),
+    VecEntityID(crate::vec::Vec<crate::types::EntityID>),
 }
 #[derive(Debug, serde::Deserialize)]
 pub enum EntityPrototypeRemoveDecoratives {

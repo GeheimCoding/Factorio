@@ -2,7 +2,7 @@
 pub struct BaseAttackParameters {
     #[serde(default = "default_activation_type")]
     activation_type: BaseAttackParametersActivationType,
-    ammo_categories: Option<Vec<crate::types::AmmoCategoryID>>,
+    ammo_categories: Option<crate::vec::Vec<crate::types::AmmoCategoryID>>,
     ammo_category: Option<crate::types::AmmoCategoryID>,
     #[serde(default = "default_ammo_consumption_modifier")]
     ammo_consumption_modifier: f32,

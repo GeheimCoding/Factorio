@@ -1,4 +1,4 @@
-pub type SpriteFlags = Vec<SpriteFlagsVariants>;
+pub type SpriteFlags = crate::vec::Vec<SpriteFlagsVariants>;
 #[derive(Debug, serde::Deserialize)]
 pub enum SpriteFlagsVariants {
     #[serde(rename = "no-crop")]

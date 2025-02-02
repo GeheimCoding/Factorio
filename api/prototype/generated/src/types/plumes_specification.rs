@@ -27,5 +27,5 @@ pub enum PlumesSpecificationStatelessVisualisations {
     #[serde(untagged)]
     PlumeEffect(Box<crate::types::PlumeEffect>),
     #[serde(untagged)]
-    VecPlumeEffect(Vec<crate::types::PlumeEffect>),
+    VecPlumeEffect(crate::vec::Vec<crate::types::PlumeEffect>),
 }

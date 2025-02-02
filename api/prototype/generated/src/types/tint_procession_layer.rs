@@ -1,6 +1,6 @@
 #[derive(Debug, serde::Deserialize)]
 pub struct TintProcessionLayer {
-    frames: Vec<TintProcessionBezierControlPoint>,
+    frames: crate::vec::Vec<TintProcessionBezierControlPoint>,
     #[serde(default = "default_render_layer")]
     render_layer: crate::types::RenderLayer,
 }

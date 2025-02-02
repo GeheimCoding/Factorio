@@ -13,7 +13,7 @@ pub struct TurretBaseVisualisation {
     draw_when_no_energy: bool,
     #[serde(default = "default_draw_when_not_frozen")]
     draw_when_not_frozen: bool,
-    enabled_states: Option<Vec<crate::types::TurretState>>,
+    enabled_states: Option<crate::vec::Vec<crate::types::TurretState>>,
     #[serde(default = "default_render_layer")]
     render_layer: crate::types::RenderLayer,
     #[serde(default = "default_secondary_draw_order")]

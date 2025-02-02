@@ -13,7 +13,7 @@ pub struct CorpsePrototype {
     decay_animation: Option<crate::types::RotatedAnimationVariations>,
     #[serde(default = "default_decay_frame_transition_duration")]
     decay_frame_transition_duration: f32,
-    direction_shuffle: Option<Vec<Vec<u16>>>,
+    direction_shuffle: Option<crate::vec::Vec<crate::vec::Vec<u16>>>,
     #[serde(default = "default_dying_speed")]
     dying_speed: f32,
     #[serde(default = "default_expires")]

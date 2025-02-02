@@ -1,1 +1,1 @@
-pub type ProcessionGraphicCatalogue = Vec<crate::types::ProcessionGraphicCatalogueItem>;
+pub type ProcessionGraphicCatalogue = crate::vec::Vec<crate::types::ProcessionGraphicCatalogueItem>;

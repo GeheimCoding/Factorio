@@ -5,7 +5,7 @@ pub struct MiningDrillPrototype {
     // default: All effects are allowed
     allowed_effects: Option<crate::types::EffectTypeLimitation>,
     // default: All module categories are allowed
-    allowed_module_categories: Option<Vec<crate::types::ModuleCategoryID>>,
+    allowed_module_categories: Option<crate::vec::Vec<crate::types::ModuleCategoryID>>,
     base_picture: Option<crate::types::Sprite4Way>,
     #[serde(default = "default_base_render_layer")]
     base_render_layer: crate::types::RenderLayer,
@@ -42,7 +42,7 @@ pub struct MiningDrillPrototype {
     output_fluid_box: Option<crate::types::FluidBox>,
     perceived_performance: Option<crate::types::PerceivedPerformance>,
     radius_visualisation_picture: Option<crate::types::Sprite>,
-    resource_categories: Vec<crate::types::ResourceCategoryID>,
+    resource_categories: crate::vec::Vec<crate::types::ResourceCategoryID>,
     #[serde(default = "default_resource_drain_rate_percent")]
     resource_drain_rate_percent: u8,
     resource_searching_radius: f64,

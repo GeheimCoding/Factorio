@@ -17,11 +17,11 @@ pub struct RotatedSprite {
     dice_y: Option<crate::types::SpriteSizeType>,
     direction_count: Option<u16>,
     filename: Option<crate::types::FileName>,
-    filenames: Option<Vec<crate::types::FileName>>,
-    frames: Option<Vec<crate::types::RotatedSpriteFrame>>,
+    filenames: Option<crate::vec::Vec<crate::types::FileName>>,
+    frames: Option<crate::vec::Vec<crate::types::RotatedSpriteFrame>>,
     #[serde(default = "default_generate_sdf")]
     generate_sdf: bool,
-    layers: Option<Vec<crate::types::RotatedSprite>>,
+    layers: Option<crate::vec::Vec<crate::types::RotatedSprite>>,
     #[serde(default = "default_line_length")]
     line_length: u32,
     #[serde(default = "default_lines_per_file")]

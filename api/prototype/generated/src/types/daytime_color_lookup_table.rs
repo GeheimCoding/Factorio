@@ -1,1 +1,1 @@
-pub type DaytimeColorLookupTable = Vec<(f64, crate::types::ColorLookupTable)>;
+pub type DaytimeColorLookupTable = crate::vec::Vec<(f64, crate::types::ColorLookupTable)>;

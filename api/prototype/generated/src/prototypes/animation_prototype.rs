@@ -18,7 +18,7 @@ pub struct AnimationPrototype {
     #[serde(default = "default_draw_as_shadow")]
     draw_as_shadow: bool,
     filename: Option<crate::types::FileName>,
-    filenames: Option<Vec<crate::types::FileName>>,
+    filenames: Option<crate::vec::Vec<crate::types::FileName>>,
     flags: Option<crate::types::SpriteFlags>,
     #[serde(default = "default_frame_count")]
     frame_count: u32,
@@ -28,7 +28,7 @@ pub struct AnimationPrototype {
     height: Option<crate::types::SpriteSizeType>,
     #[serde(default = "default_invert_colors")]
     invert_colors: bool,
-    layers: Option<Vec<crate::types::Animation>>,
+    layers: Option<crate::vec::Vec<crate::types::Animation>>,
     #[serde(default = "default_line_length")]
     line_length: u32,
     lines_per_file: Option<u32>,
@@ -57,7 +57,7 @@ pub struct AnimationPrototype {
     size: Option<AnimationPrototypeSize>,
     // default: Value of `frame_count`
     slice: Option<u32>,
-    stripes: Option<Vec<crate::types::Stripe>>,
+    stripes: Option<crate::vec::Vec<crate::types::Stripe>>,
     #[serde(default = "default_surface")]
     surface: crate::types::SpriteUsageSurfaceHint,
     // default: `{r=1, g=1, b=1, a=1}`

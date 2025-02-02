@@ -3,7 +3,7 @@ pub enum EffectTypeLimitation {
     #[serde(untagged)]
     EffectTypeLimitationVariants(EffectTypeLimitationVariants),
     #[serde(untagged)]
-    VecEffectTypeLimitationVariants(Vec<EffectTypeLimitationVariants>),
+    VecEffectTypeLimitationVariants(crate::vec::Vec<EffectTypeLimitationVariants>),
 }
 #[derive(Debug, serde::Deserialize)]
 pub enum EffectTypeLimitationVariants {

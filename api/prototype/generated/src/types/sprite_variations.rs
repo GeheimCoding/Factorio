@@ -7,5 +7,5 @@ pub enum SpriteVariations {
     #[serde(untagged)]
     SpriteSheet(Box<crate::types::SpriteSheet>),
     #[serde(untagged)]
-    VecSprite(Vec<crate::types::Sprite>),
+    VecSprite(crate::vec::Vec<crate::types::Sprite>),
 }

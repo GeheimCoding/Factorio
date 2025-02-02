@@ -10,7 +10,7 @@ pub struct ProgressBarStyleSpecification {
     filled_font_color: Option<crate::types::Color>,
     font: Option<String>,
     font_color: Option<crate::types::Color>,
-    other_colors: Option<Vec<OtherColors>>,
+    other_colors: Option<crate::vec::Vec<OtherColors>>,
     side_text_padding: Option<i16>,
 }
 #[derive(Debug, serde::Deserialize)]

@@ -18,7 +18,7 @@ pub struct GeneratorPrototype {
     perceived_performance: Option<crate::types::PerceivedPerformance>,
     #[serde(default = "default_scale_fluid_usage")]
     scale_fluid_usage: bool,
-    smoke: Option<Vec<crate::types::SmokeSource>>,
+    smoke: Option<crate::vec::Vec<crate::types::SmokeSource>>,
     vertical_animation: Option<crate::types::Animation>,
     vertical_frozen_patch: Option<crate::types::Sprite>,
 }
