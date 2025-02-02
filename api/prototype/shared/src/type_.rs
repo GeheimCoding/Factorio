@@ -163,7 +163,7 @@ impl Type {
         let additional = [additional_key, additional_value].concat();
         (
             if inner_value == "true" {
-                format!("std::collections::HashSet<{inner_key}>")
+                format!("std::collections::HashMap<{inner_key}, bool>")
             } else {
                 format!("std::collections::HashMap<{inner_key},{inner_value}>")
             },

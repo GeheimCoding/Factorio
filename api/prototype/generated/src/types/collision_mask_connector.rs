@@ -4,7 +4,7 @@ pub struct CollisionMaskConnector {
     colliding_with_tiles_only: bool,
     #[serde(default = "default_consider_tile_transitions")]
     consider_tile_transitions: bool,
-    layers: std::collections::HashSet<crate::types::CollisionLayerID>,
+    layers: std::collections::HashMap<crate::types::CollisionLayerID, bool>,
     #[serde(default = "default_not_colliding_with_itself")]
     not_colliding_with_itself: bool,
 }
