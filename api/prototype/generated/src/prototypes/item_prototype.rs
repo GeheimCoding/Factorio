@@ -1,5 +1,6 @@
 #[derive(Debug, serde::Deserialize)]
 pub struct ItemPrototype {
+    #[serde(flatten)]
     base_: crate::prototypes::Prototype,
     #[serde(default = "default_burnt_result")]
     burnt_result: crate::types::ItemID,

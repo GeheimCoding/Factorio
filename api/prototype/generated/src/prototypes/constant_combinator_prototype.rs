@@ -1,5 +1,6 @@
 #[derive(Debug, serde::Deserialize)]
 pub struct ConstantCombinatorPrototype {
+    #[serde(flatten)]
     base_: crate::prototypes::EntityWithOwnerPrototype,
     activity_led_light: Option<crate::types::LightDefinition>,
     activity_led_light_offsets: (

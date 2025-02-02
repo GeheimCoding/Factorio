@@ -1,5 +1,6 @@
 #[derive(Debug, serde::Deserialize)]
 pub struct SpriteParameters {
+    #[serde(flatten)]
     base_: crate::types::SpriteSource,
     #[serde(default = "default_apply_runtime_tint")]
     apply_runtime_tint: bool,

@@ -1,5 +1,6 @@
 #[derive(Debug, serde::Deserialize)]
 pub struct TransportBeltPrototype {
+    #[serde(flatten)]
     base_: crate::prototypes::TransportBeltConnectablePrototype,
     belt_animation_set: Option<crate::types::TransportBeltAnimationSetWithCorners>,
     circuit_connector: Option<Vec<crate::types::CircuitConnectorDefinition>>,

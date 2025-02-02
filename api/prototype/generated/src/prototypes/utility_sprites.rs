@@ -1,5 +1,6 @@
 #[derive(Debug, serde::Deserialize)]
 pub struct UtilitySprites {
+    #[serde(flatten)]
     base_: crate::prototypes::PrototypeBase,
     achievement_label: crate::types::Sprite,
     achievement_label_completed: crate::types::Sprite,

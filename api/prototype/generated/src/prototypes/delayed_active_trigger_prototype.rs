@@ -1,5 +1,6 @@
 #[derive(Debug, serde::Deserialize)]
 pub struct DelayedActiveTriggerPrototype {
+    #[serde(flatten)]
     base_: crate::prototypes::ActiveTriggerPrototype,
     action: crate::types::Trigger,
     #[serde(default = "default_cancel_when_source_is_destroyed")]

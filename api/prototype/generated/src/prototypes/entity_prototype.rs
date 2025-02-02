@@ -1,5 +1,6 @@
 #[derive(Debug, serde::Deserialize)]
 pub struct EntityPrototype {
+    #[serde(flatten)]
     base_: crate::prototypes::Prototype,
     additional_pastable_entities: Option<Vec<crate::types::EntityID>>,
     alert_icon_scale: Option<f32>,

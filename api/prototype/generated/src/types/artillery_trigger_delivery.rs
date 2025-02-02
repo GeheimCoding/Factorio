@@ -1,5 +1,6 @@
 #[derive(Debug, serde::Deserialize)]
 pub struct ArtilleryTriggerDelivery {
+    #[serde(flatten)]
     base_: crate::types::TriggerDeliveryItem,
     #[serde(default = "default_direction_deviation")]
     direction_deviation: f32,

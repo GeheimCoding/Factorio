@@ -1,5 +1,6 @@
 #[derive(Debug, serde::Deserialize)]
 pub struct BoilerPrototype {
+    #[serde(flatten)]
     base_: crate::prototypes::EntityWithOwnerPrototype,
     burning_cooldown: u16,
     energy_consumption: crate::types::Energy,

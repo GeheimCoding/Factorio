@@ -1,5 +1,6 @@
 #[derive(Debug, serde::Deserialize)]
 pub struct SetTileTriggerEffectItem {
+    #[serde(flatten)]
     base_: crate::types::TriggerEffectItem,
     #[serde(default = "default_apply_on_space_platform")]
     apply_on_space_platform: bool,

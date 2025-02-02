@@ -1,5 +1,6 @@
 #[derive(Debug, serde::Deserialize)]
 pub struct UtilitySounds {
+    #[serde(flatten)]
     base_: crate::prototypes::PrototypeBase,
     achievement_unlocked: crate::types::Sound,
     alert_destroyed: crate::types::Sound,

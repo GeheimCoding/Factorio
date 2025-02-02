@@ -1,5 +1,6 @@
 #[derive(Debug, serde::Deserialize)]
 pub struct DontBuildEntityAchievementPrototype {
+    #[serde(flatten)]
     base_: crate::prototypes::AchievementPrototypeWithCondition,
     #[serde(default = "default_amount")]
     amount: u32,

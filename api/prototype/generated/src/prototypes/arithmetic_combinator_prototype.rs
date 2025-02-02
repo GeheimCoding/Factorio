@@ -1,5 +1,6 @@
 #[derive(Debug, serde::Deserialize)]
 pub struct ArithmeticCombinatorPrototype {
+    #[serde(flatten)]
     base_: crate::prototypes::CombinatorPrototype,
     and_symbol_sprites: Option<crate::types::Sprite4Way>,
     divide_symbol_sprites: Option<crate::types::Sprite4Way>,

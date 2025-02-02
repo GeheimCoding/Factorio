@@ -1,5 +1,6 @@
 #[derive(Debug, serde::Deserialize)]
 pub struct HeatPipePrototype {
+    #[serde(flatten)]
     base_: crate::prototypes::EntityWithOwnerPrototype,
     connection_sprites: Option<crate::types::ConnectableEntityGraphics>,
     heat_buffer: crate::types::HeatBuffer,

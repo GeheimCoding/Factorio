@@ -1,5 +1,6 @@
 #[derive(Debug, serde::Deserialize)]
 pub struct ScrollPaneStyleSpecification {
+    #[serde(flatten)]
     base_: crate::types::BaseStyleSpecification,
     always_draw_borders: Option<bool>,
     background_graphical_set: Option<crate::types::ElementImageSet>,

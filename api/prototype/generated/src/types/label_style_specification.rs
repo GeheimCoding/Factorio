@@ -1,5 +1,6 @@
 #[derive(Debug, serde::Deserialize)]
 pub struct LabelStyleSpecification {
+    #[serde(flatten)]
     base_: crate::types::BaseStyleSpecification,
     clicked_font_color: Option<crate::types::Color>,
     disabled_font_color: Option<crate::types::Color>,

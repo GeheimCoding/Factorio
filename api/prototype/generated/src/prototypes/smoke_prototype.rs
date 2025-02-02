@@ -1,5 +1,6 @@
 #[derive(Debug, serde::Deserialize)]
 pub struct SmokePrototype {
+    #[serde(flatten)]
     base_: crate::prototypes::EntityPrototype,
     #[serde(default = "default_affected_by_wind")]
     affected_by_wind: bool,

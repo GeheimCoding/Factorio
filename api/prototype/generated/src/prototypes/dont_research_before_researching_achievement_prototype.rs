@@ -1,5 +1,6 @@
 #[derive(Debug, serde::Deserialize)]
 pub struct DontResearchBeforeResearchingAchievementPrototype {
+    #[serde(flatten)]
     base_: crate::prototypes::AchievementPrototypeWithCondition,
     dont_research: DontResearchBeforeResearchingAchievementPrototypeDontResearch,
     research_with: DontResearchBeforeResearchingAchievementPrototypeResearchWith,

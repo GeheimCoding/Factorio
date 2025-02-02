@@ -1,5 +1,6 @@
 #[derive(Debug, serde::Deserialize)]
 pub struct InsertItemTriggerEffectItem {
+    #[serde(flatten)]
     base_: crate::types::TriggerEffectItem,
     #[serde(default = "default_count")]
     count: crate::types::ItemCountType,

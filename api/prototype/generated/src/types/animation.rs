@@ -1,5 +1,6 @@
 #[derive(Debug, serde::Deserialize)]
 pub struct Animation {
+    #[serde(flatten)]
     base_: crate::types::AnimationParameters,
     filename: Option<crate::types::FileName>,
     filenames: Option<Vec<crate::types::FileName>>,

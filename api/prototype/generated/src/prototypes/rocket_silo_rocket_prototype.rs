@@ -1,5 +1,6 @@
 #[derive(Debug, serde::Deserialize)]
 pub struct RocketSiloRocketPrototype {
+    #[serde(flatten)]
     base_: crate::prototypes::EntityPrototype,
     cargo_attachment_offset: Option<crate::types::Vector>,
     cargo_pod_entity: crate::types::EntityID,

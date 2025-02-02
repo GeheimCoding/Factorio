@@ -1,5 +1,6 @@
 #[derive(Debug, serde::Deserialize)]
 pub struct SimpleEntityWithOwnerPrototype {
+    #[serde(flatten)]
     base_: crate::prototypes::EntityWithOwnerPrototype,
     animations: Option<crate::types::AnimationVariations>,
     #[serde(default = "default_force_visibility")]

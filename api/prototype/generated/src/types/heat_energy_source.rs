@@ -1,5 +1,6 @@
 #[derive(Debug, serde::Deserialize)]
 pub struct HeatEnergySource {
+    #[serde(flatten)]
     base_: crate::types::BaseEnergySource,
     connections: Option<Vec<crate::types::HeatConnection>>,
     #[serde(default = "default_default_temperature")]

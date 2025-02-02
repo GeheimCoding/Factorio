@@ -1,5 +1,6 @@
 #[derive(Debug, serde::Deserialize)]
 pub struct AchievementPrototypeWithCondition {
+    #[serde(flatten)]
     base_: crate::prototypes::AchievementPrototype,
     objective_condition: AchievementPrototypeWithConditionObjectiveCondition,
 }

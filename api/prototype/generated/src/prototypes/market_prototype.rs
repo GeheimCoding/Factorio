@@ -1,5 +1,6 @@
 #[derive(Debug, serde::Deserialize)]
 pub struct MarketPrototype {
+    #[serde(flatten)]
     base_: crate::prototypes::EntityWithOwnerPrototype,
     #[serde(default = "default_allow_access_to_all_forces")]
     allow_access_to_all_forces: bool,

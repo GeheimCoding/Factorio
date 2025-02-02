@@ -1,5 +1,6 @@
 #[derive(Debug, serde::Deserialize)]
 pub struct ActivityBarStyleSpecification {
+    #[serde(flatten)]
     base_: crate::types::BaseStyleSpecification,
     bar: Option<crate::types::ElementImageSet>,
     bar_background: Option<crate::types::ElementImageSet>,

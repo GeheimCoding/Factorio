@@ -1,5 +1,6 @@
 #[derive(Debug, serde::Deserialize)]
 pub struct ArtilleryFlarePrototype {
+    #[serde(flatten)]
     base_: crate::prototypes::EntityPrototype,
     creation_shift: Option<crate::types::Vector>,
     #[serde(default = "default_early_death_ticks")]

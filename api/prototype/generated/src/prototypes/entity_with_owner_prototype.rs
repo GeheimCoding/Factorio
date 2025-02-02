@@ -1,5 +1,6 @@
 #[derive(Debug, serde::Deserialize)]
 pub struct EntityWithOwnerPrototype {
+    #[serde(flatten)]
     base_: crate::prototypes::EntityWithHealthPrototype,
     #[serde(default = "default_allow_run_time_change_of_is_military_target")]
     allow_run_time_change_of_is_military_target: bool,

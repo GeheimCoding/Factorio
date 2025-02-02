@@ -1,5 +1,6 @@
 #[derive(Debug, serde::Deserialize)]
 pub struct TrainStopPrototype {
+    #[serde(flatten)]
     base_: crate::prototypes::EntityWithOwnerPrototype,
     animation_ticks_per_frame: u32,
     animations: Option<crate::types::Animation4Way>,

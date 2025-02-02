@@ -1,5 +1,6 @@
 #[derive(Debug, serde::Deserialize)]
 pub struct TurretAttackModifier {
+    #[serde(flatten)]
     base_: crate::types::BaseModifier,
     #[serde(default = "default_infer_icon")]
     infer_icon: bool,

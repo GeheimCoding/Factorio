@@ -1,5 +1,6 @@
 #[derive(Debug, serde::Deserialize)]
 pub struct HeatInterfacePrototype {
+    #[serde(flatten)]
     base_: crate::prototypes::EntityWithOwnerPrototype,
     #[serde(default = "default_gui_mode")]
     gui_mode: HeatInterfacePrototypeGuiMode,

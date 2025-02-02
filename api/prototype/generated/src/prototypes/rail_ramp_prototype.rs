@@ -1,5 +1,6 @@
 #[derive(Debug, serde::Deserialize)]
 pub struct RailRampPrototype {
+    #[serde(flatten)]
     base_: crate::prototypes::RailPrototype,
     // default: `{{-1.6, -7.6}, {1.6, 7.6}}`
     collision_box: Option<crate::types::BoundingBox>,

@@ -1,5 +1,6 @@
 #[derive(Debug, serde::Deserialize)]
 pub struct LabPrototype {
+    #[serde(flatten)]
     base_: crate::prototypes::EntityWithOwnerPrototype,
     // default: All effects except quality are allowed
     allowed_effects: Option<crate::types::EffectTypeLimitation>,

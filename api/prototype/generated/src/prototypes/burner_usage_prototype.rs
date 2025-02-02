@@ -1,5 +1,6 @@
 #[derive(Debug, serde::Deserialize)]
 pub struct BurnerUsagePrototype {
+    #[serde(flatten)]
     base_: crate::prototypes::Prototype,
     accepted_fuel_key: String,
     burned_in_key: String,

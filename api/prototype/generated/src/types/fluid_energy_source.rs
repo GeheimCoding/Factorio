@@ -1,5 +1,6 @@
 #[derive(Debug, serde::Deserialize)]
 pub struct FluidEnergySource {
+    #[serde(flatten)]
     base_: crate::types::BaseEnergySource,
     #[serde(default = "default_burns_fluid")]
     burns_fluid: bool,

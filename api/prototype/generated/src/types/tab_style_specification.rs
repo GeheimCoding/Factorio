@@ -1,5 +1,6 @@
 #[derive(Debug, serde::Deserialize)]
 pub struct TabStyleSpecification {
+    #[serde(flatten)]
     base_: crate::types::StyleWithClickableGraphicalSetSpecification,
     badge_font: Option<String>,
     badge_horizontal_spacing: Option<i16>,

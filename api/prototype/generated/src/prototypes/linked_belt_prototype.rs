@@ -1,5 +1,6 @@
 #[derive(Debug, serde::Deserialize)]
 pub struct LinkedBeltPrototype {
+    #[serde(flatten)]
     base_: crate::prototypes::TransportBeltConnectablePrototype,
     #[serde(default = "default_allow_blueprint_connection")]
     allow_blueprint_connection: bool,

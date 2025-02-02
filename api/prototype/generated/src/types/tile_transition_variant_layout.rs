@@ -1,5 +1,6 @@
 #[derive(Debug, serde::Deserialize)]
 pub struct TileTransitionVariantLayout {
+    #[serde(flatten)]
     base_: crate::types::TileSpriteLayoutVariant,
     double_side: Option<crate::types::TileSpriteLayoutVariant>,
     double_side_count: Option<u8>,

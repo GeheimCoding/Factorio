@@ -1,5 +1,6 @@
 #[derive(Debug, serde::Deserialize)]
 pub struct StreamAttackParameters {
+    #[serde(flatten)]
     base_: crate::types::BaseAttackParameters,
     #[serde(default = "default_fluid_consumption")]
     fluid_consumption: crate::types::FluidAmount,

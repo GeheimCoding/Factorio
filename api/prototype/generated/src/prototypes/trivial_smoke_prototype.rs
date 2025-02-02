@@ -1,5 +1,6 @@
 #[derive(Debug, serde::Deserialize)]
 pub struct TrivialSmokePrototype {
+    #[serde(flatten)]
     base_: crate::prototypes::Prototype,
     #[serde(default = "default_affected_by_wind")]
     affected_by_wind: bool,

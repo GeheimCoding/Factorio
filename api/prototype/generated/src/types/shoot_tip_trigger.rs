@@ -1,5 +1,6 @@
 #[derive(Debug, serde::Deserialize)]
 pub struct ShootTipTrigger {
+    #[serde(flatten)]
     base_: crate::types::CountBasedTipTrigger,
     target: Option<ShootTipTriggerTarget>,
 }

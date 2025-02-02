@@ -1,5 +1,6 @@
 #[derive(Debug, serde::Deserialize)]
 pub struct FireFlamePrototype {
+    #[serde(flatten)]
     base_: crate::prototypes::EntityPrototype,
     #[serde(default = "default_add_fuel_cooldown")]
     add_fuel_cooldown: u32,

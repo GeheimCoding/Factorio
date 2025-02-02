@@ -1,5 +1,6 @@
 #[derive(Debug, serde::Deserialize)]
 pub struct BurnerEnergySource {
+    #[serde(flatten)]
     base_: crate::types::BaseEnergySource,
     #[serde(default = "default_burner_usage")]
     burner_usage: crate::types::BurnerUsageID,

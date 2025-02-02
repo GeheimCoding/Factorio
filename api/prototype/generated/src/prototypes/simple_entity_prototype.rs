@@ -1,5 +1,6 @@
 #[derive(Debug, serde::Deserialize)]
 pub struct SimpleEntityPrototype {
+    #[serde(flatten)]
     base_: crate::prototypes::EntityWithHealthPrototype,
     animations: Option<crate::types::AnimationVariations>,
     #[serde(default = "default_count_as_rock_for_filtered_deconstruction")]

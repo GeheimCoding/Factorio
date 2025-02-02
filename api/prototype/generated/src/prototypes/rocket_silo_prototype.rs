@@ -1,5 +1,6 @@
 #[derive(Debug, serde::Deserialize)]
 pub struct RocketSiloPrototype {
+    #[serde(flatten)]
     base_: crate::prototypes::AssemblingMachinePrototype,
     active_energy_usage: crate::types::Energy,
     alarm_sound: Option<crate::types::Sound>,

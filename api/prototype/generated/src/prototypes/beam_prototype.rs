@@ -1,5 +1,6 @@
 #[derive(Debug, serde::Deserialize)]
 pub struct BeamPrototype {
+    #[serde(flatten)]
     base_: crate::prototypes::EntityPrototype,
     action: Option<crate::types::Trigger>,
     #[serde(default = "default_action_triggered_automatically")]

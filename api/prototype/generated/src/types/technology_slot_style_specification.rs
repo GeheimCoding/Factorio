@@ -1,5 +1,6 @@
 #[derive(Debug, serde::Deserialize)]
 pub struct TechnologySlotStyleSpecification {
+    #[serde(flatten)]
     base_: crate::types::ButtonStyleSpecification,
     clicked_ingredients_background: Option<crate::types::ElementImageSet>,
     clicked_overlay: Option<crate::types::ElementImageSet>,

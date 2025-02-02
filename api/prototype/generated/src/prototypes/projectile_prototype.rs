@@ -1,5 +1,6 @@
 #[derive(Debug, serde::Deserialize)]
 pub struct ProjectilePrototype {
+    #[serde(flatten)]
     base_: crate::prototypes::EntityPrototype,
     acceleration: f64,
     action: Option<crate::types::Trigger>,

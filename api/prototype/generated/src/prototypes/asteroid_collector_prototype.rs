@@ -1,5 +1,6 @@
 #[derive(Debug, serde::Deserialize)]
 pub struct AsteroidCollectorPrototype {
+    #[serde(flatten)]
     base_: crate::prototypes::EntityWithOwnerPrototype,
     #[serde(default = "default_arm_angular_speed_cap_base")]
     arm_angular_speed_cap_base: f32,

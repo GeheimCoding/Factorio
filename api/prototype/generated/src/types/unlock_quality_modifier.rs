@@ -1,5 +1,6 @@
 #[derive(Debug, serde::Deserialize)]
 pub struct UnlockQualityModifier {
+    #[serde(flatten)]
     base_: crate::types::BaseModifier,
     quality: crate::types::QualityID,
     #[serde(default = "default_use_icon_overlay_constant")]

@@ -1,5 +1,6 @@
 #[derive(Debug, serde::Deserialize)]
 pub struct AutoplaceControl {
+    #[serde(flatten)]
     base_: crate::prototypes::Prototype,
     #[serde(default = "default_can_be_disabled")]
     can_be_disabled: bool,

@@ -1,5 +1,6 @@
 #[derive(Debug, serde::Deserialize)]
 pub struct BlueprintItemPrototype {
+    #[serde(flatten)]
     base_: crate::prototypes::SelectionToolPrototype,
     alt_select: crate::types::SelectionModeData,
     #[serde(default = "default_always_include_tiles")]

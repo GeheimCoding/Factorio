@@ -1,5 +1,6 @@
 #[derive(Debug, serde::Deserialize)]
 pub struct EquipArmorAchievementPrototype {
+    #[serde(flatten)]
     base_: crate::prototypes::AchievementPrototype,
     alternative_armor: crate::types::ItemID,
     #[serde(default = "default_amount")]

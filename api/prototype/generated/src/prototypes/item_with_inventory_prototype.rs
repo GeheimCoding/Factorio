@@ -1,5 +1,6 @@
 #[derive(Debug, serde::Deserialize)]
 pub struct ItemWithInventoryPrototype {
+    #[serde(flatten)]
     base_: crate::prototypes::ItemWithLabelPrototype,
     #[serde(default = "default_filter_message_key")]
     filter_message_key: String,

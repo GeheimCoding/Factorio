@@ -1,5 +1,6 @@
 #[derive(Debug, serde::Deserialize)]
 pub struct CharacterPrototype {
+    #[serde(flatten)]
     base_: crate::prototypes::EntityWithOwnerPrototype,
     animations: Vec<crate::types::CharacterArmorAnimation>,
     build_distance: u32,

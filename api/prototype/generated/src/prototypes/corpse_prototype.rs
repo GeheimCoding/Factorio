@@ -1,5 +1,6 @@
 #[derive(Debug, serde::Deserialize)]
 pub struct CorpsePrototype {
+    #[serde(flatten)]
     base_: crate::prototypes::EntityPrototype,
     animation: Option<crate::types::RotatedAnimationVariations>,
     animation_overlay: Option<crate::types::RotatedAnimationVariations>,

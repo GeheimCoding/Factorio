@@ -1,5 +1,6 @@
 #[derive(Debug, serde::Deserialize)]
 pub struct LandMinePrototype {
+    #[serde(flatten)]
     base_: crate::prototypes::EntityWithOwnerPrototype,
     action: Option<crate::types::Trigger>,
     ammo_category: Option<crate::types::AmmoCategoryID>,

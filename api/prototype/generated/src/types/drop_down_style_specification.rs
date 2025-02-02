@@ -1,5 +1,6 @@
 #[derive(Debug, serde::Deserialize)]
 pub struct DropDownStyleSpecification {
+    #[serde(flatten)]
     base_: crate::types::BaseStyleSpecification,
     button_style: Option<crate::types::ButtonStyleSpecification>,
     icon: Option<crate::types::Sprite>,

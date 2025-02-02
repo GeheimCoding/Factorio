@@ -1,5 +1,6 @@
 #[derive(Debug, serde::Deserialize)]
 pub struct SpriteSheet {
+    #[serde(flatten)]
     base_: crate::types::SpriteParameters,
     dice: Option<crate::types::SpriteSizeType>,
     dice_x: Option<crate::types::SpriteSizeType>,

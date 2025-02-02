@@ -1,5 +1,6 @@
 #[derive(Debug, serde::Deserialize)]
 pub struct ElectricEnergyInterfacePrototype {
+    #[serde(flatten)]
     base_: crate::prototypes::EntityWithOwnerPrototype,
     #[serde(default = "default_allow_copy_paste")]
     allow_copy_paste: bool,

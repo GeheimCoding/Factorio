@@ -1,5 +1,6 @@
 #[derive(Debug, serde::Deserialize)]
 pub struct VehiclePrototype {
+    #[serde(flatten)]
     base_: crate::prototypes::EntityWithOwnerPrototype,
     #[serde(default = "default_allow_passengers")]
     allow_passengers: bool,

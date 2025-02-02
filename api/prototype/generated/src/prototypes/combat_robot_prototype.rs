@@ -1,5 +1,6 @@
 #[derive(Debug, serde::Deserialize)]
 pub struct CombatRobotPrototype {
+    #[serde(flatten)]
     base_: crate::prototypes::FlyingRobotPrototype,
     attack_parameters: crate::types::AttackParameters,
     destroy_action: Option<crate::types::Trigger>,

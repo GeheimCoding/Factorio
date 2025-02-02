@@ -1,5 +1,6 @@
 #[derive(Debug, serde::Deserialize)]
 pub struct CameraEffectTriggerEffectItem {
+    #[serde(flatten)]
     base_: crate::types::TriggerEffectItem,
     #[serde(default = "default_delay")]
     delay: u8,

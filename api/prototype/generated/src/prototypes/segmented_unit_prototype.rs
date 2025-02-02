@@ -1,5 +1,6 @@
 #[derive(Debug, serde::Deserialize)]
 pub struct SegmentedUnitPrototype {
+    #[serde(flatten)]
     base_: crate::prototypes::SegmentPrototype,
     acceleration_rate: f64,
     attack_parameters: Option<crate::types::AttackParameters>,

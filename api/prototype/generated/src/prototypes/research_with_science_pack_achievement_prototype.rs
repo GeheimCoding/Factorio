@@ -1,5 +1,6 @@
 #[derive(Debug, serde::Deserialize)]
 pub struct ResearchWithSciencePackAchievementPrototype {
+    #[serde(flatten)]
     base_: crate::prototypes::AchievementPrototype,
     #[serde(default = "default_amount")]
     amount: u32,

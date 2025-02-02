@@ -1,5 +1,6 @@
 #[derive(Debug, serde::Deserialize)]
 pub struct ItemWithEntityDataPrototype {
+    #[serde(flatten)]
     base_: crate::prototypes::ItemPrototype,
     icon_tintable: Option<crate::types::FileName>,
     icon_tintable_mask: Option<crate::types::FileName>,

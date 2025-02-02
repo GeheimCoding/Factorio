@@ -1,5 +1,6 @@
 #[derive(Debug, serde::Deserialize)]
 pub struct ExplosionPrototype {
+    #[serde(flatten)]
     base_: crate::prototypes::EntityPrototype,
     animations: crate::types::AnimationVariations,
     #[serde(default = "default_beam")]

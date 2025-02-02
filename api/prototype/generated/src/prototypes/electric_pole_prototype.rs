@@ -1,5 +1,6 @@
 #[derive(Debug, serde::Deserialize)]
 pub struct ElectricPolePrototype {
+    #[serde(flatten)]
     base_: crate::prototypes::EntityWithOwnerPrototype,
     active_picture: Option<crate::types::Sprite>,
     #[serde(default = "default_auto_connect_up_to_n_wires")]

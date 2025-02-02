@@ -1,5 +1,6 @@
 #[derive(Debug, serde::Deserialize)]
 pub struct AreaTriggerItem {
+    #[serde(flatten)]
     base_: crate::types::TriggerItem,
     #[serde(default = "default_collision_mode")]
     collision_mode: AreaTriggerItemCollisionMode,

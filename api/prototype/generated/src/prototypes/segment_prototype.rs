@@ -1,5 +1,6 @@
 #[derive(Debug, serde::Deserialize)]
 pub struct SegmentPrototype {
+    #[serde(flatten)]
     base_: crate::prototypes::EntityWithOwnerPrototype,
     animation: crate::types::RotatedAnimation,
     #[serde(default = "default_backward_overlap")]

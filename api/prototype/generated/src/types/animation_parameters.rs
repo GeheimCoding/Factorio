@@ -1,5 +1,6 @@
 #[derive(Debug, serde::Deserialize)]
 pub struct AnimationParameters {
+    #[serde(flatten)]
     base_: crate::types::SpriteParameters,
     #[serde(default = "default_animation_speed")]
     animation_speed: f32,

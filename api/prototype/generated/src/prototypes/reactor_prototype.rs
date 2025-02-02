@@ -1,5 +1,6 @@
 #[derive(Debug, serde::Deserialize)]
 pub struct ReactorPrototype {
+    #[serde(flatten)]
     base_: crate::prototypes::EntityWithOwnerPrototype,
     circuit_connector: Option<crate::types::CircuitConnectorDefinition>,
     #[serde(default = "default_circuit_wire_max_distance")]

@@ -1,5 +1,6 @@
 #[derive(Debug, serde::Deserialize)]
 pub struct ArtilleryWagonPrototype {
+    #[serde(flatten)]
     base_: crate::prototypes::RollingStockPrototype,
     ammo_stack_limit: crate::types::ItemCountType,
     cannon_barrel_light_direction: Option<crate::types::Vector3D>,

@@ -1,5 +1,6 @@
 #[derive(Debug, serde::Deserialize)]
 pub struct SplitterPrototype {
+    #[serde(flatten)]
     base_: crate::prototypes::TransportBeltConnectablePrototype,
     frozen_patch: Option<crate::types::Sprite4Way>,
     related_transport_belt: Option<crate::types::EntityID>,

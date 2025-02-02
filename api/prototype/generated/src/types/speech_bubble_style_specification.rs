@@ -1,5 +1,6 @@
 #[derive(Debug, serde::Deserialize)]
 pub struct SpeechBubbleStyleSpecification {
+    #[serde(flatten)]
     base_: crate::types::BaseStyleSpecification,
     arrow_graphical_set: Option<crate::types::ElementImageSet>,
     arrow_indent: Option<f64>,

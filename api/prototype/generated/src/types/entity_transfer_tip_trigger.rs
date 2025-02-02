@@ -1,5 +1,6 @@
 #[derive(Debug, serde::Deserialize)]
 pub struct EntityTransferTipTrigger {
+    #[serde(flatten)]
     base_: crate::types::CountBasedTipTrigger,
     // default: any transfer
     transfer: Option<EntityTransferTipTriggerTransfer>,

@@ -1,5 +1,6 @@
 #[derive(Debug, serde::Deserialize)]
 pub struct CreateDecorativesTriggerEffectItem {
+    #[serde(flatten)]
     base_: crate::types::TriggerEffectItem,
     #[serde(default = "default_apply_projection")]
     apply_projection: bool,

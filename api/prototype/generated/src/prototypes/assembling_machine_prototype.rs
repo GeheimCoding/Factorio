@@ -1,5 +1,6 @@
 #[derive(Debug, serde::Deserialize)]
 pub struct AssemblingMachinePrototype {
+    #[serde(flatten)]
     base_: crate::prototypes::CraftingMachinePrototype,
     circuit_connector: Option<(
         crate::types::CircuitConnectorDefinition,

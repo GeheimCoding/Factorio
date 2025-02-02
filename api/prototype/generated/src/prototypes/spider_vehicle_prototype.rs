@@ -1,5 +1,6 @@
 #[derive(Debug, serde::Deserialize)]
 pub struct SpiderVehiclePrototype {
+    #[serde(flatten)]
     base_: crate::prototypes::VehiclePrototype,
     automatic_weapon_cycling: bool,
     chain_shooting_cooldown_modifier: f32,

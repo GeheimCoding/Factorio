@@ -1,5 +1,6 @@
 #[derive(Debug, serde::Deserialize)]
 pub struct TextBoxStyleSpecification {
+    #[serde(flatten)]
     base_: crate::types::BaseStyleSpecification,
     active_background: Option<crate::types::ElementImageSet>,
     default_background: Option<crate::types::ElementImageSet>,

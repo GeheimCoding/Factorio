@@ -1,5 +1,6 @@
 #[derive(Debug, serde::Deserialize)]
 pub struct GiveItemModifier {
+    #[serde(flatten)]
     base_: crate::types::BaseModifier,
     #[serde(default = "default_count")]
     count: crate::types::ItemCountType,

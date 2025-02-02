@@ -1,5 +1,6 @@
 #[derive(Debug, serde::Deserialize)]
 pub struct TransportBeltConnectablePrototype {
+    #[serde(flatten)]
     base_: crate::prototypes::EntityWithOwnerPrototype,
     #[serde(default = "default_animation_speed_coefficient")]
     animation_speed_coefficient: f64,

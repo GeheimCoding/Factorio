@@ -1,5 +1,6 @@
 #[derive(Debug, serde::Deserialize)]
 pub struct AgriculturalTowerPrototype {
+    #[serde(flatten)]
     base_: crate::prototypes::EntityWithOwnerPrototype,
     arm_extending_sound: Option<crate::types::InterruptibleSound>,
     arm_extending_sound_source: Option<String>,

@@ -1,5 +1,6 @@
 #[derive(Debug, serde::Deserialize)]
 pub struct MiningDrillPrototype {
+    #[serde(flatten)]
     base_: crate::prototypes::EntityWithOwnerPrototype,
     // default: All effects are allowed
     allowed_effects: Option<crate::types::EffectTypeLimitation>,

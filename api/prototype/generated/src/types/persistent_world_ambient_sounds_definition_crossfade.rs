@@ -1,5 +1,6 @@
 #[derive(Debug, serde::Deserialize)]
 pub struct PersistentWorldAmbientSoundsDefinitionCrossfade {
+    #[serde(flatten)]
     base_: crate::types::Fade,
     order: (
         PersistentWorldAmbientSoundsDefinitionCrossfadeOrder,

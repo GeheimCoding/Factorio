@@ -1,5 +1,6 @@
 #[derive(Debug, serde::Deserialize)]
 pub struct DecorativePrototype {
+    #[serde(flatten)]
     base_: crate::prototypes::Prototype,
     autoplace: Option<crate::types::AutoplaceSpecification>,
     collision_box: Option<crate::types::BoundingBox>,

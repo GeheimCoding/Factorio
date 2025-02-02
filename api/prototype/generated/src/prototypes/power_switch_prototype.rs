@@ -1,5 +1,6 @@
 #[derive(Debug, serde::Deserialize)]
 pub struct PowerSwitchPrototype {
+    #[serde(flatten)]
     base_: crate::prototypes::EntityWithOwnerPrototype,
     circuit_wire_connection_point: crate::types::WireConnectionPoint,
     #[serde(default = "default_draw_circuit_wires")]

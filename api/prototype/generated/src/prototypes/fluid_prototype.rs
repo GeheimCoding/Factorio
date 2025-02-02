@@ -1,5 +1,6 @@
 #[derive(Debug, serde::Deserialize)]
 pub struct FluidPrototype {
+    #[serde(flatten)]
     base_: crate::prototypes::Prototype,
     #[serde(default = "default_auto_barrel")]
     auto_barrel: bool,

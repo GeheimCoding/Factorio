@@ -1,5 +1,6 @@
 #[derive(Debug, serde::Deserialize)]
 pub struct ShortcutPrototype {
+    #[serde(flatten)]
     base_: crate::prototypes::Prototype,
     action: ShortcutPrototypeAction,
     #[serde(default = "default_associated_control_input")]

@@ -1,5 +1,6 @@
 #[derive(Debug, serde::Deserialize)]
 pub struct NamedNoiseExpression {
+    #[serde(flatten)]
     base_: crate::prototypes::Prototype,
     expression: crate::types::NoiseExpression,
     intended_property: Option<String>,

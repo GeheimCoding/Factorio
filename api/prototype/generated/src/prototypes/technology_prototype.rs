@@ -1,5 +1,6 @@
 #[derive(Debug, serde::Deserialize)]
 pub struct TechnologyPrototype {
+    #[serde(flatten)]
     base_: crate::prototypes::Prototype,
     #[serde(default = "default_allows_productivity")]
     allows_productivity: bool,

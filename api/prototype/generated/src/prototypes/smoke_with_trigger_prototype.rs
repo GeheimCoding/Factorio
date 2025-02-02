@@ -1,5 +1,6 @@
 #[derive(Debug, serde::Deserialize)]
 pub struct SmokeWithTriggerPrototype {
+    #[serde(flatten)]
     base_: crate::prototypes::SmokePrototype,
     action: Option<crate::types::Trigger>,
     #[serde(default = "default_action_cooldown")]

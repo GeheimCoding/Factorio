@@ -1,5 +1,6 @@
 #[derive(Debug, serde::Deserialize)]
 pub struct FrameStyleSpecification {
+    #[serde(flatten)]
     base_: crate::types::BaseStyleSpecification,
     background_graphical_set: Option<crate::types::ElementImageSet>,
     border: Option<crate::types::BorderImageSet>,

@@ -1,5 +1,6 @@
 #[derive(Debug, serde::Deserialize)]
 pub struct AccumulatorPrototype {
+    #[serde(flatten)]
     base_: crate::prototypes::EntityWithOwnerPrototype,
     chargable_graphics: Option<crate::types::ChargableGraphics>,
     circuit_connector: Option<crate::types::CircuitConnectorDefinition>,

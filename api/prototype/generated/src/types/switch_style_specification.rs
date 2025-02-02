@@ -1,5 +1,6 @@
 #[derive(Debug, serde::Deserialize)]
 pub struct SwitchStyleSpecification {
+    #[serde(flatten)]
     base_: crate::types::BaseStyleSpecification,
     active_label: Option<crate::types::LabelStyleSpecification>,
     button: Option<crate::types::ButtonStyleSpecification>,

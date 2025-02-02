@@ -1,5 +1,6 @@
 #[derive(Debug, serde::Deserialize)]
 pub struct ParticleSourcePrototype {
+    #[serde(flatten)]
     base_: crate::prototypes::EntityPrototype,
     height: f32,
     #[serde(default = "default_height_deviation")]

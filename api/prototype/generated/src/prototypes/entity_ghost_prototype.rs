@@ -1,5 +1,6 @@
 #[derive(Debug, serde::Deserialize)]
 pub struct EntityGhostPrototype {
+    #[serde(flatten)]
     base_: crate::prototypes::EntityPrototype,
     huge_build_animated_sound: Option<crate::types::Sound>,
     huge_build_sound: Option<crate::types::Sound>,

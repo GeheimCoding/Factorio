@@ -1,5 +1,6 @@
 #[derive(Debug, serde::Deserialize)]
 pub struct ProgrammableSpeakerPrototype {
+    #[serde(flatten)]
     base_: crate::prototypes::EntityWithOwnerPrototype,
     #[serde(default = "default_audible_distance_modifier")]
     audible_distance_modifier: f32,

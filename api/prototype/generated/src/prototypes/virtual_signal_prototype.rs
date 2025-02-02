@@ -1,5 +1,6 @@
 #[derive(Debug, serde::Deserialize)]
 pub struct VirtualSignalPrototype {
+    #[serde(flatten)]
     base_: crate::prototypes::Prototype,
     icon: Option<crate::types::FileName>,
     #[serde(default = "default_icon_size")]

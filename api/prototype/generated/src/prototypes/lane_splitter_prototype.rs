@@ -1,5 +1,6 @@
 #[derive(Debug, serde::Deserialize)]
 pub struct LaneSplitterPrototype {
+    #[serde(flatten)]
     base_: crate::prototypes::TransportBeltConnectablePrototype,
     structure: crate::types::Animation4Way,
     #[serde(default = "default_structure_animation_movement_cooldown")]

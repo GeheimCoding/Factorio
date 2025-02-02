@@ -1,5 +1,6 @@
 #[derive(Debug, serde::Deserialize)]
 pub struct DamageTriggerEffectItem {
+    #[serde(flatten)]
     base_: crate::types::TriggerEffectItem,
     #[serde(default = "default_apply_damage_to_trees")]
     apply_damage_to_trees: bool,

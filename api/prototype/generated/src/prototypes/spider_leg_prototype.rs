@@ -1,5 +1,6 @@
 #[derive(Debug, serde::Deserialize)]
 pub struct SpiderLegPrototype {
+    #[serde(flatten)]
     base_: crate::prototypes::EntityWithOwnerPrototype,
     #[serde(default = "default_ankle_height")]
     ankle_height: f64,

@@ -1,5 +1,6 @@
 #[derive(Debug, serde::Deserialize)]
 pub struct InfinityPipePrototype {
+    #[serde(flatten)]
     base_: crate::prototypes::PipePrototype,
     #[serde(default = "default_gui_mode")]
     gui_mode: InfinityPipePrototypeGuiMode,

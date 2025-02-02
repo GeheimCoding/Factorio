@@ -1,5 +1,6 @@
 #[derive(Debug, serde::Deserialize)]
 pub struct CliffPrototype {
+    #[serde(flatten)]
     base_: crate::prototypes::EntityPrototype,
     cliff_explosive: Option<crate::types::ItemID>,
     grid_offset: crate::types::Vector,

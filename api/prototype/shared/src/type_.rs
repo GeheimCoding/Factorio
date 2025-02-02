@@ -281,7 +281,10 @@ impl Type {
             let mut others = Vec::new();
             let mut result = String::from("{");
             if let Some(parent) = metadata.parent {
-                result.push_str(&format!("base_: {},", parent.to_rust_type(context).0));
+                result.push_str(&format!(
+                    "#[serde(flatten)]base_: {},",
+                    parent.to_rust_type(context).0
+                ));
             }
             for property in properties {
                 if let Some((inner, additional)) = property.generate(prefix, context) {
@@ -291,7 +294,7 @@ impl Type {
             }
             if let Some(custom_properties) = metadata.custom_properties {
                 result.push_str(&format!(
-                    "custom_: {},",
+                    "#[serde(flatten)]custom_: {},",
                     Self::generate_dictionary(
                         &custom_properties.key_type,
                         &custom_properties.value_type,

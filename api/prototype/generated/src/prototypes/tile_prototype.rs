@@ -1,5 +1,6 @@
 #[derive(Debug, serde::Deserialize)]
 pub struct TilePrototype {
+    #[serde(flatten)]
     base_: crate::prototypes::Prototype,
     absorptions_per_second:
         Option<std::collections::HashMap<crate::types::AirbornePollutantID, f64>>,

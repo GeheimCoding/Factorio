@@ -1,5 +1,6 @@
 #[derive(Debug, serde::Deserialize)]
 pub struct CaptureRobotPrototype {
+    #[serde(flatten)]
     base_: crate::prototypes::FlyingRobotPrototype,
     capture_animation: Option<crate::types::Animation>,
     #[serde(default = "default_capture_speed")]

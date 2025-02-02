@@ -1,5 +1,6 @@
 #[derive(Debug, serde::Deserialize)]
 pub struct UtilityConstants {
+    #[serde(flatten)]
     base_: crate::prototypes::PrototypeBase,
     agricultural_range_visualization_color: crate::types::Color,
     artillery_range_visualization_color: crate::types::Color,

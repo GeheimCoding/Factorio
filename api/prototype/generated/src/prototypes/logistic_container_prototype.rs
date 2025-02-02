@@ -1,5 +1,6 @@
 #[derive(Debug, serde::Deserialize)]
 pub struct LogisticContainerPrototype {
+    #[serde(flatten)]
     base_: crate::prototypes::ContainerPrototype,
     animation: Option<crate::types::Animation>,
     animation_sound: Option<crate::types::Sound>,

@@ -1,5 +1,6 @@
 #[derive(Debug, serde::Deserialize)]
 pub struct StickerPrototype {
+    #[serde(flatten)]
     base_: crate::prototypes::EntityPrototype,
     animation: Option<crate::types::Animation>,
     #[serde(default = "default_damage_interval")]

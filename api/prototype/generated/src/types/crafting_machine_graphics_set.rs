@@ -1,5 +1,6 @@
 #[derive(Debug, serde::Deserialize)]
 pub struct CraftingMachineGraphicsSet {
+    #[serde(flatten)]
     base_: crate::types::WorkingVisualisations,
     #[serde(default = "default_animation_progress")]
     animation_progress: f32,

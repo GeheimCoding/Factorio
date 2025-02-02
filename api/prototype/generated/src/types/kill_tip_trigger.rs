@@ -1,5 +1,6 @@
 #[derive(Debug, serde::Deserialize)]
 pub struct KillTipTrigger {
+    #[serde(flatten)]
     base_: crate::types::CountBasedTipTrigger,
     damage_type: Option<crate::types::DamageTypeID>,
     entity: Option<crate::types::EntityID>,

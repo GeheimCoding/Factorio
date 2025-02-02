@@ -1,5 +1,6 @@
 #[derive(Debug, serde::Deserialize)]
 pub struct ResourceEntityPrototype {
+    #[serde(flatten)]
     base_: crate::prototypes::EntityPrototype,
     #[serde(default = "default_category")]
     category: crate::types::ResourceCategoryID,

@@ -1,5 +1,6 @@
 #[derive(Debug, serde::Deserialize)]
 pub struct CargoLandingPadPrototype {
+    #[serde(flatten)]
     base_: crate::prototypes::EntityWithOwnerPrototype,
     cargo_station_parameters: crate::types::CargoStationParameters,
     circuit_connector: Option<crate::types::CircuitConnectorDefinition>,

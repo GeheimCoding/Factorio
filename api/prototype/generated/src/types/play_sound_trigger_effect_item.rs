@@ -1,5 +1,6 @@
 #[derive(Debug, serde::Deserialize)]
 pub struct PlaySoundTriggerEffectItem {
+    #[serde(flatten)]
     base_: crate::types::TriggerEffectItem,
     #[serde(default = "default_audible_distance_modifier")]
     audible_distance_modifier: f32,

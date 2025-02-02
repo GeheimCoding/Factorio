@@ -1,5 +1,6 @@
 #[derive(Debug, serde::Deserialize)]
 pub struct GraphStyleSpecification {
+    #[serde(flatten)]
     base_: crate::types::BaseStyleSpecification,
     background_color: Option<crate::types::Color>,
     data_line_highlight_distance: Option<u32>,

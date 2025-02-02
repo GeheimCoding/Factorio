@@ -1,5 +1,6 @@
 #[derive(Debug, serde::Deserialize)]
 pub struct ElectricEnergySource {
+    #[serde(flatten)]
     base_: crate::types::BaseEnergySource,
     buffer_capacity: Option<crate::types::Energy>,
     drain: Option<crate::types::Energy>,

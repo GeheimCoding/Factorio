@@ -1,5 +1,6 @@
 #[derive(Debug, serde::Deserialize)]
 pub struct FollowerRobotLifetimeModifier {
+    #[serde(flatten)]
     base_: crate::types::SimpleModifier,
     #[serde(default = "default_infer_icon")]
     infer_icon: bool,

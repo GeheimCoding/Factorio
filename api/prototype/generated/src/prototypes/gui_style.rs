@@ -1,5 +1,6 @@
 #[derive(Debug, serde::Deserialize)]
 pub struct GuiStyle {
+    #[serde(flatten)]
     base_: crate::prototypes::PrototypeBase,
     #[serde(default = "default_default_sprite_priority")]
     default_sprite_priority: crate::types::SpritePriority,
@@ -7,6 +8,7 @@ pub struct GuiStyle {
     default_sprite_scale: f64,
     #[serde(default = "default_default_tileset")]
     default_tileset: crate::types::FileName,
+    #[serde(flatten)]
     custom_: std::collections::HashMap<String, crate::types::StyleSpecification>,
 }
 fn default_default_sprite_priority() -> crate::types::SpritePriority {

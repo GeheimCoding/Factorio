@@ -1,5 +1,6 @@
 #[derive(Debug, serde::Deserialize)]
 pub struct SetRecipeTipTrigger {
+    #[serde(flatten)]
     base_: crate::types::CountBasedTipTrigger,
     #[serde(default = "default_any_quality")]
     any_quality: bool,

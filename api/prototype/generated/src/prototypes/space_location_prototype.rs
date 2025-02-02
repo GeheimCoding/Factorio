@@ -1,5 +1,6 @@
 #[derive(Debug, serde::Deserialize)]
 pub struct SpaceLocationPrototype {
+    #[serde(flatten)]
     base_: crate::prototypes::Prototype,
     asteroid_spawn_definitions: Option<Vec<crate::types::SpaceLocationAsteroidSpawnDefinition>>,
     #[serde(default = "default_asteroid_spawn_influence")]

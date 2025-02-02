@@ -1,5 +1,6 @@
 #[derive(Debug, serde::Deserialize)]
 pub struct SetFilterTipTrigger {
+    #[serde(flatten)]
     base_: crate::types::CountBasedTipTrigger,
     #[serde(default = "default_consecutive")]
     consecutive: bool,

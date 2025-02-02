@@ -1,5 +1,6 @@
 #[derive(Debug, serde::Deserialize)]
 pub struct EnemySpawnerPrototype {
+    #[serde(flatten)]
     base_: crate::prototypes::EntityWithOwnerPrototype,
     absorptions_per_second: Option<
         std::collections::HashMap<

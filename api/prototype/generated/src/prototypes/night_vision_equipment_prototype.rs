@@ -1,5 +1,6 @@
 #[derive(Debug, serde::Deserialize)]
 pub struct NightVisionEquipmentPrototype {
+    #[serde(flatten)]
     base_: crate::prototypes::EquipmentPrototype,
     activate_sound: Option<crate::types::Sound>,
     color_lookup: crate::types::DaytimeColorLookupTable,

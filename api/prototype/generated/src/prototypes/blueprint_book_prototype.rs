@@ -1,5 +1,6 @@
 #[derive(Debug, serde::Deserialize)]
 pub struct BlueprintBookPrototype {
+    #[serde(flatten)]
     base_: crate::prototypes::ItemWithInventoryPrototype,
     #[serde(default = "default_draw_label_for_cursor_render")]
     draw_label_for_cursor_render: bool,

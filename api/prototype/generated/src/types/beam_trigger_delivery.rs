@@ -1,5 +1,6 @@
 #[derive(Debug, serde::Deserialize)]
 pub struct BeamTriggerDelivery {
+    #[serde(flatten)]
     base_: crate::types::TriggerDeliveryItem,
     #[serde(default = "default_add_to_shooter")]
     add_to_shooter: bool,

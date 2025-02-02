@@ -1,5 +1,6 @@
 #[derive(Debug, serde::Deserialize)]
 pub struct TileMainPictures {
+    #[serde(flatten)]
     base_: crate::types::TileSpriteLayout,
     #[serde(default = "default_probability")]
     probability: f64,

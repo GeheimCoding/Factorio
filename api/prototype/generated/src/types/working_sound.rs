@@ -2,6 +2,7 @@
 pub enum WorkingSound {
     #[serde(untagged)]
     WorkingSound {
+        #[serde(flatten)]
         base_: crate::types::MainSound,
         activate_sound: Option<crate::types::Sound>,
         #[serde(default = "default_apparent_volume")]

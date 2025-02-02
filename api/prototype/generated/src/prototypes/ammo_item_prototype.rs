@@ -1,5 +1,6 @@
 #[derive(Debug, serde::Deserialize)]
 pub struct AmmoItemPrototype {
+    #[serde(flatten)]
     base_: crate::prototypes::ItemPrototype,
     ammo_category: crate::types::AmmoCategoryID,
     ammo_type: AmmoItemPrototypeAmmoType,

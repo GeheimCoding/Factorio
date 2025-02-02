@@ -1,5 +1,6 @@
 #[derive(Debug, serde::Deserialize)]
 pub struct FluidTurretPrototype {
+    #[serde(flatten)]
     base_: crate::prototypes::TurretPrototype,
     activation_buffer_ratio: crate::types::FluidAmount,
     attack_parameters: crate::types::StreamAttackParameters,

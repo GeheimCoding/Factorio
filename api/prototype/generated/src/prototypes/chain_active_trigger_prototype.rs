@@ -1,5 +1,6 @@
 #[derive(Debug, serde::Deserialize)]
 pub struct ChainActiveTriggerPrototype {
+    #[serde(flatten)]
     base_: crate::prototypes::ActiveTriggerPrototype,
     action: Option<crate::types::Trigger>,
     #[serde(default = "default_fork_chance")]

@@ -1,5 +1,6 @@
 #[derive(Debug, serde::Deserialize)]
 pub struct RobotWithLogisticInterfacePrototype {
+    #[serde(flatten)]
     base_: crate::prototypes::FlyingRobotPrototype,
     charging_sound: Option<crate::types::InterruptibleSound>,
     destroy_action: Option<crate::types::Trigger>,

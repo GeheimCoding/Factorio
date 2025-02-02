@@ -1,5 +1,6 @@
 #[derive(Debug, serde::Deserialize)]
 pub struct AsteroidPrototype {
+    #[serde(flatten)]
     base_: crate::prototypes::EntityWithOwnerPrototype,
     emissions_per_second: Option<std::collections::HashMap<crate::types::AirbornePollutantID, f64>>,
     graphics_set: Option<crate::types::AsteroidGraphicsSet>,

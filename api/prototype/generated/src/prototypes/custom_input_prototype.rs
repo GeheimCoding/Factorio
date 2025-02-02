@@ -1,5 +1,6 @@
 #[derive(Debug, serde::Deserialize)]
 pub struct CustomInputPrototype {
+    #[serde(flatten)]
     base_: crate::prototypes::Prototype,
     #[serde(default = "default_action")]
     action: CustomInputPrototypeAction,

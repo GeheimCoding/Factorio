@@ -1,5 +1,6 @@
 #[derive(Debug, serde::Deserialize)]
 pub struct PlanetPrototype {
+    #[serde(flatten)]
     base_: crate::prototypes::SpaceLocationPrototype,
     #[serde(default = "default_entities_require_heating")]
     entities_require_heating: bool,

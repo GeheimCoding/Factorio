@@ -1,5 +1,6 @@
 #[derive(Debug, serde::Deserialize)]
 pub struct TurretPrototype {
+    #[serde(flatten)]
     base_: crate::prototypes::EntityWithOwnerPrototype,
     #[serde(default = "default_alert_when_attacking")]
     alert_when_attacking: bool,

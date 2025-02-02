@@ -1,5 +1,6 @@
 #[derive(Debug, serde::Deserialize)]
 pub struct DontUseEntityInEnergyProductionAchievementPrototype {
+    #[serde(flatten)]
     base_: crate::prototypes::AchievementPrototypeWithCondition,
     excluded: DontUseEntityInEnergyProductionAchievementPrototypeExcluded,
     included: Option<DontUseEntityInEnergyProductionAchievementPrototypeIncluded>,

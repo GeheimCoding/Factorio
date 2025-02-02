@@ -1,5 +1,6 @@
 #[derive(Debug, serde::Deserialize)]
 pub struct CreateSmokeTriggerEffectItem {
+    #[serde(flatten)]
     base_: crate::types::CreateEntityTriggerEffectItem,
     #[serde(default = "default_initial_height")]
     initial_height: f32,

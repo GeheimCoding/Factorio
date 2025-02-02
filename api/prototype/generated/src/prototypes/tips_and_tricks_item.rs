@@ -1,5 +1,6 @@
 #[derive(Debug, serde::Deserialize)]
 pub struct TipsAndTricksItem {
+    #[serde(flatten)]
     base_: crate::prototypes::PrototypeBase,
     // default: the `name` of this prototype
     category: Option<String>,

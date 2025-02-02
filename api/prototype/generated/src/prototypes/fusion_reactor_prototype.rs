@@ -1,5 +1,6 @@
 #[derive(Debug, serde::Deserialize)]
 pub struct FusionReactorPrototype {
+    #[serde(flatten)]
     base_: crate::prototypes::EntityWithOwnerPrototype,
     burner: crate::types::BurnerEnergySource,
     energy_source: crate::types::ElectricEnergySource,

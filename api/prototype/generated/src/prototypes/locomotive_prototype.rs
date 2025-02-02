@@ -1,5 +1,6 @@
 #[derive(Debug, serde::Deserialize)]
 pub struct LocomotivePrototype {
+    #[serde(flatten)]
     base_: crate::prototypes::RollingStockPrototype,
     #[serde(default = "default_darkness_to_render_light_animation")]
     darkness_to_render_light_animation: f32,

@@ -1,5 +1,6 @@
 #[derive(Debug, serde::Deserialize)]
 pub struct CargoPodPrototype {
+    #[serde(flatten)]
     base_: crate::prototypes::EntityWithOwnerPrototype,
     default_graphic: Option<crate::types::ProcessionGraphic>,
     default_shadow_graphic: Option<crate::types::ProcessionGraphic>,

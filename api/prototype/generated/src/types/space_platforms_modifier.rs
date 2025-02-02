@@ -1,5 +1,6 @@
 #[derive(Debug, serde::Deserialize)]
 pub struct SpacePlatformsModifier {
+    #[serde(flatten)]
     base_: crate::types::BoolModifier,
     #[serde(default = "default_use_icon_overlay_constant")]
     use_icon_overlay_constant: bool,

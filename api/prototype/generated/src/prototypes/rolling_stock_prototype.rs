@@ -1,5 +1,6 @@
 #[derive(Debug, serde::Deserialize)]
 pub struct RollingStockPrototype {
+    #[serde(flatten)]
     base_: crate::prototypes::VehiclePrototype,
     air_resistance: f64,
     #[serde(default = "default_allow_manual_color")]

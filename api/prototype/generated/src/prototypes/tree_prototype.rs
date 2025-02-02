@@ -1,5 +1,6 @@
 #[derive(Debug, serde::Deserialize)]
 pub struct TreePrototype {
+    #[serde(flatten)]
     base_: crate::prototypes::EntityWithHealthPrototype,
     colors: Option<Vec<crate::types::Color>>,
     #[serde(default = "default_darkness_of_burnt_tree")]

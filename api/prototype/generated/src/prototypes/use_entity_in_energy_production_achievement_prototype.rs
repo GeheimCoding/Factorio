@@ -1,5 +1,6 @@
 #[derive(Debug, serde::Deserialize)]
 pub struct UseEntityInEnergyProductionAchievementPrototype {
+    #[serde(flatten)]
     base_: crate::prototypes::AchievementPrototype,
     consumed_condition: Option<crate::types::ItemID>,
     entity: crate::types::EntityID,

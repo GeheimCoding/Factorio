@@ -1,5 +1,6 @@
 #[derive(Debug, serde::Deserialize)]
 pub struct GunSpeedModifier {
+    #[serde(flatten)]
     base_: crate::types::BaseModifier,
     ammo_category: crate::types::AmmoCategoryID,
     #[serde(default = "default_infer_icon")]

@@ -1,5 +1,6 @@
 #[derive(Debug, serde::Deserialize)]
 pub struct ArmorPrototype {
+    #[serde(flatten)]
     base_: crate::prototypes::ToolPrototype,
     collision_box: Option<crate::types::BoundingBox>,
     drawing_box: Option<crate::types::BoundingBox>,

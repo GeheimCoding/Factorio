@@ -1,5 +1,6 @@
 #[derive(Debug, serde::Deserialize)]
 pub struct ThrusterGraphicsSet {
+    #[serde(flatten)]
     base_: crate::types::WorkingVisualisations,
     flame: Option<crate::types::Sprite>,
     flame_effect: Option<crate::types::EffectTexture>,

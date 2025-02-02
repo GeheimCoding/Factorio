@@ -1,5 +1,6 @@
 #[derive(Debug, serde::Deserialize)]
 pub struct BuildEntityTipTrigger {
+    #[serde(flatten)]
     base_: crate::types::CountBasedTipTrigger,
     build_by_dragging: Option<bool>,
     #[serde(default = "default_build_in_line")]

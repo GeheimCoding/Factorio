@@ -1,5 +1,6 @@
 #[derive(Debug, serde::Deserialize)]
 pub struct UnitPrototype {
+    #[serde(flatten)]
     base_: crate::prototypes::EntityWithOwnerPrototype,
     absorptions_to_join_attack:
         Option<std::collections::HashMap<crate::types::AirbornePollutantID, f32>>,

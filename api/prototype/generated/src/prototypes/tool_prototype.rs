@@ -1,5 +1,6 @@
 #[derive(Debug, serde::Deserialize)]
 pub struct ToolPrototype {
+    #[serde(flatten)]
     base_: crate::prototypes::ItemPrototype,
     durability: Option<f64>,
     durability_description_key: Option<String>,

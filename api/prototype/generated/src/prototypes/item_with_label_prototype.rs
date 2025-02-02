@@ -1,5 +1,6 @@
 #[derive(Debug, serde::Deserialize)]
 pub struct ItemWithLabelPrototype {
+    #[serde(flatten)]
     base_: crate::prototypes::ItemPrototype,
     // default: Default item text color
     default_label_color: Option<crate::types::Color>,

@@ -1,5 +1,6 @@
 #[derive(Debug, serde::Deserialize)]
 pub struct AchievementPrototype {
+    #[serde(flatten)]
     base_: crate::prototypes::Prototype,
     #[serde(default = "default_allowed_without_fight")]
     allowed_without_fight: bool,

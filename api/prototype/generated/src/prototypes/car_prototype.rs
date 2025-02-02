@@ -1,5 +1,6 @@
 #[derive(Debug, serde::Deserialize)]
 pub struct CarPrototype {
+    #[serde(flatten)]
     base_: crate::prototypes::VehiclePrototype,
     animation: Option<crate::types::RotatedAnimation>,
     #[serde(default = "default_auto_sort_inventory")]

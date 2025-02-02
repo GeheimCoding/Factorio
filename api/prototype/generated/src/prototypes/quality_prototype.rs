@@ -1,5 +1,6 @@
 #[derive(Debug, serde::Deserialize)]
 pub struct QualityPrototype {
+    #[serde(flatten)]
     base_: crate::prototypes::Prototype,
     #[serde(default = "default_beacon_power_usage_multiplier")]
     beacon_power_usage_multiplier: f32,

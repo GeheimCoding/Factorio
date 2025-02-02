@@ -1,5 +1,6 @@
 #[derive(Debug, serde::Deserialize)]
 pub struct PumpPrototype {
+    #[serde(flatten)]
     base_: crate::prototypes::EntityWithOwnerPrototype,
     animations: Option<crate::types::Animation4Way>,
     circuit_connector: Option<(

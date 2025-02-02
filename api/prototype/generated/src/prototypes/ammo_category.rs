@@ -1,5 +1,6 @@
 #[derive(Debug, serde::Deserialize)]
 pub struct AmmoCategory {
+    #[serde(flatten)]
     base_: crate::prototypes::Prototype,
     #[serde(default = "default_bonus_gui_order")]
     bonus_gui_order: crate::types::Order,

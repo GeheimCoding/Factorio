@@ -1,5 +1,6 @@
 #[derive(Debug, serde::Deserialize)]
 pub struct InfinityContainerPrototype {
+    #[serde(flatten)]
     base_: crate::prototypes::LogisticContainerPrototype,
     erase_contents_when_mined: bool,
     #[serde(default = "default_gui_mode")]

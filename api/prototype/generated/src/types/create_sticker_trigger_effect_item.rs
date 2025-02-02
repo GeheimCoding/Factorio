@@ -1,5 +1,6 @@
 #[derive(Debug, serde::Deserialize)]
 pub struct CreateStickerTriggerEffectItem {
+    #[serde(flatten)]
     base_: crate::types::TriggerEffectItem,
     #[serde(default = "default_show_in_tooltip")]
     show_in_tooltip: bool,

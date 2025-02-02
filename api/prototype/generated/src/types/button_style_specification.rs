@@ -1,5 +1,6 @@
 #[derive(Debug, serde::Deserialize)]
 pub struct ButtonStyleSpecification {
+    #[serde(flatten)]
     base_: crate::types::StyleWithClickableGraphicalSetSpecification,
     clicked_font_color: Option<crate::types::Color>,
     clicked_vertical_offset: Option<u32>,

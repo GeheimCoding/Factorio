@@ -1,5 +1,6 @@
 #[derive(Debug, serde::Deserialize)]
 pub struct OffshorePumpPrototype {
+    #[serde(flatten)]
     base_: crate::prototypes::EntityWithOwnerPrototype,
     #[serde(default = "default_always_draw_fluid")]
     always_draw_fluid: bool,

@@ -1,5 +1,6 @@
 #[derive(Debug, serde::Deserialize)]
 pub struct RoboportEquipmentPrototype {
+    #[serde(flatten)]
     base_: crate::prototypes::EquipmentPrototype,
     burner: Option<crate::types::BurnerEnergySource>,
     charge_approach_distance: f32,

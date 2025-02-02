@@ -1,5 +1,6 @@
 #[derive(Debug, serde::Deserialize)]
 pub struct StorageTankPrototype {
+    #[serde(flatten)]
     base_: crate::prototypes::EntityWithOwnerPrototype,
     circuit_connector: Option<(
         crate::types::CircuitConnectorDefinition,

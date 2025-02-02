@@ -1,5 +1,6 @@
 #[derive(Debug, serde::Deserialize)]
 pub struct GeneratorPrototype {
+    #[serde(flatten)]
     base_: crate::prototypes::EntityWithOwnerPrototype,
     #[serde(default = "default_burns_fluid")]
     burns_fluid: bool,

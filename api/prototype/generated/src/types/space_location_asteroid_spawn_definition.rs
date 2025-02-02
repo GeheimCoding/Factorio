@@ -1,5 +1,6 @@
 #[derive(Debug, serde::Deserialize)]
 pub struct SpaceLocationAsteroidSpawnDefinition {
+    #[serde(flatten)]
     base_: crate::types::AsteroidSpawnPoint,
     asteroid: SpaceLocationAsteroidSpawnDefinitionAsteroid,
     #[serde(rename = "type")]

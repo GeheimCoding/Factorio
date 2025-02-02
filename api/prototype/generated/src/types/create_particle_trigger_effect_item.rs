@@ -1,5 +1,6 @@
 #[derive(Debug, serde::Deserialize)]
 pub struct CreateParticleTriggerEffectItem {
+    #[serde(flatten)]
     base_: crate::types::TriggerEffectItem,
     apply_tile_tint: Option<CreateParticleTriggerEffectItemApplyTileTint>,
     #[serde(default = "default_frame_speed")]

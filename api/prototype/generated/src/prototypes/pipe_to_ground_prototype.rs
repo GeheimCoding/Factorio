@@ -1,5 +1,6 @@
 #[derive(Debug, serde::Deserialize)]
 pub struct PipeToGroundPrototype {
+    #[serde(flatten)]
     base_: crate::prototypes::EntityWithOwnerPrototype,
     disabled_visualization: Option<crate::types::Sprite4Way>,
     #[serde(default = "default_draw_fluid_icon_override")]

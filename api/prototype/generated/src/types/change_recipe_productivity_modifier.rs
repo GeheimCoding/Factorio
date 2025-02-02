@@ -1,5 +1,6 @@
 #[derive(Debug, serde::Deserialize)]
 pub struct ChangeRecipeProductivityModifier {
+    #[serde(flatten)]
     base_: crate::types::BaseModifier,
     change: crate::types::EffectValue,
     recipe: crate::types::RecipeID,

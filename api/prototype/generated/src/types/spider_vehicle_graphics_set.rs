@@ -1,5 +1,6 @@
 #[derive(Debug, serde::Deserialize)]
 pub struct SpiderVehicleGraphicsSet {
+    #[serde(flatten)]
     base_: crate::types::SpiderTorsoGraphicsSet,
     autopilot_destination_on_map_visualisation: Option<crate::types::Animation>,
     autopilot_destination_queue_on_map_visualisation: Option<crate::types::Animation>,

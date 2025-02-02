@@ -1,5 +1,6 @@
 #[derive(Debug, serde::Deserialize)]
 pub struct UnlockRecipeModifier {
+    #[serde(flatten)]
     base_: crate::types::BaseModifier,
     recipe: crate::types::RecipeID,
     #[serde(default = "default_use_icon_overlay_constant")]

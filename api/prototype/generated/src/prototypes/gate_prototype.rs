@@ -1,5 +1,6 @@
 #[derive(Debug, serde::Deserialize)]
 pub struct GatePrototype {
+    #[serde(flatten)]
     base_: crate::prototypes::EntityWithOwnerPrototype,
     activation_distance: f64,
     closing_sound: Option<crate::types::Sound>,

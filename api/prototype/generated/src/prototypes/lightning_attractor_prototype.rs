@@ -1,5 +1,6 @@
 #[derive(Debug, serde::Deserialize)]
 pub struct LightningAttractorPrototype {
+    #[serde(flatten)]
     base_: crate::prototypes::EntityWithOwnerPrototype,
     chargable_graphics: Option<crate::types::ChargableGraphics>,
     #[serde(default = "default_efficiency")]

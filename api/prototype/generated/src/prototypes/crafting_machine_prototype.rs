@@ -1,5 +1,6 @@
 #[derive(Debug, serde::Deserialize)]
 pub struct CraftingMachinePrototype {
+    #[serde(flatten)]
     base_: crate::prototypes::EntityWithOwnerPrototype,
     // default: No effects are allowed
     allowed_effects: Option<crate::types::EffectTypeLimitation>,

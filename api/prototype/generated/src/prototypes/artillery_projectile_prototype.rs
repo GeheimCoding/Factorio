@@ -1,5 +1,6 @@
 #[derive(Debug, serde::Deserialize)]
 pub struct ArtilleryProjectilePrototype {
+    #[serde(flatten)]
     base_: crate::prototypes::EntityPrototype,
     action: Option<crate::types::Trigger>,
     chart_picture: Option<crate::types::Sprite>,

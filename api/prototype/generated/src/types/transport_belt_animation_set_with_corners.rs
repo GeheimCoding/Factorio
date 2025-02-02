@@ -1,5 +1,6 @@
 #[derive(Debug, serde::Deserialize)]
 pub struct TransportBeltAnimationSetWithCorners {
+    #[serde(flatten)]
     base_: crate::types::TransportBeltAnimationSet,
     #[serde(default = "default_east_to_north_index")]
     east_to_north_index: u8,

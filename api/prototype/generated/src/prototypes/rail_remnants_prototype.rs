@@ -1,5 +1,6 @@
 #[derive(Debug, serde::Deserialize)]
 pub struct RailRemnantsPrototype {
+    #[serde(flatten)]
     base_: crate::prototypes::CorpsePrototype,
     #[serde(default = "default_build_grid_size")]
     build_grid_size: f64,

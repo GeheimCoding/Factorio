@@ -1,5 +1,6 @@
 #[derive(Debug, serde::Deserialize)]
 pub struct LampPrototype {
+    #[serde(flatten)]
     base_: crate::prototypes::EntityWithOwnerPrototype,
     #[serde(default = "default_always_on")]
     always_on: bool,

@@ -1,5 +1,6 @@
 #[derive(Debug, serde::Deserialize)]
 pub struct SliderStyleSpecification {
+    #[serde(flatten)]
     base_: crate::types::BaseStyleSpecification,
     button: Option<crate::types::ButtonStyleSpecification>,
     draw_notches: Option<bool>,

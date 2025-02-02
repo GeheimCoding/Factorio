@@ -1,5 +1,6 @@
 #[derive(Debug, serde::Deserialize)]
 pub struct ProgressBarStyleSpecification {
+    #[serde(flatten)]
     base_: crate::types::BaseStyleSpecification,
     bar: Option<crate::types::ElementImageSet>,
     bar_background: Option<crate::types::ElementImageSet>,

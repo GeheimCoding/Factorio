@@ -1,5 +1,6 @@
 #[derive(Debug, serde::Deserialize)]
 pub struct RoboportPrototype {
+    #[serde(flatten)]
     base_: crate::prototypes::EntityWithOwnerPrototype,
     base: Option<crate::types::Sprite>,
     base_animation: Option<crate::types::Animation>,

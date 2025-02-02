@@ -1,5 +1,6 @@
 #[derive(Debug, serde::Deserialize)]
 pub struct FluidStreamPrototype {
+    #[serde(flatten)]
     base_: crate::prototypes::EntityPrototype,
     action: Option<crate::types::Trigger>,
     ground_light: Option<crate::types::LightDefinition>,

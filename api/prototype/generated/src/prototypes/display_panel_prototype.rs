@@ -1,5 +1,6 @@
 #[derive(Debug, serde::Deserialize)]
 pub struct DisplayPanelPrototype {
+    #[serde(flatten)]
     base_: crate::prototypes::EntityWithOwnerPrototype,
     background_color: Option<crate::types::Color>,
     circuit_connector: Option<(

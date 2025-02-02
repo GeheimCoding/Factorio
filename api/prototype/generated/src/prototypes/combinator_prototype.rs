@@ -1,5 +1,6 @@
 #[derive(Debug, serde::Deserialize)]
 pub struct CombinatorPrototype {
+    #[serde(flatten)]
     base_: crate::prototypes::EntityWithOwnerPrototype,
     active_energy_usage: crate::types::Energy,
     #[serde(default = "default_activity_led_hold_time")]

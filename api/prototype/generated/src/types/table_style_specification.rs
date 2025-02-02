@@ -1,5 +1,6 @@
 #[derive(Debug, serde::Deserialize)]
 pub struct TableStyleSpecification {
+    #[serde(flatten)]
     base_: crate::types::BaseStyleSpecification,
     apply_row_graphical_set_per_column: Option<bool>,
     background_graphical_set: Option<crate::types::ElementImageSet>,

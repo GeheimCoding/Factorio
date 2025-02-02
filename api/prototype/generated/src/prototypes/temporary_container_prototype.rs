@@ -1,5 +1,6 @@
 #[derive(Debug, serde::Deserialize)]
 pub struct TemporaryContainerPrototype {
+    #[serde(flatten)]
     base_: crate::prototypes::ContainerPrototype,
     #[serde(default = "default_alert_after_time")]
     alert_after_time: u32,

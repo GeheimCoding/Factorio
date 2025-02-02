@@ -1,5 +1,6 @@
 #[derive(Debug, serde::Deserialize)]
 pub struct ElectricTurretPrototype {
+    #[serde(flatten)]
     base_: crate::prototypes::TurretPrototype,
     energy_source: ElectricTurretPrototypeEnergySource,
 }

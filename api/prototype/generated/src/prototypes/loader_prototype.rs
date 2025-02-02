@@ -1,5 +1,6 @@
 #[derive(Debug, serde::Deserialize)]
 pub struct LoaderPrototype {
+    #[serde(flatten)]
     base_: crate::prototypes::TransportBeltConnectablePrototype,
     #[serde(default = "default_allow_container_interaction")]
     allow_container_interaction: bool,

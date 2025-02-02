@@ -1,5 +1,6 @@
 #[derive(Debug, serde::Deserialize)]
 pub struct RotatedAnimation {
+    #[serde(flatten)]
     base_: crate::types::AnimationParameters,
     #[serde(default = "default_apply_projection")]
     apply_projection: bool,

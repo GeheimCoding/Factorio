@@ -1,5 +1,6 @@
 #[derive(Debug, serde::Deserialize)]
 pub struct UndergroundBeltPrototype {
+    #[serde(flatten)]
     base_: crate::prototypes::TransportBeltConnectablePrototype,
     max_distance: u8,
     max_distance_tint: Option<crate::types::Color>,

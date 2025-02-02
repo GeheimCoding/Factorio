@@ -1,5 +1,6 @@
 #[derive(Debug, serde::Deserialize)]
 pub struct RecipePrototype {
+    #[serde(flatten)]
     base_: crate::prototypes::Prototype,
     #[serde(default = "default_allow_as_intermediate")]
     allow_as_intermediate: bool,

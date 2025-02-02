@@ -1,5 +1,6 @@
 #[derive(Debug, serde::Deserialize)]
 pub struct ModulePrototype {
+    #[serde(flatten)]
     base_: crate::prototypes::ItemPrototype,
     art_style: Option<String>,
     beacon_tint: Option<BeaconVisualizationTints>,

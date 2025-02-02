@@ -1,5 +1,6 @@
 #[derive(Debug, serde::Deserialize)]
 pub struct LogisticRobotPrototype {
+    #[serde(flatten)]
     base_: crate::prototypes::RobotWithLogisticInterfacePrototype,
     // default: Empty = `{{0, 0}, {0, 0}}`
     collision_box: Option<crate::types::BoundingBox>,

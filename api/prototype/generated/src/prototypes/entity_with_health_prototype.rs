@@ -1,5 +1,6 @@
 #[derive(Debug, serde::Deserialize)]
 pub struct EntityWithHealthPrototype {
+    #[serde(flatten)]
     base_: crate::prototypes::EntityPrototype,
     #[serde(default = "default_alert_when_damaged")]
     alert_when_damaged: bool,

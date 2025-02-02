@@ -1,5 +1,6 @@
 #[derive(Debug, serde::Deserialize)]
 pub struct ClusterTriggerItem {
+    #[serde(flatten)]
     base_: crate::types::TriggerItem,
     cluster_count: u32,
     distance: f32,

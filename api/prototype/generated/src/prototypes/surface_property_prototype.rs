@@ -1,5 +1,6 @@
 #[derive(Debug, serde::Deserialize)]
 pub struct SurfacePropertyPrototype {
+    #[serde(flatten)]
     base_: crate::prototypes::Prototype,
     default_value: f64,
     #[serde(default = "default_is_time")]
