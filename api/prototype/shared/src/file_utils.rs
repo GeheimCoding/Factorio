@@ -8,7 +8,7 @@ use std::process::{Child, Command};
 
 pub fn save_file_if_changed(parent: &str, path: &Path, content: &str) -> anyhow::Result<()> {
     create_all_directories(path)?;
-    if has_content_changed(parent, &path, content)? {
+    if has_content_changed(parent, path, content)? {
         fs::write(path, content)?;
         if path.extension() == Some(OsStr::new("rs")) {
             rustfmt(path)?;
@@ -18,12 +18,11 @@ pub fn save_file_if_changed(parent: &str, path: &Path, content: &str) -> anyhow:
 }
 
 fn create_all_directories(path: &Path) -> anyhow::Result<()> {
-    let dir_path;
-    if path.is_dir() {
-        dir_path = path;
+    let dir_path = if path.is_dir() {
+        path
     } else {
-        dir_path = path.parent().context("parent")?;
-    }
+        path.parent().context("parent")?
+    };
     fs::create_dir_all(dir_path).context(format!("failed to create directory at {:?}", path))
 }
 
@@ -35,10 +34,10 @@ fn has_content_changed(parent: &str, path: &Path, content: &str) -> anyhow::Resu
     let temp_file = fs::File::create(temp_file_path)?;
     write!(&temp_file, "{content}")?;
     if temp_file_path.extension() == Some(OsStr::new("rs")) {
-        rustfmt(&temp_file_path)?.wait()?;
+        rustfmt(temp_file_path)?.wait()?;
     }
     let content = fs::read_to_string(temp_file_path)?;
-    let existing = fs::read_to_string(path).unwrap_or(String::new());
+    let existing = fs::read_to_string(path).unwrap_or_default();
     Ok(content != existing)
 }
 

@@ -58,22 +58,17 @@ impl Concept {
     }
 
     pub fn get_tagged_key(&self) -> Option<&String> {
-        self.properties
-            .as_ref()
-            .map(|properties| {
-                for property in properties
-                    .iter()
-                    .filter(|property| property.base.name == "type")
-                {
-                    if let Some(value) = property.type_.get_literal_value() {
-                        if let LiteralValue::String(value) = value {
-                            return Some(value);
-                        }
-                    }
+        self.properties.as_ref().and_then(|properties| {
+            for property in properties
+                .iter()
+                .filter(|property| property.base.name == "type")
+            {
+                if let Some(LiteralValue::String(value)) = property.type_.get_literal_value() {
+                    return Some(value);
                 }
-                None
-            })
-            .flatten()
+            }
+            None
+        })
     }
 
     fn generate_struct(&self, context: &Context) -> String {
@@ -111,7 +106,7 @@ impl Concept {
         } else {
             self.assert_properties();
         }
-        let (_, mut additional) = self.type_.generate(&self.rust_name(), context);
+        let (_, mut additional) = self.type_.generate(self.rust_name(), context);
         let mut seen: HashSet<String> = HashSet::new();
         additional.retain(|a| seen.insert(a.clone()));
         additional.join("")

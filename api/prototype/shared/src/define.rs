@@ -7,6 +7,7 @@ use crate::transformation::Transformation;
 use serde::Deserialize;
 use std::cmp::PartialEq;
 use std::collections::HashMap;
+use std::fmt::Write;
 use std::path::Path;
 
 #[derive(Debug, Deserialize)]
@@ -120,7 +121,7 @@ impl Define {
                 let key = format!("{parent_lua_define_key}.{}", value.name);
                 let lua_value = lua_defines
                     .get(&key)
-                    .expect(&format!("expected define for key {key}"));
+                    .unwrap_or_else(|| panic!("expected define for key {key}"));
                 if let LuaValue::Number(number) = lua_value {
                     values
                         .entry(number.to_string())
@@ -131,7 +132,7 @@ impl Define {
                 }
             });
         let mut values = values.iter().collect::<Vec<_>>();
-        values.sort_by(|a, b| a.0.cmp(&b.0));
+        values.sort_by(|a, b| a.0.cmp(b.0));
 
         let rust_name = self.rust_name();
         let mut serde = String::new();
@@ -139,7 +140,7 @@ impl Define {
         let mut return_variants = String::new();
         values.iter().for_each(|(key, values)| {
             if values.len() == 1 {
-                let value = values.get(0).expect("must exist");
+                let value = values.first().expect("must exist");
                 return_variants.push_str(&format!("{value},"));
                 variants.push_str(&format!("{key} => Ok({rust_name}::{value}),"));
             } else {
@@ -148,10 +149,10 @@ impl Define {
                 ));
                 variants.push_str(&format!(
                     "{key} => Ok({rust_name}::Value{key}(std::collections::HashSet::from([{}]))),",
-                    values
-                        .iter()
-                        .map(|value| format!("Value{key}::{value},"))
-                        .collect::<String>()
+                    values.iter().fold(String::new(), |mut output, value| {
+                        let _ = write!(output, "Value{key}::{value},");
+                        output
+                    })
                 ));
                 serde.push_str(&format!(
                     "{}pub enum Value{key}{{ {}, }}",

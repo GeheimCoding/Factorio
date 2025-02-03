@@ -171,16 +171,12 @@ impl Type {
         )
     }
 
-    fn generate_tuple(
-        values: &Vec<Type>,
-        prefix: &str,
-        context: &Context,
-    ) -> (String, Vec<String>) {
+    fn generate_tuple(values: &[Type], prefix: &str, context: &Context) -> (String, Vec<String>) {
         let (inner, additional): (Vec<String>, Vec<Vec<String>>) = values
             .iter()
             .map(|value| {
                 let (mut inner, additional) = value.generate(prefix, context);
-                if value.should_be_boxed(&context) {
+                if value.should_be_boxed(context) {
                     inner = format!("Box<{inner}>");
                 }
                 (inner, additional)
@@ -189,13 +185,7 @@ impl Type {
         let additional = additional
             .into_iter()
             .fold(vec![], |acc, e| [acc, e].concat());
-        (
-            format!(
-                "({})",
-                inner.into_iter().map(|v| v).collect::<Vec<_>>().join(",")
-            ),
-            additional,
-        )
+        (format!("({})", inner.join(",")), additional)
     }
 
     fn generate_union(
@@ -248,7 +238,7 @@ impl Type {
                 }
             }
         }
-        union.sort_by(|a, b| a.contains(untagged).cmp(&b.contains(untagged)));
+        union.sort_by_key(|s| s.contains(untagged));
         let derive_hash = if context.hash_keys.contains(prefix) {
             ", PartialEq, Eq, Hash"
         } else {
@@ -325,7 +315,7 @@ impl Type {
 
     fn generate_type(
         value: &Type,
-        _description: &String,
+        _description: &str,
         prefix: &str,
         context: &Context,
     ) -> (String, Vec<String>) {
@@ -336,7 +326,7 @@ impl Type {
         let metadata = context
             .metadata
             .get(prefix)
-            .expect(&format!("expected metadata for struct {prefix}"));
+            .unwrap_or_else(|| panic!("expected metadata for struct {prefix}"));
         if let Some(properties) = metadata.properties {
             let mut others = Vec::new();
             let mut result = String::from("{");
@@ -385,7 +375,7 @@ impl Type {
 impl LiteralValue {
     pub fn generate(&self) -> String {
         match self {
-            LiteralValue::String(s) => format!("{}", s.to_pascal_case()),
+            LiteralValue::String(s) => s.to_pascal_case(),
             LiteralValue::Number(n) => format!("{n}"),
             LiteralValue::Bool(b) => format!("{b}"),
         }

@@ -47,7 +47,7 @@ impl Transformation for String {
                 .to_ascii_lowercase(),
         );
         let mut with_underscore = true;
-        while let Some(c) = chars.next() {
+        for c in chars {
             if c.is_ascii_uppercase() || c.is_numeric() {
                 if with_underscore {
                     snake_case.push_str(&format!("_{}", c.to_ascii_lowercase()));

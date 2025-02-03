@@ -38,7 +38,7 @@ pub struct Context<'a> {
 
 impl Context<'_> {
     pub fn with_prefix(&self, rust_name: &str) -> (String, Vec<String>) {
-        if let Some(define) = rust_name.split("defines.").into_iter().skip(1).next() {
+        if let Some(define) = rust_name.split("defines.").nth(1) {
             return (
                 format!("crate::defines::{}", String::from(define).to_pascal_case()),
                 vec![],
@@ -66,7 +66,7 @@ impl Context<'_> {
         let (kind, _) = self
             .context
             .get(rust_name)
-            .expect(&format!("expected context for {rust_name}"));
+            .unwrap_or_else(|| panic!("expected context for {rust_name}"));
 
         (
             match kind {
@@ -169,7 +169,7 @@ impl Format {
         }
     }
 
-    fn extract_hash_keys(properties: &Vec<Property>, prefix: &str) -> HashSet<String> {
+    fn extract_hash_keys(properties: &[Property], prefix: &str) -> HashSet<String> {
         properties
             .iter()
             .flat_map(|p| {

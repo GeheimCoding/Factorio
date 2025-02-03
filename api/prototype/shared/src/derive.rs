@@ -57,3 +57,9 @@ impl Display for Derive {
         f.write_str(&self.other.join(","))
     }
 }
+
+impl Default for Derive {
+    fn default() -> Self {
+        Self::new()
+    }
+}
