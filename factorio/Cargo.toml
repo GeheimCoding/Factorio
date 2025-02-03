@@ -8,4 +8,4 @@ edition = "2021"
 [dependencies]
 remote_console = { version = "0.1.0", path = "../remote_console" }
 api = { path = "../api" }
-anyhow = "1.0.93"
+anyhow = "1.0.95"

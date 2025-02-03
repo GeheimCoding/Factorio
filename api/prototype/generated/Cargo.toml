@@ -9,5 +9,5 @@ prototypes_generator = { path = "../prototypes/prototypes_generator" }
 types_generator = { path = "../types/types_generator" }
 
 [dependencies]
-serde = { version = "1.0.215", features = ["derive"] }
+serde = { version = "1.0.217", features = ["derive"] }
 serde_repr = "0.1.19"

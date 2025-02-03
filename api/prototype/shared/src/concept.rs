@@ -41,7 +41,7 @@ impl Concept {
             .name
             .chars()
             .next()
-            .map_or(false, char::is_uppercase)
+            .is_some_and(char::is_uppercase)
             && !self.inline
     }
 
