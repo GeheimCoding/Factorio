@@ -61,7 +61,7 @@ impl Property {
             inner = String::from(literal.to_rust_type());
         }
         let (mut name, other) = self.base.name.to_rust_type(context);
-        // README: Adjustment [TODO]
+        // README: Adjustment [10]
         if (prefix.starts_with("TechnologySlotStyleSpecification") && name.contains("offset"))
             || (prefix.starts_with("ItemProductPrototype") && name.starts_with("amount"))
             || (prefix.starts_with("CreateParticleTriggerEffectItem")
@@ -74,7 +74,7 @@ impl Property {
         {
             inner = String::from("f32");
         }
-        // README: Adjustment [TODO]
+        // README: Adjustment [10]
         assert!(other.is_empty());
         name = name.to_snake_case();
         let rename = if self.base.name != name {
@@ -95,15 +95,11 @@ impl Property {
                     comment = format!("\n// default: {s}\n");
                 }
                 PropertyDefault::Literal(literal) => {
-                    // README: Adjustment [TODO]
+                    // README: Adjustment [6]
                     if name == "linked_game_control" && inner.ends_with("LinkedGameControl") {
                         // default value is empty
-                    } else if name == "illumination_graphic_index" && inner == "u32" {
-                        // default value is -1
-                    } else if name == "emissions_per_minute" && inner.contains("HashMap") {
-                        // default value is 0
                     }
-                    // README: Adjustment [TODO]
+                    // README: Adjustment [6]
                     else {
                         let (default_fn, default_comment) =
                             Self::get_default_fn(&name, &inner, literal, context);
@@ -208,9 +204,9 @@ impl Property {
                         if return_type == "f32"
                             || return_type == "f64"
                             || matches!(r, Some((_, DataType::NewType(s))) if s == "float" || s == "double")
-                        // README: Adjustment [TODO]
+                        // README: Adjustment [7]
                             || return_type.ends_with("MapTick")
-                        // README: Adjustment [TODO]
+                        // README: Adjustment [7]
                         {
                             format!("{:.1}", n)
                         } else if matches!(r, Some((_, DataType::NewType(s))) if s == "string") {

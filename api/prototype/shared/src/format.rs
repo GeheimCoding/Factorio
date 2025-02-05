@@ -56,13 +56,13 @@ impl Context<'_> {
                 vec![inline_type.generate_internal(self)],
             );
         }
-        // README: Adjustment [TODO]
+        // README: Adjustment [8]
         let rust_name = if rust_name == "DamageEntityTriggerEffectItem" {
             "DamageTriggerEffectItem"
         } else {
             rust_name
         };
-        // README: Adjustment [TODO]
+        // README: Adjustment [8]
         let (kind, _) = self
             .context
             .get(rust_name)

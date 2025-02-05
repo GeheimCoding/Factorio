@@ -205,9 +205,9 @@ impl Type {
             if let Some(LiteralValue::String(value)) = option.get_literal_value() {
                 union.push(format!("#[serde(rename = \"{value}\")]{inner},",));
             } else if option.is_struct()
-            // README: Adjustment [TODO]
+            // README: Adjustment [16]
                 && prefix != "LightDefinition"
-            // README: Adjustment [TODO]
+            // README: Adjustment [16]
             {
                 union.push(format!("{untagged}{prefix}{inner},"));
             } else {
@@ -222,13 +222,13 @@ impl Type {
                     .get(&name)
                     .map(|metadata| metadata.tagged_key.as_ref())
                 {
-                    // README: Adjustment [TODO]
+                    // README: Adjustment [9]
                     let tagged_key = if name == "DamageTileTriggerEffectItem" {
                         &String::from("damage-tile")
                     } else {
                         tagged_key
                     };
-                    // README: Adjustment [TODO]
+                    // README: Adjustment [9]
                     is_tagged = true;
                     union.push(format!(
                         "#[serde(rename = \"{tagged_key}\")]{name}({inner}),",
@@ -249,12 +249,12 @@ impl Type {
         } else {
             ""
         };
-        // README: Adjustment [TODO]
+        // README: Adjustment [11]
         if prefix == "Sound" {
             union.push(format!("{untagged}FileName(crate::types::FileName),"));
         }
-        // README: Adjustment [TODO]
-        // README: Adjustment [TODO]
+        // README: Adjustment [11]
+        // README: Adjustment [12]
         if prefix == "BoundingBox" {
             union.push(format!(
                 "{untagged}BoxMapPositionBoxMapPositionF32(
@@ -266,24 +266,24 @@ impl Type {
                 ),"
             ));
         }
-        // README: Adjustment [TODO]
-        // README: Adjustment [TODO]
+        // README: Adjustment [12]
+        // README: Adjustment [13]
         if prefix == "ShortcutPrototypeAction" {
             union.push(String::from("#[serde(rename = \"redo\")]Redo,"));
         }
-        // README: Adjustment [TODO]
-        // README: Adjustment [TODO]
+        // README: Adjustment [13]
+        // README: Adjustment [14]
         if prefix == "AchievementPrototypeWithConditionObjectiveCondition" {
             union.push(String::from(
                 "#[serde(rename = \"late-research\")]LateResearch,",
             ));
         }
-        // README: Adjustment [TODO]
-        // README: Adjustment [TODO]
+        // README: Adjustment [14]
+        // README: Adjustment [15]
         if prefix == "MapPosition" {
             union.push(String::from("#[serde(untagged)]F64(f64),"));
         }
-        // README: Adjustment [TODO]
+        // README: Adjustment [15]
         others.insert(
             0,
             format!(
@@ -354,7 +354,7 @@ impl Type {
                     .0
                 ));
             }
-            // README: Adjustment [TODO]
+            // README: Adjustment [16]
             if prefix == "LightDefinition" {
                 others.insert(
                     0,
@@ -364,7 +364,7 @@ impl Type {
                 );
                 return (String::from("LightDefinitionStruct"), others);
             }
-            // README: Adjustment [TODO]
+            // README: Adjustment [16]
             (format!("{result}}}"), others)
         } else {
             unreachable!("struct {prefix} has no properties");

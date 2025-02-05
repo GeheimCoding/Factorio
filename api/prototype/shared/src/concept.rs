@@ -127,11 +127,11 @@ impl Concept {
             );
         }
         // README: Adjustment [3]
-        // README: Adjustment [TODO]
+        // README: Adjustment [7]
         if name == "MapTick" {
             return String::from("pub type MapTick = f64;");
         }
-        // README: Adjustment [TODO]
+        // README: Adjustment [7]
         let (generated, additional) = self.type_.generate(name, context);
         format!("pub type {name} = {generated};{}", additional.join(""))
     }
