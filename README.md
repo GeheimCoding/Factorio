@@ -88,7 +88,9 @@ pub abstract_: bool,
 
 * Unions: those can be easily converted to enums. Each union member is represented by an enum variant with the same name
   as the type of the member. The enum itself contains the name of the type that needs it. To make the deserialization
-  work, each enum has to be [untagged](https://serde.rs/container-attrs.html#untagged), so e.g. the union `value`
+  work, each enum without a dedicated tag has to be marked
+  as [untagged](https://serde.rs/container-attrs.html#untagged) (or specific variants without an identifier), so e.g.
+  the union `value`
   with `union[string, number, boolean]` of the type `Literal` would translate to:
 
 ```rust
@@ -182,11 +184,11 @@ surrounded by the comment `README: Adjustment [X]`, where `X` is the number from
     variant. [16]
 17) [PipeConnectionDefinition::connection_category](https://lua-api.factorio.com/latest/types/PipeConnectionDefinition.html#connection_category), [MiningDrillGraphicsSet::circuit_connector_layer](https://lua-api.factorio.com/latest/types/MiningDrillGraphicsSet.html#circuit_connector_layer), [CraftingMachineGraphicsSet::circuit_connector_layer](https://lua-api.factorio.com/latest/types/CraftingMachineGraphicsSet.html#circuit_connector_layer)
     and [CraftingMachineGraphicsSet::circuit_connector_secondary_draw_order](https://lua-api.factorio.com/latest/types/CraftingMachineGraphicsSet.html#circuit_connector_secondary_draw_order)
-    have a default value as an enum variant with an unnamed field, which has to be constructed accordingly.
+    have a default value as an enum variant with an unnamed field, which has to be constructed accordingly. [17]
 18) [PrototypeBase::type](https://lua-api.factorio.com/latest/prototypes/PrototypeBase.html#type) is used to tag the
-    prototypes and should not stay as a separate field, because tags are consumed during deserialization.
+    prototypes and should not stay as a separate field, because tags are consumed during deserialization. [18]
 19) [CreateTrivialSmokeEffectItem::only_when_visible](https://lua-api.factorio.com/latest/types/CreateTrivialSmokeEffectItem.html#only_when_visible)
-    should be of type boolean, but is a float.
+    should be of type boolean, but is a float. [19]
 20) Several properties are missing in the `data-raw-dump.json`:
     * [UtilityConstants::huge_animation_sound_area](https://lua-api.factorio.com/latest/prototypes/UtilityConstants.html#huge_animation_sound_area)
       and [UtilityConstants::space_platform_default_speed_formula](https://lua-api.factorio.com/latest/prototypes/UtilityConstants.html#space_platform_default_speed_formula)
@@ -214,4 +216,4 @@ surrounded by the comment `README: Adjustment [X]`, where `X` is the number from
     * [ProcessionTimeline::audio_events](https://lua-api.factorio.com/latest/types/ProcessionTimeline.html#audio_events)
       for the timeline of the `default-rocket-a` `procession` from lines `908324-908386`
     * [SingleGraphicProcessionLayer::frames::frame](https://lua-api.factorio.com/latest/types/SingleGraphicProcessionLayer.html#frames)
-      for the `podjet_emission` `single-graphic` from lines `908548-908579`
+      for the `podjet_emission` `single-graphic` from lines `908548-908579` [20]
