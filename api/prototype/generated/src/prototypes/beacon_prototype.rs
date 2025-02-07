@@ -19,7 +19,7 @@ pub struct BeaconPrototype {
     perceived_performance: Option<crate::types::PerceivedPerformance>,
     profile: Option<crate::vec::Vec<f64>>,
     radius_visualisation_picture: Option<crate::types::Sprite>,
-    supply_area_distance: f64,
+    supply_area_distance: u32,
 }
 #[derive(Debug, serde::Deserialize)]
 pub enum BeaconPrototypeBeaconCounter {

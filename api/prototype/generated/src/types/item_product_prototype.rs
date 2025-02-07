@@ -1,8 +1,8 @@
 #[derive(Debug, serde::Deserialize)]
 pub struct ItemProductPrototype {
     amount: Option<f32>,
-    amount_max: Option<f32>,
-    amount_min: Option<f32>,
+    amount_max: Option<u16>,
+    amount_min: Option<u16>,
     #[serde(default = "default_extra_count_fraction")]
     extra_count_fraction: f32,
     // default: Value of `ignored_by_stats`

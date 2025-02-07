@@ -63,18 +63,23 @@ impl Property {
         let (mut name, other) = self.base.name.to_rust_type(context);
         // README: Adjustment [10]
         if (prefix.starts_with("TechnologySlotStyleSpecification") && name.contains("offset"))
-            || (prefix.starts_with("ItemProductPrototype") && name.starts_with("amount"))
+            || (prefix.starts_with("ItemProductPrototype") && name == "amount")
             || (prefix.starts_with("CreateParticleTriggerEffectItem")
-                && name.starts_with("tail_length"))
+                && name == "tail_length_deviation")
             || (prefix.starts_with("WorkingVisualisations")
                 && name == "shift_animation_waypoint_stop_duration")
             || (prefix.starts_with("BaseAttackParameters")
                 && name == "lead_target_for_projectile_delay")
-            || prefix.starts_with("TriggerEffectItem") && name.starts_with("repeat")
+            || (prefix.starts_with("TriggerEffectItem") && name == "repeat_count")
         {
             inner = String::from("f32");
         }
         // README: Adjustment [10]
+        // README: Adjustment [19]
+        if prefix.starts_with("CreateTrivialSmokeEffectItem") && name == "only_when_visible" {
+            inner = String::from("bool");
+        }
+        // README: Adjustment [19]
         assert!(other.is_empty());
         name = name.to_snake_case();
         let rename = if self.base.name != name {
@@ -130,6 +135,7 @@ impl Property {
             || (name == "objective_condition" && prefix.starts_with("AchievementPrototypeWithCondition"))
             || (name == "audio_events" && prefix.starts_with("ProcessionTimeline"))
             || (name == "frame" && prefix.starts_with("SingleGraphicLayerProcessionBezierControlPoint"))
+            || (name == "huge_animation_sound_area" && prefix.starts_with("UtilityConstants"))
         // README: Adjustment [TODO]
         {
             inner = format!("Option<{inner}>");
@@ -182,7 +188,7 @@ impl Property {
                         } else if r == "String" {
                             format!("String::from(\"{s}\")")
                         } else {
-                            // README: Adjustment [TODO]
+                            // README: Adjustment [17]
                             if return_type == "PipeConnectionDefinitionConnectionCategory" {
                                 format!("{return_type}::String(String::from(\"{s}\"))")
                             } else if return_type == "MiningDrillGraphicsSetCircuitConnectorLayer"
@@ -193,7 +199,7 @@ impl Property {
                                     s.to_pascal_case()
                                 )
                             }
-                            // README: Adjustment [TODO]
+                            // README: Adjustment [17]
                             else {
                                 format!("{return_type}::{}", s.to_pascal_case())
                             }
@@ -212,13 +218,13 @@ impl Property {
                         } else if matches!(r, Some((_, DataType::NewType(s))) if s == "string") {
                             format!("String::from(\"{n}\")")
                         } else {
-                            // README: Adjustment [TODO]
+                            // README: Adjustment [17]
                             if return_type
                                 .ends_with("GraphicsSetCircuitConnectorSecondaryDrawOrder")
                             {
                                 format!("{return_type}::I8({n})")
                             }
-                            // README: Adjustment [TODO]
+                            // README: Adjustment [17]
                             else {
                                 n.to_string()
                             }

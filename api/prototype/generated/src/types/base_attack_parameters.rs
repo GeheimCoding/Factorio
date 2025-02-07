@@ -36,6 +36,8 @@ pub struct BaseAttackParameters {
     #[serde(default = "default_rotate_penalty")]
     rotate_penalty: f32,
     sound: Option<crate::types::LayeredSound>,
+    #[serde(default = "default_true_collinear_ejection")]
+    true_collinear_ejection: bool,
     #[serde(default = "default_turn_range")]
     turn_range: f32,
     #[serde(default = "default_use_shooter_direction")]
@@ -89,6 +91,9 @@ fn default_range_mode() -> crate::types::RangeMode {
 }
 fn default_rotate_penalty() -> f32 {
     0.0
+}
+fn default_true_collinear_ejection() -> bool {
+    false
 }
 fn default_turn_range() -> f32 {
     1.0

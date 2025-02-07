@@ -30,7 +30,7 @@ pub struct CreateParticleTriggerEffectItem {
     #[serde(default = "default_speed_from_center_deviation")]
     speed_from_center_deviation: f32,
     #[serde(default = "default_tail_length")]
-    tail_length: f32,
+    tail_length: u8,
     #[serde(default = "default_tail_length_deviation")]
     tail_length_deviation: f32,
     #[serde(default = "default_tail_width")]
@@ -79,8 +79,8 @@ fn default_speed_from_center() -> f32 {
 fn default_speed_from_center_deviation() -> f32 {
     0.0
 }
-fn default_tail_length() -> f32 {
-    0.0
+fn default_tail_length() -> u8 {
+    0
 }
 fn default_tail_length_deviation() -> f32 {
     0.0

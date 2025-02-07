@@ -57,8 +57,6 @@ pub struct RocketSiloPrototype {
     #[serde(default = "default_rocket_rising_delay")]
     rocket_rising_delay: u8,
     rocket_shadow_overlay_sprite: Option<crate::types::Sprite>,
-    #[serde(default = "default_rocket_supply_inventory_size")]
-    rocket_supply_inventory_size: crate::types::ItemStackIndex,
     satellite_animation: Option<crate::types::Animation>,
     satellite_shadow_animation: Option<crate::types::Animation>,
     shadow_sprite: Option<crate::types::Sprite>,
@@ -82,9 +80,6 @@ fn default_render_not_in_network_icon() -> bool {
 }
 fn default_rocket_rising_delay() -> u8 {
     30
-}
-fn default_rocket_supply_inventory_size() -> crate::types::ItemStackIndex {
-    0
 }
 fn default_to_be_inserted_to_rocket_inventory_size() -> crate::types::ItemStackIndex {
     0

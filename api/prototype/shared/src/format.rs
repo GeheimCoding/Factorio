@@ -8,7 +8,7 @@ use crate::type_::{ComplexType, Type};
 use serde::Deserialize;
 use std::collections::{HashMap, HashSet};
 
-// https://lua-api.factorio.com/stable/auxiliary/json-docs-prototype.html
+// https://lua-api.factorio.com/latest/auxiliary/json-docs-prototype.html
 #[derive(Debug, Deserialize)]
 pub struct Format {
     pub application: String,

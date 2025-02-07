@@ -1,6 +1,7 @@
 #[derive(Debug, Clone, serde_repr::Deserialize_repr)]
 #[repr(u16)]
 pub enum TargetType {
+    CargoHatch = 19,
     Commandable = 16,
     CustomChartTag = 17,
     Entity = 1,

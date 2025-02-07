@@ -8,6 +8,7 @@ pub struct PlumesSpecification {
     min_probability: f32,
     #[serde(default = "default_min_y_offset")]
     min_y_offset: f32,
+    render_box: Option<crate::types::BoundingBox>,
     stateless_visualisations: Option<PlumesSpecificationStatelessVisualisations>,
 }
 fn default_max_probability() -> f32 {

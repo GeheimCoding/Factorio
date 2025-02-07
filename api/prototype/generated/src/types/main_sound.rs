@@ -2,8 +2,6 @@
 pub struct MainSound {
     activity_to_speed_modifiers: Option<crate::types::ActivityMatchingModifiers>,
     activity_to_volume_modifiers: Option<crate::types::ActivityMatchingModifiers>,
-    #[serde(default = "default_audible_distance_modifier")]
-    audible_distance_modifier: f64,
     #[serde(default = "default_fade_in_ticks")]
     fade_in_ticks: u32,
     #[serde(default = "default_fade_out_ticks")]
@@ -20,9 +18,6 @@ pub struct MainSound {
     sound: Option<crate::types::Sound>,
     #[serde(default = "default_volume_smoothing_window_size")]
     volume_smoothing_window_size: u32,
-}
-fn default_audible_distance_modifier() -> f64 {
-    1.0
 }
 fn default_fade_in_ticks() -> u32 {
     0

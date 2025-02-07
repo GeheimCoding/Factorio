@@ -37,6 +37,13 @@
     normal = 0,
     superforced = 2
   },
+  cargo_destination = {
+    invalid = 0,
+    orbit = 5,
+    space_platform = 2,
+    station = 1,
+    surface = 3
+  },
   chain_signal_state = {
     all_open = 1,
     none = 0,
@@ -1494,6 +1501,7 @@
     waiting_for_starter_pack = 0
   },
   target_type = {
+    cargo_hatch = 19,
     commandable = 16,
     custom_chart_tag = 17,
     entity = 1,

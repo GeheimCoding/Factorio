@@ -76,6 +76,7 @@ pub struct UtilityConstants {
     gui_remark_color: crate::types::Color,
     gui_search_match_background_color: crate::types::Color,
     gui_search_match_foreground_color: crate::types::Color,
+    huge_animation_sound_area: Option<f32>,
     icon_shadow_color: crate::types::Color,
     icon_shadow_inset: f32,
     icon_shadow_radius: f32,

@@ -99,6 +99,8 @@ pub mod chunk_generated_status;
 pub use chunk_generated_status::ChunkGeneratedStatus;
 pub mod chain_signal_state;
 pub use chain_signal_state::ChainSignalState;
+pub mod cargo_destination;
+pub use cargo_destination::CargoDestination;
 pub mod build_mode;
 pub use build_mode::BuildMode;
 pub mod build_check_type;
@@ -112,6 +114,7 @@ pub enum Defines {
     BehaviorResult(BehaviorResult),
     BuildCheckType(BuildCheckType),
     BuildMode(BuildMode),
+    CargoDestination(CargoDestination),
     ChainSignalState(ChainSignalState),
     ChunkGeneratedStatus(ChunkGeneratedStatus),
     Command(Command),

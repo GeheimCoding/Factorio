@@ -15,5 +15,5 @@ pub struct AdvancedMapGenSettings {
     pollution: Option<crate::types::MapGenPresetPollutionSettings>,
 }
 fn default_default() -> bool {
-    true
+    false
 }

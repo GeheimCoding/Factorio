@@ -5,16 +5,12 @@ pub enum WorkingSound {
         #[serde(flatten)]
         base_: crate::types::MainSound,
         activate_sound: Option<Box<crate::types::Sound>>,
-        #[serde(default = "default_apparent_volume")]
-        apparent_volume: f32,
-        #[serde(default = "default_audible_distance_modifier")]
-        audible_distance_modifier: f64,
         deactivate_sound: Option<Box<crate::types::Sound>>,
         #[serde(default = "default_extra_sounds_ignore_limit")]
         extra_sounds_ignore_limit: bool,
         idle_sound: Option<Box<crate::types::Sound>>,
         main_sounds: Option<WorkingSoundMainSounds>,
-        max_sounds_per_type: Option<u8>,
+        max_sounds_per_prototype: Option<u8>,
         #[serde(default = "default_persistent")]
         persistent: bool,
         sound_accents: Option<WorkingSoundSoundAccents>,
@@ -23,12 +19,6 @@ pub enum WorkingSound {
     },
     #[serde(untagged)]
     Sound(Box<crate::types::Sound>),
-}
-fn default_apparent_volume() -> f32 {
-    1.0
-}
-fn default_audible_distance_modifier() -> f64 {
-    1.0
 }
 fn default_extra_sounds_ignore_limit() -> bool {
     false

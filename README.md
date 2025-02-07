@@ -1,13 +1,13 @@
 # Factorio
 
-The aim of this project is to automatically play Factorio. This README is referring to the stable version `2.0.32`, but
-can be used as a reference for other versions as well.
+The aim of this project is to automatically play Factorio. This README is referring to the latest version
+`2.0.34`, but can be used as a reference for other versions as well.
 
 ## Remote Console
 
 Factorio supports their own slightly modified version of
 the [Source RCON Protocol](https://developer.valvesoftware.com/wiki/Source_RCON_Protocol), which can be used at runtime
-with the global `rcon` object to [print text](https://lua-api.factorio.com/stable/classes/LuaRCON.html) to the calling
+with the global `rcon` object to [print text](https://lua-api.factorio.com/latest/classes/LuaRCON.html) to the calling
 `RCON` interface. This essentially allows you to run any console command from anywhere and get back any response you
 can print.
 
@@ -59,10 +59,10 @@ can print.
     * Copy the output into a `defines.lua` file inside the `api/prototype/defines` folder to use it within this
       project.
 
-## Download the stable API Docs
+## Download the latest API Docs
 
 ```sh
-wget https://lua-api.factorio.com/stable/static/archive.zip -P lua_api_docs/
+wget https://lua-api.factorio.com/latest/static/archive.zip -P lua_api_docs/
 ```
 
 # Development Notes
@@ -118,65 +118,72 @@ surrounded by the comment `README: Adjustment [X]`, where `X` is the number from
    `print(serpent.block(defines.control_behavior))`. So in order to resolve the naming conflict in Rust, only one
    `ExclusiveMode` will be generated. [1]
 2) Defines act as constants and should have unique values per group.
-   Unfortunately [defines.inventory](https://lua-api.factorio.com/stable/defines.html#defines.inventory),
-   [defines.logistic_member_index](https://lua-api.factorio.com/stable/defines.html#defines.logistic_member_index), [defines.transport_line](https://lua-api.factorio.com/stable/defines.html#defines.transport_line)
-   and [defines.wire_connector_id](https://lua-api.factorio.com/stable/defines.html#defines.wire_connector_id) contain
+   Unfortunately [defines.inventory](https://lua-api.factorio.com/latest/defines.html#defines.inventory),
+   [defines.logistic_member_index](https://lua-api.factorio.com/latest/defines.html#defines.logistic_member_index), [defines.transport_line](https://lua-api.factorio.com/latest/defines.html#defines.transport_line)
+   and [defines.wire_connector_id](https://lua-api.factorio.com/latest/defines.html#defines.wire_connector_id) contain
    duplicate values. This means that when such a define gets deserialized for a duplicate value, a simple 1 to 1 mapping
    would be ambiguous. To solve this a custom deserialize method is generated that maps a duplicated value to a set of
    all possible variants with this value. All defines
-   from [defines.prototype](https://lua-api.factorio.com/stable/defines.html#defines.prototypes) have the value 0, as
+   from [defines.prototype](https://lua-api.factorio.com/latest/defines.html#defines.prototypes) have the value 0, as
    those are just used as a lookup table. It is not necessary to create a custom deserialize method for them. [2]
-3) [DataExtendMethod](https://lua-api.factorio.com/stable/types/DataExtendMethod.html) is a bit of an edge case, because
+3) [DataExtendMethod](https://lua-api.factorio.com/latest/types/DataExtendMethod.html) is a bit of an edge case, because
    it is a `builtin` type, but does not map to any Rust type. To satisfy the deserializer it is generated as an empty
    struct. [3]
-4) [Direction](https://lua-api.factorio.com/stable/types/Direction.html) is basically just a type alias
-   for [defines.direction](https://lua-api.factorio.com/stable/defines.html#defines.direction), so no need to generate
+4) [Direction](https://lua-api.factorio.com/latest/types/Direction.html) is basically just a type alias
+   for [defines.direction](https://lua-api.factorio.com/latest/defines.html#defines.direction), so no need to generate
    it again. [4]
-5) [ComparatorString](https://lua-api.factorio.com/stable/types/ComparatorString.html) contains symbols as variants,
+5) [ComparatorString](https://lua-api.factorio.com/latest/types/ComparatorString.html) contains symbols as variants,
    which are not supported by Rust as names. To still support this, readable variants are renamed with serde with the
    symbols. [5]
 6) The default value
-   of [CustomInputPrototype::linked_game_control](https://lua-api.factorio.com/stable/prototypes/CustomInputPrototype.html#linked_game_control)
+   of [CustomInputPrototype::linked_game_control](https://lua-api.factorio.com/latest/prototypes/CustomInputPrototype.html#linked_game_control)
    is an empty string, which has to be skipped. [6]
 7) One of the timestamps of
-   the [SingleGraphicLayerProcessionBezierControlPoint](https://lua-api.factorio.com/stable/types/SingleGraphicProcessionLayer.html#frames)
+   the [SingleGraphicLayerProcessionBezierControlPoint](https://lua-api.factorio.com/latest/types/SingleGraphicProcessionLayer.html#frames)
    is a floating point (line `912484` from the `data-raw-dump.json` = `"timestamp": 722.5,`),
-   thus [MapTick](https://lua-api.factorio.com/stable/types/MapTick.html) can't be `uint64`. [7]
-8) [TriggerEffect](https://lua-api.factorio.com/stable/types/TriggerEffect.html) defines the variant
+   thus [MapTick](https://lua-api.factorio.com/latest/types/MapTick.html) can't be `uint64`. [7]
+8) [TriggerEffect](https://lua-api.factorio.com/latest/types/TriggerEffect.html) defines the variant
    `DamageEntityTriggerEffectItem` that does not exist. It should be `DamageTriggerEffectItem`. (without the
    `Entity`) [8]
-9) [DamageTileTriggerEffectItem](https://lua-api.factorio.com/stable/types/DamageTileTriggerEffectItem.html) has the
+9) [DamageTileTriggerEffectItem](https://lua-api.factorio.com/latest/types/DamageTileTriggerEffectItem.html) has the
    type `damage`, which is the same type
-   as [DamageTriggerEffectItem](https://lua-api.factorio.com/stable/types/DamageTriggerEffectItem.html), even
-   though [TriggerEffect](https://lua-api.factorio.com/stable/types/TriggerEffect.html) says it should have the type
+   as [DamageTriggerEffectItem](https://lua-api.factorio.com/latest/types/DamageTriggerEffectItem.html), even
+   though [TriggerEffect](https://lua-api.factorio.com/latest/types/TriggerEffect.html) says it should have the type
    `damage-tile`. [9]
 10) Several integers are actually floating points:
-    * [TechnologySlotStyleSpecification::level_range_offset_y](https://lua-api.factorio.com/stable/types/TechnologySlotStyleSpecification.html#level_range_offset_y) ->
+    * [TechnologySlotStyleSpecification::level_range_offset_y](https://lua-api.factorio.com/latest/types/TechnologySlotStyleSpecification.html#level_range_offset_y) ->
       line `6958` = `"level_range_offset_y": -2.5,`
-    * [ItemProductPrototype::amount](https://lua-api.factorio.com/stable/types/ItemProductPrototype.html#amount) -> line
-      `76183` = `"amount": 1.25,`
-    * [CreateParticleTriggerEffectItem::tail_length_deviation](https://lua-api.factorio.com/stable/types/CreateParticleTriggerEffectItem.html#tail_length_deviation) ->
-      line `410660` = `"tail_length_deviation": 0.5,`
-    * [WorkingVisualisations::shift_animation_waypoint_stop_duration](https://lua-api.factorio.com/stable/types/WorkingVisualisations.html#shift_animation_waypoint_stop_duration) ->
-      line `583835` = `"shift_animation_waypoint_stop_duration": 487.5,`
-    * [BaseAttackParameters::lead_target_for_projectile_delay](https://lua-api.factorio.com/stable/types/BaseAttackParameters.html#lead_target_for_projectile_delay) ->
-      line `942584` = `"lead_target_for_projectile_delay": 82.5,`
-    * [TriggerEffectItem::repeat_count](https://lua-api.factorio.com/stable/types/TriggerEffectItem.html#repeat_count) ->
-      line `962252` = `"repeat_count": 0.65,` [10]
-11) [Sound](https://lua-api.factorio.com/stable/types/Sound.html) is missing a variant
-    for [FileName](https://lua-api.factorio.com/stable/types/FileName.html)
-    like [SoundDefinition](https://lua-api.factorio.com/stable/types/SoundDefinition.html) has. (line `28675` =
+    * [ItemProductPrototype::amount](https://lua-api.factorio.com/latest/types/ItemProductPrototype.html#amount) -> line
+      `76792` = `"amount": 1.25,`
+    * [CreateParticleTriggerEffectItem::tail_length_deviation](https://lua-api.factorio.com/latest/types/CreateParticleTriggerEffectItem.html#tail_length_deviation) ->
+      line `410653` = `"tail_length_deviation": 0.5,`
+    * [WorkingVisualisations::shift_animation_waypoint_stop_duration](https://lua-api.factorio.com/latest/types/WorkingVisualisations.html#shift_animation_waypoint_stop_duration) ->
+      line `583922` = `"shift_animation_waypoint_stop_duration": 487.5,`
+    * [BaseAttackParameters::lead_target_for_projectile_delay](https://lua-api.factorio.com/latest/types/BaseAttackParameters.html#lead_target_for_projectile_delay) ->
+      line `941786` = `"lead_target_for_projectile_delay": 82.5,`
+    * [TriggerEffectItem::repeat_count](https://lua-api.factorio.com/latest/types/TriggerEffectItem.html#repeat_count) ->
+      line `961484` = `"repeat_count": 0.65,` [10]
+11) [Sound](https://lua-api.factorio.com/latest/types/Sound.html) is missing a variant
+    for [FileName](https://lua-api.factorio.com/latest/types/FileName.html)
+    like [SoundDefinition](https://lua-api.factorio.com/latest/types/SoundDefinition.html) has. (line `28681` =
     `"left_click_sound": "__core__/sound/gui-menu-small.ogg"`) [11]
-12) [BoundingBox](https://lua-api.factorio.com/stable/types/BoundingBox.html) has a third "unused" item, which is still
-    used but not part of the tuple variant. (lines `467028-467041` has a third item with value `0.125`) [12]
-13) [ShortcutPrototype::action](https://lua-api.factorio.com/stable/prototypes/ShortcutPrototype.html#action) is missing
-    the variant `redo`, which is used in line `862278` = `"action": "redo",`. [13]
-14) [AchievementPrototypeWithCondition::objective_condition](https://lua-api.factorio.com/stable/prototypes/AchievementPrototypeWithCondition.html#objective_condition)
+12) [BoundingBox](https://lua-api.factorio.com/latest/types/BoundingBox.html) has a third "unused" item, which is still
+    used but not part of the tuple variant. (lines `467071-467083` has a third item with value `0.125`) [12]
+13) [ShortcutPrototype::action](https://lua-api.factorio.com/latest/prototypes/ShortcutPrototype.html#action) is missing
+    the variant `redo`, which is used in line `861459` = `"action": "redo",`. [13]
+14) [AchievementPrototypeWithCondition::objective_condition](https://lua-api.factorio.com/latest/prototypes/AchievementPrototypeWithCondition.html#objective_condition)
     is missing
-    the variant `late-research`, which is used in line `889162` = `"objective_condition": "late-research",`. [14]
-15) [NeighbourConnectableConnectionDefinition::location](https://lua-api.factorio.com/stable/types/NeighbourConnectableConnectionDefinition.html#location)
-    has a position and direction of type [MapPosition](https://lua-api.factorio.com/stable/types/MapPosition.html), but
-    line `940905` = `"direction": 0` and there is no variant that only takes one float. [15]
-16) [LightDefinition](https://lua-api.factorio.com/stable/types/LightDefinition.html) is a bit of an edge case, because
+    the variant `late-research`, which is used in line `888343` = `"objective_condition": "late-research",`. [14]
+15) [NeighbourConnectableConnectionDefinition::location](https://lua-api.factorio.com/latest/types/NeighbourConnectableConnectionDefinition.html#location)
+    has a position and direction of type [MapPosition](https://lua-api.factorio.com/latest/types/MapPosition.html), but
+    line `940107` = `"direction": 0` and there is no variant that only takes one float. [15]
+16) [LightDefinition](https://lua-api.factorio.com/latest/types/LightDefinition.html) is a bit of an edge case, because
     the type of the array variant is also the struct itself, so the struct is generated as if it was an enum
     variant. [16]
+17) [PipeConnectionDefinition::connection_category](https://lua-api.factorio.com/latest/types/PipeConnectionDefinition.html#connection_category), [MiningDrillGraphicsSet::circuit_connector_layer](https://lua-api.factorio.com/latest/types/MiningDrillGraphicsSet.html#circuit_connector_layer), [CraftingMachineGraphicsSet::circuit_connector_layer](https://lua-api.factorio.com/latest/types/CraftingMachineGraphicsSet.html#circuit_connector_layer)
+    and [CraftingMachineGraphicsSet::circuit_connector_secondary_draw_order](https://lua-api.factorio.com/latest/types/CraftingMachineGraphicsSet.html#circuit_connector_secondary_draw_order)
+    have a default value as an enum variant with an unnamed field, which has to be constructed accordingly.
+18) [PrototypeBase::type](https://lua-api.factorio.com/latest/prototypes/PrototypeBase.html#type) is used to tag the
+    prototypes and should not stay as a separate field, because tags are consumed during deserialization.
+19) [CreateTrivialSmokeEffectItem::only_when_visible](https://lua-api.factorio.com/latest/types/CreateTrivialSmokeEffectItem.html#only_when_visible)
+    should be of type boolean, but is a float.
