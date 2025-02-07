@@ -15,10 +15,12 @@ pub struct SpriteParameters {
     #[serde(default = "default_draw_as_shadow")]
     draw_as_shadow: bool,
     flags: Option<crate::types::SpriteFlags>,
+    // overridden by some child
     #[serde(default = "default_generate_sdf")]
     generate_sdf: bool,
     #[serde(default = "default_invert_colors")]
     invert_colors: bool,
+    // overridden by some child
     #[serde(default = "default_mipmap_count")]
     mipmap_count: u8,
     #[serde(default = "default_priority")]

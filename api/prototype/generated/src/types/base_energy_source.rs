@@ -1,5 +1,6 @@
 #[derive(Debug, serde::Deserialize)]
 pub struct BaseEnergySource {
+    // overridden by some child
     emissions_per_minute: Option<std::collections::HashMap<crate::types::AirbornePollutantID, f64>>,
     #[serde(default = "default_render_no_network_icon")]
     render_no_network_icon: bool,

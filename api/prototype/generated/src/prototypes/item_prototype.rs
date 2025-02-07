@@ -57,7 +57,8 @@ pub struct ItemPrototype {
     #[serde(default = "default_spoil_ticks")]
     spoil_ticks: u32,
     spoil_to_trigger_result: Option<crate::types::SpoilToTriggerResult>,
-    stack_size: crate::types::ItemCountType,
+    // overridden by some child
+    stack_size: Option<crate::types::ItemCountType>,
     weight: Option<crate::types::Weight>,
 }
 fn default_burnt_result() -> crate::types::ItemID {

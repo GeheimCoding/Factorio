@@ -5,6 +5,7 @@ pub struct BlueprintBookPrototype {
     #[serde(default = "default_draw_label_for_cursor_render")]
     draw_label_for_cursor_render: bool,
     inventory_size: BlueprintBookPrototypeInventorySize,
+    stack_size: f64,
 }
 fn default_draw_label_for_cursor_render() -> bool {
     true

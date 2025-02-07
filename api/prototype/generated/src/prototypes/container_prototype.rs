@@ -11,7 +11,8 @@ pub struct ContainerPrototype {
     draw_circuit_wires: bool,
     #[serde(default = "default_draw_copper_wires")]
     draw_copper_wires: bool,
-    inventory_size: crate::types::ItemStackIndex,
+    // overridden by some child
+    inventory_size: Option<crate::types::ItemStackIndex>,
     #[serde(default = "default_inventory_type")]
     inventory_type: ContainerPrototypeInventoryType,
     picture: Option<crate::types::Sprite>,

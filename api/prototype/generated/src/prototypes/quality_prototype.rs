@@ -14,6 +14,7 @@ pub struct QualityPrototype {
     level: u32,
     #[serde(default = "default_mining_drill_resource_drain_multiplier")]
     mining_drill_resource_drain_multiplier: f32,
+    name: String,
     next: Option<crate::types::QualityID>,
     #[serde(default = "default_next_probability")]
     next_probability: f64,

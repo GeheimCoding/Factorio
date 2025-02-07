@@ -5,10 +5,12 @@ pub struct LogisticContainerPrototype {
     animation: Option<crate::types::Animation>,
     animation_sound: Option<crate::types::Sound>,
     landing_location_offset: Option<crate::types::Vector>,
+    // overridden by some child
     logistic_mode: Option<LogisticContainerPrototypeLogisticMode>,
     max_logistic_slots: Option<u16>,
     #[serde(default = "default_opened_duration")]
     opened_duration: u8,
+    // overridden by some child
     #[serde(default = "default_render_not_in_network_icon")]
     render_not_in_network_icon: bool,
     #[serde(default = "default_trash_inventory_size")]

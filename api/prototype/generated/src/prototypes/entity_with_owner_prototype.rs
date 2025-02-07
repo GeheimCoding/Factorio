@@ -2,8 +2,10 @@
 pub struct EntityWithOwnerPrototype {
     #[serde(flatten)]
     base_: crate::prototypes::EntityWithHealthPrototype,
+    // overridden by some child
     #[serde(default = "default_allow_run_time_change_of_is_military_target")]
     allow_run_time_change_of_is_military_target: bool,
+    // overridden by some child
     #[serde(default = "default_is_military_target")]
     is_military_target: bool,
     // default: Calculated based on entity tile_width and height

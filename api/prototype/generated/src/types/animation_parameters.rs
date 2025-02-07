@@ -13,6 +13,7 @@ pub struct AnimationParameters {
     #[serde(default = "default_generate_sdf")]
     generate_sdf: bool,
     height: Option<crate::types::SpriteSizeType>,
+    // overridden by some child
     #[serde(default = "default_line_length")]
     line_length: u32,
     // default: MAX_FLOAT

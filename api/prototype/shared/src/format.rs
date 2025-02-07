@@ -22,18 +22,19 @@ pub struct Format {
 
 #[derive(Debug)]
 pub struct Metadata<'a> {
-    pub parent: &'a Option<String>,
+    pub parent: Option<&'a String>,
+    pub tagged_key: Option<&'a String>,
     pub properties: Option<&'a Vec<Property>>,
     pub custom_properties: Option<&'a CustomProperties>,
-    pub tagged_key: Option<&'a String>,
 }
 
 #[derive(Debug)]
 pub struct Context<'a> {
+    pub hash_keys: HashSet<String>,
+    pub overridden_properties: HashSet<String>,
+    pub metadata: HashMap<String, Metadata<'a>>,
     pub context: HashMap<String, (Kind, DataType)>,
     pub inline_types: HashMap<String, &'a Concept>,
-    pub metadata: HashMap<String, Metadata<'a>>,
-    pub hash_keys: HashSet<String>,
 }
 
 impl Context<'_> {
@@ -97,6 +98,7 @@ impl Format {
         let mut inline_types = HashMap::new();
         let mut metadata = HashMap::new();
         let mut hash_keys = HashSet::new();
+        let mut overridden_properties = HashSet::new();
 
         for concept in self.types.iter() {
             let name = concept.rust_name();
@@ -113,18 +115,22 @@ impl Format {
                     );
                 }
             }
+            let parent = concept.parent.as_ref();
+            let properties = concept.properties.as_ref();
+            self.find_overridden_properties(properties, &mut overridden_properties, parent);
+
             if let Some(found) = metadata.insert(
                 String::from(name),
                 Metadata {
-                    parent: &concept.parent,
-                    properties: concept.properties.as_ref(),
+                    parent,
+                    properties,
                     custom_properties: None,
                     tagged_key: concept.get_tagged_key(),
                 },
             ) {
                 unreachable!("concept with name {name} already exists in metadata: {found:?}");
             }
-            if let Some(properties) = &concept.properties {
+            if let Some(properties) = properties {
                 hash_keys.extend(Self::extract_hash_keys(properties, name));
             }
         }
@@ -135,11 +141,15 @@ impl Format {
             {
                 unreachable!("prototype with name {name} already exists in context: {found:?}");
             }
+            let parent = prototype.parent.as_ref();
+            let properties = Some(&prototype.properties);
+            self.find_overridden_properties(properties, &mut overridden_properties, parent);
+
             if let Some(found) = metadata.insert(
                 String::from(name),
                 Metadata {
-                    parent: &prototype.parent,
-                    properties: Some(prototype.properties.as_ref()),
+                    parent,
+                    properties,
                     custom_properties: prototype.custom_properties.as_ref(),
                     tagged_key: prototype.get_tagged_key(),
                 },
@@ -149,11 +159,57 @@ impl Format {
             hash_keys.extend(Self::extract_hash_keys(&prototype.properties, name));
         }
         Context {
+            hash_keys,
+            overridden_properties,
+            metadata,
             context,
             inline_types,
-            metadata,
-            hash_keys,
         }
+    }
+
+    fn find_overridden_properties(
+        &self,
+        properties: Option<&Vec<Property>>,
+        overridden_properties: &mut HashSet<String>,
+        parent: Option<&String>,
+    ) {
+        if let Some(properties) = properties {
+            for property in properties {
+                if property.override_ {
+                    self.add_overridden_properties(
+                        overridden_properties,
+                        &property.base.name,
+                        parent.expect("expected parent for property with override flag"),
+                    )
+                }
+            }
+        }
+    }
+
+    fn add_overridden_properties(
+        &self,
+        overridden_properties: &mut HashSet<String>,
+        property: &str,
+        parent: &str,
+    ) {
+        overridden_properties.insert(format!("{parent}::{property}"));
+        for concept in &self.types {
+            if concept.base.name == parent {
+                if let Some(parent) = concept.parent.as_ref() {
+                    self.add_overridden_properties(overridden_properties, property, parent);
+                }
+                return;
+            }
+        }
+        for prototype in &self.prototypes {
+            if prototype.base.name == parent {
+                if let Some(parent) = prototype.parent.as_ref() {
+                    self.add_overridden_properties(overridden_properties, property, parent);
+                }
+                return;
+            }
+        }
+        unreachable!("expected to find the parent type {parent}")
     }
 
     fn get_datatype(type_: &Type) -> DataType {

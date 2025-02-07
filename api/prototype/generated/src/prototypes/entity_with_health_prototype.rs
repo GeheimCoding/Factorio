@@ -13,6 +13,7 @@ pub struct EntityWithHealthPrototype {
     damaged_trigger_effect: Option<crate::types::TriggerEffect>,
     dying_explosion: Option<EntityWithHealthPrototypeDyingExplosion>,
     dying_trigger_effect: Option<crate::types::TriggerEffect>,
+    // overridden by some child
     #[serde(default = "default_healing_per_tick")]
     healing_per_tick: f32,
     #[serde(default = "default_hide_resistances")]

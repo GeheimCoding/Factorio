@@ -5,6 +5,7 @@ pub struct EntityPrototype {
     additional_pastable_entities: Option<crate::vec::Vec<crate::types::EntityID>>,
     alert_icon_scale: Option<f32>,
     alert_icon_shift: Option<crate::types::Vector>,
+    // overridden by some child
     #[serde(default = "default_allow_copy_paste")]
     allow_copy_paste: bool,
     ambient_sounds: Option<EntityPrototypeAmbientSounds>,
@@ -13,11 +14,13 @@ pub struct EntityPrototype {
     autoplace: Option<crate::types::AutoplaceSpecification>,
     #[serde(default = "default_build_base_evolution_requirement")]
     build_base_evolution_requirement: f64,
+    // overridden by some child
     #[serde(default = "default_build_grid_size")]
     build_grid_size: u8,
     build_sound: Option<crate::types::Sound>,
     close_sound: Option<crate::types::Sound>,
     // default: Empty = `{{0, 0}, {0, 0}}`
+    // overridden by some child
     collision_box: Option<crate::types::BoundingBox>,
     collision_mask: Option<crate::types::CollisionMaskConnector>,
     created_effect: Option<crate::types::Trigger>,
@@ -27,10 +30,12 @@ pub struct EntityPrototype {
     diagonal_tile_grid_size: Option<crate::types::TilePosition>,
     #[serde(default = "default_drawing_box_vertical_extension")]
     drawing_box_vertical_extension: f64,
+    // overridden by some child
     emissions_per_second: Option<std::collections::HashMap<crate::types::AirbornePollutantID, f64>>,
     enemy_map_color: Option<crate::types::Color>,
     #[serde(default = "default_fast_replaceable_group")]
     fast_replaceable_group: String,
+    // overridden by some child
     flags: Option<crate::types::EntityPrototypeFlags>,
     friendly_map_color: Option<crate::types::Color>,
     heating_energy: Option<crate::types::Energy>,
@@ -44,6 +49,7 @@ pub struct EntityPrototype {
     icons_positioning: Option<crate::vec::Vec<crate::types::IconSequencePositioning>>,
     #[serde(default = "default_impact_category")]
     impact_category: String,
+    // overridden by some child
     map_color: Option<crate::types::Color>,
     // default: The value of collision_box.
     map_generator_bounding_box: Option<crate::types::BoundingBox>,
@@ -66,7 +72,9 @@ pub struct EntityPrototype {
     #[serde(default = "default_selectable_in_game")]
     selectable_in_game: bool,
     // default: Empty = `{{0, 0}, {0, 0}}`
+    // overridden by some child
     selection_box: Option<crate::types::BoundingBox>,
+    // overridden by some child
     #[serde(default = "default_selection_priority")]
     selection_priority: u8,
     shooting_cursor_size: Option<f64>,

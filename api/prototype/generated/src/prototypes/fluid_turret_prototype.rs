@@ -3,6 +3,7 @@ pub struct FluidTurretPrototype {
     #[serde(flatten)]
     base_: crate::prototypes::TurretPrototype,
     activation_buffer_ratio: crate::types::FluidAmount,
+    attack_parameters: crate::types::StreamAttackParameters,
     attacking_muzzle_animation_shift: Option<crate::types::AnimatedVector>,
     ending_attack_muzzle_animation_shift: Option<crate::types::AnimatedVector>,
     enough_fuel_indicator_light: Option<crate::types::LightDefinition>,

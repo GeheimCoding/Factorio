@@ -4,6 +4,7 @@ pub struct ItemWithLabelPrototype {
     base_: crate::prototypes::ItemPrototype,
     // default: Default item text color
     default_label_color: Option<crate::types::Color>,
+    // overridden by some child
     #[serde(default = "default_draw_label_for_cursor_render")]
     draw_label_for_cursor_render: bool,
 }

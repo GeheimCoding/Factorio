@@ -8,7 +8,8 @@ pub struct TurretPrototype {
     allow_turning_when_starting_attack: bool,
     #[serde(default = "default_attack_from_start_frame")]
     attack_from_start_frame: bool,
-    attack_parameters: crate::types::AttackParameters,
+    // overridden by some child
+    attack_parameters: Option<crate::types::AttackParameters>,
     // default: all masks
     attack_target_mask: Option<crate::types::TriggerTargetMask>,
     attacking_animation: Option<crate::types::RotatedAnimation8Way>,
@@ -143,6 +144,7 @@ pub struct TurretPrototype {
     starting_attack_speed_when_killed: Option<f32>,
     // default: Value of `default_starting_progress_when_killed`
     starting_attack_starting_progress_when_killed: Option<f32>,
+    // overridden by some child
     #[serde(default = "default_turret_base_has_direction")]
     turret_base_has_direction: bool,
     #[serde(default = "default_unfolds_before_dying")]

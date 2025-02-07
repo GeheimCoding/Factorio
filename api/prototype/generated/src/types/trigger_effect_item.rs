@@ -9,6 +9,7 @@ pub struct TriggerEffectItem {
     repeat_count: f32,
     #[serde(default = "default_repeat_count_deviation")]
     repeat_count_deviation: u16,
+    // overridden by some child
     #[serde(default = "default_show_in_tooltip")]
     show_in_tooltip: bool,
 }

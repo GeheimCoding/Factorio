@@ -27,31 +27,15 @@ pub enum PropertyDefault {
 
 impl Property {
     pub fn generate(&self, prefix: &str, context: &Context) -> Option<(String, Vec<String>)> {
-        let is_union_property = matches!(context.context.get(prefix), Some((_, DataType::Union)));
-        // README: Adjustment [TODO]
-        if (prefix == "PrototypeBase" && self.base.name == "type")
-            || (prefix == "QualityPrototype" && self.base.name == "name")
-            || (prefix == "InfinityContainerPrototype"
-                && (self.base.name == "logistic_mode" || self.base.name == "inventory_size"))
-            || (prefix == "CustomInputPrototype" && self.base.name == "name")
-            || ((prefix == "CopyPasteToolPrototype"
-                || prefix == "BlueprintItemPrototype"
-                || prefix == "UpgradeItemPrototype"
-                || prefix == "DeconstructionItemPrototype")
-                && (self.base.name.ends_with("select") || self.base.name == "stack_size"))
-            || (prefix == "BlueprintBookPrototype" && self.base.name == "stack_size")
-            || ((prefix == "ItemWithInventoryPrototype" || prefix == "SpidertronRemotePrototype")
-                && (self.base.name == "inventory_size" || self.base.name == "stack_size"))
-            || (prefix == "FluidTurretPrototype" && self.base.name == "attack_parameters")
-            || (prefix == "EquipmentGhostPrototype"
-                && (self.base.name == "categories"
-                    || self.base.name == "energy_source"
-                    || self.base.name == "shape"
-                    || self.base.name == "take_result"))
-        {
+        // README: Adjustment [18]
+        if prefix == "PrototypeBase" && self.base.name == "type" {
             return None;
         }
-        // README: Adjustment [TODO]
+        // README: Adjustment [18]
+        let is_overridden = context
+            .overridden_properties
+            .contains(&format!("{prefix}::{}", self.base.name));
+        let is_union_property = matches!(context.context.get(prefix), Some((_, DataType::Union)));
         let prefix = format!("{prefix}{}", self.base.name.to_pascal_case());
         let (mut inner, mut additional) = self.type_.generate(&prefix, context);
         if let Some(literal) = self.type_.get_literal_value() {
@@ -122,35 +106,30 @@ impl Property {
         if is_union_property && self.type_.should_be_boxed(context) {
             inner = format!("Box<{inner}>");
         }
-        if (self.optional && serde_default.is_empty())
-        // README: Adjustment [TODO]
-            || (name == "filename" && prefix.starts_with("SpriteSource"))
+        if ((self.optional || is_overridden) && serde_default.is_empty())
+            // README: Adjustment [20]
+            || (name == "huge_animation_sound_area" && prefix.starts_with("UtilityConstants"))
             || (name == "space_platform_default_speed_formula" && prefix.starts_with("UtilityConstants"))
-            || (name.starts_with("rts") && prefix.starts_with("CursorBoxSpecification"))
+            || ((name == "rts_selected" || name == "rts_to_be_selected") && prefix.starts_with("CursorBoxSpecification"))
             || (name == "ignore_surface_conditions" && prefix.starts_with("EditorControllerPrototype"))
             || (name == "gravity_pull" && prefix.starts_with("SpaceLocationPrototype"))
-            || ((name == "idle_with_gun" || name == "mining_with_tool" || name == "running_with_gun") && prefix.starts_with("CharacterArmorAnimation"))
-            || ((name == "initial_height" || name == "particle_name") &&  prefix.starts_with("CreateParticleTriggerEffectItem"))
+            || ((name == "initial_height" || name == "particle_name") && prefix.starts_with("CreateParticleTriggerEffectItem"))
             || (name == "rail_endings" && prefix.starts_with("RailPictureSet"))
             || (name == "objective_condition" && prefix.starts_with("AchievementPrototypeWithCondition"))
             || (name == "audio_events" && prefix.starts_with("ProcessionTimeline"))
             || (name == "frame" && prefix.starts_with("SingleGraphicLayerProcessionBezierControlPoint"))
-            || (name == "huge_animation_sound_area" && prefix.starts_with("UtilityConstants"))
-        // README: Adjustment [TODO]
+        // README: Adjustment [20]
         {
             inner = format!("Option<{inner}>");
         }
-        // README: Adjustment [TODO]
-        if (name == "logistic_mode" && prefix.starts_with("LogisticContainerPrototype"))
-            || (name == "name" && prefix.starts_with("PrototypeBase"))
-            || ((name == "categories" || name == "energy_source" || name == "shape")
-                && prefix.starts_with("EquipmentPrototype"))
-        {
-            inner = format!("Option<{inner}>");
-        }
-        // README: Adjustment [TODO]
+        let overridden_comment = if is_overridden {
+            "\n// overridden by some child\n"
+        } else {
+            ""
+        };
         Some((
-            format!("{comment}{rename}{alias}{serde_default}{name}: {inner}",),
+            format!("{comment}{overridden_comment}{rename}{alias}{serde_default}{name}: {inner}")
+                .replace("\n\n", "\n"),
             additional,
         ))
     }

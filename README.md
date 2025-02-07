@@ -187,3 +187,31 @@ surrounded by the comment `README: Adjustment [X]`, where `X` is the number from
     prototypes and should not stay as a separate field, because tags are consumed during deserialization.
 19) [CreateTrivialSmokeEffectItem::only_when_visible](https://lua-api.factorio.com/latest/types/CreateTrivialSmokeEffectItem.html#only_when_visible)
     should be of type boolean, but is a float.
+20) Several properties are missing in the `data-raw-dump.json`:
+    * [UtilityConstants::huge_animation_sound_area](https://lua-api.factorio.com/latest/prototypes/UtilityConstants.html#huge_animation_sound_area)
+      and [UtilityConstants::space_platform_default_speed_formula](https://lua-api.factorio.com/latest/prototypes/UtilityConstants.html#space_platform_default_speed_formula)
+      for the `default` `utility-constants` from lines `29842-33649`
+    * [UtilitySprites::cursor_box::rts_selected](https://lua-api.factorio.com/latest/prototypes/UtilitySprites.html#cursor_box)
+      and [UtilitySprites::cursor_box::rts_to_be_selected](https://lua-api.factorio.com/latest/prototypes/UtilitySprites.html#cursor_box)
+      for the `default` `utility-sprites` from lines `35353-43956`
+    * [EditorControllerPrototype::ignore_surface_conditions](https://lua-api.factorio.com/latest/prototypes/EditorControllerPrototype.html#ignore_surface_conditions)
+      for the `default` `editor-controller` from lines `43986-44014`
+    * [SpaceLocationPrototype::gravity_pull](https://lua-api.factorio.com/latest/prototypes/SpaceLocationPrototype.html#gravity_pull)
+      for the `space-location-unknown` `space-location` from lines `201016-201024`
+    * [FootstepTriggerEffectItem](https://lua-api.factorio.com/latest/types/FootstepTriggerEffectItem.html) might
+      contain `actions` in which case it seems that all inherited properties are not defined, so the remaining two
+      properties
+      from [CreateParticleTriggerEffectItem](https://lua-api.factorio.com/latest/types/CreateParticleTriggerEffectItem.html)
+      ([particle_name](https://lua-api.factorio.com/latest/types/CreateParticleTriggerEffectItem.html#particle_name)
+      and [initial_height](https://lua-api.factorio.com/latest/types/CreateParticleTriggerEffectItem.html#initial_height)
+      have to be optional as well, e.g. for
+      the [CharacterPrototype::synced_footstep_particle_triggers](https://lua-api.factorio.com/latest/prototypes/CharacterPrototype.html#synced_footstep_particle_triggers)
+      starting at line `422765`
+    * [RailPictureSet::rail_endings](https://lua-api.factorio.com/latest/types/RailPictureSet.html#rail_endings) for the
+      `dummy-rail-ramp` `rail-ramp` from lines `681603-681733`
+    * [AchievementPrototypeWithCondition::objective_condition](https://lua-api.factorio.com/latest/prototypes/AchievementPrototypeWithCondition.html#objective_condition)
+      for the `solaris` `dont-use-entity-in-energy-production-achievement` from lines `888008-888023`
+    * [ProcessionTimeline::audio_events](https://lua-api.factorio.com/latest/types/ProcessionTimeline.html#audio_events)
+      for the timeline of the `default-rocket-a` `procession` from lines `908324-908386`
+    * [SingleGraphicProcessionLayer::frames::frame](https://lua-api.factorio.com/latest/types/SingleGraphicProcessionLayer.html#frames)
+      for the `podjet_emission` `single-graphic` from lines `908548-908579`
