@@ -68,7 +68,17 @@ impl Property {
         name = name.to_snake_case();
         let rename = if self.base.name != name {
             &format!("#[serde(rename = \"{}\")]", self.base.name)
-        } else {
+        // README: Adjustment [21]
+        } else if (name == "rts_selected" || name == "rts_to_be_selected")
+            && prefix.starts_with("CursorBoxSpecification")
+        {
+            &format!(
+                "#[serde(rename = \"{}\")]",
+                name.replace("rts", "spidertron_remote")
+            )
+        }
+        // README: Adjustment [21]
+        else {
             ""
         };
         let alias = if let Some(alt_name) = &self.alt_name {
@@ -110,7 +120,6 @@ impl Property {
             // README: Adjustment [20]
             || (name == "huge_animation_sound_area" && prefix.starts_with("UtilityConstants"))
             || (name == "space_platform_default_speed_formula" && prefix.starts_with("UtilityConstants"))
-            || ((name == "rts_selected" || name == "rts_to_be_selected") && prefix.starts_with("CursorBoxSpecification"))
             || (name == "ignore_surface_conditions" && prefix.starts_with("EditorControllerPrototype"))
             || (name == "gravity_pull" && prefix.starts_with("SpaceLocationPrototype"))
             || ((name == "initial_height" || name == "particle_name") && prefix.starts_with("CreateParticleTriggerEffectItem"))

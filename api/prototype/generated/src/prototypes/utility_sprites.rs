@@ -612,8 +612,10 @@ pub struct CursorBoxSpecification {
     not_allowed: crate::vec::Vec<crate::types::BoxSpecification>,
     pair: crate::vec::Vec<crate::types::BoxSpecification>,
     regular: crate::vec::Vec<crate::types::BoxSpecification>,
-    rts_selected: Option<crate::vec::Vec<crate::types::BoxSpecification>>,
-    rts_to_be_selected: Option<crate::vec::Vec<crate::types::BoxSpecification>>,
+    #[serde(rename = "spidertron_remote_selected")]
+    rts_selected: crate::vec::Vec<crate::types::BoxSpecification>,
+    #[serde(rename = "spidertron_remote_to_be_selected")]
+    rts_to_be_selected: crate::vec::Vec<crate::types::BoxSpecification>,
     train_visualization: crate::vec::Vec<crate::types::BoxSpecification>,
 }
 #[derive(Debug, serde::Deserialize)]

@@ -193,9 +193,6 @@ surrounded by the comment `README: Adjustment [X]`, where `X` is the number from
     * [UtilityConstants::huge_animation_sound_area](https://lua-api.factorio.com/latest/prototypes/UtilityConstants.html#huge_animation_sound_area)
       and [UtilityConstants::space_platform_default_speed_formula](https://lua-api.factorio.com/latest/prototypes/UtilityConstants.html#space_platform_default_speed_formula)
       for the `default` `utility-constants` from lines `29842-33649`
-    * [UtilitySprites::cursor_box::rts_selected](https://lua-api.factorio.com/latest/prototypes/UtilitySprites.html#cursor_box)
-      and [UtilitySprites::cursor_box::rts_to_be_selected](https://lua-api.factorio.com/latest/prototypes/UtilitySprites.html#cursor_box)
-      for the `default` `utility-sprites` from lines `35353-43956`
     * [EditorControllerPrototype::ignore_surface_conditions](https://lua-api.factorio.com/latest/prototypes/EditorControllerPrototype.html#ignore_surface_conditions)
       for the `default` `editor-controller` from lines `43986-44014`
     * [SpaceLocationPrototype::gravity_pull](https://lua-api.factorio.com/latest/prototypes/SpaceLocationPrototype.html#gravity_pull)
@@ -217,3 +214,7 @@ surrounded by the comment `README: Adjustment [X]`, where `X` is the number from
       for the timeline of the `default-rocket-a` `procession` from lines `908324-908386`
     * [SingleGraphicProcessionLayer::frames::frame](https://lua-api.factorio.com/latest/types/SingleGraphicProcessionLayer.html#frames)
       for the `podjet_emission` `single-graphic` from lines `908548-908579` [20]
+21) [UtilitySprites::cursor_box::rts_selected](https://lua-api.factorio.com/latest/prototypes/UtilitySprites.html#cursor_box)
+    and [UtilitySprites::cursor_box::rts_to_be_selected](https://lua-api.factorio.com/latest/prototypes/UtilitySprites.html#cursor_box)
+    don't exist, but `spidertron_remote_selected` and `spidertron_remote_to_be_selected` do for the `default`
+    `utility-sprites` from lines `35353-43956`. [21]
