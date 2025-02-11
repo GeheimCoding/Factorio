@@ -4,8 +4,8 @@ version = "0.1.0"
 edition = "2021"
 
 [dependencies]
-defines = { path = "prototype/defines" }
-prototypes = { path = "prototype/prototypes" }
-types = { path = "prototype/types" }
+#defines = { path = "prototype/defines" }
+#prototypes = { path = "prototype/prototypes" }
+#types = { path = "prototype/types" }
 anyhow = "1.0.95"
 serde_json = "1.0.138"

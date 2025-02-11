@@ -1,13 +1,13 @@
 use anyhow::anyhow;
-#[allow(unused_imports)]
-pub use defines::*;
-pub use prototypes::*;
-pub use types::*;
+
+//pub use defines;
+//pub use prototypes;
+//pub use types;
 
 #[derive(Debug)]
 pub enum FactorioType {
-    Prototype(Prototypes),
-    Type(Types),
+    //Prototype(prototypes::Prototypes),
+    //Type(types::Types),
 }
 
 impl FactorioType {
@@ -16,8 +16,8 @@ impl FactorioType {
         let serde_type = &value["serde_type"];
         if let serde_json::Value::String(s) = serde_type {
             match s.as_str() {
-                "Prototype" => Ok(FactorioType::Prototype(parse_prototype(input)?)),
-                "Type" => Ok(FactorioType::Type(parse_type(input)?)),
+                //"Prototype" => Ok(FactorioType::Prototype(prototypes::parse_prototype(input)?)),
+                //"Type" => Ok(FactorioType::Type(types::parse_type(input)?)),
                 _ => Err(anyhow!("unexpected serde_type: {s}")),
             }
         } else {

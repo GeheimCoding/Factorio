@@ -1,9 +1,10 @@
 [workspace]
 resolver = "2"
-members = ["api*", "factorio", "remote_console"]
+members = ["api", "factorio", "remote_console"]
 
 # any optimization for the parsers results in very long compile times
-[profile.release.package.types_parser]
-opt-level = 0
-[profile.release.package.prototypes_parser]
-opt-level = 0
+# TODO: enable again after runtime stage
+#[profile.release.package.types_parser]
+#opt-level = 0
+#[profile.release.package.prototypes_parser]
+#opt-level = 0
