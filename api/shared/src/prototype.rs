@@ -1,7 +1,7 @@
 use crate::basic_member::BasicMember;
+use crate::context::{Context, DataType};
 use crate::custom_properties::CustomProperties;
 use crate::file_utils::save_file_if_changed;
-use crate::format::{Context, DataType};
 use crate::property::Property;
 use crate::transformation::Transformation;
 use crate::type_::{ComplexType, Type};

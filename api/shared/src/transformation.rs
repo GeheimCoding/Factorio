@@ -1,4 +1,4 @@
-use crate::format::Context;
+use crate::context::Context;
 
 pub trait Transformation {
     fn to_pascal_case(&self) -> String;

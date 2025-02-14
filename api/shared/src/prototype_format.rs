@@ -1,5 +1,5 @@
 use crate::concept::Concept;
-use crate::custom_properties::CustomProperties;
+use crate::context::{Context, DataType, Kind, Metadata};
 use crate::define::Define;
 use crate::property::Property;
 use crate::prototype::Prototype;
@@ -10,7 +10,7 @@ use std::collections::{HashMap, HashSet};
 
 // https://lua-api.factorio.com/latest/auxiliary/json-docs-prototype.html
 #[derive(Debug, Deserialize)]
-pub struct Format {
+pub struct PrototypeFormat {
     pub application: String,
     pub application_version: String,
     pub api_version: u8,
@@ -20,79 +20,7 @@ pub struct Format {
     pub defines: Vec<Define>,
 }
 
-#[derive(Debug)]
-pub struct Metadata<'a> {
-    pub parent: Option<&'a String>,
-    pub tagged_key: Option<&'a String>,
-    pub properties: Option<&'a Vec<Property>>,
-    pub custom_properties: Option<&'a CustomProperties>,
-}
-
-#[derive(Debug)]
-pub struct Context<'a> {
-    pub hash_keys: HashSet<String>,
-    pub overridden_properties: HashSet<String>,
-    pub metadata: HashMap<String, Metadata<'a>>,
-    pub context: HashMap<String, (Kind, DataType)>,
-    pub inline_types: HashMap<String, &'a Concept>,
-}
-
-impl Context<'_> {
-    pub fn with_prefix(&self, rust_name: &str) -> (String, Vec<String>) {
-        if let Some(define) = rust_name.split("defines.").nth(1) {
-            return (
-                format!("crate::defines::{}", String::from(define).to_pascal_case()),
-                vec![],
-            );
-        } else if rust_name
-            .chars()
-            .next()
-            .expect("expected at least one char")
-            .is_ascii_lowercase()
-        {
-            return (String::from(rust_name), vec![]);
-        } else if let Some(inline_type) = self.inline_types.get(rust_name) {
-            return (
-                String::from(rust_name),
-                vec![inline_type.generate_internal(self)],
-            );
-        }
-        // README: Adjustment [8]
-        let rust_name = if rust_name == "DamageEntityTriggerEffectItem" {
-            "DamageTriggerEffectItem"
-        } else {
-            rust_name
-        };
-        // README: Adjustment [8]
-        let (kind, _) = self
-            .context
-            .get(rust_name)
-            .unwrap_or_else(|| panic!("expected context for {rust_name}"));
-
-        (
-            match kind {
-                Kind::Concept => format!("crate::types::{rust_name}"),
-                Kind::Prototype => format!("crate::prototypes::{rust_name}"),
-            },
-            vec![],
-        )
-    }
-}
-
-#[derive(Debug)]
-pub enum DataType {
-    Union,
-    Struct,
-    NewType(String),
-}
-
-#[derive(Debug)]
-pub enum Kind {
-    Concept,
-    Prototype,
-}
-
-impl Format {
+impl PrototypeFormat {
     pub fn create_context(&self) -> Context {
         let mut context = HashMap::new();
         let mut inline_types = HashMap::new();

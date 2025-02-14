@@ -4,10 +4,10 @@ use shared::file_utils::save_file_if_changed;
 use std::path::Path;
 
 fn main() -> anyhow::Result<()> {
-    println!("cargo:rerun-if-changed=../../generated/src/types");
+    println!("cargo:rerun-if-changed=../../../generated/src/types");
 
-    let format = deserialize_format(Path::new("../../shared/prototype-api.json"))?;
-    let path = Path::new("../../generated/src/types");
+    let format = deserialize_format(Path::new("../../prototype-api.json"))?;
+    let path = Path::new("../../../generated/src/types");
     let context = format.create_context();
 
     let results = format
