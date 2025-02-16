@@ -9,7 +9,7 @@ use std::collections::HashSet;
 use std::path::Path;
 
 #[derive(Debug, Deserialize)]
-pub struct Concept {
+pub struct PrototypeConcept {
     #[serde(flatten)]
     pub base: BasicMember,
     pub parent: Option<String>,
@@ -21,7 +21,7 @@ pub struct Concept {
     pub properties: Option<Vec<Property>>,
 }
 
-impl Concept {
+impl PrototypeConcept {
     pub fn generate(&self, path: &Path, context: &Context) -> anyhow::Result<()> {
         let path = &path.join(self.name()).with_extension("rs");
         let concept = self.generate_internal(context);

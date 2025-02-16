@@ -1,8 +1,8 @@
-use crate::concept::Concept;
 use crate::context::{Context, DataType, Kind, Metadata};
 use crate::define::Define;
 use crate::property::Property;
 use crate::prototype::Prototype;
+use crate::prototype_concept::PrototypeConcept;
 use crate::transformation::Transformation;
 use crate::type_::{ComplexType, Type};
 use serde::Deserialize;
@@ -16,7 +16,7 @@ pub struct PrototypeFormat {
     pub api_version: u8,
     pub stage: String,
     pub prototypes: Vec<Prototype>,
-    pub types: Vec<Concept>,
+    pub types: Vec<PrototypeConcept>,
     pub defines: Vec<Define>,
 }
 

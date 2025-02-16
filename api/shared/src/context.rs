@@ -1,6 +1,6 @@
-use crate::concept::Concept;
 use crate::custom_properties::CustomProperties;
 use crate::property::Property;
+use crate::prototype_concept::PrototypeConcept;
 use crate::transformation::Transformation;
 use std::collections::{HashMap, HashSet};
 
@@ -18,7 +18,7 @@ pub struct Context<'a> {
     pub overridden_properties: HashSet<String>,
     pub metadata: HashMap<String, Metadata<'a>>,
     pub context: HashMap<String, (Kind, DataType)>,
-    pub inline_types: HashMap<String, &'a Concept>,
+    pub inline_types: HashMap<String, &'a PrototypeConcept>,
 }
 
 impl Context<'_> {

@@ -1,4 +1,7 @@
+use crate::attribute::Attribute;
 use crate::context::{Context, DataType};
+use crate::parameter::Parameter;
+use crate::parameter_group::ParameterGroup;
 use crate::transformation::Transformation;
 use serde::Deserialize;
 
@@ -16,6 +19,7 @@ pub enum ComplexType {
     Array {
         value: Type,
     },
+    #[serde(alias = "LuaCustomTable")]
     Dictionary {
         key: Type,
         value: Type,
@@ -36,6 +40,21 @@ pub enum ComplexType {
         description: String,
     },
     Struct,
+    Table {
+        parameters: Vec<Parameter>,
+        variant_parameter_groups: Option<Vec<ParameterGroup>>,
+        variant_parameter_description: Option<String>,
+    },
+    Function {
+        parameters: Vec<Type>,
+    },
+    #[serde(rename = "LuaLazyLoadedValue")]
+    LuaLazyLoadedValue {
+        value: Type,
+    },
+    LuaStruct {
+        attributes: Vec<Attribute>,
+    },
 }
 
 #[derive(Debug, Deserialize, PartialEq)]
@@ -67,6 +86,7 @@ impl Type {
                     Self::generate_type(value, description, prefix, context)
                 }
                 ComplexType::Struct => Self::generate_struct(prefix, context),
+                _ => todo!(),
             },
         }
     }

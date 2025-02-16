@@ -7,5 +7,6 @@ edition = "2021"
 #defines = { path = "prototype/defines" }
 #prototypes = { path = "prototype/prototypes" }
 #types = { path = "prototype/types" }
+shared = { path = "shared" }
 anyhow = "1.0.95"
 serde_json = "1.0.138"
