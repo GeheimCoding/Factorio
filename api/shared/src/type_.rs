@@ -52,9 +52,11 @@ pub enum ComplexType {
     LuaLazyLoadedValue {
         value: Type,
     },
+    #[serde(rename = "LuaStruct")]
     LuaStruct {
         attributes: Vec<Attribute>,
     },
+    Builtin,
 }
 
 #[derive(Debug, Deserialize, PartialEq)]
