@@ -1,7 +1,7 @@
 use crate::image::Image;
 use serde::Deserialize;
 
-#[derive(Debug, Deserialize)]
+#[derive(Debug, Deserialize, PartialEq)]
 pub struct BasicMember {
     pub name: String,
     pub order: u16,
