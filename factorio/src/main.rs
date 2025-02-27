@@ -1,11 +1,15 @@
 #![allow(unused)]
 #![deny(clippy::unwrap_used)]
 
+use api::runtime;
 use remote_console::RemoteConsole;
 use std::fs;
 
 fn main() -> anyhow::Result<()> {
     // remote_console()?;
+
+    let format = runtime()?;
+    println!("{}", format.events.len());
 
     Ok(())
 }

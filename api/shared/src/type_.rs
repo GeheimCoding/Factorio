@@ -88,7 +88,22 @@ impl Type {
                     Self::generate_type(value, description, prefix, context)
                 }
                 ComplexType::Struct => Self::generate_struct(prefix, context),
-                _ => todo!(),
+                ComplexType::Table {
+                    parameters,
+                    variant_parameter_groups,
+                    ..
+                } => Self::generate_table(
+                    parameters,
+                    variant_parameter_groups.as_ref(),
+                    prefix,
+                    context,
+                ),
+                ComplexType::Function { .. } => unimplemented!("function"),
+                ComplexType::LuaLazyLoadedValue { value } => value.generate(prefix, context),
+                ComplexType::LuaStruct { attributes } => {
+                    Self::generate_lua_struct(attributes, prefix, context)
+                }
+                ComplexType::Builtin => unimplemented!("builtin"),
             },
         }
     }
@@ -391,6 +406,23 @@ impl Type {
         } else {
             unreachable!("struct {prefix} has no properties");
         }
+    }
+
+    fn generate_table(
+        _parameters: &[Parameter],
+        _variant_parameter_groups: Option<&Vec<ParameterGroup>>,
+        _prefix: &str,
+        _context: &Context,
+    ) -> (String, Vec<String>) {
+        todo!()
+    }
+
+    fn generate_lua_struct(
+        _attribute: &[Attribute],
+        _prefix: &str,
+        _context: &Context,
+    ) -> (String, Vec<String>) {
+        todo!()
     }
 }
 

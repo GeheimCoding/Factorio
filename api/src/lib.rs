@@ -1,5 +1,7 @@
 use anyhow::anyhow;
-
+use shared::deserialize_runtime_format;
+use shared::runtime_format::RuntimeFormat;
+use std::path::Path;
 //pub use defines;
 //pub use prototypes;
 //pub use types;
@@ -24,4 +26,8 @@ impl FactorioType {
             Err(anyhow!("invalid serde_type: {serde_type}"))
         }
     }
+}
+
+pub fn runtime() -> anyhow::Result<RuntimeFormat> {
+    deserialize_runtime_format(Path::new("api/runtime/runtime-api.json"))
 }

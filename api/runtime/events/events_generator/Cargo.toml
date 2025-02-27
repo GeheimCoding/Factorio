@@ -1,0 +1,11 @@
+[package]
+name = "events_generator"
+version = "0.1.0"
+edition = "2024"
+
+[build-dependencies]
+anyhow = "1.0.95"
+shared = { path = "../../../shared" }
+rayon = "1.10.0"
+
+[dependencies]

@@ -3,6 +3,9 @@ name = "api"
 version = "0.1.0"
 edition = "2021"
 
+[build-dependencies]
+events_generator = { path = "runtime/events/events_generator" }
+
 [dependencies]
 #defines = { path = "prototype/defines" }
 #prototypes = { path = "prototype/prototypes" }

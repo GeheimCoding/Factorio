@@ -1,6 +1,6 @@
 [workspace]
 resolver = "2"
-members = ["api", "factorio", "remote_console"]
+members = ["api", "api/runtime/events", "api/runtime/events/events_generator", "factorio", "remote_console"]
 
 # any optimization for the parsers results in very long compile times
 # TODO: enable again after runtime stage
